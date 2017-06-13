@@ -16,7 +16,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -39,13 +38,10 @@ import com.etouch.taf.core.datamanager.excel.annotations.ITafExcelDataProviderIn
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
-import com.etouch.taf.util.JavaScriptUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
-
-//import mx4j.log.Logger;
 
 //@Test(groups = "HomePage")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
@@ -63,35 +59,30 @@ public class TestConnsHomePage extends BaseTest {
 	Path path;
 	String DataFilePath;
 	String testType;
+	String testEnv;
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
 		try {
-
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			System.out.println("Test Type is : " + testType);
 			try {
-
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
 					System.out.println("videoLocation" + videoLocation);
-
-					// SpecializedScreenRecorder.startVideoRecordingForDesktopBrowser(videoLocation);
-				} else {
 				}
+				testEnv = System.getenv().get("Environment");
+				System.out.println("testEnv is : " + testEnv);
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
-				DataFilePath = path.toAbsolutePath().toString();
+				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
+				System.out.println("DataFilePath After is : " + DataFilePath);
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
-				// url =
-				// "http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/";
 				synchronized (this) {
-
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
-
 				}
 			} catch (Exception e) {
 				log.info("errr is " + e);
@@ -241,9 +232,11 @@ public class TestConnsHomePage extends BaseTest {
 			}
 		}
 		if (brokenImageNumber.size() > 0) {
-			//Assert.fail("Image number " + Arrays.deepToString(brokenImageNumber.toArray()) + " are not as expected");
-			Assert.fail(
-					"Image number of the broken images : " + Arrays.deepToString(brokenImageNumber.toArray())+ "Image source of the broken images : " + Arrays.deepToString(brokenImageSrc.toArray()));
+			// Assert.fail("Image number " +
+			// Arrays.deepToString(brokenImageNumber.toArray()) + " are not as
+			// expected");
+			Assert.fail("Image number of the broken images : " + Arrays.deepToString(brokenImageNumber.toArray())
+					+ "Image source of the broken images : " + Arrays.deepToString(brokenImageSrc.toArray()));
 
 		}
 	}
@@ -1113,7 +1106,7 @@ public class TestConnsHomePage extends BaseTest {
 				webPage.findObjectByxPath(inputs.getParamMap().get("MobileLinkIdentifier")).click();
 
 			}
-			//webPage.findObjectByxPath(inputs.getParamMap().get("LinkIdentifier")).click();
+			// webPage.findObjectByxPath(inputs.getParamMap().get("LinkIdentifier")).click();
 			log.info("Clicked on element " + inputs.getParamMap().get("ElementName"));
 			Assert.assertTrue(webPage.getCurrentUrl().endsWith(inputs.getParamMap().get("Expected")),
 					" Failed : " + webPage.getCurrentUrl() + " " + inputs.getParamMap().get("Expected"));
@@ -1135,7 +1128,7 @@ public class TestConnsHomePage extends BaseTest {
 				webPage.findObjectByxPath(inputs.getParamMap().get("MobileLinkIdentifier")).click();
 
 			}
-			//webPage.findObjectByxPath(inputs.getParamMap().get("LinkIdentifier")).click();
+			// webPage.findObjectByxPath(inputs.getParamMap().get("LinkIdentifier")).click();
 			log.info("Clicked on element " + inputs.getParamMap().get("ElementName"));
 			Assert.assertTrue(webPage.getCurrentUrl().endsWith(inputs.getParamMap().get("Expected")),
 					" Failed : " + webPage.getCurrentUrl() + " " + inputs.getParamMap().get("Expected"));
@@ -1157,7 +1150,7 @@ public class TestConnsHomePage extends BaseTest {
 				webPage.findObjectByxPath(inputs.getParamMap().get("MobileLinkIdentifier")).click();
 
 			}
-			//webPage.findObjectByxPath(inputs.getParamMap().get("LinkIdentifier")).click();
+			// webPage.findObjectByxPath(inputs.getParamMap().get("LinkIdentifier")).click();
 			log.info("Clicked on element " + inputs.getParamMap().get("ElementName"));
 			Assert.assertTrue(webPage.getCurrentUrl().endsWith(inputs.getParamMap().get("Expected")),
 					" Failed : " + webPage.getCurrentUrl() + " " + inputs.getParamMap().get("Expected"));
@@ -1239,7 +1232,7 @@ public class TestConnsHomePage extends BaseTest {
 			try {
 				if (testType.equalsIgnoreCase("Mobile")) {
 					webPage.findObjectByxPath(test[i][3]).click();
-				} 
+				}
 				ElementIdentifier = test[i][0].trim();
 				expectedURL = test[i][1];
 				elementName = test[i][2];
@@ -1288,7 +1281,7 @@ public class TestConnsHomePage extends BaseTest {
 			try {
 				if (testType.equalsIgnoreCase("Mobile")) {
 					webPage.findObjectByxPath(test[i][3]).click();
-				} 
+				}
 				ElementIdentifier = test[i][0].trim();
 				expectedURL = test[i][1];
 				elementName = test[i][2];
@@ -1305,7 +1298,7 @@ public class TestConnsHomePage extends BaseTest {
 					webPage.switchWindow(title);
 					if (testType.equalsIgnoreCase("Mobile")) {
 						webPage.findObjectByxPath(test[i][3]).click();
-					} 
+					}
 				} else {
 					webPage.findObjectByLink(ElementIdentifier).click();
 					actualUrl = webPage.getCurrentUrl();
