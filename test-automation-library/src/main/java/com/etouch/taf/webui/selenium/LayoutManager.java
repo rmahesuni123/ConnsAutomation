@@ -46,8 +46,22 @@ public class LayoutManager {
 			log.info("Layout 3 Columns, Height : " + height);
 			cols = 1;
 		}
+		return cols;
+	}
+	public int getColumnLayout(int width, int height){
+		log.info("Width: " + width);
+		int cols = -1;
+		if (width >= 980) {
+			log.info("Layout 3 Columns, Width : " + width);
+			cols = 3;
+		} else if (width < 980 && width > 400) {
+			log.info("Layout 2 Columns, width : " + width);
+			cols = 2;
+		} else if (width <= 400) {
+			log.info("Layout 1 Columns, width : " + width);
+			cols = 1;
+		}
 		
 		return cols;
 	}
-
 }
