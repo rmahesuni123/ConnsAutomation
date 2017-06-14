@@ -1,10 +1,18 @@
 package com.etouch.conns.pages;
-import org.openqa.selenium.Keys;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.etouch.conns.common.CommonPage;
-import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.webui.selenium.WebPage;
+
 /**
  * The Class ConnsMainPage.
  */
@@ -17,7 +25,7 @@ public class ConnsMainPage extends CommonPage {
 	 * @param webPage
 	 *            the web page
 	 */
-	
+
 	public ConnsMainPage(String sbPageUrl, WebPage webPage) {
 		super(sbPageUrl, webPage);
 
@@ -32,6 +40,7 @@ public class ConnsMainPage extends CommonPage {
 
 		// }
 	}
+
 	/**
 	 * Gets the page url.
 	 *
@@ -41,6 +50,28 @@ public class ConnsMainPage extends CommonPage {
 	public String getPageUrl() throws InterruptedException {
 		return webPage.getCurrentUrl();
 	}
-	
-	
+
+	public static void getScreenShotForFailure(WebPage webPage, String methodName) throws IOException {
+		try {
+			File scrFile = ((TakesScreenshot) webPage.getDriver()).getScreenshotAs(OutputType.FILE);
+			String testEnv = System.getenv().get("Environment");
+			File targetFile = new File("ConnsTestData/Output/" + testEnv + "/FailureImage/" + methodName + ".png");
+			FileUtils.copyFile(scrFile, targetFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void catchBlock(Throwable e, WebDriver driver, String methodName) throws IOException {
+		try {	
+			e.printStackTrace();
+		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		String testEnv = System.getenv().get("Environment");
+		File targetFile = new File("ConnsTestData/Output/" + testEnv + "/FailureImage/" + methodName + ".png");
+		FileUtils.copyFile(scrFile, targetFile);
+		Assert.fail("Test Case ::: " + methodName + " failed as :::" + e.getLocalizedMessage());
+		driver.close();
+		} catch (Exception et) {
+			et.printStackTrace();
+		}
+	}
 }
