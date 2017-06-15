@@ -36,10 +36,10 @@ import com.etouch.taf.webui.selenium.WebPage;
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
 public class TestProductSearchPage extends BaseTest {
 	static String platform;
-	static Log log = LogUtil.getLog(TestProductSearchPage.class);
+	static Log log = LogUtil.getLog(TestConnsHomePage.class);
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
-			.concat("/src/test/resources/testdata/videos");
+			.concat("/ConnsTestData/Output/Env/Video");
 	private String url = null;
 	private WebPage webPage;
 	private ConnsMainPage mainPage;
@@ -48,6 +48,7 @@ public class TestProductSearchPage extends BaseTest {
 	Path path;
 	String DataFilePath;
 	String testType;
+	String testEnv;
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -58,21 +59,18 @@ public class TestProductSearchPage extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			System.out.println("Test Type is : " + testType);
 			try {
+				testEnv = System.getenv().get("Environment");
+				System.out.println("testEnv is : " + testEnv);
+				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
+				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
+				System.out.println("DataFilePath After is : " + DataFilePath);
 
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
-					System.out.println("videoLocation" + videoLocation);
-
-					// SpecializedScreenRecorder.startVideoRecordingForDesktopBrowser(videoLocation);
-				} else {
+					System.out.println("videoLocation" + videoLocation.toString().replace("Env", testEnv));
 				}
-				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
-				DataFilePath = path.toAbsolutePath().toString();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
-				// url =
-				// "http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/";
 				synchronized (this) {
-
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
 				}
@@ -81,7 +79,6 @@ public class TestProductSearchPage extends BaseTest {
 				SoftAssertor.addVerificationFailure(e.getMessage());
 			}
 		} catch (Exception e) {
-
 			CommonUtil.sop("Error is for" + testBedName + " -----------" + e);
 			SoftAssertor.addVerificationFailure(e.getMessage());
 		}
@@ -152,10 +149,14 @@ public class TestProductSearchPage extends BaseTest {
 					log.info("Column Layout " + cols);
 					if (cols == 1 || cols == 2) {
 						log.info("Column Layout equivalent to Mobile or Tablets for column layout = " + cols);
-						Assert.assertEquals(true,webPage.findObjectByxPath(inputs.getParamMap().get("MobileMainMenu")).isDisplayed(),"Main Menu not displayed");
+						Assert.assertEquals(true,
+								webPage.findObjectByxPath(inputs.getParamMap().get("MobileMainMenu")).isDisplayed(),
+								"Main Menu not displayed");
 					} else {
 						log.info("Column Layout equivalent to browser for column layout= " + cols);
-						Assert.assertEquals(webPage.findObjectByxPath(inputs.getParamMap().get("MobileMainMenu")).isDisplayed(),false, "Main Menu displayed");
+						Assert.assertEquals(
+								webPage.findObjectByxPath(inputs.getParamMap().get("MobileMainMenu")).isDisplayed(),
+								false, "Main Menu displayed");
 					}
 				}
 			} else {
@@ -164,5 +165,5 @@ public class TestProductSearchPage extends BaseTest {
 		} catch (Exception e) {
 		}
 	}
-	
+
 }

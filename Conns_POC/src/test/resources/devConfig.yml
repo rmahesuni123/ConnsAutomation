@@ -115,9 +115,9 @@ webConfig:
  seleniumServerPath: ..\\test-automation-library\\resources\\selenium-server-standalone-2.48.2.jar
  testEnv: local
  testngClass:
- - className: ConnsHomepage.TestConnsHomePageNew
-   methodList: []
- currentTestBeds: [InternetExplorer]
+ - className: com.etouch.connsTests.TestProductSearchPage
+   methodList: [verifyColumnLayoutForProductSearch]
+ currentTestBeds: [Firefox]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
  #FireFox TestBed
@@ -167,8 +167,8 @@ mobileConfig:
  tool: Appium
  testEnv: local
  testngClass:
- - className: com.etouch.conns.pages.test.mobile.TestConnsHomePage
-   methodList: [verifyHomePageTitle]
+ - className: com.etouch.connsTests.TestConnsHomePage
+   methodList: [verifyLinksAboveHeader]
  currentTestBeds: [AndroidMotoG]
  #currentTestBeds: [iPhoneNative,iPadNative,Android1, Android,AndroidNative,AndroidHybrid]
  

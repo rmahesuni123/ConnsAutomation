@@ -50,7 +50,7 @@ public class TestConnsHomePage extends BaseTest {
 	static Log log = LogUtil.getLog(TestConnsHomePage.class);
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
-			.concat("/src/test/resources/testdata/videos");
+			.concat("/ConnsTestData/Output/Env/Video");
 	private String url = null;
 	private WebPage webPage;
 	private ConnsMainPage mainPage;
@@ -70,15 +70,17 @@ public class TestConnsHomePage extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			System.out.println("Test Type is : " + testType);
 			try {
-				platform = testBed.getPlatform().getName().toUpperCase();
-				if (testType.equalsIgnoreCase("Web")) {
-					System.out.println("videoLocation" + videoLocation);
-				}
 				testEnv = System.getenv().get("Environment");
 				System.out.println("testEnv is : " + testEnv);
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				System.out.println("DataFilePath After is : " + DataFilePath);
+				
+				platform = testBed.getPlatform().getName().toUpperCase();
+				if (testType.equalsIgnoreCase("Web")) {
+					System.out.println("videoLocation" + videoLocation.toString().replace("Env", testEnv));
+				}
+			
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				synchronized (this) {
 					webPage = new WebPage(context);
