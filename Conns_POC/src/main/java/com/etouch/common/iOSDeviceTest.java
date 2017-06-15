@@ -1,7 +1,7 @@
 /*
  * 
  */
-package com.etouch.conns.common;
+package com.etouch.common;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

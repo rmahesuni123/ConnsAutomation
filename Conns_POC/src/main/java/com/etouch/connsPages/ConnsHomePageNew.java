@@ -1,4 +1,4 @@
-package ConnsHomepage;
+package com.etouch.connsPages;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 import org.testng.Assert;
 
-import com.etouch.conns.common.CommonPage;
+import com.etouch.common.CommonPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.exception.PageException;

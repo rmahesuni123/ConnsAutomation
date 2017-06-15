@@ -1,4 +1,4 @@
-package ConnsHomepage;
+package com.etouch.connsPages;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,8 @@ import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
-import com.etouch.conns.common.CommonPage;
+
+import com.etouch.common.CommonPage;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.LogUtil;

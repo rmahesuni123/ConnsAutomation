@@ -1,4 +1,4 @@
-package ConnsHomepage;
+package com.etouch.connsTests;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,10 +26,10 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.etouch.conns.common.BaseTest;
-import com.etouch.conns.common.TafExecutor;
-import com.etouch.conns.pages.ConnsMainPage;
-import com.etouch.conns.pages.test.mobile.TestConnsHomePage;
+import com.etouch.common.BaseTest;
+import com.etouch.common.TafExecutor;
+import com.etouch.connsPages.ConnsAccountAndSignInPage;
+import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;

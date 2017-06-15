@@ -1,7 +1,7 @@
 /*
  * 
  */
-package com.etouch.conns.common;
+package com.etouch.common;
 
 //package com.etouch.taf.domain;
 

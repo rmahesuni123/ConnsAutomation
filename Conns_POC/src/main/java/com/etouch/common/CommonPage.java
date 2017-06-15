@@ -1,7 +1,7 @@
 /*
  * 
  */
-package com.etouch.conns.common;
+package com.etouch.common;
 
 /*import org.apache.commons.logging.Log;
 import org.monte.screenrecorder.ScreenRecorder;

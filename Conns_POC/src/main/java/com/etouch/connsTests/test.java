@@ -1,4 +1,4 @@
-package com.etouch.conns.pages.test.mobile;
+package com.etouch.connsTests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;

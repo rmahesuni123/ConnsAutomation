@@ -1,7 +1,7 @@
 /*
  * 
  */
-package com.etouch.conns.common;
+package com.etouch.common;
 
 import java.io.File;
 import java.io.FileInputStream;

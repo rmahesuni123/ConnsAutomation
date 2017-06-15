@@ -1,4 +1,4 @@
-package com.etouch.conns.common;
+package com.etouch.common;
 
 import java.util.Map;
 

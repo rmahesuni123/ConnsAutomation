@@ -1,4 +1,4 @@
-package com.etouch.conns.pages.test.mobile;
+package com.etouch.connsTests;
 
 import java.awt.AWTException;
 import java.io.FileNotFoundException;
@@ -13,9 +13,9 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.etouch.conns.common.BaseTest;
-import com.etouch.conns.common.TafExecutor;
-import com.etouch.conns.pages.ConnsMainPage;
+import com.etouch.common.BaseTest;
+import com.etouch.common.TafExecutor;
+import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;

@@ -1,4 +1,4 @@
-package com.etouch.conns.pages;
+package com.etouch.connsPages;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import com.etouch.conns.common.CommonPage;
+import com.etouch.common.CommonPage;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.webui.selenium.WebPage;
 
