@@ -1,5 +1,5 @@
 #Note: When the changes are made for this devConfig.yml, Please remember to copy changes to testConfig.yml as well
-testTypes: [Mobile]
+testTypes: [Web]
 
 ## Execution flow for TestBeds / Test Suites / Test Cases
 kdConfig:
@@ -116,7 +116,7 @@ webConfig:
  testEnv: local
  testngClass:
  - className: com.etouch.connsTests.TestProductSearchPage
-   methodList: [verifyColumnLayoutForProductSearch]
+   methodList: []
  currentTestBeds: [Firefox]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
@@ -238,7 +238,7 @@ mobileConfig:
    device:
     name: Google Nexus 7
     type: device
-    udid: ZX1D63FG7C
+    udid: ce12160c8418570504
    browser:
     name: Chrome
     version: 52.0.2743.98

@@ -113,6 +113,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	Path path;
 	String DataFilePath;
 	String testType;
+	String testEnv;
 	int j = 0;
 
 	static Log log = LogUtil.getLog(TestConnsHomePageNew.class);
@@ -150,7 +151,12 @@ public class TestConnsHomePageNew extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			System.out.println("Test Type is : " + testType);
 			try {
-
+				testEnv = System.getenv().get("Environment");
+				System.out.println("testEnv is : " + testEnv);
+				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
+				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
+				System.out.println("DataFilePath After is : " + DataFilePath);
+				
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
 					System.out.println("videoLocation" + videoLocation);
@@ -158,8 +164,6 @@ public class TestConnsHomePageNew extends BaseTest {
 					// SpecializedScreenRecorder.startVideoRecordingForDesktopBrowser(videoLocation);
 				} else {
 				}
-				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
-				DataFilePath = path.toAbsolutePath().toString();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				// url =
 				// "http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/";
@@ -188,7 +192,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 1, enabled = false)
+	@Test(priority = 1, enabled = true)
 	public void verifyHomePageTitle() {
 		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "Verifytitle");
 		String ExpectedURL = test[0][0];
@@ -244,7 +248,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 3, enabled = false)
+	@Test(priority = 3, enabled = true)
 	public void verifyBrokenImage() throws ClientProtocolException, IOException {
 		ConnsHomePage.verifyBrokenImage();
 	}
@@ -255,7 +259,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 4, enabled = false)
+	@Test(priority = 4, enabled = true)
 	public void verifyLinksAboveHeader() throws PageException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyLinksAboveHeader");
@@ -269,7 +273,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 5, enabled = false)
+	@Test(priority = 5, enabled = true)
 	public void verifyYourCartFunctionality() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyYourCart");
@@ -283,7 +287,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 6, enabled = false)
+	@Test(priority = 6, enabled = true)
 	public void verifylinksInHeader() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyLinksInHeader");
@@ -297,7 +301,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 7, enabled = false)
+	@Test(priority = 7, enabled = true)
 	public void verifyFurnitureAndMattressesNavigation() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev",
@@ -312,7 +316,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 8, enabled = false)
+	@Test(priority = 8, enabled = true)
 	public void verifyAppliancesNavigation() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyLinksForAppliance");
@@ -324,7 +328,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * Conns Home Page
 	 * 
 	 */
-	@Test(priority = 9, enabled = false)
+	@Test(priority = 9, enabled = true)
 	public void verifyTVAudioNavigation() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev",
@@ -337,7 +341,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * Conns Home Page
 	 * 
 	 */
-	@Test(priority = 10, enabled = false)
+	@Test(priority = 10, enabled = true)
 	public void verifyComputerAccessoriesNavigation() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev",
@@ -352,7 +356,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 11, enabled = false)
+	@Test(priority = 11, enabled = true)
 	public void verifyFinancingPromotionsNavigation() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev",
@@ -367,7 +371,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 12, enabled = false)
+	@Test(priority = 12, enabled = true)
 	public void verifyYesBanner() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyYesMeBanner");
@@ -381,7 +385,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 13, enabled = false)
+	@Test(priority = 13, enabled = true)
 	public void verifyNextDayBanner() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyNextDayDeliveryBanner");
@@ -395,7 +399,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 14, enabled = false)
+	@Test(priority = 14, enabled = true)
 	public void verifySaveBigWithConns() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifySaveBigWithConns");
@@ -409,7 +413,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 15, enabled = false)
+	@Test(priority = 15, enabled = true)
 	public void verifyTopCategorylinks() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyTopCategorySection");
@@ -423,7 +427,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 16, enabled = false)
+	@Test(priority = 16, enabled = true)
 	public void verifyBuildYourOwnFinancialFutureBanner() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev",
@@ -438,7 +442,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 17, enabled = false)
+	@Test(priority = 17, enabled = true)
 	public void verifyHelpChildrenBanner() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyHelpChildrenBanner");
@@ -452,7 +456,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 18, enabled = false)
+	@Test(priority = 18, enabled = true)
 	public void verifySixReasonsBanner() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifySixReasonsBanner");
@@ -465,7 +469,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 19, enabled = false)
+	@Test(priority = 19, enabled = true)
 	public void verifyPromotionsBanner() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyPromotionsBanner");
@@ -478,7 +482,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 20, enabled = false)
+	@Test(priority = 20, enabled = true)
 	public void verifyFollowUsSection() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyFollowUsSection");
@@ -491,7 +495,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 21, enabled = false)
+	@Test(priority = 21, enabled = true)
 	public void verifyBBBRatingBanner() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyBBBRatingBanner");
@@ -505,7 +509,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 */
 
 
-	@Test(priority = 22, enabled = false)
+	@Test(priority = 22, enabled = true)
 	public void verifyFooterAboutConnsLinks() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev", "verifyFooterAboutConnsLinks");
@@ -519,7 +523,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 23, enabled = false)
+	@Test(priority = 23, enabled = true)
 	public void verifyFooterCustomerServiceSectionLinks() throws PageException, InterruptedException {
 
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ConnsHomePageDev",
@@ -534,7 +538,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 24, enabled = false)
+	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 24, enabled = true)
 	@ITafExcelDataProviderInputs(excelFile = "ConnsHomePageData", excelsheet = "ConnsHomePageDev", dataKey = "verifyFooterWeAccpet")
 	public void verifyFooterWeAccpet(ITestContext context, TestParameters inputs)
 			throws PageException, InterruptedException {
@@ -548,7 +552,7 @@ public class TestConnsHomePageNew extends BaseTest {
 	 * 
 	 */
 
-	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 25, enabled = false)
+	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 25, enabled = true)
 	@ITafExcelDataProviderInputs(excelFile = "ConnsHomePageData", excelsheet = "ConnsHomePageDev", dataKey = "verifyFooterCopyright")
 	public void verifyFooterCopyright(ITestContext context, TestParameters inputs)
 			throws PageException, InterruptedException {

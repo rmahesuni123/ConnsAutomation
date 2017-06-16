@@ -51,7 +51,7 @@ public class ConnsMainPage extends CommonPage {
 		return webPage.getCurrentUrl();
 	}
 
-	public static void getScreenShotForFailure(WebPage webPage, String methodName) throws IOException {
+	public void getScreenShotForFailure(WebPage webPage, String methodName) {
 		try {
 			File scrFile = ((TakesScreenshot) webPage.getDriver()).getScreenshotAs(OutputType.FILE);
 			String testEnv = System.getenv().get("Environment");

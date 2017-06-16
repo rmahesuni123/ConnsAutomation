@@ -25,6 +25,7 @@ import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.core.datamanager.excel.annotations.ITafExcelDataProviderInputs;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
+import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.LayoutManager;
@@ -64,7 +65,6 @@ public class TestProductSearchPage extends BaseTest {
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				System.out.println("DataFilePath After is : " + DataFilePath);
-
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
 					System.out.println("videoLocation" + videoLocation.toString().replace("Env", testEnv));
@@ -89,47 +89,45 @@ public class TestProductSearchPage extends BaseTest {
 		// SpecializedScreenRecorder.stopVideoRecording();
 	}
 
-	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 5, enabled = true, description = "Verify Page Title")
-	@ITafExcelDataProviderInputs(excelFile = "CreditAppData", excelsheet = "ProductSearch", dataKey = "verifyProductSearchUsingKeyword")
-	public void verifyProductSearchUsingKeyword(ITestContext context, TestParameters inputs)
-			throws PageException, InterruptedException {
+	@Test(priority = 1, enabled = true)
+	public void verifyProductSearchUsingKeyword() {
 		try {
-			System.out.println(inputs.getParamMap().get("Identifier"));
-			webPage.findObjectById(inputs.getParamMap().get("Identifier"))
-					.sendKeys(inputs.getParamMap().get("ProductName"));
-			webPage.findObjectByClass(inputs.getParamMap().get("SearchIcon")).click();
-			log.info("Clicked on element " + inputs.getParamMap().get("SearchIcon"));
-			String productDescription = webPage.findObjectByxPath(inputs.getParamMap().get("ProductDescription"))
-					.getText();
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchUsingKeyword");
+			String Identifier = test[0][0];
+			String ProductName = test[0][1];
+			webPage.findObjectById(Identifier).sendKeys(ProductName);
+			webPage.findObjectByClass(test[0][2]).click();
+			log.info("Clicked on element " + test[0][2]);
+			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
-			Assert.assertTrue(productDescription.contains(inputs.getParamMap().get("ProductName")),
-					"Product description: " + productDescription + " not having: "
-							+ inputs.getParamMap().get("ProductName"));
+			Assert.assertTrue(productDescription.contains(ProductName),
+					"Product description: " + productDescription + " not having: " + ProductName);
 			webPage.getBackToUrl();
-		} catch (Exception e) {
+		} catch (PageException e) {
+			mainPage.getScreenShotForFailure(webPage, "verifyProductSearchUsingKeyword");
+			e.printStackTrace();
 		}
 	}
 
-	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 5, enabled = true, description = "Verify Page Title")
-	@ITafExcelDataProviderInputs(excelFile = "CreditAppData", excelsheet = "ProductSearch", dataKey = "verifyProductSearch")
-	public void verifyProductSearch(ITestContext context, TestParameters inputs)
-			throws PageException, InterruptedException {
+	@Test(priority = 2, enabled = true)
+	public void verifyProductSearch() {
 		try {
-			webPage.findObjectById(inputs.getParamMap().get("Identifier"))
-					.sendKeys(inputs.getParamMap().get("ProductName"));
-			webPage.findObjectByClass(inputs.getParamMap().get("SearchIcon")).click();
-			log.info("Clicked on element " + inputs.getParamMap().get("SearchIcon"));
-			String productDescription = webPage.findObjectByxPath(inputs.getParamMap().get("ProductDescription"))
-					.getText();
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearch");
+			String Identifier = test[0][0];
+			String ProductName = test[0][1];
+			webPage.findObjectById(Identifier).sendKeys(ProductName);
+			webPage.findObjectByClass(test[0][2]).click();
+			log.info("Clicked on element " + test[0][2]);
+			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
-			Assert.assertTrue(productDescription.contains(inputs.getParamMap().get("ProductName")),
-					"Product description" + productDescription + "not having"
-							+ inputs.getParamMap().get("ProductName"));
+			Assert.assertTrue(productDescription.contains(ProductName+"1"),
+					"Product description: " + productDescription + " not having: " + ProductName);
 			if (testType.equalsIgnoreCase("Web")) {
-				// webPage.findObjectByxPath(inputs.getParamMap().get("MobileMainMenu")).click();
+				webPage.getBackToUrl();		
 			}
-			webPage.getBackToUrl();
-		} catch (Exception e) {
+		} catch (PageException e) {
+			mainPage.getScreenShotForFailure(webPage, "verifyProductSearch");// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -159,10 +157,13 @@ public class TestProductSearchPage extends BaseTest {
 								false, "Main Menu displayed");
 					}
 				}
+				webPage.getDriver().manage().window().maximize();
 			} else {
 				log.info("Column layout testing can not be done for Devices");
 			}
 		} catch (Exception e) {
+			mainPage.getScreenShotForFailure(webPage, "verifyColumnLayoutForProductSearch");// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
