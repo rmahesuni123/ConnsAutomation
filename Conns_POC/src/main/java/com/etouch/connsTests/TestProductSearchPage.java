@@ -120,7 +120,7 @@ public class TestProductSearchPage extends BaseTest {
 			log.info("Clicked on element " + test[0][2]);
 			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
-			Assert.assertTrue(productDescription.contains(ProductName+"1"),
+			Assert.assertTrue(productDescription.contains(ProductName),
 					"Product description: " + productDescription + " not having: " + ProductName);
 			if (testType.equalsIgnoreCase("Web")) {
 				webPage.getBackToUrl();		
@@ -131,11 +131,11 @@ public class TestProductSearchPage extends BaseTest {
 		}
 	}
 
-	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 5, enabled = true, description = "Verify Page Title")
-	@ITafExcelDataProviderInputs(excelFile = "CreditAppData", excelsheet = "ProductSearch", dataKey = "verifyProductSearch")
-	public void verifyColumnLayoutForProductSearch(ITestContext context, TestParameters inputs)
+	@Test(priority = 3, enabled = true)
+	public void verifyColumnLayoutForProductSearch()
 			throws PageException, InterruptedException {
 		try {
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearch");	
 			if (testType.equalsIgnoreCase("Web")) {
 				LayoutManager layoutManager = new LayoutManager();
 				int height[] = { 500, 500, 500 };
@@ -148,12 +148,12 @@ public class TestProductSearchPage extends BaseTest {
 					if (cols == 1 || cols == 2) {
 						log.info("Column Layout equivalent to Mobile or Tablets for column layout = " + cols);
 						Assert.assertEquals(true,
-								webPage.findObjectByxPath(inputs.getParamMap().get("MobileMainMenu")).isDisplayed(),
+								webPage.findObjectByxPath(test[0][4]).isDisplayed(),
 								"Main Menu not displayed");
 					} else {
 						log.info("Column Layout equivalent to browser for column layout= " + cols);
 						Assert.assertEquals(
-								webPage.findObjectByxPath(inputs.getParamMap().get("MobileMainMenu")).isDisplayed(),
+								webPage.findObjectByxPath(test[0][4]).isDisplayed(),
 								false, "Main Menu displayed");
 					}
 				}
@@ -162,7 +162,7 @@ public class TestProductSearchPage extends BaseTest {
 				log.info("Column layout testing can not be done for Devices");
 			}
 		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "verifyColumnLayoutForProductSearch");// TODO Auto-generated catch block
+			mainPage.getScreenShotForFailure(webPage, "verifyColumnLayoutForProductSearch");
 			e.printStackTrace();
 		}
 	}
