@@ -34,7 +34,7 @@ import com.etouch.taf.core.datamanager.excel.TestParameters;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.core.datamanager.excel.annotations.ITafExcelDataProviderInputs;
 import com.etouch.taf.core.exception.PageException;
-import com.etouch.taf.tools.rally.SpecializedScreenRecorder;
+//import com.etouch.taf.tools.rally.SpecializedScreenRecorder;
 import com.etouch.taf.tools.rally.VideoRecorder;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;

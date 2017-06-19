@@ -143,7 +143,7 @@ public class TestProductSearchPage extends BaseTest {
 				for (int i = 0; i < width.length; i++) {
 					webPage.resize(width[i], height[i]);
 					Thread.sleep(4000);
-					int cols = layoutManager.getColumnLayout(width[i], height[i]);
+					int cols =/* layoutManager*/getColumnLayout(width[i], height[i]);
 					log.info("Column Layout " + cols);
 					if (cols == 1 || cols == 2) {
 						log.info("Column Layout equivalent to Mobile or Tablets for column layout = " + cols);
@@ -166,5 +166,20 @@ public class TestProductSearchPage extends BaseTest {
 			e.printStackTrace();
 		}
 	}
-
+	public int getColumnLayout(int width, int height){
+		log.info("Width: " + width);
+		int cols = -1;
+		if (width >= 980) {
+			log.info("Layout 3 Columns, Width : " + width);
+			cols = 3;
+		} else if (width < 980 && width > 400) {
+			log.info("Layout 2 Columns, width : " + width);
+			cols = 2;
+		} else if (width <= 400) {
+			log.info("Layout 1 Columns, width : " + width);
+			cols = 1;
+		}
+		
+		return cols;
+	}
 }

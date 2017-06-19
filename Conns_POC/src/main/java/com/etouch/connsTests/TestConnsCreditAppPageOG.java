@@ -29,7 +29,7 @@ import com.etouch.taf.core.datamanager.excel.TestParameters;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.core.datamanager.excel.annotations.ITafExcelDataProviderInputs;
 import com.etouch.taf.core.exception.PageException;
-import com.etouch.taf.tools.rally.SpecializedScreenRecorder;
+//import com.etouch.taf.tools.rally.SpecializedScreenRecorder;
 import com.etouch.taf.tools.rally.VideoRecorder;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.LogUtil;
@@ -85,7 +85,7 @@ public class TestConnsCreditAppPageOG extends BaseTest {
 			if ((platform.equals("WINDOWS")) || (platform.equals("MAC") || (platform.equals("OS X")))) {
 
 				try {
-					SpecializedScreenRecorder.startVideoRecordingForDesktopBrowser(videoLocation);
+					//SpecializedScreenRecorder.startVideoRecordingForDesktopBrowser(videoLocation);
 					url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 					synchronized (this) {
 
@@ -105,7 +105,7 @@ public class TestConnsCreditAppPageOG extends BaseTest {
 				} else {
 					driver = (AndroidDriver) (testBed.getDriver());
 				}
-				SpecializedScreenRecorder.startVideoRecordingForMobile(videoLocation);
+			//	SpecializedScreenRecorder.startVideoRecordingForMobile(videoLocation);
 				mobileView = new MobileView(context);
 				System.out.println("Browser Open started Loading page");
 				mobileView.loadPage(url);
@@ -122,7 +122,7 @@ public class TestConnsCreditAppPageOG extends BaseTest {
 
 	@AfterTest
 	public void releaseResources() throws IOException, AWTException {
-		SpecializedScreenRecorder.stopVideoRecording();
+//		SpecializedScreenRecorder.stopVideoRecording();
 	}
 
 	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 1, enabled = true, description = "Verify Page Title")
