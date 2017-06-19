@@ -110,7 +110,7 @@
 							<goal>java</goal>
 						</goals>
 						<configuration>
-							<mainClass>com.etouch.conns.common.TafExecutor</mainClass>
+							<mainClass>com.etouch.common.TafExecutor</mainClass>
 						</configuration>
 					</execution>
 				</executions>
