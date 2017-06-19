@@ -151,8 +151,10 @@ public class TestConnsHomePageNew extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			System.out.println("Test Type is : " + testType);
 			try {
-				testEnv = System.getenv().get("Environment");
-				System.out.println("testEnv is : " + testEnv);
+				testEnv = System.getProperty("ENVIRONMENT");
+				System.out.println("testEnv is : " + System.getProperty("ENVIRONMENT"));
+				System.out.println("testEnv is : " + System.getProperty("Environment"));
+				System.out.println("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				System.out.println("DataFilePath After is : " + DataFilePath);
