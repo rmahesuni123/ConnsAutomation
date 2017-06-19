@@ -135,8 +135,11 @@ public class CommonMethods {
 	public void hoverOnelementbyXpath(WebPage webPage, String locator){
 		try {
 			log.info("Hovering on element using locator : "+locator);
+			WebElement element = webPage.getDriver().findElement(By.xpath(locator));
+			if(!element.isDisplayed()){
+				webPage.scrollDown(4);
+			}
 			webPage.hoverOnElement(By.xpath(locator));
-			Thread.sleep(1000);
 		} catch (Exception e) {
 			log.info("Unable to hove on element using Xpath : "+locator);
 			e.printStackTrace();
