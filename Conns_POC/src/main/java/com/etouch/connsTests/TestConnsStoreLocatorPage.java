@@ -20,6 +20,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
@@ -70,7 +71,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 	String testEnv; 
 	CommonMethods commonMethods = new CommonMethods();
 	int a = 0;
-	String storeLocatorURL = "http://www.conns.com/store-locator/";
+	String storeLocatorURL = "http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/store-locator/";
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -133,6 +134,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyStoreLocatorPageTitle");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 
 	}
@@ -159,6 +161,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyHomePlusComponent");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -191,6 +194,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyChoseYourRegionLinks");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 
 		}
 	}
@@ -226,6 +230,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyTexasSubLinks");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -246,6 +251,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyOrderofLinks");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -269,6 +275,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyRegionMapToolTip");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -296,6 +303,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyAllRegionPageDescription");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -323,6 +331,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyAllRegionsPageContent");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -353,6 +362,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyFindStoreAlertBox");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -391,6 +401,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyFindStoreInvalidData");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -421,6 +432,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verifyValidRegionSearch");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
@@ -445,16 +457,16 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 		softAssert.assertTrue(regionPageActualData.contains(verifyZipCodeRegionSearchData[1][1]),
 				"Text verification failed. Expected Text : " + verifyZipCodeRegionSearchData[1][1] + " Actual Text : "
 						+ regionPageActualData);
-
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "verifyZipCodeRegionSearch");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
-	@Test(enabled = false, priority = 13, description = "Verify Find Store functionality using zip code along with radius search")
+	@Test(enabled = true, priority = 13, description = "Verify Find Store functionality using zip code along with radius search")
 	public void verifyZipCodeRadiusSearch() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -471,16 +483,103 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 		commonMethods.sendKeysbyXpath(webPage, verifyZipCodeRadiusSearchData[1][0],
 				verifyZipCodeRadiusSearchData[0][1]);
 		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[2][0]);
-		String regionPageActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[3][0]);
-		softAssert.assertTrue(regionPageActualData.contains(verifyZipCodeRadiusSearchData[1][1]),
+		String search50MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[3][0]);
+		softAssert.assertTrue(search50MilesActualData.contains(verifyZipCodeRadiusSearchData[1][1]),
 				"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[1][1] + " Actual Text : "
-						+ regionPageActualData);
-
+						+ search50MilesActualData);
+		Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0]));
+		select.selectByValue(verifyZipCodeRadiusSearchData[2][1]);
+		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0]);
+		String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[6][0]);
+		softAssert.assertTrue(search75MilesActualData.contains(verifyZipCodeRadiusSearchData[4][1]),
+				"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[4][1] + " Actual Text : "
+						+ search75MilesActualData);
+		select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0]));
+		select.selectByValue(verifyZipCodeRadiusSearchData[3][1]);
+		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0]);
+		String search125MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[7][0]);
+		softAssert.assertTrue(search125MilesActualData.contains(verifyZipCodeRadiusSearchData[5][1]),
+				"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[5][1] + " Actual Text : "
+						+ search125MilesActualData);
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "verifyZipCodeRadiusSearch");
 			e.printStackTrace();
 			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	@Test(enabled = true, priority = 14, description = "Verify Find Store functionality using city search")
+	public void verifyCitySearch() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try{
+		String[][] verifyCitySearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+				"verifyCitySearch");
+		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.closeChromePopup(webPage);
+		}
+		commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[0][0]);
+		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.closeChromePopup(webPage);
+		}
+		commonMethods.sendKeysbyXpath(webPage, verifyCitySearchData[1][0],
+				verifyCitySearchData[0][1]);
+		commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[2][0]);
+		String cityPageActualData = commonMethods.getTextbyXpath(webPage, verifyCitySearchData[3][0]);
+		softAssert.assertTrue(cityPageActualData.contains(verifyCitySearchData[1][1]),
+				"Text verification failed. Expected Text : " + verifyCitySearchData[1][1] + " Actual Text : "
+						+ cityPageActualData);
+		softAssert.assertAll();
+		}catch(Throwable e){
+			mainPage.getScreenShotForFailure(webPage, "verifyCitySearch");
+			e.printStackTrace();
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	@Test(enabled = true, priority = 15, description = "Verify Find Store functionality using zip code along with radius search")
+	public void verifyCityRadiusSearch() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try{
+		String[][] verifyCityRadiusSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+				"verifyCityRadiusSearch");
+		webPage.getDriver().get("http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/");
+		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.closeChromePopup(webPage);
+		}
+		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[0][0]);
+		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.closeChromePopup(webPage);
+		}
+		commonMethods.sendKeysbyXpath(webPage, verifyCityRadiusSearchData[1][0],
+				verifyCityRadiusSearchData[0][1]);
+		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[2][0]);
+		String search50MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[3][0]);
+		softAssert.assertTrue(search50MilesActualData.contains(verifyCityRadiusSearchData[1][1]),
+				"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[1][1] + " Actual Text : "
+						+ search50MilesActualData);
+		Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyCityRadiusSearchData[4][0]));
+		select.selectByValue(verifyCityRadiusSearchData[2][1]);
+		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[5][0]);
+		String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[6][0]);
+		softAssert.assertTrue(search75MilesActualData.contains(verifyCityRadiusSearchData[4][1]),
+				"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[4][1] + " Actual Text : "
+						+ search75MilesActualData);
+		select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyCityRadiusSearchData[4][0]));
+		select.selectByValue(verifyCityRadiusSearchData[3][1]);
+		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[5][0]);
+		String search125MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[7][0]);
+		softAssert.assertTrue(search125MilesActualData.contains(verifyCityRadiusSearchData[5][1]),
+				"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[5][1] + " Actual Text : "
+						+ search125MilesActualData);
+		softAssert.assertAll();
+		}catch(Throwable e){
+			mainPage.getScreenShotForFailure(webPage, "verifyCityRadiusSearch");
+			e.printStackTrace();
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 }

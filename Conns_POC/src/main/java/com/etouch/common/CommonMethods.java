@@ -161,4 +161,15 @@ public class CommonMethods {
 			log.info("Chrome browser pop-up not present.");
 		}
 	}
+	
+	public WebElement getWebElementbyXpath(WebPage webPage, String locator){
+		WebElement element = null;
+		try{
+			log.info("Finding element using xpath :"+locator);
+			element=webPage.getDriver().findElement(By.xpath(locator));
+		}catch(Exception e){
+			log.info("Unable to find element using Xpath : "+locator );
+		}
+		return element;
+	}
 }
