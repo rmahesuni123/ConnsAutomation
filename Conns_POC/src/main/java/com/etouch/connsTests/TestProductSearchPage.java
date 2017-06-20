@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 
 import com.etouch.common.BaseTest;
 import com.etouch.common.TafExecutor;
+import com.etouch.connsPages.ConnsHomePageNew;
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
@@ -73,6 +74,7 @@ public class TestProductSearchPage extends BaseTest {
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
+
 				}
 			} catch (Exception e) {
 				log.info("errr is " + e);
@@ -102,7 +104,11 @@ public class TestProductSearchPage extends BaseTest {
 			log.info("productDescription" + productDescription);
 			Assert.assertTrue(productDescription.contains(ProductName),
 					"Product description: " + productDescription + " not having: " + ProductName);
-			webPage.getBackToUrl();
+			if (testType.equalsIgnoreCase("Web")) {
+				String[][] contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContent");
+				mainPage.contentVerification(contentData, url);
+				webPage.getBackToUrl();
+			}
 		} catch (PageException e) {
 			mainPage.getScreenShotForFailure(webPage, "verifyProductSearchUsingKeyword");
 			e.printStackTrace();
@@ -123,19 +129,21 @@ public class TestProductSearchPage extends BaseTest {
 			Assert.assertTrue(productDescription.contains(ProductName),
 					"Product description: " + productDescription + " not having: " + ProductName);
 			if (testType.equalsIgnoreCase("Web")) {
-				webPage.getBackToUrl();		
+				webPage.getBackToUrl();
 			}
 		} catch (PageException e) {
-			mainPage.getScreenShotForFailure(webPage, "verifyProductSearch");// TODO Auto-generated catch block
+			mainPage.getScreenShotForFailure(webPage, "verifyProductSearch");// TODO
+																				// Auto-generated
+																				// catch
+																				// block
 			e.printStackTrace();
 		}
 	}
 
 	@Test(priority = 3, enabled = true)
-	public void verifyColumnLayoutForProductSearch()
-			throws PageException, InterruptedException {
+	public void verifyColumnLayoutForProductSearch() throws PageException, InterruptedException {
 		try {
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearch");	
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearch");
 			if (testType.equalsIgnoreCase("Web")) {
 				LayoutManager layoutManager = new LayoutManager();
 				int height[] = { 500, 500, 500 };
@@ -143,18 +151,16 @@ public class TestProductSearchPage extends BaseTest {
 				for (int i = 0; i < width.length; i++) {
 					webPage.resize(width[i], height[i]);
 					Thread.sleep(4000);
-					int cols =/* layoutManager*/getColumnLayout(width[i], height[i]);
+					int cols = /* layoutManager */getColumnLayout(width[i], height[i]);
 					log.info("Column Layout " + cols);
 					if (cols == 1 || cols == 2) {
 						log.info("Column Layout equivalent to Mobile or Tablets for column layout = " + cols);
-						Assert.assertEquals(true,
-								webPage.findObjectByxPath(test[0][4]).isDisplayed(),
+						Assert.assertEquals(true, webPage.findObjectByxPath(test[0][4]).isDisplayed(),
 								"Main Menu not displayed");
 					} else {
 						log.info("Column Layout equivalent to browser for column layout= " + cols);
-						Assert.assertEquals(
-								webPage.findObjectByxPath(test[0][4]).isDisplayed(),
-								false, "Main Menu displayed");
+						Assert.assertEquals(webPage.findObjectByxPath(test[0][4]).isDisplayed(), false,
+								"Main Menu displayed");
 					}
 				}
 				webPage.getDriver().manage().window().maximize();
@@ -166,7 +172,8 @@ public class TestProductSearchPage extends BaseTest {
 			e.printStackTrace();
 		}
 	}
-	public int getColumnLayout(int width, int height){
+
+	public int getColumnLayout(int width, int height) {
 		log.info("Width: " + width);
 		int cols = -1;
 		if (width >= 980) {
@@ -179,7 +186,7 @@ public class TestProductSearchPage extends BaseTest {
 			log.info("Layout 1 Columns, width : " + width);
 			cols = 1;
 		}
-		
+
 		return cols;
 	}
 }

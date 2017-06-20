@@ -11,6 +11,7 @@ import org.testng.Assert;
 
 import com.etouch.common.CommonPage;
 import com.etouch.taf.util.CommonUtil;
+import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
 
 /**
@@ -41,6 +42,20 @@ public class ConnsMainPage extends CommonPage {
 		// }
 	}
 
+	public void contentVerification(String[][] contentData, String url) {
+		try {
+			for (int i = 0; i < contentData.length; i++) {
+				System.out.println("Actual:  " + webPage.findObjectByxPath(contentData[i][0]).getText()
+						+ "   Expected: " + contentData[i][1]);
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(contentData[i][0]).getText(), contentData[i][1],
+						"expectedContent Failed to Match Actual");
+			}
+		} catch (Throwable e) {
+			webPage.navigateToUrl(url);
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
 	/**
 	 * Gets the page url.
 	 *
@@ -61,15 +76,16 @@ public class ConnsMainPage extends CommonPage {
 			e.printStackTrace();
 		}
 	}
+
 	public void catchBlock(Throwable e, WebDriver driver, String methodName) throws IOException {
-		try {	
+		try {
 			e.printStackTrace();
-		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		String testEnv = System.getenv().get("Environment");
-		File targetFile = new File("ConnsTestData/Output/" + testEnv + "/FailureImage/" + methodName + ".png");
-		FileUtils.copyFile(scrFile, targetFile);
-		Assert.fail("Test Case ::: " + methodName + " failed as :::" + e.getLocalizedMessage());
-		driver.close();
+			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			String testEnv = System.getenv().get("Environment");
+			File targetFile = new File("ConnsTestData/Output/" + testEnv + "/FailureImage/" + methodName + ".png");
+			FileUtils.copyFile(scrFile, targetFile);
+			Assert.fail("Test Case ::: " + methodName + " failed as :::" + e.getLocalizedMessage());
+			driver.close();
 		} catch (Exception et) {
 			et.printStackTrace();
 		}
