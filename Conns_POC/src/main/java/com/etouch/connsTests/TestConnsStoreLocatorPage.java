@@ -71,7 +71,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 	String testEnv; 
 	CommonMethods commonMethods = new CommonMethods();
 	int a = 0;
-	String storeLocatorURL = "http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/store-locator/";
+	String storeLocatorURL = "https://www.conns.com/store-locator";
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
