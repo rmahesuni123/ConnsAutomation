@@ -72,6 +72,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 	CommonMethods commonMethods = new CommonMethods();
 	int a = 0;
 	String storeLocatorURL = "https://www.conns.com/store-locator";
+	String[][] commonData;
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -88,6 +89,7 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				System.out.println("DataFilePath After is : " + DataFilePath);
+				commonData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "storeLocatorCommonElements");
 
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
@@ -292,6 +294,10 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 			softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
 					"Store locator description text verification failed. Expected text : "
 							+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
+			String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7]);
+			softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
+					"Bread Crumbs verification failed. Expected text : "
+							+ allRegionDescriptiondata[i][8] + " Actual text : " + breadCrumbsActualText);
 			String yesmoneyLinkUrl = commonMethods.clickAndGetPageURL(webPage, allRegionDescriptiondata[i][5],
 					allRegionDescriptiondata[i][0]);
 			softAssert.assertEquals(yesmoneyLinkUrl, allRegionDescriptiondata[i][6],
@@ -577,6 +583,60 @@ public class TestConnsStoreLocatorPage extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "verifyCityRadiusSearch");
+			e.printStackTrace();
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	@Test(enabled = true, priority = 16, description = "Verify functionality of VIEW ALL link")
+	public void verifyViewAllLink() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			webPage.getDriver().get(commonData[0][0]);
+			if (browserName.equalsIgnoreCase("Chrome")) {
+				commonMethods.closeChromePopup(webPage);
+			}
+			String[][] verifyViewAllLinkData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyViewAllLink");
+			String actualLinkText = commonMethods.getTextbyXpath(webPage, verifyViewAllLinkData[0][0]);
+			softAssert.assertEquals(actualLinkText, verifyViewAllLinkData[0][1],"Text verification failed. Expected text : " + verifyViewAllLinkData[0][1] + " Actual text : " + actualLinkText);
+			List<String> actualCssValues= commonMethods.getFontProperties(webPage, verifyViewAllLinkData[0][0]);
+			softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[1][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
+			softAssert.assertTrue(actualCssValues.get(1).contains(verifyViewAllLinkData[2][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[2][1] + " Actual Value : " + actualCssValues.get(1));
+			if(!browserName.equalsIgnoreCase("IE")){
+				softAssert.assertTrue(actualCssValues.get(2).contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
+			}else{
+				softAssert.assertTrue(actualCssValues.get(2).contains(verifyViewAllLinkData[4][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[4][1] + " Actual Value : " + actualCssValues.get(2));
+			}
+			
+			String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyViewAllLinkData[0][0], verifyViewAllLinkData[0][1]);
+			softAssert.assertTrue(actualUrl.contains(verifyViewAllLinkData[5][1]),"URL verification failed for link : '" + verifyViewAllLinkData[0][1] + "'. Expected URL - "+ verifyViewAllLinkData[5][1] + " Actual URL - " + actualUrl);
+			softAssert.assertAll();
+		}catch(Throwable e){
+			mainPage.getScreenShotForFailure(webPage, "verifyViewAllLink");
+			e.printStackTrace();
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	@Test(enabled = true, priority = 17, description = "Verify functionality of all store locator links")
+	public void verifyAllStoreLocatorLinks() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			webPage.getDriver().get(commonData[0][0]);
+			if (browserName.equalsIgnoreCase("Chrome")) {
+				commonMethods.closeChromePopup(webPage);
+			}
+			String[][] verifyAllStoreLocatorData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllStoreLocatorLinks");
+			for(int i=0;i<verifyAllStoreLocatorData.length;i++){
+				webPage.getDriver().get(commonData[0][1]);
+				String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyAllStoreLocatorData[i][2], verifyAllStoreLocatorData[i][1]);
+				softAssert.assertTrue(actualUrl.contains(verifyAllStoreLocatorData[i][3]),"Expected - "+verifyAllStoreLocatorData[i][1]);
+			}
+			softAssert.assertAll();
+		}catch(Throwable e){
+			mainPage.getScreenShotForFailure(webPage, "verifyAllStoreLocatorLinks");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());

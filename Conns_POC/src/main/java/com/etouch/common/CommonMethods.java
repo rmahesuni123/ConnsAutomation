@@ -1,6 +1,8 @@
 package com.etouch.common;
 
 import java.awt.AWTException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
@@ -171,5 +173,18 @@ public class CommonMethods {
 			log.info("Unable to find element using Xpath : "+locator );
 		}
 		return element;
+	}
+	
+	
+	public List<String> getFontProperties(WebPage webPage,String locator){
+		List<String> actualValueList=new ArrayList<String>();
+		try{
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"color"));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-size"));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-family"));
+		}catch(Exception e){
+			log.info("Unable to get font properties for locator : "+locator);
+		}
+		return actualValueList;
 	}
 }
