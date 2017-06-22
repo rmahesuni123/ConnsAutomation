@@ -2,11 +2,13 @@ package com.etouch.connsPages;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.etouch.common.CommonPage;
@@ -89,5 +91,13 @@ public class ConnsMainPage extends CommonPage {
 		} catch (Exception et) {
 			et.printStackTrace();
 		}
+	}
+	public boolean isSorted(List<WebElement> list) {
+		boolean sorted = true;
+		for (int i = 1; i < list.size(); i++) {
+			if (list.get(i - 1).getText().compareTo(list.get(i).getText()) > 0)
+				sorted = false;
+		}
+		return sorted;
 	}
 }
