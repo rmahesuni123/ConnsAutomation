@@ -19,27 +19,20 @@ import org.testng.annotations.Test;
 
 import com.etouch.common.BaseTest;
 import com.etouch.common.TafExecutor;
-import com.etouch.connsPages.ConnsHomePageNew;
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
-import com.etouch.taf.core.datamanager.excel.TafExcelDataProvider;
-import com.etouch.taf.core.datamanager.excel.TestParameters;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
-import com.etouch.taf.core.datamanager.excel.annotations.ITafExcelDataProviderInputs;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
-import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.LayoutManager;
 import com.etouch.taf.webui.selenium.WebPage;
 
-//import mx4j.log.Logger;
-
-//@Test(groups = "HomePage")
+//@Test(groups = "Conns_Product_Search")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
 public class Conns_Product_Search extends BaseTest {
 	static String platform;
@@ -115,7 +108,7 @@ public class Conns_Product_Search extends BaseTest {
 				webPage.getBackToUrl();
 			}
 		} catch (PageException e) {
-			mainPage.getScreenShotForFailure(webPage, "verifyProductSearchUsingKeyword");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Search_Functionality_And_Results_Contents");
 			e.printStackTrace();
 		}
 	}
@@ -123,7 +116,39 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 2, enabled = true)
 	public void Verify_Product_Search_And_Shorting_By_Product_Name() throws InterruptedException {
 		try {
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearch");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchAndShortByName");
+			String Identifier = test[0][0];
+			String ProductName = test[0][1];
+			webPage.findObjectById(Identifier).sendKeys(ProductName);
+			webPage.findObjectByClass(test[0][2]).click();
+			log.info("Clicked on element " + test[0][2]);
+			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
+			log.info("productDescription" + productDescription);
+			Assert.assertTrue(productDescription.contains(ProductName),
+					"Product description: " + productDescription + " not having: " + ProductName);
+			if (testType.equalsIgnoreCase("Web")) {
+				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				Thread.sleep(18000);
+				s.selectByVisibleText(test[0][6]);
+				Thread.sleep(8000);
+				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
+				log.info("element " + elementList.size() + "elementList: " + elementList);
+				log.info("element is shorted: " + mainPage.isSorted(elementList));
+				Assert.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted");
+				webPage.findObjectByxPath(test[0][8]).click();
+				Thread.sleep(5000);
+				webPage.getBackToUrl();
+			}
+		} catch (PageException e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Name");
+			e.printStackTrace();
+		}
+	}
+
+	@Test(priority = 3, enabled = true)
+	public void Verify_Product_Search_And_Number_Of_Product_Displayed() throws InterruptedException {
+		try {
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchAndNumberPerPage");
 			String Identifier = test[0][0];
 			String ProductName = test[0][1];
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
@@ -136,35 +161,36 @@ public class Conns_Product_Search extends BaseTest {
 			if (testType.equalsIgnoreCase("Web")) {
 				Select s = new Select(webPage.getDriver()
 						.findElement(By.xpath((test[0][5]))));
-				s.selectByVisibleText(test[0][6]);
-				Thread.sleep(8000);
-				List<WebElement> elementList = webPage.getDriver()
-						.findElements(By.xpath(test[0][7]));
-				log.info("element is shorted: "+mainPage.isSorted(elementList));
-				int i = 0;
-				for (WebElement e : elementList) {
-					log.info("element " + elementList.get(i).getText());
-					i++;
+				List<WebElement> list = s.getOptions();
+				String str[] = { list.get(0).getText().toString(), list.get(1).getText().toString(),
+						list.get(2).getText().toString() };
+				String str2[]=test[0][6].split(",");
+				int number;
+				for (int i=0;i<str.length;i++) {
+					number = Integer.parseInt(str[i].trim());
+					Assert.assertEquals(number,Integer.parseInt(str2[i]),"Number List:  ");
+					log.info("Started iteration for -->" + number);
+					s.selectByVisibleText(String.valueOf(number));
+					Thread.sleep(5000);
+					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
+					log.info("Number: " + number + "    element Size-->" + elementList.size());
+					Assert.assertEquals(elementList.size() <= number, true, "element is Not As Expected");
+					log.info("Completed for iteration-->");
+					s = new Select(webPage.getDriver()
+							.findElement(By.xpath((test[0][5]))));
 				}
-				log.info("element " + elementList.size() + "elementList: " + elementList);
-
-				webPage.findObjectByxPath(test[0][8]).click();
-				Thread.sleep(5000);
 				webPage.getBackToUrl();
 			}
 		} catch (PageException e) {
-			mainPage.getScreenShotForFailure(webPage, "verifyProductSearch");// TODO
-																				// Auto-generated
-																				// catch
-																				// block
+			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Number_Of_Product_Displayed");
 			e.printStackTrace();
 		}
 	}
 
-	@Test(priority = 3, enabled = true)
+	@Test(priority = 4, enabled = true)
 	public void Verify_Column_Layout_For_Product_Search() throws PageException, InterruptedException {
 		try {
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearch");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchAndShortByName");
 			if (testType.equalsIgnoreCase("Web")) {
 				LayoutManager layoutManager = new LayoutManager();
 				int height[] = { 500, 500, 500 };
@@ -172,7 +198,7 @@ public class Conns_Product_Search extends BaseTest {
 				for (int i = 0; i < width.length; i++) {
 					webPage.resize(width[i], height[i]);
 					Thread.sleep(4000);
-					int cols =  layoutManager.getColumnLayout(width[i], height[i]);
+					int cols = layoutManager.getColumnLayout(width[i], height[i]);
 					log.info("Column Layout " + cols);
 					if (cols == 1 || cols == 2) {
 						log.info("Column Layout equivalent to Mobile or Tablets for column layout = " + cols);
@@ -189,7 +215,7 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("Column layout testing can not be done for Devices");
 			}
 		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "verifyColumnLayoutForProductSearch");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Column_Layout_For_Product_Search");
 			e.printStackTrace();
 		}
 	}
@@ -211,5 +237,4 @@ public class Conns_Product_Search extends BaseTest {
 		return cols;
 	}
 
-	
 }
