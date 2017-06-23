@@ -52,9 +52,9 @@ import com.etouch.taf.webui.selenium.WebPage;
 
 //@Test(groups = "HomePage")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
-public class TestConnsStoreLocatorPage extends BaseTest {
+public class Conns_StoreLocator_Page extends BaseTest {
 	static String platform;
-	static Log log = LogUtil.getLog(TestConnsStoreLocatorPage.class);
+	static Log log = LogUtil.getLog(Conns_StoreLocator_Page.class);
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
 			.concat("/src/test/resources/testdata/videos");
