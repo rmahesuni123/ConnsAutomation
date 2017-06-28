@@ -121,7 +121,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 
 
 	@Test(priority = 1, enabled = true, description = "Verify Store Locator Page title")
-	public void verifyStoreLocatorPageTitle() {
+	public void Verify_StoreLocator_PageTitle() {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyPageTitle");
@@ -133,7 +133,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 							+ webPage.getPageTitle());
 			softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyStoreLocatorPageTitle");
+			mainPage.getScreenShotForFailure(webPage, "Verify_StoreLocator_PageTitle");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -142,7 +142,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(priority = 2, enabled = true, description = "Verify Find Your Conn's HomePlus component")
-	public void verifyHomePlusComponent() {
+	public void Verify_HomePlus_Component() {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyHomePlusComponent");
@@ -160,7 +160,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 					"Text verification failed. Expected text : " + test[1][2] + " Actual text : " + homeplusText2);
 			softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyHomePlusComponent");
+			mainPage.getScreenShotForFailure(webPage, "Verify_HomePlus_Component");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -168,7 +168,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(priority = 3, enabled = true, description = "Verify Store locator Region links")
-	public void verifyChoseYourRegionLinks() throws PageException, InterruptedException {
+	public void Verify_ChoseYourRegion_Links() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] regionLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -184,16 +184,16 @@ public class Conns_StoreLocator_Page extends BaseTest {
 					softAssert.assertNotEquals(afterLinkHover, beforeLinkHover,
 							"CSS value verification failed for link " + regionLinksData[i][0] + ". Value before hover : "
 									+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
-					String actualUrl = commonMethods.clickAndGetPageURL(webPage, regionLinksData[i][1],
-							regionLinksData[i][0]);
-					softAssert.assertEquals(actualUrl, regionLinksData[i][2],
-							"URL verification failed for link : '" + regionLinksData[i][0] + "'. Expected URL - "
-									+ regionLinksData[i][2] + " Actual URL - " + actualUrl);
-					softAssert.assertAll();
 				}
+				String actualUrl = commonMethods.clickAndGetPageURL(webPage, regionLinksData[i][1],
+						regionLinksData[i][0]);
+				softAssert.assertEquals(actualUrl, regionLinksData[i][2],
+						"URL verification failed for link : '" + regionLinksData[i][0] + "'. Expected URL - "
+								+ regionLinksData[i][2] + " Actual URL - " + actualUrl);
 			}
+			softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyChoseYourRegionLinks");
+			mainPage.getScreenShotForFailure(webPage, "Verify_ChoseYourRegion_Links");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -202,7 +202,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(priority = 4, enabled = true, description = "Verify Texas sub links")
-	public void verifyTexasSubLinks() throws PageException, InterruptedException {
+	public void Verify_Texas_SubLinks() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] TexasSubLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyTexasSubLinks");
@@ -229,7 +229,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		}
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyTexasSubLinks");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Texas_SubLinks");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -237,7 +237,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(priority = 5, enabled = true, description = "Verify order of Store locator links")
-	public void verifyOrderofLinks() throws PageException, InterruptedException {
+	public void Verify_Order_of_Links() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] choseYourLinkData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyOrderofLinks");
@@ -250,7 +250,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		}
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyOrderofLinks");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Order_of_Links");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -258,7 +258,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(priority = 6, enabled = true, description = "Verify tool tip text on region links map")
-	public void verifyRegionMapToolTip() throws PageException, InterruptedException {
+	public void Verify_RegionMap_ToolTip() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] verifyRegionMapData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -274,7 +274,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			softAssert.assertAll();
 		}
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyRegionMapToolTip");
+			mainPage.getScreenShotForFailure(webPage, "Verify_RegionMap_ToolTip");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -282,7 +282,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(priority = 7, enabled = true, description = "Verify region description for all region pages")
-	public void verifyAllRegionPageDescription() throws PageException, InterruptedException {
+	public void Verify_AllRegion_PageDescription() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] allRegionDescriptiondata = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllRegionPageDescription");
@@ -306,7 +306,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		}
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyAllRegionPageDescription");
+			mainPage.getScreenShotForFailure(webPage, "Verify_AllRegion_PageDescription");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -314,7 +314,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(enabled = true, priority = 8, description = "Verify content for all region pages")
-	public void verifyAllRegionsPageContent() throws PageException, InterruptedException {
+	public void Verify_AllRegions_PageContent() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] regionPageTextdata = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -334,7 +334,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		}
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyAllRegionsPageContent");
+			mainPage.getScreenShotForFailure(webPage, "Verify_AllRegions_PageContent");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -342,7 +342,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(enabled = true, priority = 9, description = "Verify alert box for empty Find Store field")
-	public void verifyFindStoreAlertBox() throws PageException, InterruptedException {
+	public void Verify_FindStore_AlertBox() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] verifyFindStoreAlertBoxData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -365,7 +365,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyFindStoreAlertBox");
+			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_AlertBox");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -373,7 +373,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(enabled = true, priority = 10, description = "Verify Find Store field for Invalid input")
-	public void verifyFindStoreInvalidData() throws PageException, InterruptedException {
+	public void Verify_FindStore_for_InvalidData() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] verifyFindStoreInvalidData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -404,7 +404,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 				"Expected Text : " + verifyFindStoreInvalidData[1][1] + " Actual Text : " + errorMsgActualText);
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyFindStoreInvalidData");
+			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_for_InvalidData");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -412,7 +412,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(enabled = true, priority = 11, description = "Verify Find Store functionality for valid input")
-	public void verifyValidRegionSearch() throws PageException, InterruptedException {
+	public void Verify_FindStore_for_ValidData() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] verifyValidRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -435,7 +435,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyValidRegionSearch");
+			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_for_ValidData");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -443,7 +443,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(enabled = true, priority = 12, description = "Verify Find Store functionality using zip code search")
-	public void verifyZipCodeRegionSearch() throws PageException, InterruptedException {
+	public void Verify_FindStore_with_Zipcode() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] verifyZipCodeRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -465,7 +465,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 						+ regionPageActualData);
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyZipCodeRegionSearch");
+			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -473,7 +473,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 
 	@Test(enabled = true, priority = 13, description = "Verify Find Store functionality using zip code along with radius search")
-	public void verifyZipCodeRadiusSearch() throws PageException, InterruptedException {
+	public void Verify_FindStore_with_Zipcode_and_Radius() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] verifyZipCodeRadiusSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -509,7 +509,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 						+ search125MilesActualData);
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyZipCodeRadiusSearch");
+			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode_and_Radius");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -517,7 +517,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 	
 	@Test(enabled = true, priority = 14, description = "Verify Find Store functionality using city search")
-	public void verifyCitySearch() throws PageException, InterruptedException {
+	public void Verify_FindStore_with_CityName() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] verifyCitySearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -538,7 +538,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 						+ cityPageActualData);
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyCitySearch");
+			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -546,7 +546,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 	
 	@Test(enabled = true, priority = 15, description = "Verify Find Store functionality using zip code along with radius search")
-	public void verifyCityRadiusSearch() throws PageException, InterruptedException {
+	public void Verify_FindStore_with_CityName_and_Radius() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] verifyCityRadiusSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
@@ -582,7 +582,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 						+ search125MilesActualData);
 		softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyCityRadiusSearch");
+			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName_and_Radius");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -590,7 +590,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 	
 	@Test(enabled = true, priority = 16, description = "Verify functionality of VIEW ALL link")
-	public void verifyViewAllLink() throws PageException, InterruptedException {
+	public void Verify_ViewAll_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			webPage.getDriver().get(commonData[0][0]);
@@ -613,7 +613,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			softAssert.assertTrue(actualUrl.contains(verifyViewAllLinkData[5][1]),"URL verification failed for link : '" + verifyViewAllLinkData[0][1] + "'. Expected URL - "+ verifyViewAllLinkData[5][1] + " Actual URL - " + actualUrl);
 			softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyViewAllLink");
+			mainPage.getScreenShotForFailure(webPage, "Verify_ViewAll_Link");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -621,7 +621,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	}
 	
 	@Test(enabled = true, priority = 17, description = "Verify functionality of all store locator links")
-	public void verifyAllStoreLocatorLinks() throws PageException, InterruptedException {
+	public void Verify_All_Store_Locator_Links() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			webPage.getDriver().get(commonData[0][0]);
@@ -636,7 +636,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "verifyAllStoreLocatorLinks");
+			mainPage.getScreenShotForFailure(webPage, "Verify_All_Store_Locator_Links");
 			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
