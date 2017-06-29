@@ -131,10 +131,10 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			softAssert.assertEquals(ExpectedTitle, webPage.getPageTitle(),
 					"Page Title verification failed. Expected title - " + ExpectedTitle + " Actual title - "
 							+ webPage.getPageTitle());
+			commonMethods.closeChromePopup(webPage);
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_StoreLocator_PageTitle");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -161,7 +161,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_HomePlus_Component");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -176,6 +175,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			for (int i = 0; i < regionLinksData.length; i++) {
 				webPage.getDriver().get(storeLocatorURL);
 				if (testType.equalsIgnoreCase("Web")) {
+					commonMethods.closeChromePopup(webPage);
 					String beforeLinkHover = commonMethods.getCssvaluebyXpath(webPage, regionLinksData[i][1], "color");
 					log.info("Region "+regionLinksData[i][0]+" before Hover : "+beforeLinkHover);
 					commonMethods.hoverOnelementbyXpath(webPage, regionLinksData[i][1]);
@@ -185,6 +185,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 							"CSS value verification failed for link " + regionLinksData[i][0] + ". Value before hover : "
 									+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
 				}
+				commonMethods.closeChromePopup(webPage);
 				String actualUrl = commonMethods.clickAndGetPageURL(webPage, regionLinksData[i][1],
 						regionLinksData[i][0]);
 				softAssert.assertEquals(actualUrl, regionLinksData[i][2],
@@ -194,10 +195,8 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_ChoseYourRegion_Links");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
-
 		}
 	}
 
@@ -205,32 +204,33 @@ public class Conns_StoreLocator_Page extends BaseTest {
 	public void Verify_Texas_SubLinks() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] TexasSubLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyTexasSubLinks");
-		for (int i = 0; i < TexasSubLinksData.length; i++) {
-			webPage.getDriver().get(storeLocatorURL);
-			commonMethods.clickElementbyXpath(webPage, TexasSubLinksData[i][1]);
-			if (testType.equalsIgnoreCase("Web")) {
-				String beforeLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color");
-				commonMethods.hoverOnelementbyXpath(webPage, TexasSubLinksData[i][2]);
-				String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color");
-				softAssert.assertNotEquals(afterLinkHover, beforeLinkHover,
-						"CSS value verification failed for link " + TexasSubLinksData[i][0] + ". Value before hover : "
-								+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
+			String[][] TexasSubLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyTexasSubLinks");
+			for (int i = 0; i < TexasSubLinksData.length; i++) {
+				webPage.getDriver().get(storeLocatorURL);
+				commonMethods.closeChromePopup(webPage);
+				commonMethods.clickElementbyXpath(webPage, TexasSubLinksData[i][1]);
+				if (testType.equalsIgnoreCase("Web")) {
+					String beforeLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color");
+					commonMethods.hoverOnelementbyXpath(webPage, TexasSubLinksData[i][2]);
+					String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color");
+					softAssert.assertNotEquals(afterLinkHover, beforeLinkHover,
+							"CSS value verification failed for link " + TexasSubLinksData[i][0] + ". Value before hover : "
+									+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
+				}
+				commonMethods.closeChromePopup(webPage);
+				String textOnLink = commonMethods.getTextbyXpath(webPage, TexasSubLinksData[i][2]);
+				softAssert.assertEquals(textOnLink, TexasSubLinksData[i][0],
+						"Link text verification failed. Expected text : " + TexasSubLinksData[i][0] + " Actual text : "
+								+ textOnLink);
+				String actualUrl = commonMethods.clickAndGetPageURL(webPage, TexasSubLinksData[i][2],
+						TexasSubLinksData[i][0]);
+				softAssert.assertEquals(actualUrl, TexasSubLinksData[i][3],
+						"URL verification failed for link : '" + TexasSubLinksData[i][0] + "'. Expected URL : "
+								+ TexasSubLinksData[i][3] + " Actual URL : " + actualUrl);
 			}
-			String textOnLink = commonMethods.getTextbyXpath(webPage, TexasSubLinksData[i][2]);
-			softAssert.assertEquals(textOnLink, TexasSubLinksData[i][0],
-					"Link text verification failed. Expected text : " + TexasSubLinksData[i][0] + " Actual text : "
-							+ textOnLink);
-			String actualUrl = commonMethods.clickAndGetPageURL(webPage, TexasSubLinksData[i][2],
-					TexasSubLinksData[i][0]);
-			softAssert.assertEquals(actualUrl, TexasSubLinksData[i][3],
-					"URL verification failed for link : '" + TexasSubLinksData[i][0] + "'. Expected URL : "
-							+ TexasSubLinksData[i][3] + " Actual URL : " + actualUrl);
-		}
-		softAssert.assertAll();
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_Texas_SubLinks");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -251,7 +251,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_Order_of_Links");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -275,7 +274,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		}
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_RegionMap_ToolTip");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -288,6 +286,7 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		String[][] allRegionDescriptiondata = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllRegionPageDescription");
 		for (int i = 0; i < allRegionDescriptiondata.length; i++) {
 			webPage.getDriver().get(storeLocatorURL);
+			commonMethods.closeChromePopup(webPage);
 			commonMethods.clickElementbyXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],
 					allRegionDescriptiondata[i][0]);
 			String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3]);
@@ -307,7 +306,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_AllRegion_PageDescription");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -335,7 +333,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_AllRegions_PageContent");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -366,7 +363,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_AlertBox");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -405,7 +401,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_for_InvalidData");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -436,7 +431,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_for_ValidData");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -466,7 +460,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -510,7 +503,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode_and_Radius");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -539,7 +531,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -583,7 +574,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 		softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName_and_Radius");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -614,7 +604,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_ViewAll_Link");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -637,7 +626,6 @@ public class Conns_StoreLocator_Page extends BaseTest {
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_All_Store_Locator_Links");
-			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}

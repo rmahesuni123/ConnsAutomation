@@ -32,7 +32,7 @@ public class CommonMethods {
 				isTextEqual= true;
 			}
 		}catch(Throwable e){
-			log.info("Verification failed for text - "+expectedText+" "+e.getLocalizedMessage());
+			log.error("Verification failed for text - "+expectedText+" "+e.getLocalizedMessage());
 		}
 		return isTextEqual;
 	}
@@ -43,7 +43,7 @@ public class CommonMethods {
 			log.info("Verifying if element is present by locator - "+locator);
 			isElementPresent = webPage.findObjectByxPath(locator).isDisplayed();
 		}catch(Throwable e){
-			log.info("Element not visible using locator - "+locator+" "+e.getLocalizedMessage());
+			log.error("Element not visible using locator - "+locator+" "+e.getLocalizedMessage());
 		}
 		return isElementPresent;
 	}
@@ -53,10 +53,10 @@ public class CommonMethods {
 		try{
 			log.info("Clicking on link : "+linkName);
 			webPage.findObjectByxPath(locator).click();
-			pageUrl= webPage.getDriver().getCurrentUrl();
+			pageUrl= webPage.getCurrentUrl();
 			log.info("Actual URL : "+pageUrl);
 		}catch(Throwable e){
-			log.info("Unable to click on link '"+linkName+"' "+e.getLocalizedMessage());
+			log.error("Unable to click on link '"+linkName+"' "+e.getLocalizedMessage());
 		}
 		return pageUrl;
 	}
@@ -67,7 +67,7 @@ public class CommonMethods {
 			log.info("Clicking on element using xpath - "+locator);
 			webPage.findObjectByxPath(locator).click();
 		} catch (PageException e) {
-			log.info("Unable to click on element using Xpath : "+ locator+". ");
+			log.error("Unable to click on element using Xpath : "+ locator+". ");
 			e.printStackTrace();
 		}
 		
@@ -82,7 +82,17 @@ public class CommonMethods {
 			log.info("Clicking on link : "+linkName);
 			webPage.findObjectByxPath(locator).click();
 		}catch(Throwable e){
-			log.info("Unable to click on link '"+linkName+"' "+e.getLocalizedMessage());
+			log.error("Unable to click on link '"+linkName+"' "+e.getLocalizedMessage());
+		}
+	}
+	
+	public void clickElementbyCss(WebPage webPage, String locator){
+		try {
+			log.info("Clicking on element using Css - "+locator);
+			webPage.findObjectByCss(locator).click();
+		} catch (PageException e) {
+			log.info("Unable to click on element using Css : "+ locator+". ");
+			e.printStackTrace();
 		}
 	}
 	
@@ -92,7 +102,7 @@ public class CommonMethods {
 			log.info("Getting text by using xpath - "+locator);
 			actualText = webPage.findObjectByxPath(locator).getText();
 		} catch (PageException e) {
-			log.info("Unable to get text on element using Xpath : "+ locator+". ");
+			log.error("Unable to get text on element using Xpath : "+ locator+". ");
 			e.printStackTrace();
 		}
 		return actualText;
@@ -103,7 +113,7 @@ public class CommonMethods {
 			log.info("Entering keys "+text+" ");
 			webPage.findObjectByxPath(locator).sendKeys(text);
 		}catch(Exception e){
-			log.info("Unable to enter keys : "+text+" using locator : "+locator);
+			log.error("Unable to enter keys : "+text+" using locator : "+locator);
 		}
 	}
 	
@@ -116,7 +126,7 @@ public class CommonMethods {
 				cssValue=Color.fromString(cssValue).asHex();
 			}
 		} catch (PageException e) {
-			log.info("Unable to get CSS Value : "+cssName+" for locator : "+locator);
+			log.error("Unable to get CSS Value : "+cssName+" for locator : "+locator);
 			e.printStackTrace();
 		}
 		return cssValue;
@@ -128,7 +138,7 @@ public class CommonMethods {
 			log.info("Getting attribute value "+attribute+" for Xpath : "+locator);
 			attributeValue = webPage.findObjectByxPath(locator).getAttribute(attribute);
 		} catch (PageException e) {
-			log.info("Unable to get Attribute Value : "+attribute+" for locator : "+locator);
+			log.error("Unable to get Attribute Value : "+attribute+" for locator : "+locator);
 			e.printStackTrace();
 		}
 		return attributeValue;
@@ -143,7 +153,7 @@ public class CommonMethods {
 			}
 			webPage.hoverOnElement(By.xpath(locator));
 		} catch (Exception e) {
-			log.info("Unable to hove on element using Xpath : "+locator);
+			log.error("Unable to hove on element using Xpath : "+locator);
 			e.printStackTrace();
 		}
 	}
@@ -160,7 +170,7 @@ public class CommonMethods {
 				log.info("Chrome browser pop-up handled.");
 			}
 		}catch(Exception e){
-			log.info("Chrome browser pop-up not present.");
+			log.error("Chrome browser pop-up not present.");
 		}
 	}
 	
@@ -170,7 +180,7 @@ public class CommonMethods {
 			log.info("Finding element using xpath :"+locator);
 			element=webPage.getDriver().findElement(By.xpath(locator));
 		}catch(Exception e){
-			log.info("Unable to find element using Xpath : "+locator );
+			log.error("Unable to find element using Xpath : "+locator );
 		}
 		return element;
 	}
@@ -179,12 +189,36 @@ public class CommonMethods {
 	public List<String> getFontProperties(WebPage webPage,String locator){
 		List<String> actualValueList=new ArrayList<String>();
 		try{
-			actualValueList.add(getCssvaluebyXpath(webPage,locator,"color"));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-size"));
 			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-size"));
 			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-family"));
 		}catch(Exception e){
-			log.info("Unable to get font properties for locator : "+locator);
+			log.error("Unable to get font properties for locator : "+locator);
 		}
 		return actualValueList;
 	}
+	
+	public String getPageUrl(WebPage webPage){
+		String actualUrl="";
+		try{
+			log.info("Getting current page url : "+webPage.getCurrentUrl());
+			actualUrl=webPage.getCurrentUrl();
+		}catch(Exception e){
+			log.error("Unable to get current page url : "+actualUrl);
+		}
+		return actualUrl;
+	}
+	
+	public String getPageTitle(WebPage webPage){
+		String actualTitle="";
+		try{
+			log.info("Getting current page title : "+webPage.getPageTitle());
+			actualTitle=webPage.getPageTitle();
+		}catch(Exception e){
+			log.error("Unable to get current page title : "+actualTitle);
+		}
+		return actualTitle;
+	}
+	
+
 }
