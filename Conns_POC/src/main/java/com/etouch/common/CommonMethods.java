@@ -3,6 +3,7 @@ package com.etouch.common;
 import java.awt.AWTException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
@@ -52,8 +53,23 @@ public class CommonMethods {
 		String pageUrl="";
 		try{
 			log.info("Clicking on link : "+linkName);
+			String mainWindow = webPage.getDriver().getWindowHandle();
 			webPage.findObjectByxPath(locator).click();
-			pageUrl= webPage.getCurrentUrl();
+			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			if(windowHandlesSet.size()>1){
+				for(String winHandle:windowHandlesSet){
+					webPage.getDriver().switchTo().window(winHandle);
+					if(!winHandle.equalsIgnoreCase(mainWindow)){
+						log.info("More than 1 window open after clicking on link : "+linkName);
+						pageUrl=webPage.getCurrentUrl();
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(mainWindow);
+					}
+				}
+			}else{
+				pageUrl= webPage.getCurrentUrl();
+			}
+
 			log.info("Actual URL : "+pageUrl);
 		}catch(Throwable e){
 			log.error("Unable to click on link '"+linkName+"' "+e.getLocalizedMessage());
