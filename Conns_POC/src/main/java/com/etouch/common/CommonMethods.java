@@ -1,55 +1,51 @@
 package com.etouch.common;
 
-import java.awt.AWTException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
-import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.LogUtil;
-import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
 
 public class CommonMethods {
 
 	static Log log = LogUtil.getLog(CommonMethods.class);
-
-	public boolean verifyTextPresent(WebPage webPage, String locator, String expectedText){
-		boolean isTextEqual=false;
-		try{
-			log.info("Verifying expected text - "+expectedText);
-			String actualText = webPage.findObjectByxPath(locator).getText();
-			log.info("Actual text - "+actualText);
-			if(actualText.equalsIgnoreCase(expectedText)){
-				isTextEqual= true;
-			}
-		}catch(Throwable e){
-			log.error("Verification failed for text - "+expectedText+" "+e.getLocalizedMessage());
-		}
-		return isTextEqual;
-	}
 	
-	public boolean verifyElementisPresent(WebPage webPage, String locator){
+	
+	
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to verify if element is present
+	 * Returns boolean value
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public boolean verifyElementisPresent(WebPage webPage, String locator, SoftAssert softAssert){
 		Boolean isElementPresent=false;
 		try{
 			log.info("Verifying if element is present by locator - "+locator);
 			isElementPresent = webPage.findObjectByxPath(locator).isDisplayed();
 		}catch(Throwable e){
-			log.error("Element not visible using locator - "+locator+" "+e.getLocalizedMessage());
+			softAssert.fail("Element not visible using locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return isElementPresent;
 	}
 	
-	public String clickAndGetPageURL(WebPage webPage, String locator, String linkName){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String clickAndGetPageURL(WebPage webPage, String locator, String linkName, SoftAssert softAssert){
 		String pageUrl="";
 		try{
 			log.info("Clicking on link : "+linkName);
@@ -69,27 +65,37 @@ public class CommonMethods {
 			}else{
 				pageUrl= webPage.getCurrentUrl();
 			}
-
 			log.info("Actual URL : "+pageUrl);
 		}catch(Throwable e){
-			log.error("Unable to click on link '"+linkName+"' "+e.getLocalizedMessage());
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return pageUrl;
 	}
 	
-	
-	public void clickElementbyXpath(WebPage webPage, String locator){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to click element using xpath 
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void clickElementbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
 		try {
 			log.info("Clicking on element using xpath - "+locator);
 			webPage.findObjectByxPath(locator).click();
 		} catch (PageException e) {
-			log.error("Unable to click on element using Xpath : "+ locator+". ");
-			e.printStackTrace();
+			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
-		
 	}
 	
-	public void clickElementbyXpath(WebPage webPage,String parentlocator, String locator, String linkName){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to click on child element using xpath
+	 * Return type us void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void clickChildElementbyXpath(WebPage webPage,String parentlocator, String locator, String linkName, SoftAssert softAssert){
 		try{
 			if(!parentlocator.equalsIgnoreCase("NA")){
 				log.info("Clicking on parent locator : "+parentlocator);
@@ -98,143 +104,265 @@ public class CommonMethods {
 			log.info("Clicking on link : "+linkName);
 			webPage.findObjectByxPath(locator).click();
 		}catch(Throwable e){
-			log.error("Unable to click on link '"+linkName+"' "+e.getLocalizedMessage());
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
 	
-	public void clickElementbyCss(WebPage webPage, String locator){
-		try {
-			log.info("Clicking on element using Css - "+locator);
-			webPage.findObjectByCss(locator).click();
-		} catch (PageException e) {
-			log.info("Unable to click on element using Css : "+ locator+". ");
-			e.printStackTrace();
-		}
-	}
-	
-	public String getTextbyXpath(WebPage webPage, String locator){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to get text using xpath
+	 * Return type is String 
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String getTextbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
 		String actualText= "";
 		try {
 			log.info("Getting text by using xpath - "+locator);
 			actualText = webPage.findObjectByxPath(locator).getText();
 		} catch (PageException e) {
-			log.error("Unable to get text on element using Xpath : "+ locator+". ");
-			e.printStackTrace();
+			softAssert.fail("Unable to Get Text on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return actualText;
 	}
 	
-	public void sendKeysbyXpath(WebPage webPage, String locator, String text){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to enter keys using xpath
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void sendKeysbyXpath(WebPage webPage, String locator, String text, SoftAssert softAssert){
 		try{
 			log.info("Entering keys "+text+" ");
 			webPage.findObjectByxPath(locator).sendKeys(text);
 		}catch(Exception e){
-			log.error("Unable to enter keys : "+text+" using locator : "+locator);
+			softAssert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
 	
-	public String getCssvaluebyXpath(WebPage webPage, String locator, String cssName){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to get Css value using xpath
+	 * Return type is String 
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String getCssvaluebyXpath(WebPage webPage, String locator, String cssName, SoftAssert softAssert){
 		String cssValue="";
 		try {
 			log.info("Getting CSS value "+cssName+" for Xpath : "+locator);
+			webPage.waitForWebElement(By.xpath(locator));
 			cssValue = webPage.findObjectByxPath(locator).getCssValue(cssName);
 			if(cssName.equalsIgnoreCase("color")){
 				cssValue=Color.fromString(cssValue).asHex();
 			}
 		} catch (PageException e) {
-			log.error("Unable to get CSS Value : "+cssName+" for locator : "+locator);
-			e.printStackTrace();
+			softAssert.fail("Unable to get CSS Value : "+cssName+" for locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return cssValue;
 	}
 	
-	public String getAttributebyXpath(WebPage webPage, String locator, String attribute){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to get attribute by xpath
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String getAttributebyXpath(WebPage webPage, String locator, String attribute, SoftAssert softAssert){
 		String attributeValue="";
 		try {
 			log.info("Getting attribute value "+attribute+" for Xpath : "+locator);
+			webPage.waitForWebElement(By.xpath(locator));
 			attributeValue = webPage.findObjectByxPath(locator).getAttribute(attribute);
 		} catch (PageException e) {
-			log.error("Unable to get Attribute Value : "+attribute+" for locator : "+locator);
-			e.printStackTrace();
+			softAssert.fail("Unable to get Attribute Value : "+attribute+" for locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return attributeValue;
 	}
 	
-	public void hoverOnelementbyXpath(WebPage webPage, String locator){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to hover on element using xpath
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void hoverOnelementbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
 		try {
 			log.info("Hovering on element using locator : "+locator);
+			webPage.waitForWebElement(By.xpath(locator));
 			WebElement element = webPage.getDriver().findElement(By.xpath(locator));
 			if(!element.isDisplayed()){
 				webPage.scrollDown(4);
 			}
 			webPage.hoverOnElement(By.xpath(locator));
 		} catch (Exception e) {
-			log.error("Unable to hove on element using Xpath : "+locator);
-			e.printStackTrace();
+			softAssert.fail("Unable to Hover on element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
 	
-	public void closeChromePopup(WebPage webPage){
-		try{
-			log.info("Checking if Chrome browser pop-up is present.");
-			Thread.sleep(2000);
-			if(webPage.getDriver().findElement(By.xpath("//*[@class='modal-footer']//button")).isDisplayed()){
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				WebElement abc = webPage.getDriver().findElement(By.xpath("//*[@class='modal-footer']//button"));
-				executor.executeScript("arguments[0].click();", abc);
-				Thread.sleep(2000);
-				log.info("Chrome browser pop-up handled.");
-			}
-		}catch(Exception e){
-			log.error("Chrome browser pop-up not present.");
-		}
-	}
-	
-	public WebElement getWebElementbyXpath(WebPage webPage, String locator){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to get webelement using xpath
+	 * Return type is WebElement 
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public WebElement getWebElementbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
 		WebElement element = null;
 		try{
 			log.info("Finding element using xpath :"+locator);
 			element=webPage.getDriver().findElement(By.xpath(locator));
 		}catch(Exception e){
-			log.error("Unable to find element using Xpath : "+locator );
+			softAssert.fail("Unable to find element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return element;
 	}
 	
-	
-	public List<String> getFontProperties(WebPage webPage,String locator){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to get font properties
+	 * Return type is list of strings
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public List<String> getFontProperties(WebPage webPage,String locator, SoftAssert softAssert){
 		List<String> actualValueList=new ArrayList<String>();
 		try{
-			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-size"));
-			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-size"));
-			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-family"));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-size",softAssert));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"color",softAssert));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-family",softAssert));
 		}catch(Exception e){
-			log.error("Unable to get font properties for locator : "+locator);
+			softAssert.fail("Unable to get font properties for locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return actualValueList;
 	}
 	
-	public String getPageUrl(WebPage webPage){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to get current page url
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String getPageUrl(WebPage webPage, SoftAssert softAssert){
 		String actualUrl="";
 		try{
 			log.info("Getting current page url : "+webPage.getCurrentUrl());
 			actualUrl=webPage.getCurrentUrl();
 		}catch(Exception e){
-			log.error("Unable to get current page url : "+actualUrl);
+			softAssert.fail("Unable to get current page url. Localized Message: "+e.getLocalizedMessage());
 		}
 		return actualUrl;
 	}
 	
-	public String getPageTitle(WebPage webPage){
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to get current page title
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String getPageTitle(WebPage webPage, SoftAssert softAssert){
 		String actualTitle="";
 		try{
 			log.info("Getting current page title : "+webPage.getPageTitle());
 			actualTitle=webPage.getPageTitle();
 		}catch(Exception e){
-			log.error("Unable to get current page title : "+actualTitle);
+			softAssert.fail("Unable to get current page title. Localized Message: "+e.getLocalizedMessage());
 		}
 		return actualTitle;
 	}
 	
+	/**
+	 * @author Name - Madhukar Mandadi
+	 * The method used to click element using linkText 
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void clickElementbyLinkText(WebPage webPage, String LinkName, SoftAssert softAssert){
+		try {
+			log.info("Clicking on element using Link Name"
+					+ " - "+LinkName);
+			webPage.findObjectByLink(LinkName).click();
+		} catch (PageException e) {
+			softAssert.fail("Unable to click on element using Link Name : "+ LinkName+". Localized Message: "+e.getLocalizedMessage());
+		}
+
+	}
+	
+	/**
+	 * @author Name - Asim Singh
+	 * The method used to click element using css locator
+	 * Return type is void 
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void clickElementbyCss(WebPage webPage, String locator, SoftAssert softAssert){
+		try {
+			log.info("Clicking on element using Css - "+locator);
+			webPage.findObjectByCss(locator).click();
+		} catch (PageException e) {
+			softAssert.fail("Unable to click on element using CSS : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
+	
+	/**
+	 * @author Name - Asim Singh
+	 * The method used get text using css locator
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String getTextbyCss(WebPage webPage, String locator, SoftAssert softAssert){
+		String actualText= "";
+		try {
+			log.info("Getting text by using Css - "+locator);
+			actualText = webPage.findObjectByCss(locator).getText();
+		} catch (PageException e) {
+			softAssert.fail("Unable to get text on element using Css : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return actualText;
+	}
+	
+	/**
+	 * @author Name - Asim Singh
+	 * The method used get attribute using css
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String getAttributebyCss(WebPage webPage, String locator, String attribute, SoftAssert softAssert){
+		String attributeValue="";
+		try {
+			log.info("Getting attribute value "+attribute+" for Css : "+locator);
+			attributeValue = webPage.findObjectByCss(locator).getAttribute(attribute);
+		} catch (PageException e) {
+			softAssert.fail("Unable to get Attribute Value : "+attribute+" using css using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return attributeValue;
+	}
+	
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to navigate to page
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String navigateToPage(WebPage webPage, String navigatingUrl, SoftAssert softAssert){
+		String attributeValue="";
+		try {
+			log.info("Navigating to URL: "+navigatingUrl);
+			webPage.getDriver().get(navigatingUrl);
+		} catch (Throwable e) {
+			softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return attributeValue;
+	}
 
 }
