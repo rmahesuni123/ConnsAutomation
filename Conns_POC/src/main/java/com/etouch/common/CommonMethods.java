@@ -137,6 +137,7 @@ public class CommonMethods {
 		try {
 			log.info("Getting text by using xpath - "+locator);
 			actualText = webPage.findObjectByxPath(locator).getText();
+			log.info("Actual text - "+actualText);
 		} catch (PageException e) {
 			softAssert.fail("Unable to Get Text on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
@@ -362,6 +363,22 @@ public class CommonMethods {
 			softAssert.fail("Unable to get Attribute Value : "+attribute+" using css using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return attributeValue;
+	}
+	
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to clear text box input
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void clearTextBox(WebPage webPage, String locator,SoftAssert softAssert){
+		try{
+			log.info("Clearing text box with locator: "+locator);
+			webPage.findObjectByxPath(locator).clear();
+		}catch(Exception e){
+			softAssert.fail("Unable to clear text box with locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
 	}
 
 }

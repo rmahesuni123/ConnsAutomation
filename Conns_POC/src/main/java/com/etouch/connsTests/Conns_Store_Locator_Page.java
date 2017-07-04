@@ -337,10 +337,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		if (browserName.equalsIgnoreCase("Chrome")) {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 		}
-		commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[0][0], softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
+		commonMethods.clearTextBox(webPage, verifyFindStoreAlertBoxData[0][0], softAssert);
 		commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
 		Alert alert = webPage.getDriver().switchTo().alert();
 		String alertActualText = alert.getText();
@@ -370,6 +367,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		if (browserName.equalsIgnoreCase("Chrome")) {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 		}
+		commonMethods.clearTextBox(webPage, verifyFindStoreInvalidData[1][0], softAssert);
 		commonMethods.sendKeysbyXpath(webPage, verifyFindStoreInvalidData[1][0], verifyFindStoreInvalidData[0][1], softAssert);
 		commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[2][0], softAssert);
 		String errorMsgActualText = commonMethods.getTextbyXpath(webPage, verifyFindStoreInvalidData[3][0], softAssert);
@@ -407,6 +405,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		if (browserName.equalsIgnoreCase("Chrome")) {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 		}
+		commonMethods.clearTextBox(webPage, verifyValidRegionSearchData[1][0], softAssert);
 		commonMethods.sendKeysbyXpath(webPage, verifyValidRegionSearchData[1][0], verifyValidRegionSearchData[0][1], softAssert);
 		commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[2][0], softAssert);
 		String regionPageActualData = commonMethods.getTextbyXpath(webPage, verifyValidRegionSearchData[3][0], softAssert);
@@ -436,6 +435,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		if (browserName.equalsIgnoreCase("Chrome")) {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 		}
+		commonMethods.clearTextBox(webPage, verifyZipCodeRegionSearchData[1][0], softAssert);
 		commonMethods.sendKeysbyXpath(webPage, verifyZipCodeRegionSearchData[1][0],
 				verifyZipCodeRegionSearchData[0][1], softAssert);
 		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRegionSearchData[2][0], softAssert);
@@ -465,6 +465,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		if (browserName.equalsIgnoreCase("Chrome")) {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 		}
+		commonMethods.clearTextBox(webPage, verifyZipCodeRadiusSearchData[1][0], softAssert);
 		commonMethods.sendKeysbyXpath(webPage, verifyZipCodeRadiusSearchData[1][0],
 				verifyZipCodeRadiusSearchData[0][1], softAssert);
 		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[2][0], softAssert);
@@ -508,6 +509,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		if (browserName.equalsIgnoreCase("Chrome")) {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 		}
+		commonMethods.clearTextBox(webPage, verifyCitySearchData[1][0], softAssert);
 		commonMethods.sendKeysbyXpath(webPage, verifyCitySearchData[1][0],
 				verifyCitySearchData[0][1], softAssert);
 		commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[2][0], softAssert);
@@ -537,6 +539,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		if (browserName.equalsIgnoreCase("Chrome")) {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 		}
+		commonMethods.clearTextBox(webPage, verifyCityRadiusSearchData[1][0], softAssert);
 		commonMethods.sendKeysbyXpath(webPage, verifyCityRadiusSearchData[1][0],
 				verifyCityRadiusSearchData[0][1], softAssert);
 		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[2][0], softAssert);
@@ -618,19 +621,22 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = false, priority = 18, description = "Verify functionality of Store Page")
-	public void Verify_Store_Page() throws PageException, InterruptedException {
+	@Test(enabled = true, priority = 18, description = "Verify functionality of Store Page")
+	public void Verify_Visit_Store_Page_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-			String[][] verifyStorePageData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyStorePage");
+			String[][] verifyStorePageData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyVisitStorePageLink");
 			for(int i=0;i<verifyStorePageData.length;i++){
 				commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 				commonMethods.clickElementbyXpath(webPage, verifyStorePageData[i][1],softAssert);
 				String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyStorePageData[i][3], verifyStorePageData[i][0]+" -"+verifyStorePageData[i][2], softAssert);
 				softAssert.assertTrue(actualUrl.contains(verifyStorePageData[i][4]),"Expected - "+verifyStorePageData[i][4]+"Actual - "+actualUrl);
 				String storeText = commonMethods.getTextbyXpath(webPage, verifyStorePageData[i][5], softAssert);
-				softAssert.assertEquals(storeText, verifyStorePageData[i][6]);
+				softAssert.assertEquals(storeText, verifyStorePageData[i][6],"Text verification failed. Expected text: " + verifyStorePageData[i][6] + " Actual text: " + storeText);
+				String customerReviewText = commonMethods.getTextbyXpath(webPage, verifyStorePageData[i][7], softAssert);
+				softAssert.assertTrue(customerReviewText.contains(verifyStorePageData[i][8]),"Text verification failed. Expected text: " + verifyStorePageData[i][8] + " Actual text: " + customerReviewText);
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
