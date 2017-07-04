@@ -19,7 +19,24 @@ public class CommonMethods {
 	static Log log = LogUtil.getLog(CommonMethods.class);
 	
 	
-	
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to navigate to page
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String navigateToPage(WebPage webPage,String navigatingUrl, SoftAssert softAssert){
+		String attributeValue="";
+		try {
+			log.info("Navigating to URL: "+navigatingUrl);
+			webPage.loadPage(navigatingUrl);
+		} catch (Throwable e) {
+			softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return attributeValue;
+	}
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to verify if element is present
@@ -343,24 +360,6 @@ public class CommonMethods {
 			attributeValue = webPage.findObjectByCss(locator).getAttribute(attribute);
 		} catch (PageException e) {
 			softAssert.fail("Unable to get Attribute Value : "+attribute+" using css using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
-		}
-		return attributeValue;
-	}
-	
-	/**
-	 * @author Name - Deepak Bhambri
-	 * The method used to navigate to page
-	 * Return type is String
-	 * Any structural modifications to the display of the link should be done by overriding this method.
-	 * @throws PageException  If an input or output exception occurred
-	 **/
-	public String navigateToPage(WebPage webPage, String navigatingUrl, SoftAssert softAssert){
-		String attributeValue="";
-		try {
-			log.info("Navigating to URL: "+navigatingUrl);
-			webPage.getDriver().get(navigatingUrl);
-		} catch (Throwable e) {
-			softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return attributeValue;
 	}
