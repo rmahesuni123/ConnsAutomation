@@ -31,6 +31,7 @@ import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
+import com.etouch.taf.webui.selenium.MobileView;
 import com.etouch.taf.webui.selenium.WebPage;
 
 //import mx4j.log.Logger;
@@ -48,10 +49,11 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	private ConnsMainPage mainPage;
 	String testBedName;
 	TestBed testBed;
+	MobileView mobileView;
 	Path path;
 	String DataFilePath;
 	String testType;
-	String browserName;
+	static protected String browserName;
 	String testEnv; 
 	CommonMethods commonMethods;
 	ConnsStoreLocatorPage connsStoreLocatorPage;
@@ -65,9 +67,10 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
-			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
-			commonMethods = new CommonMethods();
 			connsStoreLocatorPage= new ConnsStoreLocatorPage();
+			commonMethods = new CommonMethods();
+			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
+			
 			
 			System.out.println("Test Type is : " + testType);
 			try {
@@ -87,7 +90,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
-					
 				}
 			} catch (Exception e) {
 				log.info("errr is " + e);
@@ -115,10 +117,11 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyPageTitle");
 			String ExpectedTitle = test[0][1];
 			commonMethods.navigateToPage(webPage,storeLocatorURL, softAssert);
+			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 			softAssert.assertEquals(ExpectedTitle, webPage.getPageTitle(),
 					"Page Title verification failed. Expected title - " + ExpectedTitle + " Actual title - "
 							+ webPage.getPageTitle());
-			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
+			
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_StoreLocator_PageTitle");
@@ -134,6 +137,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		try{
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyHomePlusComponent");
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, test[0][0], softAssert),"Element not present using locator - " + test[0][0]);
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, test[1][0], softAssert),
 					"Element not present using locator - " + test[1][0]);
@@ -229,6 +233,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		try{
 		String[][] choseYourLinkData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyOrderofLinks");
 		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+		connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 		for (int i = 0; i < choseYourLinkData.length; i++) {
 			String textOnLink = commonMethods.getTextbyXpath(webPage, choseYourLinkData[i][1], softAssert);
 			softAssert.assertEquals(textOnLink, choseYourLinkData[i][0],
@@ -247,18 +252,19 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_RegionMap_ToolTip() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] verifyRegionMapData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-				"verifyRegionMapToolTip");
-		if (testType.equalsIgnoreCase("Web")) {
-			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-			for (int i = 0; i < verifyRegionMapData.length; i++) {
-				String attributeValue = commonMethods.getAttributebyXpath(webPage, verifyRegionMapData[i][1], "title", softAssert);
-				softAssert.assertEquals(attributeValue, verifyRegionMapData[i][0],
-						"Tooltip verification failed for link. Expected Text : " + verifyRegionMapData[i][0]
-								+ " Actual text : " + attributeValue);
+			String[][] verifyRegionMapData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+					"verifyRegionMapToolTip");
+			if (testType.equalsIgnoreCase("Web")) {
+				commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+				connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
+				for (int i = 0; i < verifyRegionMapData.length; i++) {
+					String attributeValue = commonMethods.getAttributebyXpath(webPage, verifyRegionMapData[i][1], "title", softAssert);
+					softAssert.assertEquals(attributeValue, verifyRegionMapData[i][0],
+							"Tooltip verification failed for link. Expected Text : " + verifyRegionMapData[i][0]
+									+ " Actual text : " + attributeValue);
+				}
+				softAssert.assertAll();
 			}
-			softAssert.assertAll();
-		}
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_RegionMap_ToolTip");
 			softAssert.assertAll();
@@ -266,7 +272,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 7, enabled = false, description = "Verify region description for all region pages")
+	@Test(priority = 7, enabled = true, description = "Verify region description for all region pages")
 	public void Verify_AllRegion_PageDescription() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -305,6 +311,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			String key = "";
 			for (int i = 0; i < regionPageTextdata.length; i++) {
 				commonMethods.navigateToPage(webPage, regionPageTextdata[i][1], softAssert);
+				connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 				key = regionPageTextdata[i][0];
 				String[][] keyData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", key + "Region");
 				for (int j = 0; j < keyData.length; j++) {
@@ -334,9 +341,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		String[][] verifyFindStoreAlertBoxData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
 				"verifyFindStoreAlertBox");
 		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
+		connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 		commonMethods.clearTextBox(webPage, verifyFindStoreAlertBoxData[0][0], softAssert);
 		commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
 		Alert alert = webPage.getDriver().switchTo().alert();
@@ -357,33 +362,28 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_FindStore_for_InvalidData() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] verifyFindStoreInvalidData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-				"verifyFindStoreInvalidData");
-		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			String[][] verifyFindStoreInvalidData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyFindStoreInvalidData");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[0][0], softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[0][0], softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clearTextBox(webPage, verifyFindStoreInvalidData[1][0], softAssert);
-		commonMethods.sendKeysbyXpath(webPage, verifyFindStoreInvalidData[1][0], verifyFindStoreInvalidData[0][1], softAssert);
-		commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[2][0], softAssert);
-		String errorMsgActualText = commonMethods.getTextbyXpath(webPage, verifyFindStoreInvalidData[3][0], softAssert);
-		String errorMessageActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyFindStoreInvalidData[3][0],
-				"color", softAssert);
-		softAssert.assertEquals(errorMessageActualColor, verifyFindStoreInvalidData[2][1],
-				"Color attribute verification failed. Expected Color : " + verifyFindStoreInvalidData[2][1]
-						+ " Actual Color : " + errorMessageActualColor);
-		String errorBoxActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyFindStoreInvalidData[1][0],
-				"color", softAssert);
-		softAssert.assertEquals(errorBoxActualColor, verifyFindStoreInvalidData[3][1],
-				"Color attribute verification failed. Expected Color : " + verifyFindStoreInvalidData[3][1]
-						+ " Actual Color : " + errorBoxActualColor);
-		softAssert.assertEquals(errorMsgActualText, verifyFindStoreInvalidData[1][1],
-				"Expected Text : " + verifyFindStoreInvalidData[1][1] + " Actual Text : " + errorMsgActualText);
-		softAssert.assertAll();
+			commonMethods.clearTextBox(webPage, verifyFindStoreInvalidData[1][0], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, verifyFindStoreInvalidData[1][0], verifyFindStoreInvalidData[0][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[2][0], softAssert);
+			String errorMsgActualText = commonMethods.getTextbyXpath(webPage, verifyFindStoreInvalidData[3][0], softAssert);
+			String errorMessageActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyFindStoreInvalidData[3][0],
+					"color", softAssert);
+			softAssert.assertEquals(errorMessageActualColor, verifyFindStoreInvalidData[2][1],
+					"Color attribute verification failed. Expected Color : " + verifyFindStoreInvalidData[2][1]
+							+ " Actual Color : " + errorMessageActualColor);
+			String errorBoxActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyFindStoreInvalidData[1][0],
+					"color", softAssert);
+			softAssert.assertEquals(errorBoxActualColor, verifyFindStoreInvalidData[3][1],
+					"Color attribute verification failed. Expected Color : " + verifyFindStoreInvalidData[3][1]
+							+ " Actual Color : " + errorBoxActualColor);
+			softAssert.assertEquals(errorMsgActualText, verifyFindStoreInvalidData[1][1],
+					"Expected Text : " + verifyFindStoreInvalidData[1][1] + " Actual Text : " + errorMsgActualText);
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_for_InvalidData");
 			softAssert.assertAll();
@@ -395,25 +395,21 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_FindStore_for_ValidData() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] verifyValidRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-				"verifyValidRegionSearchData");
-		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			String[][] verifyValidRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+					"verifyValidRegionSearchData");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[0][0], softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[0][0], softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clearTextBox(webPage, verifyValidRegionSearchData[1][0], softAssert);
-		commonMethods.sendKeysbyXpath(webPage, verifyValidRegionSearchData[1][0], verifyValidRegionSearchData[0][1], softAssert);
-		commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[2][0], softAssert);
-		String regionPageActualData = commonMethods.getTextbyXpath(webPage, verifyValidRegionSearchData[3][0], softAssert);
-		softAssert.assertTrue(regionPageActualData.contains(verifyValidRegionSearchData[1][1]),
-				"Text verification failed. Expected Text : " + verifyValidRegionSearchData[1][1] + " Actual Text : "
-						+ regionPageActualData);
+			commonMethods.clearTextBox(webPage, verifyValidRegionSearchData[1][0], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, verifyValidRegionSearchData[1][0], verifyValidRegionSearchData[0][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[2][0], softAssert);
+			String regionPageActualData = commonMethods.getTextbyXpath(webPage, verifyValidRegionSearchData[3][0], softAssert);
+			softAssert.assertTrue(regionPageActualData.contains(verifyValidRegionSearchData[1][1]),
+					"Text verification failed. Expected Text : " + verifyValidRegionSearchData[1][1] + " Actual Text : "
+							+ regionPageActualData);
 
-		softAssert.assertAll();
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_for_ValidData");
 			softAssert.assertAll();
@@ -425,25 +421,21 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_FindStore_with_Zipcode() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] verifyZipCodeRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-				"verifyZipCodeRegionSearch");
-		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			String[][] verifyZipCodeRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+					"verifyZipCodeRegionSearch");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRegionSearchData[0][0], softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRegionSearchData[0][0], softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clearTextBox(webPage, verifyZipCodeRegionSearchData[1][0], softAssert);
-		commonMethods.sendKeysbyXpath(webPage, verifyZipCodeRegionSearchData[1][0],
-				verifyZipCodeRegionSearchData[0][1], softAssert);
-		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRegionSearchData[2][0], softAssert);
-		String regionPageActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRegionSearchData[3][0], softAssert);
-		softAssert.assertTrue(regionPageActualData.contains(verifyZipCodeRegionSearchData[1][1]),
-				"Text verification failed. Expected Text : " + verifyZipCodeRegionSearchData[1][1] + " Actual Text : "
-						+ regionPageActualData);
-		softAssert.assertAll();
+			commonMethods.clearTextBox(webPage, verifyZipCodeRegionSearchData[1][0], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, verifyZipCodeRegionSearchData[1][0],
+					verifyZipCodeRegionSearchData[0][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRegionSearchData[2][0], softAssert);
+			String regionPageActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRegionSearchData[3][0], softAssert);
+			softAssert.assertTrue(regionPageActualData.contains(verifyZipCodeRegionSearchData[1][1]),
+					"Text verification failed. Expected Text : " + verifyZipCodeRegionSearchData[1][1] + " Actual Text : "
+							+ regionPageActualData);
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode");
 			softAssert.assertAll();
@@ -455,39 +447,35 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_FindStore_with_Zipcode_and_Radius() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] verifyZipCodeRadiusSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-				"verifyZipCodeRadiusSearch");
-		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			String[][] verifyZipCodeRadiusSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+					"verifyZipCodeRadiusSearch");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[0][0], softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[0][0], softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clearTextBox(webPage, verifyZipCodeRadiusSearchData[1][0], softAssert);
-		commonMethods.sendKeysbyXpath(webPage, verifyZipCodeRadiusSearchData[1][0],
-				verifyZipCodeRadiusSearchData[0][1], softAssert);
-		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[2][0], softAssert);
-		String search50MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[3][0], softAssert);
-		softAssert.assertTrue(search50MilesActualData.contains(verifyZipCodeRadiusSearchData[1][1]),
-				"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[1][1] + " Actual Text : "
-						+ search50MilesActualData);
-		Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0], softAssert));
-		select.selectByValue(verifyZipCodeRadiusSearchData[2][1]);
-		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0], softAssert);
-		String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[6][0], softAssert);
-		softAssert.assertTrue(search75MilesActualData.contains(verifyZipCodeRadiusSearchData[4][1]),
-				"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[4][1] + " Actual Text : "
-						+ search75MilesActualData);
-		select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0], softAssert));
-		select.selectByValue(verifyZipCodeRadiusSearchData[3][1]);
-		commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0], softAssert);
-		String search125MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[7][0], softAssert);
-		softAssert.assertTrue(search125MilesActualData.contains(verifyZipCodeRadiusSearchData[5][1]),
-				"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[5][1] + " Actual Text : "
-						+ search125MilesActualData);
-		softAssert.assertAll();
+			commonMethods.clearTextBox(webPage, verifyZipCodeRadiusSearchData[1][0], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, verifyZipCodeRadiusSearchData[1][0],
+					verifyZipCodeRadiusSearchData[0][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[2][0], softAssert);
+			String search50MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[3][0], softAssert);
+			softAssert.assertTrue(search50MilesActualData.contains(verifyZipCodeRadiusSearchData[1][1]),
+					"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[1][1] + " Actual Text : "
+							+ search50MilesActualData);
+			Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0], softAssert));
+			select.selectByValue(verifyZipCodeRadiusSearchData[2][1]);
+			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0], softAssert);
+			String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[6][0], softAssert);
+			softAssert.assertTrue(search75MilesActualData.contains(verifyZipCodeRadiusSearchData[4][1]),
+					"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[4][1] + " Actual Text : "
+							+ search75MilesActualData);
+			select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0], softAssert));
+			select.selectByValue(verifyZipCodeRadiusSearchData[3][1]);
+			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0], softAssert);
+			String search125MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[7][0], softAssert);
+			softAssert.assertTrue(search125MilesActualData.contains(verifyZipCodeRadiusSearchData[5][1]),
+					"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[5][1] + " Actual Text : "
+							+ search125MilesActualData);
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode_and_Radius");
 			softAssert.assertAll();
@@ -499,25 +487,21 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_FindStore_with_CityName() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] verifyCitySearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-				"verifyCitySearch");
-		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			String[][] verifyCitySearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+					"verifyCitySearch");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[0][0], softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[0][0], softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clearTextBox(webPage, verifyCitySearchData[1][0], softAssert);
-		commonMethods.sendKeysbyXpath(webPage, verifyCitySearchData[1][0],
-				verifyCitySearchData[0][1], softAssert);
-		commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[2][0], softAssert);
-		String cityPageActualData = commonMethods.getTextbyXpath(webPage, verifyCitySearchData[3][0], softAssert);
-		softAssert.assertTrue(cityPageActualData.contains(verifyCitySearchData[1][1]),
-				"Text verification failed. Expected Text : " + verifyCitySearchData[1][1] + " Actual Text : "
-						+ cityPageActualData);
-		softAssert.assertAll();
+			commonMethods.clearTextBox(webPage, verifyCitySearchData[1][0], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, verifyCitySearchData[1][0],
+					verifyCitySearchData[0][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[2][0], softAssert);
+			String cityPageActualData = commonMethods.getTextbyXpath(webPage, verifyCitySearchData[3][0], softAssert);
+			softAssert.assertTrue(cityPageActualData.contains(verifyCitySearchData[1][1]),
+					"Text verification failed. Expected Text : " + verifyCitySearchData[1][1] + " Actual Text : "
+							+ cityPageActualData);
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName");
 			softAssert.assertAll();
@@ -529,39 +513,35 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_FindStore_with_CityName_and_Radius() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] verifyCityRadiusSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-				"verifyCityRadiusSearch");
-		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			String[][] verifyCityRadiusSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+					"verifyCityRadiusSearch");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[0][0], softAssert);
-		if (browserName.equalsIgnoreCase("Chrome")) {
+			commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[0][0], softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-		}
-		commonMethods.clearTextBox(webPage, verifyCityRadiusSearchData[1][0], softAssert);
-		commonMethods.sendKeysbyXpath(webPage, verifyCityRadiusSearchData[1][0],
-				verifyCityRadiusSearchData[0][1], softAssert);
-		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[2][0], softAssert);
-		String search50MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[3][0], softAssert);
-		softAssert.assertTrue(search50MilesActualData.contains(verifyCityRadiusSearchData[1][1]),
-				"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[1][1] + " Actual Text : "
-						+ search50MilesActualData);
-		Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyCityRadiusSearchData[4][0], softAssert));
-		select.selectByValue(verifyCityRadiusSearchData[2][1]);
-		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[5][0], softAssert);
-		String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[6][0], softAssert);
-		softAssert.assertTrue(search75MilesActualData.contains(verifyCityRadiusSearchData[4][1]),
-				"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[4][1] + " Actual Text : "
-						+ search75MilesActualData);
-		select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyCityRadiusSearchData[4][0], softAssert));
-		select.selectByValue(verifyCityRadiusSearchData[3][1]);
-		commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[5][0], softAssert);
-		String search125MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[7][0], softAssert);
-		softAssert.assertTrue(search125MilesActualData.contains(verifyCityRadiusSearchData[5][1]),
-				"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[5][1] + " Actual Text : "
-						+ search125MilesActualData);
-		softAssert.assertAll();
+			commonMethods.clearTextBox(webPage, verifyCityRadiusSearchData[1][0], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, verifyCityRadiusSearchData[1][0],
+					verifyCityRadiusSearchData[0][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[2][0], softAssert);
+			String search50MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[3][0], softAssert);
+			softAssert.assertTrue(search50MilesActualData.contains(verifyCityRadiusSearchData[1][1]),
+					"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[1][1] + " Actual Text : "
+							+ search50MilesActualData);
+			Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyCityRadiusSearchData[4][0], softAssert));
+			select.selectByValue(verifyCityRadiusSearchData[2][1]);
+			commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[5][0], softAssert);
+			String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[6][0], softAssert);
+			softAssert.assertTrue(search75MilesActualData.contains(verifyCityRadiusSearchData[4][1]),
+					"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[4][1] + " Actual Text : "
+							+ search75MilesActualData);
+			select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyCityRadiusSearchData[4][0], softAssert));
+			select.selectByValue(verifyCityRadiusSearchData[3][1]);
+			commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[5][0], softAssert);
+			String search125MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[7][0], softAssert);
+			softAssert.assertTrue(search125MilesActualData.contains(verifyCityRadiusSearchData[5][1]),
+					"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[5][1] + " Actual Text : "
+							+ search125MilesActualData);
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName_and_Radius");
 			softAssert.assertAll();
@@ -570,30 +550,32 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	}
 	
 	@Test(enabled = true, priority = 16, description = "Verify functionality of VIEW ALL link")
-	public void Verify_ViewAll_Link() throws PageException, InterruptedException {
+	public void Verify_View_All_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-			if (browserName.equalsIgnoreCase("Chrome")) {
-				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-			}
+			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			String[][] verifyViewAllLinkData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyViewAllLink");
 			String actualLinkText = commonMethods.getTextbyXpath(webPage, verifyViewAllLinkData[0][0], softAssert);
 			softAssert.assertEquals(actualLinkText, verifyViewAllLinkData[0][1],"Text verification failed. Expected text : " + verifyViewAllLinkData[0][1] + " Actual text : " + actualLinkText);
 			List<String> actualCssValues= commonMethods.getFontProperties(webPage, verifyViewAllLinkData[0][0], softAssert);
-			softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[1][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
+			if(testType.equalsIgnoreCase("Web")){
+				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[1][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
+			}else{
+				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[6][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
+			}
 			softAssert.assertTrue(actualCssValues.get(1).contains(verifyViewAllLinkData[2][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[2][1] + " Actual Value : " + actualCssValues.get(1));
 			if(!browserName.equalsIgnoreCase("IE")){
 				softAssert.assertTrue(actualCssValues.get(2).contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
 			}else{
-				softAssert.assertTrue(actualCssValues.get(2).contains(verifyViewAllLinkData[4][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[4][1] + " Actual Value : " + actualCssValues.get(2));
+				softAssert.assertTrue(actualCssValues.get(2).replaceAll("'", "").contains(verifyViewAllLinkData[4][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[4][1] + " Actual Value : " + actualCssValues.get(2));
 			}
-			
+
 			String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyViewAllLinkData[0][0], verifyViewAllLinkData[0][1], softAssert);
 			softAssert.assertTrue(actualUrl.contains(verifyViewAllLinkData[5][1]),"URL verification failed for link : '" + verifyViewAllLinkData[0][1] + "'. Expected URL - "+ verifyViewAllLinkData[5][1] + " Actual URL - " + actualUrl);
 			softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "Verify_ViewAll_Link");
+			mainPage.getScreenShotForFailure(webPage, "Verify_View_All_Link");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -604,14 +586,12 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-			if (browserName.equalsIgnoreCase("Chrome")) {
-				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-			}
+			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			String[][] verifyAllStoreLocatorData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllStoreLocatorLinks");
 			for(int i=0;i<verifyAllStoreLocatorData.length;i++){
 				commonMethods.navigateToPage(webPage, commonData[0][1], softAssert);
 				String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyAllStoreLocatorData[i][2], verifyAllStoreLocatorData[i][1], softAssert);
-				softAssert.assertTrue(actualUrl.contains(verifyAllStoreLocatorData[i][3]),"Expected - "+verifyAllStoreLocatorData[i][1]);
+				softAssert.assertTrue(actualUrl.contains(verifyAllStoreLocatorData[i][3]),"Expected URL: "+verifyAllStoreLocatorData[i][3]+" Actual URL: "+actualUrl);
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
@@ -625,24 +605,83 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_Visit_Store_Page_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			String[][] verifyStorePageData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyVisitStorePageLink");
+			String storeText="";
 			for(int i=0;i<verifyStorePageData.length;i++){
 				commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 				commonMethods.clickElementbyXpath(webPage, verifyStorePageData[i][1],softAssert);
 				String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyStorePageData[i][3], verifyStorePageData[i][0]+" -"+verifyStorePageData[i][2], softAssert);
 				softAssert.assertTrue(actualUrl.contains(verifyStorePageData[i][4]),"Expected - "+verifyStorePageData[i][4]+"Actual - "+actualUrl);
-				String storeText = commonMethods.getTextbyXpath(webPage, verifyStorePageData[i][5], softAssert);
+				if(testType.equalsIgnoreCase("Web")){
+					storeText = commonMethods.getTextbyXpath(webPage, verifyStorePageData[i][5], softAssert);	
+				}else{
+					storeText = commonMethods.getTextbyXpath(webPage, verifyStorePageData[i][9], softAssert);
+				}
 				softAssert.assertEquals(storeText, verifyStorePageData[i][6],"Text verification failed. Expected text: " + verifyStorePageData[i][6] + " Actual text: " + storeText);
 				String customerReviewText = commonMethods.getTextbyXpath(webPage, verifyStorePageData[i][7], softAssert);
 				softAssert.assertTrue(customerReviewText.contains(verifyStorePageData[i][8]),"Text verification failed. Expected text: " + verifyStorePageData[i][8] + " Actual text: " + customerReviewText);
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "Verify_Store_Page");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Visit_Store_Page_Link");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+	
+	@Test(enabled = true, priority = 19, description = "Verify functionality of Store Page")
+	public void Verify_Store_Distance_In_Miles() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			String[][] verifyStoreDistanceInMilesData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyStoreDistanceInMiles");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
+			commonMethods.clearTextBox(webPage, verifyStoreDistanceInMilesData[1][0], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, verifyStoreDistanceInMilesData[1][0],verifyStoreDistanceInMilesData[0][1], softAssert);
+			Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyStoreDistanceInMilesData[4][0], softAssert));
+			select.selectByValue(verifyStoreDistanceInMilesData[2][1]);
+			commonMethods.clickElementbyXpath(webPage, verifyStoreDistanceInMilesData[2][0], softAssert);
+			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+			softAssert.assertTrue(actualUrl.contains(verifyStoreDistanceInMilesData[5][1]),"URL mismatch. Expected URL: "+verifyStoreDistanceInMilesData[5][1]+", Actual URL: "+actualUrl);
+			String search10MilesActualData = commonMethods.getTextbyXpath(webPage, verifyStoreDistanceInMilesData[3][0], softAssert);
+			softAssert.assertTrue(search10MilesActualData.contains(verifyStoreDistanceInMilesData[1][1]),"Text verification failed. Expected Text : " + verifyStoreDistanceInMilesData[1][1] + " Actual Text : "+ search10MilesActualData);
+			String search10MilesActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyStoreDistanceInMilesData[3][0], "color", softAssert);
+			softAssert.assertTrue(search10MilesActualColor.contains(verifyStoreDistanceInMilesData[6][1]),"CSS value verification failed for " + search10MilesActualData + ". Expected value: "+ verifyStoreDistanceInMilesData[6][1] + ", Actual value: " + search10MilesActualColor);
+			select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyStoreDistanceInMilesData[4][0], softAssert));
+			select.selectByValue(verifyStoreDistanceInMilesData[3][1]);
+			commonMethods.clickElementbyXpath(webPage, verifyStoreDistanceInMilesData[5][0], softAssert);
+			String search100MilesActualData = commonMethods.getTextbyXpath(webPage, verifyStoreDistanceInMilesData[6][0], softAssert);
+			softAssert.assertTrue(search100MilesActualData.contains(verifyStoreDistanceInMilesData[4][1]),"Text verification failed. Expected Text : " + verifyStoreDistanceInMilesData[4][1] + " Actual Text : "+ search100MilesActualData);
+			String search100MilesActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyStoreDistanceInMilesData[6][0], "color", softAssert);
+			softAssert.assertTrue(search100MilesActualColor.contains(verifyStoreDistanceInMilesData[6][1]),"CSS value verification failed for " + search100MilesActualData + ". Expected value: "+ verifyStoreDistanceInMilesData[6][1] + ", Actual value: " + search100MilesActualColor);			
+			softAssert.assertAll();
+		}catch(Throwable e){
+			mainPage.getScreenShotForFailure(webPage, "Verify_Store_Distance_In_Miles");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	@Test(enabled = true, priority = 20, description = "Verify functionality of Store Page")
+	public void Verify_All_Store_Locator_Page_Text() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			String[][] verifyAllStoreLocatorPageTextData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllStoreLocatorPageText");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
+			commonMethods.clickElementbyXpath(webPage, verifyAllStoreLocatorPageTextData[0][0],softAssert);
+			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+			softAssert.assertTrue(actualUrl.contains(verifyAllStoreLocatorPageTextData[2][1]),"URL verification failed. Expected - "+verifyAllStoreLocatorPageTextData[2][1]+"Actual - "+actualUrl);
+			String allStoreLocatorPageText = commonMethods.getTextbyXpath(webPage, verifyAllStoreLocatorPageTextData[1][0], softAssert);
+			softAssert.assertEquals(allStoreLocatorPageText, verifyAllStoreLocatorPageTextData[1][1],"Text verification failed. Expected text: " + verifyAllStoreLocatorPageTextData[1][1] + " Actual text: " + allStoreLocatorPageText);
+			softAssert.assertAll();
+		}catch(Throwable e){
+			mainPage.getScreenShotForFailure(webPage, "Verify_All_Store_Locator_Page_Text");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
 }
