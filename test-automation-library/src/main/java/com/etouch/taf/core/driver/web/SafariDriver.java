@@ -45,15 +45,17 @@ public class SafariDriver extends DriverBuilder {
 
 			// if the tool is mentioned as selenium in devconfig.yml then create
 			// a Selenium safari Driver
+		
 			if (ConfigUtil.isSelenium()) {
-
-				try {
+			
+				//Commented below code, as we will be creating a local selenium driver
+			/*	try {
 					Runtime.getRuntime().exec("java -jar " + TestBedManagerConfiguration.INSTANCE.getWebConfig().getSeleniumServerPath());
 				} catch (IOException e) {
 
 					log.debug("IOException", e);
 				}
-
+				*/
 				driver = SeleniumDriver.buildSafariDriver();
 			}
 		} else if (ConfigUtil.isRemoteEnv(testBed.getTestBedName())) {

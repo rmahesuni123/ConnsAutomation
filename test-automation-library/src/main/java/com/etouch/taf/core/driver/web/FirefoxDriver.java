@@ -40,9 +40,18 @@ public class FirefoxDriver extends WebDriver {
 			// selenium FireFox driver
 			if (ConfigUtil.isSelenium()) {
 				File firefoxDriverFile=getFireFoxDriverFile();
-				driver = SeleniumDriver.buildFireFoxDriver();
 				System.out.println("Without location");
 				//	driver =SeleniumDriver.buildFireFoxDriver(firefoxDriverFile);
+				
+				//disabling geo location
+				FirefoxProfile geoDisabled = new FirefoxProfile();
+				geoDisabled.setPreference("geo.enabled", false);
+				geoDisabled.setPreference("geo.provider.use_corelocation", false);
+				geoDisabled.setPreference("geo.prompt.testing", false);
+				geoDisabled.setPreference("geo.prompt.testing.allow", false);
+				DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+				capabilities.setCapability(org.openqa.selenium.firefox.FirefoxDriver.PROFILE, geoDisabled);
+				driver = SeleniumDriver.buildFireFoxDriver(capabilities);
 			}
 		} else if (ConfigUtil.isRemoteEnv(testBed.getTestBedName())) {
 
@@ -50,6 +59,10 @@ public class FirefoxDriver extends WebDriver {
 
 				FirefoxProfile ffProfile = new FirefoxProfile();
 				ffProfile.setEnableNativeEvents(false);
+				ffProfile.setPreference("geo.enabled", false);
+				ffProfile.setPreference("geo.provider.use_corelocation", false);
+				ffProfile.setPreference("geo.prompt.testing", false);
+				ffProfile.setPreference("geo.prompt.testing.allow", false);
 				capabilities = DesiredCapabilities.firefox();
 				capabilities.setCapability(
 						org.openqa.selenium.firefox.FirefoxDriver.PROFILE,

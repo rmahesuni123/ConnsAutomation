@@ -14,6 +14,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
@@ -36,11 +37,11 @@ public class SeleniumDriver {
 	 * @throws DriverException
 	 *             the driver exception
 	 */
-	public static WebDriver buildFireFoxDriver() throws DriverException {
+	public static WebDriver buildFireFoxDriver(DesiredCapabilities capabilities) throws DriverException {
 		System.out.println("in here nnn33");
-		 System.setProperty("webdriver.gecko.driver","D:\\SeleniumDrivers\\geckodriver.exe");
-		 WebDriver driver = new FirefoxDriver();
-		 driver.get("http://www.seleniumeasy.com/selenium-tutorials/launching-firefox-browser-with-geckodriver-selenium-3");
+		 //System.setProperty("webdriver.gecko.driver","D:\\SeleniumDrivers\\geckodriver.exe");
+		 WebDriver driver = new FirefoxDriver(capabilities);
+		 //driver.get("http://www.seleniumeasy.com/selenium-tutorials/launching-firefox-browser-with-geckodriver-selenium-3");
 		/*DesiredCapabilities capabilities=DesiredCapabilities.firefox();
 		capabilities.setCapability("marionette", true);*/
 		System.out.println("New 212121 marionette");
@@ -79,7 +80,7 @@ public class SeleniumDriver {
 	 * @throws DriverException
 	 *             the driver exception
 	 */
-	public static RemoteWebDriver buildSafariDriver() throws DriverException {
+	/*public static RemoteWebDriver buildSafariDriver() throws DriverException {
 
 		DesiredCapabilities dc = DesiredCapabilities.safari();
 		RemoteWebDriver driver = null;
@@ -88,6 +89,18 @@ public class SeleniumDriver {
 		} catch (MalformedURLException e) {
 
 			log.debug("MalformedURLException", e);
+		}
+		return driver;
+	}*/
+	
+	//Updated below method to create local safari driver
+	public static WebDriver buildSafariDriver() throws DriverException {
+		WebDriver driver = null;
+		try {
+			driver = new SafariDriver();
+		} catch (Exception e) {
+
+			log.debug("Exception", e);
 		}
 		return driver;
 	}
