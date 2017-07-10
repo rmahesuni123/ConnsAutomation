@@ -36,7 +36,7 @@ import com.etouch.taf.webui.selenium.WebPage;
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
 public class Conns_Product_Search extends BaseTest {
 	static String platform;
-	static Log log = LogUtil.getLog(TestConnsHomePage.class);
+	static Log log = LogUtil.getLog(Conns_Product_Search.class);
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
 			.concat("/ConnsTestData/Output/Env/Video");
