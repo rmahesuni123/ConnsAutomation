@@ -117,7 +117,7 @@ webConfig:
  testngClass:
  - className: com.etouch.connsTests.TestConnsHomePageNew
    methodList: []
- currentTestBeds: [Firefox]
+ currentTestBeds: [Chrome]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
  #FireFox TestBed
