@@ -116,7 +116,7 @@ webConfig:
  testEnv: local
  testngClass:
  - className: com.etouch.connsTests.Conns_Store_Locator_Page
-   methodList: [Verify_StoreLocator_PageTitle,Verify_HomePlus_Component,Verify_ChoseYourRegion_Links]
+   methodList: []
  currentTestBeds: [Chrome]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
