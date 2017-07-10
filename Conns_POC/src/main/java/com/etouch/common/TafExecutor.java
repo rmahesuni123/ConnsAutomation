@@ -65,7 +65,7 @@ public class TafExecutor {
 		CommonUtil.sop(" On initialize");
 
 		String currentTestBedName = System.getProperty("TESTBEDNAME");
-		String currentEnvironment = System.getProperty("ENVIRONMENT");
+		String currentEnvironment = System.getenv().get("Environment");//System.getProperty("ENVIRONMENT");
 
 		log.debug("1.CurrentTestBedname: " + currentTestBedName);
 		log.debug("2.CurrentEnvronment: " + currentEnvironment);
