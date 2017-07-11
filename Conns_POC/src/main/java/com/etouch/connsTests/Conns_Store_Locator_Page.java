@@ -304,7 +304,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	}
 
 	@Test(enabled = true, priority = 8, description = "Verify content for all region pages")
-	public void Verify_AllRegions_PageContent() throws PageException, InterruptedException {
+	public void Verify_All_Regions_Page_Content() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] regionPageTextdata = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllRegionsPageTemplate");
@@ -322,13 +322,17 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					if(actualUrlGoogleMap.contains("/dir//")){
 						actualUrlGoogleMap=actualUrlGoogleMap.replace("/dir//", "?daddr=");
 					}
+					if(actualUrlGoogleMap.contains("daddr=Conn's+HomePlus,+")){
+						actualUrlGoogleMap=actualUrlGoogleMap.replace("daddr=Conn's+HomePlus,+", "?daddr=");
+					}
+					log.info("77777777777 - :"+actualUrlGoogleMap);
 					log.info("Google Map actual link :" +actualUrlGoogleMap);
 					softAssert.assertTrue(actualUrlGoogleMap.startsWith(keyData[j][3]),"Url verification failed. Expected URL : "+keyData[j][3]+". Actual URL : "+actualUrlGoogleMap);
 				}
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "Verify_AllRegions_PageContent");
+			mainPage.getScreenShotForFailure(webPage, "Verify_All_Regions_Page_Content");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
