@@ -115,9 +115,9 @@ webConfig:
  seleniumServerPath: ..\\test-automation-library\\resources\\selenium-server-standalone-2.48.2.jar
  testEnv: local
  testngClass:
- - className: com.etouch.connsTests.TestConnsHomePageNew
+ - className: com.etouch.connsTests.Conns_Home_Page
    methodList: []
- currentTestBeds: [Firefox]
+ currentTestBeds: [Chrome]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
  #FireFox TestBed
