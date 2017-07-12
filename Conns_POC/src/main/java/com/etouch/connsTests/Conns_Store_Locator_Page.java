@@ -317,7 +317,10 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				for (int j = 0; j < keyData.length; j++) {
 					String subkey = keyData[j][0];
 					String pageContentText = commonMethods.getTextbyXpath(webPage, subkey, softAssert);
-					softAssert.assertTrue(pageContentText.contains(keyData[j][1]),"Expected Text : " + keyData[j][1] + " Actual Text : " + pageContentText);
+					if(testType.equalsIgnoreCase("Mobile")){
+						pageContentText=pageContentText.replace("Mon-Fri", "Store Hours\nMon-Fri");
+					}
+					softAssert.assertTrue(pageContentText.contains(keyData[j][1]),"Text verification failed for region "+regionPageTextdata[i][1]+". Expected Text : " + keyData[j][1] + " Actual Text : " + pageContentText);
 					String actualUrlGoogleMap = commonMethods.clickAndGetPageURL(webPage, keyData[j][2], "Get Directions Region - "+regionPageTextdata[i][0],softAssert);
 					if(actualUrlGoogleMap.contains("/dir//")){
 						actualUrlGoogleMap=actualUrlGoogleMap.replace("/dir//", "?daddr=");
