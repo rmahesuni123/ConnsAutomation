@@ -133,7 +133,7 @@ public class WebPage {
 	 */
 	public void loadPage(String pageUrl) {
 		this.driver.get(pageUrl);
-		//maximizeWindow();
+		maximizeWindow();
 
 	}
 
