@@ -21,7 +21,6 @@ import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.BaseTest;
 import com.etouch.common.TafExecutor;
-import com.etouch.connsPages.ConnsHomePageNew;
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;

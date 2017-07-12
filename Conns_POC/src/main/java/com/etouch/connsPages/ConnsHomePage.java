@@ -11,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -29,7 +30,7 @@ import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
-public class ConnsHomePageNew extends CommonPage {
+public class ConnsHomePage extends CommonPage {
 
 	/**
 	 *
@@ -39,11 +40,11 @@ public class ConnsHomePageNew extends CommonPage {
 	 *            the web page
 	 */
 
-	static Log log = LogUtil.getLog(ConnsHomePageNew.class);
+	static Log log = LogUtil.getLog(ConnsHomePage.class);
 	String testType;
 	String testBedName;
 
-	public ConnsHomePageNew(String sbPageUrl, WebPage webPage) {
+	public ConnsHomePage(String sbPageUrl, WebPage webPage) {
 		super(sbPageUrl, webPage);
 		CommonUtil.sop("webDriver in eTouchWebSite Page : " + webPage.getDriver());
 		loadPage();
@@ -91,43 +92,43 @@ public class ConnsHomePageNew extends CommonPage {
 
 	public List<String> verifyYourCart(String[][] test, String testType) throws PageException, InterruptedException {
 		List<String> actualValueList=new ArrayList<String>();
+		webPage.getDriver().manage().window().maximize();
 		webPage.waitForWebElement(By.xpath(test[0][0]));
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
 				// hover on parent menu option in desktop browser
 				webPage.hoverOnElement(By.xpath(test[0][0]));
 				log.info("Clicking on Sub - link");
-				webPage.findObjectByxPath(test[0][1]).click();
-				String ExpectedProduct = webPage.findObjectByxPath(test[0][2]).getText();
-				actualValueList.add(ExpectedProduct);
-				log.info("Clicking on product");
+				webPage.findObjectByxPath(test[0][1]).click();				
+				log.info("Clicking on product Add to Cart");				
+				Thread.sleep(3000);
+				JavascriptExecutor jse1 = (JavascriptExecutor) webPage.getDriver();
+				jse1.executeScript("scroll(500,500);");					
 				webPage.findObjectByxPath(test[0][2]).click();
-				log.info("Clicking on Add to product");
-				webPage.findObjectByxPath(test[0][3]).click();
-
-				String ZipCode = test[0][5];
-
+	
+/*				String ZipCode = test[0][5];
 				log.info("Adding Zip code");
-
 				webPage.findObjectByxPath(test[0][4]).clear();
 				webPage.findObjectByxPath(test[0][4]).sendKeys(ZipCode);
+				log.info("Zip Code Entered");
 				log.info("Clicking on Update button");
-
 				webPage.findObjectByxPath(test[0][6]).click();
-				Thread.sleep(8000);
 
+				
 				log.info("Clicking on Add to Cart button");
 				webPage.findObjectByxPath(test[0][7]).click();
+				
 				log.info("Clicking on YourCart link");
 				webPage.findObjectByxPath(test[0][8]).click();
 
 				String ExpecyedProductinCart = webPage.findObjectByxPath(test[0][9]).getText();
 				actualValueList.add(ExpecyedProductinCart);
+				actualValueList.add(ExpecyedProductinCart);
 				log.info("Clicking on CheckOut button");
 				webPage.findObjectByxPath(test[0][10]).click();
 				String ExpectedURL = test[0][11];
 				String actualUrl = webPage.getCurrentUrl();
-				actualValueList.add(actualUrl);
+				actualValueList.add(actualUrl);*/
 			}
 
 		} catch (Exception e) {
