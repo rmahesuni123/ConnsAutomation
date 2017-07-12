@@ -294,7 +294,7 @@ public class Conns_Home_Page extends BaseTest {
 					System.out.println("Inside the 2nd if. Value of I -"+i);
 					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][2],
 							testData[i][0],testData[i][5],softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),"Link Name  :"+ testData[i][0] + " : failed " +"Actual URL is  :"+ ActualURL + " " +"Expected URL is  :"+ testData[i][4]);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Link Name  :"+ testData[i][0] + " : failed " +"Actual URL is  :"+ ActualURL + " " +"Expected URL is  :"+ testData[i][4]);
 				}
 				if(testType.equalsIgnoreCase("Web"))
 				{
@@ -302,7 +302,7 @@ public class Conns_Home_Page extends BaseTest {
 					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1],
 							testData[i][0],testData[i][5],softAssert);
 
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),"Link Name  :"+ testData[i][0] + " : failed " +"Actual URL is  :"+ ActualURL + " " +"Expected URL is  :"+ testData[i][4]);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Link Name  :"+ testData[i][0] + " : failed " +"Actual URL is  :"+ ActualURL + " " +"Expected URL is  :"+ testData[i][4]);
 				}
 				webPage.getDriver().get(url);
 
