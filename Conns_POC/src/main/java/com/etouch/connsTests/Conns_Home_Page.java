@@ -265,7 +265,7 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_LinksRedirection_Of_Above_Header_Section() {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksAboveHeader");
 
@@ -317,7 +317,7 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 5, enabled = true, description = "Verify_Your_Cart_Functionality")
 	public void Verify_Your_Cart_Functionality() {
 		SoftAssert softAssert = new SoftAssert();
-		// webPage.getDriver().get(url);
+		 webPage.getDriver().get(url);
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
 				String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYourCart");
@@ -394,7 +394,8 @@ public class Conns_Home_Page extends BaseTest {
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyLinksForFurnitureAndMattresses");
@@ -452,7 +453,8 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_LinksRedirection_Under_Appliances_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForAppliance");
 			for (int i = 0; i < testData.length; i++) {
@@ -498,7 +500,8 @@ public class Conns_Home_Page extends BaseTest {
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyLinksForTvAudioElectronics");
@@ -546,7 +549,8 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_LinksRedirection_Under_ComputerAccessories_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyLinksForComputerAccessories");
@@ -593,7 +597,8 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_LinksRedirection_Under_FinancingPromotions_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyLinksForFinancingPromotions");
