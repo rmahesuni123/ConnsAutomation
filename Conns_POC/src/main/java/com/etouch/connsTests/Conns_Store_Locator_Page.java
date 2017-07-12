@@ -204,9 +204,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					String beforeLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);
 					commonMethods.hoverOnelementbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
 					String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);
-					softAssert.assertNotEquals(afterLinkHover, beforeLinkHover,
-							"CSS value verification failed for link " + TexasSubLinksData[i][0] + ". Value before hover : "
-									+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
+					if(!TexasSubLinksData[i][0].equalsIgnoreCase("Laredo")){
+						softAssert.assertNotEquals(afterLinkHover, beforeLinkHover,"CSS value verification failed for link " + TexasSubLinksData[i][0] + ". Value before hover : "+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
+						}
 				}
 				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 				String textOnLink = commonMethods.getTextbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
@@ -325,8 +325,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					if(actualUrlGoogleMap.contains("daddr=Conn's+HomePlus,+")){
 						actualUrlGoogleMap=actualUrlGoogleMap.replace("daddr=Conn's+HomePlus,+", "?daddr=");
 					}
-					log.info("77777777777 - :"+actualUrlGoogleMap);
-					log.info("Google Map actual link :" +actualUrlGoogleMap);
 					softAssert.assertTrue(actualUrlGoogleMap.startsWith(keyData[j][3]),"Url verification failed. Expected URL : "+keyData[j][3]+". Actual URL : "+actualUrlGoogleMap);
 				}
 			}
