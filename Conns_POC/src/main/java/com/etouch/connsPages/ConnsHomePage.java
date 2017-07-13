@@ -14,8 +14,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -273,6 +277,33 @@ public class ConnsHomePage extends CommonPage {
 	}
 	
 	
+	public void waitPageToLoad() throws InterruptedException{
+		
+		 ExpectedCondition<Boolean> pageLoadCondition = new
+			     ExpectedCondition<Boolean>() {
+			    public Boolean apply(WebDriver driver) {
+			     return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+			    }
+			   };
+			   int i =0;
+			   while(i<3) {
+			    try{
+			     //Max wait 30 seconds
+			     WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 30);
+			     wait.until(pageLoadCondition);
+			     log.debug("Wait for page load completed.");
+			     break;
+			    }
+			    catch(org.openqa.selenium.TimeoutException e)
+			    {
+			    	webPage.getDriver().navigate().refresh();
+			     Thread.sleep(3000);
+			     i++;
+			     log.debug(i+"Page still loading");
+			    }
+			   }
+	}
+	
 	/**
 	 * @author Name - Shantanu Kulkarni
 	 * The method used to click on link using x-path and return page url
@@ -307,5 +338,41 @@ public class ConnsHomePage extends CommonPage {
 		}
 		return pageUrl;
 	}	
-	
+	/**
+	 * @author Name - Shantanu Kulkarni
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String HoverAndclickAndGetPageURL_connsHome(WebPage webPage,String hoverlocator, String locator, String linkName, String TargetPageLocator, SoftAssert softAssert) throws PageException{
+		String mainWindow = webPage.getDriver().getWindowHandle();
+		Actions action = new Actions(webPage.getDriver());
+		action.moveToElement(webPage.findObjectByxPath(hoverlocator).getWebElement()).click(webPage.findObjectByxPath(locator).getWebElement()).build().perform();
+		String pageUrl="";
+		try{
+		//	log.info("Clicking on link : "+linkName);
+			
+		//	webPage.findObjectByxPath(locator).click();
+			//webPage.waitForWebElement(By.xpath(TargetPageLocator));
+			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			if(windowHandlesSet.size()>1){
+				for(String winHandle:windowHandlesSet){
+					webPage.getDriver().switchTo().window(winHandle);
+					if(!winHandle.equalsIgnoreCase(mainWindow)){
+						log.info("More than 1 window open after clicking on link : "+linkName);
+						pageUrl=webPage.getCurrentUrl();
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(mainWindow);
+					}
+				}
+			}else{
+				pageUrl= webPage.getCurrentUrl();
+			}
+			log.info("Actual URL : "+pageUrl);
+		}catch(Throwable e){
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return pageUrl;
+	}	
 }
