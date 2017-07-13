@@ -231,11 +231,12 @@ public class Conns_Home_Page extends BaseTest {
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
 									+ actualCssValues.get(1));
-					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
+					softAssert.assertTrue(
+							actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
 									+ actualCssValues.get(2));
-					
+
 				}
 			}
 			softAssert.assertAll();
@@ -286,7 +287,7 @@ public class Conns_Home_Page extends BaseTest {
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
-					
+
 				}
 				if (testType.equalsIgnoreCase("Web")) {
 
@@ -395,7 +396,7 @@ public class Conns_Home_Page extends BaseTest {
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		 webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyLinksForFurnitureAndMattresses");
@@ -403,17 +404,14 @@ public class Conns_Home_Page extends BaseTest {
 
 				log.info("Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu: Inside for loop" + i);
 				if (testType.equalsIgnoreCase("Web")) {
-				/*	commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
-					Thread.sleep(2000);
-					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
-							testData[i][8], softAssert);*/
-					ActualURL = ConnsHomePage.HoverAndclickAndGetPageURL_connsHome2(webPage,testData[i][0], testData[i][1], testData[i][3],
-							testData[i][8], softAssert);
+					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+
+					ActualURL = ConnsHomePage.HoverAndclickAndGetPageURL_connsHome2(webPage, testData[i][0],
+							testData[i][1], testData[i][3], testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
-					webPage.getDriver().get(url);
-					}
+				}
 
 				log.info(
 						"Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu: Inside for loop before Mobile condition"
@@ -433,7 +431,6 @@ public class Conns_Home_Page extends BaseTest {
 					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
-				//	webPage.getDriver().get(url);
 				}
 				webPage.getDriver().get(url);
 				Thread.sleep(3000);
@@ -460,11 +457,15 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForAppliance");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Web")) {
-					/*commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
-					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
-							testData[i][8], softAssert);*/
-					ActualURL = ConnsHomePage.HoverAndclickAndGetPageURL_connsHome(webPage,testData[i][0], testData[i][1], testData[i][3],
-							testData[i][8], softAssert);
+					/*
+					 * commonMethods.hoverOnelementbyXpath(webPage,
+					 * testData[i][0], softAssert); ActualURL =
+					 * ConnsHomePage.clickAndGetPageURL_connsHome(webPage,
+					 * testData[i][1], testData[i][3], testData[i][8],
+					 * softAssert);
+					 */
+					ActualURL = ConnsHomePage.HoverAndclickAndGetPageURL_connsHome(webPage, testData[i][0],
+							testData[i][1], testData[i][3], testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
