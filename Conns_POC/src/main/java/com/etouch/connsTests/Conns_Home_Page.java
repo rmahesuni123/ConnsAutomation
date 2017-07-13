@@ -406,7 +406,9 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
 					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
+					log.info("ActualURL:"+ActualURL);
+					log.info("ExpectedURLShould Contain:"+testData[i][2]);
+					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
 					webPage.getDriver().get(url);
@@ -430,7 +432,7 @@ public class Conns_Home_Page extends BaseTest {
 
 					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][7], testData[i][3],
 							testData[i][8], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
+					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
 					webPage.getDriver().get(url);
