@@ -344,11 +344,14 @@ public class ConnsHomePage extends CommonPage {
 	 * Return type is String
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
+	 * @throws InterruptedException 
 	 **/
-	public String HoverAndclickAndGetPageURL_connsHome(WebPage webPage,String hoverlocator, String locator, String linkName, String TargetPageLocator, SoftAssert softAssert) throws PageException{
+	public String HoverAndclickAndGetPageURL_connsHome(WebPage webPage,String hoverlocator, String locator, String linkName, String TargetPageLocator, SoftAssert softAssert) throws PageException, InterruptedException{
 		String mainWindow = webPage.getDriver().getWindowHandle();
 		Actions action = new Actions(webPage.getDriver());
 		action.moveToElement(webPage.findObjectByxPath(hoverlocator).getWebElement()).click(webPage.findObjectByxPath(locator).getWebElement()).build().perform();
+		log.info("Clicked on Link : "+linkName);
+		waitPageToLoad();
 		String pageUrl="";
 		try{
 		//	log.info("Clicking on link : "+linkName);
