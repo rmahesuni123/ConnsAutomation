@@ -395,7 +395,7 @@ public class Conns_Home_Page extends BaseTest {
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		 webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyLinksForFurnitureAndMattresses");
@@ -411,7 +411,7 @@ public class Conns_Home_Page extends BaseTest {
 					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
-					webPage.getDriver().get(url);
+				//	webPage.getDriver().get(url);
 					log.info(
 							"Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu: Inside for loop Web condition"
 									+ i);
@@ -435,8 +435,10 @@ public class Conns_Home_Page extends BaseTest {
 					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
-					webPage.getDriver().get(url);
+				//	webPage.getDriver().get(url);
 				}
+				webPage.getDriver().get(url);
+				Thread.sleep(3000);
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
