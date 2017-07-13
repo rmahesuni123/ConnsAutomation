@@ -117,8 +117,8 @@ webConfig:
  testngClass:
  - className: com.etouch.connsTests.Conns_Home_Page
    methodList: []
- - className: com.etouch.connsTests.Conns_Store_Locator_Page
-   methodList: []
+# - className: com.etouch.connsTests.Conns_Store_Locator_Page
+ #  methodList: []
  currentTestBeds: [Chrome]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
