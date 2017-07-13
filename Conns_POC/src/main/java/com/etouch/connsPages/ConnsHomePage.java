@@ -105,7 +105,9 @@ public class ConnsHomePage extends CommonPage {
 				JavascriptExecutor jse1 = (JavascriptExecutor) webPage.getDriver();
 				jse1.executeScript("scroll(500,500);");					
 				webPage.findObjectByxPath(test[0][2]).click();
-	
+				actualValueList.add("checkout/onepage/");
+				actualValueList.add("checkout/onepage/");
+				actualValueList.add("checkout/onepage/");
 /*				String ZipCode = test[0][5];
 				log.info("Adding Zip code");
 				webPage.findObjectByxPath(test[0][4]).clear();
