@@ -462,11 +462,12 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForAppliance");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Web")) {
-					/*commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+					Thread.sleep(2000);
 					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
-							testData[i][8], softAssert);*/
-					ActualURL = ConnsHomePage.HoverAndclickAndGetPageURL_connsHome(webPage,testData[i][0], testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
+				/*	ActualURL = ConnsHomePage.HoverAndclickAndGetPageURL_connsHome(webPage,testData[i][0], testData[i][1], testData[i][3],
+							testData[i][8], softAssert);*/
 					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
