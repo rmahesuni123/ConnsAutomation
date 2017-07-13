@@ -403,7 +403,8 @@ public class Conns_Home_Page extends BaseTest {
 
 				log.info("Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu: Inside for loop" + i);
 				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+					commonMethods.hoverOnelementbyXpath1(webPage, testData[i][0], softAssert);
+					Thread.sleep(2000);
 					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
 					log.info("ActualURL: "+ActualURL);
