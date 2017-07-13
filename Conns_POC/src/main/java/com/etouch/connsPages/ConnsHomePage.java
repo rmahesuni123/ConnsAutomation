@@ -379,5 +379,42 @@ public class ConnsHomePage extends CommonPage {
 			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return pageUrl;
+	}
+	public String HoverAndclickAndGetPageURL_connsHome2(WebPage webPage,String hoverlocator, String locator, String linkName, String TargetPageLocator, SoftAssert softAssert) throws PageException, InterruptedException{
+		String mainWindow = webPage.getDriver().getWindowHandle();
+		Actions builder = new Actions(webPage.getDriver());
+		builder.moveToElement(webPage.findObjectByxPath(hoverlocator).getWebElement()).build().perform();
+		builder.moveToElement(webPage.findObjectByxPath(locator).getWebElement()).build().perform();
+		webPage.findObjectByxPath(locator).getWebElement().click();
+		
+		//Actions action = new Actions(webPage.getDriver());
+		//action.moveToElement(webPage.findObjectByxPath(hoverlocator).getWebElement(),4,4).click(webPage.findObjectByxPath(locator).getWebElement()).build().perform();
+		log.info("Clicked on Link : "+linkName);
+		waitPageToLoad();
+		String pageUrl="";
+		try{
+		//	log.info("Clicking on link : "+linkName);
+			
+		//	webPage.findObjectByxPath(locator).click();
+			//webPage.waitForWebElement(By.xpath(TargetPageLocator));
+			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			if(windowHandlesSet.size()>1){
+				for(String winHandle:windowHandlesSet){
+					webPage.getDriver().switchTo().window(winHandle);
+					if(!winHandle.equalsIgnoreCase(mainWindow)){
+						log.info("More than 1 window open after clicking on link : "+linkName);
+						pageUrl=webPage.getCurrentUrl();
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(mainWindow);
+					}
+				}
+			}else{
+				pageUrl= webPage.getCurrentUrl();
+			}
+			log.info("Actual URL : "+pageUrl);
+		}catch(Throwable e){
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return pageUrl;
 	}	
 }
