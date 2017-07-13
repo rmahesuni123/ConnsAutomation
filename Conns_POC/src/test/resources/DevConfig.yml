@@ -116,9 +116,9 @@ webConfig:
  testEnv: local
  testngClass:
  - className: com.etouch.connsTests.Conns_Home_Page
-   methodList: [Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu]
-# - className: com.etouch.connsTests.Conns_Store_Locator_Page
- #  methodList: []
+   methodList: []
+ - className: com.etouch.connsTests.Conns_Store_Locator_Page
+   methodList: []
  currentTestBeds: [Chrome]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:

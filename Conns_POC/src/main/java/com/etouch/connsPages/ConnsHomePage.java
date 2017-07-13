@@ -382,7 +382,7 @@ public class ConnsHomePage extends CommonPage {
 		return pageUrl;
 	}
 
-	public String HoverAndclickAndGetPageURL_connsHome2(WebPage webPage, String hoverlocator, String locator,
+	public String clickAndGetPageURLUsingJS(WebPage webPage, String locator,
 			String linkName, String TargetPageLocator, SoftAssert softAssert)
 			throws PageException, InterruptedException {
 
