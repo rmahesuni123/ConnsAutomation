@@ -317,6 +317,8 @@ public class ConnsHomePage extends CommonPage {
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			webPage.findObjectByxPath(locator).click();
+			log.info("Clicked on Link : "+linkName);
+			waitPageToLoad();
 			//webPage.waitForWebElement(By.xpath(TargetPageLocator));
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
 			if(windowHandlesSet.size()>1){
@@ -349,7 +351,7 @@ public class ConnsHomePage extends CommonPage {
 	public String HoverAndclickAndGetPageURL_connsHome(WebPage webPage,String hoverlocator, String locator, String linkName, String TargetPageLocator, SoftAssert softAssert) throws PageException, InterruptedException{
 		String mainWindow = webPage.getDriver().getWindowHandle();
 		Actions action = new Actions(webPage.getDriver());
-		action.moveToElement(webPage.findObjectByxPath(hoverlocator).getWebElement()).click(webPage.findObjectByxPath(locator).getWebElement()).build().perform();
+		action.moveToElement(webPage.findObjectByxPath(hoverlocator).getWebElement(),4,4).click(webPage.findObjectByxPath(locator).getWebElement()).build().perform();
 		log.info("Clicked on Link : "+linkName);
 		waitPageToLoad();
 		String pageUrl="";
