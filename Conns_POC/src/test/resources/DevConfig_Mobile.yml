@@ -1,5 +1,5 @@
 #Note: When the changes are made for this devConfig.yml, Please remember to copy changes to testConfig.yml as well
-testTypes: [Web]
+testTypes: [Mobile]
 
 ## Execution flow for TestBeds / Test Suites / Test Cases
 kdConfig:
@@ -117,9 +117,9 @@ webConfig:
  testngClass:
  - className: com.etouch.connsTests.Conns_Home_Page
    methodList: []
- - className: com.etouch.connsTests.Conns_Store_Locator_Page
-   methodList: []
- currentTestBeds: [InternetExplorer]
+ #- className: com.etouch.connsTests.Conns_Store_Locator_Page
+  # methodList: []
+ currentTestBeds: [Chrome]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
  #FireFox TestBed

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 import org.testng.asserts.SoftAssert;
@@ -200,8 +201,18 @@ public class CommonMethods {
 		}
 		return attributeValue;
 	}
-	
-	/**
+
+public void hoverOnelementbyXpath1(WebPage webPage, String locator, SoftAssert softAssert){
+	try {
+		log.info("Hovering on element using locator : "+locator);
+		String javaScript = "var evObj = document.createEvent('MouseEvents');" +
+	            "evObj.initMouseEvent(\"mouseover\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);" +
+	            "arguments[0].dispatchEvent(evObj);";
+	((JavascriptExecutor)webPage.getDriver()).executeScript(javaScript, locator);
+	} catch (Exception e) {
+		softAssert.fail("Unable to Hover on element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
+	}
+}/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to hover on element using xpath
 	 * Return type is void

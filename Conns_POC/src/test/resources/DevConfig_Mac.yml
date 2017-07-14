@@ -1,5 +1,5 @@
 #Note: When the changes are made for this devConfig.yml, Please remember to copy changes to testConfig.yml as well
-testTypes: [Web]
+testTypes: [Mobile]
 
 ## Execution flow for TestBeds / Test Suites / Test Cases
 kdConfig:
@@ -19,7 +19,7 @@ kdConfig:
  #parallelMode: testcases
 
 xlsDataConfig:
-  'testData': '..\\Conns_POC\\ConnsTestData\\Input\\Env\\conns_automation_data.xls'
+  'testData': '/Users/testing/Documents/Conns-Git/ConnsTestsAutomation/Conns_POC/ConnsTestData/Input/Env/conns_automation_data.xls'
   'stageData': '..\\Conns_POC\\src\\test\\resources\\testdata\\excel\\conns_automation_data.xls'
 
 defectManagementTool: Jira
@@ -117,9 +117,9 @@ webConfig:
  testngClass:
  - className: com.etouch.connsTests.Conns_Home_Page
    methodList: []
- - className: com.etouch.connsTests.Conns_Store_Locator_Page
-   methodList: []
- currentTestBeds: [InternetExplorer]
+# - className: com.etouch.connsTests.Conns_Store_Locator_Page
+ #  methodList: []
+ currentTestBeds: [Safari]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
  #FireFox TestBed
@@ -169,20 +169,52 @@ mobileConfig:
  tool: Appium
  testEnv: local
  testngClass:
- - className: com.etouch.connsTests.Conns_Home_Page
-   methodList: []
  - className: com.etouch.connsTests.Conns_Store_Locator_Page
    methodList: []
- currentTestBeds: [AndroidSamsung]
- #currentTestBeds: [AndroidSamsung, AndroidNexusTab, iPhoneNative, iPadNative]
+ currentTestBeds: [iPhoneNative]
+ #currentTestBeds: [iPhoneNative, iPadNative, AndroidSamsung, AndroidNexusTab]
  
 
  appiumConfig:
-  nodePath: C:/Appium/node.exe
-  appiumJSPath: C:/Appium/node_modules/appium/bin/appium.js
+  macNodePath: /usr/local/bin/node
+  macAppiumJSPath: /Applications/Appium.app/Contents/Resources/app/node_modules/appium/build/lib/main.js
 
 
  testBeds:
+ #ios TestBeds
+ - testBedName: iPhoneNative
+   port: 4733
+   device:
+    name: iPhone 6
+    udid: a1fb0cf97131a5e622e529dc86903a6339d9e298
+   browser:
+    name: Safari
+    version: 
+    driverLocation: /Users/eTouch
+   platform:
+    name: iOS
+    version: 7.1.2
+   app:
+    #appPath: /Users/eTouch/Library/Developer/Xcode/DerivedData/ideation-evvzdvaovpasljdhlrdgimxuhndo/Build/Products/Debug-iphoneos/ideation.app
+    bundleId: com.apple.samplecode.MapSearch
+
+   #ios TestBeds
+ - testBedName: iPadNative
+   port: 4773
+   device:
+    name: iPad 4th
+    #udid: c8f9d157258b64388dcbbc57da71a3fb6f758d30
+   browser:
+    name: iPad
+    version: 
+    driverLocation: /Users/eTouch
+   platform:
+    name: iOS
+    version: 7.1.1
+   app:
+    #appPath: /Users/eTouch/Library/Developer/Xcode/DerivedData/ideation-evvzdvaovpasljdhlrdgimxuhndo/Build/Products/Debug-iphoneos/ideation.app
+    bundleId: com.apple.samplecode.MapSearch
+
  - testBedName: AndroidSamsung
    port: 4733
    device:
@@ -218,37 +250,3 @@ mobileConfig:
     appPath:
     appPackage: com.android.chrome
     appActivity: com.google.android.apps.chrome.Main
-    
- #ios TestBeds
- - testBedName: iPhoneNative
-   port: 4733
-   device:
-    name: iPhone 6
-    udid: a1fb0cf97131a5e622e529dc86903a6339d9e298
-   browser:
-    name: Safari
-    version: 
-    driverLocation: /Users/eTouch
-   platform:
-    name: iOS
-    version: 7.1.2
-   app:
-    #appPath: /Users/eTouch/Library/Developer/Xcode/DerivedData/ideation-evvzdvaovpasljdhlrdgimxuhndo/Build/Products/Debug-iphoneos/ideation.app
-    bundleId: com.apple.samplecode.MapSearch
-
-   #ios TestBeds
- - testBedName: iPadNative
-   port: 4773
-   device:
-    name: iPad 4th
-    #udid: c8f9d157258b64388dcbbc57da71a3fb6f758d30
-   browser:
-    name: iPad
-    version: 
-    driverLocation: /Users/eTouch
-   platform:
-    name: iOS
-    version: 7.1.1
-   app:
-    #appPath: /Users/eTouch/Library/Developer/Xcode/DerivedData/ideation-evvzdvaovpasljdhlrdgimxuhndo/Build/Products/Debug-iphoneos/ideation.app
-    bundleId: com.apple.samplecode.MapSearch
