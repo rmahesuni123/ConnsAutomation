@@ -717,7 +717,7 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyTopCategorySection");
 			for (int i = 0; i < testData.length; i++) {
 
-				String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+				String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
 						testData[i][5], softAssert);
 				softAssert.assertTrue(ActualURL.endsWith(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
 						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
@@ -901,7 +901,7 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFollowUsSection");
 			for (int i = 0; i < testData.length; i++) {
 
-				String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+				String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
 						testData[i][5], softAssert);
 				softAssert.assertTrue(ActualURL.endsWith(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
 						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
