@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.taf.core.exception.PageException;
@@ -27,15 +29,13 @@ public class CommonMethods {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public String navigateToPage(WebPage webPage,String navigatingUrl, SoftAssert softAssert){
-		String attributeValue="";
+	public void navigateToPage(WebPage webPage,String navigatingUrl, SoftAssert softAssert){
 		try {
 			log.info("Navigating to URL: "+navigatingUrl);
 			webPage.loadPage(navigatingUrl);
 		} catch (Throwable e) {
 			softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
 		}
-		return attributeValue;
 	}
 
 	/**
@@ -92,6 +92,41 @@ public class CommonMethods {
 	
 	/**
 	 * @author Name - Deepak Bhambri
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String clickAndGetPageURL(WebPage webPage, String locator, String linkName, SoftAssert softAssert,String waitOnelementLocator){
+		String pageUrl="";
+		try{
+			log.info("Clicking on link : "+linkName);
+			String mainWindow = webPage.getDriver().getWindowHandle();
+			webPage.findObjectByxPath(locator).click();
+			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			if(windowHandlesSet.size()>1){
+				for(String winHandle:windowHandlesSet){
+					webPage.getDriver().switchTo().window(winHandle);
+					if(!winHandle.equalsIgnoreCase(mainWindow)){
+						log.info("More than 1 window open after clicking on link : "+linkName);
+						CommonMethods.waitForWebElement(By.xpath(waitOnelementLocator), webPage);
+						pageUrl=webPage.getCurrentUrl();
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(mainWindow);
+					}
+				}
+			}else{
+				pageUrl= webPage.getCurrentUrl();
+			}
+			log.info("Actual URL : "+pageUrl);
+		}catch(Throwable e){
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return pageUrl;
+	}
+	
+	/**
+	 * @author Name - Deepak Bhambri
 	 * The method used to click element using xpath 
 	 * Return type is void
 	 * Any structural modifications to the display of the link should be done by overriding this method.
@@ -113,7 +148,7 @@ public class CommonMethods {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public void clickChildElementbyXpath(WebPage webPage,String parentlocator, String locator, String linkName, SoftAssert softAssert){
+	public void clickWithChildElementbyXpath(WebPage webPage,String parentlocator, String locator, String linkName, SoftAssert softAssert){
 		try{
 			if(!parentlocator.equalsIgnoreCase("NA")){
 				log.info("Clicking on parent locator : "+parentlocator);
@@ -202,17 +237,20 @@ public class CommonMethods {
 		return attributeValue;
 	}
 
-public void hoverOnelementbyXpath1(WebPage webPage, String locator, SoftAssert softAssert){
-	try {
-		log.info("Hovering on element using locator : "+locator);
-		String javaScript = "var evObj = document.createEvent('MouseEvents');" +
-	            "evObj.initMouseEvent(\"mouseover\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);" +
-	            "arguments[0].dispatchEvent(evObj);";
-	((JavascriptExecutor)webPage.getDriver()).executeScript(javaScript, locator);
-	} catch (Exception e) {
-		softAssert.fail("Unable to Hover on element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
+	public void hoverOnelementbyXpath1(WebPage webPage, String locator, SoftAssert softAssert){
+		try {
+			log.info("Hovering on element using locator : "+locator);
+			String javaScript = "var evObj = document.createEvent('MouseEvents');" +
+					"evObj.initMouseEvent(\"mouseover\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);" +
+					"arguments[0].dispatchEvent(evObj);";
+			((JavascriptExecutor)webPage.getDriver()).executeScript(javaScript, locator);
+		} catch (Exception e) {
+			softAssert.fail("Unable to Hover on element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
 	}
-}/**
+
+	
+	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to hover on element using xpath
 	 * Return type is void
@@ -391,5 +429,15 @@ public void hoverOnelementbyXpath1(WebPage webPage, String locator, SoftAssert s
 			softAssert.fail("Unable to clear text box with locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-
+	
+	public static WebElement waitForWebElement(By by, WebPage webPage) throws PageException{
+		try{
+			WebElement element = null;
+			element = (new WebDriverWait(webPage.getDriver(), 20)).until(ExpectedConditions.presenceOfElementLocated(by));
+			return element;
+		}
+		catch (Exception e) {
+			throw new PageException("Failed to find object using given name, message : " + e.toString());
+		}
+	}
 }
