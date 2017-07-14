@@ -148,7 +148,7 @@ public class WebPage {
 			else if (new BrowserInfoUtil(testBedName).isFF() || new BrowserInfoUtil(testBedName).isIE()
 					|| new BrowserInfoUtil(testBedName).isChrome() || new BrowserInfoUtil(testBedName).isSafari()) {
 
-				this.driver.manage().window().maximize();
+			//	this.driver.manage().window().maximize();
 			}
 		}
 	}
