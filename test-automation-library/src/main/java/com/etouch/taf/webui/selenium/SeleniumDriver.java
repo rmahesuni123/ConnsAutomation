@@ -37,10 +37,10 @@ public class SeleniumDriver {
 	 * @throws DriverException
 	 *             the driver exception
 	 */
-	public static WebDriver buildFireFoxDriver(DesiredCapabilities capabilities) throws DriverException {
+	public static WebDriver buildFireFoxDriver() throws DriverException {
 		System.out.println("in here nnn33");
 		 //System.setProperty("webdriver.gecko.driver","D:\\SeleniumDrivers\\geckodriver.exe");
-		 WebDriver driver = new FirefoxDriver(capabilities);
+		 WebDriver driver = new FirefoxDriver();
 		 //driver.get("http://www.seleniumeasy.com/selenium-tutorials/launching-firefox-browser-with-geckodriver-selenium-3");
 		/*DesiredCapabilities capabilities=DesiredCapabilities.firefox();
 		capabilities.setCapability("marionette", true);*/
