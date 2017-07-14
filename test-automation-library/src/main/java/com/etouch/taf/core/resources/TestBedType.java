@@ -87,8 +87,11 @@ public enum TestBedType {
 	MICROMAX("Micromax"),
 
 	/** Samsung Device*/
-	SAMSUNG("Samsung"),
+	AndroidSAMSUNG("AndroidSamsung"),
 
+	/** Nexus Tab*/
+	AndroidNexusTab("AndroidNexusTab"),
+	
 	/**  The Android Native Browser. */
 	ANDROIDBROWSER("AndroidBrowser"),
 

@@ -64,13 +64,14 @@ public class DriverManager implements ExceptionListener
 		driverMap.put(TestBedType.KARBONN.toString(), AndroidDriver.class);
 		driverMap.put(TestBedType.LENOVO.toString(), AndroidDriver.class);
 		driverMap.put(TestBedType.MICROMAX.toString(), AndroidDriver.class);
-		driverMap.put(TestBedType.SAMSUNG.toString(), AndroidDriver.class);
+		driverMap.put(TestBedType.AndroidSAMSUNG.toString(), AndroidDriver.class);
 		driverMap.put(TestBedType.ANDROID1.toString(), AndroidDriver.class);
 		driverMap.put(TestBedType.IPHONENATIVESIM.toString(), IOSDriver.class);
 		driverMap.put(TestBedType.IPHONENATIVE.toString(), IOSDriver.class);
 		driverMap.put(TestBedType.IPADNATIVE.toString(), IOSDriver.class);
 		driverMap.put(TestBedType.IPADWEB.toString(), IOSDriver.class);
 		driverMap.put(TestBedType.IPADSIMULATOR.toString(), IOSDriver.class);
+		driverMap.put(TestBedType.AndroidNexusTab.toString(), AndroidDriver.class);
 	}
 
 	/**
