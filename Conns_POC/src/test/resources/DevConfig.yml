@@ -119,7 +119,7 @@ webConfig:
    methodList: []
  - className: com.etouch.connsTests.Conns_Store_Locator_Page
    methodList: []
- currentTestBeds: [InternetExplorer]
+ currentTestBeds: [Firefox]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
  #FireFox TestBed
