@@ -231,12 +231,11 @@ public class Conns_Home_Page extends BaseTest {
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
 									+ actualCssValues.get(1));
-					softAssert.assertTrue(
-							actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
+					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
 									+ actualCssValues.get(2));
-
+					
 				}
 			}
 			softAssert.assertAll();
@@ -275,23 +274,24 @@ public class Conns_Home_Page extends BaseTest {
 			{
 
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I -" + i);
+					System.out.println("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
 
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I -" + i);
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][2], testData[i][0],
-							testData[i][5], softAssert);
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+/*					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][2], testData[i][0],
+							testData[i][5], softAssert);*/
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
-
+					
 				}
 				if (testType.equalsIgnoreCase("Web")) {
 
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
@@ -358,29 +358,36 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_Links_In_Header_Section() {
 		SoftAssert softAssert = new SoftAssert();
 		// webPage.getDriver().get(url);
-		try {
+		String ActualURL ="";
+			try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksInHeader");
 			for (int i = 0; i < testData.length; i++) {
 
 				if (testType.equalsIgnoreCase("Mobile")) {
-					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					System.out.println("1111");
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][3], softAssert);
 
 				}
-
-				String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+				else{
+				 ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
 						testData[i][5], softAssert);
-				softAssert.assertTrue(ActualURL.endsWith(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+				 System.out.println("*4444");
+				}
+				System.out.println("5555");
+				softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
 						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
-
+				System.out.println("6666");
 				webPage.getDriver().get(url);
-
+				System.out.println("7777");
 			}
 
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Of_Above_Header_Section");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Links_In_Header_Section");
+			//mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Of_Above_Header_Section");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
+			System.out.println("*8888");
 		}
 
 	}
@@ -396,7 +403,7 @@ public class Conns_Home_Page extends BaseTest {
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		webPage.getDriver().get(url);
+		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyLinksForFurnitureAndMattresses");
@@ -405,12 +412,17 @@ public class Conns_Home_Page extends BaseTest {
 				log.info("Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu: Inside for loop" + i);
 				if (testType.equalsIgnoreCase("Web")) {
 					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
-
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage,
-							testData[i][1], testData[i][3], testData[i][8], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
+							testData[i][8], softAssert);
+					log.info("ActualURL: "+ActualURL);
+				     log.info("Expected URL Should Contain:  "+testData[i][2]);
+					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
+					webPage.getDriver().get(url);
+					log.info(
+							"Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu: Inside for loop Web condition"
+									+ i);
 				}
 
 				log.info(
@@ -426,14 +438,13 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][5], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
 
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][7], testData[i][3],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][7], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
+					webPage.getDriver().get(url);
 				}
-				webPage.getDriver().get(url);
-				Thread.sleep(3000);
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -457,16 +468,10 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForAppliance");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Web")) {
-					/*
-					 * commonMethods.hoverOnelementbyXpath(webPage,
-					 * testData[i][0], softAssert); ActualURL =
-					 * ConnsHomePage.clickAndGetPageURLUsingJS(webPage,
-					 * testData[i][1], testData[i][3], testData[i][8],
-					 * softAssert);
-					 */
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, 
-							testData[i][1], testData[i][3], testData[i][8], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
+					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
+							testData[i][8], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
 					webPage.getDriver().get(url);
@@ -477,7 +482,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][5], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
 
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][7], testData[i][3],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][7], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -513,7 +518,7 @@ public class Conns_Home_Page extends BaseTest {
 				log.info("Current value of i is : " + i);
 				if (testType.equalsIgnoreCase("Web")) {
 					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][3],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -526,9 +531,9 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][5], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
 
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][7], testData[i][3],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][7], testData[i][3],
 							testData[i][8], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
+					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
 					webPage.getDriver().get(url);
@@ -559,9 +564,9 @@ public class Conns_Home_Page extends BaseTest {
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Web")) {
 					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][3],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
+					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
 					webPage.getDriver().get(url);
@@ -572,7 +577,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][5], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
 
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][7], testData[i][3],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][7], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -606,9 +611,9 @@ public class Conns_Home_Page extends BaseTest {
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Web")) {
 					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][3],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][2]),
+					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
 					webPage.getDriver().get(url);
@@ -619,7 +624,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][5], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
 
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][7], testData[i][3],
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][7], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][2]),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -644,18 +649,37 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 12, enabled = true, description = "Verify_ApplyNow_LinkRedirection_In_YesMoney_Banner")
 	public void Verify_ApplyNow_LinkRedirection_In_YesMoney_Banner() {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYesMeBanner");
 			for (int i = 0; i < testData.length; i++) {
 
-				String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
-						testData[i][5], softAssert);
-				softAssert.assertTrue(ActualURL.endsWith(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
-						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
+					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
+				}
+
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
+					testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);					
+				}
+
 				webPage.getDriver().get(url);
 			}
 			softAssert.assertAll();
+			
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_ApplyNow_LinkRedirection_In_YesMoney_Banner");
 			softAssert.assertAll();
@@ -672,16 +696,34 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 13, enabled = true, description = "Verify_MoreInfo_LinkRedirection_In_NextDayDeleivery_Banner")
 	public void Verify_MoreInfo_LinkRedirection_In_NextDayDeleivery_Banner() {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyNextDayDeliveryBanner");
 			for (int i = 0; i < testData.length; i++) {
 
-				String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
+					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
+				}
+
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{
+				ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
 						testData[i][5], softAssert);
-				softAssert.assertTrue(ActualURL.endsWith(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
-						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
+				softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);				
+				}
+
 				webPage.getDriver().get(url);
 			}
 			softAssert.assertAll();
@@ -712,15 +754,33 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 15, enabled = true, description = "Verify_Top_Categories_LinksRedirection")
 	public void Verify_Top_Categories_LinksRedirection() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyTopCategorySection");
 			for (int i = 0; i < testData.length; i++) {
 
-				String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
-						testData[i][5], softAssert);
-				softAssert.assertTrue(ActualURL.endsWith(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
-						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
+					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
+				}
+
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{					
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
+					testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);					
+				}
+
 				webPage.getDriver().get(url);
 			}
 
@@ -742,25 +802,43 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_LearnMore_LinkRedirection_Under_Build_Your_Own_Financial_Future_Banner()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyBuildYourOwnFinancialFutureBanner");
 			for (int i = 0; i < testData.length; i++) {
 
-				if (testType.equalsIgnoreCase("Mobile")) {
-					String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][3],
-							testData[i][0], testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
-				} else {
-					String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1],
-							testData[i][0], testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
+					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
 				}
+
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{				
+/*				if (testType.equalsIgnoreCase("Mobile")) {
+					String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][3],
+							testData[i][0], testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);
+				}*/
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1],
+							testData[i][0], testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}
+
 				webPage.getDriver().get(url);
 			}
 			softAssert.assertAll();
@@ -781,23 +859,42 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_LearnMore_LinkRedirection_Under_Helping_Children_Thrive_Banner()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyHelpChildrenBanner");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile")) {
-					String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][3],
-							testData[i][0], testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
 
-				} else {
-					String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1],
+					if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+						System.out.println("Inside the first if. Value of I : " + i);
+						commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+						Thread.sleep(1000);
+					}
+
+					if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+						System.out.println("Inside the 2nd if. Value of I : " + i);
+						ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+						softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+								"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+										+ "Expected URL is  :" + testData[i][4]);						
+					}				
+					
+					if (testType.equalsIgnoreCase("Web"))
+					{							
+/*					String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][3],
 							testData[i][0], testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
+									+ "Expected URL is  :" + testData[i][4]);*/
+
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1],
+							testData[i][0], testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+					}
+
 				}
 				webPage.getDriver().get(url);
 			}
@@ -819,23 +916,42 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_LearnMore_LinkRedirection_Under_SixReasons_ToShop_Banner()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifySixReasonsBanner");
 			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile")) {
-					String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][3],
-							testData[i][0], testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
-				} else {
-					String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1],
-							testData[i][0], testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
+				
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
+					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
 				}
+
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{				
+/*				if (testType.equalsIgnoreCase("Mobile")) {
+					String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][3],
+							testData[i][0], testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);
+				} else {*/
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1],
+							testData[i][0], testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}
+
 				webPage.getDriver().get(url);
 			}
 			softAssert.assertAll();
@@ -858,23 +974,42 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 19, enabled = true, description = "Verify_LearnMore_LinkRedirection_Under_Promotions_Banner")
 	public void Verify_LearnMore_LinkRedirection_Under_Promotions_Banner() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyPromotionsBanner");
 			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile")) {
-					String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][3],
-							testData[i][0], testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
-				} else {
-					String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1],
-							testData[i][0], testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.endsWith(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
+				
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
+					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
 				}
+
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{					
+/*				if (testType.equalsIgnoreCase("Mobile")) {
+					String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][3],
+							testData[i][0], testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);
+				} else {*/
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1],
+							testData[i][0], testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}
+
 				webPage.getDriver().get(url);
 			}
 
@@ -896,15 +1031,33 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 20, enabled = true, description = "Verify_LinkRedirection_Under_Follow_Us_Section")
 	public void Verify_LinkRedirection_Under_Follow_Us_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFollowUsSection");
 			for (int i = 0; i < testData.length; i++) {
 
-				String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
-						testData[i][5], softAssert);
-				softAssert.assertTrue(ActualURL.endsWith(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
-						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
+					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
+				}
+
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{					
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
+							testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
+				}
 				webPage.getDriver().get(url);
 			}
 			softAssert.assertAll();
@@ -923,15 +1076,33 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 21, enabled = true, description = "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner")
 	public void Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyBBBRatingBanner");
 			for (int i = 0; i < testData.length; i++) {
 
-				String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
-						testData[i][5], softAssert);
-				softAssert.assertTrue(ActualURL.endsWith(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
+					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
+				}
+
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{				
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
+					testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
 						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
+				}
 				webPage.getDriver().get(url);
 			}
 			softAssert.assertAll();
@@ -952,22 +1123,38 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 22, enabled = true, description = "Verify_LinkRedirection_Under_Footer_About_Conns_Section")
 	public void Verify_LinkRedirection_Under_Footer_About_Conns_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		String ActualURL = null;
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyFooterAboutConnsLinks");
 			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile")) {
+				
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					Thread.sleep(1000);
 				}
 
-				String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
-						testData[i][5], softAssert);
-				softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
-						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
-				webPage.getDriver().get(url);
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
+					System.out.println("Inside the 2nd if. Value of I : " + i);
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
+							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
+									+ "Expected URL is  :" + testData[i][4]);					
+				}				
+				
+				if (testType.equalsIgnoreCase("Web"))
+				{			
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
+							testData[i][5], softAssert);
+					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
+							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
+				}
+				webPage.getDriver().get(url);				
 			}
 			softAssert.assertAll();
+			
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinkRedirection_Under_Footer_About_Conns_Section");
 			softAssert.assertAll();
@@ -994,7 +1181,7 @@ public class Conns_Home_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Mobile")) {
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 				}
-				String ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+				String ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
 						testData[i][5], softAssert);
 				softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
 						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);

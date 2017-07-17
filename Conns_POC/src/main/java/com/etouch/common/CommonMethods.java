@@ -440,4 +440,23 @@ public class CommonMethods {
 			throw new PageException("Failed to find object using given name, message : " + e.toString());
 		}
 	}
+	
+	
+	/**
+	 * @author Name - Shantanu Kulkarni
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String	
+	 **/
+	public String clickElementbyXpathAndGetURL(WebPage webPage, String locator, SoftAssert softAssert) throws InterruptedException{
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			webPage.findObjectByxPath(locator).click();			
+		} catch (PageException e) {
+			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+			System.out.println("*3333");			
+			}
+		return webPage.getCurrentUrl();
+	}		
+	
+	
 }

@@ -14,12 +14,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -88,14 +84,14 @@ public class ConnsHomePage extends CommonPage {
 		}
 		if (brokenImageNumber.size() > 0) {
 			Assert.fail("Image number of the broken images : " + Arrays.deepToString(brokenImageNumber.toArray())
-					+ "Image source of the broken images : " + Arrays.deepToString(brokenImageSrc.toArray()));
+			+ "Image source of the broken images : " + Arrays.deepToString(brokenImageSrc.toArray()));
 
 		}
 
 	}
 
 	public List<String> verifyYourCart(String[][] test, String testType) throws PageException, InterruptedException {
-		List<String> actualValueList = new ArrayList<String>();
+		List<String> actualValueList=new ArrayList<String>();
 		webPage.getDriver().manage().window().maximize();
 		webPage.waitForWebElement(By.xpath(test[0][0]));
 		try {
@@ -103,39 +99,38 @@ public class ConnsHomePage extends CommonPage {
 				// hover on parent menu option in desktop browser
 				webPage.hoverOnElement(By.xpath(test[0][0]));
 				log.info("Clicking on Sub - link");
-				webPage.findObjectByxPath(test[0][1]).click();
-				log.info("Clicking on product Add to Cart");
+				webPage.findObjectByxPath(test[0][1]).click();				
+				log.info("Clicking on product Add to Cart");				
 				Thread.sleep(3000);
 				JavascriptExecutor jse1 = (JavascriptExecutor) webPage.getDriver();
-				jse1.executeScript("scroll(500,500);");
+				jse1.executeScript("scroll(500,500);");					
 				webPage.findObjectByxPath(test[0][2]).click();
 				actualValueList.add("checkout/onepage/");
 				actualValueList.add("checkout/onepage/");
 				actualValueList.add("checkout/onepage/");
-				/*
-				 * String ZipCode = test[0][5]; log.info("Adding Zip code");
-				 * webPage.findObjectByxPath(test[0][4]).clear();
-				 * webPage.findObjectByxPath(test[0][4]).sendKeys(ZipCode);
-				 * log.info("Zip Code Entered"); log.info(
-				 * "Clicking on Update button");
-				 * webPage.findObjectByxPath(test[0][6]).click();
-				 * 
-				 * 
-				 * log.info("Clicking on Add to Cart button");
-				 * webPage.findObjectByxPath(test[0][7]).click();
-				 * 
-				 * log.info("Clicking on YourCart link");
-				 * webPage.findObjectByxPath(test[0][8]).click();
-				 * 
-				 * String ExpecyedProductinCart =
-				 * webPage.findObjectByxPath(test[0][9]).getText();
-				 * actualValueList.add(ExpecyedProductinCart);
-				 * actualValueList.add(ExpecyedProductinCart); log.info(
-				 * "Clicking on CheckOut button");
-				 * webPage.findObjectByxPath(test[0][10]).click(); String
-				 * ExpectedURL = test[0][11]; String actualUrl =
-				 * webPage.getCurrentUrl(); actualValueList.add(actualUrl);
-				 */
+/*				String ZipCode = test[0][5];
+				log.info("Adding Zip code");
+				webPage.findObjectByxPath(test[0][4]).clear();
+				webPage.findObjectByxPath(test[0][4]).sendKeys(ZipCode);
+				log.info("Zip Code Entered");
+				log.info("Clicking on Update button");
+				webPage.findObjectByxPath(test[0][6]).click();
+
+				
+				log.info("Clicking on Add to Cart button");
+				webPage.findObjectByxPath(test[0][7]).click();
+				
+				log.info("Clicking on YourCart link");
+				webPage.findObjectByxPath(test[0][8]).click();
+
+				String ExpecyedProductinCart = webPage.findObjectByxPath(test[0][9]).getText();
+				actualValueList.add(ExpecyedProductinCart);
+				actualValueList.add(ExpecyedProductinCart);
+				log.info("Clicking on CheckOut button");
+				webPage.findObjectByxPath(test[0][10]).click();
+				String ExpectedURL = test[0][11];
+				String actualUrl = webPage.getCurrentUrl();
+				actualValueList.add(actualUrl);*/
 			}
 
 		} catch (Exception e) {
@@ -146,9 +141,9 @@ public class ConnsHomePage extends CommonPage {
 		return actualValueList;
 	}
 
-	public List<String> verifyYourCartOnMobile(String[][] test, String testType)
-			throws PageException, InterruptedException {
-		List<String> actualValueList = new ArrayList<String>();
+
+	public List<String> verifyYourCartOnMobile(String[][] test, String testType) throws PageException, InterruptedException {
+		List<String> actualValueList=new ArrayList<String>();
 		webPage.waitForWebElement(By.xpath(test[0][0]));
 		try {
 			log.info("Clicking on Main Menu on Mobile");
@@ -162,7 +157,7 @@ public class ConnsHomePage extends CommonPage {
 
 			log.info("Get clicked product");
 			String ExpectedProduct = webPage.findObjectByxPath(test[0][11]).getText();
-			actualValueList.add(ExpectedProduct);
+			actualValueList.add(ExpectedProduct);			
 
 			log.info("Clicking Add to Cart button");
 			webPage.findObjectByxPath(test[0][4]).click();
@@ -172,17 +167,19 @@ public class ConnsHomePage extends CommonPage {
 			log.info("Clicking Update button");
 			webPage.findObjectByxPath(test[0][7]).click();
 
-			log.info("Clicking location selection radio button");
-			webPage.findObjectByxPath(test[0][12]).click();
-
+			if (webPage.findObjectByxPath(test[0][12]).isElementVisible())
+			{
+				log.info("Clicking location selection radio button");
+				webPage.findObjectByxPath(test[0][12]).click();	
+			}
 			log.info("Clicking Add to Cart 1 button");
-			webPage.findObjectByxPath(test[0][8]).click();
+			webPage.findObjectByxPath(test[0][8]).click();	
 			log.info("Clicking Proceed to Checkout button");
-			webPage.findObjectByxPath(test[0][9]).click();
+			webPage.findObjectByxPath(test[0][9]).click();				
 
 			log.info("Get product");
 			String ExpectedProduct1 = webPage.findObjectByxPath(test[0][10]).getText();
-			actualValueList.add(ExpectedProduct1);
+			actualValueList.add(ExpectedProduct1);		
 
 		} catch (Exception e) {
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -190,9 +187,10 @@ public class ConnsHomePage extends CommonPage {
 			log.error(e.getMessage());
 		}
 		return actualValueList;
-	}
+	}	
 
-	public void verifySaveBigWithConnsSection(String[][] test) throws PageException {
+	public void verifySaveBigWithConnsSection(String[][] test) throws PageException 
+	{
 		String SaveBigMenuOptionIdentifier = null;
 		String CarouselLeft = null;
 		String CarouselRight = null;
@@ -203,7 +201,7 @@ public class ConnsHomePage extends CommonPage {
 		List<String> errors = new ArrayList<String>();
 		webPage.waitForWebElement(By.xpath(test[0][0]));
 		for (int i = 0; i < test.length; i++) {
-
+			
 			try {
 
 				SaveBigMenuOptionIdentifier = test[i][0].trim();
@@ -219,9 +217,10 @@ public class ConnsHomePage extends CommonPage {
 				log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
 				webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).click();
 
-				if (testType.equalsIgnoreCase("Mobile")) {
+				if(testType.equalsIgnoreCase("Mobile"))
+				{
 					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
-					System.out.println("Expected Left: " + textAtPosition1);
+					System.out.println("Expected Left: " + textAtPosition1);					
 					for (int j = 0; j < 12; j++) {
 						webPage.findObjectByxPath(CarouselLeft).click();
 					}
@@ -238,10 +237,12 @@ public class ConnsHomePage extends CommonPage {
 					SoftAssertor.assertEquals(textAtPosition1forRightCorousal, textAtPosition2forRightCorousal,
 							" failed " + textAtPosition1forRightCorousal + " " + textAtPosition2forRightCorousal);
 
-				} else {
+				}
+				else
+				{
 					webPage.findObjectByxPath(CarouselLeft).click();
 					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
-					System.out.println("Expected Left: " + textAtPosition1);
+					System.out.println("Expected Left: " + textAtPosition1);					
 					for (int j = 0; j < 3; j++) {
 						webPage.findObjectByxPath(CarouselLeft).click();
 					}
@@ -267,151 +268,48 @@ public class ConnsHomePage extends CommonPage {
 				log.error(e.getMessage());
 			}
 		}
-		/*
-		 * if (errors.size() > 0) {
-		 * Assert.fail(Arrays.deepToString(errors.toArray()) +
-		 * " are not working as expected"); }
-		 */
-	}
-
-	public void waitPageToLoad() throws InterruptedException {
-
-		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-			}
-		};
-		int i = 0;
-		while (i < 3) {
-			try {
-				// Max wait 30 seconds
-				WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 30);
-				wait.until(pageLoadCondition);
-				log.debug("Wait for page load completed.");
-				break;
-			} catch (org.openqa.selenium.TimeoutException e) {
-				webPage.getDriver().navigate().refresh();
-				Thread.sleep(3000);
-				i++;
-				log.debug(i + "Page still loading");
-			}
+	/*	if (errors.size() > 0) {
+			Assert.fail(Arrays.deepToString(errors.toArray()) + " are not working as expected");
 		}
+*/
 	}
-
+	
+	
 	/**
-	 * @author Name - Shantanu Kulkarni The method used to click on link using
-	 *         x-path and return page url Return type is String Any structural
-	 *         modifications to the display of the link should be done by
-	 *         overriding this method.
-	 * @throws PageException
-	 *             If an input or output exception occurred
+	 * @author Name - Shantanu Kulkarni
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public String clickAndGetPageURL_connsHome(WebPage webPage, String locator, String linkName,
-			String TargetPageLocator, SoftAssert softAssert) {
-		String pageUrl = "";
-		try {
-			log.info("Clicking on link : " + linkName);
+	public String clickAndGetPageURL_connsHome(WebPage webPage, String locator, String linkName, String TargetPageLocator, SoftAssert softAssert){
+		String pageUrl="";
+		try{
+			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			webPage.findObjectByxPath(locator).click();
-			log.info("Clicked on Link : " + linkName);
-			waitPageToLoad();
-			// webPage.waitForWebElement(By.xpath(TargetPageLocator));
+			//webPage.waitForWebElement(By.xpath(TargetPageLocator));
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
-			if (windowHandlesSet.size() > 1) {
-				for (String winHandle : windowHandlesSet) {
+			if(windowHandlesSet.size()>1){
+				for(String winHandle:windowHandlesSet){
 					webPage.getDriver().switchTo().window(winHandle);
-					if (!winHandle.equalsIgnoreCase(mainWindow)) {
-						log.info("More than 1 window open after clicking on link : " + linkName);
-						pageUrl = webPage.getCurrentUrl();
+					if(!winHandle.equalsIgnoreCase(mainWindow)){
+						log.info("More than 1 window open after clicking on link : "+linkName);
+						pageUrl=webPage.getCurrentUrl();
 						webPage.getDriver().close();
 						webPage.getDriver().switchTo().window(mainWindow);
 					}
 				}
-			} else {
-				pageUrl = webPage.getCurrentUrl();
+			}else{
+				pageUrl= webPage.getCurrentUrl();
 			}
-			log.info("Actual URL : " + pageUrl);
-		} catch (Throwable e) {
-			softAssert.fail("Unable to click on link '" + linkName + ". Localized Message: " + e.getLocalizedMessage());
+			log.info("Actual URL : "+pageUrl);
+		}catch(Throwable e){
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return pageUrl;
 	}
+	
 
-	/**
-	 * @author Name - Shantanu Kulkarni The method used to click on link using
-	 *         x-path and return page url Return type is String Any structural
-	 *         modifications to the display of the link should be done by
-	 *         overriding this method.
-	 * @throws PageException
-	 *             If an input or output exception occurred
-	 * @throws InterruptedException
-	 **/
-	public String HoverAndclickAndGetPageURL_connsHome(WebPage webPage, String hoverlocator, String locator,
-			String linkName, String TargetPageLocator, SoftAssert softAssert)
-			throws PageException, InterruptedException {
-		String mainWindow = webPage.getDriver().getWindowHandle();
-		Actions action = new Actions(webPage.getDriver());
-		action.moveToElement(webPage.findObjectByxPath(hoverlocator).getWebElement(), 4, 4)
-				.click(webPage.findObjectByxPath(locator).getWebElement()).build().perform();
-		log.info("Clicked on Link : " + linkName);
-		waitPageToLoad();
-		String pageUrl = "";
-		try {
-			// log.info("Clicking on link : "+linkName);
-
-			// webPage.findObjectByxPath(locator).click();
-			// webPage.waitForWebElement(By.xpath(TargetPageLocator));
-			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
-			if (windowHandlesSet.size() > 1) {
-				for (String winHandle : windowHandlesSet) {
-					webPage.getDriver().switchTo().window(winHandle);
-					if (!winHandle.equalsIgnoreCase(mainWindow)) {
-						log.info("More than 1 window open after clicking on link : " + linkName);
-						pageUrl = webPage.getCurrentUrl();
-						webPage.getDriver().close();
-						webPage.getDriver().switchTo().window(mainWindow);
-					}
-				}
-			} else {
-				pageUrl = webPage.getCurrentUrl();
-			}
-			log.info("Actual URL : " + pageUrl);
-		} catch (Throwable e) {
-			softAssert.fail("Unable to click on link '" + linkName + ". Localized Message: " + e.getLocalizedMessage());
-		}
-		return pageUrl;
-	}
-
-	public String clickAndGetPageURLUsingJS(WebPage webPage, String locator,
-			String linkName, String TargetPageLocator, SoftAssert softAssert)
-			throws PageException, InterruptedException {
-
-		String mainWindow = webPage.getDriver().getWindowHandle();
-		WebElement element = webPage.findObjectByxPath(locator).getWebElement();
-		JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
-		executor.executeScript("arguments[0].click();", element);
-		log.info("Clicked on Link : " + linkName);
-		waitPageToLoad();
-		String pageUrl = "";
-		try {
-			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
-			if (windowHandlesSet.size() > 1) {
-				for (String winHandle : windowHandlesSet) {
-					webPage.getDriver().switchTo().window(winHandle);
-					if (!winHandle.equalsIgnoreCase(mainWindow)) {
-						log.info("More than 1 window open after clicking on link : " + linkName);
-						pageUrl = webPage.getCurrentUrl();
-						webPage.getDriver().close();
-						webPage.getDriver().switchTo().window(mainWindow);
-					}
-				}
-			} else {
-				pageUrl = webPage.getCurrentUrl();
-			}
-			log.info("Actual URL : " + pageUrl);
-		} catch (Throwable e) {
-			softAssert.fail("Unable to click on link '" + linkName + ". Localized Message: " + e.getLocalizedMessage());
-		}
-		return pageUrl;
-	}
+	
 }
