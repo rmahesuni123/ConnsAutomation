@@ -111,7 +111,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	}
 
 
-	@Test(priority = 1, enabled = true, description = "Verify Store Locator Page title")
+	@Test(priority = 101, enabled = true, description = "Verify Store Locator Page title")
 	public void Verify_StoreLocator_PageTitle() {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -130,7 +130,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 
 	}
 
-	@Test(priority = 2, enabled = true, description = "Verify Find Your Conn's HomePlus component")
+	@Test(priority = 102, enabled = true, description = "Verify Find Your Conn's HomePlus component")
 	public void Verify_HomePlus_Component() {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -157,7 +157,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 3, enabled = true, description = "Verify Store locator Region links")
+	@Test(priority = 103, enabled = true, description = "Verify Store locator Region links")
 	public void Verify_ChoseYourRegion_Links() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -188,7 +188,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 4, enabled = true, description = "Verify Texas sub links")
+	@Test(priority = 104, enabled = true, description = "Verify Texas sub links")
 	public void Verify_Texas_SubLinks() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -219,7 +219,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 5, enabled = true, description = "Verify order of Store locator links")
+	@Test(priority = 105, enabled = true, description = "Verify order of Store locator links")
 	public void Verify_Order_of_Links() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -239,7 +239,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 6, enabled = true, description = "Verify tool tip text on region links map")
+	@Test(priority = 106, enabled = true, description = "Verify tool tip text on region links map")
 	public void Verify_RegionMap_ToolTip() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -263,7 +263,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 7, enabled = true, description = "Verify region description for all region pages")
+	@Test(priority = 107, enabled = true, description = "Verify region description for all region pages")
 	public void Verify_AllRegion_PageDescription() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -295,7 +295,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 8, description = "Verify content for all region pages")
+	@Test(enabled = true, priority = 108, description = "Verify content for all region pages")
 	public void Verify_All_Regions_Page_Content() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -332,7 +332,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 9, description = "Verify alert box for empty Find Store field")
+	@Test(enabled = true, priority = 109, description = "Verify alert box for empty Find Store field")
 	public void Verify_FindStore_AlertBox() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -357,7 +357,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 10, description = "Verify Find Store field for Invalid input")
+	@Test(enabled = true, priority = 110, description = "Verify Find Store field for Invalid input")
 	public void Verify_FindStore_for_InvalidData() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -384,7 +384,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 11, description = "Verify Find Store functionality for valid input")
+	@Test(enabled = true, priority = 111, description = "Verify Find Store functionality for valid input")
 	public void Verify_FindStore_for_ValidData() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -411,7 +411,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 12, description = "Verify Find Store functionality using zip code search")
+	@Test(enabled = true, priority = 112, description = "Verify Find Store functionality using zip code search")
 	public void Verify_FindStore_with_Zipcode() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -438,7 +438,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 13, description = "Verify Find Store functionality using zip code along with radius search")
+	@Test(enabled = true, priority = 113, description = "Verify Find Store functionality using zip code along with radius search")
 	public void Verify_FindStore_with_Zipcode_and_Radius() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -480,7 +480,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = true, priority = 14, description = "Verify Find Store functionality using city search")
+	@Test(enabled = true, priority = 114, description = "Verify Find Store functionality using city search")
 	public void Verify_FindStore_with_CityName() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -507,7 +507,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = true, priority = 15, description = "Verify Find Store functionality using zip code along with radius search")
+	@Test(enabled = true, priority = 115, description = "Verify Find Store functionality using zip code along with radius search")
 	public void Verify_FindStore_with_CityName_and_Radius() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -548,7 +548,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = true, priority = 16, description = "Verify functionality of VIEW ALL link")
+	@Test(enabled = true, priority = 116, description = "Verify functionality of VIEW ALL link")
 	public void Verify_View_All_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -580,7 +580,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = true, priority = 17, description = "Verify functionality of all store locator links")
+	@Test(enabled = true, priority = 117, description = "Verify functionality of all store locator links")
 	public void Verify_All_Store_Locator_Links() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -601,7 +601,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = true, priority = 18, description = "Verify functionality of Store Page")
+	@Test(enabled = true, priority = 118, description = "Verify functionality of Store Page")
 	public void Verify_Visit_Store_Page_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -632,7 +632,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = true, priority = 19, description = "Verify functionality of Store Page")
+	@Test(enabled = true, priority = 119, description = "Verify functionality of Store Page")
 	public void Verify_Store_Distance_In_Miles() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -666,7 +666,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = true, priority = 20, description = "Verify functionality of Store Page")
+	@Test(enabled = true, priority = 120, description = "Verify functionality of Store Page")
 	public void Verify_All_Store_Locator_Page_Text() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
