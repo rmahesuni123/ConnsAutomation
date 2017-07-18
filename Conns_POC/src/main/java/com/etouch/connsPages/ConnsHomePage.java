@@ -16,12 +16,15 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
+import com.etouch.taf.core.driver.web.WebDriver;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
@@ -310,6 +313,67 @@ public class ConnsHomePage extends CommonPage {
 		return pageUrl;
 	}
 	
+	public String clickAndGetPageURLUsingJS(WebPage webPage, String locator,
+			   String linkName, String TargetPageLocator, SoftAssert softAssert)
+			   throws PageException, InterruptedException {
 
+			  String mainWindow = webPage.getDriver().getWindowHandle();
+			  WebElement element = webPage.findObjectByxPath(locator).getWebElement();
+			  JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+			  executor.executeScript("arguments[0].click();", element);
+			  log.info("Clicked on Link : " + linkName);
+			  waitPageToLoad();
+			  String pageUrl = "";
+			  try {
+			   Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			   if (windowHandlesSet.size() > 1) {
+			    for (String winHandle : windowHandlesSet) {
+			     webPage.getDriver().switchTo().window(winHandle);
+			     if (!winHandle.equalsIgnoreCase(mainWindow)) {
+			      log.info("More than 1 window open after clicking on link : " + linkName);
+			      pageUrl = webPage.getCurrentUrl();
+			      webPage.getDriver().close();
+			      webPage.getDriver().switchTo().window(mainWindow);
+			     }
+			    }
+			   } else {
+			    pageUrl = webPage.getCurrentUrl();
+			   }
+			   log.info("Actual URL : " + pageUrl);
+			  } catch (Throwable e) {
+			   softAssert.fail("Unable to click on link '" + linkName + ". Localized Message: " + e.getLocalizedMessage());
+			  }
+			  return pageUrl;
+			 }
+			 public void waitPageToLoad() throws InterruptedException {
+
+			  ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
+			   @SuppressWarnings("unused")
+			public Boolean apply(WebDriver driver) {
+			    return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			   }
+
+			@Override
+			public Boolean apply(org.openqa.selenium.WebDriver input) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			  };
+			  int i = 0;
+			  while (i < 3) {
+			   try {
+			    // Max wait 30 seconds
+			    WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 30);
+			    wait.until(pageLoadCondition);
+			    log.debug("Wait for page load completed.");
+			    break;
+			   } catch (org.openqa.selenium.TimeoutException e) {
+			    webPage.getDriver().navigate().refresh();
+			    Thread.sleep(3000);
+			    i++;
+			    log.debug(i + "Page still loading");
+			   }
+			  }
+			 }
 	
 }

@@ -290,8 +290,8 @@ public class Conns_Home_Page extends BaseTest {
 					
 				}
 				if (testType.equalsIgnoreCase("Web")) {
-
-					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
+					//replacing "clickAndGetPageURL_connsHome" method with "clickAndGetPageURLUsingJS"
+					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
