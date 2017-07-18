@@ -1,5 +1,5 @@
 #Note: When the changes are made for this devConfig.yml, Please remember to copy changes to testConfig.yml as well
-testTypes: [Web]
+testTypes: [Mobile]
 
 ## Execution flow for TestBeds / Test Suites / Test Cases
 kdConfig:
@@ -118,7 +118,7 @@ webConfig:
  - className: com.etouch.connsTests.Conns_Home_Page
    methodList: []
  - className: com.etouch.connsTests.Conns_Store_Locator_Page
-   methodList: []
+   methodList: [Verify_StoreLocator_PageTitle]  
  currentTestBeds: [Firefox]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
@@ -172,9 +172,9 @@ mobileConfig:
  - className: com.etouch.connsTests.Conns_Home_Page
    methodList: []
  - className: com.etouch.connsTests.Conns_Store_Locator_Page
-   methodList: []
- currentTestBeds: [AndroidSamsung]
- #currentTestBeds: [AndroidSamsung, AndroidNexusTab, iPhoneNative, iPadNative]
+   methodList: []  
+ currentTestBeds: [Android1]
+ #currentTestBeds: [iPhoneNative,iPadNative,Android1, Android,AndroidNative,AndroidHybrid]
  
 
  appiumConfig:
@@ -183,50 +183,52 @@ mobileConfig:
 
 
  testBeds:
- - testBedName: AndroidSamsung
-   port: 4733
-   device:
-    name: Samsung S5
-    type: device
-    udid: 320817cf646a5131
-   browser:
-    name: Chrome
-    version: 58.0.3029.83
-    driverLocation: /Users/eTouch
-   platform:
-    name: ANDROID
-    version: 6.0.1
-   app:
-    appPath:
-    appPackage: com.android.chrome
-    appActivity: com.google.android.apps.chrome.Main
-    
- - testBedName: AndroidNexusTab
-   port: 4733
+ #ios TestBeds
+ - testBedName: Android1
+   port: 4773
    device:
     name: Nexus Tab
     type: device
     udid: 0a63d36b
    browser:
-    name: Chrome
-    version: 58.0.3029.83
+    name: chrome
+    version: 52.0.2743.98
     driverLocation: /Users/eTouch
    platform:
     name: ANDROID
-    version: 6.0.1
+    version: 6.0
    app:
     appPath:
     appPackage: com.android.chrome
     appActivity: com.google.android.apps.chrome.Main
     
- #ios TestBeds
+  #ios TestBeds
+ - testBedName: AndroidNative
+   port: 4753
+   device:
+    name: Samsung
+    type: device
+    udid: ce12160c8418570504
+   browser:
+    name: chrome
+    version: 52.0.2743.98
+    driverLocation: /Users/eTouch
+   platform:
+    name: ANDROID
+    version: 5.1
+   app:
+    appPath:
+    appPackage: com.android.chrome
+    appActivity: com.google.android.apps.chrome.Main
+    
+  #ios TestBeds
  - testBedName: iPhoneNative
    port: 4733
    device:
-    name: iPhone 6
-    udid: a1fb0cf97131a5e622e529dc86903a6339d9e298
+    name: iPhone 5
+    udid: bc412d86b5a7656be47777594090468fad156071
    browser:
-    name: Safari
+    name: iPhone5
     version: 
     driverLocation: /Users/eTouch
    platform:
@@ -241,9 +243,9 @@ mobileConfig:
    port: 4773
    device:
     name: iPad 4th
-    #udid: c8f9d157258b64388dcbbc57da71a3fb6f758d30
+    udid: b260151b7058491bd4dcd99396da691f045c1bbc
    browser:
-    name: iPad
+    name: iPhone
     version: 
     driverLocation: /Users/eTouch
    platform:
@@ -252,3 +254,62 @@ mobileConfig:
    app:
     #appPath: /Users/eTouch/Library/Developer/Xcode/DerivedData/ideation-evvzdvaovpasljdhlrdgimxuhndo/Build/Products/Debug-iphoneos/ideation.app
     bundleId: com.apple.samplecode.MapSearch
+
+ #ios TestBeds
+ - testBedName: AndroidMotoG
+   port: 4733
+   device:
+    name: Moto G
+    type: device
+    udid: 0a63d36b
+   browser:
+    name: Chrome
+    version: 58.0.3029.83
+    driverLocation: /Users/eTouch
+   platform:
+    name: ANDROID
+    version: 6.0.1
+   app:
+    appPath:
+    appPackage: com.android.chrome
+    appActivity: com.google.android.apps.chrome.Main
+ 
+ #ios TestBeds
+ - testBedName: Android12
+   port: 4733
+   device:
+    name: Google Nexus 7
+    type: device
+    udid: ce12160c8418570504
+   browser:
+    name: Chrome
+    version: 52.0.2743.98
+    driverLocation: /Users/eTouch
+   platform:
+    name: ANDROID
+    version: 4.1
+   app:
+    appPath:
+    appPackage: com.android.chrome
+    appActivity: com.google.android.apps.chrome.Main
+
+ #ios TestBeds
+ - testBedName: AndroidHybrid
+   port: 4753
+   device:
+    name: Karbonn
+    type: device
+    udid: LS1437839535
+   browser:
+    name: chrome
+    version: 52.0.2743.98
+    driverLocation: /Users/eTouch
+   platform:
+    name: ANDROID
+    version: 5.1
+   app:
+    appPath:
+    appPackage: com.android.chrome
+    appActivity: com.google.android.apps.chrome.Main
+
+ 
