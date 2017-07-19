@@ -120,7 +120,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
 	private final int MAX_WAIT = 20;
 
-	private String url;
+	private String url,testEnv;
 	private String PageUrl = "";
 	private WebPage webPage;
 	private ConnsAccountAndSignInPage ConnsSignInPage;
@@ -161,8 +161,17 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					// SpecializedScreenRecorder.startVideoRecordingForDesktopBrowser(videoLocation);
 				} else {
 				}
+				testEnv = System.getenv().get("Environment");
+				System.out.println("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
-				DataFilePath = path.toAbsolutePath().toString();
+				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
+				System.out.println("DataFilePath After is : " + DataFilePath);
+				platform = testBed.getPlatform().getName().toUpperCase();
+				if (testType.equalsIgnoreCase("Web")) {
+					System.out.println("videoLocation" + videoLocation.toString().replace("Env", testEnv));
+				}
+				/*path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
+				DataFilePath = path.toAbsolutePath().toString();*/
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				String[][] test = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "PageURL");
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL() + test[0][0];
