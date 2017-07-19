@@ -456,7 +456,39 @@ public class CommonMethods {
 			System.out.println("*3333");			
 			}
 		return webPage.getCurrentUrl();
-	}		
+	}
+	
+	/**
+	 * @author Name - Asim Singh
+	 * The method used to click element using xpath 
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void doubleClickElementbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			webPage.findObjectByxPath(locator).doubleClick();
+		} catch (PageException e) {
+			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
+	
+	/**
+	 * @author Name - Asim Singh
+	 * The method used to clear element input box using xpath 
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void clearElementbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			webPage.findObjectByxPath(locator).clear();
+		} catch (PageException e) {
+			softAssert.fail("Unable to clear on inputbox using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
 	
 	
 }
