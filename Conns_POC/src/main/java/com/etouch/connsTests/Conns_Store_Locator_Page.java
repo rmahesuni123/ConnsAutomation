@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -336,20 +337,24 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_FindStore_AlertBox() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] verifyFindStoreAlertBoxData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-				"verifyFindStoreAlertBox");
-		commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-		connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
-		CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-		commonMethods.clearTextBox(webPage, verifyFindStoreAlertBoxData[0][0], softAssert);
-		commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
-		Alert alert = webPage.getDriver().switchTo().alert();
-		String alertActualText = alert.getText();
-		alert.accept();
-		softAssert.assertEquals(alertActualText, verifyFindStoreAlertBoxData[0][1],
-				"Expected Text : " + verifyFindStoreAlertBoxData[1][1] + " Actual Text : " + alertActualText);
-
-		softAssert.assertAll();
+			String[][] verifyFindStoreAlertBoxData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+					"verifyFindStoreAlertBox");
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
+			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
+			commonMethods.clearTextBox(webPage, verifyFindStoreAlertBoxData[0][0], softAssert);
+			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")){
+				JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+				js.executeScript("window.alert = function(){ return true;}");
+				commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
+			}else{
+				commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
+				Alert alert = webPage.getDriver().switchTo().alert();
+				String alertActualText = alert.getText();
+				alert.accept();
+				softAssert.assertEquals(alertActualText, verifyFindStoreAlertBoxData[0][1],"Expected Text : " + verifyFindStoreAlertBoxData[1][1] + " Actual Text : " + alertActualText);
+			}	
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_AlertBox");
 			softAssert.assertAll();
@@ -370,6 +375,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.clearTextBox(webPage, verifyFindStoreInvalidData[1][0], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, verifyFindStoreInvalidData[1][0], verifyFindStoreInvalidData[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[2][0], softAssert);
+			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")){
+				commonMethods.waitForGivenTime(7, softAssert);
+			}
 			String errorMsgActualText = commonMethods.getTextbyXpath(webPage, verifyFindStoreInvalidData[3][0], softAssert);
 			String errorMessageActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyFindStoreInvalidData[3][0],"color", softAssert);
 			softAssert.assertEquals(errorMessageActualColor, verifyFindStoreInvalidData[2][1],"Color attribute verification failed. Expected Color : " + verifyFindStoreInvalidData[2][1]+ " Actual Color : " + errorMessageActualColor);
@@ -562,16 +570,12 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			if(testType.equalsIgnoreCase("Web")){
 				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[1][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
 			}else{
-				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[6][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
+				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[5][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[5][1] + " Actual Value : " + actualCssValues.get(0));
 			}
 			softAssert.assertTrue(actualCssValues.get(1).contains(verifyViewAllLinkData[2][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[2][1] + " Actual Value : " + actualCssValues.get(1));
-			if(!browserName.equalsIgnoreCase("IE")){
-				softAssert.assertTrue(actualCssValues.get(2).contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
-			}else{
-				softAssert.assertTrue(actualCssValues.get(2).replaceAll("'", "").contains(verifyViewAllLinkData[4][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[4][1] + " Actual Value : " + actualCssValues.get(2));
-			}
+			softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
 			String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyViewAllLinkData[0][0], verifyViewAllLinkData[0][1], softAssert,commonData[2][1]);
-			softAssert.assertTrue(actualUrl.contains(verifyViewAllLinkData[5][1]),"URL verification failed for link : '" + verifyViewAllLinkData[0][1] + "'. Expected URL - "+ verifyViewAllLinkData[5][1] + " Actual URL - " + actualUrl);
+			softAssert.assertTrue(actualUrl.contains(verifyViewAllLinkData[4][1]),"URL verification failed for link : '" + verifyViewAllLinkData[0][1] + "'. Expected URL - "+ verifyViewAllLinkData[4][1] + " Actual URL - " + actualUrl);
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_View_All_Link");

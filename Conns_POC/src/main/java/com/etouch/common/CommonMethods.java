@@ -489,5 +489,17 @@ public class CommonMethods {
 		}
 	}
 	
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method is used to wait for given time	
+	 **/
+	public void waitForGivenTime(int givenTimeinSec,SoftAssert softAssert) throws InterruptedException{
+		try {
+			log.info("Waiting for given time "+givenTimeinSec+"sec");
+			Thread.sleep(givenTimeinSec*1000);			
+		} catch (Exception e) {
+			softAssert.fail("Unable to wait for given time "+givenTimeinSec+" sec. Localized Message: "+e.getLocalizedMessage());			
+		}
+	}
 	
 }
