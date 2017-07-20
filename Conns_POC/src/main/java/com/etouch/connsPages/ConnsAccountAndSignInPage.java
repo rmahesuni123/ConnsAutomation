@@ -42,6 +42,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		super(sbPageUrl, webPage);
 		log.info("webDriver in Conns Page : " + webPage.getDriver());
 		loadPage();
+		webPage.getDriver().manage().window().maximize();
 	}
 
 	public void verifyPageTitle(String[][] testdata) {
@@ -77,41 +78,32 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			if ((!(RemembermeCheckBox).isSelected()) && ((RemembermeCheckBox)).isEnabled())
 								
 			 {
-				System.out.println("Block 1");
 				 boolean checkstatus;
 				 checkstatus=RemembermeCheckBox.isSelected();
 				 if (checkstatus==false){
 					 log.info("Checkbox is already unchecked");
-					 System.out.println("Checkbox is already unchecked");  
 					 RemembermeCheckBox.click();
 					 log.info("Checked the checkbox");
-				     System.out.println("Checked the checkbox");
 				     RemembermeCheckBox.click();
 					 log.info("Unchecked the checkbox");
-				     System.out.println("Unchecked the checkbox");
 				 }
 				
 		}  
 			else if (((RemembermeCheckBox).isSelected()) && ((RemembermeCheckBox)).isEnabled())
 			{
-				System.out.println("Block 2");
 			boolean checkstatus;
 			checkstatus=RemembermeCheckBox.isSelected();
 			if (checkstatus==true) {
 				RemembermeCheckBox.click();
 				log.info("Checkbox is unchecked");
-			    System.out.println("1 Checkbox was already checked so CheckBox is unchecked now");
 			    RemembermeCheckBox.click();
 				log.info("Checkbox is checked");
-			    System.out.println("2 Checkbox was unchecked so checking the CheckBox in Step 2");
 			    RemembermeCheckBox.click();
 				log.info("Checkbox is unchecked");
-			    System.out.println("3 Checkbox was checked in Step 2 so unchecking the CheckBox in Step 3");
 			}
 			else
 			{
 			log.info("Checkbox is already unchecked");	
-			System.out.println("Checkbox is already unchecked"); 
 			}
 		}
 			}
@@ -160,17 +152,10 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Navigate_To_RWD_URL = testdata[0][8];
 		//SoftAssert softAssert = new SoftAssert();
 		try {		
-			
-			//webPage.getDriver().navigate().to(Navigate_To_OPT_URL);
 			webPage.getDriver().navigate().to(Navigate_To_RWD_URL);
 			commonMethods.sendKeysbyXpath(webPage, EmailAddressLocator, EmailAddress, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, PasswordLocator, Password, softAssert);
 			commonMethods.clickElementbyXpath(webPage, LogInButtonLocator, softAssert);
-			/*webPage.findObjectByxPath(EmailAddressLocator).sendKeys(EmailAddress);
-			webPage.findObjectByxPath(PasswordLocator).sendKeys(Password);
-			webPage.findObjectByxPath(LogInButtonLocator).click();*/
-
-			//SoftAssertor.assertEquals(webPage.getPageTitle(), TitleOfPage, "Title of the page does not match");
 
 		} catch (Throwable e) {
 			log.info("Catch block 111");
@@ -188,7 +173,6 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String ChildElementLocator = null;
 		String ExpectedURL = null;
 		String ExpectedElementName = null;
-		
 		String actualUrl = null;
 		String ActualElementName = null;
 		String EmailAddressLocator = testdata[0][0];
@@ -200,43 +184,21 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		ExpectedElementName = testdata[0][6];
 		ExpectedURL = testdata[0][7];
 		ChildElementLocator = testdata[0][8];
-		
-
-		try {
-			System.out.println("Enter");
+	try {
 			webPage.findObjectByxPath(EmailAddressLocator).sendKeys(EmailAddress);
-			System.out.println("Found");
 			webPage.findObjectByxPath(PasswordLocator).sendKeys(Password);
 			webPage.findObjectByxPath(LogInButtonLocator).click();
-			
-			System.out.println("Dragon");
 			ActualElementName = webPage.findObjectByxPath(ChildElementLocator).getText();
-			System.out.println("Assert ActualElementName : " + ActualElementName  );
-			System.out.println("Assert ExpectedElementName : " + ExpectedElementName  );
-			
 			SoftAssertor.assertEquals(ActualElementName, ExpectedElementName, "Element name does not match");
-			
-			/*webPage.findObjectByCss(ChildElementLocator).click();
-			System.out.println("ChildElementLocator got clicked : " + ChildElementLocator  );
-			Thread.sleep(3000);*/
-			
 			actualUrl = webPage.getCurrentUrl();
 			log.info("Expected URL : " + ExpectedURL);
 			log.info("Actual URL : " + actualUrl);
-			System.out.println("Actual PageTitle : " + webPage.getPageTitle()  );
-			System.out.println("Expected PageTitle : "  + TitleOfPage  );
-			System.out.println("Actual URL : "  + actualUrl  );
-			System.out.println("Expected URL : " + ExpectedURL  );
-			
-			
 			SoftAssertor.assertTrue(actualUrl.contains(ExpectedURL), "URL of the page does not match");
 			SoftAssertor.assertEquals(webPage.getPageTitle(), TitleOfPage, "Title of the page does not match");
 			//SoftAssertor.assertEquals(webPage.getPageTitle(), ElementTitle, "Title of the page does not match");
 			webPage.getDriver().navigate().back();
 			webPage.getDriver().navigate().refresh();
 			Thread.sleep(7000);
-			System.out.println("Going back to Login page");
-
 		} catch (Throwable e) {
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Login failed");
@@ -275,11 +237,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		errorMessage.add(ActualPwdErrMsg);
 		//SoftAssertor.assertEquals(ActualPwdErrMsg, ExpErrMsgPwd, "Password Error msg does not match");
 		//SoftAssertor.assertEquals(ActualEmailErrMsg, ExpErrMsgEmail, "Email address error msg does not match");
-		
 	}
 
 	}
-		
 		catch (Throwable e) {
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Login failed");
@@ -293,11 +253,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	
 	public List<String> verify_Login_Functionality_with_Blank_Input(String[][] testdata) {
-		System.out.println("Error 403 Amby Valley");
 		List<String> errorMessage = new ArrayList<String>();
 		String ActualEmailErrMsg="";
 		String ActualPwdErrMsg="";
-
 		String EmailAddlocator = testdata[1][0];
 		String EmailErrlocator = testdata[1][1];
 		String EmailAddInput = testdata[1][2];
@@ -305,13 +263,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Pwdlocator = testdata[1][4];
 		String PwdErrlocator = testdata[1][5];
 		String PwdInput = testdata[1][6];
-
 		String LoginButtLocator = testdata[1][8];
-		System.out.println("Error 404 Amby Valley");
 		try {
-
 			if (!(EmailAddInput.equalsIgnoreCase("NA") && PwdInput.equalsIgnoreCase("NA"))) {
-				System.out.println("Enter the dragon");
 				webPage.findObjectByxPath(EmailAddlocator).clear();
 				webPage.findObjectByxPath(Pwdlocator).clear();
 				webPage.findObjectByxPath(EmailAddlocator).sendKeys(EmailAddInput);
@@ -321,30 +275,21 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				ActualPwdErrMsg = webPage.findObjectByxPath(PwdErrlocator).getText();
 				errorMessage.add(ActualEmailErrMsg);
 				errorMessage.add(ActualPwdErrMsg);
-				System.out.println("errorMessage_Drama " +errorMessage.get(0));
-				System.out.println("errorMessage_Comedy " +errorMessage.get(1));
 				/*	SoftAssertor.assertEquals(ActualEmailErrMsg, ExpErrMsgEmail, "Email address error msg does not match");
 	SoftAssertor.assertEquals(ActualPwdErrMsg, ExpErrMsgPwd, "Password Error msg does not match");*/
-
 			}
-
 		}
-		
-		catch (Throwable e) {
+			catch (Throwable e) {
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Login failed");
 			log.error(e.getMessage());
-
 		}
 		System.out.println("Exit the dragon :" +errorMessage.get(0) + errorMessage.get(1));
 		return errorMessage;
-		
-
 	}	
 	
 	
 	public List<String> verify_Links_Account_Tab(String[][] testdata) {
-
 		List<String> brokenLinks = new ArrayList<String>();
 		String ParentElementLocator = null;
 		String ChildElementLocator = null;
@@ -367,12 +312,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				Expected_Page_Element_Name = testdata[r][4];
 				Expected_Page_Element_Title = testdata[r][5];
 				log.info("Parent Locator is ..." + ParentElementLocator);
-				
 				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
 				//	webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
-
 				}
-				System.out.println("Galaxy");
 				Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 				Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
 				//SoftAssertor.assertEquals(Actual_Page_ELement_Name, Expected_Page_Element_Name, "Element name does not match");
@@ -386,10 +328,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					newWindow = windows.iterator().next();
 					log.info("Existing window id is" + existingWindow);
 					log.info("New window id is" + newWindow);
-
 					webPage.getDriver().switchTo().window(newWindow);
 					Thread.sleep(3000);
-					
 					Actual_Page_URL = webPage.getCurrentUrl();
 					Actual_Page_Title = webPage.getPageTitle();
 					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
@@ -399,25 +339,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					webPage.getDriver().switchTo().window(existingWindow);
 					log.info("Expected URL : " + Expected_Page_URL);
 					log.info("Actual URL : " + Actual_Page_URL);
-					/*SoftAssertor.assertTrue(Actual_Page_URL.contains(Expected_Page_URL));
-					SoftAssertor.assertEquals(Actual_Page_Title, Expected_Page_Element_Title, "Title of the page does not match");*/
-					
-					
-				/*	ActualEmailErrMsg = webPage.findObjectByxPath(EmailErrlocator).getText();
-					ActualPwdErrMsg = webPage.findObjectByxPath(PwdErrlocator).getText();
-					errorMessage.add(ActualEmailErrMsg);
-					errorMessage.add(ActualPwdErrMsg)*/;
-					System.out.println("Actual_Element_Comedy :" +Page_URL_Title_Element_Data.get(0));
-					System.out.println("Actual_URL_Drama : " +Page_URL_Title_Element_Data.get(1));
-					System.out.println("Actual_Title_Drama : " +Page_URL_Title_Element_Data.get(2));
-					
+				
 
 				} else {
-					System.out.println("Other Block Dimension");
-					/*Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
-					Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);*/
-					//SoftAssertor.assertEquals(Actual_Page_ELement_Name, Expected_Page_Element_Name, "Element name does not match");
-					//webPage.findObjectByxPath(ChildElementLocator).click();
 					Actual_Page_URL = webPage.getCurrentUrl();
 					Actual_Page_Title = webPage.getPageTitle();
 					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
@@ -425,24 +349,12 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("Expected URL" + Expected_Page_URL);
 					log.info("Actual URL" + Actual_Page_URL);
 					try {
-					/*	SoftAssertor.assertTrue(Actual_Page_URL.contains(Expected_Page_URL));
-						SoftAssertor.assertEquals(Actual_Page_Title, Expected_Page_Element_Title,
-								"Title of the page does not match");*/
-						System.out.println("Actual_Page_URL :" +Actual_Page_URL);
-						System.out.println("Expected_Page_URL :" +Expected_Page_URL);
-						System.out.println("Actual_Page_Title :" +Actual_Page_Title);
-						System.out.println("Expected_Page_Element_Title :" +Expected_Page_Element_Title);
-						
-						System.out.println("Actual_Element_ :" +Page_URL_Title_Element_Data.get(0));
-						System.out.println("Actual_URL_ : " +Page_URL_Title_Element_Data.get(1));
-						System.out.println("Actual_Title_ : " +Page_URL_Title_Element_Data.get(2));
 						if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
 								&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
 								&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
 							webPage.getDriver().navigate().back();
 						}
-						
-					} catch (Exception e) {
+							} catch (Exception e) {
 						webPage.getDriver().navigate().back();
 					}
 				}
@@ -463,10 +375,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		return Page_URL_Title_Element_Data;
 	}
 
-	
-	
-	
-	
+
 /*	public void verifyFontandSizeOnLoginPage(String [][] test_data)
 			throws PageException, InterruptedException {
 		Thread.sleep(2000);
