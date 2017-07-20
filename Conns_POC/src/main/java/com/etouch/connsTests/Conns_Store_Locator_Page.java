@@ -203,7 +203,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					String beforeLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);
 					commonMethods.hoverOnelementbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
 					String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);
-					if(!TexasSubLinksData[i][0].equalsIgnoreCase("Laredo")){
+					if(!(TexasSubLinksData[i][0].equalsIgnoreCase("Laredo")||(TexasSubLinksData[i][0].equalsIgnoreCase("Odessa")))){
 						softAssert.assertNotEquals(afterLinkHover, beforeLinkHover,"CSS value verification failed for link " + TexasSubLinksData[i][0] + ". Value before hover : "+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
 					}
 				}
