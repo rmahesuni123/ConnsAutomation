@@ -311,29 +311,39 @@ public class ConnsHomePage extends CommonPage {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public String clickAndGetPageURL_connsHome(WebPage webPage, String locator, String linkName, String TargetPageLocator, SoftAssert softAssert){
+	public String clickAndGetPageURL_connsHome(WebPage webPage, String locator, String linkName, String TargetPageLocator, SoftAssert softAssert)
+	{
 		String pageUrl="";
 		try{
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			webPage.findObjectByxPath(locator).click();
 			//webPage.waitForWebElement(By.xpath(TargetPageLocator));
+			waitPageToLoad();
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
-			if(windowHandlesSet.size()>1){
-				for(String winHandle:windowHandlesSet){
+			if(windowHandlesSet.size()>1)
+			{
+				for(String winHandle:windowHandlesSet)
+				{
 					webPage.getDriver().switchTo().window(winHandle);
-					if(!winHandle.equalsIgnoreCase(mainWindow)){
+					if(!winHandle.equalsIgnoreCase(mainWindow))
+					{
 						log.info("More than 1 window open after clicking on link : "+linkName);
 						pageUrl=webPage.getCurrentUrl();
 						webPage.getDriver().close();
 						webPage.getDriver().switchTo().window(mainWindow);
 					}
 				}
-			}else{
+			}
+			else
+			{
+				log.info("In else block");
 				pageUrl= webPage.getCurrentUrl();
 			}
 			log.info("Actual URL : "+pageUrl);
-		}catch(Throwable e){
+		}
+		catch(Throwable e)
+		{
 			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return pageUrl;
@@ -371,6 +381,7 @@ public class ConnsHomePage extends CommonPage {
 			  }
 			  return pageUrl;
 			 }
+	
 			 public void waitPageToLoad() throws InterruptedException {
 
 			  ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {

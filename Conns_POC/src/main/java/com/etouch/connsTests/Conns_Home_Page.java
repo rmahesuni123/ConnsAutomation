@@ -788,8 +788,10 @@ public class Conns_Home_Page extends BaseTest {
 				
 				if (testType.equalsIgnoreCase("Web"))
 				{					
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
-					testData[i][5], softAssert);
+/*					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+					testData[i][5], softAssert);*/
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
+							testData[i][5], softAssert);					
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
 							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);					
 				}
@@ -1066,8 +1068,10 @@ public class Conns_Home_Page extends BaseTest {
 				
 				if (testType.equalsIgnoreCase("Web"))
 				{					
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
-							testData[i][5], softAssert);
+/*					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+							testData[i][5], softAssert);*/
+					ActualURL = ConnsHomePage.clickAndGetPageURL_connsHome(webPage, testData[i][1], testData[i][0],
+							testData[i][5], softAssert);					
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
 							+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + testData[i][4]);
 				}
