@@ -170,11 +170,12 @@ public class ConnsHomePage extends CommonPage {
 			log.info("Clicking Update button");
 			webPage.findObjectByxPath(test[0][7]).click();
 
-			if (webPage.findObjectByxPath(test[0][12]).isElementVisible())
+/*			if (webPage.findObjectByxPath(test[0][12]).isElementVisible())
 			{
 				log.info("Clicking location selection radio button");
 				webPage.findObjectByxPath(test[0][12]).click();	
-			}
+			}*/
+			Thread.sleep(4000);
 			log.info("Clicking Add to Cart 1 button");
 			webPage.findObjectByxPath(test[0][8]).click();	
 			log.info("Clicking Proceed to Checkout button");
@@ -194,6 +195,7 @@ public class ConnsHomePage extends CommonPage {
 
 	public void verifySaveBigWithConnsSection(String[][] test) throws PageException 
 	{
+		SoftAssert softAssert = new SoftAssert();
 		String SaveBigMenuOptionIdentifier = null;
 		String CarouselLeft = null;
 		String CarouselRight = null;
@@ -201,12 +203,15 @@ public class ConnsHomePage extends CommonPage {
 		String ElementPosition2 = null;
 		String ClickForDetails = null;
 		String PopUp = null;
+		int RotationCount = 0;
+		String SaveBigMenuOptionIdentifierMobile=null;
 		List<String> errors = new ArrayList<String>();
 		webPage.waitForWebElement(By.xpath(test[0][0]));
-		for (int i = 0; i < test.length; i++) {
+		for (int i = 0; i < test.length; i++) 
+		{
 			
 			try {
-
+				log.info("Value of I : " + i);
 				SaveBigMenuOptionIdentifier = test[i][0].trim();
 				CarouselLeft = test[i][1];
 				CarouselRight = test[i][2];
@@ -214,39 +219,58 @@ public class ConnsHomePage extends CommonPage {
 				ElementPosition2 = test[i][4];
 				ClickForDetails = test[i][5];
 				PopUp = test[i][6];
-
+				RotationCount = Integer.parseInt(test[i][8]);
+				SaveBigMenuOptionIdentifierMobile = test[i][9];
 				System.out.println(" " + SaveBigMenuOptionIdentifier + " " + CarouselLeft + " " + CarouselRight + " "
 						+ ElementPosition1 + " " + ElementPosition2 + " " + ClickForDetails + " " + PopUp);
-				log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
-				webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).click();
+
 
 				if(testType.equalsIgnoreCase("Mobile"))
 				{
+					log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
+					  WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifierMobile).getWebElement();
+					  JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+					  executor.executeScript("arguments[0].click();", element);							
+					//webPage.findObjectByxPath(SaveBigMenuOptionIdentifierMobile).click();					
+					Thread.sleep(3000);
 					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
 					System.out.println("Expected Left: " + textAtPosition1);					
-					for (int j = 0; j < 12; j++) {
-						webPage.findObjectByxPath(CarouselLeft).click();
+					for (int j = 0; j <= RotationCount; j++) {
+						log.info("Value of J : " + j);
+						
+						  WebElement element1 = webPage.findObjectByxPath(CarouselLeft).getWebElement();
+						  JavascriptExecutor executor1 = (JavascriptExecutor) webPage.getDriver();
+						  executor.executeScript("arguments[0].click();", element1);						
+						//webPage.findObjectByxPath(CarouselLeft).click();
+						Thread.sleep(1000);
 					}
 					String textAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
+					
+					
+					
 					System.out.println("Actual Left : " + textAtPosition2);
 					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
 							" failed " + textAtPosition1 + " " + textAtPosition2);
-					String textAtPosition1forRightCorousal = webPage.findObjectByxPath(ElementPosition1).getText();
-					for (int j = 0; j < 12; j++) {
+					
+/*					String textAtPosition1forRightCorousal = webPage.findObjectByxPath(ElementPosition1).getText();
+					for (int j = 0; j <= RotationCount; j++) {
+						log.info("Value of K : " + j);
 						webPage.findObjectByxPath(CarouselRight).click();
 					}
 					String textAtPosition2forRightCorousal = webPage.findObjectByxPath(ElementPosition1).getText();
 					System.out.println("Actual Left : " + textAtPosition2);
 					SoftAssertor.assertEquals(textAtPosition1forRightCorousal, textAtPosition2forRightCorousal,
-							" failed " + textAtPosition1forRightCorousal + " " + textAtPosition2forRightCorousal);
+							" failed " + textAtPosition1forRightCorousal + " " + textAtPosition2forRightCorousal);*/
 
 				}
 				else
 				{
+					log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
+					webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).click();					
 					webPage.findObjectByxPath(CarouselLeft).click();
 					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
 					System.out.println("Expected Left: " + textAtPosition1);					
-					for (int j = 0; j < 3; j++) {
+					for (int j = 0; j < RotationCount; j++) {
 						webPage.findObjectByxPath(CarouselLeft).click();
 					}
 					String textAtPosition2 = webPage.findObjectByxPath(ElementPosition2).getText();
@@ -257,7 +281,7 @@ public class ConnsHomePage extends CommonPage {
 					log.info("Clicked on element2");
 					String eletextAtPosition1 = webPage.findObjectByxPath(ElementPosition2).getText();
 					System.out.println("Expected Right: " + eletextAtPosition1);
-					for (int k = 0; k < 3; k++) {
+					for (int k = 0; k < RotationCount; k++) {
 						webPage.findObjectByxPath(CarouselRight).click();
 					}
 					String eletextAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
@@ -265,8 +289,10 @@ public class ConnsHomePage extends CommonPage {
 					SoftAssertor.assertEquals(eletextAtPosition1, eletextAtPosition2,
 							" failed " + eletextAtPosition1 + " " + eletextAtPosition2);
 				}
+				softAssert.assertAll();
 
-			} catch (Throwable e) {
+			} catch (Throwable e) 
+			{
 				errors.add(e.getLocalizedMessage());
 				log.error(e.getMessage());
 			}
@@ -360,10 +386,10 @@ public class ConnsHomePage extends CommonPage {
 			}
 			  };
 			  int i = 0;
-			  while (i < 3) {
+			  while (i < 1) {
 			   try {
 			    // Max wait 30 seconds
-			    WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 30);
+			    WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 10);
 			    wait.until(pageLoadCondition);
 			    log.debug("Wait for page load completed.");
 			    break;
@@ -371,7 +397,7 @@ public class ConnsHomePage extends CommonPage {
 			    webPage.getDriver().navigate().refresh();
 			    Thread.sleep(3000);
 			    i++;
-			    log.debug(i + "Page still loading");
+			    log.debug(i + " : Page still loading");
 			   }
 			  }
 			 }

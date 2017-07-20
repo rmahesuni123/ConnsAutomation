@@ -452,8 +452,7 @@ public class CommonMethods {
 			log.info("Clicking on element using xpath - "+locator);
 			webPage.findObjectByxPath(locator).click();			
 		} catch (PageException e) {
-			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
-			System.out.println("*3333");			
+			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());		
 			}
 		return webPage.getCurrentUrl();
 	}
