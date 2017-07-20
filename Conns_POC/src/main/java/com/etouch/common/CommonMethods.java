@@ -10,6 +10,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
@@ -499,6 +500,39 @@ public class CommonMethods {
 			Thread.sleep(givenTimeinSec*1000);			
 		} catch (Exception e) {
 			softAssert.fail("Unable to wait for given time "+givenTimeinSec+" sec. Localized Message: "+e.getLocalizedMessage());			
+		}
+	}
+	
+	/**
+	 * @author Name - Madhukar
+	 * get webelements in to a list and return the list to a calling method
+	 **/
+	public List<WebElement> getWebElementsbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
+		List<WebElement> element = null;
+		try{
+			log.info("Finding element using xpath :"+locator);
+			element=webPage.getDriver().findElements(By.xpath(locator));
+
+		}catch(Exception e){
+			softAssert.fail("Unable to find element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return element;
+	}
+	
+	/**
+	 * @author Name - Madhukar
+	 * selects dropdown value
+	 **/
+	public void selectDropdownByValue(WebPage webPage, String locator,String dropdownvalue ,SoftAssert softAssert) {
+		try {
+			log.info("Selecting dropdown value - "+dropdownvalue);
+
+			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
+			Select select=new Select(web);
+			select.selectByVisibleText(dropdownvalue);
+
+		} catch (Throwable e) {
+			softAssert.fail("Unable to click on element using CSS : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
 	
