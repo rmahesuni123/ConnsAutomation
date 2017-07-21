@@ -288,7 +288,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		return errorMessage;
 	}	
 	
-	
+	static int r = 0;
 	public List<String> verify_Links_Account_Tab(String[][] testdata) {
 		List<String> brokenLinks = new ArrayList<String>();
 		String ParentElementLocator = null;
@@ -296,14 +296,10 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Expected_Page_URL = null;
 		String Expected_Page_Element_Name = null;
 		String Expected_Page_Element_Title = null;
-		//String actualUrl = null;
-		//String Actual_Page_Element_Name = null;
 		List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
 		String Actual_Page_URL="";
 		String Actual_Page_Title="";
 		String Actual_Page_Element_Name="";
-
-		for (int r = 0; r < testdata.length; r++) {
 			try {
 				log.info("Verifying " + testdata[r][0]);
 				ParentElementLocator = testdata[r][1];
@@ -312,9 +308,11 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				Expected_Page_Element_Name = testdata[r][4];
 				Expected_Page_Element_Title = testdata[r][5];
 				log.info("Parent Locator is ..." + ParentElementLocator);
-				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-				//	webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
-				}
+				
+				/*if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+				}*/
+				System.out.println("China Gate");
 				Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 				Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
 				//SoftAssertor.assertEquals(Actual_Page_ELement_Name, Expected_Page_Element_Name, "Element name does not match");
@@ -334,20 +332,30 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					Actual_Page_Title = webPage.getPageTitle();
 					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
 					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
 					
 					webPage.getDriver().close();
 					webPage.getDriver().switchTo().window(existingWindow);
-					log.info("Expected URL : " + Expected_Page_URL);
-					log.info("Actual URL : " + Actual_Page_URL);
-				
-
-				} else {
-					Actual_Page_URL = webPage.getCurrentUrl();
-					Actual_Page_Title = webPage.getPageTitle();
-					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
-					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					log.info("Actual Element Name" + Actual_Page_Element_Name);
+					log.info("Expected Element Name" + Expected_Page_Element_Name);
+					log.info("Actual Page Title" + Actual_Page_Title);
+					log.info("Expected Element Title" + Expected_Page_Element_Title);
 					log.info("Expected URL" + Expected_Page_URL);
 					log.info("Actual URL" + Actual_Page_URL);
+					
+				} else {
+					System.out.println("Kemon Ashen");
+					Actual_Page_URL = webPage.getCurrentUrl();
+					Actual_Page_Title = webPage.getPageTitle();
+					Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					log.info("Actual Element Name : " + Actual_Page_Element_Name);
+					log.info("Expected Element Name : " + Expected_Page_Element_Name);
+					log.info("Actual Page Title : " + Actual_Page_Title);
+					log.info("Expected Element Title : " + Expected_Page_Element_Title);
+					log.info("Actual URL : " + Actual_Page_URL);
+					log.info("Expected URL : " + Expected_Page_URL);
 					try {
 						if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
 								&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
@@ -364,11 +372,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 				System.out.println("getLocalizedMessage :"); 
 				e.printStackTrace();
-				
-
 			}
+			r++;
 
-		}
 		if (brokenLinks.size() > 0) {
 			Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
 		}
@@ -928,7 +934,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	}
 	
 	
-	public List<String> verify_Account_Information_First_Name_Last_Name_Login_Validation (String[][] testdata,SoftAssert softAssert) throws PageException {
+	public List<String> verify_Account_Information_First_Name_Last_Name_Login_Validation (String[][] testdata,SoftAssert softAssert) throws PageException, InterruptedException {
 		List<String> Account_Information_Login_Validation_Error_Message = new ArrayList<String>();
 		String FNLocator = testdata[0][1];
 		String FNInput = testdata[0][2];
@@ -948,6 +954,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		commonMethods.clearElementbyXpath(webPage, EmailLocator, softAssert);
 		commonMethods.sendKeysbyXpath(webPage, EmailLocator, EmailInput, softAssert);
 		commonMethods.clickElementbyXpath(webPage, ButtonLocator, softAssert);
+		Thread.sleep(3000);
 		String Email_Address_Error_Message_Account_Information_Page = commonMethods.getTextbyXpath(webPage,EmailErrLocator, softAssert);
 		Account_Information_Login_Validation_Error_Message.add(Email_Address_Error_Message_Account_Information_Page);
 		return Account_Information_Login_Validation_Error_Message;

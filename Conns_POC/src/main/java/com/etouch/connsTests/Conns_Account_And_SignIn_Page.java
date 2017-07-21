@@ -180,6 +180,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 
 					webPage = new WebPage(context);
 					ConnsSignInPage = new ConnsAccountAndSignInPage(url, webPage);
+					mainPage = new ConnsMainPage(url, webPage);
+					System.out.println(mainPage);
 					// connsHomepage=new ConnsHomePageNew;
 
 				}
@@ -202,12 +204,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Navigate to https://www.conns.com/customer/account/login/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN' 
 	 */
 
-	@Test(priority = 301,  enabled = true)
+	@Test(priority = 301,  enabled = false)
 	public void verify_Login_Page_Title() {
 		log.info("************ Stated title verification of Login Page*******************");
 		SoftAssert softAssert = new SoftAssert();
 		try{
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		//String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyRememberMeFunctionality");
+		String Navigate_To_Account_Login_Form_URL = testdata[0][2];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		//ConnsSignInPage.verifyPageTitle(testdata);
 		String actualPageUrl = commonMethods.getPageUrl(webPage, softAssert);
 		softAssert.assertEquals(actualPageUrl, testdata[0][0],"Page url verification failed. Expected url : "+testdata[0][0]+"Actual url : "+actualPageUrl);
@@ -226,8 +231,62 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify Font Size & Style : Page font size & style should shown as per specification : Page should load without any error
 	 * Navigate to https://www.conns.com/customer/account/login/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN' 
 	 */
+	@Test(priority = 302, enabled = false, description = "Verify_Font_And_Size")
+	public void Verify_Font_And_Size_Login_Page() {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+			//String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyRememberMeFunctionality");
+			String Navigate_To_Account_Login_Form_URL = testdata[0][2];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
+			
+			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"Verify_Font_And_Size_Login_Page");
+			for (int i = 0; i < ExpectedFontValues.length; i++) {
+				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
+						softAssert);
+				if (testType.equalsIgnoreCase("Mobile")) {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][5]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size : " + ExpectedFontValues[i][5] + " Actual Font Size : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][6]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font family : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValues[i][4]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
 
-	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 302,  enabled = true, description = "Verify FontandSize")
+				} else {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size : " + ExpectedFontValues[i][2] + " Actual Font Size : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][3]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
+					
+				}
+			}
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	
+	
+	/*@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 302,  enabled = false, description = "Verify FontandSize")
 	@ITafExcelDataProviderInputs(excelFile = "ConnsAccountSignINData", excelsheet = "AccountSignINPage", dataKey = "verifyFontandSizeOnLoginPage")
 	public void verify_Font_and_Size_On_Login_Page(ITestContext context, TestParameters inputs)
 			throws PageException, InterruptedException {
@@ -259,7 +318,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-
+*/
 	
 
 	/**
@@ -269,11 +328,14 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Navigate to https://www.conns.com/customer/account/login/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN' 
 	 */	
 	
-	@Test(priority = 303,  enabled = true)
+	@Test(priority = 303,  enabled = false)
 	public void verify_Content_On_Login_Page() {
 		log.info("**************Started Content verification on Login Page *******************");
 		List <String> content = new ArrayList<String>();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyContentOnLoginPage");
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			for (int r = 0; r < testdata.length; r++) {
@@ -300,13 +362,16 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Error message "Please enter a valid email address. For example johndoe@domain.com." should rendered and "Forgot Your Password" link should change to Red in color.
 	 * Above error message is not displayed instead "Invalid login or Password" is displayed & "Forgot Your Password" link is  remians in blue color.
 	 */
-	@Test(priority = 304,  enabled = true)
+	@Test(priority = 304,  enabled = false)
 	public void verify_Login_Functionality_with_Invalid_Input() {
 		log.info("******Started verification of Login functionality with invalid data ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginfuncInvalidInput");
 		String ExpErrMsgEmail = testdata[1][3];
 		String ExpErrMsgPwd = testdata[1][7];
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		try{
 			List<String> actualErrorMessage =ConnsSignInPage.verify_Login_Functionality_with_Invalid_Input(testdata);
 			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgEmail,"Login Functionality with Invalid Input verification failed For Invalid Email Address. Expected Email Address Error Message : "+ExpErrMsgEmail + "Actual Email Address Error Message : "+actualErrorMessage);	
@@ -329,13 +394,16 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Error message "This is a required field." should rendered on both the fields
 	 */
 
-	@Test(priority = 305,  enabled = true)
+	@Test(priority = 305,  enabled = false)
 	public void verify_Login_Functionality_with_Blank_Input() {
 	log.info("******Started verification of Login functionality with blank data ********");
 	SoftAssert softAssert = new SoftAssert();
 	String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginfuncInvalidInput");
 	String ExpErrMsgEmail = testdata[1][3];
 	String ExpErrMsgPwd = testdata[1][7];
+	String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+	String Navigate_To_Account_Login_Form_URL = test_data[0][2];
+	webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 	try{
 	List<String> actualErrorMessage = ConnsSignInPage.verify_Login_Functionality_with_Blank_Input(testdata);
 	softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgEmail,"Login Functionality with Blank Input verification failed For Blank Email Address. Expected Email Address Error Message : "+ExpErrMsgEmail + "Actual Email Address Error Message : "+actualErrorMessage);	
@@ -357,7 +425,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * "What is this " overlay should render 
 	 */
 
-	@Test(priority = 306,  enabled = true)
+	@Test(priority = 306,  enabled = false)
 	public void verify_Whats_This_Overlay_Rendered() throws PageException {
 		log.info("**************Started verification of What's this overlay Rendered on Login Page *******************");
 		SoftAssert softAssert = new SoftAssert();
@@ -366,6 +434,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String contentonoverlaylocator = testdata[0][1];
 		String verify_Whats_This_Overlay_Rendered_Expected_Content = testdata[0][2];
 		String closebutlocator = testdata[0][3];
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		
 		try{
 			commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
@@ -387,7 +458,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * What is this " overlay should render : What's this overlay should hide/close
 	 */
 
-	@Test(priority = 307,  enabled = true)
+	@Test(priority = 307,  enabled = false)
 	public void verify_Whats_This_Overlay_Close() {
 		log.info("**************Started verification of What's this overlay Rendered on Login Page *******************");
 		SoftAssert softAssert = new SoftAssert();
@@ -422,13 +493,17 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify Redirectional links : Click on "Click here" under New customers section / Mobile view :Tap on Hamberger Menu -> 'SIGN IN' >'Click here' under New customers section : Page should navigate to https://www.conns.com/pay_your_bill and should load without any error
 	 */
 
-	@Test(priority = 308,  enabled = true)
+	@Test(priority = 308,  enabled = false)
 	public void verify_Redirectional_links() {
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifylinksOnLoginPage");
 		List<String> brokenLinks = new ArrayList<String>();
 		log.info("******Started verification of Redirectional_links functionality with valid data ********");
 		SoftAssert softAssert = new SoftAssert();
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		try{
+			
 			for (int r = 0; r < testdata.length; r++) {
 				log.info("Verifying " + testdata[r][0]);
 				String ParentElementLocator = testdata[r][1];
@@ -449,7 +524,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				softAssert.assertEquals(Actual_Element_Name, Expected_Element_Name,"  Redirectional_links Functionality with Invalid Input verification failed For Redirectional_Parent_Element_Name . Expected Redirectional Parent_Element_Name : "+Expected_Element_Name + "Actual Redirectional_Parent_Element_Name : "+Actual_Element_Name);
 				softAssert.assertEquals(Actual_Page_Title,Expected_Page_Title,"  Redirectional_links Functionality with Invalid Input verification failed For Redirectional_Page_Title . Expected Redirectional_Page_Title  : "+Expected_Page_Title + "Actual Redirectional_Page_Title  : "+Actual_Page_Title);
 				webPage.getDriver().navigate().back();
-				webPage.getDriver().navigate().refresh();
+				//webPage.getDriver().navigate().refresh();
 				softAssert.assertAll();
 			}
 		}catch(Throwable e){
@@ -468,20 +543,24 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify 'Remember me' checkbox button is clickable : Mobile view :Tap on Hamberger Menu -> 'SIGN IN' : 'Remember me ' should be unchecked
 	 */
 
-	@Test(priority = 309,  enabled = true)
+	@Test(priority = 309,  enabled = false)
 	public void verify_Remember_Me_CheckBox() {
 		log.info("******Started verification of RememberMeCheckBox functionality with valid data ********");
 		SoftAssert softAssert = new SoftAssert();
 		try {
+			
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyRememberMeFunctionality");
 			String Remember_me_CheckBox = testdata[0][0];
 			String Expected_ToolTip_Text = testdata[0][1];
+			String Navigate_To_Account_Login_Form_URL = testdata[0][2];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 			ConnsSignInPage.verify_Remember_Me_Functionality(testdata);
 			commonMethods.clickElementbyCss(webPage, Remember_me_CheckBox, softAssert);
 			String Actual_ToolTip_Text = commonMethods.getAttributebyCss(webPage, Remember_me_CheckBox, "title", softAssert);
 			SoftAssertor.assertEquals(Actual_ToolTip_Text, Expected_ToolTip_Text, "ToolTip_Text of the mouse pointer does not match");
 			softAssert.assertAll();
 		}catch(Throwable e){
+			
 			mainPage.getScreenShotForFailure(webPage, "verify_Remember_Me_CheckBox");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -511,7 +590,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Password = testdata[0][3];
 		String LogInButtonLocator = testdata[0][4];
 		String Expected_Page_Title = testdata[0][5];
-		
 		Expected_Element_Name = testdata[0][6];
 		Expected_Page_URL = testdata[0][7];
 		ChildElementLocator = testdata[0][8];
@@ -519,8 +597,13 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Locator_2 = testdata[0][10];
 		String Locator_3 = testdata[0][11];
 		String Locator_4 = testdata[0][12];
+		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][7];
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		//ConnsSignInPage.verifyLoginFunctionality_Registered_User(testdata);
 		try {
+			//webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link); 
 			commonMethods.sendKeysbyXpath(webPage, EmailAddressLocator, EmailAddress, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, PasswordLocator, Password, softAssert);
 			commonMethods.clickElementbyXpath(webPage, LogInButtonLocator, softAssert);
@@ -529,7 +612,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(Actual_Page_Title,Expected_Page_Title,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected Login_Functionality_Registered_User_Page_Title  : "+Expected_Page_Title + "Actual Login_Functionality_Registered_User_Page_Title  : "+Actual_Page_Title);
 			Actual_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
-			softAssert.assertEquals(Actual_Page_Url, Expected_Page_URL,"verify_Login_Functionality_Registered_User  with valid Input verification failed For Login_Functionality_Registered_User. Expected Login_Functionality_Registered_User_Page_URL  : "+Expected_Page_URL + "Actual Login_Functionality_Registered_User_Page_URL  : "+Actual_Page_Url);	
+			
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
@@ -542,11 +625,18 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, Locator_3, softAssert);
 					//commonMethods.clickElementbyXpath(webPage, ".//*[@id='li-primary-pronav-signout']/a");
 					commonMethods.clickElementbyXpath(webPage, Locator_4, softAssert);
-					
 				}
-	
-			/*webPage.getDriver().navigate().back();
-			webPage.getDriver().navigate().refresh();*/
+				else
+				{
+					commonMethods.clickElementbyXpath(webPage, ".//*[@id='account-welcome']", softAssert);
+					commonMethods.clickElementbyXpath(webPage, ".//*[@id='account-menu']/ul/li[4]/a", softAssert);
+					//commonMethods.clickElementbyXpath(webPage, Locator_3, softAssert);
+					//commonMethods.clickElementbyXpath(webPage, ".//*[@id='li-primary-pronav-signout']/a");
+					//commonMethods.clickElementbyXpath(webPage, Locator_4, softAssert);
+				}
+				
+				softAssert.assertEquals(Actual_Page_Url, Expected_Page_URL,"verify_Login_Functionality_Registered_User  with valid Input verification failed For Login_Functionality_Registered_User. Expected Login_Functionality_Registered_User_Page_URL  : "+Expected_Page_URL + "Actual Login_Functionality_Registered_User_Page_URL  : "+Actual_Page_Url);
+				webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 			Thread.sleep(7000);
 			softAssert.assertAll();
 		}catch(Throwable e){
@@ -567,27 +657,29 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Navigate to https://www.conns.com/customer/account/forgotpassword/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password? link
 	 */
 
-	@Test(priority = 311,  enabled = true)
+	@Test(priority = 311,  enabled = false)
 	public void verify_Forgot_Password_Page_Title() throws PageException {
-	log.info("******Started verification of title on Forgot Password Page ********");
-	String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "ForgotPasswordPageTitle");
-	String Expected_Forgot_Password_Page_URL= testdata[0][0];
-	String Expected_Forgot_Password_Page_Title= testdata[0][1];
-	String Forgot_Password_Link = testdata[0][2];
-	SoftAssert softAssert = new SoftAssert();
-	try{
-	//ConnsSignInPage.verifyPageTitle(testdata);
-	commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
-	String Actual_Forgot_Password_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
-	softAssert.assertEquals(Actual_Forgot_Password_Page_URL, Expected_Forgot_Password_Page_URL,"Page url verification failed. Expected url : "+Expected_Forgot_Password_Page_URL+"Actual url : "+Actual_Forgot_Password_Page_URL);
-	String Actual_Forgot_Password_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
-	softAssert.assertEquals(Actual_Forgot_Password_Page_Title, Expected_Forgot_Password_Page_Title,"Page title verification failed. Expected title : "+Expected_Forgot_Password_Page_Title+"Actual title : "+Actual_Forgot_Password_Page_Title);
-	softAssert.assertAll();
-	}catch(Throwable e){
-		mainPage.getScreenShotForFailure(webPage, "verify_Forgot_Password_Page_Title");
-		softAssert.assertAll();
-		Assert.fail(e.getLocalizedMessage());
-	}
+		log.info("******Started verification of title on Forgot Password Page ********");
+		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "ForgotPasswordPageTitle");
+		SoftAssert softAssert = new SoftAssert();
+		String Expected_Forgot_Password_Page_URL= testdata[0][0];
+		String Expected_Forgot_Password_Page_Title= testdata[0][1];
+		String Forgot_Password_Link = testdata[0][2];
+		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][3]; 
+		try{
+			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link); 
+			//ConnsSignInPage.verifyPageTitle(testdata);
+			commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
+			String Actual_Forgot_Password_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
+			softAssert.assertEquals(Actual_Forgot_Password_Page_URL, Expected_Forgot_Password_Page_URL,"Page url verification failed. Expected url : "+Expected_Forgot_Password_Page_URL+"Actual url : "+Actual_Forgot_Password_Page_URL);
+			String Actual_Forgot_Password_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
+			softAssert.assertEquals(Actual_Forgot_Password_Page_Title, Expected_Forgot_Password_Page_Title,"Page title verification failed. Expected title : "+Expected_Forgot_Password_Page_Title+"Actual title : "+Actual_Forgot_Password_Page_Title);
+			softAssert.assertAll();
+		}catch(Throwable e){
+			mainPage.getScreenShotForFailure(webPage, "verify_Forgot_Password_Page_Title");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
 	}
 	
 	/**
@@ -597,7 +689,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Page should load without any error
 	 */
 	
-/*	 @Test(priority = 312, enabled = true, description = "Verify_Font_And_Size")
+/*	 @Test(priority = 312, enabled = false, description = "Verify_Font_And_Size")
 	 public void Verify_Font_And_Size(){
 	  SoftAssert softAssert = new SoftAssert();
 	  try
@@ -621,7 +713,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	
 
 	
-	@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 312, enabled = true, description = "Verify FontandSize")
+	/*@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 312, enabled = false, description = "Verify FontandSize")
 	@ITafExcelDataProviderInputs(excelFile = "ConnsAccountSignINData", excelsheet = "AccountSignINPage", dataKey = "verifyFontandSizeOnForgotPasswordPage")
 	public void verify_Font_and_Size_On_Forgot_Password_Page(ITestContext context, TestParameters inputs)
 			throws PageException, InterruptedException {
@@ -646,7 +738,64 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 		log.info("Verification of font and size completed on Login Page");
 	}
+*/
+	
+	
+	
+	
+	@Test(priority = 312, enabled = false, description = "Verify_Font_And_Size")
+	public void verify_Font_and_Size_On_Forgot_Password_Page() {
+		SoftAssert softAssert = new SoftAssert();
+		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verify_Font_And_Size_On_Forgot_Password_Page");
+		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][3]; 
+		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link); 
+		try {
+			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"verifyFontandSizeOnForgotPasswordPage");
+			for (int i = 0; i < ExpectedFontValues.length; i++) {
+				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
+						softAssert);
+				if (testType.equalsIgnoreCase("Mobile")) {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][5]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size : " + ExpectedFontValues[i][5] + " Actual Font Size : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][6]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font family : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValues[i][4]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
 
+				} else {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size : " + ExpectedFontValues[i][2] + " Actual Font Size : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][3]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
+					
+				}
+			}
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "verify_Font_and_Size_On_Forgot_Password_Page");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Test Case - 017 - Verify ForgotPwdPage Content
@@ -655,12 +804,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Page should load without any error
 	 */
 
-	@Test(priority = 315,  enabled = true)
+	@Test(priority = 315,  enabled = false)
 	public void verify_Forgot_Password_Page_Content() throws PageException {
 		log.info("******Started verification of content on Forgot Password Page *********");
 		List <String> content = new ArrayList<String>();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifycontentonforgotPwdPage");
 		String Forgot_Password_Link = testdata[0][2];
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "ForgotPasswordPageTitle");
+		String Account_Login_Page_Forgot_Password_Page_Link = test_data[0][3]; 
+		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link); 
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
@@ -690,7 +842,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Error message as 'This is a required field.' should render .
 	 */
 	
-	@Test(priority = 316,  enabled = true)
+	@Test(priority = 316,  enabled = false)
 	public void verify_Forgot_Password_Page_Submit_Button_Blank_Input() throws PageException {
 	log.info("******Started verification of Error Message content on Forgot Password Page Submit Button with Blank Input *********");
 	SoftAssert softAssert = new SoftAssert();
@@ -700,10 +852,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	String Forgot_Passowrd_Submit_Button_Locator = testdata[0][3];
 	String Forgot_Password_Error_Message_Locator = testdata[0][2];
 	String Expected_Forgot_Password_Error_Message = testdata[0][4];
+	String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];	
 	try{
-		//List<String> actualErrorMessage = ConnsSignInPage.verify_Login_Functionality_with_Blank_Input(testdata);
-		webPage.getDriver().navigate().back();
-		webPage.getDriver().navigate().refresh();
+		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
+		commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
 		commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
 		commonMethods.clickElementbyXpath(webPage, Forgot_Passowrd_Submit_Button_Locator, softAssert);
 		String Actual_Forgot_Password_Error_Message =commonMethods.getTextbyXpath(webPage, Forgot_Password_Error_Message_Locator, softAssert);
@@ -724,18 +876,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Page should navigate to https://www.conns.com/customer/account/login/
 	 */
 	
-	@Test(priority = 317, enabled = true)
+	@Test(priority = 317, enabled = false)
 	public void verify_Forgot_Password_Page_Go_Back_Link() throws PageException {
 		log.info("******Started verification of Go_Back_Link on Forgot Password Page ********");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLinksOnforgotPwdPage");
 		//ConnsSignInPage.verifyLinks(data);
 		List<String> brokenLinks = new ArrayList<String>();
-
 		log.info("******Started verification of Go_Back_Link functionality with valid data ********");
-
 		SoftAssert softAssert = new SoftAssert();
 		try{
-
 			log.info("Verifying " + testdata[0][0]);
 			String ParentElementLocator = testdata[0][1];
 			String Go_Back_Link = testdata[0][2];
@@ -749,17 +898,14 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Expected_Login_Page_Title= testdata[2][5];
 			String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];
 			log.info("Parent Locator is ..." + ParentElementLocator);
-
 			/*if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
 				webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
 				}*/
-			
 			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 			commonMethods.clickElementbyCss(webPage, Forgot_Password_Link, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Element_Name = commonMethods.getTextbyCss(webPage,Go_Back_Link, softAssert);				
 			String Actual_Forgot_Password_Page_Go_Back_Link_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
-			
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Page_URL, Expected_Forgot_Password_Page_Go_Back_Link_Page_URL,"Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Page_URL. Expected_Forgot_Password_Page_Go_Back_Link_Page_URL  : "+Expected_Forgot_Password_Page_Go_Back_Link_Page_URL + "Actual_Forgot_Password_Page_Go_Back_Link_Page_URL  : "+Actual_Forgot_Password_Page_Go_Back_Link_Page_URL);	
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Element_Name, Expected_Forgot_Password_Page_Go_Back_Link_Element_Name,"  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Element_Name . Expected_Forgot_Password_Page_Go_Back_Link_Element_Name : "+Expected_Forgot_Password_Page_Go_Back_Link_Element_Name + "Actual_Forgot_Password_Page_Go_Back_Link_Element_Name : "+Actual_Forgot_Password_Page_Go_Back_Link_Element_Name);
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Page_Title,Expected_Forgot_Password_Page_Go_Back_Link_Page_Title,"  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Page_Title . Expected_Forgot_Password_Page_Go_Back_Link_Page_Title  : "+Expected_Forgot_Password_Page_Go_Back_Link_Page_Title + "Actual_Forgot_Password_Page_Go_Back_Link_Page_Title  : "+Actual_Forgot_Password_Page_Go_Back_Link_Page_Title);
@@ -771,7 +917,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			softAssert.assertEquals(Actual_Login_Page_Element_Name, Expected_Login_Page_Element_Name,"  Login_Page_Element Functionality with verification failed For Expected_Login_Page_Element_Name . Expected_Login_Page_Element_Name : "+Expected_Login_Page_Element_Name + "Actual_Login_Page_Element_Name : "+Actual_Login_Page_Element_Name);
 			softAssert.assertEquals(Actual_Login_Page_Title,Expected_Login_Page_Title,"  Login_Page_Title Functionality with verification failed For Login_Page_Title . Expected_Login_Page_Title  : "+Expected_Login_Page_Title + "Actual_Login_Page_Title  : "+Actual_Login_Page_Title);
 			softAssert.assertAll();
-
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "verify_Forgot_Password_Page_Go_Back_Link");
 			softAssert.assertAll();
@@ -790,7 +935,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Error message 'Please enter a valid email address. For example johndoe@domain.com.' should render
 	 */
 	
-	@Test(priority = 318,  enabled = true)
+	@Test(priority = 318,  enabled = false)
 	public void verify_Forgot_Password_Function_with_Invalid_Email_ID() throws PageException {
 	log.info("******Started verification of Forgot Password functionality with Invalid and valid data ********");
 	SoftAssert softAssert = new SoftAssert();
@@ -802,7 +947,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	String Forgot_Passowrd_Submit_Button_Locator = testdata[1][3];
 	String Expected_Forgot_Password_Error_Message = testdata[1][4];
 	String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];
-	
 	try{
 		//List<String> actualErrorMessage = ConnsSignInPage.verify_Login_Functionality_with_Blank_Input(testdata);
 	/*	webPage.getDriver().navigate().back();
@@ -831,7 +975,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Message 'If there is an account associated with test@gmail.com you will receive an email with a link to reset your password' should render on top of page ,
 	 */
 	
-	@Test(priority = 319,  enabled = true)
+	@Test(priority = 319,  enabled = false)
 	public void verify_Forgot_Password_Function_with_Valid_Email_ID() throws PageException {
 	log.info("******Started verification of Forgot Password functionality with Invalid and valid data ********");
 	SoftAssert softAssert = new SoftAssert();
@@ -871,7 +1015,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 320, enabled = true)
+	@Test(priority = 320, enabled = false)
 	public void verify_Account_DashBoard_Page_Title() {
 		log.info("******Started verification of content on Account Dashborad tab after login ********");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
@@ -914,7 +1058,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 321, enabled = true)
+	@Test(priority = 321, enabled = false)
 	public void verify_Account_DashBoard_Content() {
 		log.info("******Started verification of content on Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -955,7 +1099,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 */
 	
 
-	@Test(priority = 322, enabled = true)
+	@Test(priority = 322, enabled = false)
 	public void verify_Links_On_Account_DashBoard_Tab() {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -968,15 +1112,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Page_Expected_Element_Name = test_data[r][4];
 		String Page_Expected_Title = test_data[r][4];
 		try{
-	//	SoftAssertor.assertEquals(ActualElementName, ExpectedElementName, "Element name does not match");
 		List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Account_Tab(test_data);
-		softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_URL,"Login Functionality with Blank Input verification failed For Blank Email Address. Expected Email Address Error Message : "+Page_Expected_URL + "Actual Email Address Error Message : "+Page_URL_Title_Data);	
-		//softAssert.assertEquals(Page_URL_Title_Data.get(1), Page_Expected_Element_Name,"  Login Functionality with Blank Input verification failed For Blank Password . Expected Password Error Message : "+Page_Expected_Element_Name + "Actual Password Error Message : "+Page_URL_Title_Data);
-		softAssert.assertEquals(Page_URL_Title_Data.get(2), Page_Expected_Title,"  Login Functionality with Blank Input verification failed For Blank Password . Expected Password Error Message : "+Page_Expected_Title + "Actual Password Error Message : "+Page_URL_Title_Data);
+		softAssert.assertEquals(Page_URL_Title_Data.get(1),Page_Expected_Title,"Account Information DashBoard Tab verification failed For Page Elements. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Page_Element : "+Page_URL_Title_Data.get(1));	
+		softAssert.assertEquals(Page_URL_Title_Data.get(2),Page_Expected_URL,"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL: "+Page_URL_Title_Data.get(2));
+		softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Title : "+Page_URL_Title_Data.get(0));
 		softAssert.assertAll();
-		//ConnsSignInPage.verifyLinks(testdata);
-
-	}catch(Throwable e){
+		}catch(Throwable e){
 		mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Content");
 		softAssert.assertAll();
 		Assert.fail(e.getLocalizedMessage());
@@ -990,7 +1131,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * It should shows the applied credit status/details
 	 */
 
-	@Test(priority = 323, enabled = true)
+	@Test(priority = 323, enabled = false)
 	public void Verify_Credit_Application_Sec() {
 		log.info("******Started verification of credit Application sec on Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -1007,7 +1148,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				softAssert.assertAll();
 				//Assert.assertEquals(ActualElementName, ExpectedElementName, "content does not Match");
 			} catch(Throwable e){
-			//	mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Content");
+				mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Content");
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
 			}
@@ -1021,7 +1162,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify "Account Information" page title,Verify "Account Information" form input validations by submitting blank form,Verify email address field validation with some invalid email address
 	 */
 
-	@Test(priority = 324, enabled = true)
+	@Test(priority = 324, enabled = false)
 	public void verify_Account_Information_Tab_Verify_Validation_Messages() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
@@ -1029,8 +1170,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("verification of Mandatory field validation message started");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyAccountInformationForm");
 		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][12];
-		String Expected_Email_ID_Error_Msg = testdata[0][10];
-		String Expected_Email_ID_Error_Msg_Invalid_Email = testdata[1][10];
+		String Expected_Email_ID_NA_Error_Message = testdata[0][10];
+		String Expected_Email_ID_Error_Message_Invalid_Email = testdata[1][10];
 		String Expected_Customer_Already_Exists_Error_Message = testdata[2][14];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		try{
@@ -1040,11 +1181,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String EmailInput = testdata[r][8];
 			if (FNInput.equalsIgnoreCase("NA") && LNInput.equalsIgnoreCase("NA") && EmailInput.equalsIgnoreCase("NA")) {
 					List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_First_Name_Last_Name_Login_Validation(testdata,softAssert);
-					softAssert.assertEquals(actualErrorMessage.get(0), Expected_Email_ID_Error_Msg,"Test Failed");
+					softAssert.assertEquals(actualErrorMessage.get(0), Expected_Email_ID_NA_Error_Message,"Page Element Content verification failed. Expected_Email_ID_Error_Msg : "+Expected_Email_ID_NA_Error_Message +  " actualErrorMessage.get(0) :  "+actualErrorMessage.get(0));
 			}
-			 if (FNInput.equalsIgnoreCase(testdata[1][2]) && LNInput.equalsIgnoreCase(testdata[1][5]) && EmailInput.equalsIgnoreCase(testdata[1][8])) {
+			if (FNInput.equalsIgnoreCase(testdata[1][2]) && LNInput.equalsIgnoreCase(testdata[1][5]) && EmailInput.equalsIgnoreCase(testdata[1][8])) {
 				List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_First_Name_Last_Name_Login_Invalid_Input_Validation(testdata,softAssert);
-				softAssert.assertEquals(actualErrorMessage.get(0), Expected_Email_ID_Error_Msg_Invalid_Email,"Page Element Content verification failed. Expected_Email_ID_Error_Msg : "+Expected_Email_ID_Error_Msg_Invalid_Email +           "actualErrorMessage.get(0) :                  "+actualErrorMessage.get(0));
+				softAssert.assertEquals(actualErrorMessage.get(0), Expected_Email_ID_Error_Message_Invalid_Email,"Page Element Content verification failed. Expected_Email_ID_Error_Msg : "+Expected_Email_ID_Error_Message_Invalid_Email +  "actualErrorMessage.get(0) :  "+actualErrorMessage.get(0));
 			 }
 				 if (FNInput.equalsIgnoreCase(testdata[2][2]) && LNInput.equalsIgnoreCase(testdata[2][5]) && EmailInput.equalsIgnoreCase(testdata[2][8])) {
 				List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_First_Name_Last_Name_Login_Valid_Input_Validation(testdata,softAssert);
@@ -1067,7 +1208,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify "Change Password" checkbox functionality,Verify "Change Password" form input validations by submitting blank form,Verify password field validation with short password in "New Password" field,Verify password field validation for "Confirm New Password" field
 	 */
 
-	@Test(priority = 325, enabled = true)
+	@Test(priority = 325, enabled = false)
 	public void verify_Account_Information_Tab_Change_Password_Functionality() throws PageException{
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
@@ -1107,7 +1248,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to previous page : https://www.conns.com/customer/account/
 	 */
 
-	@Test(priority = 326, enabled = true)
+	@Test(priority = 326, enabled = false)
 	public void verify_Account_Information_Tab_Change_Password_Form_Go_Back_Link() throws PageException{
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
@@ -1142,7 +1283,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should throw an error message : "This is a required field."
 	 */
 	
-	@Test(priority = 327, enabled = true)
+	@Test(priority = 327, enabled = false)
 	public void verify_Contact_Information_Tab_Edit_Link_Blank_Input() throws PageException{
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
@@ -1193,7 +1334,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to https://www.conns.com/customer/address/index/ and New address should be added under Additional Address Entries
 	 */
 	
-	@Test(priority = 328, enabled = true)
+	@Test(priority = 328, enabled = false)
 	public void verify_Contact_Information_Tab_Edit_Link_Valid_Input() throws PageException{
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
@@ -1238,7 +1379,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * On clicking on 'change billing address' editable form is displayed.
 	 */
 	
-	@Test(priority = 329, enabled = true)
+	@Test(priority = 329, enabled = false)
 	public void verify_Contact_Information_Tab_Default_Billing_Shipping_Address_Link() throws PageException{
 		JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 		SoftAssert softAssert = new SoftAssert();
@@ -1291,7 +1432,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to "Contact Information" form
 	 */
 	
-	@Test(priority = 330, enabled = true)
+	@Test(priority = 330, enabled = false)
 	public void verify_Contact_Information_Tab_Change_Billing_Address_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1327,7 +1468,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to "Contact Information" form
 	 */
 	
-	@Test(priority = 331, enabled = true)
+	@Test(priority = 331, enabled = false)
 	public void verify_Contact_Information_Tab_Change_Shipping_Address_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1364,7 +1505,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Success message should render "The address has been saved." : https://www.conns.com/customer/address/index/
 	 */
 	
-	@Test(priority = 332, enabled = true)
+	@Test(priority = 332, enabled = false)
 	public void verify_Contact_Information_Tab_Go_Back_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1420,9 +1561,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Success message should render "The address has been saved." : https://www.conns.com/customer/address/index/
 	 */
 	
-	@Test(priority = 333, enabled = true)
+	@Test(priority = 333, enabled = false)
 	public void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries() throws PageException{
-		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1438,7 +1578,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Additonal_Address_Successfully_Saved_Message=inputdata[0][28];
 		String Expected_Address_Book_Page_URL=inputdata[0][29];
 		String Expected_Address_Book_Page_Title=inputdata[0][30];
-		
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);		
 		commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
 		try{
@@ -1480,7 +1619,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to "Newsletter subscription" form
 	 */
 	
-	@Test(priority = 334, enabled = true)
+	@Test(priority = 334, enabled = false)
 	public void verify_Account_Information_Tab_Newsletters_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1517,7 +1656,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * The checkbox should be checked when tapped on it
 	 */
 
-	@Test(priority = 335, enabled = true)
+	@Test(priority = 335, enabled = false)
 	public void verify_Account_Information_Tab_Newsletters_General_Subscription_CheckBox() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1559,7 +1698,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to previous page : https://www.conns.com/customer/account/
 	 */
 
-	@Test(priority = 336, enabled = true)
+	@Test(priority = 336, enabled = false)
 	public void verify_Account_Information_Tab_Newsletters_Go_Back_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1601,7 +1740,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 *  "The Subscription has been saved" message should appear in green box on top of page
 	 */
 
-	@Test(priority = 337, enabled = true)
+	@Test(priority = 337, enabled = false)
 	public void verify_Account_Information_Tab_Newsletters_Save_Button() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1644,6 +1783,81 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 	}
 	
+	
+	
+	/***********************************************************************GARBAGE ENDS*******************************************************************************************************************************************************************************************/		
+	
+	
+	/**
+	 * Test Case - 002 - Verify Font Size and Style of specified on element on
+	 * Conns Home Page
+	 * 
+	 */
+
+
+
+	/***********************************************************************GARBAGE ENDS*******************************************************************************************************************************************************************************************/		
+	
+	/**
+	 * Test Case - 002 - Verify Font Size and Style of specified on element on
+	 * Conns Home Page
+	 * 
+	 */
+
+	/*@Test(priority = 2, enabled = false, description = "Verify_Font_And_Size")*/
+	public void Verify_Font_And_Size() {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
+					"VerifyFontandSize");
+			for (int i = 0; i < ExpectedFontValues.length; i++) {
+				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
+						softAssert);
+				if (testType.equalsIgnoreCase("Mobile")) {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][5]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size : " + ExpectedFontValues[i][5] + " Actual Font Size : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][6]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font family : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValues[i][4]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
+
+				} else {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size : " + ExpectedFontValues[i][2] + " Actual Font Size : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][3]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
+					
+				}
+			}
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	
+	/***********************************************************************GARBAGE ENDS*******************************************************************************************************************************************************************************************/	
+	
+	
+	
+	
+	
 }
 	
-	/***********************************************************************UC006 ENDS*******************************************************************************************************************************************************************************************/	
+	/***********************************************************************UC001-UC006 ENDS*******************************************************************************************************************************************************************************************/	
