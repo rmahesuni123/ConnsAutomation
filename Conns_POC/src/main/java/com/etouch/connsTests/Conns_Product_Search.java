@@ -208,8 +208,41 @@ public class Conns_Product_Search extends BaseTest {
 			e.printStackTrace();
 		}
 	}
-
 	@Test(priority = 4, enabled = true)
+	public void Verify_Add_To_Cart_Using_Product_Search() throws InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyAddToCartUsingProductSearch");
+			String Identifier = test[0][0];
+			String ProductName = test[0][1];
+			webPage.findObjectById(Identifier).clear();
+			webPage.findObjectById(Identifier).sendKeys(ProductName);
+			webPage.findObjectByClass(test[0][2]).click();
+			log.info("Clicked on element " + test[0][2]);
+			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
+			log.info("productDescription" + productDescription);
+			Assert.assertTrue(productDescription.contains(ProductName),
+					"Product description: " + productDescription + " not having: " + ProductName);
+			if (testType.equalsIgnoreCase("Web")) {
+				webPage.findObjectByxPath(test[0][4]).click();
+				webPage.findObjectByxPath(test[0][5]).clear();
+				webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
+				webPage.findObjectByxPath(test[0][7]).click();
+				Thread.sleep(8000);
+				webPage.findObjectByxPath(test[0][8]).click();
+				Thread.sleep(5000);
+				Assert.assertTrue(webPage.findObjectByxPath(test[0][9]).getText().contains(test[0][10]),
+						"Shopping Cart: " + webPage.findObjectByxPath(test[0][9]).getText() + " not having: " + test[0][10]);
+			}
+			webPage.navigateToUrl(url);
+			softAssert.assertAll();
+		} catch (PageException e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Number_Of_Product_Displayed");
+			softAssert.assertAll();
+			e.printStackTrace();
+		}
+	}
+	@Test(priority = 5, enabled = true)
 	public void Verify_Column_Layout_For_Product_Search() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try {
