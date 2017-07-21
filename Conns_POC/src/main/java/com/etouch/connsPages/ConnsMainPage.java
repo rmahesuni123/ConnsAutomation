@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.etouch.common.CommonPage;
+import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
@@ -44,18 +45,18 @@ public class ConnsMainPage extends CommonPage {
 		// }
 	}
 
-	public void contentVerification(String[][] contentData, String url) {
-		try {
+	public void contentVerification(String[][] contentData, String url) throws PageException {
+	//	try {
 			for (int i = 0; i < contentData.length; i++) {
 				System.out.println("Actual:  " + webPage.findObjectByxPath(contentData[i][0]).getText()
 						+ "   Expected: " + contentData[i][1]);
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(contentData[i][0]).getText(), contentData[i][1],
+				SoftAssertor.assertTrue(webPage.findObjectByxPath(contentData[i][0]).getText().contains(contentData[i][1]),
 						"expectedContent Failed to Match Actual");
 			}
-		} catch (Throwable e) {
+		/*} catch (Throwable e) {
 			webPage.navigateToUrl(url);
 			Assert.fail(e.getLocalizedMessage());
-		}
+		}*/
 	}
 
 	/**

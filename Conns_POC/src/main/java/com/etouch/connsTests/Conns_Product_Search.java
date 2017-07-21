@@ -16,6 +16,7 @@ import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.BaseTest;
 import com.etouch.common.TafExecutor;
@@ -57,16 +58,16 @@ public class Conns_Product_Search extends BaseTest {
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
-			System.out.println("Test Type is : " + testType);
+			log.info("Test Type is : " + testType);
 			try {
 				testEnv = System.getenv().get("Environment");
-				System.out.println("testEnv is : " + testEnv);
+				log.info("testEnv is : " + testEnv);
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
-				System.out.println("DataFilePath After is : " + DataFilePath);
+				log.info("DataFilePath After is : " + DataFilePath);
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
-					System.out.println("videoLocation" + videoLocation.toString().replace("Env", testEnv));
+					log.info("videoLocation" + videoLocation.toString().replace("Env", testEnv));
 				}
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				synchronized (this) {
@@ -91,6 +92,7 @@ public class Conns_Product_Search extends BaseTest {
 
 	@Test(priority = 1, enabled = true)
 	public void Verify_Search_Functionality_And_Results_Contents() {
+		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchUsingKeyword");
 			String Identifier = test[0][0];
@@ -102,19 +104,33 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("productDescription" + productDescription);
 			Assert.assertTrue(productDescription.contains(ProductName),
 					"Product description: " + productDescription + " not having: " + ProductName);
+			String[][] contentData;
 			if (testType.equalsIgnoreCase("Web")) {
-				String[][] contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContent");
-				mainPage.contentVerification(contentData, url);
-				webPage.getBackToUrl();
+				 contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContent");
 			}
+			else
+			{
+				contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContentForMobile");
+			}
+			for (int i = 0; i < contentData.length; i++) {
+				log.info("Actual:  " + webPage.findObjectByxPath(contentData[i][0]).getText()
+						+ "   Expected: " + contentData[i][1]);
+				SoftAssertor.assertTrue(webPage.findObjectByxPath(contentData[i][0]).getText().contains(contentData[i][1]),
+						"expectedContent Failed to Match Actual");
+			}
+			//mainPage.contentVerification(contentData, url);
+			webPage.getBackToUrl();
+			softAssert.assertAll();
 		} catch (PageException e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Search_Functionality_And_Results_Contents");
+			softAssert.assertAll();
 			e.printStackTrace();
 		}
 	}
 
 	@Test(priority = 2, enabled = true)
 	public void Verify_Product_Search_And_Shorting_By_Product_Name() throws InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchAndShortByName");
 			String Identifier = test[0][0];
@@ -134,23 +150,27 @@ public class Conns_Product_Search extends BaseTest {
 				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
 				log.info("element " + elementList.size() + "elementList: " + elementList);
 				log.info("element is shorted: " + mainPage.isSorted(elementList));
-				Assert.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted");
+				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted");
 				webPage.findObjectByxPath(test[0][8]).click();
 				Thread.sleep(5000);
 				webPage.getBackToUrl();
 			}
+			softAssert.assertAll();
 		} catch (PageException e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Name");
+			softAssert.assertAll();
 			e.printStackTrace();
 		}
 	}
 
 	@Test(priority = 3, enabled = true)
 	public void Verify_Product_Search_And_Number_Of_Product_Displayed() throws InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchAndNumberPerPage");
 			String Identifier = test[0][0];
 			String ProductName = test[0][1];
+			webPage.findObjectById(Identifier).clear();
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
 			webPage.findObjectByClass(test[0][2]).click();
 			log.info("Clicked on element " + test[0][2]);
@@ -168,27 +188,30 @@ public class Conns_Product_Search extends BaseTest {
 				int number;
 				for (int i=0;i<str.length;i++) {
 					number = Integer.parseInt(str[i].trim());
-					Assert.assertEquals(number,Integer.parseInt(str2[i]),"Number List:  ");
+					SoftAssertor.assertEquals(number,Integer.parseInt(str2[i]),"Number List:  ");
 					log.info("Started iteration for -->" + number);
 					s.selectByVisibleText(String.valueOf(number));
 					Thread.sleep(5000);
 					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
 					log.info("Number: " + number + "    element Size-->" + elementList.size());
-					Assert.assertEquals(elementList.size() <= number, true, "element is Not As Expected");
+					SoftAssertor.assertEquals(elementList.size() <= number, true, "element is Not As Expected");
 					log.info("Completed for iteration-->");
 					s = new Select(webPage.getDriver()
 							.findElement(By.xpath((test[0][5]))));
 				}
 				webPage.getBackToUrl();
 			}
+			softAssert.assertAll();
 		} catch (PageException e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Number_Of_Product_Displayed");
+			softAssert.assertAll();
 			e.printStackTrace();
 		}
 	}
 
 	@Test(priority = 4, enabled = true)
 	public void Verify_Column_Layout_For_Product_Search() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchAndShortByName");
 			if (testType.equalsIgnoreCase("Web")) {
@@ -202,11 +225,11 @@ public class Conns_Product_Search extends BaseTest {
 					log.info("Column Layout " + cols);
 					if (cols == 1 || cols == 2) {
 						log.info("Column Layout equivalent to Mobile or Tablets for column layout = " + cols);
-						Assert.assertEquals(true, webPage.findObjectByxPath(test[0][4]).isDisplayed(),
+						SoftAssertor.assertEquals(true, webPage.findObjectByxPath(test[0][4]).isDisplayed(),
 								"Main Menu not displayed");
 					} else {
 						log.info("Column Layout equivalent to browser for column layout= " + cols);
-						Assert.assertEquals(webPage.findObjectByxPath(test[0][4]).isDisplayed(), false,
+						SoftAssertor.assertEquals(webPage.findObjectByxPath(test[0][4]).isDisplayed(), false,
 								"Main Menu displayed");
 					}
 				}
@@ -214,8 +237,10 @@ public class Conns_Product_Search extends BaseTest {
 			} else {
 				log.info("Column layout testing can not be done for Devices");
 			}
+			softAssert.assertAll();
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Column_Layout_For_Product_Search");
+			softAssert.assertAll();
 			e.printStackTrace();
 		}
 	}
