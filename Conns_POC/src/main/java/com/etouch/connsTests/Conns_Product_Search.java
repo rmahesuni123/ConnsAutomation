@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -221,19 +222,23 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("Clicked on element " + test[0][2]);
 			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
-			Assert.assertTrue(productDescription.contains(ProductName),
+			SoftAssertor.assertTrue(productDescription.contains(ProductName),
 					"Product description: " + productDescription + " not having: " + ProductName);
-			if (testType.equalsIgnoreCase("Web")) {
+		//	if (testType.equalsIgnoreCase("Web")) {
 				webPage.findObjectByxPath(test[0][4]).click();
 				webPage.findObjectByxPath(test[0][5]).clear();
 				webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
 				webPage.findObjectByxPath(test[0][7]).click();
-				Thread.sleep(8000);
+			//	try{
+				//Alert alert=webPage.getDriver().switchTo().alert();
+				//alert.accept();
+				//}catch(Exception e){}
+				Thread.sleep(5000);
 				webPage.findObjectByxPath(test[0][8]).click();
 				Thread.sleep(5000);
-				Assert.assertTrue(webPage.findObjectByxPath(test[0][9]).getText().contains(test[0][10]),
+				SoftAssertor.assertTrue(webPage.findObjectByxPath(test[0][9]).getText().contains(test[0][10]),
 						"Shopping Cart: " + webPage.findObjectByxPath(test[0][9]).getText() + " not having: " + test[0][10]);
-			}
+			//}
 			webPage.navigateToUrl(url);
 			softAssert.assertAll();
 		} catch (PageException e) {
