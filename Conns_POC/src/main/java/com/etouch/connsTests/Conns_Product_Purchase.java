@@ -63,13 +63,22 @@ public class Conns_Product_Purchase extends BaseTest {
 	String testType;
 	String testEnv;
 	JavascriptExecutor executor;
+	String[][] frenchDoor;
+	String[][] checkoutGuest;
+	String[][] checkoutRegister;
+	String[][] addToCart;
+	String[][] submitBillingInfo;
+	String[][] submitShippingInfo;
+	String[][] proceedToCheckout;
+	String[][] paypalInfo;
+	String[][] pickupOnlyAddToCart;
 	
 	String testUrl = "http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/";
-	
 	
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
 		try {
+			
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			
 			
@@ -85,7 +94,18 @@ public class Conns_Product_Purchase extends BaseTest {
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				System.out.println("DataFilePath After is : " + DataFilePath);
-
+				
+				frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+				checkoutGuest= ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Checkout_Guest");
+				checkoutRegister = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Checkout_Register");
+				addToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_Button_Functionality");
+				submitBillingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
+				submitShippingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Shipping_Info");
+				proceedToCheckout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+				paypalInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Paypal_Payment_Info");
+				pickupOnlyAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
+				
+				
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
 					System.out.println("videoLocation" + videoLocation);
@@ -124,360 +144,11 @@ public class Conns_Product_Purchase extends BaseTest {
 		// SpecializedScreenRecorder.stopVideoRecording();
 	}
 
-	
-	
-	public void Click_On_Refrigerators() {
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Click_On_French_Door");
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			
-			if(testBedName.equalsIgnoreCase("InternetExplorer")){
-				System.out.println("inside IE loop");
-				WebElement element  = commonMethods.getWebElementbyXpath(webPage, test[1][1], softAssert);
-				System.out.println("element:"+element.getText());
-				executor.executeScript("arguments[0].click()", element);
-				System.out.println("executed");
-			}else{
-				webPage.hoverOnElement(By.xpath(test[0][1]));
-				webPage.findObjectByxPath(test[1][1]).click();
-			}
-			
-		} catch (PageException | AWTException e) {
-			log.error(e.getMessage());
-
-		}
-
-	}
-
-	public void Add_To_Cart() {
-		SoftAssert softAssert = new SoftAssert();
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
-				"Verify_Add_To_Cart_Button_Functionality");
-		try {
-			Robot robot = new Robot();
-			// Point point = driver.findElement(by).getLocation();
-			robot.mouseMove(0, 16);
-			// webPage.findObjectByxPath(test[0][1]).click();
-			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-
-		}
-
-	}
-
-	public void Checkout_Guest() {
-		SoftAssert softAssert = new SoftAssert();
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Checkout_Guest");
-		try {
-			Robot robot = new Robot();
-			// Point point = driver.findElement(by).getLocation();
-			robot.mouseMove(0, 16);
-			// webPage.findObjectByxPath(test[0][1]).click();
-			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
-			Thread.sleep(5000);
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-
-		}
-
-	}
-
-	public void Checkout_Register() {
-		SoftAssert softAssert = new SoftAssert();
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Checkout_Register");
-		try {
-			Robot robot = new Robot();
-			// Point point = driver.findElement(by).getLocation();
-			robot.mouseMove(0, 16);
-			// webPage.findObjectByxPath(test[0][1]).click();
-			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-
-		}
-
-	}
-
-	/*
-	 * 
-	 * This method will fill all the required fields in billing information section and it will click on 
-	 * billing information continue button as well as pickup location continue button
-	 */
-	public void Submit_Billing_Information() {
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			commonMethods.getWebElementbyXpath(webPage, test[0][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[1][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[1][1], test[1][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[2][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[2][1], test[2][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[3][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[3][1], test[3][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[4][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[4][1], test[4][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[5][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[6][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[6][1], test[6][3], softAssert);
-
-			commonMethods.selectDropdownByValue(webPage, test[7][1], test[7][3], softAssert);
-			commonMethods.selectDropdownByValue(webPage, test[8][1], test[8][3], softAssert);
-			
-			
-
-		} catch (Throwable e) {
-
-			mainPage.getScreenShotForFailure(webPage, "Click_On_In_Stock_Add_To_Cart_Button");
-			log.error("Click_On_In_Stock_Add_To_Cart_Button failed");
-			log.error(e.getMessage());
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-
-		}
-
-	}
-	
-	
-	
-	public void Submit_Shipping_Info() {
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			commonMethods.getWebElementbyXpath(webPage, test[0][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[1][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[1][1], test[1][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[2][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[2][1], test[2][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[3][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[3][1], test[3][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[4][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[4][1], test[4][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[5][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
-			
-			commonMethods.getWebElementbyXpath(webPage, test[6][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, test[6][1], test[6][3], softAssert);
-
-			commonMethods.selectDropdownByValue(webPage, test[7][1], test[7][3], softAssert);
-			commonMethods.selectDropdownByValue(webPage, test[8][1], test[8][3], softAssert);
-			
-			
-
-		} catch (Throwable e) {
-
-			mainPage.getScreenShotForFailure(webPage, "Click_On_In_Stock_Add_To_Cart_Button");
-			log.error("Click_On_In_Stock_Add_To_Cart_Button failed");
-			log.error(e.getMessage());
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-
-		}
-
-	}
-
-	public void PickUp_Location_Continue_Button() {
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_billing_Information");
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			commonMethods.clickElementbyXpath(webPage, test[10][1], softAssert);
-			Thread.sleep(5000);
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-
-		}
-
-	}
-
-	public void Proceed_To_Checkout_Button() {
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
-			Thread.sleep(5000);
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-
-		}
-
-	}
-
-	public String Submit_Paypal_Payment_Info() {
-		SoftAssert softAssert = new SoftAssert();
-		String actualPaypalURL = null;
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Paypal_Payment_Info");
-		try {
-			Robot robot = new Robot();
-
-			robot.mouseMove(0, 16);
-
-			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
-
-			System.out.println("test[1][4]:" + test[1][4]);
-			actualPaypalURL = commonMethods.getPageUrl(webPage, softAssert);
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-
-		}
-		return actualPaypalURL;
-
-	}
-
-	public void Enter_Zip_Code_Click_On_Add_To_Cart() {
-
-		SoftAssert softAssert = new SoftAssert();
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
-				"Enter_Zip_Code_Click_On_Add_To_Cart");
-		try {
-			commonMethods.verifyElementisPresent(webPage, test[0][1], softAssert);
-
-			webPage.findObjectByxPath(test[1][1]).clear();
-			webPage.waitOnElement(By.xpath(test[1][1]), 10);
-			commonMethods.sendKeysbyXpath(webPage, test[1][1], test[0][3], softAssert);
-
-			Thread.sleep(5000);
-
-			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
-			Thread.sleep(10000);
-			commonMethods.clickElementbyXpath(webPage, test[3][1], softAssert);
-
-			// webPage.waitOnElement(By.xpath(test[4][1]), 10);
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-
-		}
-
-	}
 
 	
 
-	/*
-	 * 
-	 * Common Method to click on ADD TO CART Button for pick only Availability
-	 * option in all available pages
-	 */
-	//@Test(enabled = true)
-	public void Click_On_PickUp_Only_Add_To_Cart_Button() {
-		String stockAvilabilityText = null;
-		String errorMessage = null;
-		SoftAssert softAssert = new SoftAssert();
-		commonMethods.navigateToPage(webPage, testUrl, softAssert);
-		Click_On_Refrigerators();
-		String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
-		try {
-
-			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
-
-			WebElement product;
-			int counter = 1;
-			for (int i = 1; i <= listOfProducts.size(); i++) {
-				
-				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
-				System.out.println("Web Element Details" + product.getText() + i);
-
-				stockAvilabilityText = product.findElement(By.xpath(test[2][1])).getText();
-				
-
-				System.out.println("stockAvilabilityText:::" + stockAvilabilityText);
-				/*
-				 * verifying whether availability text is pickup only or not
-				 */
-				if (stockAvilabilityText.equalsIgnoreCase(test[0][3])) {
-
-					System.out.println("test[0][3]:::" + test[0][3]);
-					commonMethods.clickElementbyXpath(webPage, "(//button[@title='Add to Cart'])[" + counter + "]",
-							softAssert);
-					// (By.xpath("(//button[@title='Add to
-					// Cart'])["+counter+"]")).click();
-					counter++;
-
-					commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
-					Thread.sleep(3000);
-
-					webPage.findObjectByxPath(test[5][1]).clear();
-
-					webPage.waitOnElement(By.xpath(test[5][1]), 10);
-					commonMethods.sendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
-
-					Thread.sleep(5000);
-					webPage.waitOnElement(By.xpath(test[6][1]), 10);
-					commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
-					Thread.sleep(10000);
-
-					// if (!commonMethods.verifyElementisPresent(webPage, "Zip
-					// Code Error Message::" + test[8][1],softAssert)) {
-					boolean isPresent = webPage.getDriver().findElements(By.xpath(test[8][1])).size() > 0;
-					if (!isPresent) {
-
-						System.out.println("before clicking add to cart on modal box");
-						commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
-						System.out.println("after clicking add to cart on modal box");
-
-						System.out.println("clicked pickup only on add to cart button");
-						break;
-
-					} else {
-						errorMessage = commonMethods.getTextbyXpath(webPage, test[8][1], softAssert);
-						System.out.println("errorMessage:::" + errorMessage);
-						System.out.println("test[8][4]:::" + test[8][4]);
-
-						if (errorMessage.contains(test[8][4])) {
-							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
-							Thread.sleep(3000);
-							webPage.getDriver().navigate().back();
-
-						}
-					}
-
-				}
-
-			}
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-			mainPage.getScreenShotForFailure(webPage, "Click_On_PickUp_Only_Add_To_Cart_Button");
-			log.error("Click_On_PickUp_Only_Add_To_Cart_Button failed");
-			log.error(e.getMessage());
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-
-		}
-
-	}
 	
 	
-	
-				
-					
-				
-
-
-
 	/*
 	 * UC_001 - Product Search Page
 	 **********************************************************************************************************/
@@ -494,25 +165,30 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			log.info("testing flow verifyPageTitle started");
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Verify_Page_Title");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			String ExpectedTitle = test[0][3];
 			
-			System.out.println("ExpectedTitle is:::" + ExpectedTitle);
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			
+			
+			
+			
 
 			if (testType.equalsIgnoreCase("Web")) {
 				
 				connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 				
-				System.out.println("Actual title is:::" + webPage.getPageTitle());
+				
 			} else {
 				
-				webPage.findObjectByxPath(test[0][4]).click();
-				webPage.findObjectByxPath(test[0][0]).click();
+				webPage.findObjectByxPath(frenchDoor[0][4]).click();
+				webPage.findObjectByxPath(frenchDoor[0][0]).click();
 			}
-
-			Assert.assertEquals(ExpectedTitle, webPage.getPageTitle());
+			String actualTitle=commonMethods.getPageUrl(webPage, softAssert);
+			String ExpectedTitle = frenchDoor[0][3];
+			System.out.println("Actual title is:::" + actualTitle);
+			System.out.println("ExpectedTitle is:::" + ExpectedTitle);
+			
+			softAssert.assertEquals(actualTitle, ExpectedTitle,"Page tilte is not matching with expected title: "+"Actual tilte is:"+ actualTitle +"expected title is:"+ ExpectedTitle);
+			
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Page_Title");
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -524,25 +200,20 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 
 	}
-	/*mainPage.getScreenShotForFailure(webPage, "Verify_Zip_Code_Text_Box_Error_Message");
-			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("Verify_Zip_Code_Text_Box_Error_Message failed");
-			log.error(e.getMessage());
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-	 * @Madhukar Test Case 002 - Verify ADD TO CART button functionality
-	 */
+	
+	 /*
+	  * 
+	  *  @Madhukar Test Case 002 - Verify ADD TO CART button functionality
+	  */
+	 
 
 	@Test(priority = 202, enabled = true, description = "verify Add To Cart Functionality")
 	public void Verify_Add_To_Cart_Button_Functionality() {
 		SoftAssert softAssert = new SoftAssert();
-		Robot robot;
-		String actualValue = null;
-		String expectedValue = null;
+		
 		try {
 
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_Button_Functionality");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
 			String[][] addToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_Button_Functionality");
 			log.info("testing flow verifyAddToCartFunctionality started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
@@ -554,8 +225,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			} else {
 				connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 				connsProductPurchasePage.Add_To_Cart(webPage, addToCart, softAssert);
-
-			}
+		}
 
 			boolean isOverLayBoxPresent = webPage.getDriver().findElements(By.xpath(test[1][1])).size() >= 1;
 			System.out.println("isOverLayBoxPresent:::" + isOverLayBoxPresent);
@@ -647,15 +317,17 @@ public class Conns_Product_Purchase extends BaseTest {
 	@Test(priority =204, enabled = true, description = "verify Zip Code Text Box Error Message")
 	public void Verify_Zip_Code_Text_Box_Error_Message() {
 		SoftAssert softAssert = new SoftAssert();
-		Robot robot;
 		String actualValue = null;
 		String expectedValue = null;
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Zip_Code_Text_Box_Error_Message");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Click_On_French_Door");
+			
 			String[][] addToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_Button_Functionality");
-			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			
 			log.info("testing flow verifyZipCodeTextBoxErrorMessage started");
+			
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			
 			
 
 			if (testType.equalsIgnoreCase("Web")) {
@@ -720,18 +392,17 @@ public class Conns_Product_Purchase extends BaseTest {
 	@Test(priority =205, enabled = true, description = "Verify Add To Cart On Overlay Without Zip Code")
 	public void Verify_Add_To_Cart_On_Overlay_Without_Zip_Code() {
 		SoftAssert softAssert = new SoftAssert();
-		String expectedValue = null;
+		
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_On_Overlay_Without_Zip_Code");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Click_On_French_Door");
-			String[][] addToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_Button_Functionality");
+
+			
 			log.info("testing flow Verify_Add_To_Cart_On_Overlay_Without_Zip_Code started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
-				//connsProductPurchasePage.Add_To_Cart(webPage, addToCart, softAssert);
-				commonMethods.clickElementbyXpath(webPage, "(//button[@class='button btn-cart' and @title='Add to Cart'])[2]", softAssert);
+				connsProductPurchasePage.Add_To_Cart(webPage, addToCart, softAssert);
 
 			} else {
 				connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
@@ -755,11 +426,17 @@ public class Conns_Product_Purchase extends BaseTest {
 			String actualErrorMessage = commonMethods.getTextbyXpath(webPage, test[3][1], softAssert);
 
 			System.out.println("actualErrorMessage:::" + actualErrorMessage);
+			
 			String expectedErrorMessage = test[3][4];
+			
 			System.out.println("expectedErrorMessage:"+expectedErrorMessage);
-			softAssert.assertTrue(expectedErrorMessage.contains(actualErrorMessage),
-					"Expected Text: " + expectedErrorMessage + "Actual text: " + actualErrorMessage);
+			
+			softAssert.assertTrue(expectedErrorMessage.contains(actualErrorMessage),"Expected Text: " + expectedErrorMessage + "Actual text: " + actualErrorMessage);
+			
+			
 			softAssert.assertAll();
+			
+			
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_On_Overlay_Without_Zip_Code");
 
@@ -783,7 +460,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedURL = null;
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_On_Overlay_With_Valid_Zip_Code");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Click_On_French_Door");
+			
 			String[][] addToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_Button_Functionality");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			log.info("testing flow Verify_Add_To_Cart_On_Overlay_With_Valid_Zip_Code started");
@@ -859,7 +536,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedValue = null;
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Update_Functionality_Cart_Page");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Click_On_French_Door");
+			
 			String[][] addToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_Button_Functionality");
 			log.info("testing flow Verify_Update_Functionality_Cart_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
@@ -932,17 +609,38 @@ public class Conns_Product_Purchase extends BaseTest {
 	 @Test(priority =208, enabled = true, description = "Verify 'Remove item link functionality in cart page")
 	public void Verify_Remove_Item_Link_Functionality_In_Cart_Page() {
 		SoftAssert softAssert = new SoftAssert();
-		
+		String expectedText=null;
 		try {
 			
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Remove_Item_Link_Functionality_In_Cart_Page");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Click_On_French_Door");
+			log.info("testing flow Verify_Remove_Item_Link_Functionality_In_Cart_Page started");
+			
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			//connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			
-			log.info("testing flow Verify_Remove_Item_Link_Functionality_In_Cart_Page started");
+			connsProductPurchasePage.Add_To_Cart_Pickup_Only_Product(webPage, pickupOnlyAddToCart, softAssert);
+			
+			
+			
+			boolean isProductAvilable=commonMethods.verifyElementisPresent(webPage, test[5][1], softAssert);
+			
+			softAssert.assertTrue(isProductAvilable, "Product Avilability message is not displayed:"+ test[5][1] );
+			
+			if(isProductAvilable){
+				
+				
+				commonMethods.verifyElementisPresent(webPage, test[6][1], softAssert);
+				
+				commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
+				
+				String actualText=commonMethods.getTextbyXpath(webPage, test[8][1], softAssert);
+				expectedText=test[0][1];
+				
+				softAssert.assertEquals(actualText, expectedText,"Shopping Cart empty text message is not displayed");
+				
+			}
 			
 			
 			softAssert.assertAll();
@@ -967,7 +665,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedValue = null;
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Product_Availability_status_In_Cart_Page");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Click_On_French_Door");
+			
 			String[][] addToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Verify_Add_To_Cart_Button_Functionality");
 			
 			
@@ -1035,17 +733,14 @@ public class Conns_Product_Purchase extends BaseTest {
 		String actual_Coupon_Code_Error_Message;
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Apply_Code_Button_With_Invalid_Code");
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
+			
 			log.info("testing flow Verify_Apply_Code_Button_With_Invalid_Code started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
-
-			
-			log.info("testing flow Verify_Apply_Code_Button_With_Invalid_Code started");
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			webPage.waitOnElement(By.xpath(test[0][1]), 10);
 			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
@@ -1082,11 +777,12 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expected_Coupon_Code_Error_Message;
 		String actual_Coupon_Code_Error_Message;
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Apply_Code_Button_With_valid_Code");
+			
 			log.info("testing flow Verify_Apply_Code_Button_With_valid_Code started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
 			actual_Coupon_Code_Error_Message = commonMethods.getTextbyXpath(webPage, test[2][1], softAssert);
@@ -1113,20 +809,22 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedUrl = null;
 		String actualUrl = null;
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Proceed_To_Checkout_Functionality");
 			log.info("testing flow Verify_Proceed_To_Checkout_Functionality started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, test, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
+			
 			actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			expectedUrl = test[0][4];
 			System.out.println("actualUrl.contains(expectedUrl):"+actualUrl.contains(expectedUrl));
+			
 			softAssert.assertTrue(actualUrl.contains(expectedUrl), "Proceed to checkout functionality is failed:::"
 					+ " Expected is: " + expectedUrl + "Actual is:::" + actualUrl);
 
@@ -1151,9 +849,9 @@ public class Conns_Product_Purchase extends BaseTest {
 		String actualUrl = null;
 		try {
 			
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Continue_Shopping_Link_Functionality_In_Cart_Page");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			
 			log.info("testing flow Verify_Continue_Shopping_Link_Functionality_In_Cart_Page started");
 			
@@ -1161,7 +859,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 			
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 			
@@ -1190,16 +888,16 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Get_Credit_Button_In_Cart_Page");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			log.info("testing flow Verify_Get_Credit_Button_In_Cart_Page started");
 			
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			
 			
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, test[0][1], softAssert),"Get credit button in cart page is not displayed");
@@ -1222,16 +920,15 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_More_Detail_Link_In_Cart_Page");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			log.info("testing flow Verify_More_Detail_Link_In_Cart_Page started");
 			
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 			
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			boolean isMoreDetailLinkDisplayed=commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
 			
@@ -1257,9 +954,8 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Lock_Icon_McAffe_Logo_In_Cart_At_Bottom");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			
 			log.info("testing flow Verify_Lock_Icon_McAffe_Logo_In_Cart_At_Bottom started");
 			
@@ -1267,7 +963,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			
 			boolean isLockIconDisplayed=commonMethods.verifyElementisPresent(webPage, test[0][1], softAssert);
@@ -1298,10 +994,9 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Verify_UI_Checkout_Page");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			String[][] proceedToCheckout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+			
+			
 			
 			log.info("testing flow Verify_UI_Checkout_Page started");
 			
@@ -1309,7 +1004,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
@@ -1349,10 +1044,9 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_UI_After_Selecting_Register_Button");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			String[][] proceedToCheckout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+			
+			
 			
 			log.info("testing flow Verify_UI_Checkout_Page started");
 			
@@ -1360,7 +1054,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1414,19 +1108,15 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Login_Button_With_Valid_Credentials");
 
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			String[][] proceedToCheckout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-			
 			log.info("testing flow Verify_Login_Button_With_Valid_Credentials started");
 			
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1468,10 +1158,10 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Forgot_Your_Password_Functionality");
-			String[][] proceedToCheckout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+			
 			
 			log.info("Verify_Forgot_Your_Password_Functionality started");
 			
@@ -1479,7 +1169,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			
 			
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1523,12 +1213,9 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
-			String[][] billingInfo= ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
 
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Continue_Button_Without_Selecting_Payment_Info");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			String[][] proceedToCheckout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+			
 			
 			log.info("Verify_Continue_Button_Without_Selecting_Payment_Info started");
 			
@@ -1537,19 +1224,19 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 			
 			
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			Thread.sleep(5000);
 			//clicking on pickup location continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[10][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[10][1],softAssert);
 			
 			Thread.sleep(10000);
 			
@@ -1588,9 +1275,7 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
-			String[][] checkOutButton = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Payment_Info_ConnsCredit");
 			
 			log.info("Verify_Payment_Info_ConnsCredit started");
@@ -1599,13 +1284,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button( webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button( webPage, pickupOnlyAddToCart, softAssert);
 
-			connsProductPurchasePage.Proceed_To_Checkout_Button( webPage, checkOutButton, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button( webPage, proceedToCheckout, softAssert);
 
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, test, softAssert);
 			
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 
@@ -1639,11 +1324,10 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedPaypalURL = null;
 
 		try {
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
-			String[][] checkOutButton = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+			
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Verify_Checkout_Flow_Paypal");
-			String[][] billingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
+			
 			
 			log.info("Verify_Checkout_Flow_Paypal started");
 			
@@ -1651,22 +1335,21 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button( webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button( webPage, pickupOnlyAddToCart, softAssert);
 
-			connsProductPurchasePage.Proceed_To_Checkout_Button( webPage, checkOutButton, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button( webPage, proceedToCheckout, softAssert);
 
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, test, softAssert);
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			
 			//clicking on pickup location continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[10][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[10][1],softAssert);
 			
-			actualPaypalURL = Submit_Paypal_Payment_Info();
-
+			actualPaypalURL =connsProductPurchasePage.Submit_Paypal_Payment_Info(webPage,paypalInfo, softAssert); 
 			System.out.println("actualPaypalURL:"+actualPaypalURL);
 			System.out.println("expectedPaypalURL:"+expectedPaypalURL);
 			
@@ -1695,13 +1378,10 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedURL = null;
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
 
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Edit_Your_Cart_Link_Functionality_In_Order_Review_Section");
 
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
 			
-			String[][] checkOutButton = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
 			
 			log.info("Verify_Edit_Your_Cart_Link_Functionality_In_Order_Review_Section started");
 			
@@ -1709,14 +1389,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkOutButton, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, test, softAssert);
 			
 			
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
@@ -1749,10 +1429,9 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedURL = null;
 
 		try {
-			String[][] test1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Continue_Shopping_Button_Order_Confirmation_Page");
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			String[][] checkOutButton = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+			
 			
 			log.info("Verify_Continue_Shopping_Button_Order_Confirmation_Page started");
 			
@@ -1760,14 +1439,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, test1, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkOutButton, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, test, softAssert);
 			
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
@@ -1810,7 +1489,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedErrorMessage=null;
 
 		try {
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] testData2 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_In_Stock_Product_Zip_Code_Functionality");
 			
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
@@ -1947,7 +1626,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		try {
 			String[][] testData1 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Verify_Page_Title");
 			String[][] testData2 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_In_Stock_Product_Zip_Code_Functionality_Valid_Data");
-			String[][] checkout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
+			
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, testData1, softAssert);
 			
@@ -1957,7 +1636,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			 * below method will get In_Stock availability product where Add to cart is displayed
 			 */
 			connsProductPurchasePage.Click_On_In_Stock_Pickup_Only_Product(webPage, testData2, softAssert);
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkout, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
 			actualURL=commonMethods.getPageUrl(webPage, softAssert);
 			expectedURL=testData2[6][4];
@@ -2117,13 +1796,13 @@ public class Conns_Product_Purchase extends BaseTest {
 		String expectedCartPageURL=null;
 
 		try {
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
-			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");
+			
+			
 			String[][] testData2 = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Pickup_Only_Product_Zip_Code_Functionality_valid_Data");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.Click_On_Refrigerators(webPage, frenchDoor, softAssert);
 			
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, clickOnAddToCart, softAssert);
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			
 			
 			
@@ -2245,7 +1924,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		
 
 		try {
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Pickup_In_Store_Option_Cart_Page");
 			
@@ -2295,7 +1974,7 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Pickup_In_Store_Option_Cart_Page");
 			String[][] getAQuote = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Enter_Zip_Code_Click_On_Get_Quote_Button");
@@ -2373,7 +2052,7 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Pickup_In_Store_Option_Cart_Page");
 			String[][] getAQuote = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Enter_Zip_Code_Click_On_Get_Quote_Button");
@@ -2443,10 +2122,9 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
-			String[][] checkout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-			String[][] billingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
+			
 			
 			log.info("Verify_Ship_To_This_Address_Radio_Button_Functionality_Valid_Billing_Info_Inputs started");
 
@@ -2459,20 +2137,20 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
 			
 			
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkout, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			
 			commonMethods.clickElementbyXpath(webPage, "//*[@id='opc-shipping']/div[1]/h2/a", softAssert);
 			
 			shippingInfoFirstName=commonMethods.getTextbyXpath(webPage, "//*[@id='shipping:firstname']", softAssert);
 			
-			billingInfoFirstName=billingInfo[0][3];
+			billingInfoFirstName=submitBillingInfo[0][3];
 			
 			softAssert.assertEquals(shippingInfoFirstName, billingInfoFirstName,"Billing Info and Shipping info first names are not matching ");
 			
@@ -2500,10 +2178,9 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
-			String[][] checkout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-			String[][] billingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
+			
 			
 			log.info("Verify_Ship_To_Different_Address_Radio_Button_Functionality_Valid_Billing_Info_Inputs started");
 
@@ -2516,18 +2193,18 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
 			
 			
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkout, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			
 			WebElement shipToDifferentAddressRadioButton=commonMethods.getWebElementbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert);
 			
 			shipToDifferentAddressRadioButton.click();
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			
 			
 			boolean isShippingInfoFirstNameEnabled=commonMethods.getWebElementbyXpath(webPage, "//*[@id='shipping:firstname']", softAssert).isEnabled();
@@ -2560,10 +2237,8 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
-			String[][] checkout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-			String[][] billingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
 			
 			log.info("Verify_Checkout_Flow_With_Zip_Code_Outside_Conns_Network started");
 
@@ -2576,18 +2251,18 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
 			
 			
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkout, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			
 			WebElement shipToDifferentAddressRadioButton=commonMethods.getWebElementbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert);
 			
 			shipToDifferentAddressRadioButton.click();
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			
 			
 			boolean isShippingInfoFirstNameEnabled=commonMethods.getWebElementbyXpath(webPage, "//*[@id='shipping:firstname']", softAssert).isEnabled();
@@ -2618,11 +2293,9 @@ public class Conns_Product_Purchase extends BaseTest {
 		
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
-			String[][] checkout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-			String[][] billingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
-			String[][] shippingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Shipping_Info");
+			
 
 			log.info("Verify_Shipping_Info_COntinue_Button_Valid_Info started");
 
@@ -2635,23 +2308,23 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
 			
 			
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkout, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			
 			WebElement shipToDifferentAddressRadioButton=commonMethods.getWebElementbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert);
 			
 			shipToDifferentAddressRadioButton.click();
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			
-			Submit_Shipping_Info();
+			connsProductPurchasePage.Submit_Shipping_Info(webPage, submitBillingInfo, softAssert);
 			
 			//clicking on shipping info continue button
-			commonMethods.clickElementbyXpath(webPage, shippingInfo[8][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[8][1],softAssert);
 			
 			
 			
@@ -2685,11 +2358,10 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
-			String[][] checkout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-			String[][] billingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
-			String[][] shippingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Shipping_Info");
+			
+			
 			log.info("Verify_Shipping_Info_COntinue_Button_In_Valid_Info started");
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
@@ -2701,23 +2373,23 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
 			
 			
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkout, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			
 			WebElement shipToDifferentAddressRadioButton=commonMethods.getWebElementbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert);
 			
 			shipToDifferentAddressRadioButton.click();
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			
-			Submit_Shipping_Info();
+			connsProductPurchasePage.Submit_Shipping_Info(webPage, submitBillingInfo, softAssert);
 			
 			//clicking on shipping info continue button
-			commonMethods.clickElementbyXpath(webPage, shippingInfo[8][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[8][1],softAssert);
 			
 			
 			/*
@@ -2750,11 +2422,9 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
-			String[][] checkout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-			String[][] billingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
-			String[][] shippingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Shipping_Info");
+			
 			log.info("Verify_Shipping_Info_COntinue_Button_In_Valid_Info started");
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
@@ -2766,23 +2436,23 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
 			
 			
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkout, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			
 			WebElement shipToDifferentAddressRadioButton=commonMethods.getWebElementbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert);
 			
 			shipToDifferentAddressRadioButton.click();
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			
-			Submit_Shipping_Info();
+			connsProductPurchasePage.Submit_Shipping_Info(webPage, submitShippingInfo, softAssert);
 			
 			//clicking on shipping info continue button
-			commonMethods.clickElementbyXpath(webPage, shippingInfo[8][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitShippingInfo[8][1],softAssert);
 			
 			
 			/*
@@ -2813,11 +2483,10 @@ public class Conns_Product_Purchase extends BaseTest {
 
 		try {
 			
-			String[][] frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_French_Door");
+			
+			
 			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
-			String[][] checkout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Proceed_To_Checkout_Button");
-			String[][] billingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Billing_Information");
-			String[][] shippingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Shipping_Info");
+			
 			log.info("Verify_Shipping_Info_COntinue_Button_In_Valid_Info started");
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
@@ -2829,18 +2498,18 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
 			
 			
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, checkout, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
-			Checkout_Guest();
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			
-			Submit_Billing_Information();
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			
 			WebElement shipToDifferentAddressRadioButton=commonMethods.getWebElementbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert);
 			
 			shipToDifferentAddressRadioButton.click();
 			
 			//clicking on billing info continue button
-			commonMethods.clickElementbyXpath(webPage, billingInfo[9][1],softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1],softAssert);
 			
 			
 			
