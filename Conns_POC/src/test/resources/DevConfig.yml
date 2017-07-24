@@ -108,25 +108,27 @@ testngConfig:
  groupName:
 
 webConfig:
+ #hub: https://nalinikadam1:6jzexgNzHRz6SR5CLBKz@hub-cloud.browserstack.com/wd/hub
  hub: localhost
  port: 4001
  URL: http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/
  tool: Selenium
  seleniumServerPath: ..\\test-automation-library\\resources\\selenium-server-standalone-2.48.2.jar
+ #testEnv: remote
  testEnv: local
  testngClass:
- - className: com.etouch.connsTests.Conns_Home_Page
-   methodList: []
+ #- className: com.etouch.connsTests.Conns_Home_Page
+  # methodList: []
  - className: com.etouch.connsTests.Conns_Store_Locator_Page
-   methodList: [Verify_StoreLocator_PageTitle]  
- currentTestBeds: [Firefox]
+   methodList: []  
+ currentTestBeds: [Chrome]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
  testBeds:
  #FireFox TestBed
  - testBedName: Firefox
    browser:
     name: fireFox
-    version: 49
+    version: 53
     driverLocation:
    platform:
     name: Windows
@@ -164,16 +166,18 @@ webConfig:
 
 
 mobileConfig:
- hub: 127.0.0.1
+ #hub: https://nalinikadam1:6jzexgNzHRz6SR5CLBKz@hub-cloud.browserstack.com/wd/hub
+ hub: localhost
  port: 4001
  tool: Appium
+ #testEnv: remote
  testEnv: local
  testngClass:
  - className: com.etouch.connsTests.Conns_Home_Page
    methodList: []
  - className: com.etouch.connsTests.Conns_Store_Locator_Page
-   methodList: []  
- currentTestBeds: [Android1]
+   methodList: []
+ currentTestBeds: [AndroidNative]
  #currentTestBeds: [iPhoneNative,iPadNative,Android1, Android,AndroidNative,AndroidHybrid]
  
 
@@ -184,31 +188,12 @@ mobileConfig:
 
  testBeds:
  #ios TestBeds
- - testBedName: Android1
-   port: 4773
-   device:
-    name: Nexus Tab
-    type: device
-    udid: 0a63d36b
-   browser:
-    name: chrome
-    version: 52.0.2743.98
-    driverLocation: /Users/eTouch
-   platform:
-    name: ANDROID
-    version: 6.0
-   app:
-    appPath:
-    appPackage: com.android.chrome
-    appActivity: com.google.android.apps.chrome.Main
-    
-  #ios TestBeds
  - testBedName: AndroidNative
    port: 4753
    device:
-    name: Samsung
+    name: LG
     type: device
-    udid: ce12160c8418570504
+    udid: 0a63d36b
    browser:
     name: chrome
     version: 52.0.2743.98
@@ -225,10 +210,10 @@ mobileConfig:
  - testBedName: iPhoneNative
    port: 4733
    device:
-    name: iPhone 5
+    name: iPhone 6
     udid: bc412d86b5a7656be47777594090468fad156071
    browser:
-    name: iPhone5
+    name: iPhone6
     version: 
     driverLocation: /Users/eTouch
    platform:
@@ -261,7 +246,7 @@ mobileConfig:
    device:
     name: Moto G
     type: device
-    udid: 0a63d36b
+    udid: ce12160c8418570504
    browser:
     name: Chrome
     version: 58.0.3029.83
@@ -294,6 +279,25 @@ mobileConfig:
     appActivity: com.google.android.apps.chrome.Main
 
  #ios TestBeds
+ - testBedName: Android1
+   port: 4773
+   device:
+    name: Moto G
+    type: device
+    udid: ZX1D63FG7C
+   browser:
+    name: chrome
+    version: 52.0.2743.98
+    driverLocation: /Users/eTouch
+   platform:
+    name: ANDROID
+    version: 6.0
+   app:
+    appPath:
+    appPackage: com.android.chrome
+    appActivity: com.google.android.apps.chrome.Main
+
+ #ios TestBeds
  - testBedName: AndroidHybrid
    port: 4753
    device:
@@ -312,4 +316,4 @@ mobileConfig:
     appPackage: com.android.chrome
     appActivity: com.google.android.apps.chrome.Main
 
- 
+
