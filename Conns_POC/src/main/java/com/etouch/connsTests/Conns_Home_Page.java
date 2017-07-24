@@ -339,6 +339,7 @@ public class Conns_Home_Page extends BaseTest {
 				log.info("actualValues.get(1) : " + actualValues.get(1));
 				softAssert.assertEquals(actualValues.get(0), actualValues.get(1));
 			}
+			webPage.getDriver().get(url);
 			softAssert.assertAll();
 
 		} catch (Throwable e) {

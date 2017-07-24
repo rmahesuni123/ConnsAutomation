@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
@@ -169,7 +170,7 @@ public class ConnsHomePage extends CommonPage {
 			webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
 			log.info("Clicking Update button");
 			webPage.findObjectByxPath(test[0][7]).click();
-
+		 
 /*			if (webPage.findObjectByxPath(test[0][12]).isElementVisible())
 			{
 				log.info("Clicking location selection radio button");
@@ -178,6 +179,16 @@ public class ConnsHomePage extends CommonPage {
 			Thread.sleep(4000);
 			log.info("Clicking Add to Cart 1 button");
 			webPage.findObjectByxPath(test[0][8]).click();	
+			
+			 if (isAlertPresent())
+				 
+				{
+					Alert alert = webPage.getDriver().switchTo().alert();
+					alert.accept();
+					Thread.sleep(2000);
+					webPage.findObjectByxPath(test[0][8]).click();	
+				}			
+			
 			log.info("Clicking Proceed to Checkout button");
 			webPage.findObjectByxPath(test[0][9]).click();				
 
@@ -382,7 +393,8 @@ public class ConnsHomePage extends CommonPage {
 			  return pageUrl;
 			 }
 	
-			 public void waitPageToLoad() throws InterruptedException {
+			 public void waitPageToLoad() throws InterruptedException 
+			 {
 
 			  ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
 			   @SuppressWarnings("unused")
@@ -400,7 +412,7 @@ public class ConnsHomePage extends CommonPage {
 			  while (i < 1) {
 			   try {
 			    // Max wait 30 seconds
-			    WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 10);
+			    WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 8);
 			    wait.until(pageLoadCondition);
 			    log.debug("Wait for page load completed.");
 			    break;
@@ -413,4 +425,17 @@ public class ConnsHomePage extends CommonPage {
 			  }
 			 }
 	
+			 
+			public boolean isAlertPresent() 
+			{ 
+			    try 
+			    { 
+			    	webPage.getDriver().switchTo().alert(); 
+			        return true; 
+			    }   // try 
+			    catch (NoAlertPresentException Ex) 
+			    { 
+			        return false; 
+			    }   // catch 
+			}			 
 }
