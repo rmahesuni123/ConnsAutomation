@@ -55,6 +55,7 @@ public class WebPage {
 	private String testType = null;
 
 	String testBedName = null;
+	String testTypeName = null;
 
 	ITestContext currentContext = null;
 
@@ -66,6 +67,7 @@ public class WebPage {
 	public WebPage(ITestContext context) throws Exception {
 		// if (this.driver == null) {
 		testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
+		testTypeName=TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 		
 		TestBed testBed = createTestBed();
 		addToCurrentTestBeds(testBed);
@@ -133,7 +135,10 @@ public class WebPage {
 	 */
 	public void loadPage(String pageUrl) {
 		this.driver.get(pageUrl);
-		maximizeWindow();
+		if(testTypeName.equalsIgnoreCase("Web")){
+			maximizeWindow();
+		}
+		
 
 	}
 
@@ -148,7 +153,7 @@ public class WebPage {
 			else if (new BrowserInfoUtil(testBedName).isFF() || new BrowserInfoUtil(testBedName).isIE()
 					|| new BrowserInfoUtil(testBedName).isChrome() || new BrowserInfoUtil(testBedName).isSafari()) {
 
-			//	this.driver.manage().window().maximize();
+					this.driver.manage().window().maximize();
 			}
 		}
 	}
