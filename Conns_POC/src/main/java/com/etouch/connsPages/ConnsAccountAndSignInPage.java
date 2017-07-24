@@ -309,9 +309,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				Expected_Page_Element_Title = testdata[r][5];
 				log.info("Parent Locator is ..." + ParentElementLocator);
 				
-				/*if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
 					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
-				}*/
+				}
 				System.out.println("China Gate");
 				Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 				Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);

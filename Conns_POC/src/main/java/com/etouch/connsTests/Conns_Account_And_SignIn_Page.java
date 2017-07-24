@@ -162,13 +162,13 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				} else {
 				}
 				testEnv = System.getenv().get("Environment");
-				System.out.println("testEnv is : " + System.getenv().get("Environment"));
+				log.info("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
-				System.out.println("DataFilePath After is : " + DataFilePath);
+				log.info("DataFilePath After is : " + DataFilePath);
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
-					System.out.println("videoLocation" + videoLocation.toString().replace("Env", testEnv));
+					log.info("videoLocation" + videoLocation.toString().replace("Env", testEnv));
 				}
 				/*path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString();*/
@@ -181,7 +181,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					webPage = new WebPage(context);
 					ConnsSignInPage = new ConnsAccountAndSignInPage(url, webPage);
 					mainPage = new ConnsMainPage(url, webPage);
-					System.out.println(mainPage);
+					log.info(mainPage);
 					// connsHomepage=new ConnsHomePageNew;
 
 				}
@@ -204,7 +204,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Navigate to https://www.conns.com/customer/account/login/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN' 
 	 */
 
-	@Test(priority = 301,  enabled = false)
+	@Test(priority = 301,  enabled = true)
 	public void verify_Login_Page_Title() {
 		log.info("************ Stated title verification of Login Page*******************");
 		SoftAssert softAssert = new SoftAssert();
@@ -231,7 +231,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify Font Size & Style : Page font size & style should shown as per specification : Page should load without any error
 	 * Navigate to https://www.conns.com/customer/account/login/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN' 
 	 */
-	@Test(priority = 302, enabled = false, description = "Verify_Font_And_Size")
+	@Test(priority = 302, enabled = true, description = "Verify_Font_And_Size")
 	public void Verify_Font_And_Size_Login_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -286,7 +286,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	
 	
 	
-	/*@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 302,  enabled = false, description = "Verify FontandSize")
+	/*@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 302,  enabled = true, description = "Verify FontandSize")
 	@ITafExcelDataProviderInputs(excelFile = "ConnsAccountSignINData", excelsheet = "AccountSignINPage", dataKey = "verifyFontandSizeOnLoginPage")
 	public void verify_Font_and_Size_On_Login_Page(ITestContext context, TestParameters inputs)
 			throws PageException, InterruptedException {
@@ -328,7 +328,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Navigate to https://www.conns.com/customer/account/login/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN' 
 	 */	
 	
-	@Test(priority = 303,  enabled = false)
+	@Test(priority = 303,  enabled = true)
 	public void verify_Content_On_Login_Page() {
 		log.info("**************Started Content verification on Login Page *******************");
 		List <String> content = new ArrayList<String>();
@@ -362,7 +362,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Error message "Please enter a valid email address. For example johndoe@domain.com." should rendered and "Forgot Your Password" link should change to Red in color.
 	 * Above error message is not displayed instead "Invalid login or Password" is displayed & "Forgot Your Password" link is  remians in blue color.
 	 */
-	@Test(priority = 304,  enabled = false)
+	@Test(priority = 304,  enabled = true)
 	public void verify_Login_Functionality_with_Invalid_Input() {
 		log.info("******Started verification of Login functionality with invalid data ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -394,7 +394,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Error message "This is a required field." should rendered on both the fields
 	 */
 
-	@Test(priority = 305,  enabled = false)
+	@Test(priority = 305,  enabled = true)
 	public void verify_Login_Functionality_with_Blank_Input() {
 	log.info("******Started verification of Login functionality with blank data ********");
 	SoftAssert softAssert = new SoftAssert();
@@ -425,7 +425,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * "What is this " overlay should render 
 	 */
 
-	@Test(priority = 306,  enabled = false)
+	@Test(priority = 306,  enabled = true)
 	public void verify_Whats_This_Overlay_Rendered() throws PageException {
 		log.info("**************Started verification of What's this overlay Rendered on Login Page *******************");
 		SoftAssert softAssert = new SoftAssert();
@@ -458,7 +458,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * What is this " overlay should render : What's this overlay should hide/close
 	 */
 
-	@Test(priority = 307,  enabled = false)
+	@Test(priority = 307,  enabled = true)
 	public void verify_Whats_This_Overlay_Close() {
 		log.info("**************Started verification of What's this overlay Rendered on Login Page *******************");
 		SoftAssert softAssert = new SoftAssert();
@@ -493,7 +493,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify Redirectional links : Click on "Click here" under New customers section / Mobile view :Tap on Hamberger Menu -> 'SIGN IN' >'Click here' under New customers section : Page should navigate to https://www.conns.com/pay_your_bill and should load without any error
 	 */
 
-	@Test(priority = 308,  enabled = false)
+	@Test(priority = 308,  enabled = true)
 	public void verify_Redirectional_links() {
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifylinksOnLoginPage");
 		List<String> brokenLinks = new ArrayList<String>();
@@ -503,7 +503,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		try{
-			
 			for (int r = 0; r < testdata.length; r++) {
 				log.info("Verifying " + testdata[r][0]);
 				String ParentElementLocator = testdata[r][1];
@@ -543,7 +542,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify 'Remember me' checkbox button is clickable : Mobile view :Tap on Hamberger Menu -> 'SIGN IN' : 'Remember me ' should be unchecked
 	 */
 
-	@Test(priority = 309,  enabled = false)
+	@Test(priority = 309,  enabled = true)
 	public void verify_Remember_Me_CheckBox() {
 		log.info("******Started verification of RememberMeCheckBox functionality with valid data ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -560,7 +559,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			SoftAssertor.assertEquals(Actual_ToolTip_Text, Expected_ToolTip_Text, "ToolTip_Text of the mouse pointer does not match");
 			softAssert.assertAll();
 		}catch(Throwable e){
-			
 			mainPage.getScreenShotForFailure(webPage, "verify_Remember_Me_CheckBox");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -612,7 +610,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(Actual_Page_Title,Expected_Page_Title,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected Login_Functionality_Registered_User_Page_Title  : "+Expected_Page_Title + "Actual Login_Functionality_Registered_User_Page_Title  : "+Actual_Page_Title);
 			Actual_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
-			
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
@@ -656,8 +653,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify Page Title : Page should load without any error : Page title should "Forgot Your Password"
 	 * Navigate to https://www.conns.com/customer/account/forgotpassword/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password? link
 	 */
-
-	@Test(priority = 311,  enabled = false)
+	@Test(priority = 311,  enabled = true)
 	public void verify_Forgot_Password_Page_Title() throws PageException {
 		log.info("******Started verification of title on Forgot Password Page ********");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "ForgotPasswordPageTitle");
@@ -689,7 +685,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Page should load without any error
 	 */
 	
-/*	 @Test(priority = 312, enabled = false, description = "Verify_Font_And_Size")
+/*	 @Test(priority = 312, enabled = true, description = "Verify_Font_And_Size")
 	 public void Verify_Font_And_Size(){
 	  SoftAssert softAssert = new SoftAssert();
 	  try
@@ -713,7 +709,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	
 
 	
-	/*@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 312, enabled = false, description = "Verify FontandSize")
+	/*@Test(dataProvider = "tafDataProvider", dataProviderClass = TafExcelDataProvider.class, priority = 312, enabled = true, description = "Verify FontandSize")
 	@ITafExcelDataProviderInputs(excelFile = "ConnsAccountSignINData", excelsheet = "AccountSignINPage", dataKey = "verifyFontandSizeOnForgotPasswordPage")
 	public void verify_Font_and_Size_On_Forgot_Password_Page(ITestContext context, TestParameters inputs)
 			throws PageException, InterruptedException {
@@ -739,19 +735,19 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("Verification of font and size completed on Login Page");
 	}
 */
-	
-	
-	
-	
-	@Test(priority = 312, enabled = false, description = "Verify_Font_And_Size")
+
+	@Test(priority = 312, enabled = true, description = "Verify_Font_And_Size")
 	public void verify_Font_and_Size_On_Forgot_Password_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verify_Font_And_Size_On_Forgot_Password_Page");
-		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][3]; 
+		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][7]; 
+		String Forgot_Password_Link = testdata[0][8];
+
 		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link); 
 		try {
-			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
-					"verifyFontandSizeOnForgotPasswordPage");
+			commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
+
+			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Font_And_Size_On_Forgot_Password_Page");
 			for (int i = 0; i < ExpectedFontValues.length; i++) {
 				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
 						softAssert);
@@ -804,14 +800,14 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Page should load without any error
 	 */
 
-	@Test(priority = 315,  enabled = false)
+	@Test(priority = 315,  enabled = true)
 	public void verify_Forgot_Password_Page_Content() throws PageException {
 		log.info("******Started verification of content on Forgot Password Page *********");
 		List <String> content = new ArrayList<String>();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifycontentonforgotPwdPage");
 		String Forgot_Password_Link = testdata[0][2];
-		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "ForgotPasswordPageTitle");
-		String Account_Login_Page_Forgot_Password_Page_Link = test_data[0][3]; 
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verify_Font_And_Size_On_Forgot_Password_Page");
+		String Account_Login_Page_Forgot_Password_Page_Link = test_data[0][7]; 
 		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link); 
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -829,12 +825,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verify_Forgot_Password_Page_Content");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
-
 		}
 	}
-		
 
-	
 	/**
 	 * Test Case - 018 - Verify ForgotPwdPage_Submit_Button functionality with Blank Input
 	 * Verify error message when submit button is clicked without any inputs
@@ -842,7 +835,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Error message as 'This is a required field.' should render .
 	 */
 	
-	@Test(priority = 316,  enabled = false)
+	@Test(priority = 316,  enabled = true)
 	public void verify_Forgot_Password_Page_Submit_Button_Blank_Input() throws PageException {
 	log.info("******Started verification of Error Message content on Forgot Password Page Submit Button with Blank Input *********");
 	SoftAssert softAssert = new SoftAssert();
@@ -855,7 +848,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];	
 	try{
 		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
-		commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
+		//commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
 		commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
 		commonMethods.clickElementbyXpath(webPage, Forgot_Passowrd_Submit_Button_Locator, softAssert);
 		String Actual_Forgot_Password_Error_Message =commonMethods.getTextbyXpath(webPage, Forgot_Password_Error_Message_Locator, softAssert);
@@ -876,7 +869,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Page should navigate to https://www.conns.com/customer/account/login/
 	 */
 	
-	@Test(priority = 317, enabled = false)
+	@Test(priority = 317, enabled = true)
 	public void verify_Forgot_Password_Page_Go_Back_Link() throws PageException {
 		log.info("******Started verification of Go_Back_Link on Forgot Password Page ********");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLinksOnforgotPwdPage");
@@ -935,7 +928,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Error message 'Please enter a valid email address. For example johndoe@domain.com.' should render
 	 */
 	
-	@Test(priority = 318,  enabled = false)
+	@Test(priority = 318,  enabled = true)
 	public void verify_Forgot_Password_Function_with_Invalid_Email_ID() throws PageException {
 	log.info("******Started verification of Forgot Password functionality with Invalid and valid data ********");
 	SoftAssert softAssert = new SoftAssert();
@@ -975,7 +968,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Message 'If there is an account associated with test@gmail.com you will receive an email with a link to reset your password' should render on top of page ,
 	 */
 	
-	@Test(priority = 319,  enabled = false)
+	@Test(priority = 319,  enabled = true)
 	public void verify_Forgot_Password_Function_with_Valid_Email_ID() throws PageException {
 	log.info("******Started verification of Forgot Password functionality with Invalid and valid data ********");
 	SoftAssert softAssert = new SoftAssert();
@@ -1010,35 +1003,66 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 
 	
 	
+	
+	
+	/**
+	 * Test Case - 024 - Verify links in Account Information section
+	 * Verify page title : Page title should 'My Account'
+	 * Verify content section on account dashboard page 
+	 * Verify "Account Information" section on page : Verify contact information,newsletter subscription, primary billing address & primary shipping address details of customer : Verify contact information,newsletters subscription, primary billing address & primary shipping address details of customer
+	 * Verify "Edit" link for "Newsletters" : click on "Edit" link for "Contact Newsletters" It should redirect to account information form page : https://www.conns.com/customer/account/edit/
+	 * Verify "Change Password" link : click on "Change Password" link : It should redirect to edit account information form page : https://www.conns.com/customer/account/edit/changepass/1/
+	 * Verify "Edit Address" link for "Primary Billing Address" : click on "Edit Address" link for "Primary Billing Address" : It should redirect to contact information form : https://www.conns.com/customer/address/edit/
+	 * Verify "Edit Address" link for "Primary Shipping Address": click on "Edit Address" link for "Primary Shipping Address" :It should redirect to contact information form : https://www.conns.com/customer/address/edit/ but getting redirected to https://www.conns.com/customer/address/edit/id/6296645/
+	 * Verify "Manage Addresses" link for "address Book" section : click on "Manage Addresses" link : It should redirect to contact information form : https://www.conns.com/customer/address/edit/
+	 */
+	
+
+	@Test(priority = 320, enabled = true)
+	public void verify_Links_On_Account_DashBoard_Tab() {
+		log.info("******Started verification of Links in Account Dashborad tab after login ********");
+		SoftAssert softAssert = new SoftAssert();
+		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
+		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		for(int r=0;r < test_data.length;r++)
+		{	
+		String Page_Expected_URL = test_data[r][3];
+		String Page_Expected_Element_Name = test_data[r][4];
+		String Page_Expected_Title = test_data[r][4];
+		try{
+		List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Account_Tab(test_data);
+		softAssert.assertEquals(Page_URL_Title_Data.get(1),Page_Expected_Title,"Account Information DashBoard Tab verification failed For Page Elements. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Page_Element : "+Page_URL_Title_Data.get(1));	
+		softAssert.assertEquals(Page_URL_Title_Data.get(2),Page_Expected_URL,"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL: "+Page_URL_Title_Data.get(2));
+		softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Title : "+Page_URL_Title_Data.get(0));
+		softAssert.assertAll();
+		}catch(Throwable e){
+		mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Content");
+		softAssert.assertAll();
+		Assert.fail(e.getLocalizedMessage());
+	}
+		}
+}
+
 	/**
 	 * Test Case - 022 - Verify Page Title in Account Information section
 	 * 
 	 */
 
-	@Test(priority = 320, enabled = false)
+	@Test(priority = 321, enabled = true)
 	public void verify_Account_DashBoard_Page_Title() {
 		log.info("******Started verification of content on Account Dashborad tab after login ********");
+		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
 		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
-		String EmailAddressLocator = testdata[0][2];
-		String EmailAddress = testdata[0][3];
-		String PasswordLocator =testdata[0][4];
-		String Password = testdata[0][5];
-		String LogInButtonLocator = testdata[0][6];
-		String Navigate_To_OPT_URL = testdata[0][7];
-		String Navigate_To_RWD_URL = testdata[0][8];
-		SoftAssert softAssert = new SoftAssert();
-
-		webPage.getDriver().navigate().to(Navigate_To_RWD_URL);
-		commonMethods.sendKeysbyXpath(webPage, EmailAddressLocator, EmailAddress, softAssert);
-		commonMethods.sendKeysbyXpath(webPage, PasswordLocator, Password, softAssert);
-		commonMethods.clickElementbyXpath(webPage, LogInButtonLocator, softAssert);
-
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
+		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		try{
-			
-			//String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-			//ConnsSignInPage.verifyPageTitle(testdata);
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			String Actual_Account_Dashboard_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(Actual_Account_Dashboard_Page_URL, Expected_Account_Dashboard_Page_URL,"Page url verification failed. Expected url : "+Expected_Account_Dashboard_Page_URL +           "Actual url :                  "+Actual_Account_Dashboard_Page_URL);
 			String Actual_Account_Dashboard_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
@@ -1051,20 +1075,19 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 	}
 	
-	
-	
 	/**
 	 * Test Case - 023 - Verify content in Account Information section
 	 * 
 	 */
-
-	@Test(priority = 321, enabled = false)
+	@Test(priority = 322, enabled = true)
 	public void verify_Account_DashBoard_Content() {
 		log.info("******Started verification of content on Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountPageContent");
+		String Navigate_To_Account_Information_Tab_Form_URL= test_data[0][18];
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		try{
 			//String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 			//ConnsSignInPage.verifyPageTitle(testdata);
@@ -1086,62 +1109,23 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	/**
-	 * Test Case - 024 - Verify links in Account Information section
-	 * Verify page title : Page title should 'My Account'
-	 * Verify content section on account dashboard page 
-	 * Verify "Account Information" section on page : Verify contact information,newsletter subscription, primary billing address & primary shipping address details of customer : Verify contact information,newsletters subscription, primary billing address & primary shipping address details of customer
-	 * Verify "Edit" link for "Newsletters" : click on "Edit" link for "Contact Newsletters" It should redirect to account information form page : https://www.conns.com/customer/account/edit/
-	 * Verify "Change Password" link : click on "Change Password" link : It should redirect to edit account information form page : https://www.conns.com/customer/account/edit/changepass/1/
-	 * Verify "Edit Address" link for "Primary Billing Address" : click on "Edit Address" link for "Primary Billing Address" : It should redirect to contact information form : https://www.conns.com/customer/address/edit/
-	 * Verify "Edit Address" link for "Primary Shipping Address": click on "Edit Address" link for "Primary Shipping Address" :It should redirect to contact information form : https://www.conns.com/customer/address/edit/ but getting redirected to https://www.conns.com/customer/address/edit/id/6296645/
-	 * Verify "Manage Addresses" link for "address Book" section : click on "Manage Addresses" link : It should redirect to contact information form : https://www.conns.com/customer/address/edit/
-	 */
-	
-
-	@Test(priority = 322, enabled = false)
-	public void verify_Links_On_Account_DashBoard_Tab() {
-		log.info("******Started verification of Links in Account Dashborad tab after login ********");
-		SoftAssert softAssert = new SoftAssert();
-		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
-		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
-		for(int r=0;r < test_data.length;r++)
-		{	
-		String Page_Expected_URL = test_data[r][3];
-		String Page_Expected_Element_Name = test_data[r][4];
-		String Page_Expected_Title = test_data[r][4];
-		try{
-		List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Account_Tab(test_data);
-		softAssert.assertEquals(Page_URL_Title_Data.get(1),Page_Expected_Title,"Account Information DashBoard Tab verification failed For Page Elements. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Page_Element : "+Page_URL_Title_Data.get(1));	
-		softAssert.assertEquals(Page_URL_Title_Data.get(2),Page_Expected_URL,"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL: "+Page_URL_Title_Data.get(2));
-		softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Title : "+Page_URL_Title_Data.get(0));
-		softAssert.assertAll();
-		}catch(Throwable e){
-		mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Content");
-		softAssert.assertAll();
-		Assert.fail(e.getLocalizedMessage());
-	}
-		}
-}
-	
 
 	/**
 	 * Test Case - 025 - Verify "Credit Applications" section on My Account page
 	 * It should shows the applied credit status/details
 	 */
-
-	@Test(priority = 323, enabled = false)
+	@Test(priority = 323, enabled = true)
 	public void Verify_Credit_Application_Sec() {
 		log.info("******Started verification of credit Application sec on Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "Verify_Credit_Application_Section");
+		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][2];
+		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
 		//ConnsSignInPage.verifyContent(testdata);
-		List <String> content = new ArrayList<String>();
 		for (int r = 0; r < testdata.length; r++) {
 			try {
+				webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 				String Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification =commonMethods.getTextbyXpath(webPage, testdata[r][0], null);
 				String Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = testdata[r][1];
 				softAssert.assertEquals(Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification, Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification,"Page Element Content verification failed. Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification : "+Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification +           "Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification :                  "+Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification);
@@ -1155,18 +1139,17 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				}
 		}
 
-	
 	/**
 	 * Test Case - 026 - Verify AccountInformationTab and Change Password functionality
 	 * @throws PageException 
 	 * Verify "Account Information" page title,Verify "Account Information" form input validations by submitting blank form,Verify email address field validation with some invalid email address
 	 */
 
-	@Test(priority = 324, enabled = false)
+	@Test(priority = 324, enabled = true)
 	public void verify_Account_Information_Tab_Verify_Validation_Messages() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyAccountInformationForm");
 		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][12];
@@ -1208,15 +1191,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify "Change Password" checkbox functionality,Verify "Change Password" form input validations by submitting blank form,Verify password field validation with short password in "New Password" field,Verify password field validation for "Confirm New Password" field
 	 */
 
-	@Test(priority = 325, enabled = false)
+	@Test(priority = 325, enabled = true)
 	public void verify_Account_Information_Tab_Change_Password_Functionality() throws PageException{
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyChangePasswordfun");
-		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][13];
+		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][9];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		String Change_Password_Link_Locator =inputdata[0][0];
 		commonMethods.clickElementbyXpath(webPage, Change_Password_Link_Locator, softAssert);
@@ -1231,7 +1214,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 
 		}
 		catch(Throwable e){
-			//mainPage.getScreenShotForFailure(webPage, "verify_Account_Information_Tab_Change_Password_Functionality");
+			mainPage.getScreenShotForFailure(webPage, "verify_Account_Information_Tab_Change_Password_Functionality");
 			softAssert.assertAll();
 			if (brokenItems.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenItems.toArray()) + " are not working as expected");
@@ -1248,7 +1231,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to previous page : https://www.conns.com/customer/account/
 	 */
 
-	@Test(priority = 326, enabled = false)
+	@Test(priority = 326, enabled = true)
 	public void verify_Account_Information_Tab_Change_Password_Form_Go_Back_Link() throws PageException{
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
@@ -1256,18 +1239,32 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyChangePasswordfun");
-		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][13];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		
+		String Expected_PageTitle_After_Page_Redirection = inputdata[0][17];
+		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 		String GO_BACK_Link_Locator =inputdata[0][14];
 		try{
 			String actualPageUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(actualPageUrl, inputdata[0][13],"Page url verification failed. Expected url : "+inputdata[0][13]+"Actual url : "+actualPageUrl);
 			String actualPageTitle = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(actualPageTitle, inputdata[0][15],"Page title verification failed. Expected title : "+inputdata[0][15]+"Actual title : "+actualPageTitle);
+			log.info("actualPageUrl : " +actualPageUrl);
+			log.info("inputdata[0][13] : " +inputdata[0][13]);
+			log.info("actualPageTitle : " +actualPageTitle);
+			log.info("inputdata[0][15] : " +inputdata[0][15]);
 			commonMethods.clickElementbyXpath(webPage, GO_BACK_Link_Locator, softAssert);
+			String actualPageUrl_After_Page_Redirection = commonMethods.getPageUrl(webPage, softAssert);
+			softAssert.assertEquals(actualPageUrl_After_Page_Redirection, inputdata[0][16],"Page url verification failed. Expected url : "+inputdata[0][13]+"Actual url : "+actualPageUrl);
+			String Actual_Page_Title_After_Page_Redirection = commonMethods.getPageTitle(webPage, softAssert);
+			softAssert.assertEquals(Actual_Page_Title_After_Page_Redirection, Expected_PageTitle_After_Page_Redirection,"Page title verification failed. Expected title : "+Expected_PageTitle_After_Page_Redirection+"Actual title : "+Actual_Page_Title_After_Page_Redirection);
+			log.info("actualPageUrl_After_Page_Redirection : " +actualPageUrl_After_Page_Redirection);
+			log.info("inputdata[0][16] : " +inputdata[0][16]);
+			log.info("Actual_Page_Title_After_Page_Redirection : " +Actual_Page_Title_After_Page_Redirection);
+			log.info("Expected_PageTitle_After_Page_Redirection : " +Expected_PageTitle_After_Page_Redirection);
 			softAssert.assertAll();
 		}catch(Throwable e){
-		//	mainPage.getScreenShotForFailure(webPage, "verify_Account_Information_Tab_Change_Password_Form_Go_Back_Link");
+			mainPage.getScreenShotForFailure(webPage, "verify_Account_Information_Tab_Change_Password_Form_Go_Back_Link");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -1283,12 +1280,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should throw an error message : "This is a required field."
 	 */
 	
-	@Test(priority = 327, enabled = false)
+	@Test(priority = 327, enabled = true)
 	public void verify_Contact_Information_Tab_Edit_Link_Blank_Input() throws PageException{
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","ContactInformationFunctionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1324,9 +1321,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			}
 		}
 	}
-		
-	
-	
 	
 	/**
 	 * Test Case - 030 - Verify "Contact Information" functionality by submitting valid form
@@ -1334,12 +1328,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to https://www.conns.com/customer/address/index/ and New address should be added under Additional Address Entries
 	 */
 	
-	@Test(priority = 328, enabled = false)
+	@Test(priority = 328, enabled = true)
 	public void verify_Contact_Information_Tab_Edit_Link_Valid_Input() throws PageException{
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","ContactInformationFunctionality_Valid_Input");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1379,12 +1373,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * On clicking on 'change billing address' editable form is displayed.
 	 */
 	
-	@Test(priority = 329, enabled = false)
+	@Test(priority = 329, enabled = true)
 	public void verify_Contact_Information_Tab_Default_Billing_Shipping_Address_Link() throws PageException{
 		JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1432,11 +1426,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to "Contact Information" form
 	 */
 	
-	@Test(priority = 330, enabled = false)
+	@Test(priority = 330, enabled = true)
 	public void verify_Contact_Information_Tab_Change_Billing_Address_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1468,11 +1462,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to "Contact Information" form
 	 */
 	
-	@Test(priority = 331, enabled = false)
+	@Test(priority = 331, enabled = true)
 	public void verify_Contact_Information_Tab_Change_Shipping_Address_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1505,11 +1499,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Success message should render "The address has been saved." : https://www.conns.com/customer/address/index/
 	 */
 	
-	@Test(priority = 332, enabled = false)
+	@Test(priority = 332, enabled = true)
 	public void verify_Contact_Information_Tab_Go_Back_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1561,12 +1555,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Success message should render "The address has been saved." : https://www.conns.com/customer/address/index/
 	 */
 	
-	@Test(priority = 333, enabled = false)
+	@Test(priority = 333, enabled = true)
 	public void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Account_Information_Address_Book_Additional_Address_Valid_Input");
 		//	String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
@@ -1619,11 +1613,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to "Newsletter subscription" form
 	 */
 	
-	@Test(priority = 334, enabled = false)
+	@Test(priority = 334, enabled = true)
 	public void verify_Account_Information_Tab_Newsletters_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Newsletters_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1656,11 +1650,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * The checkbox should be checked when tapped on it
 	 */
 
-	@Test(priority = 335, enabled = false)
+	@Test(priority = 335, enabled = true)
 	public void verify_Account_Information_Tab_Newsletters_General_Subscription_CheckBox() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Newsletters_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1698,11 +1692,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Application should redirect to previous page : https://www.conns.com/customer/account/
 	 */
 
-	@Test(priority = 336, enabled = false)
+	@Test(priority = 336, enabled = true)
 	public void verify_Account_Information_Tab_Newsletters_Go_Back_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Newsletters_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1740,11 +1734,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 *  "The Subscription has been saved" message should appear in green box on top of page
 	 */
 
-	@Test(priority = 337, enabled = false)
+	@Test(priority = 337, enabled = true)
 	public void verify_Account_Information_Tab_Newsletters_Save_Button() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Newsletters_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1804,7 +1798,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * 
 	 */
 
-	/*@Test(priority = 2, enabled = false, description = "Verify_Font_And_Size")*/
+/*	@Test(priority = 2, enabled = true, description = "Verify_Font_And_Size")
 	public void Verify_Font_And_Size() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1849,7 +1843,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
-	}
+	}*/
 
 	
 	/***********************************************************************GARBAGE ENDS*******************************************************************************************************************************************************************************************/	
