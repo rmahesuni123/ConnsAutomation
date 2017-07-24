@@ -111,7 +111,7 @@ webConfig:
  #hub: https://nalinikadam1:6jzexgNzHRz6SR5CLBKz@hub-cloud.browserstack.com/wd/hub
  hub: localhost
  port: 4001
- URL: http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/
+ URL: http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/uat/
  tool: Selenium
  seleniumServerPath: ..\\test-automation-library\\resources\\selenium-server-standalone-2.48.2.jar
  #testEnv: remote
