@@ -254,11 +254,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font family : "
 									+ actualCssValues.get(1));
-					softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValues[i][4]),
+					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains((ExpectedFontValues[i][4]).toLowerCase()),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
 									+ actualCssValues.get(2));
-
 				} else {
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
@@ -268,16 +267,17 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
 									+ actualCssValues.get(1));
-					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
+					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains((ExpectedFontValues[i][4]).toLowerCase()),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
 									+ actualCssValues.get(2));
+				
 					
 				}
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size_Login_Page");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -760,11 +760,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font family : "
 									+ actualCssValues.get(1));
-					softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValues[i][4]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
-									+ actualCssValues.get(2));
-
+					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains((ExpectedFontValues[i][4]).toLowerCase()),
+						       "CSS value verification failed for link " + ExpectedFontValues[i][0]
+						         + "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+						         + actualCssValues.get(2));
 				} else {
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
@@ -774,10 +773,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
 									+ actualCssValues.get(1));
-					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
-									+ actualCssValues.get(2));
+					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains((ExpectedFontValues[i][4]).toLowerCase()),
+						       "CSS value verification failed for link " + ExpectedFontValues[i][0]
+						         + "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+						         + actualCssValues.get(2));
 					
 				}
 			}
