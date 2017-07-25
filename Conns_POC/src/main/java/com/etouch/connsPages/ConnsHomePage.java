@@ -328,6 +328,7 @@ public class ConnsHomePage extends CommonPage {
 					log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
 					Thread.sleep(3000);
 				    WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).getWebElement();
+				    System.out.println("$$$$  : " + element.getText());
 				    JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 				    executor.executeScript("arguments[0].click();", element);	
 				    Thread.sleep(3000);
