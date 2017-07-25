@@ -5,12 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -748,7 +752,8 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_Details_Under_Save_Big_With_Conns_Latest_Deals() throws PageException, InterruptedException {
 		webPage.getDriver().get(url);
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifySaveBigWithConns");
-		ConnsHomePage.verifySaveBigWithConnsSection(testData);
+		//ConnsHomePage.verifySaveBigWithConnsSection(testData);
+		verifySaveBigWithConnsSection(testData);
 	}
 
 	/**
@@ -1265,6 +1270,124 @@ public class Conns_Home_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 
+	}
+	
+	
+	public void verifySaveBigWithConnsSection(String[][] test) throws PageException 
+	{
+		SoftAssert softAssert = new SoftAssert();
+		String SaveBigMenuOptionIdentifier = null;
+		String CarouselLeft = null;
+		String CarouselRight = null;
+		String ElementPosition1 = null;
+		String ElementPosition2 = null;
+		String ClickForDetails = null;
+		String PopUp = null;
+		int RotationCountMobile = 0;
+		int RotationCountWeb = 0;
+		String SaveBigMenuOptionIdentifierMobile=null;
+		List<String> errors = new ArrayList<String>();
+		webPage.waitForWebElement(By.xpath(test[0][0]));
+		for (int i = 0; i < test.length; i++) 
+		{
+
+			try {
+				log.info("Value of I : " + i);
+				SaveBigMenuOptionIdentifier = test[i][0].trim();
+				CarouselLeft = test[i][1];
+				CarouselRight = test[i][2];
+				ElementPosition1 = test[i][3];
+				ElementPosition2 = test[i][4];
+				ClickForDetails = test[i][5];
+				PopUp = test[i][6];
+				RotationCountMobile = Integer.parseInt(test[i][8]);
+				RotationCountWeb = Integer.parseInt(test[i][9]);
+				SaveBigMenuOptionIdentifierMobile = test[i][10];
+				System.out.println(" " + SaveBigMenuOptionIdentifier + " " + CarouselLeft + " " + CarouselRight + " "
+						+ ElementPosition1 + " " + ElementPosition2 + " " + ClickForDetails + " " + PopUp);
+
+
+				if(testType.equalsIgnoreCase("Mobile"))
+				{
+					log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
+					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifierMobile).getWebElement();
+					JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+					executor.executeScript("arguments[0].click();", element);       
+					//webPage.findObjectByxPath(SaveBigMenuOptionIdentifierMobile).click();     
+					Thread.sleep(3000);
+					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
+					System.out.println("Expected Left: " + textAtPosition1);     
+					for (int j = 0; j <= RotationCountMobile; j++) {
+						log.info("Value of J : " + j);
+
+						WebElement element1 = webPage.findObjectByxPath(CarouselLeft).getWebElement();
+						JavascriptExecutor executor1 = (JavascriptExecutor) webPage.getDriver();
+						executor.executeScript("arguments[0].click();", element1);      
+						//webPage.findObjectByxPath(CarouselLeft).click();
+						Thread.sleep(1000);
+					}
+					String textAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
+
+
+
+					System.out.println("Actual Left : " + textAtPosition2);
+					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
+							" failed " + textAtPosition1 + " " + textAtPosition2);
+
+					/*     String textAtPosition1forRightCorousal = webPage.findObjectByxPath(ElementPosition1).getText();
+	     for (int j = 0; j <= RotationCount; j++) {
+	      log.info("Value of K : " + j);
+	      webPage.findObjectByxPath(CarouselRight).click();
+	     }
+	     String textAtPosition2forRightCorousal = webPage.findObjectByxPath(ElementPosition1).getText();
+	     System.out.println("Actual Left : " + textAtPosition2);
+	     SoftAssertor.assertEquals(textAtPosition1forRightCorousal, textAtPosition2forRightCorousal,
+	       " failed " + textAtPosition1forRightCorousal + " " + textAtPosition2forRightCorousal);*/
+
+				}
+				else
+				{
+					log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
+					Thread.sleep(3000);
+					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).getWebElement();
+					System.out.println("$$$$  : " + element.getText());
+					JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+					executor.executeScript("arguments[0].click();", element); 
+					Thread.sleep(3000);
+
+					//webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).click();     
+					webPage.findObjectByxPath(CarouselLeft).click();
+					Thread.sleep(3000);
+					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
+					System.out.println("Expected Left: " + textAtPosition1);     
+					for (int j = 0; j < RotationCountWeb; j++) {
+						webPage.findObjectByxPath(CarouselLeft).click();
+						Thread.sleep(1000);
+					}
+					String textAtPosition2 = webPage.findObjectByxPath(ElementPosition2).getText();
+					System.out.println("Actual Left : " + textAtPosition2);
+					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
+							" failed " + textAtPosition1 + " " + textAtPosition2);
+
+					log.info("Clicked on element2");
+					String eletextAtPosition1 = webPage.findObjectByxPath(ElementPosition2).getText();
+					System.out.println("Expected Right: " + eletextAtPosition1);
+					for (int k = 0; k < RotationCountWeb; k++) {
+						webPage.findObjectByxPath(CarouselRight).click();
+					}
+					String eletextAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
+					System.out.println("Actual Right: " + eletextAtPosition2);
+					SoftAssertor.assertEquals(eletextAtPosition1, eletextAtPosition2,
+							" failed " + eletextAtPosition1 + " " + eletextAtPosition2);
+				}
+				softAssert.assertAll();
+
+			} catch (Throwable e) 
+			{
+				errors.add(e.getLocalizedMessage());
+				log.error(e.getMessage());
+			}
+		}
 	}
 
 }

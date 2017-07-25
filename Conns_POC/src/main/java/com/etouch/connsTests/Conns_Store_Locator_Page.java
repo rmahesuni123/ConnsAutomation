@@ -322,6 +322,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					if(actualUrlGoogleMap.contains("daddr=Conn's+HomePlus,+")){
 						actualUrlGoogleMap=actualUrlGoogleMap.replace("daddr=Conn's+HomePlus,+", "?daddr=");
 					}
+					if(actualUrlGoogleMap.contains("??")){
+						actualUrlGoogleMap=actualUrlGoogleMap.replace("??", "?");
+					}
 					softAssert.assertTrue(actualUrlGoogleMap.startsWith(keyData[j][3]),"Url verification failed. Expected URL : "+keyData[j][3]+". Actual URL : "+actualUrlGoogleMap);
 				}
 			}
