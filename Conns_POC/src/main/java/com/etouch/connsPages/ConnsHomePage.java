@@ -52,6 +52,7 @@ public class ConnsHomePage extends CommonPage {
 		super(sbPageUrl, webPage);
 		CommonUtil.sop("webDriver in eTouchWebSite Page : " + webPage.getDriver());
 		loadPage();
+		webPage.getDriver().manage().window().maximize();
 	}
 
 	public void verifyBrokenImage() {
@@ -93,6 +94,52 @@ public class ConnsHomePage extends CommonPage {
 		}
 
 	}
+	
+	
+	public void verifyBrokenImage1() {
+		List<WebElement> imagesList = webPage.getDriver().findElements(By.tagName("img"));
+		log.info("Total number of images : " + imagesList.size());
+		int imageCount = 0;
+		List<Integer> brokenImageNumber = new ArrayList<Integer>();
+		List<String> brokenImageSrc = new ArrayList<String>();
+		for (WebElement image : imagesList) 		
+		{
+			try {
+				imageCount++;				
+				log.info("Verifying image number : " + imageCount);
+				HttpClient client = HttpClientBuilder.create().build();
+				HttpGet request = new HttpGet(image.getAttribute("src"));
+
+				HttpResponse response = client.execute(request);
+				//log.info("src : " + image.getAttribute("src"));
+				//log.info("response.getStatusLine().getStatusCode() : " + response.getStatusLine().getStatusCode());
+				if (response.getStatusLine().getStatusCode() == 200||response.getStatusLine().getStatusCode() == 451) {
+					log.info("Image number " + imageCount + " is as expected "
+							+ response.getStatusLine().getStatusCode());
+				} else {
+					brokenImageNumber.add(imageCount);
+					brokenImageSrc.add(image.getAttribute("src"));
+					log.info("Image number " + imageCount + " is not as expected "
+							+ response.getStatusLine().getStatusCode());
+					log.info("Broken Image source is : " + image.getAttribute("src"));
+
+				}
+			} catch (Exception e) {
+				log.info("Image number ....." + imageCount + " is not as expected ");
+				brokenImageNumber.add(imageCount);
+				brokenImageSrc.add(image.getAttribute("src"));
+				log.info("imageCount  : " + imageCount + " : " + brokenImageSrc);			
+			}
+
+		}
+		if (brokenImageNumber.size() > 0) {
+
+			Assert.fail("Image number of the broken images : " + Arrays.deepToString(brokenImageNumber.toArray())
+			+ " -- Image source of the broken images : " + Arrays.deepToString(brokenImageSrc.toArray()));
+
+		}
+
+	}	
 
 	public List<String> verifyYourCart(String[][] test, String testType) throws PageException, InterruptedException {
 		List<String> actualValueList=new ArrayList<String>();
@@ -214,7 +261,8 @@ public class ConnsHomePage extends CommonPage {
 		String ElementPosition2 = null;
 		String ClickForDetails = null;
 		String PopUp = null;
-		int RotationCount = 0;
+		int RotationCountMobile = 0;
+		int RotationCountWeb = 0;
 		String SaveBigMenuOptionIdentifierMobile=null;
 		List<String> errors = new ArrayList<String>();
 		webPage.waitForWebElement(By.xpath(test[0][0]));
@@ -230,8 +278,9 @@ public class ConnsHomePage extends CommonPage {
 				ElementPosition2 = test[i][4];
 				ClickForDetails = test[i][5];
 				PopUp = test[i][6];
-				RotationCount = Integer.parseInt(test[i][8]);
-				SaveBigMenuOptionIdentifierMobile = test[i][9];
+				RotationCountMobile = Integer.parseInt(test[i][8]);
+				RotationCountWeb = Integer.parseInt(test[i][9]);
+				SaveBigMenuOptionIdentifierMobile = test[i][10];
 				System.out.println(" " + SaveBigMenuOptionIdentifier + " " + CarouselLeft + " " + CarouselRight + " "
 						+ ElementPosition1 + " " + ElementPosition2 + " " + ClickForDetails + " " + PopUp);
 
@@ -246,7 +295,7 @@ public class ConnsHomePage extends CommonPage {
 					Thread.sleep(3000);
 					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
 					System.out.println("Expected Left: " + textAtPosition1);					
-					for (int j = 0; j <= RotationCount; j++) {
+					for (int j = 0; j <= RotationCountMobile; j++) {
 						log.info("Value of J : " + j);
 						
 						  WebElement element1 = webPage.findObjectByxPath(CarouselLeft).getWebElement();
@@ -277,28 +326,36 @@ public class ConnsHomePage extends CommonPage {
 				else
 				{
 					log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
-					webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).click();					
+					Thread.sleep(3000);
+				    WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).getWebElement();
+				    JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+				    executor.executeScript("arguments[0].click();", element);	
+				    Thread.sleep(3000);
+					
+					//webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).click();					
 					webPage.findObjectByxPath(CarouselLeft).click();
+					Thread.sleep(3000);
 					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
 					System.out.println("Expected Left: " + textAtPosition1);					
-					for (int j = 0; j < RotationCount; j++) {
+					for (int j = 0; j < RotationCountWeb; j++) {
 						webPage.findObjectByxPath(CarouselLeft).click();
+						Thread.sleep(1000);
 					}
 					String textAtPosition2 = webPage.findObjectByxPath(ElementPosition2).getText();
 					System.out.println("Actual Left : " + textAtPosition2);
 					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
 							" failed " + textAtPosition1 + " " + textAtPosition2);
 
-					log.info("Clicked on element2");
+/*					log.info("Clicked on element2");
 					String eletextAtPosition1 = webPage.findObjectByxPath(ElementPosition2).getText();
 					System.out.println("Expected Right: " + eletextAtPosition1);
-					for (int k = 0; k < RotationCount; k++) {
+					for (int k = 0; k < RotationCountWeb; k++) {
 						webPage.findObjectByxPath(CarouselRight).click();
 					}
 					String eletextAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
 					System.out.println("Actual Right: " + eletextAtPosition2);
 					SoftAssertor.assertEquals(eletextAtPosition1, eletextAtPosition2,
-							" failed " + eletextAtPosition1 + " " + eletextAtPosition2);
+							" failed " + eletextAtPosition1 + " " + eletextAtPosition2);*/
 				}
 				softAssert.assertAll();
 
@@ -412,7 +469,7 @@ public class ConnsHomePage extends CommonPage {
 			  while (i < 1) {
 			   try {
 			    // Max wait 30 seconds
-			    WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 8);
+			    WebDriverWait wait = new WebDriverWait(webPage.getDriver(), 3);
 			    wait.until(pageLoadCondition);
 			    log.debug("Wait for page load completed.");
 			    break;
