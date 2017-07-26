@@ -606,9 +606,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			commonMethods.sendKeysbyXpath(webPage, PasswordLocator, Password, softAssert);
 			commonMethods.clickElementbyXpath(webPage, LogInButtonLocator, softAssert);
 			Actual_Element_Name =commonMethods.getTextbyXpath(webPage, ChildElementLocator, softAssert);
-			SoftAssertor.assertEquals(Actual_Element_Name, Expected_Element_Name, "Element name does not match");
+			//SoftAssertor.assertEquals(Actual_Element_Name, Expected_Element_Name, "Element name does not match");
+			softAssert.assertEquals(Actual_Element_Name,Expected_Element_Name,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected Login_Functionality_Registered_User_Page_Actual_Element_Name  : "+Actual_Element_Name + "Actual Login_Functionality_Registered_User_Page_Actual_Element_Name  : "+Actual_Element_Name);
 			String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
-			softAssert.assertEquals(Actual_Page_Title,Expected_Page_Title,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected Login_Functionality_Registered_User_Page_Title  : "+Expected_Page_Title + "Actual Login_Functionality_Registered_User_Page_Title  : "+Actual_Page_Title);
+			softAssert.assertEquals(Actual_Page_Title,Expected_Page_Title,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected Login_Functionality_Registered_User_Page_Title  : "+Expected_Page_Title + "Actual Login_Functionality_Registered_User_Page_Actual_Page_Title  : "+Actual_Page_Title);
 			Actual_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			CommonUtil.sop("Test bed Name is " + testBedName);
@@ -1503,7 +1504,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 */
 	
 	@Test(priority = 332, enabled = true)
-	public void verify_Contact_Information_Tab_Go_Back_Link() throws PageException{
+	public void verify_Contact_Information_Tab_Go_Back_Link(){
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
 		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
