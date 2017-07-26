@@ -1283,7 +1283,7 @@ public class Conns_Home_Page extends BaseTest {
 		String ElementPosition2 = null;
 		String ClickForDetails = null;
 		String PopUp = null;
-		int RotationCountMobile = 0;
+		//int RotationCountMobile = 0;
 		int RotationCountWeb = 0;
 		String SaveBigMenuOptionIdentifierMobile=null;
 		List<String> errors = new ArrayList<String>();
@@ -1293,6 +1293,7 @@ public class Conns_Home_Page extends BaseTest {
 
 			try {
 				log.info("Value of I : " + i);
+				webPage.getDriver().get(url);
 				SaveBigMenuOptionIdentifier = test[i][0].trim();
 				CarouselLeft = test[i][1];
 				CarouselRight = test[i][2];
@@ -1300,85 +1301,101 @@ public class Conns_Home_Page extends BaseTest {
 				ElementPosition2 = test[i][4];
 				ClickForDetails = test[i][5];
 				PopUp = test[i][6];
-				RotationCountMobile = Integer.parseInt(test[i][8]);
+				//RotationCountMobile = Integer.parseInt(test[i][8]);
 				RotationCountWeb = Integer.parseInt(test[i][9]);
 				SaveBigMenuOptionIdentifierMobile = test[i][10];
+				JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();				
 				System.out.println(" " + SaveBigMenuOptionIdentifier + " " + CarouselLeft + " " + CarouselRight + " "
 						+ ElementPosition1 + " " + ElementPosition2 + " " + ClickForDetails + " " + PopUp);
 
-
+				String textAtPosition1 = null;
+				String textAtPosition2 = null;
+				String textAtPosition11 = null;
+				String textAtPosition12 = null;
 				if(testType.equalsIgnoreCase("Mobile"))
-				{
-					log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
+				{	
+					Thread.sleep(3000);
 					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifierMobile).getWebElement();
-					JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
-					executor.executeScript("arguments[0].click();", element);       
-					//webPage.findObjectByxPath(SaveBigMenuOptionIdentifierMobile).click();     
-					Thread.sleep(3000);
-					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
-					System.out.println("Expected Left: " + textAtPosition1);     
-					for (int j = 0; j <= RotationCountMobile; j++) {
-						log.info("Value of J : " + j);
-
-						WebElement element1 = webPage.findObjectByxPath(CarouselLeft).getWebElement();
-						JavascriptExecutor executor1 = (JavascriptExecutor) webPage.getDriver();
-						executor.executeScript("arguments[0].click();", element1);      
-						//webPage.findObjectByxPath(CarouselLeft).click();
-						Thread.sleep(1000);
-					}
-					String textAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
-
-
-
-					System.out.println("Actual Left : " + textAtPosition2);
-					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
-							" failed " + textAtPosition1 + " " + textAtPosition2);
-
-					/*     String textAtPosition1forRightCorousal = webPage.findObjectByxPath(ElementPosition1).getText();
-	     for (int j = 0; j <= RotationCount; j++) {
-	      log.info("Value of K : " + j);
-	      webPage.findObjectByxPath(CarouselRight).click();
-	     }
-	     String textAtPosition2forRightCorousal = webPage.findObjectByxPath(ElementPosition1).getText();
-	     System.out.println("Actual Left : " + textAtPosition2);
-	     SoftAssertor.assertEquals(textAtPosition1forRightCorousal, textAtPosition2forRightCorousal,
-	       " failed " + textAtPosition1forRightCorousal + " " + textAtPosition2forRightCorousal);*/
-
-				}
-				else
-				{
-					log.info("Verifying Element :" + SaveBigMenuOptionIdentifier);
-					Thread.sleep(3000);
-					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).getWebElement();
-					System.out.println("$$$$  : " + element.getText());
-					JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+					System.out.println("$$$$ Parent : " + element.getText());
 					executor.executeScript("arguments[0].click();", element); 
 					Thread.sleep(3000);
-
-					//webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).click();     
+  
 					webPage.findObjectByxPath(CarouselLeft).click();
 					Thread.sleep(3000);
-					String textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
+					log.info("Clicked on element1");
+
+					textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
 					System.out.println("Expected Left: " + textAtPosition1);     
 					for (int j = 0; j < RotationCountWeb; j++) {
 						webPage.findObjectByxPath(CarouselLeft).click();
 						Thread.sleep(1000);
 					}
-					String textAtPosition2 = webPage.findObjectByxPath(ElementPosition2).getText();
+					
+					textAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
 					System.out.println("Actual Left : " + textAtPosition2);
 					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
 							" failed " + textAtPosition1 + " " + textAtPosition2);
 
+					webPage.findObjectByxPath(CarouselRight).click();
+					Thread.sleep(3000);
 					log.info("Clicked on element2");
-					String eletextAtPosition1 = webPage.findObjectByxPath(ElementPosition2).getText();
-					System.out.println("Expected Right: " + eletextAtPosition1);
+
+					textAtPosition11 = webPage.findObjectByxPath(ElementPosition2).getText();
+					System.out.println("Expected Right: " + textAtPosition11);
 					for (int k = 0; k < RotationCountWeb; k++) {
 						webPage.findObjectByxPath(CarouselRight).click();
 					}
-					String eletextAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
-					System.out.println("Actual Right: " + eletextAtPosition2);
-					SoftAssertor.assertEquals(eletextAtPosition1, eletextAtPosition2,
-							" failed " + eletextAtPosition1 + " " + eletextAtPosition2);
+					
+					textAtPosition12 = webPage.findObjectByxPath(ElementPosition2).getText();
+					System.out.println("Actual Right: " + textAtPosition12);
+					SoftAssertor.assertEquals(textAtPosition11, textAtPosition12,
+							" failed " + textAtPosition11 + " " + textAtPosition12);
+				}
+				else
+				{
+					if(i>1)
+					{
+						textAtPosition1 = null;
+						textAtPosition2 = null;
+						textAtPosition11 = null;
+						textAtPosition12 = null;						
+					}
+					Thread.sleep(3000);
+					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).getWebElement();
+					System.out.println("$$$$ Parent : " + element.getText());
+					executor.executeScript("arguments[0].click();", element); 
+					Thread.sleep(3000);
+  
+					webPage.findObjectByxPath(CarouselLeft).click();
+					Thread.sleep(3000);
+					log.info("Clicked on element1");
+
+					textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
+					System.out.println("Expected Left: " + textAtPosition1);     
+					for (int j = 0; j < RotationCountWeb; j++) {
+						webPage.findObjectByxPath(CarouselLeft).click();
+						Thread.sleep(1000);
+					}
+					
+					textAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
+					System.out.println("Actual Left : " + textAtPosition2);
+					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
+							" failed " + textAtPosition1 + " " + textAtPosition2);
+
+					webPage.findObjectByxPath(CarouselRight).click();
+					Thread.sleep(3000);
+					log.info("Clicked on element2");
+
+					textAtPosition11 = webPage.findObjectByxPath(ElementPosition2).getText();
+					System.out.println("Expected Right: " + textAtPosition11);
+					for (int k = 0; k < RotationCountWeb; k++) {
+						webPage.findObjectByxPath(CarouselRight).click();
+					}
+					
+					textAtPosition12 = webPage.findObjectByxPath(ElementPosition2).getText();
+					System.out.println("Actual Right: " + textAtPosition12);
+					SoftAssertor.assertEquals(textAtPosition11, textAtPosition12,
+							" failed " + textAtPosition11 + " " + textAtPosition12);
 				}
 				softAssert.assertAll();
 
