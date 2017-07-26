@@ -285,7 +285,7 @@ public class Conns_Product_Search extends BaseTest {
 				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
 				log.info("element " + elementList.size() + "elementList: " + elementList);
 				log.info("element is shorted: " + mainPage.isSorted(elementList));
-				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted by Product Name: "+elementList);
+				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted by Product Name");
 				webPage.findObjectByxPath(test[0][8]).click();
 				Thread.sleep(5000);
 				webPage.getBackToUrl();
@@ -325,7 +325,7 @@ public class Conns_Product_Search extends BaseTest {
 				List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][7]));
 				log.info("element " + elementPriceList.size() + "elementList: " + elementPriceList);
 				log.info("element is shorted: " + mainPage.isSorted(elementPriceList));
-				SoftAssertor.assertEquals(mainPage.isSorted(elementPriceList), true, "element is Not shorted by price: "+elementPriceList);
+				SoftAssertor.assertEquals(mainPage.isSorted(elementPriceList), true, "element is Not shorted by price");
 				webPage.findObjectByxPath(test[0][8]).click();
 				Thread.sleep(5000);
 				webPage.getBackToUrl();
