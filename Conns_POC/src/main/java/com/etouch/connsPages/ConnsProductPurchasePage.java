@@ -6,27 +6,20 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
-import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
-import com.etouch.connsTests.Conns_Product_Purchase;
-import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.webui.selenium.WebPage;
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptExecutor;
 
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
 public class ConnsProductPurchasePage {
@@ -51,7 +44,7 @@ public class ConnsProductPurchasePage {
 			System.out.println("test[0][1]):" + test[0][1]);
 			webPage.hoverOnElement(By.xpath(test[0][1]));
 			webPage.findObjectByxPath(test[1][1]).click();
-			
+
 		} catch (PageException | AWTException e) {
 			log.error(e.getMessage());
 
@@ -139,7 +132,6 @@ public class ConnsProductPurchasePage {
 
 	}
 
-
 	public void Submit_Billing_Information(WebPage webPage, String[][] test, SoftAssert softAssert) {
 
 		try {
@@ -155,8 +147,8 @@ public class ConnsProductPurchasePage {
 
 		} catch (Throwable e) {
 
-			mainPage.getScreenShotForFailure(webPage, "Click_On_In_Stock_Add_To_Cart_Button");
-			log.error("Click_On_In_Stock_Add_To_Cart_Button failed");
+			mainPage.getScreenShotForFailure(webPage, "Submit_Billing_Information");
+			log.error("Submit_Billing_Information failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -237,8 +229,6 @@ public class ConnsProductPurchasePage {
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
 			Thread.sleep(5000);
-			
-			
 
 			if (commonMethods.getPageUrl(webPage, softAssert).contains("expected paypal url" + test[2][4])) {
 
@@ -262,10 +252,15 @@ public class ConnsProductPurchasePage {
 
 	}
 
+	/*
+	 * Working - select pickup only product and check the product is avilable
+	 * for delivery
+	 * 
+	 */
 	public void Click_On_PickUp_Only_Add_To_Cart_Button(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		String stockAvilabilityText = null;
 		String errorMessage = null;
-		
+
 		try {
 
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
@@ -276,9 +271,7 @@ public class ConnsProductPurchasePage {
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + 
-
-"]"));
+						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
 				System.out.println("Web Element Details" + product.getText() + i);
 
 				stockAvilabilityText = product.findElement(By.xpath(test[2][1])).getText();
@@ -290,12 +283,8 @@ public class ConnsProductPurchasePage {
 				if (stockAvilabilityText.equalsIgnoreCase(test[0][3])) {
 
 					System.out.println("test[0][3]:::" + test[0][3]);
-					commonMethods.clickElementbyXpath(webPage, "(//button[@title='Add to Cart'])[" + counter + 
-
-"]",
-							softAssert);
-					// (By.xpath("(//button[@title='Add to
-					// Cart'])["+counter+"]")).click();
+					commonMethods.clickElementbyXpath(webPage, "(//button[@title='Add to Cart'])[" + counter + "]",softAssert);
+					
 					counter++;
 
 					commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
@@ -311,8 +300,8 @@ public class ConnsProductPurchasePage {
 					commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
 					Thread.sleep(10000);
 
-					
 					boolean isPresent = webPage.getDriver().findElements(By.xpath(test[8][1])).size() > 0;
+					
 					if (!isPresent) {
 
 						System.out.println("before clicking add to cart on modal box");
@@ -329,9 +318,7 @@ public class ConnsProductPurchasePage {
 
 						if (errorMessage.contains(test[8][4])) {
 							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click
-
-();
+							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
 							Thread.sleep(3000);
 							webPage.getDriver().navigate().back();
 
@@ -385,11 +372,6 @@ public class ConnsProductPurchasePage {
 	public void Click_On_In_Stock_Product_Add_To_Cart_Button(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		String stockAvilabilityText = null;
 
-		/*
-		 * String[][] test = ExcelUtil.readExcelData(DataFilePath,
-		 * "ProductPurchase", "Click_On_In_Stock_Product_Add_To_Cart_Button");
-		 */
-
 		try {
 
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage, test[0][1], softAssert);
@@ -433,7 +415,7 @@ public class ConnsProductPurchasePage {
 	 */
 
 	public void Click_On_In_Stock_Pickup_Only_Product(WebPage webPage, String[][] test, SoftAssert softAssert) {
-		String stockAvilabilityText = null;
+
 		String errorMessage = null;
 
 		try {
@@ -442,32 +424,25 @@ public class ConnsProductPurchasePage {
 					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
 
 			WebElement product;
-			int counter = 1;
+
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + 
+						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+				
+				System.out.println("Web Element Details:" + product.getText() + i);
 
-"]"));
-				System.out.println("Web Element Details are:" + product.getText() + i);
+				
+				System.out.println("test[0][3]:::" + test[0][3]);
 
-				/*
-				 * stockAvilabilityText =
-				 * product.findElement(By.xpath(test[2][1])).getText();
-				 * 
-				 * 
-				 * System.out.println("stockAvilabilityText:::" +
-				 * stockAvilabilityText);
-				 */
-				/*
-				 * verifying whether availability text is pickup only or not
-				 */
-				System.out.println("test[0][3]:::" + test[0][4]);
 
-				if (product.getText().equalsIgnoreCase(test[0][4])) {
+				if (product.getText().equalsIgnoreCase(test[0][3])) {
 
-					commonMethods.clickElementbyXpath(webPage, "(//button[@title='Add to Cart'])[" + i + "]",
-							softAssert);
+					System.out.println("clicking on element:::"+ i );
+					
+					commonMethods.clickElementbyXpath(webPage, "(//div[@class='rwd-category-list']/h2/a)[" + i + "]",softAssert);
+					
+					commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
 
 					commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
 					Thread.sleep(3000);
@@ -498,9 +473,7 @@ public class ConnsProductPurchasePage {
 
 						if (errorMessage.contains(test[8][4])) {
 							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click
-
-();
+							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
 							Thread.sleep(3000);
 							webPage.getDriver().navigate().back();
 
@@ -601,45 +574,61 @@ public class ConnsProductPurchasePage {
 	 * In_Stock & Add To Cart Button
 	 */
 
-	public void Click_Add_To_Cart_As_Per_Avilability_Message(WebPage webPage, String[][] testData,
+	/*public void Click_Add_To_Cart_As_Per_Avilability_Message(WebPage webPage, String[][] testData,
 			SoftAssert softAssert) {
+
+		WebElement product;
+		String stockAvilabilityText;
+		int counter = 1;
 		try {
 
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage, testData[0][1], softAssert);
+
 			System.out.println("list Of Products:" + listOfProducts.size());
+
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 
-				WebElement product = webPage.getDriver()
-						.findElement(By.xpath("(//div[@class='rwd-category-list']/h2/a)[" + i + "]"));
-				System.out.println("product:" + product.getText());
-				product.click();
+				listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
+						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
 
-				boolean isAddToCartButtonDisplayed = commonMethods.verifyElementisPresent(webPage,
-						"//*[@id='add-to-cart-submit-button']", softAssert);
-				System.out.println("isAddToCartButtonDisplayed:" + isAddToCartButtonDisplayed);
-				String productMainInfo = commonMethods.getTextbyXpath(webPage, "//div[@class='product-main-info']",
-						softAssert);
-				boolean isExpectedAvilabilityDisplayed = productMainInfo.contains(testData[0][4].trim());
+				product = webPage.getDriver().findElement(By.xpath(
+						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
 
-				System.out.println("productMainInfo:" + productMainInfo);
-				System.out.println("isExpectedAvilabilityDisplayed:" + isExpectedAvilabilityDisplayed);
-				System.out.println("testData[0][4]:" + testData[0][4]);
+				System.out.println("Web Element Details" + product.getText() + i);
 
-				if (isAddToCartButtonDisplayed && isExpectedAvilabilityDisplayed) {
+				stockAvilabilityText = product.findElement(By.xpath(testData[2][1])).getText();
 
-					commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", 
+				System.out.println("stockAvilabilityText:::" + stockAvilabilityText);
+				
+				 * verifying whether availability text is pickup only or not
+				 
+				System.out.println("test[0][3]:::" + testData[0][3]);
 
-softAssert);
-					break;
-				} else {
+				if (stockAvilabilityText.equalsIgnoreCase(testData[0][3])) {
 
-					webPage.getDriver().navigate().back();
-					webPage.getDriver().navigate().refresh();
+					commonMethods.clickElementbyXpath(webPage, "(//button[@title='Add to Cart'])[" + counter + "]",
+							softAssert);
 
+					counter++;
+
+					commonMethods.verifyElementisPresent(webPage, testData[4][1], softAssert);
+					Thread.sleep(3000);
+
+					webPage.findObjectByxPath(testData[5][1]).clear();
+
+					webPage.waitOnElement(By.xpath(testData[5][1]), 10);
+					commonMethods.sendKeysbyXpath(webPage, testData[5][1], testData[5][3], softAssert);
+
+					Thread.sleep(5000);
+					webPage.waitOnElement(By.xpath(testData[6][1]), 10);
+					commonMethods.clickElementbyXpath(webPage, testData[6][1], softAssert);
+					Thread.sleep(10000);
+
+					boolean isErrorMessageDisplayed = webPage.getDriver().findElements(By.xpath(testData[8][1])).size() > 0;
+
+					softAssert.assertTrue(isErrorMessageDisplayed,
+							"Error Message is not displayed on entering invalid zip code");
 				}
-
-				i++;
-
 			}
 		} catch (Throwable e) {
 			log.error(e.getMessage());
@@ -651,7 +640,7 @@ softAssert);
 
 		}
 
-	}
+	}*/
 
 	public void Product_With_In_Stock_Add_To_Cart_Button_With_Avilability(WebPage webPage, String[][] testData,
 			SoftAssert softAssert) {
@@ -689,8 +678,13 @@ softAssert);
 
 	}
 
-	public void Add_In_Stock_Pickup_Only_Product_To_Cart_back(WebPage webPage, String[][] test, SoftAssert softAssert) {
-		// String stockAvilabilityText = null;
+	/*
+	 * 
+	 * working - in_stock pickup only method
+	 */
+
+	public void Add_In_Stock_Pickup_Only_Product_To_Cart(WebPage webPage, String[][] test, SoftAssert softAssert) {
+
 		String errorMessage = null;
 		try {
 
@@ -702,9 +696,7 @@ softAssert);
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + 
-
-"]"));
+						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
 				System.out.println("Web Element Details:::" + product.getText() + i);
 
 				/*
@@ -729,20 +721,17 @@ softAssert);
 					if (isPickupCheckboxDisplayed) {
 
 						commonMethods.clickElementbyXpath(webPage, "//input[@id='instore']", softAssert);
-						commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", 
-
-softAssert);
+						commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
 
 						// counter++;
 
-						Thread.sleep(3000);
 						webPage.waitOnElement(By.xpath(test[5][1]), 10);
 
 						JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 
 						executor.executeScript("document.getElementById('warehouse-zip-code').value='';");
 
-						executor.executeScript("document.getElementById('warehouse-zip-code').value=test[5][3];");
+						executor.executeScript("document.getElementById('warehouse-zip-code').value='77701';");
 
 						System.out.println("test[5][3]:" + test[5][3]);
 
@@ -816,331 +805,11 @@ softAssert);
 		}
 
 	}
-	
-	/*
-	 * 
-	 * working --- add to cart pickup only product 
-	 */
-	
-	public void Add_To_Cart_Pickup_Only_Product(WebPage webPage, String[][] test, SoftAssert softAssert) {
 
-		String errorMessage = null;
-		List<WebElement> listOfProducts;
-		try {
-
-			listOfProducts = commonMethods.getWebElementsbyXpath(webPage,"//div[@class='category-products category-products-list']/ul/li", softAssert);
-			System.out.println("listOfProducts:"+listOfProducts.size());
-			
-			
-			int counter=1;
-			
-//			for(WebElement element:listOfProducts){
-			for(int i = 0 ;i <listOfProducts.size();i++){
-				
-				listOfProducts = commonMethods.getWebElementsbyXpath(webPage,"//div[@class='category-products category-products-list']/ul/li", softAssert);
-				
-				System.out.println(" counter is: "+ counter + ":::finding pickup only product");
-				
-				String avilabilityText=listOfProducts.get(i).findElement(By.xpath("//p[contains(@class,'availability')]")).getText();
-				
-				System.out.println("avilabilityText:"+avilabilityText);
-				
-				if(avilabilityText.contains("Pickup Only")){
-					
-					System.out.println("found pick only product");
-					WebElement link=listOfProducts.get(i).findElement(By.xpath("//h2/a"));
-					System.out.println("link:"+link.getText());
-					link.click();
-					commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", 
-
-softAssert);
-					
-					
-					
-					
-					webPage.waitOnElement(By.xpath(test[4][1]), 10);
-
-					JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
-
-					executor.executeScript("document.getElementById('zip-code').value='';");
-
-					executor.executeScript("document.getElementById('zip-code').value=77301;");
-
-					System.out.println("test[5][3]:" + test[5][3]);
-
-					commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
-					
-					Thread.sleep(10000);
-
-					boolean isPresent = webPage.getDriver().findElements(By.xpath(test[8][1])).size() > 0;
-					System.out.println("isPresent:" + isPresent);
-					System.out.println("webPage.getDriver().findElements(By.xpath(test[8][1])).size():"
-							+ webPage.getDriver().findElements(By.xpath(test[8][1])).size());
-
-					if (!isPresent) {
-
-						System.out.println("before clicking add to cart on modal box");
-						commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
-						System.out.println("after clicking add to cart on modal box");
-
-						break;
-
-					} else {
-						errorMessage = commonMethods.getTextbyXpath(webPage, test[8][1], softAssert);
-						System.out.println("errorMessage:::" + errorMessage);
-						System.out.println("test[8][4]:::" + test[8][4]);
-
-						if (errorMessage.contains(test[8][4])) {
-							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click
-
-();
-							Thread.sleep(3000);
-							webPage.getDriver().navigate().back();
-							webPage.getDriver().navigate().refresh();
-
-						}
-					}
-					
-					
-				}
-				
-				counter++;
-				
-				
-			}
-		
-		}	
-			/*for (int i = 1; i <= listOfProducts.size(); i++) {
-
-				//product = webPage.getDriver().findElement(By.xpath("//div[@class='rwd-category-list'][" + i + "]"));
-				
-				product = webPage.getDriver().findElement(By.xpath("//div[@class='category-products category-
-
-products-list']/ul/li[ "+i+"]"));
-
-				System.out.println("Web Element::: "+  i  +  ":::Details:::" + product.getText());
-				
-				
-				boolean isPickOnlyAvailabilityDisplayed = product.getText().contains(test[0][3]);
-				System.out.println("isPickOnlyAvailabilityDisplayed:" + isPickOnlyAvailabilityDisplayed);
-				System.out.println("test[0][3]:::" + test[0][3]);
-
-				if (isPickOnlyAvailabilityDisplayed) {
-
-					commonMethods.clickElementbyXpath(webPage, "(//h2[@class='product-name']/a)[" + counter + 
-
-"]",softAssert);
-					
-						webPage.waitOnElement(By.xpath(test[5][1]), 10);
-
-						JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
-
-						executor.executeScript("document.getElementById('warehouse-zip-code').value='';");
-
-						executor.executeScript("document.getElementById('warehouse-zip-code').value=test[5]
-
-[3];");
-
-						System.out.println("test[5][3]:" + test[5][3]);
-
-						commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
-						Thread.sleep(3000);
-
-						boolean isPresent = webPage.getDriver().findElements(By.xpath(test[8][1])).size() > 0;
-						System.out.println("isPresent:" + isPresent);
-						System.out.println("webPage.getDriver().findElements(By.xpath(test[8][1])).size():"
-								+ webPage.getDriver().findElements(By.xpath(test[8][1])).size());
-
-						if (!isPresent) {
-
-							System.out.println("before clicking add to cart on modal box");
-							commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
-							System.out.println("after clicking add to cart on modal box");
-
-							break;
-
-						} else {
-							errorMessage = commonMethods.getTextbyXpath(webPage, test[8][1], softAssert);
-							System.out.println("errorMessage:::" + errorMessage);
-							System.out.println("test[8][4]:::" + test[8][4]);
-
-							if (errorMessage.contains(test[8][4])) {
-								System.out.println("captures error message:::" + errorMessage);
-								webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-
-
-close']")).click();
-								Thread.sleep(3000);
-								webPage.getDriver().navigate().back();
-								webPage.getDriver().navigate().refresh();
-
-							}
-						}
-						
-						 * if(isAlertPresent()){
-						 * 
-						 * 
-						 * Alert alert = webPage.getDriver().switchTo().alert();
-						 * String alertBoxErrorText=alert.getText();
-						 * System.out.println("alertBoxErrorText:"+
-						 * alertBoxErrorText); alert.accept();
-						 * 
-						 * }
-						 
-
-					} else{
-						counter++;
-					}
-				} 
-			
-*/
-		 catch (Throwable e) {
-			log.error(e.getMessage());
-			mainPage.getScreenShotForFailure(webPage, "Click_On_PickUp_Only_Add_To_Cart_Button");
-			log.error("Click_On_PickUp_Only_Add_To_Cart_Button failed");
-			log.error(e.getMessage());
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-
-		}
-
-	}
-	
 	/*
 	 * 
 	 * working method
 	 */
-
-	public void Add_In_Stock_Pickup_Only_Product_To_Cart(WebPage webPage, String[][] test, SoftAssert softAssert) {
-
-		String errorMessage = null;
-		try {
-
-			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"//div[@class='rwd-category-list']/h2/a", softAssert);
-
-			WebElement product;
-			int counter = 1;
-			for (int i = 1; i <= listOfProducts.size(); i++) {
-				
-				System.out.println("List of products:::"+listOfProducts.size());
-
-				product = webPage.getDriver().findElement(By.xpath("//div[@class='rwd-category-list'][" + i + "]"));
-
-				System.out.println("Web Element Details:::" + product.getText() + i);
-
-				/*
-				 * verifying whether availability text is pickup only or not
-				 */
-				boolean isInStockAvailabilityDisplayed = product.getText().contains(test[0][3]);
-				System.out.println("isInStockAvailabilityDisplayed:" + isInStockAvailabilityDisplayed);
-				System.out.println("test[0][3]:::" + test[0][3]);
-
-				System.out.println("i::::::::::::::::::::::::::" + i
-						+ "-------------------------------------------------------------------------");
-				if (isInStockAvailabilityDisplayed) {
-					
-					commonMethods.clickElementbyXpath(webPage, "//div[@class='rwd-category-list']/h2/a[" + i + 
-
-"]",
-							softAssert);
-
-					boolean isPickupCheckboxDisplayed = webPage.getDriver()
-							.findElements(By.xpath("//input[@id='instore']")).size() >= 1;
-
-					System.out.println("checked isPickupCheckboxDisplayed:" + isPickupCheckboxDisplayed);
-
-					if (isPickupCheckboxDisplayed) {
-
-						commonMethods.clickElementbyXpath(webPage, "//input[@id='instore']", softAssert);
-						commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", 
-
-softAssert);
-
-						counter++;
-
-						Thread.sleep(3000);
-						webPage.waitOnElement(By.xpath(test[5][1]), 10);
-
-						JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
-
-						executor.executeScript("document.getElementById('warehouse-zip-code').value='';");
-
-						executor.executeScript("document.getElementById('warehouse-zip-code').value=test[5][3];");
-
-						System.out.println("test[5][3]:" + test[5][3]);
-
-						webPage.waitOnElement(By.xpath(test[6][1]), 10);
-						commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
-						Thread.sleep(3000);
-
-						boolean isPresent = webPage.getDriver().findElements(By.xpath(test[8][1])).size() > 0;
-						System.out.println("isPresent:" + isPresent);
-						System.out.println("webPage.getDriver().findElements(By.xpath(test[8][1])).size():"
-								+ webPage.getDriver().findElements(By.xpath(test[8][1])).size());
-
-						if (!isPresent) {
-
-							System.out.println("before clicking add to cart on modal box");
-							commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
-							System.out.println("after clicking add to cart on modal box");
-
-							break;
-
-						} else {
-							errorMessage = commonMethods.getTextbyXpath(webPage, test[8][1], softAssert);
-							System.out.println("errorMessage:::" + errorMessage);
-							System.out.println("test[8][4]:::" + test[8][4]);
-
-							if (errorMessage.contains(test[8][4])) {
-								System.out.println("captures error message:::" + errorMessage);
-								webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
-								Thread.sleep(3000);
-								webPage.getDriver().navigate().back();
-								webPage.getDriver().navigate().refresh();
-
-							}
-						}
-						/*
-						 * if(isAlertPresent()){
-						 * 
-						 * 
-						 * Alert alert = webPage.getDriver().switchTo().alert();
-						 * String alertBoxErrorText=alert.getText();
-						 * System.out.println("alertBoxErrorText:"+
-						 * alertBoxErrorText); alert.accept();
-						 * 
-						 * }
-						 */
-
-					} else {
-						System.out.println("in else block driver navigate back");
-						counter++;
-						webPage.getDriver().navigate().back();
-						webPage.getDriver().navigate().refresh();
-						// webPage.getDriver().navigate().to("http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/appliances/refrigerators/french-door");
-						Thread.sleep(10000);
-
-					}
-
-				} else {
-
-					counter++;
-				}
-
-			}
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-			mainPage.getScreenShotForFailure(webPage, "Click_On_PickUp_Only_Add_To_Cart_Button");
-			log.error("Click_On_PickUp_Only_Add_To_Cart_Button failed");
-			log.error(e.getMessage());
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-
-		}
-
-	}
 
 	public void iS_Over_Lay_Box_Displayed_In_Stock_Pickup_Product(WebPage webPage, String[][] test,
 			SoftAssert softAssert) {
@@ -1156,9 +825,7 @@ softAssert);
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + 
-
-"]"));
+						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
 				System.out.println("Web Element Details:::" + product.getText() + i);
 
 				/*
@@ -1168,8 +835,7 @@ softAssert);
 				System.out.println("isInStockAvailabilityDisplayed:" + isInStockAvailabilityDisplayed);
 				System.out.println("test[0][3]:::" + test[0][3]);
 
-				System.out.println("i::::::::::::::::::::::::::" + i
-						+ "-------------------------------------------------------------------------");
+				
 				if (isInStockAvailabilityDisplayed) {
 
 					commonMethods.clickElementbyXpath(webPage, "(//h2[@class='product-name']/a)[" + i + "]",
@@ -1178,14 +844,12 @@ softAssert);
 					boolean isPickupCheckboxDisplayed = webPage.getDriver()
 							.findElements(By.xpath("//input[@id='instore']")).size() >= 1;
 
-					System.out.println("checked isPickupCheckboxDisplayed:" + isPickupCheckboxDisplayed);
+					System.out.println("isPickupCheckboxDisplayed" + isPickupCheckboxDisplayed);
 
 					if (isPickupCheckboxDisplayed) {
 
 						commonMethods.clickElementbyXpath(webPage, "//input[@id='instore']", softAssert);
-						commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", 
-
-softAssert);
+						commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
 
 						break;
 
@@ -1240,17 +904,201 @@ softAssert);
 		}
 
 	}
-	
+
+	public WebPage Click_On_In_Stock_With_Delivery_Available(WebPage webPage, String[][] inStockOnlyAddToCart,
+			SoftAssert softAssert) {
+		
+		String errorMessage = null;
+
+		try {
+			
+
+			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
+					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+
+			WebElement product;
+			int counter = 1;
+			for (int i = 1; i <= listOfProducts.size(); i++) {
+
+				product = webPage.getDriver().findElement(By.xpath(
+						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+				System.out.println("Web Element Details" + product.getText() + i);
+
+				//stockAvilabilityText = product.findElement(By.xpath(inStockOnlyAddToCart[2][1])).getText();
+
+				//System.out.println("stockAvilabilityText:::" + stockAvilabilityText);
+				/*
+				 * verifying whether availability text is pickup only or not
+				 */
+				if (product.getText().contains(inStockOnlyAddToCart[0][3])) {
+
+					System.out.println("clicking on element:::"+ i );
+					
+					commonMethods.clickElementbyXpath(webPage, "(//div[@class='rwd-category-list']/h2/a)[" + i + "]",softAssert);
+					
+					commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+					
+
+					boolean isOverlayDisplayed=commonMethods.verifyElementisPresent(webPage, inStockOnlyAddToCart[4][1], softAssert);
+					//Thread.sleep(3000);
+					System.out.println("isOverlayDisplayed:"+isOverlayDisplayed);
+					webPage.findObjectByxPath(inStockOnlyAddToCart[5][1]).clear();
+					
+					boolean isZipCodeTextBoxDisplayed=commonMethods.verifyElementisPresent(webPage, inStockOnlyAddToCart[5][1], softAssert);
+					
+					System.out.println("isZipCodeTextBoxDisplayed:"+isZipCodeTextBoxDisplayed);
+					
+					webPage.waitOnElement(By.xpath(inStockOnlyAddToCart[5][1]), 10);
+					commonMethods.sendKeysbyXpath(webPage, inStockOnlyAddToCart[5][1], inStockOnlyAddToCart[5][3],softAssert);
+
+					Thread.sleep(5000);
+					webPage.waitOnElement(By.xpath(inStockOnlyAddToCart[6][1]), 10);
+					commonMethods.clickElementbyXpath(webPage, inStockOnlyAddToCart[6][1], softAssert);
+					Thread.sleep(10000);
+
+					boolean isPresent = webPage.getDriver().findElements(By.xpath(inStockOnlyAddToCart[8][1])).size() > 0;
+					
+					if (!isPresent) {
+
+						System.out.println("before clicking add to cart on modal box");
+						commonMethods.clickElementbyXpath(webPage, inStockOnlyAddToCart[7][1], softAssert);
+						Thread.sleep(2000);
+						System.out.println("after clicking add to cart on modal box");
+
+						System.out.println("clicked pickup only on add to cart button");
+						break;
+
+					} else {
+						errorMessage = commonMethods.getTextbyXpath(webPage, inStockOnlyAddToCart[8][1], softAssert);
+						System.out.println("errorMessage:::" + errorMessage);
+						System.out.println("test[8][4]:::" + inStockOnlyAddToCart[8][4]);
+
+						if (errorMessage.contains(inStockOnlyAddToCart[8][4])) {
+							System.out.println("captures error message:::" + errorMessage);
+							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
+							Thread.sleep(3000);
+							webPage.getDriver().navigate().back();
+							webPage.getDriver().navigate().refresh();
+
+						}
+					}
+
+				}
+
+			}
+			
+			
+		} catch (Throwable e) {
+			log.error(e.getMessage());
+			mainPage.getScreenShotForFailure(webPage, "Click_On_PickUp_Only_Add_To_Cart_Button");
+			log.error("Click_On_PickUp_Only_Add_To_Cart_Button failed");
+			log.error(e.getMessage());
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+
+		}
+		return webPage;
+
+	}
+
 	
 	/*
-	 * 
-	 * commonMethods.clickElementbyXpath(webPage, test[9][1], softAssert);
-	 * 
-	 * Thread.sleep(5000);
-	 * 
-	 * commonMethods.clickElementbyXpath(webPage, test[10][1], softAssert);
-	 * 
-	 * Thread.sleep(10000);
+	 * Verify Zip Code Functionality for In-Stock Product , Verify ADD TO CART on overlay without entering input in Zip code
 	 */
+	
+	public void Click_Add_To_Cart_As_Per_Avilability_Message(WebPage webPage, String[][] test, SoftAssert softAssert) {
 
+	
+	//JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+	try {
+
+		List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
+				"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+
+		WebElement product;
+		
+		for (int i = 1; i <= listOfProducts.size(); i++) {
+
+			product = webPage.getDriver().findElement(By.xpath(
+					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+			
+			System.out.println("Web Element Details:" + product.getText() + i);
+
+			
+			System.out.println("test[0][3]:::" + test[0][3]);
+			/*
+			 * verifying whether availability text is pickup only or not
+			 */
+			if (product.getText().contains(test[0][3])) {
+
+				System.out.println("clicking on element:::"+ i );
+				
+				commonMethods.clickElementbyXpath(webPage, "(//div[@class='rwd-category-list']/h2/a)[" + i + "]",softAssert);
+				
+				commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+				
+				boolean isOverlayDisplayed=commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
+				
+				System.out.println("isOverlayDisplayed:"+isOverlayDisplayed);
+				
+				Thread.sleep(3000);
+				
+				softAssert.assertTrue(isOverlayDisplayed, "Overlay box is not displayed");
+				
+				/*webPage.findObjectByxPath(test[5][1]).clear();*/
+				
+				boolean isZipCodeTextBoxDisplayed=commonMethods.verifyElementisPresent(webPage, test[5][1], softAssert);
+				
+				System.out.println("isZipCodeTextBoxDisplayed:"+isZipCodeTextBoxDisplayed);
+				
+				softAssert.assertTrue(isZipCodeTextBoxDisplayed, "zip code text box is not displayed");
+				
+				commonMethods.getWebElementbyXpath(webPage, test[5][1], softAssert).clear();
+				
+				commonMethods.sendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
+				
+				
+				
+				/*executor.executeScript("document.getElementById('zip-code').value='';");
+
+				executor.executeScript("document.getElementById('zip-code').value='77701';");*/
+				
+				Thread.sleep(1000);
+				
+				webPage.waitOnElement(By.xpath(test[6][1]), 10);
+				
+				commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
+				
+				Thread.sleep(10000);
+
+				//boolean isPresent = webPage.getDriver().findElements(By.xpath(test[8][1])).size() > 0;
+				
+				System.out.println("error message count:"+webPage.getDriver().findElements(By.xpath(test[8][1])).size());
+				
+				boolean isErrorMessageDispalyed=webPage.getDriver().findElements(By.xpath(test[8][1])).size() > 0;
+				
+				System.out.println("isErrorMessageDispalyed:"+isErrorMessageDispalyed);
+				
+				softAssert.assertTrue(isErrorMessageDispalyed, "error message is not displayed for empty zip code search");
+				
+				break;
+				
+				
+
+			}
+
+		}
+
+	} catch (Throwable e) {
+		log.error(e.getMessage());
+		mainPage.getScreenShotForFailure(webPage, "Click_On_PickUp_Only_Add_To_Cart_Button");
+		log.error("Click_On_PickUp_Only_Add_To_Cart_Button failed");
+		log.error(e.getMessage());
+		softAssert.assertAll();
+		Assert.fail(e.getLocalizedMessage());
+
+	}
+
+
+}
 }
