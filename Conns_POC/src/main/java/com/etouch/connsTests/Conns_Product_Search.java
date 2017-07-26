@@ -32,7 +32,7 @@ import com.etouch.taf.util.LogUtil;
 //import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.LayoutManager;
 import com.etouch.taf.webui.selenium.WebPage;
-import com.splunk.listerners.SoftAssertor;
+import com.etouch.conns.listener.SoftAssertor;
 
 //@Test(groups = "Conns_Product_Search")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
