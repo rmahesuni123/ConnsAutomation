@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
@@ -91,12 +92,13 @@ public class Conns_Product_Search extends BaseTest {
 		// SpecializedScreenRecorder.stopVideoRecording();
 	}
 
-	@Test(priority = 1, enabled = true)
+	@Test(priority = 401, enabled = true)
 	public void Verify_Search_Functionality_And_Results_Contents() {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchUsingKeyword");
 			String Identifier = test[0][0];
 			String ProductName = test[0][1];
+			webPage.findObjectById(Identifier).clear();
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
 			webPage.findObjectByClass(test[0][2]).click();
 			log.info("Clicked on element " + test[0][2]);
@@ -115,7 +117,7 @@ public class Conns_Product_Search extends BaseTest {
 						+ contentData[i][1]);
 				SoftAssertor.assertTrue(
 						webPage.findObjectByxPath(contentData[i][0]).getText().contains(contentData[i][1]),
-						"expectedContent Failed to Match Actual");
+						"expectedContent: "+contentData[i][0]+ "Failed to Match Actual:"+contentData[i][1]);
 			}
 			webPage.getBackToUrl();
 		} catch (Throwable e) {
@@ -130,13 +132,14 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 
-	@Test(priority = 2, enabled = true)
+	@Test(priority = 402, enabled = true)
 	public void Verify_Product_Search_And_Shorting_By_Product_Name() throws InterruptedException {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
 					"verifyProductSearchAndShortByName");
 			String Identifier = test[0][0];
 			String ProductName = test[0][1];
+			webPage.findObjectById(Identifier).clear();
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
 			webPage.findObjectByClass(test[0][2]).click();
 			log.info("Clicked on element " + test[0][2]);
@@ -152,7 +155,7 @@ public class Conns_Product_Search extends BaseTest {
 				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
 				log.info("element " + elementList.size() + "elementList: " + elementList);
 				log.info("element is shorted: " + mainPage.isSorted(elementList));
-				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted");
+				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted by Product Name");
 				webPage.findObjectByxPath(test[0][8]).click();
 				Thread.sleep(5000);
 				webPage.getBackToUrl();
@@ -168,13 +171,14 @@ public class Conns_Product_Search extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
-	@Test(priority = 2, enabled = true)
+	@Test(priority = 403, enabled = true)
 	public void Verify_Product_Search_And_Shorting_By_Product_Price() throws InterruptedException {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
 					"verifyProductSearchAndShortByPrice");
 			String Identifier = test[0][0];
 			String ProductName = test[0][1];
+			webPage.findObjectById(Identifier).clear();
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
 			webPage.findObjectByClass(test[0][2]).click();
 			log.info("Clicked on element " + test[0][2]);
@@ -190,7 +194,7 @@ public class Conns_Product_Search extends BaseTest {
 				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
 				log.info("element " + elementList.size() + "elementList: " + elementList);
 				log.info("element is shorted: " + mainPage.isSorted(elementList));
-				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted");
+				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted by price");
 				webPage.findObjectByxPath(test[0][8]).click();
 				Thread.sleep(5000);
 				webPage.getBackToUrl();
@@ -206,7 +210,7 @@ public class Conns_Product_Search extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
-	@Test(priority = 3, enabled = true)
+	@Test(priority = 404, enabled = true)
 	public void Verify_Product_Search_And_Number_Of_Product_Displayed() throws InterruptedException {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
@@ -254,7 +258,7 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 
-	@Test(priority = 4, enabled = true)
+	@Test(priority = 405, enabled = true)
 	public void Verify_Add_To_Cart_Using_Product_Search() throws InterruptedException {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
@@ -271,6 +275,8 @@ public class Conns_Product_Search extends BaseTest {
 					"Product description: " + productDescription + " not having: " + ProductName);
 			// if (testType.equalsIgnoreCase("Web")) {
 			webPage.findObjectByxPath(test[0][4]).click();
+			log.info("Entering Zip Code");
+			
 			webPage.findObjectByxPath(test[0][5]).clear();
 			webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
 			webPage.findObjectByxPath(test[0][7]).click();
@@ -298,7 +304,7 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 
-	@Test(priority = 5, enabled = true)
+	@Test(priority = 406, enabled = true)
 	public void Verify_Column_Layout_For_Product_Search() throws PageException, InterruptedException {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
