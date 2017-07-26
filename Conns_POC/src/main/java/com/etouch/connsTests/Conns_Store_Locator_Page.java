@@ -169,14 +169,12 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 				if (testType.equalsIgnoreCase("Web")) {
 					connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-					String beforeLinkHover = commonMethods.getCssvaluebyXpath(webPage, regionLinksData[i][1], "color", softAssert);
-					log.info("Region "+regionLinksData[i][0]+" before Hover : "+beforeLinkHover);
 					commonMethods.hoverOnelementbyXpath(webPage, regionLinksData[i][1], softAssert);
 					String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, regionLinksData[i][1], "color", softAssert);
-					log.info("Region "+regionLinksData[i][0]+" after Hover : "+afterLinkHover);
-					softAssert.assertNotEquals(afterLinkHover, beforeLinkHover,
-							"CSS value verification failed for link " + regionLinksData[i][0] + ". Value before hover : "
-									+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
+					log.info("Region "+regionLinksData[i][0]+" after hover color attribute value is : "+afterLinkHover);
+					if(!regionLinksData[i][3].equalsIgnoreCase("NA")){
+						softAssert.assertEquals(afterLinkHover, regionLinksData[i][3],"Hover functionality failed for link "+regionLinksData[i][0]+" Expected color: "+regionLinksData[i][3]+" Actual color: "+afterLinkHover);	
+					}
 				}
 				String actualUrl = commonMethods.clickAndGetPageURL(webPage, regionLinksData[i][1], regionLinksData[i][0],softAssert,commonData[2][1]);
 				softAssert.assertEquals(actualUrl, regionLinksData[i][2],"URL verification failed for link : '" + regionLinksData[i][0] + "'. Expected URL - "+ regionLinksData[i][2] + " Actual URL - " + actualUrl);
@@ -200,11 +198,10 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, TexasSubLinksData[i][1], softAssert);
 				CommonMethods.waitForWebElement(By.xpath(commonData[3][1]), webPage);
 				if (testType.equalsIgnoreCase("Web")) {
-					String beforeLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);
 					commonMethods.hoverOnelementbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
 					String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);
-					if(!(TexasSubLinksData[i][0].equalsIgnoreCase("Laredo")||(TexasSubLinksData[i][0].equalsIgnoreCase("Odessa")))){
-						softAssert.assertNotEquals(afterLinkHover, beforeLinkHover,"CSS value verification failed for link " + TexasSubLinksData[i][0] + ". Value before hover : "+ beforeLinkHover + " , Value after hover : " + afterLinkHover);
+					if(!TexasSubLinksData[i][4].equalsIgnoreCase("NA")){
+						softAssert.assertEquals(afterLinkHover, TexasSubLinksData[i][4],"Hover functionality failed for link "+TexasSubLinksData[i][0]+" Expected color: "+TexasSubLinksData[i][4]+" Actual color: "+afterLinkHover);
 					}
 				}
 				String textOnLink = commonMethods.getTextbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
@@ -465,24 +462,25 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					verifyZipCodeRadiusSearchData[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[2][0], softAssert);
 			String search50MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[3][0], softAssert);
-			softAssert.assertTrue(search50MilesActualData.contains(verifyZipCodeRadiusSearchData[1][1]),
-					"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[1][1] + " Actual Text : "
-							+ search50MilesActualData);
+
+			search50MilesActualData = search50MilesActualData.replace("mi","").replaceAll(" ", "");
+			int intSearch50MilesActualData=Double.valueOf(search50MilesActualData).intValue();;
+			softAssert.assertTrue(intSearch50MilesActualData>=2 && intSearch50MilesActualData<=4,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyZipCodeRadiusSearchData[1][1]+" Actual distance: "+intSearch50MilesActualData);
 			Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0], softAssert));
 			select.selectByValue(verifyZipCodeRadiusSearchData[2][1]);
 			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0], softAssert);
 			String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[6][0], softAssert);
-			softAssert.assertTrue(search75MilesActualData.contains(verifyZipCodeRadiusSearchData[4][1]),
-					"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[4][1] + " Actual Text : "
-							+ search75MilesActualData);
+			search75MilesActualData = search75MilesActualData.replace("mi","").replaceAll(" ", "");
+			int intSearch75MilesActualData=Double.valueOf(search75MilesActualData).intValue();;
+			softAssert.assertTrue(intSearch75MilesActualData>=70 && intSearch75MilesActualData<=73,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyZipCodeRadiusSearchData[4][1]+" Actual distance: "+intSearch75MilesActualData);
 			select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0], softAssert));
 			select.selectByValue(verifyZipCodeRadiusSearchData[3][1]);
 			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0], softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[3][1]), webPage);
 			String search125MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[7][0], softAssert);
-			softAssert.assertTrue(search125MilesActualData.contains(verifyZipCodeRadiusSearchData[5][1]),
-					"Text verification failed. Expected Text : " + verifyZipCodeRadiusSearchData[5][1] + " Actual Text : "
-							+ search125MilesActualData);
+			search125MilesActualData = search125MilesActualData.replace("mi","").replaceAll(" ", "");
+			int intSearch125MilesActualData=Double.valueOf(search125MilesActualData).intValue();;
+			softAssert.assertTrue(intSearch125MilesActualData>=108 && intSearch125MilesActualData<=112,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyZipCodeRadiusSearchData[5][1]+" Actual distance: "+intSearch125MilesActualData);
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode_and_Radius");
@@ -534,23 +532,24 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					verifyCityRadiusSearchData[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[2][0], softAssert);
 			String search50MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[3][0], softAssert);
-			softAssert.assertTrue(search50MilesActualData.contains(verifyCityRadiusSearchData[1][1]),
-					"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[1][1] + " Actual Text : "
-							+ search50MilesActualData);
+			search50MilesActualData = search50MilesActualData.replace("mi","").replaceAll(" ", "");
+			int intSearch50MilesActualData=Double.valueOf(search50MilesActualData).intValue();;
+
+			softAssert.assertTrue(intSearch50MilesActualData>=8 && intSearch50MilesActualData<=10,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyCityRadiusSearchData[1][1]+" Actual distance: "+intSearch50MilesActualData);			
 			Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyCityRadiusSearchData[4][0], softAssert));
 			select.selectByValue(verifyCityRadiusSearchData[2][1]);
 			commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[5][0], softAssert);
 			String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[6][0], softAssert);
-			softAssert.assertTrue(search75MilesActualData.contains(verifyCityRadiusSearchData[4][1]),
-					"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[4][1] + " Actual Text : "
-							+ search75MilesActualData);
+			search75MilesActualData = search75MilesActualData.replace("mi","").replaceAll(" ", "");
+			int intSearch75MilesActualData=Double.valueOf(search75MilesActualData).intValue();;			
+			softAssert.assertTrue(intSearch75MilesActualData>=73 && intSearch75MilesActualData<=75,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyCityRadiusSearchData[4][1]+" Actual distance: "+intSearch75MilesActualData);
 			select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyCityRadiusSearchData[4][0], softAssert));
 			select.selectByValue(verifyCityRadiusSearchData[3][1]);
 			commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[5][0], softAssert);
 			String search125MilesActualData = commonMethods.getTextbyXpath(webPage, verifyCityRadiusSearchData[7][0], softAssert);
-			softAssert.assertTrue(search125MilesActualData.contains(verifyCityRadiusSearchData[5][1]),
-					"Text verification failed. Expected Text : " + verifyCityRadiusSearchData[5][1] + " Actual Text : "
-							+ search125MilesActualData);
+			search125MilesActualData = search125MilesActualData.replace("mi","").replaceAll(" ", "");
+			int intSearch125MilesActualData=Double.valueOf(search125MilesActualData).intValue();;			
+			softAssert.assertTrue(intSearch125MilesActualData>=100 && intSearch125MilesActualData<=102,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyCityRadiusSearchData[5][1]+" Actual distance: "+intSearch125MilesActualData);
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName_and_Radius");
@@ -655,14 +654,18 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(actualUrl.contains(verifyStoreDistanceInMilesData[5][1]),"URL mismatch. Expected URL: "+verifyStoreDistanceInMilesData[5][1]+", Actual URL: "+actualUrl);
 			String search10MilesActualData = commonMethods.getTextbyXpath(webPage, verifyStoreDistanceInMilesData[3][0], softAssert);
-			softAssert.assertTrue(search10MilesActualData.contains(verifyStoreDistanceInMilesData[1][1]),"Text verification failed. Expected Text : " + verifyStoreDistanceInMilesData[1][1] + " Actual Text : "+ search10MilesActualData);
+			search10MilesActualData = search10MilesActualData.replace("mi","").replaceAll(" ", "");
+			int intSearch10MilesActualData=Double.valueOf(search10MilesActualData).intValue();;
+			softAssert.assertTrue(intSearch10MilesActualData>=6 && intSearch10MilesActualData<=7,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyStoreDistanceInMilesData[1][1]+" Actual distance: "+intSearch10MilesActualData);
 			String search10MilesActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyStoreDistanceInMilesData[3][0], "color", softAssert);
 			softAssert.assertTrue(search10MilesActualColor.contains(verifyStoreDistanceInMilesData[6][1]),"CSS value verification failed for " + search10MilesActualData + ". Expected value: "+ verifyStoreDistanceInMilesData[6][1] + ", Actual value: " + search10MilesActualColor);
 			select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyStoreDistanceInMilesData[4][0], softAssert));
 			select.selectByValue(verifyStoreDistanceInMilesData[3][1]);
 			commonMethods.clickElementbyXpath(webPage, verifyStoreDistanceInMilesData[5][0], softAssert);
 			String search100MilesActualData = commonMethods.getTextbyXpath(webPage, verifyStoreDistanceInMilesData[6][0], softAssert);
-			softAssert.assertTrue(search100MilesActualData.contains(verifyStoreDistanceInMilesData[4][1]),"Text verification failed. Expected Text : " + verifyStoreDistanceInMilesData[4][1] + " Actual Text : "+ search100MilesActualData);
+			search100MilesActualData = search100MilesActualData.replace("mi","").replaceAll(" ", "");
+			int intSearch100MilesActualData=Double.valueOf(search100MilesActualData).intValue();;
+			softAssert.assertTrue(intSearch100MilesActualData>=94 && intSearch100MilesActualData<=97,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyStoreDistanceInMilesData[4][1]+" Actual distance: "+intSearch100MilesActualData);
 			String search100MilesActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyStoreDistanceInMilesData[6][0], "color", softAssert);
 			softAssert.assertTrue(search100MilesActualColor.contains(verifyStoreDistanceInMilesData[6][1]),"CSS value verification failed for " + search100MilesActualData + ". Expected value: "+ verifyStoreDistanceInMilesData[6][1] + ", Actual value: " + search100MilesActualColor);			
 			softAssert.assertAll();
@@ -693,6 +696,4 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	
-	
 }
