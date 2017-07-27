@@ -264,6 +264,7 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 405, enabled = true)
 	public void Verify_Product_Search_And_Shorting_By_Product_Name() throws InterruptedException {
 		try {
+			if (testType.equalsIgnoreCase("Web")) {
 			webPage.navigateToUrl(url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
 					"verifyProductSearchAndShortByName");
@@ -277,7 +278,7 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("productDescription" + productDescription);
 			Assert.assertTrue(productDescription.contains(ProductName),
 					"Product description: " + productDescription + " not having: " + ProductName);
-			if (testType.equalsIgnoreCase("Web")) {
+		
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				Thread.sleep(18000);
 				s.selectByVisibleText(test[0][6]);
@@ -304,6 +305,7 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 406, enabled = true)
 	public void Verify_Product_Search_And_Shorting_By_Product_Price() throws InterruptedException {
 		try {
+			if (testType.equalsIgnoreCase("Web")) {
 			webPage.navigateToUrl(url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
 					"verifyProductSearchAndShortByPrice");
@@ -317,7 +319,7 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("productDescription" + productDescription);
 			Assert.assertTrue(productDescription.contains(ProductName),
 					"Product description: " + productDescription + " not having: " + ProductName);
-			if (testType.equalsIgnoreCase("Web")) {
+			
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				Thread.sleep(18000);
 				s.selectByVisibleText(test[0][6]);
