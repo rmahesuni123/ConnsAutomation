@@ -256,6 +256,7 @@ public class AppiumDriver {
 		capabilities.setCapability(TafCapabilityType.BROWSER_NAME, testBed.getBrowser().getName());
 		capabilities.setCapability(TafCapabilityType.VERSION, testBed.getBrowser().getVersion());
 		capabilities.setCapability(TafCapabilityType.PLATFORM_NAME, testBed.getPlatform().getName());
+		capabilities.setCapability("newCommandTimeout", "120");
 		capabilities.setCapability("U", "auto");
 		if (testBed.getApp().getAppPath() != null) {
 			capabilities.setCapability(TafCapabilityType.APP, testBed.getApp().getAppPath());
@@ -322,6 +323,7 @@ public class AppiumDriver {
 		capabilities.setCapability(TafCapabilityType.APP, testBed.getApp().getAppPath());
 		capabilities.setCapability(TafCapabilityType.APP_PACKAGE, testBed.getApp().getAppPackage());
 		capabilities.setCapability(TafCapabilityType.APP_ACTIVITY, testBed.getApp().getAppActivity());
+		capabilities.setCapability("newCommandTimeout", "120");
 		if (testBed.getDevice().getType().equalsIgnoreCase(DeviceType.EMULATOR.toString())) {
 			updateAndroidEmulator(testBed, capabilities);
 		} else {
