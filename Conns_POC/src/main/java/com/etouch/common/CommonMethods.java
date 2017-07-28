@@ -538,7 +538,7 @@ public class CommonMethods {
 			select.selectByVisibleText(dropdownvalue);
 
 		} catch (Throwable e) {
-			softAssert.fail("Unable to click on element using CSS : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
 	

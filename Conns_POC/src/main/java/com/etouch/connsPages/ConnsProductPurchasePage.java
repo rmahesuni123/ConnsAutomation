@@ -33,6 +33,7 @@ public class ConnsProductPurchasePage {
 	private WebPage webPage;
 	private ConnsMainPage mainPage;
 	CommonMethods commonMethods = new CommonMethods();
+	private ConnsHomePage ConnsHomePage;
 
 	Path path;
 	String DataFilePath;
@@ -52,10 +53,10 @@ public class ConnsProductPurchasePage {
 
 	}
 
-	public void Click_On_Element_JS(WebPage webPage, String[][] test, SoftAssert softAssert) {
+	public void Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) {
 
 		try {
-			WebElement element = webPage.findObjectByxPath(test[1][1]).getWebElement();
+			WebElement element = webPage.findObjectByxPath(test).getWebElement();
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
 		} catch (PageException e) {
@@ -101,13 +102,17 @@ public class ConnsProductPurchasePage {
 
 	public void Checkout_Guest(WebPage webPage, String[][] checkoutGuest, SoftAssert softAssert) {
 
+			
 		try {
-			Robot robot = new Robot();
+			//Robot robot = new Robot();
 			// Point point = driver.findElement(by).getLocation();
-			robot.mouseMove(0, 16);
+			//robot.mouseMove(0, 16);
 			// webPage.findObjectByxPath(test[0][1]).click();
-			commonMethods.clickElementbyXpath(webPage, checkoutGuest[0][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, checkoutGuest[1][1], softAssert);
+			//commonMethods.clickElementbyXpath(webPage, checkoutGuest[0][1], softAssert);
+			//commonMethods.clickElementbyXpath(webPage, checkoutGuest[1][1], softAssert);
+			
+			Click_On_Element_JS(webPage, checkoutGuest[0][1], softAssert);
+			Click_On_Element_JS(webPage, checkoutGuest[1][1], softAssert);
 			Thread.sleep(5000);
 
 		} catch (Throwable e) {
@@ -156,8 +161,8 @@ public class ConnsProductPurchasePage {
 			commonMethods.sendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, test[6][1], test[6][3], softAssert);
 			commonMethods.selectDropdownByValue(webPage, test[7][1], test[7][3], softAssert);
-			// commonMethods.selectDropdownByValue(webPage, test[8][1],
-			// test[8][3], softAssert);
+			Thread.sleep(2000);
+			//commonMethods.selectDropdownByValue(webPage, test[8][1], test[8][3], softAssert);
 
 		} catch (Throwable e) {
 
@@ -212,8 +217,8 @@ public class ConnsProductPurchasePage {
 
 			commonMethods.selectDropdownByValue(webPage, submitShippingInfo[6][1], submitShippingInfo[6][3],
 					softAssert);
-			commonMethods.selectDropdownByValue(webPage, submitShippingInfo[7][1], submitShippingInfo[7][3],
-					softAssert);
+			/*commonMethods.selectDropdownByValue(webPage, submitShippingInfo[7][1], submitShippingInfo[7][3],
+					softAssert);*/
 
 		} catch (Throwable e) {
 
@@ -334,8 +339,8 @@ public class ConnsProductPurchasePage {
 						       
 						       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
 						       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
-						       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
-						       break;
+						       Assert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+						   //    break;
 						      }
 
 						System.out.println("clicked pickup only on add to cart button");
@@ -498,8 +503,8 @@ public class ConnsProductPurchasePage {
 						       
 						       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
 						       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
-						       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
-						       break;
+						       Assert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+						      // break;
 						      }
 						System.out.println("clicked pickup only on add to cart button");
 						break;
@@ -797,8 +802,8 @@ public class ConnsProductPurchasePage {
 							       
 							       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
 							       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
-							       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
-							       break;
+							       Assert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+							      // break;
 							      }
 							break;
 
@@ -1035,8 +1040,8 @@ public class ConnsProductPurchasePage {
 						       
 						       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
 						       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
-						       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
-						       break;
+						       Assert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+						    //   break;
 						      }
 						System.out.println("clicked pickup only on add to cart button");
 						break;
@@ -1243,8 +1248,8 @@ public class ConnsProductPurchasePage {
 						       
 						       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
 						       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
-						       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
-						       break;
+						       Assert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+						   //    break;
 						      }
 						System.out.println("clicked pickup only on add to cart button");
 						break;
