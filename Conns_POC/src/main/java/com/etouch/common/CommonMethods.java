@@ -638,6 +638,40 @@ public class CommonMethods {
 
 		}
 
-	}	
+	}
+	/**
+	 * @author Name - Rajesh Surve
+	 * The method used to click element using Java script executor 
+	 */
+	public void clickElementbyXpath_usingJavaScript(WebPage webPage, String locator, SoftAssert softAssert){
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));
+			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			js.executeScript("arguments[0].click();", element);
+			
+		} catch (Exception e) {
+			softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
+	
+	/**
+	 * @author Name - Rajesh Surve
+	 * The method used to click element using Java script executor 
+	 */	
+	
+	public void sendKeys_usingJavaScriptExecutor(WebPage webPage, String locator, String text, SoftAssert softAssert){
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));
+			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			js.executeScript("arguments[0].setAttribute('text')", element);
+			//driver.executeScript("arguments[0].setAttribute('value', '" + longstring +"')", inputField);
+		} catch (Exception e) {
+			softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}	
+		
+	}
+	
 	
 }

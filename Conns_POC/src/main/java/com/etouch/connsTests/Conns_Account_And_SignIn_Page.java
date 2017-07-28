@@ -367,15 +367,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("******Started verification of Login functionality with invalid data ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginfuncInvalidInput");
-		String ExpErrMsgEmail = testdata[1][3];
-		String ExpErrMsgPwd = testdata[1][7];
-		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
+
+		String ExpErrMsgEmail = testdata[0][3];
+		String ExpErrMsgPwd = testdata[0][7];
+
+
 		try{
 			List<String> actualErrorMessage =ConnsSignInPage.verify_Login_Functionality_with_Invalid_Input(testdata);
 			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgEmail,"Login Functionality with Invalid Input verification failed For Invalid Email Address. Expected Email Address Error Message : "+ExpErrMsgEmail + "Actual Email Address Error Message : "+actualErrorMessage);	
-			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgPwd,"  Login Functionality with Invalid Input verification failed For Invalid Password . Expected Password Error Message : "+ExpErrMsgPwd + "Actual Password Error Message : "+actualErrorMessage);
+			softAssert.assertEquals(actualErrorMessage.get(1), ExpErrMsgPwd,"  Login Functionality with Invalid Input verification failed For Invalid Password . Expected Password Error Message : "+ExpErrMsgPwd + "Actual Password Error Message : "+actualErrorMessage);
 			softAssert.assertAll();
 		}
 		catch(Throwable e){
@@ -1059,7 +1059,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
 		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert); // comment this line if continuous  execution
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		try{
@@ -1122,7 +1122,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "Verify_Credit_Application_Section");
 		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][2];
-		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
+		log.info("Navigating to verify_Account_DashBoard_Login functionalaity");
+		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert); // comment this line if continuous  execution
 		//ConnsSignInPage.verifyContent(testdata);
 		for (int r = 0; r < testdata.length; r++) {
 			try {
@@ -1338,7 +1339,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert); // comment this line if continuous  execution
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","ContactInformationFunctionality_Valid_Input");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1435,7 +1436,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Contact_Information_Tab_Change_Billing_Address_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);  // comment this line if continuous  execution
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1471,7 +1472,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Contact_Information_Tab_Change_Shipping_Address_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert); // comment this line if continuous  execution
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
