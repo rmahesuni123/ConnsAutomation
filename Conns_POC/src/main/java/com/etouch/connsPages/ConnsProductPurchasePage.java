@@ -330,6 +330,14 @@ public class ConnsProductPurchasePage {
 						commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
 						System.out.println("after clicking add to cart on modal box");
 
+						if(webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")){
+						       
+						       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+						       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
+						       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+						       break;
+						      }
+
 						System.out.println("clicked pickup only on add to cart button");
 						break;
 
@@ -485,7 +493,14 @@ public class ConnsProductPurchasePage {
 						System.out.println("before clicking add to cart on modal box");
 						commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
 						System.out.println("after clicking add to cart on modal box");
-
+						
+						if(webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")){
+						       
+						       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+						       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
+						       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+						       break;
+						      }
 						System.out.println("clicked pickup only on add to cart button");
 						break;
 
@@ -777,7 +792,14 @@ public class ConnsProductPurchasePage {
 							System.out.println("before clicking add to cart on modal box");
 							commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
 							System.out.println("after clicking add to cart on modal box");
-
+							
+							if(webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")){
+							       
+							       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+							       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
+							       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+							       break;
+							      }
 							break;
 
 						} else {
@@ -1008,7 +1030,14 @@ public class ConnsProductPurchasePage {
 						commonMethods.clickElementbyXpath(webPage, inStockOnlyAddToCart[7][1], softAssert);
 						Thread.sleep(2000);
 						System.out.println("after clicking add to cart on modal box");
-
+						
+						if(webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")){
+						       
+						       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+						       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
+						       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+						       break;
+						      }
 						System.out.println("clicked pickup only on add to cart button");
 						break;
 
@@ -1209,7 +1238,14 @@ public class ConnsProductPurchasePage {
 						commonMethods.clickElementbyXpath(webPage, inStockOnlyAddToCart[7][1], softAssert);
 						Thread.sleep(2000);
 						System.out.println("after clicking add to cart on modal box");
-
+						
+						if(webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")){
+						       
+						       boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+						       System.out.println("isShoppingCartEmpty:"+isShoppingCartEmpty);
+						       softAssert.assertFalse(isShoppingCartEmpty,"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+						       break;
+						      }
 						System.out.println("clicked pickup only on add to cart button");
 						break;
 
