@@ -59,6 +59,7 @@ public class ConnsProductPurchasePage {
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
+			log.info("clicked on :"+test);
 		} catch (PageException e) {
 			log.error(e.getMessage());
 			softAssert.fail(e.getLocalizedMessage());
@@ -762,9 +763,9 @@ public class ConnsProductPurchasePage {
 							softAssert);
 
 					boolean isPickupCheckboxDisplayed = webPage.getDriver()
-							.findElements(By.xpath("//input[@id='instore']")).size() >= 1;
+							.findElements(By.xpath("//input[@id='instore']")).size() == 1;
 
-					System.out.println("checked isPickupCheckboxDisplayed:" + isPickupCheckboxDisplayed);
+					System.out.println("isPickupCheckboxDisplayed:" + isPickupCheckboxDisplayed);
 
 					if (isPickupCheckboxDisplayed) {
 
