@@ -1041,7 +1041,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
@@ -1237,10 +1237,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
+		ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyChangePasswordfun");
-		String[][] valid_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyChangePasswordfunctionality");
+		//String[][] valid_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyChangePasswordfunctionality");
 		log.info("*************************************** inputdata found***************************************************");
 		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
 		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
@@ -1257,24 +1257,48 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			log.info(" verify_Account_Information_Tab_Change_Password_Functionality_Starting  : ^^^^^^^^^^^^^^^^^^^^^^^^^^ ");
 			
 			
-			List<String> actualErrorMessage =ConnsSignInPage.verify_Account_Information_Tab_Change_Password_Functionality(inputdata,valid_data);
-			log.info(" *************************** actualErrorMessage.get(0)  :             " +actualErrorMessage.get(0));
+			List<String> actualErrorMessage =ConnsSignInPage.verify_Account_Information_Tab_Change_Password_Functionality(inputdata);
+			/*log.info(" *************************** actualErrorMessage.get(0)  :             " +actualErrorMessage.get(0));
 			log.info(" *************************** inputdata[1][10]  :                      "         +inputdata[1][10]);
 			log.info(" *************************** actualErrorMessage.get(1)  :             " +actualErrorMessage.get(1));
 			log.info(" *************************** inputdata[2][10]  :                      "         +inputdata[2][10]);
 			log.info(" *************************** actualErrorMessage.get(2)  :             " +actualErrorMessage.get(2));
 			log.info(" *************************** inputdata[3][10]  :                      "         +inputdata[2][10]);
 			log.info(" *************************** actualErrorMessage.get(3)  :             " +actualErrorMessage.get(3));
-			log.info(" *************************** valid_data[0][10]  :                      "         +valid_data[0][10]);
-			/*log.info(" *************************** actualErrorMessage.get(4)  :             " +actualErrorMessage.get(4));
-			log.info(" *************************** inputdata[4][10]  :                      "         +inputdata[4][10]);*/
+			log.info(" *************************** valid_data[0][10]  :                      "         +inputdata[0][10]);
+			log.info(" *************************** actualErrorMessage.get(4)  :             " +actualErrorMessage.get(4));
+			//log.info(" *************************** inputdata[4][10]  :                      "         +valid_data[4][10]);*/	
+		
+			log.info("Actual 1 : " + actualErrorMessage.get(0).trim());
+			log.info("Expect 1 : " + inputdata[1][10].trim());
+			log.info(actualErrorMessage.get(0).trim().contains(inputdata[1][10].trim()));
 			
+			log.info("Actual 2 : " + actualErrorMessage.get(1).trim());
+			log.info("Expect 2 : " + inputdata[2][10].trim());
+			log.info(actualErrorMessage.get(1).trim().contains(inputdata[2][10].trim()));
 			
-			softAssert.assertEquals(actualErrorMessage.get(0), inputdata[1][10],"Change Password Functionality with Short Password Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[1][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
-			softAssert.assertEquals(actualErrorMessage.get(1), inputdata[2][10],"Change Password Functionality with Different Value New Password Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[2][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
-			softAssert.assertEquals(actualErrorMessage.get(2), inputdata[3][10],"Change Password Functionality with Different Value Confirm Password verification failed For NA Password Input. Expected Password Error Message : "+inputdata[2][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
-			softAssert.assertEquals(actualErrorMessage.get(3), valid_data[0][10],"Change Password Functionality with Invalid Input verification failed For NA Password Input. Expected Password Error Message : "+valid_data[0][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
-			//softAssert.assertEquals(actualErrorMessage.get(4), inputdata[4][10],"Change Password Functionality with Valid Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[4][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+			log.info("Actual 3 : " + actualErrorMessage.get(2).trim());
+			log.info("Expect 3 : " + inputdata[2][10].trim());
+			log.info(actualErrorMessage.get(2).trim().contains(inputdata[2][10].trim()));
+			
+			log.info("Actual 4 : " + actualErrorMessage.get(3).trim());
+			log.info("Expect 4 : " + inputdata[3][10].trim());
+			log.info(actualErrorMessage.get(3).trim().contains(inputdata[3][10].trim()));
+			
+		//	log.info("Actual 5 : " + actualErrorMessage.get(4).trim());
+		//	log.info("Expect 5 : " + valid_data[1][10].trim());
+		//	log.info(actualErrorMessage.get(1).trim().contains(valid_data[1][10].trim()));
+			
+			softAssert.assertEquals(actualErrorMessage.get(0).trim(), inputdata[1][10].trim(),"Change Password Functionality with Short Password Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[1][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+
+			softAssert.assertEquals(actualErrorMessage.get(1).trim(), inputdata[2][10].trim(),"Change Password Functionality with Different Value New Password Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[2][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+
+			softAssert.assertEquals(actualErrorMessage.get(2).trim(), inputdata[2][10].trim(),"Change Password Functionality with Different Value Confirm Password verification failed For NA Password Input. Expected Password Error Message : "+inputdata[2][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+
+			softAssert.assertEquals(actualErrorMessage.get(3).trim(), inputdata[3][10].trim(),"Change Password Functionality with Invalid Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[3][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+
+		//	softAssert.assertEquals(actualErrorMessage.get(4).trim(), valid_data[1][10].trim(),"Change Password Functionality with Valid Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[4][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+
 			softAssert.assertAll();
 
 		}
@@ -1809,7 +1833,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Account_Information_Tab_Newsletters_Save_Button() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Newsletters_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];

@@ -1155,7 +1155,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	}
 	
 	
-	public List<String> verify_Account_Information_Tab_Change_Password_Functionality (String[][] inputdata,String[][] valid_data) throws PageException, InterruptedException, AWTException {
+	public List<String> verify_Account_Information_Tab_Change_Password_Functionality (String[][] inputdata) throws PageException, InterruptedException, AWTException {
 			List<String> errorMessage = new ArrayList<String>();
 			String Short_Password_Error_Message_Locator_Account_Information_Page="";
 			String New_Different_Value_Password_Error_Message_Locator_Account_Information_Page="";
@@ -1163,7 +1163,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page = "";
 			String Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page = "";
 			SoftAssert softAssert = new SoftAssert();
-			for (int r = 0; r < inputdata.length; r++) {
+			for (int r = 0; r < inputdata.length; r++) 
+			{
 				log.info("*********************************************** ::::Inside_verify_Account_Information_Tab_Change_Password_Functionality_Method ::::::" );
 			
 
@@ -1221,16 +1222,44 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 						log.info("********************************************NewPwdErrMsgLocator : *************************************************** " +NewPwdErrMsgLocator);
 						log.info("********************************************ConfPwdErrMsgLocator : *************************************************** " +ConfPwdErrMsgLocator);
 
-						webPage.getDriver().navigate().refresh();
+						//webPage.getDriver().navigate().refresh();
 					    
 					    /*SoftAssertor.assertEquals(webPage.findObjectByxPath(NewPwdErrMsgLocator).getText(),ExpectedValMsg);
 					SoftAssertor.assertEquals(webPage.findObjectByxPath(ConfPwdErrMsgLocator).getText(),ExpectedValMsg);*/
 					
 				} 
+				else if (NameofTestCase.equalsIgnoreCase("invalidCrrpwd")) {
+					log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " );
+					
+					//webPage.getDriver().navigate().refresh();
+					//commonMethods.clickElementbyXpath(webPage, Change_Password_Locator, softAssert);
+					
+					//Thread.sleep(5000);
+					Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page = commonMethods.getTextbyXpath(webPage,ConfPwdErrMsgLocator, softAssert);
+					log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " +Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
+					log.info("********************************************ConfPwdErrMsgLocator : *************************************************** " +ConfPwdErrMsgLocator);
+					Thread.sleep(2000);
+					SoftAssertor.assertEquals(webPage.findObjectByxPath(ConfPwdErrMsgLocator).getText(),ExpectedValMsg);
+
+			}
 				
+			}
+			errorMessage.add(Short_Password_Error_Message_Locator_Account_Information_Page);
+			errorMessage.add(New_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
+			errorMessage.add(Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
+			errorMessage.add(Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
+			//errorMessage.add(Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page);
+		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Short_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +Short_Password_Error_Message_Locator_Account_Information_Page);
+		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    New_Different_Value_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +New_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
+		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
+		// log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
+		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page  *************************************************** ::::::::::::::::::::::: " +Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page);
+		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    ##################### errorMessage %%%%%%%%%%%%%%%%%%%%%%%%%% *************************************************** ::::::::::::::::::::::: " +errorMessage);
+			
+			return errorMessage;					
 				
-				
-				
+			
+		}	
 				/*else if (NameofTestCase.equalsIgnoreCase("invalidCrrpwd")) {
 						log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " );
 						
@@ -1252,45 +1281,47 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("********************************************ConfPwdErrMsgLocator : *************************************************** " +ConfPwdErrMsgLocator);
 					//SoftAssertor.assertEquals(webPage.findObjectByxPath(ConfPwdErrMsgLocator).getText(),ExpectedValMsg);
 				}
-*/			}
+*/			
+			
+			//}
 			
 			
-			String Change_Password_Locator = valid_data[0][0];
-			String NameofTestCase = valid_data[0][12];
-			String ConfPwdErrMsgLocator = valid_data[0][9];
-			String ExpectedValMsg = valid_data[0][10];
-			String ButtonLocator = valid_data[0][11];
+/*			String Change_Password_Locator1 = valid_data[0][0];
+			String NameofTestCase1 = valid_data[0][12];
+			String ConfPwdErrMsgLocator1 = valid_data[0][9];
+			String ExpectedValMsg1 = valid_data[0][10];
+			String ButtonLocator1 = valid_data[0][11];
 			String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = valid_data[0][16];
 			webPage.getDriver().navigate().refresh();
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 			webPage.getDriver().navigate().refresh();
-			commonMethods.clickElementbyXpath(webPage, valid_data[0][1], softAssert);
-			commonMethods.clearElementbyXpath(webPage, valid_data[0][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, inputdata[0][1], softAssert);
+			commonMethods.clearElementbyXpath(webPage, inputdata[0][1], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, valid_data[0][1], valid_data[0][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, valid_data[0][4], softAssert);
 			commonMethods.clearElementbyXpath(webPage, valid_data[0][4], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, valid_data[0][4], valid_data[0][5], softAssert);
-			commonMethods.clickElementbyXpath(webPage, valid_data[0][7], softAssert);
-			commonMethods.clearElementbyXpath(webPage, valid_data[0][7], softAssert);
+			commonMethods.clickElementbyXpath(webPage, inputdata[0][7], softAssert);
+			commonMethods.clearElementbyXpath(webPage, inputdata[0][7], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, valid_data[0][7], valid_data[0][8], softAssert);
 			log.info("**************#############******************************CurrPwdLocator :  " +valid_data[0][1]);
 			log.info("*************#############*******************************NewPwdLocator  :  " +valid_data[0][2]);
 			log.info("*************#############*******************************NewPwdinput    :  " + valid_data[0][4]);
 			log.info("**************#############******************************ConfPwdLocator :  " + valid_data[0][5]);
 			log.info("**************#############******************************ConfPwdinput   :  " +valid_data[0][7]);
-			log.info("***************#############*****************************ButtonLocator  :  " +ButtonLocator);
-			commonMethods.clickElementbyXpath(webPage, ButtonLocator, softAssert);
-			log.info("******************************************** |||||||||||||||||||||||||||||||||||||||||||||||  ButtonLocator Clicked Successfully ||||||||||||||||||||||||||||||||||||||||||||  : *************************************************** " +ButtonLocator);
-			if (NameofTestCase.equalsIgnoreCase("invalidCrrpwd")) {
+			log.info("***************#############*****************************ButtonLocator  :  " +ButtonLocator1);
+			commonMethods.clickElementbyXpath(webPage, ButtonLocator1, softAssert);
+			log.info("******************************************** |||||||||||||||||||||||||||||||||||||||||||||||  ButtonLocator Clicked Successfully ||||||||||||||||||||||||||||||||||||||||||||  : *************************************************** " +ButtonLocator1);
+			if (NameofTestCase1.equalsIgnoreCase("invalidCrrpwd")) {
 				log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " );
 				
-				Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page = commonMethods.getTextbyXpath(webPage,ConfPwdErrMsgLocator, softAssert);
+				Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page = commonMethods.getTextbyXpath(webPage,ConfPwdErrMsgLocator1, softAssert);
 				log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " +Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
-				log.info("********************************************ConfPwdErrMsgLocator : *************************************************** " +ConfPwdErrMsgLocator);
+				log.info("********************************************ConfPwdErrMsgLocator : *************************************************** " +ConfPwdErrMsgLocator1);
 				
-				/*SoftAssertor.assertEquals(webPage.findObjectByxPath(ConfPwdErrMsgLocator).getText(),ExpectedValMsg);*/
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(ConfPwdErrMsgLocator).getText(),ExpectedValMsg);
 
-		}  /*if (NameofTestCase.equalsIgnoreCase("changepassword")) { 
+		}*/  /*if (NameofTestCase.equalsIgnoreCase("changepassword")) { 
 			log.info("********************************************Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page : *************************************************** " );
 
 			Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page = commonMethods.getTextbyXpath(webPage,ConfPwdErrMsgLocator, softAssert);
@@ -1337,24 +1368,10 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	
 	
-				*/;
+				*/
 		
-		//}
-				errorMessage.add(Short_Password_Error_Message_Locator_Account_Information_Page);
-				errorMessage.add(New_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
-				errorMessage.add(Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
-				errorMessage.add(Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
-				//errorMessage.add(Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page);
-				log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Short_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +Short_Password_Error_Message_Locator_Account_Information_Page);
-				log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    New_Different_Value_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +New_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
-				log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
-				log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
-				log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page  *************************************************** ::::::::::::::::::::::: " +Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page);
-				log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    ##################### errorMessage %%%%%%%%%%%%%%%%%%%%%%%%%% *************************************************** ::::::::::::::::::::::: " +errorMessage);
-				
-				return errorMessage;
-				
-	}
+
+
 	
 	
 	
