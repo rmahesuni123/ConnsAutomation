@@ -348,7 +348,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
 					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
 				}
-				log.info("China Gate");
+				log.info("********** Before Execution ******************");
 				Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 				Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
 				//SoftAssertor.assertEquals(Actual_Page_ELement_Name, Expected_Page_Element_Name, "Element name does not match");
@@ -380,7 +380,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("Actual URL" + Actual_Page_URL);
 					
 				} else {
-					log.info("Kemon Ashen");
+					log.info("******************* Else Execution***************");
 					Actual_Page_URL = webPage.getCurrentUrl();
 					Actual_Page_Title = webPage.getPageTitle();
 					Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
