@@ -52,7 +52,7 @@ public class ConnsMoneyMatters extends CommonPage {
 		super(sbPageUrl, webPage);
 		CommonUtil.sop("webDriver in eTouchWebSite Page : " + webPage.getDriver());
 		loadPage();
-		webPage.getDriver().manage().window().maximize();
+		//webPage.getDriver().manage().window().maximize();
 	}
 	
 	

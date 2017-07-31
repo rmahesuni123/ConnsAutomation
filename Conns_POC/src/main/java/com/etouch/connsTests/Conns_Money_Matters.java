@@ -195,11 +195,11 @@ public class Conns_Money_Matters extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 001 - Verify title and URL of page
+	 * Test Case - 601 - Verify title and URL of page
 	 * 
 	 */
 
-	@Test(priority = 1, enabled = true, description = "Verify MoneyMatters Page title")
+	@Test(priority = 601, enabled = true, description = "Verify MoneyMatters Page title")
 	public void Verify_MoneyMatters_PageTitle() 
 	{
 		
@@ -223,11 +223,11 @@ public class Conns_Money_Matters extends BaseTest {
 	
 	
 	/**
-	 * Test Case - 002 - Verify broken images on page
+	 * Test Case - 602 - Verify broken images on page
 	 * 
 	 */
 
-	@Test(priority = 2, enabled = true, description = "Verify_Broken_Images")
+	@Test(priority = 602, enabled = true, description = "Verify_Broken_Images")
 	public void Verify_Broken_Images() throws ClientProtocolException, IOException 
 	{		
 		SoftAssert softAssert = new SoftAssert();
@@ -246,11 +246,11 @@ public class Conns_Money_Matters extends BaseTest {
 	
 	
 	/**
-	 * Test Case - 003 - Verify broken links on page
+	 * Test Case - 603 - Verify broken links on page
 	 * 
 	 */
 
-	@Test(priority = 3, enabled = true, description = "Verify_Broken_Links")
+	@Test(priority = 603, enabled = true, description = "Verify_Broken_Links")
 	public void Verify_Broken_Links() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -271,11 +271,11 @@ public class Conns_Money_Matters extends BaseTest {
 	
 	
 	/**
-	 * Test Case - 004 - Verify Font Size and Style of specified on element on
+	 * Test Case - 604 - Verify Font Size and Style of specified on element on
 	 * 
 	 */	
 	
-	@Test(priority = 4, enabled = true, description = "Verify_Font_And_Size")
+	@Test(priority = 604, enabled = true, description = "Verify_Font_And_Size")
 	public void Verify_Font_And_Size() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -335,11 +335,11 @@ public class Conns_Money_Matters extends BaseTest {
 	
 	
 	/**
-	 * Test Case - 004 - Verify Text of specified on element on
+	 * Test Case - 604 - Verify Text of specified on element on
 	 * 
 	 */	
 	
-	@Test(priority = 5, enabled = true, description = "Verify_MoneyMatters_Text")
+	@Test(priority = 605, enabled = true, description = "Verify_MoneyMatters_Text")
 	public void Verify_MoneyMatters_Text() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualTextValues = null;
@@ -381,11 +381,11 @@ public class Conns_Money_Matters extends BaseTest {
 	
 	
 	/**
-	 * Test Case - 006 - verify Links Above Header Conns Home Page
+	 * Test Case - 606 - verify Links Above Header Conns Home Page
 	 * 
 	 */
 
-	@Test(priority = 6, enabled = true, description = "Verify_MoneyMatters_LinksRedirection")
+	@Test(priority = 606, enabled = true, description = "Verify_MoneyMatters_LinksRedirection")
 	public void Verify_MoneyMatters_LinksRedirection() {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
@@ -395,7 +395,7 @@ public class Conns_Money_Matters extends BaseTest {
 			ConnsHomePage.waitPageToLoad();
 			//CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);			
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters", "verifyLinks");	
-			System.out.println("testData.length : " + testData.length);
+			log.info("testData.length : " + testData.length);
 			for (int i = 0; i < testData.length; i++)
 			{
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
@@ -406,7 +406,8 @@ public class Conns_Money_Matters extends BaseTest {
 
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
 					System.out.println("Inside the 2nd if. Value of I : " + i);
-					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					//ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					ActualURL=Click_On_Element_JS(webPage, testData[i][2], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);					
@@ -432,7 +433,18 @@ public class Conns_Money_Matters extends BaseTest {
 		}
 	}	
 	
+	public String Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
 
+		try {
+			WebElement element = webPage.findObjectByxPath(test).getWebElement();
+			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+			executor.executeScript("arguments[0].click();", element);
+		} catch (PageException e) {
+			log.error(e.getMessage());
+			softAssert.fail(e.getLocalizedMessage());
+		}
+		return webPage.getCurrentUrl();
+	}
 	
 	
 }	
