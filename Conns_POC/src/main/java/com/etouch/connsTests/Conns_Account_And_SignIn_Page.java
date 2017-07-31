@@ -185,6 +185,13 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					// connsHomepage=new ConnsHomePageNew;
 
 				}
+				
+				
+				if (testType.equalsIgnoreCase("Web")) {
+					log.info("Maximize Window in case of Desktop Browsers Only : ");
+					webPage.getDriver().manage().window().maximize();
+					// SpecializedScreenRecorder.startVideoRecordingForDesktopBrowser(videoLocation);
+				} 
 			} catch (Exception e) {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
@@ -232,7 +239,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Navigate to https://www.conns.com/customer/account/login/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN' 
 	 */
 	@Test(priority = 302, enabled = true, description = "Verify_Font_And_Size")
-	public void Verify_Font_And_Size_Login_Page() {
+	public void verify_Font_And_Size_Login_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
@@ -252,7 +259,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 									+ actualCssValues.get(0));
 					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][6]),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font family : "
+									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font color : "
 									+ actualCssValues.get(1));
 					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains((ExpectedFontValues[i][4]).toLowerCase()),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
@@ -367,15 +374,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("******Started verification of Login functionality with invalid data ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginfuncInvalidInput");
-
-		String ExpErrMsgEmail = testdata[0][3];
-		String ExpErrMsgPwd = testdata[0][7];
-
-
+		String ExpErrMsgEmail = testdata[1][3];
+		String ExpErrMsgPwd = testdata[1][7];
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		try{
 			List<String> actualErrorMessage =ConnsSignInPage.verify_Login_Functionality_with_Invalid_Input(testdata);
 			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgEmail,"Login Functionality with Invalid Input verification failed For Invalid Email Address. Expected Email Address Error Message : "+ExpErrMsgEmail + "Actual Email Address Error Message : "+actualErrorMessage);	
-			softAssert.assertEquals(actualErrorMessage.get(1), ExpErrMsgPwd,"  Login Functionality with Invalid Input verification failed For Invalid Password . Expected Password Error Message : "+ExpErrMsgPwd + "Actual Password Error Message : "+actualErrorMessage);
+			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgPwd,"  Login Functionality with Invalid Input verification failed For Invalid Password . Expected Password Error Message : "+ExpErrMsgPwd + "Actual Password Error Message : "+actualErrorMessage);
 			softAssert.assertAll();
 		}
 		catch(Throwable e){
@@ -575,6 +582,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	@Test(priority = 310,  enabled = true)
 	public void verify_Login_Functionality_Registered_User(ITestContext context) {
 		log.info("******Started verification of Login functionality with valid data ********");
+		testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
+		CommonUtil.sop("Test bed Name is " + testBedName);
+		testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+		testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+		log.info("Test Type is : " + testType);
+		platform = testBed.getPlatform().getName().toUpperCase();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginFunctionality_Valid_Input");
 		SoftAssert softAssert = new SoftAssert();
 		String ChildElementLocator = null;
@@ -595,6 +608,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Locator_2 = testdata[0][10];
 		String Locator_3 = testdata[0][11];
 		String Locator_4 = testdata[0][12];
+		String Expected_Mobile_Element_Name = testdata[0][14];		
 		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][7];
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
@@ -606,17 +620,21 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			commonMethods.sendKeysbyXpath(webPage, PasswordLocator, Password, softAssert);
 			commonMethods.clickElementbyXpath(webPage, LogInButtonLocator, softAssert);
 			Actual_Element_Name =commonMethods.getTextbyXpath(webPage, ChildElementLocator, softAssert);
+			if (testType.equalsIgnoreCase("Mobile")) 
+			{
+				softAssert.assertEquals(Actual_Element_Name,Expected_Mobile_Element_Name,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected_Login_Functionality_Registered_User_Page_Element_Name  :  "+ Expected_Mobile_Element_Name + "   Actual Login_Functionality_Registered_User_Page_Actual_Element_Name  : "+Actual_Element_Name);
+			}
+			else 
+			{
+				softAssert.assertEquals(Actual_Element_Name,Expected_Element_Name,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected_Login_Functionality_Registered_User_Page_Element_Name  :  "+ Expected_Element_Name + "   Actual Login_Functionality_Registered_User_Page_Actual_Element_Name  : "+Actual_Element_Name);
+			}
+			
 			//SoftAssertor.assertEquals(Actual_Element_Name, Expected_Element_Name, "Element name does not match");
-			softAssert.assertEquals(Actual_Element_Name,Expected_Element_Name,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected Login_Functionality_Registered_User_Page_Actual_Element_Name  : "+Actual_Element_Name + "Actual Login_Functionality_Registered_User_Page_Actual_Element_Name  : "+Actual_Element_Name);
+			
 			String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
-			softAssert.assertEquals(Actual_Page_Title,Expected_Page_Title,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected Login_Functionality_Registered_User_Page_Title  : "+Expected_Page_Title + "Actual Login_Functionality_Registered_User_Page_Actual_Page_Title  : "+Actual_Page_Title);
+			softAssert.assertEquals(Actual_Page_Title,Expected_Page_Title,"  Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected_Login_Functionality_Registered_User_Page_Title  : "+ Expected_Page_Title + "  Actual Login_Functionality_Registered_User_Page_Actual_Page_Title  : "+Actual_Page_Title);
 			Actual_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
-			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
-			CommonUtil.sop("Test bed Name is " + testBedName);
-			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
-			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
-			log.info("Test Type is : " + testType);
-			platform = testBed.getPlatform().getName().toUpperCase();
+		
 				if (testType.equalsIgnoreCase("Mobile")) {
 					commonMethods.clickElementbyXpath(webPage, Locator_1, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Locator_2, softAssert);
@@ -968,7 +986,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Message 'If there is an account associated with test@gmail.com you will receive an email with a link to reset your password' should render on top of page ,
 	 */
 	
-	
 	@Test(priority = 319,  enabled = true)
 	public void verify_Forgot_Password_Function_with_Valid_Email_ID() throws PageException {
 	log.info("******Started verification of Forgot Password functionality with Invalid and valid data ********");
@@ -1059,15 +1076,20 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
 		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert); // comment this line if continuous  execution
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		try{
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			String Actual_Account_Dashboard_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(Actual_Account_Dashboard_Page_URL, Expected_Account_Dashboard_Page_URL,"Page url verification failed. Expected url : "+Expected_Account_Dashboard_Page_URL +           "Actual url :                  "+Actual_Account_Dashboard_Page_URL);
+			log.info(" Actual_Account_Dashboard_Page_URL   :****************************** " +Actual_Account_Dashboard_Page_URL);
+			log.info(" Expected_Account_Dashboard_Page_URL :****************************** " +Expected_Account_Dashboard_Page_URL);
+
 			String Actual_Account_Dashboard_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(Actual_Account_Dashboard_Page_Title, Expected_Account_Dashboard_Page_Title,"Page title verification failed. Expected title : "+Expected_Account_Dashboard_Page_Title + "Actual title :                "+Actual_Account_Dashboard_Page_Title);
+			log.info(" Actual_Account_Dashboard_Page_Title   :****************************** " + Actual_Account_Dashboard_Page_Title);
+			log.info(" Expected_Account_Dashboard_Page_Title :****************************** " + Expected_Account_Dashboard_Page_Title);
 			softAssert.assertAll();
 			}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Title");
@@ -1096,9 +1118,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			List <String> content = new ArrayList<String>();
 			for (int r = 0; r < test_data.length; r++) {
 				try {
-					String Actual_Element_Name_On_Account_Page_For_Page_Content_Verification =commonMethods.getTextbyXpath(webPage, testdata[r][0], softAssert);
-					String Expected_Element_Name_On_Account_Page_For_Page_Content_Verification = testdata[r][1];
+					String Actual_Element_Name_On_Account_Page_For_Page_Content_Verification =commonMethods.getTextbyXpath(webPage, test_data[r][20], softAssert);
+					String Expected_Element_Name_On_Account_Page_For_Page_Content_Verification = test_data[r][19];
 					softAssert.assertEquals(Actual_Element_Name_On_Account_Page_For_Page_Content_Verification, Expected_Element_Name_On_Account_Page_For_Page_Content_Verification,"Page Element Content verification failed. Expected_Element_Name_On_Account_Page_For_Page_Content_Verification : "+Expected_Element_Name_On_Account_Page_For_Page_Content_Verification +           "Actual_Element_Name_On_Account_Page_For_Page_Content_Verification :                  "+Actual_Element_Name_On_Account_Page_For_Page_Content_Verification);
+					log.info("Actual_Element_Name_On_Account_Page_For_Page_Content_Verification :  *****************************  " +Actual_Element_Name_On_Account_Page_For_Page_Content_Verification);
+					log.info("Expected_Element_Name_On_Account_Page_For_Page_Content_Verification :*****************************  " +Expected_Element_Name_On_Account_Page_For_Page_Content_Verification);
 					softAssert.assertAll();
 					} catch (Throwable e) {
 					content.add(testdata[r][1] + " " + e.getLocalizedMessage());
@@ -1122,15 +1146,16 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "Verify_Credit_Application_Section");
 		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][2];
-		log.info("Navigating to verify_Account_DashBoard_Login functionalaity");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert); // comment this line if continuous  execution
-		//ConnsSignInPage.verifyContent(testdata);
+		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
+		//ConnsSignInPage.verifyContent(testdata);verify_Account_DashBoard_Page_Title
 		for (int r = 0; r < testdata.length; r++) {
 			try {
 				webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 				String Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification =commonMethods.getTextbyXpath(webPage, testdata[r][0], null);
 				String Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = testdata[r][1];
 				softAssert.assertEquals(Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification, Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification,"Page Element Content verification failed. Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification : "+Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification +           "Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification :                  "+Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification);
+				log.info("Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification    :*****************************  "  +Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification);
+				log.info("Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification  :*****************************  "  +Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification);
 				softAssert.assertAll();
 				//Assert.assertEquals(ActualElementName, ExpectedElementName, "content does not Match");
 			} catch(Throwable e){
@@ -1154,11 +1179,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyAccountInformationForm");
-		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][12];
+		String Navigate_To_Account_Information_Tab_Form = testdata[0][12];
 		String Expected_Email_ID_NA_Error_Message = testdata[0][10];
 		String Expected_Email_ID_Error_Message_Invalid_Email = testdata[1][10];
 		String Expected_Customer_Already_Exists_Error_Message = testdata[2][14];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form);
 		try{
 		for (int r = 0; r < testdata.length; r++) {
 			String FNInput = testdata[r][2];
@@ -1167,15 +1192,29 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			if (FNInput.equalsIgnoreCase("NA") && LNInput.equalsIgnoreCase("NA") && EmailInput.equalsIgnoreCase("NA")) {
 					List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_First_Name_Last_Name_Login_Validation(testdata,softAssert);
 					softAssert.assertEquals(actualErrorMessage.get(0), Expected_Email_ID_NA_Error_Message,"Page Element Content verification failed. Expected_Email_ID_Error_Msg : "+Expected_Email_ID_NA_Error_Message +  " actualErrorMessage.get(0) :  "+actualErrorMessage.get(0));
+					log.info(" actualErrorMessage : " +actualErrorMessage);
+					log.info(" actualErrorMessage.get(0) : " +actualErrorMessage.get(0));
+					log.info(" Expected_Email_ID_NA_Error_Message : " +Expected_Email_ID_NA_Error_Message);
 			}
 			if (FNInput.equalsIgnoreCase(testdata[1][2]) && LNInput.equalsIgnoreCase(testdata[1][5]) && EmailInput.equalsIgnoreCase(testdata[1][8])) {
+				log.info("*************************************** Entering Invalid Emails : ******************************" );
 				List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_First_Name_Last_Name_Login_Invalid_Input_Validation(testdata,softAssert);
+				log.info("*************************************** Validation for Invalid Emails Starts: ******************************" );
 				softAssert.assertEquals(actualErrorMessage.get(0), Expected_Email_ID_Error_Message_Invalid_Email,"Page Element Content verification failed. Expected_Email_ID_Error_Msg : "+Expected_Email_ID_Error_Message_Invalid_Email +  "actualErrorMessage.get(0) :  "+actualErrorMessage.get(0));
-			 }
-				 if (FNInput.equalsIgnoreCase(testdata[2][2]) && LNInput.equalsIgnoreCase(testdata[2][5]) && EmailInput.equalsIgnoreCase(testdata[2][8])) {
-				List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_First_Name_Last_Name_Login_Valid_Input_Validation(testdata,softAssert);
-				softAssert.assertEquals(actualErrorMessage.get(0), Expected_Customer_Already_Exists_Error_Message,"Page Element Content verification failed. Expected_Email_ID_Error_Msg : "+Expected_Customer_Already_Exists_Error_Message + "actualErrorMessage.get(0) : "+actualErrorMessage.get(0));
+				log.info(" actualErrorMessage : " +actualErrorMessage);
+				log.info(" actualErrorMessage.get(0) : " +actualErrorMessage.get(0));
+				log.info(" Expected_Email_ID_Error_Message_Invalid_Email : " +Expected_Email_ID_Error_Message_Invalid_Email);
 			}
+				/* if (FNInput.equalsIgnoreCase(testdata[2][2]) && LNInput.equalsIgnoreCase(testdata[2][5]) && EmailInput.equalsIgnoreCase(testdata[2][8])) {
+				log.info("*************************************** Entering Valid Emails : ******************************" );
+				List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_First_Name_Last_Name_Login_Valid_Input_Validation(testdata,softAssert);
+				log.info("*************************************** Validation for Valid Emails Starts: ******************************" );
+				softAssert.assertEquals(actualErrorMessage.get(0), Expected_Customer_Already_Exists_Error_Message,"Page Element Content verification failed. Expected_Email_ID_Error_Msg : "+Expected_Customer_Already_Exists_Error_Message + "actualErrorMessage.get(0) : "+actualErrorMessage.get(0));
+				log.info(" actualErrorMessage : " +actualErrorMessage);
+				log.info(" actualErrorMessage.get(0) : " +actualErrorMessage.get(0));
+				log.info(" Expected_Customer_Already_Exists_Error_Message : " +Expected_Customer_Already_Exists_Error_Message);
+				webPage.getDriver().navigate().back();
+				 }*/
 		}
 	
 		softAssert.assertAll();
@@ -1201,26 +1240,51 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		//ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyChangePasswordfun");
-		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][9];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		String[][] valid_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","VerifyChangePasswordfunctionality");
+		log.info("*************************************** inputdata found***************************************************");
+		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
+		log.info(" %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Navigate_To_Account_Information_Tab_Form_URL  : ^^^^^^^^^^^^^^^^^^^^^^^^^^ " +Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
+		
+		
 		String Change_Password_Link_Locator =inputdata[0][0];
-		commonMethods.clickElementbyXpath(webPage, Change_Password_Link_Locator, softAssert);
+	//	commonMethods.clickElementbyXpath(webPage, Change_Password_Link_Locator, softAssert);
+		log.info(" >>>>>>>>>>>>>>>>>>>>>>........Change_Password_Link_Locator  : ^^^^^^^^^^^^^^^^^^^^^^^^^^ " +Change_Password_Link_Locator );
+		//commonMethods.clickElementbyXpath(webPage, Change_Password_Link_Locator, softAssert);
 		try{
-			log.info("in else part of change password method......");
-			List<String> actualErrorMessage =ConnsSignInPage.verify_Account_Information_Tab_Change_Password_Functionality(inputdata);
+			log.info(" verify_Account_Information_Tab_Change_Password_Functionality_Starting  : ^^^^^^^^^^^^^^^^^^^^^^^^^^ ");
+			
+			
+			List<String> actualErrorMessage =ConnsSignInPage.verify_Account_Information_Tab_Change_Password_Functionality(inputdata,valid_data);
+			log.info(" *************************** actualErrorMessage.get(0)  :             " +actualErrorMessage.get(0));
+			log.info(" *************************** inputdata[1][10]  :                      "         +inputdata[1][10]);
+			log.info(" *************************** actualErrorMessage.get(1)  :             " +actualErrorMessage.get(1));
+			log.info(" *************************** inputdata[2][10]  :                      "         +inputdata[2][10]);
+			log.info(" *************************** actualErrorMessage.get(2)  :             " +actualErrorMessage.get(2));
+			log.info(" *************************** inputdata[3][10]  :                      "         +inputdata[2][10]);
+			log.info(" *************************** actualErrorMessage.get(3)  :             " +actualErrorMessage.get(3));
+			log.info(" *************************** valid_data[0][10]  :                      "         +valid_data[0][10]);
+			/*log.info(" *************************** actualErrorMessage.get(4)  :             " +actualErrorMessage.get(4));
+			log.info(" *************************** inputdata[4][10]  :                      "         +inputdata[4][10]);*/
+			
+			
 			softAssert.assertEquals(actualErrorMessage.get(0), inputdata[1][10],"Change Password Functionality with Short Password Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[1][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
 			softAssert.assertEquals(actualErrorMessage.get(1), inputdata[2][10],"Change Password Functionality with Different Value New Password Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[2][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
 			softAssert.assertEquals(actualErrorMessage.get(2), inputdata[3][10],"Change Password Functionality with Different Value Confirm Password verification failed For NA Password Input. Expected Password Error Message : "+inputdata[2][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
-			softAssert.assertEquals(actualErrorMessage.get(3), inputdata[3][10],"Change Password Functionality with Invalid Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[3][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
-			softAssert.assertEquals(actualErrorMessage.get(4), inputdata[4][10],"Change Password Functionality with Valid Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[4][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+			softAssert.assertEquals(actualErrorMessage.get(3), valid_data[0][10],"Change Password Functionality with Invalid Input verification failed For NA Password Input. Expected Password Error Message : "+valid_data[0][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+			//softAssert.assertEquals(actualErrorMessage.get(4), inputdata[4][10],"Change Password Functionality with Valid Input verification failed For NA Password Input. Expected Password Error Message : "+inputdata[4][10] + "Actual Email Address Error Message : "+actualErrorMessage);	
+			softAssert.assertAll();
 
 		}
 		catch(Throwable e){
+			log.info("IN CATCH BLOCKKKKKKKKK");
 			mainPage.getScreenShotForFailure(webPage, "verify_Account_Information_Tab_Change_Password_Functionality");
 			softAssert.assertAll();
-			if (brokenItems.size() > 0) {
+			/*if (brokenItems.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenItems.toArray()) + " are not working as expected");
-			}
+			}*/
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
@@ -1250,6 +1314,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 		String GO_BACK_Link_Locator =inputdata[0][14];
 		try{
+			log.info("*******************************Entered Change Password Functionality alongwith Go_Back_Link Functionality will be starting ****************************** ");
 			String Actual_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(Actual_Page_URL, Expected_Page_URL ,"Page url verification failed. Expected_Page_URL : "+ Expected_Page_URL + " Actual_Page_URL : "+Actual_Page_URL);
 			String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
@@ -1306,19 +1371,19 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Expected_Email_ID_Error_Message = inputdata[r][11];
 			String ButtonLocator = inputdata[r][13];
 			try{
-				if (FNInput.equalsIgnoreCase("NA") && LNInput.equalsIgnoreCase("NA") && EmailInput.equalsIgnoreCase("NA")) {
-					List<String> actualErrorMessage = ConnsSignInPage.verify_Account_DashBoard_First_Name_Last_Name_Login(inputdata);
-					SoftAssertor.assertEquals(actualErrorMessage.get(0), Expected_Username_Password_Error_Message);
+				//if (FNInput.equalsIgnoreCase(" ") && LNInput.equalsIgnoreCase(" ") && EmailInput.equalsIgnoreCase(" ")) {
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Account_DashBoard_First_Name_Last_Name_Login(inputdata,softAssert);
+					/*SoftAssertor.assertEquals(actualErrorMessage.get(0), Expected_Username_Password_Error_Message);
 					log.info("First_Name_Error_Message_Account_Information_Page : " +actualErrorMessage.get(0));
 					log.info("ExpectedValMsg : " +Expected_Username_Password_Error_Message);
-					SoftAssertor.assertEquals(actualErrorMessage.get(1), Expected_Username_Password_Error_Message);
-					log.info("Last_Name_Error_Message_Account_Information_Page : " +actualErrorMessage.get(1));
-					log.info("ExpectedValMsg : " +Expected_Username_Password_Error_Message);
-					SoftAssertor.assertEquals(actualErrorMessage.get(2), Expected_Email_ID_Error_Message);
-					log.info("Email_Address_Error_Message_Account_Information_Page : " +actualErrorMessage.get(2));
+					SoftAssertor.assertEquals(actualErrorMessage.get(0), Expected_Username_Password_Error_Message);
+					log.info("Last_Name_Error_Message_Account_Information_Page : " +actualErrorMessage.get(0));
+					log.info("ExpectedValMsg : " +Expected_Username_Password_Error_Message);*/
+					SoftAssertor.assertEquals(actualErrorMessage.get(0), Expected_Email_ID_Error_Message);
+					log.info("Email_Address_Error_Message_Account_Information_Page : " +actualErrorMessage.get(0));
 					log.info("ExpectedValMsg : " +Expected_Email_ID_Error_Message);
 					softAssert.assertAll();
-				}
+			//	}
 			}
 			catch(Throwable e){
 				mainPage.getScreenShotForFailure(webPage, "verify_Contact_Information_Tab_Edit_Link_Blank_Input");
@@ -1339,21 +1404,21 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		List<String> brokenItems = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert); // comment this line if continuous  execution
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","ContactInformationFunctionality_Valid_Input");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		String Contact_Information_Edit_Link_Locator =inputdata[0][1];
 		commonMethods.clickElementbyXpath(webPage, Contact_Information_Edit_Link_Locator, softAssert);
-		for (int r = 0; r < inputdata.length; r++) {
-			String FNInput = inputdata[r][3];
-			String LNInput = inputdata[r][6];
-			String EmailInput = inputdata[r][9];
-			String ExpectedValMsg = inputdata[r][11];
+		/*for (int r = 0; r < inputdata.length; r++) {*/
+			String FNInput = inputdata[0][3];
+			String LNInput = inputdata[0][6];
+			String EmailInput = inputdata[0][9];
+			String ExpectedValMsg = inputdata[0][11];
 				try{
 					if (!(FNInput.equalsIgnoreCase("NA") && LNInput.equalsIgnoreCase("NA") && EmailInput.equalsIgnoreCase("NA"))) {
-						List<String> information_Saved_Successfully_Message = ConnsSignInPage.verify_Account_DashBoard_First_Name_Last_Name_Login(inputdata);
+						List<String> information_Saved_Successfully_Message = ConnsSignInPage.verify_Account_Information_First_Name_Last_Name_Login_Validation_Valid_Input(inputdata,softAssert);
 						/*String First_Name_Error_Message_Account_Information_Page = commonMethods.getTextbyXpath(webPage,FNErrLocator, softAssert);
 						String Last_Name_Error_Message_Account_Information_Page = commonMethods.getTextbyXpath(webPage,LNErrLocator, softAssert);
 						String Email_Address_Error_Message_Account_Information_Page = commonMethods.getTextbyXpath(webPage,EmailErrLocator, softAssert);
@@ -1364,11 +1429,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					}
 				}
 					catch(Throwable e){
-						//mainPage.getScreenShotForFailure(webPage, "verify_Contact_Information_Tab_Edit_Link_Blank_Input");
+						mainPage.getScreenShotForFailure(webPage, "verify_Contact_Information_Tab_Edit_Link_Blank_Input");
 						softAssert.assertAll();
 						Assert.fail(e.getLocalizedMessage());
 					}
-				}
+				//}
 				}
 		
 	/**
@@ -1436,7 +1501,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Contact_Information_Tab_Change_Billing_Address_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);  // comment this line if continuous  execution
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1472,7 +1537,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Contact_Information_Tab_Change_Shipping_Address_Link() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert); // comment this line if continuous  execution
+		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1744,7 +1809,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Account_Information_Tab_Newsletters_Save_Button() throws PageException{
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Newsletters_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1759,14 +1824,18 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		try{
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
-			WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(inputdata[0][5]));
+			//commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+			commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+			commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+
+			/*WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(inputdata[0][5]));
 			if ((!(Newsletters_Subscription_CheckBox).isSelected()) && ((Newsletters_Subscription_CheckBox)).isEnabled())
 			{
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 			}
 			else{
 				commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
-				}
+				}*/
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Save_Button, softAssert);
 			String actualAccountInformationPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(actualAccountInformationPageURL, Expected_Account_Information_Page_URL,"Page url verification failed. Expected url : "+Expected_Account_Information_Page_URL+"Actual url : "+actualAccountInformationPageURL);

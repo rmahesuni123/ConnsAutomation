@@ -572,7 +572,13 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Remove_Item_Link_Functionality_In_Cart_Page started");
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}			
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, addToCartInStockValid,
@@ -770,7 +776,14 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Verify_Proceed_To_Checkout_Functionality");
 			log.info("testing flow Verify_Proceed_To_Checkout_Functionality started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
@@ -810,8 +823,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
@@ -854,8 +872,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, test[0][1], softAssert),
@@ -886,8 +909,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			boolean isMoreDetailLinkDisplayed = commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
@@ -921,8 +949,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			// ConnsHomePage.waitPageToLoad();
@@ -963,8 +996,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1012,8 +1050,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1080,8 +1123,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,pickupAvialableProduct,softAssert);
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1131,8 +1179,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1183,8 +1236,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1244,8 +1302,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			//connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct, softAssert);
@@ -1309,8 +1372,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1369,8 +1437,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,
@@ -1435,8 +1508,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,
 					softAssert);
 
@@ -1512,8 +1590,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_Add_To_Cart_As_Per_Avilability_Message(webPage, addToCartCommon, softAssert);
 
 			softAssert.assertAll();
@@ -1546,8 +1629,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			connsProductPurchasePage.Click_Add_To_Cart_As_Per_Avilability_Message(webPage, zipCodeInValid, softAssert);
 
 			softAssert.assertAll();
@@ -1582,8 +1670,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
@@ -1633,8 +1726,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			/*
@@ -1711,8 +1809,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, testData2, softAssert);
@@ -1761,8 +1864,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Page_Zip_Code_Functionality_In_Stock_PickUp_Product(webPage, clickOnAddToCart,
@@ -1797,8 +1905,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -1845,8 +1958,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -1890,8 +2008,13 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Click_Add_To_Cart_As_Per_Avilability_Message2");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
@@ -1994,8 +2117,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
@@ -2080,8 +2208,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
@@ -2137,8 +2270,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -2199,8 +2337,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -2254,8 +2397,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -2476,8 +2624,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 
-			connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
 
+			} else {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+
+			}
 			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
