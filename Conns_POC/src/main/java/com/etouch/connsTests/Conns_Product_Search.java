@@ -124,20 +124,21 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 402, enabled = true)
 	public void Verify_Product_Search_And_Number_Of_Product_Displayed() throws InterruptedException {
 		try {
-			webPage.navigateToUrl(url);
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
-					"verifyProductSearchAndNumberPerPage");
-			String Identifier = test[0][0];
-			String ProductName = test[0][1];
-			webPage.findObjectById(Identifier).clear();
-			webPage.findObjectById(Identifier).sendKeys(ProductName);
-			webPage.findObjectByClass(test[0][2]).click();
-			log.info("Clicked on element " + test[0][2]);
-			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
-			log.info("productDescription" + productDescription);
-			Assert.assertTrue(productDescription.contains(ProductName),
-					"Product description: " + productDescription + " not having: " + ProductName);
 			if (testType.equalsIgnoreCase("Web")) {
+				webPage.navigateToUrl(url);
+				String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
+						"verifyProductSearchAndNumberPerPage");
+				String Identifier = test[0][0];
+				String ProductName = test[0][1];
+				webPage.findObjectById(Identifier).clear();
+				webPage.findObjectById(Identifier).sendKeys(ProductName);
+				webPage.findObjectByClass(test[0][2]).click();
+				log.info("Clicked on element " + test[0][2]);
+				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
+				log.info("productDescription" + productDescription);
+				Assert.assertTrue(productDescription.contains(ProductName),
+						"Product description: " + productDescription + " not having: " + ProductName);
+
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				List<WebElement> list = s.getOptions();
 				String str[] = { list.get(0).getText().toString(), list.get(1).getText().toString(),
@@ -341,6 +342,34 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 
-	
+	@Test(priority = 407, enabled = true)
+	public void Verify_AutoPredict_For_Search_Functionality() {
+		try {
+			webPage.navigateToUrl(url);
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyAutoPredictProductSearch");
+			// webPage.findObjectById(Identifier).clear();
+			// CommonMethods.sendKeys_usingJS(webPage,".//*[@id='search']","French
+			// Door");
+			webPage.findObjectById(test[0][0]).sendKeys(test[0][1]);
+			String autoSearchProductDescription = webPage.findObjectByxPath(test[0][2]).getText();
+			webPage.findObjectByxPath(test[0][2]).click();
+			log.info("Clicked on element ");
+			String actualProductDescription = webPage.findObjectByxPath(test[0][3]).getText();
+			log.info("productDescription" + actualProductDescription);
+			Assert.assertTrue(actualProductDescription.contains("French Door"),
+					"Product description: " + actualProductDescription + " not having: " + "French Door");
+			Assert.assertEquals(autoSearchProductDescription, actualProductDescription,
+					"Product" + autoSearchProductDescription + " is not same as: " + actualProductDescription);
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_AutoPredict_For_Search_Functionality");
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Error in Verify_AutoPredict_For_Search_Functionality :" + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			String errors = SoftAssertor.readErrorsForTest();
+			if (errors != null && errors.length() > 0)
+				SoftAssertor.displayErrors();
+		}
+	}
 
 }
