@@ -1,12 +1,10 @@
 package com.etouch.connsTests;
 
-import java.awt.AWTException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
@@ -14,13 +12,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.BaseTest;
 import com.etouch.common.TafExecutor;
+import com.etouch.conns.listener.SoftAssertor;
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
@@ -30,10 +27,8 @@ import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
-//import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.LayoutManager;
 import com.etouch.taf.webui.selenium.WebPage;
-import com.etouch.conns.listener.SoftAssertor;
 
 //@Test(groups = "Conns_Product_Search")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
@@ -112,7 +107,7 @@ public class Conns_Product_Search extends BaseTest {
 						+ contentData[i][1]);
 				SoftAssertor.assertTrue(
 						webPage.findObjectByxPath(contentData[i][0]).getText().contains(contentData[i][1]),
-						"expectedContent: "+contentData[i][0]+ "Failed to Match Actual:"+contentData[i][1]);
+						"expectedContent: " + contentData[i][0] + "Failed to Match Actual:" + contentData[i][1]);
 			}
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Search_Functionality_And_Results_Contents");
@@ -126,7 +121,6 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 
-	
 	@Test(priority = 402, enabled = true)
 	public void Verify_Product_Search_And_Number_Of_Product_Displayed() throws InterruptedException {
 		try {
@@ -183,7 +177,7 @@ public class Conns_Product_Search extends BaseTest {
 					"verifyAddToCartUsingProductSearch");
 			String Identifier = test[0][0];
 			String ProductName = test[0][1];
-			//webPage.findObjectById(Identifier).clear();
+			// webPage.findObjectById(Identifier).clear();
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
 			webPage.findObjectByClass(test[0][2]).click();
 			log.info("Clicked on element " + test[0][2]);
@@ -194,7 +188,7 @@ public class Conns_Product_Search extends BaseTest {
 			// if (testType.equalsIgnoreCase("Web")) {
 			webPage.findObjectByxPath(test[0][4]).click();
 			log.info("Entering Zip Code");
-			
+
 			webPage.findObjectByxPath(test[0][5]).clear();
 			webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
 			webPage.findObjectByxPath(test[0][7]).click();
@@ -209,7 +203,7 @@ public class Conns_Product_Search extends BaseTest {
 					"Shopping Cart: " + webPage.findObjectByxPath(test[0][9]).getText() + " not having: "
 							+ test[0][10]);
 			// }
-			
+
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_Using_Product_Search");
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -261,24 +255,25 @@ public class Conns_Product_Search extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
+
 	@Test(priority = 405, enabled = true)
 	public void Verify_Product_Search_And_Sorting_By_Product_Name() throws InterruptedException {
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
-			webPage.navigateToUrl(url);
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
-					"verifyProductSearchAndShortByName");
-			String Identifier = test[0][0];
-			String ProductName = test[0][1];
-			webPage.findObjectById(Identifier).clear();
-			webPage.findObjectById(Identifier).sendKeys(ProductName);
-			webPage.findObjectByClass(test[0][2]).click();
-			log.info("Clicked on element " + test[0][2]);
-			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
-			log.info("productDescription" + productDescription);
-			Assert.assertTrue(productDescription.contains(ProductName),
-					"Product description: " + productDescription + " not having: " + ProductName);
-		
+				webPage.navigateToUrl(url);
+				String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
+						"verifyProductSearchAndShortByName");
+				String Identifier = test[0][0];
+				String ProductName = test[0][1];
+				webPage.findObjectById(Identifier).clear();
+				webPage.findObjectById(Identifier).sendKeys(ProductName);
+				webPage.findObjectByClass(test[0][2]).click();
+				log.info("Clicked on element " + test[0][2]);
+				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
+				log.info("productDescription" + productDescription);
+				Assert.assertTrue(productDescription.contains(ProductName),
+						"Product description: " + productDescription + " not having: " + ProductName);
+
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				Thread.sleep(18000);
 				s.selectByVisibleText(test[0][6]);
@@ -286,7 +281,8 @@ public class Conns_Product_Search extends BaseTest {
 				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
 				log.info("element " + elementList.size() + "elementList: " + elementList);
 				log.info("element is shorted: " + mainPage.isSorted(elementList));
-				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true, "element is Not shorted by Product Name");
+				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true,
+						"element is Not shorted by Product Name");
 				webPage.findObjectByxPath(test[0][8]).click();
 				Thread.sleep(5000);
 				webPage.getBackToUrl();
@@ -302,24 +298,25 @@ public class Conns_Product_Search extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
+
 	@Test(priority = 406, enabled = true)
 	public void Verify_Product_Search_And_Sorting_By_Product_Price() throws InterruptedException {
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
-			webPage.navigateToUrl(url);
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
-					"verifyProductSearchAndShortByPrice");
-			String Identifier = test[0][0];
-			String ProductName = test[0][1];
-			webPage.findObjectById(Identifier).clear();
-			webPage.findObjectById(Identifier).sendKeys(ProductName);
-			webPage.findObjectByClass(test[0][2]).click();
-			log.info("Clicked on element " + test[0][2]);
-			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
-			log.info("productDescription" + productDescription);
-			Assert.assertTrue(productDescription.contains(ProductName),
-					"Product description: " + productDescription + " not having: " + ProductName);
-			
+				webPage.navigateToUrl(url);
+				String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
+						"verifyProductSearchAndShortByPrice");
+				String Identifier = test[0][0];
+				String ProductName = test[0][1];
+				webPage.findObjectById(Identifier).clear();
+				webPage.findObjectById(Identifier).sendKeys(ProductName);
+				webPage.findObjectByClass(test[0][2]).click();
+				log.info("Clicked on element " + test[0][2]);
+				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
+				log.info("productDescription" + productDescription);
+				Assert.assertTrue(productDescription.contains(ProductName),
+						"Product description: " + productDescription + " not having: " + ProductName);
+
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				Thread.sleep(18000);
 				s.selectByVisibleText(test[0][6]);
@@ -343,21 +340,7 @@ public class Conns_Product_Search extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
-	public int getColumnLayout(int width, int height) {
-		log.info("Width: " + width);
-		int cols = -1;
-		if (width >= 980) {
-			log.info("Layout 3 Columns, Width : " + width);
-			cols = 3;
-		} else if (width < 980 && width > 400) {
-			log.info("Layout 2 Columns, width : " + width);
-			cols = 2;
-		} else if (width <= 400) {
-			log.info("Layout 1 Columns, width : " + width);
-			cols = 1;
-		}
 
-		return cols;
-	}
+	
 
 }
