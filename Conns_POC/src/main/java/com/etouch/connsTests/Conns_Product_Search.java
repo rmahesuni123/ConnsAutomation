@@ -183,7 +183,7 @@ public class Conns_Product_Search extends BaseTest {
 					"verifyAddToCartUsingProductSearch");
 			String Identifier = test[0][0];
 			String ProductName = test[0][1];
-			webPage.findObjectById(Identifier).clear();
+			//webPage.findObjectById(Identifier).clear();
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
 			webPage.findObjectByClass(test[0][2]).click();
 			log.info("Clicked on element " + test[0][2]);
@@ -262,7 +262,7 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 	@Test(priority = 405, enabled = true)
-	public void Verify_Product_Search_And_Shorting_By_Product_Name() throws InterruptedException {
+	public void Verify_Product_Search_And_Sorting_By_Product_Name() throws InterruptedException {
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
 			webPage.navigateToUrl(url);
@@ -303,7 +303,7 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 	@Test(priority = 406, enabled = true)
-	public void Verify_Product_Search_And_Shorting_By_Product_Price() throws InterruptedException {
+	public void Verify_Product_Search_And_Sorting_By_Product_Price() throws InterruptedException {
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
 			webPage.navigateToUrl(url);
