@@ -99,10 +99,11 @@ public class ConnsMainPage extends CommonPage {
 		for (int i = 1; i < list.size(); i++) {
 			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
 					+ list.get(i).getText());
-			if (list.get(i - 1).getText().compareTo(list.get(i).getText()) > 0)
+			if (list.get(i - 1).getText().compareTo(list.get(i).getText()) > 0) {
 				System.out.println(
 						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
-			sorted = false;
+				sorted = false;
+			}
 		}
 		return sorted;
 	}
@@ -112,10 +113,11 @@ public class ConnsMainPage extends CommonPage {
 		for (int i = 1; i < list.size(); i++) {
 			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
 					+ list.get(i).getText());
-			if (list.get(i - 1).getText().substring(0, 2).compareTo(list.get(i).getText().substring(0, 2)) > 0)
+			if (list.get(i - 1).getText().substring(0, 2).compareTo(list.get(i).getText().substring(0, 2)) > 0) {
 				System.out.println(
 						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
-			sorted = false;
+				sorted = false;
+			}
 		}
 		return sorted;
 	}
