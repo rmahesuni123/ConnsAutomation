@@ -333,7 +333,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 109, description = "Verify alert box for empty Find Store field")
+	@Test(enabled = false, priority = 109, description = "Verify alert box for empty Find Store field")
 	public void Verify_FindStore_AlertBox() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
