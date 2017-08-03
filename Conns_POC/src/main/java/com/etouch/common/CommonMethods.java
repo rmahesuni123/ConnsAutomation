@@ -235,9 +235,10 @@ public class CommonMethods {
 			log.info("Getting CSS value "+cssName+" for Xpath : "+locator);
 			webPage.waitForWebElement(By.xpath(locator));
 			cssValue = webPage.findObjectByxPath(locator).getCssValue(cssName);
-			if(cssName.equalsIgnoreCase("color")){
+			if(cssName.equalsIgnoreCase("color")||cssName.equalsIgnoreCase("background-color")){
 				cssValue=Color.fromString(cssValue).asHex();
 			}
+			log.info("Actual CSS value: "+cssValue);
 		} catch (PageException e) {
 			softAssert.fail("Unable to get CSS Value : "+cssName+" for locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
@@ -328,6 +329,8 @@ public class CommonMethods {
 			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-size",softAssert));
 			actualValueList.add(getCssvaluebyXpath(webPage,locator,"color",softAssert));
 			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-family",softAssert));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-weight",softAssert));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"background-color",softAssert));
 		}catch(Exception e){
 			softAssert.fail("Unable to get font properties for locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
