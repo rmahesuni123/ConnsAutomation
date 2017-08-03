@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -16,9 +17,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.etouch.common.BaseTest;
+import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 import com.etouch.conns.listener.SoftAssertor;
 import com.etouch.connsPages.ConnsMainPage;
+import com.etouch.connsPages.ConnsStoreLocatorPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
@@ -171,44 +174,28 @@ public class Conns_Product_Search extends BaseTest {
 	}
 
 	@Test(priority = 403, enabled = true)
-	public void Verify_Add_To_Cart_Using_Product_Search() throws InterruptedException {
+	public void Verify_AutoPredict_For_Search_Functionality() {
 		try {
 			webPage.navigateToUrl(url);
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
-					"verifyAddToCartUsingProductSearch");
-			String Identifier = test[0][0];
-			String ProductName = test[0][1];
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyAutoPredictProductSearch");
 			// webPage.findObjectById(Identifier).clear();
-			webPage.findObjectById(Identifier).sendKeys(ProductName);
-			webPage.findObjectByClass(test[0][2]).click();
-			log.info("Clicked on element " + test[0][2]);
-			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
-			log.info("productDescription" + productDescription);
-			SoftAssertor.assertTrue(productDescription.contains(ProductName),
-					"Product description: " + productDescription + " not having: " + ProductName);
-			// if (testType.equalsIgnoreCase("Web")) {
-			webPage.findObjectByxPath(test[0][4]).click();
-			log.info("Entering Zip Code");
-
-			webPage.findObjectByxPath(test[0][5]).clear();
-			webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
-			webPage.findObjectByxPath(test[0][7]).click();
-			// try{
-			// Alert alert=webPage.getDriver().switchTo().alert();
-			// alert.accept();
-			// }catch(Exception e){}
-			Thread.sleep(5000);
-			webPage.findObjectByxPath(test[0][8]).click();
-			Thread.sleep(5000);
-			SoftAssertor.assertTrue(webPage.findObjectByxPath(test[0][9]).getText().contains(test[0][10]),
-					"Shopping Cart: " + webPage.findObjectByxPath(test[0][9]).getText() + " not having: "
-							+ test[0][10]);
-			// }
-
+			// CommonMethods.sendKeys_usingJS(webPage,".//*[@id='search']","French
+			// Door");
+			webPage.findObjectById(test[0][0]).sendKeys(test[0][1]);
+			CommonMethods.waitForWebElement(By.xpath(test[0][2]), webPage);
+			String autoSearchProductDescription = webPage.findObjectByxPath(test[0][2]).getText();
+			webPage.findObjectByxPath(test[0][2]).click();
+			log.info("Clicked on element ");
+			String actualProductDescription = webPage.findObjectByxPath(test[0][3]).getText();
+			log.info("productDescription" + actualProductDescription);
+			Assert.assertTrue(actualProductDescription.contains("French Door"),
+					"Product description: " + actualProductDescription + " not having: " + "French Door");
+			Assert.assertEquals(autoSearchProductDescription, actualProductDescription,
+					"Product" + autoSearchProductDescription + " is not same as: " + actualProductDescription);
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_Using_Product_Search");
+			mainPage.getScreenShotForFailure(webPage, "Verify_AutoPredict_For_Search_Functionality");
 			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("Error in Verify_Add_To_Cart_Using_Product_Search :" + e.getMessage());
+			log.error("Error in Verify_AutoPredict_For_Search_Functionality :" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			String errors = SoftAssertor.readErrorsForTest();
@@ -216,7 +203,6 @@ public class Conns_Product_Search extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
-
 	@Test(priority = 404, enabled = true)
 	public void Verify_Column_Layout_For_Product_Search() throws PageException, InterruptedException {
 		try {
@@ -274,19 +260,21 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("productDescription" + productDescription);
 				Assert.assertTrue(productDescription.contains(ProductName),
 						"Product description: " + productDescription + " not having: " + ProductName);
-
-				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
-				Thread.sleep(18000);
+				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
 				s.selectByVisibleText(test[0][6]);
+				Thread.sleep(18000);
+				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				s.selectByVisibleText(test[0][7]);
 				Thread.sleep(8000);
-				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
-				log.info("element " + elementList.size() + "elementList: " + elementList);
+				
+				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+				log.info("element Size-->" + elementList.size());
 				log.info("element is shorted: " + mainPage.isSorted(elementList));
-				SoftAssertor.assertEquals(mainPage.isSorted(elementList), true,
+				SoftAssertor.assertEquals(mainPage.isSortedByName(elementList), true,
 						"element is Not shorted by Product Name");
-				webPage.findObjectByxPath(test[0][8]).click();
-				Thread.sleep(5000);
-				webPage.getBackToUrl();
+			//	webPage.findObjectByxPath(test[0][9]).click();
+				//Thread.sleep(5000);
+			//	webPage.getBackToUrl();
 			}
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Name");
@@ -317,18 +305,19 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("productDescription" + productDescription);
 				Assert.assertTrue(productDescription.contains(ProductName),
 						"Product description: " + productDescription + " not having: " + ProductName);
-
-				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
-				Thread.sleep(18000);
+				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
 				s.selectByVisibleText(test[0][6]);
+				Thread.sleep(18000);
+				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				s.selectByVisibleText(test[0][7]);
 				Thread.sleep(8000);
-				List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][7]));
-				log.info("element " + elementPriceList.size() + "elementList: " + elementPriceList);
+				List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+				log.info("element Size-->" + elementPriceList.size());
 				log.info("element is shorted: " + mainPage.isSorted(elementPriceList));
 				SoftAssertor.assertEquals(mainPage.isSorted(elementPriceList), true, "element is Not shorted by price");
-				webPage.findObjectByxPath(test[0][8]).click();
-				Thread.sleep(5000);
-				webPage.getBackToUrl();
+			//	webPage.findObjectByxPath(test[0][9]).click();
+			//	Thread.sleep(5000);
+			//	webPage.getBackToUrl();
 			}
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Price");
@@ -342,28 +331,42 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 
+	
 	@Test(priority = 407, enabled = true)
-	public void Verify_AutoPredict_For_Search_Functionality() {
+	public void Verify_Add_To_Cart_Using_Product_Search() throws InterruptedException {
 		try {
 			webPage.navigateToUrl(url);
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyAutoPredictProductSearch");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
+					"verifyAddToCartUsingProductSearch");
+			String Identifier = test[0][0];
+			String ProductName = test[0][1];
 			// webPage.findObjectById(Identifier).clear();
-			// CommonMethods.sendKeys_usingJS(webPage,".//*[@id='search']","French
-			// Door");
-			webPage.findObjectById(test[0][0]).sendKeys(test[0][1]);
-			String autoSearchProductDescription = webPage.findObjectByxPath(test[0][2]).getText();
-			webPage.findObjectByxPath(test[0][2]).click();
-			log.info("Clicked on element ");
-			String actualProductDescription = webPage.findObjectByxPath(test[0][3]).getText();
-			log.info("productDescription" + actualProductDescription);
-			Assert.assertTrue(actualProductDescription.contains("French Door"),
-					"Product description: " + actualProductDescription + " not having: " + "French Door");
-			Assert.assertEquals(autoSearchProductDescription, actualProductDescription,
-					"Product" + autoSearchProductDescription + " is not same as: " + actualProductDescription);
+			webPage.findObjectById(Identifier).sendKeys(ProductName);
+			webPage.findObjectByClass(test[0][2]).click();
+			log.info("Clicked on element " + test[0][2]);
+			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
+			log.info("productDescription" + productDescription);
+			SoftAssertor.assertTrue(productDescription.contains(ProductName),
+					"Product description: " + productDescription + " not having: " + ProductName);
+			// if (testType.equalsIgnoreCase("Web")) {
+			webPage.findObjectByxPath(test[0][4]).click();
+			log.info("Entering Zip Code");
+			webPage.findObjectByxPath(test[0][5]).clear();
+			webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
+			webPage.findObjectByxPath(test[0][7]).click();
+			CommonMethods.closeLocationPopupForProductSearch(webPage);
+			Thread.sleep(5000);
+			webPage.findObjectByxPath(test[0][8]).click();
+			Thread.sleep(5000);
+			SoftAssertor.assertTrue(webPage.findObjectByxPath(test[0][9]).getText().contains(test[0][10]),
+					"Shopping Cart: " + webPage.findObjectByxPath(test[0][9]).getText() + " not having: "
+							+ test[0][10]);
+			// }
+
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_AutoPredict_For_Search_Functionality");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_Using_Product_Search");
 			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("Error in Verify_AutoPredict_For_Search_Functionality :" + e.getMessage());
+			log.error("Error in Verify_Add_To_Cart_Using_Product_Search :" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			String errors = SoftAssertor.readErrorsForTest();

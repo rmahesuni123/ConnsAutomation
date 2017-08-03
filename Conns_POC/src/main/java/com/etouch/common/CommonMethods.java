@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -96,7 +97,25 @@ public class CommonMethods {
 		}
 		return pageUrl;
 	}
-	
+	public static void closeLocationPopupForProductSearch(WebPage webPage) throws InterruptedException{
+
+		log.info("Checking if location browser pop-up is present for this browser.");
+		Thread.sleep(2000);
+		try{
+			Alert alert=webPage.getDriver().switchTo().alert();
+			alert.accept();
+			/*log.info(webPage.getDriver().getPageSource());
+			if(webPage.getDriver().findElement(By.xpath("//*[@class='modal-footer']//button")).isDisplayed()){
+				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
+				WebElement abc = webPage.getDriver().findElement(By.xpath("//*[@class='modal-footer']//button"));
+				executor.executeScript("arguments[0].click();", abc);
+				Thread.sleep(2000);
+				log.info("Location pop-up handled");
+			}*/
+		}catch(Exception e){
+			log.info("Location pop-up not present for this browser.");
+		}
+	}
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click on link using x-path and return page url
@@ -660,7 +679,21 @@ public class CommonMethods {
 	 * The method used to click element using Java script executor 
 	 */	
 	
-	public void sendKeys_usingJavaScriptExecutor(WebPage webPage, String locator, String text, SoftAssert softAssert){
+	public static void sendKeys_usingJS(WebPage webPage, String locator, String text){
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));
+			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			js.executeScript("arguments[0].setAttribute('text')", element);
+			//driver.executeScript("arguments[0].setAttribute('value', '" + longstring +"')", inputField);
+		} catch (Exception e) {
+			Assert.fail();
+		//	softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}	
+		
+	}
+	
+	public  void sendKeys_usingJavaScriptExecutor(WebPage webPage, String locator, String text, SoftAssert softAssert){
 		try {
 			log.info("Clicking on element using xpath - "+locator);
 			WebElement element=webPage.getDriver().findElement(By.xpath(locator));
@@ -672,6 +705,4 @@ public class CommonMethods {
 		}	
 		
 	}
-	
-	
 }
