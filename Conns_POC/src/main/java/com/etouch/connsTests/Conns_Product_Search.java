@@ -124,7 +124,7 @@ public class Conns_Product_Search extends BaseTest {
 		}
 	}
 
-	@Test(priority = 402, enabled = true)
+	@Test(priority = 408, enabled = true)
 	public void Verify_Product_Search_And_Number_Of_Product_Displayed() throws InterruptedException {
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
@@ -269,8 +269,9 @@ public class Conns_Product_Search extends BaseTest {
 				
 				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
 				log.info("element Size-->" + elementList.size());
-				log.info("element is shorted: " + mainPage.isSorted(elementList));
-				SoftAssertor.assertEquals(mainPage.isSortedByName(elementList), true,
+				boolean isSorted= mainPage.isSortedByName(elementList);
+				log.info("element is shorted: " +isSorted);
+				SoftAssertor.assertEquals(isSorted, true,
 						"element is Not shorted by Product Name");
 			//	webPage.findObjectByxPath(test[0][9]).click();
 				//Thread.sleep(5000);
@@ -313,8 +314,9 @@ public class Conns_Product_Search extends BaseTest {
 				Thread.sleep(8000);
 				List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
 				log.info("element Size-->" + elementPriceList.size());
-				log.info("element is shorted: " + mainPage.isSorted(elementPriceList));
-				SoftAssertor.assertEquals(mainPage.isSorted(elementPriceList), true, "element is Not shorted by price");
+				boolean isSorted= mainPage.isSorted(elementPriceList);
+				log.info("element is shorted: " +isSorted);
+				SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by price");
 			//	webPage.findObjectByxPath(test[0][9]).click();
 			//	Thread.sleep(5000);
 			//	webPage.getBackToUrl();

@@ -46,17 +46,17 @@ public class ConnsMainPage extends CommonPage {
 	}
 
 	public void contentVerification(String[][] contentData, String url) throws PageException {
-	//	try {
-			for (int i = 0; i < contentData.length; i++) {
-				System.out.println("Actual:  " + webPage.findObjectByxPath(contentData[i][0]).getText()
-						+ "   Expected: " + contentData[i][1]);
-				SoftAssertor.assertTrue(webPage.findObjectByxPath(contentData[i][0]).getText().contains(contentData[i][1]),
-						"expectedContent Failed to Match Actual");
-			}
-		/*} catch (Throwable e) {
-			webPage.navigateToUrl(url);
-			Assert.fail(e.getLocalizedMessage());
-		}*/
+		// try {
+		for (int i = 0; i < contentData.length; i++) {
+			System.out.println("Actual:  " + webPage.findObjectByxPath(contentData[i][0]).getText() + "   Expected: "
+					+ contentData[i][1]);
+			SoftAssertor.assertTrue(webPage.findObjectByxPath(contentData[i][0]).getText().contains(contentData[i][1]),
+					"expectedContent Failed to Match Actual");
+		}
+		/*
+		 * } catch (Throwable e) { webPage.navigateToUrl(url);
+		 * Assert.fail(e.getLocalizedMessage()); }
+		 */
 	}
 
 	/**
@@ -93,23 +93,29 @@ public class ConnsMainPage extends CommonPage {
 			et.printStackTrace();
 		}
 	}
+
 	public boolean isSorted(List<WebElement> list) {
 		boolean sorted = true;
 		for (int i = 1; i < list.size(); i++) {
-			System.out.println("Element["+i+"]:   "+list.get(i - 1).getText());
+			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
+					+ list.get(i).getText());
 			if (list.get(i - 1).getText().compareTo(list.get(i).getText()) > 0)
-				System.out.println("Failed for comparison among:"+list.get(i - 1).getText()+"  And "+list.get(i).getText());
+				System.out.println(
+						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
 			sorted = false;
 		}
 		return sorted;
 	}
+
 	public boolean isSortedByName(List<WebElement> list) {
 		boolean sorted = true;
 		for (int i = 1; i < list.size(); i++) {
-			System.out.println("Element["+i+"]:   "+list.get(i - 1).getText());
-			if (list.get(i - 1).getText().substring(0,2).compareTo(list.get(i).getText().substring(0,2)) > 0)
-				System.out.println("Failed for comparison among:"+list.get(i - 1).getText()+"  And "+list.get(i).getText());
-				sorted = false;
+			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
+					+ list.get(i).getText());
+			if (list.get(i - 1).getText().substring(0, 2).compareTo(list.get(i).getText().substring(0, 2)) > 0)
+				System.out.println(
+						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
+			sorted = false;
 		}
 		return sorted;
 	}
