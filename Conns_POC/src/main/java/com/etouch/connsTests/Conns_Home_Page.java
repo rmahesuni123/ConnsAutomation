@@ -133,6 +133,9 @@ public class Conns_Home_Page extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
 			commonMethods = new CommonMethods();
+			if(testType.equalsIgnoreCase("Mobile")){
+				deviceName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName();	
+			}
 			System.out.println("Test Type is : " + testType);
 			try {
 				testEnv = System.getenv().get("Environment");
@@ -207,44 +210,89 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_Font_And_Size() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
-					"VerifyFontandSize");
-			for (int i = 0; i < ExpectedFontValues.length; i++) {
-				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
-						softAssert);
-				if (testType.equalsIgnoreCase("Mobile")) {
-					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][5]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font Size : " + ExpectedFontValues[i][5] + " Actual Font Size : "
-									+ actualCssValues.get(0));
-					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][6]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font family : "
-									+ actualCssValues.get(1));
-					softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValues[i][4]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
-									+ actualCssValues.get(2));
+			String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page","VerifyFontandSizeWeb");
+			String[][] ExpectedFontValuesMobile = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page","VerifyFontandSizeMobile");
+			String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page","VerifyFontandSizeTab");
+			
+			if (testType.equalsIgnoreCase("Web")) {
+				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) {
+					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],softAssert);
 
-				} else {
-					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font Size : " + ExpectedFontValues[i][2] + " Actual Font Size : "
-									+ actualCssValues.get(0));
-					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][3]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
-									+ actualCssValues.get(1));
-					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
-									+ actualCssValues.get(2));
-					
+					if(!ExpectedFontValuesWeb[i][2].equalsIgnoreCase("NA")){
+						softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]),"CSS value verification failed for link " + ExpectedFontValuesWeb[i][0]+ ". Expected font Size: " + ExpectedFontValuesWeb[i][2] + " Actual Font Size: "+ actualCssValues.get(0));	
+					}
+					if(!ExpectedFontValuesWeb[i][3].equalsIgnoreCase("NA")){
+						softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValuesWeb[i][3]),"CSS value verification failed for link " + ExpectedFontValuesWeb[i][0]+ ". Expected font color: " + ExpectedFontValuesWeb[i][3] + " Actual font color: "+ actualCssValues.get(1));	
+					}
+					if(!ExpectedFontValuesWeb[i][4].equalsIgnoreCase("NA")){
+						softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValuesWeb[i][4]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesWeb[i][0]+ ". Expected font family: " + ExpectedFontValuesWeb[i][4] + " Actual font family: "+ actualCssValues.get(2));	
+					}
+					if(!ExpectedFontValuesWeb[i][5].equalsIgnoreCase("NA")){
+						softAssert.assertTrue(actualCssValues.get(3).toLowerCase().contains((ExpectedFontValuesWeb[i][5]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesWeb[i][0]+ ". Expected font weight: " + ExpectedFontValuesWeb[i][5] + " Actual font weight: "+ actualCssValues.get(3));	
+					}
+					if(!ExpectedFontValuesWeb[i][6].equalsIgnoreCase("NA")){
+						softAssert.assertTrue(actualCssValues.get(4).toLowerCase().contains((ExpectedFontValuesWeb[i][6]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesWeb[i][0]+ ". Expected font background color: " + ExpectedFontValuesWeb[i][6] + " Actual font background color: "+ actualCssValues.get(4));	
+					}
+
+				}
+			}
+			if (testType.equalsIgnoreCase("Mobile")) {
+				if(deviceName.contains("Tab")){
+					for (int i = 0; i < ExpectedFontValuesTab.length; i++) {
+						List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesTab[i][1],softAssert);
+						if(!ExpectedFontValuesTab[i][2].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]),"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]+ ". Expected font Size: " + ExpectedFontValuesTab[i][2] + " Actual Font Size: "+ actualCssValues.get(0));	
+						}
+						if(!ExpectedFontValuesTab[i][3].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValuesTab[i][3]),"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]+ ". Expected font color: " + ExpectedFontValuesTab[i][3] + " Actual font color: "+ actualCssValues.get(1));	
+						}
+						if(!ExpectedFontValuesTab[i][4].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValuesTab[i][4]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]+ ". Expected font family: " + ExpectedFontValuesTab[i][4] + " Actual font family: "+ actualCssValues.get(2));	
+						}
+						if(!ExpectedFontValuesTab[i][5].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(3).toLowerCase().contains((ExpectedFontValuesTab[i][5]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]+ ". Expected font weight: " + ExpectedFontValuesTab[i][5] + " Actual font weight: "+ actualCssValues.get(3));	
+						}
+						if(!ExpectedFontValuesTab[i][6].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(4).toLowerCase().contains((ExpectedFontValuesTab[i][6]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]+ ". Expected font background color: " + ExpectedFontValuesTab[i][6] + " Actual font background color: "+ actualCssValues.get(4));	
+						}
+						if(!ExpectedFontValuesTab[i][7].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(5).toLowerCase().contains((ExpectedFontValuesTab[i][7]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]+ ". Expected Text Align: " + ExpectedFontValuesTab[i][7] + " Actual Text Align: "+ actualCssValues.get(5));	
+						}
+						if(!ExpectedFontValuesTab[i][8].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(6).toLowerCase().contains((ExpectedFontValuesTab[i][8]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]+ ". Expected Text Transform: " + ExpectedFontValuesTab[i][8] + " Actual Text Transform: "+ actualCssValues.get(6));	
+						}
+					}
+				}else{
+					for (int i = 0; i < ExpectedFontValuesMobile.length; i++) {
+						List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesMobile[i][1],softAssert);
+
+						if(!ExpectedFontValuesMobile[i][2].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]),"CSS value verification failed for link " + ExpectedFontValuesMobile[i][0]+ ". Expected font Size: " + ExpectedFontValuesMobile[i][2] + " Actual Font Size: "+ actualCssValues.get(0));	
+						}
+						if(!ExpectedFontValuesMobile[i][3].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValuesMobile[i][3]),"CSS value verification failed for link " + ExpectedFontValuesMobile[i][0]+ ". Expected font color: " + ExpectedFontValuesMobile[i][3] + " Actual font color: "+ actualCssValues.get(1));	
+						}
+						if(!ExpectedFontValuesMobile[i][4].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValuesMobile[i][4]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesMobile[i][0]+ ". Expected font family: " + ExpectedFontValuesMobile[i][4] + " Actual font family: "+ actualCssValues.get(2));	
+						}
+						if(!ExpectedFontValuesMobile[i][5].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(3).toLowerCase().contains((ExpectedFontValuesMobile[i][5]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesMobile[i][0]+ ". Expected font weight: " + ExpectedFontValuesMobile[i][5] + " Actual font weight: "+ actualCssValues.get(3));	
+						}
+						if(!ExpectedFontValuesMobile[i][6].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(4).toLowerCase().contains((ExpectedFontValuesMobile[i][6]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesMobile[i][0]+ ". Expected font background color: " + ExpectedFontValuesMobile[i][6] + " Actual font background color: "+ actualCssValues.get(4));	
+						}
+						if(!ExpectedFontValuesMobile[i][7].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(5).toLowerCase().contains((ExpectedFontValuesMobile[i][7]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesMobile[i][0]+ ". Expected Text Align: " + ExpectedFontValuesMobile[i][7] + " Actual Text Align: "+ actualCssValues.get(5));	
+						}
+						if(!ExpectedFontValuesMobile[i][8].equalsIgnoreCase("NA")){
+							softAssert.assertTrue(actualCssValues.get(6).toLowerCase().contains((ExpectedFontValuesMobile[i][8]).toLowerCase()),"CSS value verification failed for link " + ExpectedFontValuesMobile[i][0]+ ". Expected Text Transform: " + ExpectedFontValuesMobile[i][8] + " Actual Text Transform: "+ actualCssValues.get(6));	
+						}
+					}
 				}
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size");
+			//mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}

@@ -331,6 +331,8 @@ public class CommonMethods {
 			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-family",softAssert));
 			actualValueList.add(getCssvaluebyXpath(webPage,locator,"font-weight",softAssert));
 			actualValueList.add(getCssvaluebyXpath(webPage,locator,"background-color",softAssert));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"text-align",softAssert));
+			actualValueList.add(getCssvaluebyXpath(webPage,locator,"text-transform",softAssert));
 		}catch(Exception e){
 			softAssert.fail("Unable to get font properties for locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
