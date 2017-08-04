@@ -17,7 +17,10 @@ public enum TestBedType {
 
 	/** The Firefox. */
 	FIREFOX("fireFox"),
+	/** The Edge. */
+	EDGE("edge"),
 
+	
 	/** The Internet explorer. */
 	INTERNETEXPLORER("InternetExplorer"),
 
