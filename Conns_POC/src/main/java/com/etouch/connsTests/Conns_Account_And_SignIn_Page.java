@@ -102,10 +102,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
 			.concat("/src/test/resources/testdata/videos");
-	/*
-	 * public static String var_ObjType; public static String var_Xpath; public
-	 * static String var_Overlay_Close_Css;
-	 */
+			/*
+			 * public static String var_ObjType; public static String var_Xpath;
+			 * public static String var_Overlay_Close_Css;
+			 */
 
 	/* public static String LandingPage; */
 	/**
@@ -1173,7 +1173,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 				"verifyAccountDashBoardPageTitle");
-		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 				"verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];

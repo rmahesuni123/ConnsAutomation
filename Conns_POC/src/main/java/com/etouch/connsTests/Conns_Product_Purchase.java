@@ -982,7 +982,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
 			log.info("Clicking on Pickuplocation continue");
 			// clicking on pickup location continue button
-			connsProductPurchasePage.Click_On_French_Door_Link(webPage, submitBillingInfo[10][1], softAssert);
+			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
 			log.info("Clicked on Pickuplocation continue");
 			connsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage, softAssert);
 			// commonMethods.scrollToElement(test[0][1], webPage, softAssert);
@@ -1136,7 +1136,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			// clicking on pickup location continue button
 			// commonMethods.clickElementbyXpath(webPage,
 			// submitBillingInfo[10][1], softAssert);
-			connsProductPurchasePage.Click_On_French_Door_Link(webPage, submitBillingInfo[10][1], softAssert);
+			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on cash on delivery radio button
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
@@ -1189,7 +1189,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			// clicking on pickup location continue button
 			// commonMethods.clickElementbyXpath(webPage,
 			// submitBillingInfo[10][1], softAssert);
-			connsProductPurchasePage.Click_On_French_Door_Link(webPage, submitBillingInfo[10][1], softAssert);
+			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on cash on delivery radio button
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
@@ -1662,7 +1662,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
-			connsProductPurchasePage.Click_On_French_Door_Link(webPage, "//*[@id='opc-shipping']/div[1]/h2/a", softAssert);
+			connsProductPurchasePage.Click_On_Element_JS(webPage, "//*[@id='opc-shipping']/div[1]/h2/a", softAssert);
 			shippingInfoFirstName = commonMethods
 					.getWebElementbyXpath(webPage, "//*[@id='shipping:firstname']", softAssert).getAttribute("value");
 			// shippingInfoFirstName=submitBillingInfo[0][3];
