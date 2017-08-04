@@ -956,57 +956,56 @@ public class Conns_Product_Purchase extends BaseTest {
 
 	@Test(priority = 221, enabled = true, description = "Verify the 'continue' button without selecting shipping option")
 	public void Verify_Continue_Button_Without_Selecting_Payment_Info() {
-		  SoftAssert softAssert = new SoftAssert();
-		  String actualText = null;
-		  String expectedText = null;
-		  try {
-		   
-		   String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
-		           "Verify_Continue_Button_Without_Selecting_Payment_Info");
-		   log.info("Verify_Continue_Button_Without_Selecting_Payment_Info started");
-		   commonMethods.navigateToPage(webPage, testUrl, softAssert);
-		   if (testType.equalsIgnoreCase("Web")) {
-		    connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
-		    commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28",softAssert);
-		   } else {
-		    connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-		    connsProductPurchasePage.Click_On_Element_JS(webPage, mobileMenuData[4][1], softAssert);
-		   }
-		   connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
-		   connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
-		   connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
-		   connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-		   // clicking on billing info continue button
-		   commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
-		   connsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage, softAssert);
-		   Thread.sleep(10000);
-		   CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
-		  log.info("Clicking on Pickuplocation continue");
-		   // clicking on pickup location continue button
-		   connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
-		  log.info("Clicked on Pickuplocation continue");
-		   connsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage, softAssert);
-		   //commonMethods.scrollToElement(test[0][1], webPage, softAssert);
-		   Thread.sleep(10000);
-		   CommonMethods.waitForWebElement(By.xpath(test[0][1]), webPage);
-		  log.info("Clicking on Payment Info");
-		   commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
-		  log.info("Clicked on Payment Info");
-		   Alert alert = webPage.getDriver().switchTo().alert();
-		   actualText = alert.getText();
-		   expectedText = test[1][4];
-		   alert.accept();
-		   softAssert.assertTrue(expectedText.equalsIgnoreCase(actualText), "expected alert message is not displayed: "
-		           + " Expected Text is:" + expectedText + " Actual text is:" + actualText);
-		   softAssert.assertAll();
-		  } catch (Throwable e) {
-		   mainPage.getScreenShotForFailure(webPage, "Verify_Continue_Button_Without_Selecting_Payment_Info");
-		   log.error("Verify_Continue_Button_Without_Selecting_Payment_Info failed");
-		   log.error(e.getMessage());
-		   softAssert.assertAll();
-		   Assert.fail(e.getLocalizedMessage());
-		  }
-		 }
+		SoftAssert softAssert = new SoftAssert();
+		String actualText = null;
+		String expectedText = null;
+		try {
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"Verify_Continue_Button_Without_Selecting_Payment_Info");
+			log.info("Verify_Continue_Button_Without_Selecting_Payment_Info started");
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+			} else {
+				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+				connsProductPurchasePage.Click_On_Element_JS(webPage, mobileMenuData[4][1], softAssert);
+			}
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
+			// clicking on billing info continue button
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
+			connsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage, softAssert);
+			Thread.sleep(10000);
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
+			log.info("Clicking on Pickuplocation continue");
+			// clicking on pickup location continue button
+			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
+			log.info("Clicked on Pickuplocation continue");
+			connsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage, softAssert);
+			// commonMethods.scrollToElement(test[0][1], webPage, softAssert);
+			Thread.sleep(10000);
+			CommonMethods.waitForWebElement(By.xpath(test[0][1]), webPage);
+			log.info("Clicking on Payment Info");
+			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
+			log.info("Clicked on Payment Info");
+			Alert alert = webPage.getDriver().switchTo().alert();
+			actualText = alert.getText();
+			expectedText = test[1][4];
+			alert.accept();
+			softAssert.assertTrue(expectedText.equalsIgnoreCase(actualText), "expected alert message is not displayed: "
+					+ " Expected Text is:" + expectedText + " Actual text is:" + actualText);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Continue_Button_Without_Selecting_Payment_Info");
+			log.error("Verify_Continue_Button_Without_Selecting_Payment_Info failed");
+			log.error(e.getMessage());
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 
 	@Test(priority = 222, enabled = true, description = "Verify_Payment_Info_ConnsCredit")
 	public void Verify_CheckoutFlow_Using_ConnsCredit() {
@@ -1770,7 +1769,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-//Verify_Ship_To_Different_Address_Radio_Button_Valid_Billing_Info changed to Verify_Ship_To_Different_Address_Radio_Button_For_InStock
+
+	// Verify_Ship_To_Different_Address_Radio_Button_Valid_Billing_Info changed
+	// to Verify_Ship_To_Different_Address_Radio_Button_For_InStock
 	@Test(priority = 238, enabled = true, description = "Verify Zip Code textbox with invalid input")
 	public void Verify_Ship_To_Different_Address_Radio_Button_For_InStock() {
 		SoftAssert softAssert = new SoftAssert();
@@ -1793,10 +1794,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-		//	Thread.sleep(5000);
+			// Thread.sleep(5000);
 			WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,
 					"//*[@id='billing:use_for_shipping_no']", softAssert);
-		//	Assert.assertEquals(shipToDifferentAddressRadioButton.isDisplayed(), true, "ship To Different Address Radio Button not displayed ");
+			// Assert.assertEquals(shipToDifferentAddressRadioButton.isDisplayed(),
+			// true, "ship To Different Address Radio Button not displayed ");
 			shipToDifferentAddressRadioButton.click();
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
@@ -2247,10 +2249,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+				connsProductPurchasePage.Click_On_Element_JS(webPage, mobileMenuData[4][1], softAssert);
 			}
-			commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28", softAssert);
 			// adding pickup only product to cart
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,
 					inStockAvialableProduct, softAssert);
@@ -2260,9 +2263,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			productLinkTextCartPage = commonMethods.getTextbyXpath(webPage, ItemLink[6][1], softAssert);
 			log.info("productLinkTextCartPage:" + productLinkTextCartPage);
 			softAssert.assertTrue(productDetails.contains(productPriceCartPage),
-					"Cart price product is not matching with list price:" + "excpected is:" + productPriceCartPage);
+					"Cart price product is not matching with list price:" + "Actual text is: " + productDetails
+							+ " Excpected is:" + productPriceCartPage);
 			softAssert.assertTrue(productDetails.contains(productLinkTextCartPage),
-					"Product list page name is not matching with cart page product name");
+					"Actual text is: " + productDetails + " Excpected is:" + productLinkTextCartPage
+							+ "Product list page name is not matching with cart page product name");
 			softAssert.assertAll();
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_ShippingInfo_Field_Validation_Negative_Inputs");
@@ -2287,19 +2292,21 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+				connsProductPurchasePage.Click_On_Element_JS(webPage, mobileMenuData[4][1], softAssert);
 			}
-			commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			// adding pickup only product to cart
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,
 					pickupAvialableProduct, softAssert);
+			log.info("Product Details:" + productDetails);
 			List<String> actualValue = connsProductPurchasePage.page_Verify_Product_Details_Cart(webPage,
 					checkoutFlowCommonLocators, softAssert);
 			log.info("Product name:" + actualValue.get(0));
-			log.info("Product price:" + actualValue.get(1));
 			softAssert.assertTrue(productDetails.contains(actualValue.get(0)),
-					"Product list page name is not matching with cart page product name");
+					"Product Detail:"+ productDetails +" Does Not contains: "+actualValue.get(0));
+			log.info("Product price:" + actualValue.get(1));
 			softAssert.assertTrue(productDetails.contains(actualValue.get(1)),
 					"Cart price product is not matching with list price:" + "excpected is:" + productPriceCartPage);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -2308,23 +2315,20 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.click_Billing_Info_Continue_Button(webPage, checkoutFlowCommonLocators,
 					softAssert);
 			Thread.sleep(10000);
-			CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[6][1]), webPage);
-			// commonMethods.scrollToElement(checkoutFlowCommonLocators[6][1],
-			// webPage,softAssert);
 			String productNamePickupLocationSection = connsProductPurchasePage.get_Pickup_Location_Product_Name(webPage,
 					checkoutFlowCommonLocators, softAssert);
 			softAssert.assertTrue(productDetails.contains(productNamePickupLocationSection),
-					"product name displayed in pickup location section is not matching is not matching with list page "
+					"Actual text is: " + productDetails + " Excpected is:" + productNamePickupLocationSection
+							+ "product name displayed in pickup location section is not matching is not matching with list page "
 							+ "expected is:" + productNamePickupLocationSection);
-			Thread.sleep(10000);
 			CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[5][1]), webPage);
 			connsProductPurchasePage.click_Pickup_Location_Continue_Button(webPage, checkoutFlowCommonLocators,
 					softAssert);
+			Thread.sleep(10000);
 			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[26][1]),
 			// webPage);
 			// connsProductPurchasePage.click_Shipping_Method_Continue_Button(webPage,
 			// checkoutFlowCommonLocators, softAssert);
-			Thread.sleep(10000);
 			CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[9][1]), webPage);
 			connsProductPurchasePage.click_Cash_On_Delivery_Radio_Button(webPage, checkoutFlowCommonLocators,
 					softAssert);
@@ -2357,6 +2361,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			// "product name in cart header section is not matching");
 			// softAssert.assertTrue(productDetails.contains(cartHeaderActualValue.get(1)),
 			// "product name in cart header section is not matching");
+			Thread.sleep(10000);
 			CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[15][1]), webPage);
 			connsProductPurchasePage.click_Place_Order_Button(webPage, checkoutFlowCommonLocators, softAssert);
 			String orderConfirmationText = commonMethods.getTextbyXpath(webPage, checkoutFlowCommonLocators[33][1],
