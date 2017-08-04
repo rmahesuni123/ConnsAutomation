@@ -1105,7 +1105,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		try{
 		List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Account_Tab(test_data);
 		softAssert.assertEquals(Page_URL_Title_Data.get(1),Page_Expected_Title,"Account Information DashBoard Tab verification failed For Page Elements. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Page_Element : "+Page_URL_Title_Data.get(1));	
-		softAssert.assertEquals(Page_URL_Title_Data.get(2),Page_Expected_URL,"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL: "+Page_URL_Title_Data.get(2));
+		softAssert.assertTrue(Page_URL_Title_Data.get(2).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL: "+Page_URL_Title_Data.get(2));
 		softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Title : "+Page_URL_Title_Data.get(0));
 		softAssert.assertAll();
 		}catch(Throwable e){
