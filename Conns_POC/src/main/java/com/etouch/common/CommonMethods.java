@@ -398,7 +398,7 @@ public class CommonMethods {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public void clickElementbyCss(WebPage webPage, String locator, SoftAssert softAssert){
+	public void clickElementbyCss(WebPage webPage, String locator, SoftAssert softAssert)throws InterruptedException{
 		try {
 			log.info("Clicking on element using Css - "+locator);
 			webPage.findObjectByCss(locator).click();
@@ -406,7 +406,15 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on element using CSS : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+	public void clickElementbyCssAndGetCurrentURL(WebPage webPage, String locator, SoftAssert softAssert)throws InterruptedException{
+		try {
+			log.info("Clicking on element using Css - "+locator);
+			webPage.findObjectByCss(locator).click();
+			webPage.getCurrentUrl(); //for Safari
+		} catch (PageException e) {
+			softAssert.fail("Unable to click on element using CSS : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
 	/**
 	 * @author Name - Asim Singh
 	 * The method used get text using css locator

@@ -232,8 +232,11 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			SoftAssertor.assertTrue(actualUrl.contains(ExpectedURL), "URL of the page does not match");
 			SoftAssertor.assertEquals(webPage.getPageTitle(), TitleOfPage, "Title of the page does not match");
 			//SoftAssertor.assertEquals(webPage.getPageTitle(), ElementTitle, "Title of the page does not match");
-			webPage.getDriver().navigate().back();
-			webPage.getDriver().navigate().refresh();
+			//webPage.getDriver().navigate().back();
+			JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+			js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+			//webPage.getDriver().navigate().refresh();
+			webPage.getCurrentUrl();//For Safari
 			Thread.sleep(7000);
 		} catch (Throwable e) {
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -396,15 +399,21 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 						if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
 								&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
 								&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
-							webPage.getDriver().navigate().back();
+							//webPage.getDriver().navigate().back();
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 						}
 							} catch (Exception e) {
-						webPage.getDriver().navigate().back();
+						//webPage.getDriver().navigate().back();
+						JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 					}
 				}
 
 			} catch (Exception e) {
-				webPage.getDriver().navigate().back();
+				//webPage.getDriver().navigate().back();
+				JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+				js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 				brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 				log.info("getLocalizedMessage :"); 
 				e.printStackTrace();
@@ -633,16 +642,22 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 						if (!ExpectedElementName.equalsIgnoreCase("« Go back")
 								&& !ExpectedElementName.equalsIgnoreCase("SAVE ADDRESS")
 								&& !ExpectedElementName.equalsIgnoreCase("Newsletter Subscription")) {
-							webPage.getDriver().navigate().back();
+							//webPage.getDriver().navigate().back();
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 						}
 						
 					} catch (Exception e) {
-						webPage.getDriver().navigate().back();
+						//webPage.getDriver().navigate().back();
+						JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 					}
 				}
 
 			} catch (Exception e) {
-				webPage.getDriver().navigate().back();
+				//webPage.getDriver().navigate().back();
+				JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+				js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 				brokenLinks.add(ExpectedElementName + " " + e.getLocalizedMessage());
 				
 
