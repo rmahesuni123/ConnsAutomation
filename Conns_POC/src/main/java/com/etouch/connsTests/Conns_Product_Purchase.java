@@ -389,8 +389,8 @@ public class Conns_Product_Purchase extends BaseTest {
 					softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_On_Overlay_With_Valid_Zip_Code");
-			log.error("verifyZipCodeTextBoxErrorMessage failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_Valid_Zip_Code");
+			log.error("Verify_Add_To_Cart_Valid_Zip_Code failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1047,8 +1047,8 @@ public class Conns_Product_Purchase extends BaseTest {
 					+ " Expected Text is:" + expectedURL + " Actual text is:" + actualURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Payment_Info_ConnsCredit");
-			log.error("Verify_Payment_Info_ConnsCredit failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_CheckoutFlow_Using_ConnsCredit");
+			log.error("Verify_CheckoutFlow_Using_ConnsCredit failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1151,8 +1151,8 @@ public class Conns_Product_Purchase extends BaseTest {
 							+ " actual is: " + actualURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Payment_Info_Continue_Button_By_Selecting_ConnsCredit");
-			log.error("Verify_Payment_Info_Continue_Button_By_Selecting_ConnsCredit failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Edit_Your_Cart_Link_Functionality_In_Order_Review_Section");
+			log.error("Verify_Edit_Your_Cart_Link_Functionality_In_Order_Review_Section failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1243,8 +1243,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Click_Add_To_Cart_As_Per_Avilability_Message(webPage, addToCartCommon, softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Continue_Shopping_Button_Order_Confirmation_Page");
-			log.error("Verify_Continue_Shopping_Button_Order_Confirmation_Page failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_In_Stock_Product_Zip_Code_Functionality");
+			log.error("Verify_In_Stock_Product_Zip_Code_Functionality failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1314,8 +1314,8 @@ public class Conns_Product_Purchase extends BaseTest {
 							+ actualCartPageURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_In_Stock_Product_Zip_Code_Functionality_In_Valid_Data");
-			log.error("Verify_In_Stock_Product_Zip_Code_Functionality_In_Valid_Data failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_In_Stock_Product_Zip_Code_Functionality_Valid_Data");
+			log.error("Verify_In_Stock_Product_Zip_Code_Functionality_Valid_Data failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1423,8 +1423,8 @@ public class Conns_Product_Purchase extends BaseTest {
 							+ "Actual URL is: " + actualCartPageURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_Only_Product_Zip_Code_Functionality_Invalid_Data");
-			log.error("Verify_Pickup_Only_Product_Zip_Code_Functionality_Invalid_Data failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_Only_Product_Zip_Code_Functionality_valid_Data");
+			log.error("Verify_Pickup_Only_Product_Zip_Code_Functionality_valid_Data failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1460,8 +1460,8 @@ public class Conns_Product_Purchase extends BaseTest {
 					softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_Only_Product_Zip_Code_Functionality_Invalid_Data");
-			log.error("Verify_Pickup_Only_Product_Zip_Code_Functionality_Invalid_Data failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Zip_Code_Functionality_In_Stock_PickUp_Product");
+			log.error("Verify_Zip_Code_Functionality_In_Stock_PickUp_Product failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1496,8 +1496,8 @@ public class Conns_Product_Purchase extends BaseTest {
 							+ expectedPageURL + " Actual is: " + actualPageURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_Only_Product_Zip_Code_Functionality_Invalid_Data");
-			log.error("Verify_Pickup_Only_Product_Zip_Code_Functionality_Invalid_Data failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_Functionality_In_Stock_PickUp_Product_Valid_Data");
+			log.error("Verify_Add_To_Cart_Functionality_In_Stock_PickUp_Product_Valid_Data failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1543,8 +1543,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertAll();
 			log.info("Verify_Pickup_In_Store_Option_Cart_Page verification done ");
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_Only_Product_Zip_Code_Functionality_Invalid_Data");
-			log.error("Verify_Pickup_Only_Product_Zip_Code_Functionality_Invalid_Data failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_In_Store_Option_Cart_Page");
+			log.error("Verify_Pickup_In_Store_Option_Cart_Page failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1580,62 +1580,7 @@ public class Conns_Product_Purchase extends BaseTest {
 					".//*[@id='co-shipping-method-form']//label", softAssert);
 			softAssert.assertTrue(isShippingOptionisDisplayed,
 					"Shipping option is not displayed on clicking get a quote button");
-			/*
-			 * boolean isPickupLinkDisplayed =
-			 * commonMethods.verifyElementisPresent(webPage, test[0][1],
-			 * softAssert); softAssert.assertTrue(isPickupLinkDisplayed,
-			 * "Closest Pick-up locations window is not displayed");
-			 * 
-			 * // clicking on pick up link
-			 * commonMethods.clickElementbyXpath(webPage, test[0][1],
-			 * softAssert);
-			 * 
-			 * boolean isOverLayBoxDisplayed =
-			 * commonMethods.verifyElementisPresent(webPage, test[1][1],
-			 * softAssert);
-			 * 
-			 * softAssert.assertTrue(isOverLayBoxDisplayed,
-			 * "Closest Pick-up locations window is not displayed");
-			 * 
-			 * String priceBeforeClickingUpdateTotalButton =
-			 * commonMethods.getTextbyXpath(webPage, test[8][1], softAssert);
-			 * 
-			 * log.info("priceBeforeClickingUpdateTotalButton:" +
-			 * priceBeforeClickingUpdateTotalButton); if (isOverLayBoxDisplayed)
-			 * {
-			 * 
-			 * 
-			 * String[] testData=getAQuote[0][3].split(",");
-			 * log.info(getAQuote[0][3].split(","));
-			 * 
-			 * 
-			 * connsProductPurchasePage.Enter_Zip_Code_Click_On_Get_Quote_Button
-			 * (webPage, getAQuote, softAssert);
-			 * 
-			 * } else {
-			 * 
-			 * log.info(
-			 * "OverLay Box is not Displayed upon clicking pick up link in cart page"
-			 * ); }
-			 * 
-			 * boolean isShippingOptionsUpdated =
-			 * commonMethods.verifyElementisPresent(webPage,
-			 * "//*[@id='co-shipping-method-form']/dl", softAssert);
-			 * 
-			 * softAssert.assertTrue(isShippingOptionsUpdated,
-			 * " shipping options are not updated on clicking get a quote button"
-			 * );
-			 * 
-			 * commonMethods.clickElementbyXpath(webPage,
-			 * "//*[@id='co-shipping-method-form']/dl", softAssert);
-			 * 
-			 * String priceAfterClickingUpdateTotalButton =
-			 * commonMethods.getTextbyXpath(webPage, test[8][1], softAssert);
-			 * 
-			 * softAssert.assertNotEquals(priceBeforeClickingUpdateTotalButton,
-			 * priceAfterClickingUpdateTotalButton,
-			 * "Pricing is not updated on clikcing Update Total Button");
-			 */
+		
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Get_A_Quote_Button_Cart_Page_Valid_Zip_Code");
@@ -1676,42 +1621,7 @@ public class Conns_Product_Purchase extends BaseTest {
 					"//*[@id='advice-validate-zip-postcode']", softAssert);
 			softAssert.assertTrue(isErrorMessageDisplayedGetaQuote,
 					"Error message is not displayed on passing invalid zip code:");
-			/*
-			 * // clicking on pick up link
-			 * commonMethods.clickElementbyXpath(webPage, test[0][1],
-			 * softAssert);
-			 * 
-			 * boolean isOverLayBoxDisplayed =
-			 * commonMethods.verifyElementisPresent(webPage, test[1][1],
-			 * softAssert);
-			 * 
-			 * softAssert.assertTrue(isOverLayBoxDisplayed,
-			 * "Closest Pick-up locations window is not displayed");
-			 * 
-			 * if (isOverLayBoxDisplayed) {
-			 * 
-			 * 
-			 * String[] testData=getAQuote[0][3].split(",");
-			 * log.info(getAQuote[0][3].split(","));
-			 * 
-			 * 
-			 * connsProductPurchasePage.Enter_Zip_Code_Click_On_Get_Quote_Button
-			 * (webPage, getAQuote, softAssert);
-			 * 
-			 * } else {
-			 * 
-			 * log.info(
-			 * "OverLay Box is not Displayed upon clicking pick up link in cart page"
-			 * ); }
-			 * 
-			 * boolean isShippingOptionsUpdated =
-			 * commonMethods.verifyElementisPresent(webPage,
-			 * "//*[@id='co-shipping-method-form']/dl", softAssert);
-			 * 
-			 * softAssert.assertTrue(isShippingOptionsUpdated,
-			 * " shipping options are not updated on clicking get a quote button"
-			 * );
-			 */
+			
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Get_A_Quote_Button_Cart_Page_In_Valid_Zip_Code");
@@ -1762,8 +1672,8 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Billing Info and Shipping info first names are not matching ");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Get_A_Quote_Button_Cart_Page_In_Valid_Zip_Code");
-			log.error("Verify_Get_A_Quote_Button_Cart_Page_In_Valid_Zip_Code failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Ship_To_This_Address_Radio_Button_Valid_Billing_Info");
+			log.error("Verify_Ship_To_This_Address_Radio_Button_Valid_Billing_Info failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1813,8 +1723,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage,
-					"Verify_Ship_To_Different_Address_Radio_Button_Valid_Billing_Info");
-			log.error("Verify_Ship_To_Different_Address_Radio_Button_Valid_Billing_Info failed");
+					"Verify_Ship_To_Different_Address_Radio_Button_For_InStock");
+			log.error("Verify_Ship_To_Different_Address_Radio_Button_For_InStock failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1854,8 +1764,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage,
-					"Verify_Ship_To_Different_Address_Radio_Button_Functionality_Valid_Billing_Info_Inputs");
-			log.error("Verify_Ship_To_Different_Address_Radio_Button_Functionality_Valid_Billing_Info_Inputs failed");
+					"Verify_Checkout_Flow_With_Zip_Code_Outside_Conns_Network");
+			log.error("Verify_Checkout_Flow_With_Zip_Code_Outside_Conns_Network failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -2009,8 +1919,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Shipping_Info_Continue_Button_In_Valid_Info");
-			log.error("Verify_Shipping_Info_Continue_Button_In_Valid_Info failed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Continue_Button_functionality_Conns_Shipping");
+			log.error("Verify_Continue_Button_functionality_Conns_Shipping failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -2270,9 +2180,9 @@ public class Conns_Product_Purchase extends BaseTest {
 							+ "Product list page name is not matching with cart page product name");
 			softAssert.assertAll();
 		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_ShippingInfo_Field_Validation_Negative_Inputs");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Cart_Page_Product_Details");
 			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("Verify_ShippingInfo_Field_Validation_Negative_Inputs failed");
+			log.error("Verify_Cart_Page_Product_Details failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -2283,7 +2193,6 @@ public class Conns_Product_Purchase extends BaseTest {
 	public void Verify_Pickup_Checkout_Flow_Cash_On_Delivery() {
 		SoftAssert softAssert = new SoftAssert();
 		String productDetails = null;
-		String productPriceCartPage = null;
 		String expectedSuccessMessage = checkoutFlowCommonLocators[33][4];
 		try {
 			String[][] pickupAvialableProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
@@ -2297,7 +2206,6 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				connsProductPurchasePage.Click_On_Element_JS(webPage, mobileMenuData[4][1], softAssert);
 			}
-			// adding pickup only product to cart
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,
 					pickupAvialableProduct, softAssert);
 			log.info("Product Details:" + productDetails);
@@ -2305,10 +2213,10 @@ public class Conns_Product_Purchase extends BaseTest {
 					checkoutFlowCommonLocators, softAssert);
 			log.info("Product name:" + actualValue.get(0));
 			softAssert.assertTrue(productDetails.contains(actualValue.get(0)),
-					"Product Detail:"+ productDetails +" Does Not contains: "+actualValue.get(0));
+					"Product Detail:"+ productDetails +" Does Not contains Product Name as: "+actualValue.get(0));
 			log.info("Product price:" + actualValue.get(1));
 			softAssert.assertTrue(productDetails.contains(actualValue.get(1)),
-					"Cart price product is not matching with list price:" + "excpected is:" + productPriceCartPage);
+					"Product Detail:"+ productDetails +" Does Not contains Product Price as: "+actualValue.get(1));
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -2325,42 +2233,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.click_Pickup_Location_Continue_Button(webPage, checkoutFlowCommonLocators,
 					softAssert);
 			Thread.sleep(10000);
-			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[26][1]),
-			// webPage);
-			// connsProductPurchasePage.click_Shipping_Method_Continue_Button(webPage,
-			// checkoutFlowCommonLocators, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[9][1]), webPage);
 			connsProductPurchasePage.click_Cash_On_Delivery_Radio_Button(webPage, checkoutFlowCommonLocators,
 					softAssert);
 			connsProductPurchasePage.click_Payment_Info_Continue_Button(webPage, checkoutFlowCommonLocators,
 					softAssert);
-			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[11][1]),
-			// webPage);
-			// List<String>
-			// orderreviewActualValue=connsProductPurchasePage.page_Verify_Order_Review_Details(webPage,checkoutFlowCommonLocators,
-			// softAssert);
-			// softAssert.assertTrue(productDetails.contains(orderreviewActualValue.get(0)),
-			// "product name in order review section is not matching");
-			// softAssert.assertTrue(productDetails.contains(orderreviewActualValue.get(1)),
-			// "product price in order review section is not matching");
-			// connsProductPurchasePage.click_Place_Order_Button(webPage,
-			// checkoutFlowCommonLocators, softAssert);
-			// List<String>
-			// cartSideBarActualValue=connsProductPurchasePage.page_Verify_Cart_Sidebar_Checkout(webPage,
-			// checkoutFlowCommonLocators, softAssert);
-			// softAssert.assertTrue(productDetails.contains(cartSideBarActualValue.get(0)),
-			// "product name in order review section is not matching");
-			// softAssert.assertTrue(productDetails.contains(cartSideBarActualValue.get(1)),
-			// "product price in order review section is not matching");
-			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[30][1]),
-			// webPage);
-			// List<String>
-			// cartHeaderActualValue=connsProductPurchasePage.page_Verify_Cart_Header_Details(webPage,
-			// checkoutFlowCommonLocators, softAssert);
-			// softAssert.assertTrue(productDetails.contains(cartHeaderActualValue.get(0)),
-			// "product name in cart header section is not matching");
-			// softAssert.assertTrue(productDetails.contains(cartHeaderActualValue.get(1)),
-			// "product name in cart header section is not matching");
 			Thread.sleep(10000);
 			CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[15][1]), webPage);
 			connsProductPurchasePage.click_Place_Order_Button(webPage, checkoutFlowCommonLocators, softAssert);
@@ -2371,9 +2248,9 @@ public class Conns_Product_Purchase extends BaseTest {
 							+ "actual is:" + orderConfirmationText);
 			softAssert.assertAll();
 		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Checkout_Flow_Cash_On_Delivery");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_Checkout_Flow_Cash_On_Delivery");
 			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("Verify_Checkout_Flow_Cash_On_Delivery failed");
+			log.error("Verify_Pickup_Checkout_Flow_Cash_On_Delivery failed");
 			log.error(e.getMessage());
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
