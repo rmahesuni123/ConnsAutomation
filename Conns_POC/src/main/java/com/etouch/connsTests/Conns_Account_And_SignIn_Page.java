@@ -554,7 +554,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				String Actual_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
 				String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
 				softAssert.assertEquals(Actual_Page_Url, Expected_URL,"Redirectional_links Functionality with Invalid Input verification failed For Redirectional_URL. Expected Redirectional_URL  : "+Expected_URL + "Actual Redirectional_URL  : "+Actual_Page_Url);	
-				softAssert.assertEquals(Actual_Element_Name, Expected_Element_Name,"  Redirectional_links Functionality with Invalid Input verification failed For Redirectional_Parent_Element_Name . Expected Redirectional Parent_Element_Name : "+Expected_Element_Name + "Actual Redirectional_Parent_Element_Name : "+Actual_Element_Name);
+				softAssert.assertTrue(Actual_Element_Name.equalsIgnoreCase(Expected_Element_Name),"  Redirectional_links Functionality with Invalid Input verification failed For Redirectional_Parent_Element_Name . Expected Redirectional Parent_Element_Name : "+Expected_Element_Name + "Actual Redirectional_Parent_Element_Name : "+Actual_Element_Name);
 				softAssert.assertEquals(Actual_Page_Title,Expected_Page_Title,"  Redirectional_links Functionality with Invalid Input verification failed For Redirectional_Page_Title . Expected Redirectional_Page_Title  : "+Expected_Page_Title + "Actual Redirectional_Page_Title  : "+Actual_Page_Title);
 				//webPage.getDriver().navigate().back();
 				JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
@@ -964,7 +964,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Actual_Forgot_Password_Page_Go_Back_Link_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Page_URL, Expected_Forgot_Password_Page_Go_Back_Link_Page_URL,"Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Page_URL. Expected_Forgot_Password_Page_Go_Back_Link_Page_URL  : "+Expected_Forgot_Password_Page_Go_Back_Link_Page_URL + "Actual_Forgot_Password_Page_Go_Back_Link_Page_URL  : "+Actual_Forgot_Password_Page_Go_Back_Link_Page_URL);	
-			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Element_Name, Expected_Forgot_Password_Page_Go_Back_Link_Element_Name,"  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Element_Name . Expected_Forgot_Password_Page_Go_Back_Link_Element_Name : "+Expected_Forgot_Password_Page_Go_Back_Link_Element_Name + "Actual_Forgot_Password_Page_Go_Back_Link_Element_Name : "+Actual_Forgot_Password_Page_Go_Back_Link_Element_Name);
+			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Element_Name.trim(), Expected_Forgot_Password_Page_Go_Back_Link_Element_Name.trim(),"  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Element_Name . Expected_Forgot_Password_Page_Go_Back_Link_Element_Name : "+Expected_Forgot_Password_Page_Go_Back_Link_Element_Name + "Actual_Forgot_Password_Page_Go_Back_Link_Element_Name : "+Actual_Forgot_Password_Page_Go_Back_Link_Element_Name);
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Page_Title,Expected_Forgot_Password_Page_Go_Back_Link_Page_Title,"  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Page_Title . Expected_Forgot_Password_Page_Go_Back_Link_Page_Title  : "+Expected_Forgot_Password_Page_Go_Back_Link_Page_Title + "Actual_Forgot_Password_Page_Go_Back_Link_Page_Title  : "+Actual_Forgot_Password_Page_Go_Back_Link_Page_Title);
 			commonMethods.clickElementbyCssAndGetCurrentURL(webPage, Go_Back_Link, softAssert);
 			String Actual_Login_Page_Element_Name = commonMethods.getTextbyXpath(webPage,Login_Page_Element, softAssert);				
@@ -1711,19 +1711,23 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
 			commonMethods.clickElementbyXpath(webPage, Change_Billing_Address_Edit_Link_Locator, softAssert);		
 			String Actual_Contact_Information_Change_Billing_Address_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
-			softAssert.assertEquals(Actual_Contact_Information_Change_Billing_Address_Page_URL, Expected_Contact_Information_Page_URL,"Page url verification failed. Expected url : "+Expected_Contact_Information_Page_URL+"Actual url : "+Actual_Contact_Information_Change_Billing_Address_Page_URL);
+			//softAssert.assertEquals(Actual_Contact_Information_Change_Billing_Address_Page_URL, Expected_Contact_Information_Page_URL,"Page url verification failed. Expected url : "+Expected_Contact_Information_Page_URL+"Actual url : "+Actual_Contact_Information_Change_Billing_Address_Page_URL);
+			log.info(" **************************** Assert contains url*******************************************************************************************************************************************************");
+			softAssert.assertTrue(Actual_Contact_Information_Change_Billing_Address_Page_URL.contains(Expected_Contact_Information_Page_URL) ,"Page url verification failed. Expected_Contact_Information_Page_URL : "+Expected_Contact_Information_Page_URL +"Actual_Contact_Information_Change_Shipping_Address_Page_URL : "+Actual_Contact_Information_Change_Billing_Address_Page_URL);
 			String Actual_Contact_Information_Change_Billing_Address_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(Actual_Contact_Information_Change_Billing_Address_Page_Title, Expected_Contact_Information_Page_Title,"Page title verification failed. Expected title : "+Expected_Contact_Information_Page_Title+"Actual title : "+Actual_Contact_Information_Change_Billing_Address_Page_Title);
 			commonMethods.clickElementbyXpath(webPage, Contact_Information_Page_Address_Book_Go_Back_Link, softAssert);
 			String actualAddressBookPageUrl = commonMethods.getPageUrl(webPage, softAssert);
+			//softAssert.assertEquals(actualAddressBookPageUrl, Address_Book_Expected_Page_URL,"Page url verification failed. Expected url : "+Address_Book_Expected_Page_URL+"Actual url : "+actualAddressBookPageUrl);
+			log.info(" **************************** Assert contains url*******************************************************************************************************************************************************");
 			softAssert.assertEquals(actualAddressBookPageUrl, Address_Book_Expected_Page_URL,"Page url verification failed. Expected url : "+Address_Book_Expected_Page_URL+"Actual url : "+actualAddressBookPageUrl);
+			
 			String actualAddressBookPageTitle = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(actualAddressBookPageTitle, Address_Book_Expected_Page_Title,"Page title verification failed. Expected title : "+Address_Book_Expected_Page_Title+"Actual title : "+actualAddressBookPageTitle);
 			//webPage.getDriver().navigate().refresh(); //other browsers
 			webPage.getCurrentUrl();// For Safari
 			commonMethods.clickElementbyXpath(webPage, Change_Shipping_Address_Edit_Link_Locator, softAssert);		
 			String Actual_Contact_Information_Change_Shipping_Address_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
-			//softAssert.assertEquals(Actual_Contact_Information_Change_Shipping_Address_Page_URL, Expected_Contact_Information_Page_URL,"Page url verification failed. Expected url : "+Expected_Contact_Information_Page_URL+"Actual url : "+Actual_Contact_Information_Change_Shipping_Address_Page_URL);
 			//softAssert.assertEquals(Actual_Contact_Information_Change_Shipping_Address_Page_URL, Expected_Contact_Information_Page_URL,"Page url verification failed. Expected url : "+Expected_Contact_Information_Page_URL+"Actual url : "+Actual_Contact_Information_Change_Shipping_Address_Page_URL);
 			log.info(" **************************** Assert contains url*******************************************************************************************************************************************************");
 			softAssert.assertTrue(Actual_Contact_Information_Change_Shipping_Address_Page_URL.contains(Expected_Contact_Information_Page_URL) ,"Page url verification failed. Expected_Contact_Information_Page_URL : "+Expected_Contact_Information_Page_URL +"Actual_Contact_Information_Change_Shipping_Address_Page_URL : "+Actual_Contact_Information_Change_Shipping_Address_Page_URL);
@@ -1963,18 +1967,18 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		webPage.getCurrentUrl();// For Safari
 		try{
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
-			//commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+			/*commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 			commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
-			commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+			commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);*/
 
-			/*WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(inputdata[0][5]));
+			WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(inputdata[0][5]));
 			if ((!(Newsletters_Subscription_CheckBox).isSelected()) && ((Newsletters_Subscription_CheckBox)).isEnabled())
 			{
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 			}
 			else{
 				commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
-				}*/
+				}
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Save_Button, softAssert);
 			
 			CommonMethods.waitForWebElement(By.xpath(Wait_On_Element), webPage); //Waiting till time Welcome message to be appeared... Added By Rajesh
