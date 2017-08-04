@@ -49,9 +49,21 @@ public class ConnsProductPurchasePage {
 		}
 	}
 
-	public void Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) {
+	public void Click_On_French_Door_Link(WebPage webPage, String test, SoftAssert softAssert) {
 		try {
 			webPage.getDriver().manage().deleteAllCookies();
+			WebElement element = webPage.findObjectByxPath(test).getWebElement();
+			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+			executor.executeScript("arguments[0].click();", element);
+			log.info("clicked on :" + test);
+		} catch (PageException e) {
+			log.error(e.getMessage());
+			softAssert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	public void Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) {
+		try {
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);

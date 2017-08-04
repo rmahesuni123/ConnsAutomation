@@ -178,7 +178,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow verifyPageTitle started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -212,7 +212,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow verifyAddToCartFunctionality started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				connsProductPurchasePage.Add_To_Cart(webPage, addToCart, softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -292,7 +292,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Zip_Code_Text_Box_Error_Message started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				connsProductPurchasePage.Add_To_Cart(webPage, addToCart, softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -337,7 +337,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Add_To_Cart_On_Overlay_Without_Zip_Code started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				connsProductPurchasePage.Add_To_Cart(webPage, addToCart, softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -381,7 +381,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			log.info("testing flow Verify_Add_To_Cart_Valid_Zip_Code started");
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -419,13 +419,13 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Update_Functionality_Cart_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 				connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, addToCartInStockValid,
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 				connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available_Mobile(webPage, mobilePickupAvilable,
 						softAssert);
@@ -476,12 +476,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Remove_Item_Link_Functionality_In_Cart_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, addToCartInStockValid,
@@ -521,12 +521,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Product_Availability_status_In_Cart_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, addToCartInStockValid,
@@ -558,12 +558,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Apply_Code_Button_With_Invalid_Code started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -600,12 +600,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Apply_Code_Button_With_valid_Code started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -638,10 +638,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Proceed_To_Checkout_Functionality started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -672,10 +672,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Continue_Shopping_Link_Functionality_In_Cart_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -705,10 +705,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Get_Credit_Button_In_Cart_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -733,10 +733,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_More_Detail_Link_In_Cart_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -762,10 +762,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Lock_Icon_McAffe_Logo_In_Cart_At_Bottom started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -795,10 +795,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_UI_Checkout_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -834,10 +834,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_UI_Checkout_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -885,10 +885,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Login_Button_With_Valid_Credentials started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,
@@ -925,10 +925,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Forgot_Your_Password_Functionality started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -965,11 +965,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Continue_Button_Without_Selecting_Payment_Info started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage, mobileMenuData[4][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, mobileMenuData[4][1], softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -982,7 +982,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
 			log.info("Clicking on Pickuplocation continue");
 			// clicking on pickup location continue button
-			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
+			connsProductPurchasePage.Click_On_French_Door_Link(webPage, submitBillingInfo[10][1], softAssert);
 			log.info("Clicked on Pickuplocation continue");
 			connsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage, softAssert);
 			// commonMethods.scrollToElement(test[0][1], webPage, softAssert);
@@ -1021,10 +1021,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Payment_Info_ConnsCredit started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,
@@ -1065,10 +1065,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Checkout_Flow_Paypal started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
@@ -1116,12 +1116,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Edit_Your_Cart_Link_Functionality_In_Order_Review_Section started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			// adding pickup only product to cart
@@ -1136,7 +1136,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			// clicking on pickup location continue button
 			// commonMethods.clickElementbyXpath(webPage,
 			// submitBillingInfo[10][1], softAssert);
-			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
+			connsProductPurchasePage.Click_On_French_Door_Link(webPage, submitBillingInfo[10][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on cash on delivery radio button
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
@@ -1172,10 +1172,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Continue_Shopping_Button_Order_Confirmation_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,
@@ -1189,7 +1189,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			// clicking on pickup location continue button
 			// commonMethods.clickElementbyXpath(webPage,
 			// submitBillingInfo[10][1], softAssert);
-			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
+			connsProductPurchasePage.Click_On_French_Door_Link(webPage, submitBillingInfo[10][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on cash on delivery radio button
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
@@ -1234,10 +1234,10 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Click_Add_To_Cart_As_Per_Avilability_Message");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_Add_To_Cart_As_Per_Avilability_Message(webPage, addToCartCommon, softAssert);
@@ -1265,10 +1265,10 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Click_Add_To_Cart_As_Per_Avilability_Message1");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_Add_To_Cart_As_Per_Avilability_Message(webPage, zipCodeInValid, softAssert);
@@ -1296,12 +1296,12 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Click_Add_To_Cart_As_Per_Avilability_Message2");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
@@ -1340,12 +1340,12 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Click_Add_To_Cart_As_Per_Avilability_Message_Pickup");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			/*
@@ -1374,10 +1374,10 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Click_Add_To_Cart_As_Per_Avilability_Message_Pickup1");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			/*
@@ -1405,12 +1405,12 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Click_Add_To_Cart_As_Per_Avilability_Message_Pickup2");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, testData2, softAssert);
@@ -1448,12 +1448,12 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Add_In_Stock_Pickup_Only_Product_To_Cart");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Page_Zip_Code_Functionality_In_Stock_PickUp_Product(webPage, clickOnAddToCart,
@@ -1480,12 +1480,12 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Verify_Add_To_Cart_Functionality_In_Stock_PickUp_Product_Valid_Data");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -1523,12 +1523,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Pickup_In_Store_Option_Cart_Page started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -1561,12 +1561,12 @@ public class Conns_Product_Purchase extends BaseTest {
 					"Click_Add_To_Cart_As_Per_Avilability_Message2");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
@@ -1602,12 +1602,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Get_A_Quote_Button_Cart_Page_In_Valid_Zip_Code started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
@@ -1647,12 +1647,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Ship_To_This_Address_Radio_Button_Valid_Billing_Info started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
@@ -1662,7 +1662,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
-			connsProductPurchasePage.Click_On_Element_JS(webPage, "//*[@id='opc-shipping']/div[1]/h2/a", softAssert);
+			connsProductPurchasePage.Click_On_French_Door_Link(webPage, "//*[@id='opc-shipping']/div[1]/h2/a", softAssert);
 			shippingInfoFirstName = commonMethods
 					.getWebElementbyXpath(webPage, "//*[@id='shipping:firstname']", softAssert).getAttribute("value");
 			// shippingInfoFirstName=submitBillingInfo[0][3];
@@ -1692,12 +1692,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Ship_To_Different_Address_Radio_Button_Valid_Billing_Info started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -1740,12 +1740,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Checkout_Flow_With_Zip_Code_Outside_Conns_Network started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -1784,12 +1784,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Shipping_Info_Continue_Button_Valid_Info started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -1831,12 +1831,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Shipping_Info_Continue_Button_In_Valid_Info started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, "(//select[@class='hasCustomSelect'])[7]", "28",
 						softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage,
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						"(//div[@class='items']//li[@class='item' and contains(@data-val,'28')])[2]", softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
@@ -1877,7 +1877,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Continue_Button_functionality_Conns_Shipping started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -1941,7 +1941,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verify_Continue_Button_functionality_Free_Shipping started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -2001,7 +2001,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_BillingInfo_Field_Validation_Negative_Inputs started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -2046,7 +2046,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_BillingInfo_Field_Validation_Positive_Inputs started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -2090,7 +2090,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Shippinginfo_Field_Validation_Positive_Inputs started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -2122,7 +2122,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Shippinginfo_Field_Validation_Positive_Inputs started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -2158,11 +2158,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Cart_Page_Product_Details started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage, mobileMenuData[4][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, mobileMenuData[4][1], softAssert);
 			}
 			// adding pickup only product to cart
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,
@@ -2200,11 +2200,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("testing flow Verify_Checkout_Flow_Cash_On_Delivery started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_Element_JS(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				commonMethods.selectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				connsProductPurchasePage.Click_On_Element_JS(webPage, mobileMenuData[4][1], softAssert);
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, mobileMenuData[4][1], softAssert);
 			}
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,
 					pickupAvialableProduct, softAssert);
