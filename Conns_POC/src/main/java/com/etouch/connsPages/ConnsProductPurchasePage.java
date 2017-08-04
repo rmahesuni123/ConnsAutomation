@@ -51,6 +51,7 @@ public class ConnsProductPurchasePage {
 
 	public void Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) {
 		try {
+			webPage.getDriver().manage().deleteAllCookies();
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);

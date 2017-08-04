@@ -2146,7 +2146,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 247, enabled = true, description = "Verify all product related details in cart page with list page")
+	@Test(priority = 248, enabled = true, description = "Verify all product related details in cart page with list page")
 	public void Verify_Cart_Page_Product_Details() {
 		SoftAssert softAssert = new SoftAssert();
 		String productDetails = null;
@@ -2189,7 +2189,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 247, enabled = true, description = "Verify product name & price in different stages while performing checkout flow")
+	@Test(priority = 249, enabled = true, description = "Verify product name & price in different stages while performing checkout flow")
 	public void Verify_Pickup_Checkout_Flow_Cash_On_Delivery() {
 		SoftAssert softAssert = new SoftAssert();
 		String productDetails = null;
