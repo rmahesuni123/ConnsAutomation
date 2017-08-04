@@ -1964,7 +1964,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		try{
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
 			//commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
-			//commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+			commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 			commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 
 			/*WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(inputdata[0][5]));
