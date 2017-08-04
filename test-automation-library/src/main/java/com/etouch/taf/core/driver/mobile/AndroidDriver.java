@@ -49,7 +49,7 @@ public class AndroidDriver extends DriverBuilder {
 				driver = AppiumDriver.buildAndroidDriver(testBed);
 			} else if (ConfigUtil.isBrowserStackEnv(testBed.getTestBedName())) {
 				capabilities = DesiredCapabilities.android();
-				capabilities.setCapability("device", testBed.getDevice().getName());
+				//capabilities.setCapability("device", testBed.getDevice().getName());
 				buildBrowserstackCapabilities();
 			}
 		} catch (InterruptedException e) {

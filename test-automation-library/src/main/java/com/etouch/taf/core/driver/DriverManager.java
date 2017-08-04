@@ -13,6 +13,7 @@ import com.etouch.taf.core.driver.web.ChromeDriver;
 import com.etouch.taf.core.driver.web.FirefoxDriver;
 import com.etouch.taf.core.driver.web.IEDriver;
 import com.etouch.taf.core.driver.web.SafariDriver;
+import com.etouch.taf.core.driver.web.EdgeDriver;
 import com.etouch.taf.core.exception.ExceptionListener;
 import com.etouch.taf.core.exception.HandleException;
 import com.etouch.taf.core.exception.DriverException;
@@ -50,6 +51,7 @@ public class DriverManager implements ExceptionListener
 		driverMap.put(TestBedType.SAFARI.toString(), SafariDriver.class);
 		driverMap.put(TestBedType.FIREFOX.toString(), FirefoxDriver.class);
 		driverMap.put(TestBedType.INTERNETEXPLORER.toString(), IEDriver.class);
+		driverMap.put(TestBedType.EDGE.toString(), EdgeDriver.class);
 
 		// Mobile Browser class
 		driverMap.put(TestBedType.ANDROID.toString(), AndroidDriver.class);

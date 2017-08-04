@@ -77,11 +77,18 @@ public abstract class DriverBuilder {
 	 */
 	public void buildBrowserstackCapabilities() throws DriverException
 	{
-		capabilities.setCapability("osVersion", testBed.getPlatform().getVersion());
+		//capabilities.setCapability("osVersion", testBed.getPlatform().getVersion());
 		capabilities.setCapability("os", testBed.getPlatform().getName());
+		log.info("OS: "+testBed.getPlatform().getName());
 		capabilities.setCapability("version", testBed.getBrowser().getVersion());
+		log.info("Browser version: "+ testBed.getBrowser().getVersion());
 		capabilities.setCapability("browserName", testBed.getBrowser().getName());
+		log.info("Browser Name: "+testBed.getBrowser().getName());
 		capabilities.setCapability("browserstack.debug", "true");
+		capabilities.setCapability("realMobile", "true");
+		capabilities.setCapability("device", testBed.getDevice().getName());
+		capabilities.setCapability("os_version", testBed.getPlatform().getName());
+		log.info("OS_Version: "+testBed.getPlatform().getName());
 		try {
 			driver = new RemoteWebDriver(new URL(buildBrowserStackUrl()), capabilities);
 		} catch (MalformedURLException e) {

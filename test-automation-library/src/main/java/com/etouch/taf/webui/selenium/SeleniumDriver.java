@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -148,6 +149,33 @@ public class SeleniumDriver {
 		return new InternetExplorerDriver(cap);
 
 	}
+	
+	
+	/**
+	 * Builds the Edge driver.
+	 * 
+	 * @param file
+	 *            the file
+	 * @return the Edge driver
+	 * @throws DriverException
+	 *             the driver exception
+	 */
+	public static EdgeDriver buildEdgeDriver(File file) throws DriverException {
+		if (file != null) {
+			log.info("Edge Driver File path");
+			System.setProperty("webdriver.edge.driver", file.getAbsolutePath());
+		}
+
+		DesiredCapabilities cap = new DesiredCapabilities();
+		/*cap.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR,
+				org.openqa.selenium.UnexpectedAlertBehaviour.ACCEPT);
+		cap.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);*/
+
+		return new EdgeDriver(cap);
+
+	}
+	
+	
 
 	/**
 	 * Builds the url.
