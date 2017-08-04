@@ -182,6 +182,7 @@ public class Conns_Product_Search extends BaseTest {
 			// CommonMethods.sendKeys_usingJS(webPage,".//*[@id='search']","French
 			// Door");
 			webPage.findObjectById(test[0][0]).sendKeys(test[0][1]);
+			Thread.sleep(5000);
 			CommonMethods.waitForWebElement(By.xpath(test[0][2]), webPage);
 			String autoSearchProductDescription = webPage.findObjectByxPath(test[0][2]).getText();
 			webPage.findObjectByxPath(test[0][2]).click();
