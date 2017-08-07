@@ -718,4 +718,21 @@ public class CommonMethods {
 		}	
 		
 	}
+	
+	/**
+	 * @author Name - Shantanu Kulkarni
+	 * The method is used to click on element with JS	
+	 **/	
+	public String Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
+
+		try {
+			WebElement element = webPage.findObjectByxPath(test).getWebElement();
+			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+			executor.executeScript("arguments[0].click();", element);
+		} catch (PageException e) {
+			log.error(e.getMessage());
+			softAssert.fail(e.getLocalizedMessage());
+		}
+		return webPage.getCurrentUrl();
+	}	
 }

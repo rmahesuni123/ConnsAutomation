@@ -123,14 +123,13 @@ public class Conns_Money_Matters extends BaseTest {
 	private String PageUrl = "";
 	private WebPage webPage;
 	private ConnsMoneyMatters ConnsMoneyMatters;
-	private ConnsHomePage ConnsHomePage;
 	static String platform;
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
 			.concat("/src/test/resources/testdata/videos");
 
 	String moneyMattersURL="";
-	String moneyMattersCommonElement="";
+	String moneyMattersCommonElement_Web="";
 	String[][] commonData;
 	
 	
@@ -158,7 +157,8 @@ public class Conns_Money_Matters extends BaseTest {
 				System.out.println("DataFilePath After is : " + DataFilePath);
 				commonData = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters", "MoneyMattersCommonElements");
 				moneyMattersURL=commonData[0][1];
-				moneyMattersCommonElement=commonData[1][1];
+				moneyMattersCommonElement_Web=commonData[1][1];
+
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
 					System.out.println("videoLocation" + videoLocation.toString().replace("Env", testEnv));
@@ -199,6 +199,7 @@ public class Conns_Money_Matters extends BaseTest {
 	 * 
 	 */
 
+	@SuppressWarnings("static-access")
 	@Test(priority = 601, enabled = true, description = "Verify MoneyMatters Page title")
 	public void Verify_MoneyMatters_PageTitle() 
 	{
@@ -207,9 +208,12 @@ public class Conns_Money_Matters extends BaseTest {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters", "Verifytitle");
 			String ExpectedTitle = test[0][1];
-			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
-			//CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			CommonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement), webPage);
+			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);				
+			if (testType.equalsIgnoreCase("Web")) 
+			{			
+				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
+			}
+			
 			log.info(webPage.getPageTitle());
 			softAssert.assertEquals(webPage.getPageTitle(), ExpectedTitle,
 					"Page Title verification failed. Expected title - " + ExpectedTitle + " Actual title - " + webPage.getPageTitle());
@@ -227,13 +231,17 @@ public class Conns_Money_Matters extends BaseTest {
 	 * 
 	 */
 
+	@SuppressWarnings("static-access")
 	@Test(priority = 602, enabled = true, description = "Verify_Broken_Images")
 	public void Verify_Broken_Images() throws ClientProtocolException, IOException 
 	{		
 		SoftAssert softAssert = new SoftAssert();
 		try{	
 			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
-			CommonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement), webPage);		
+			if (testType.equalsIgnoreCase("Web")) 
+			{			
+				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
+			}	
 			commonMethods.verifyBrokenImage(webPage);
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -250,17 +258,18 @@ public class Conns_Money_Matters extends BaseTest {
 	 * 
 	 */
 
+	@SuppressWarnings("static-access")
 	@Test(priority = 603, enabled = true, description = "Verify_Broken_Links")
 	public void Verify_Broken_Links() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			if (testType.equalsIgnoreCase("Web")) 
 			{				
-				commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
-				CommonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement), webPage);	
+				commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);			
+				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
 				commonMethods.verifyBrokenLinks(webPage);
-				softAssert.assertAll();
 			}
+			softAssert.assertAll();
 		} catch (Throwable e) {
 			//e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
@@ -275,12 +284,18 @@ public class Conns_Money_Matters extends BaseTest {
 	 * 
 	 */	
 	
+	@SuppressWarnings("static-access")
 	@Test(priority = 604, enabled = true, description = "Verify_Font_And_Size")
 	public void Verify_Font_And_Size() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
-			CommonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement), webPage);		
+			
+			if (testType.equalsIgnoreCase("Web")) 
+			{			
+				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
+			}		
+			
 			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters",
 					"VerifyFontandSize");
 			System.out.println("Length : " + ExpectedFontValues.length);
@@ -339,13 +354,19 @@ public class Conns_Money_Matters extends BaseTest {
 	 * 
 	 */	
 	
+	@SuppressWarnings("static-access")
 	@Test(priority = 605, enabled = true, description = "Verify_MoneyMatters_Text")
 	public void Verify_MoneyMatters_Text() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualTextValues = null;
 		try {
 			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
-			CommonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement), webPage);		
+			
+			if (testType.equalsIgnoreCase("Web")) 
+			{
+				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
+			}	
+			
 			String[][] ExpectedValues = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters",
 					"VerifyFontandSize");
 			System.out.println("Length : " + ExpectedValues.length);
@@ -385,6 +406,7 @@ public class Conns_Money_Matters extends BaseTest {
 	 * 
 	 */
 
+	@SuppressWarnings("static-access")
 	@Test(priority = 606, enabled = true, description = "Verify_MoneyMatters_LinksRedirection")
 	public void Verify_MoneyMatters_LinksRedirection() {
 		SoftAssert softAssert = new SoftAssert();
@@ -392,8 +414,12 @@ public class Conns_Money_Matters extends BaseTest {
 		
 		try {
 			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);
-			ConnsHomePage.waitPageToLoad();
-			//CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);			
+			//ConnsHomePage.waitPageToLoad();
+			if (testType.equalsIgnoreCase("Web")) 
+			{			
+				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
+			}
+			
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters", "verifyLinks");	
 			log.info("testData.length : " + testData.length);
 			for (int i = 0; i < testData.length; i++)
@@ -406,24 +432,25 @@ public class Conns_Money_Matters extends BaseTest {
 
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
 					System.out.println("Inside the 2nd if. Value of I : " + i);
-					//ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
-					ActualURL=Click_On_Element_JS(webPage, testData[i][2], softAssert);
+					ActualURL=commonMethods.Click_On_Element_JS(webPage, testData[i][2], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);					
 				}
 				
 				if (testType.equalsIgnoreCase("Web")) {
-					System.out.println("*****");
-					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][1], softAssert);					
-			
+					ActualURL=commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][1], softAssert);	
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
 				}
-				//webPage.getDriver().get(url);
-				//commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
-				//CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);				
+				commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
+
+				if (testType.equalsIgnoreCase("Web")) 
+				{			
+					commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
+				}
+				
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -433,7 +460,7 @@ public class Conns_Money_Matters extends BaseTest {
 		}
 	}	
 	
-	public String Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
+/*	public String Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
 
 		try {
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
@@ -444,7 +471,7 @@ public class Conns_Money_Matters extends BaseTest {
 			softAssert.fail(e.getLocalizedMessage());
 		}
 		return webPage.getCurrentUrl();
-	}
+	}*/
 	
 	
 }	
