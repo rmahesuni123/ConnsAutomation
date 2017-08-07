@@ -20,6 +20,7 @@ import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
+import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
@@ -61,7 +62,7 @@ public class ConnsProductPurchasePage {
 			softAssert.fail(e.getLocalizedMessage());
 		}
 	}
-	
+
 	public void Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) {
 		try {
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
@@ -274,17 +275,19 @@ public class ConnsProductPurchasePage {
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
 			Thread.sleep(5000);
 			System.out.println("test[1][4]:" + test[1][4]);
-			if (commonMethods.getPageUrl(webPage, softAssert).contains(test[1][4])) {
-				commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
-				commonMethods.sendKeysbyXpath(webPage, test[2][1], test[2][3], softAssert);
-				commonMethods.sendKeysbyXpath(webPage, test[3][1], test[3][3], softAssert);
-				commonMethods.clickElementbyXpath(webPage, test[4][1], softAssert);
-				Thread.sleep(5000);
-				commonMethods.clickElementbyXpath(webPage, test[5][1], softAssert);
-				Thread.sleep(5000);
-			} else {
-				log.info("paypal.com url is not loaded");
-			}
+			/*
+			 * if (commonMethods.getPageUrl(webPage,
+			 * softAssert).contains(test[1][4])) {
+			 * commonMethods.clickElementbyXpath(webPage, test[7][1],
+			 * softAssert); commonMethods.sendKeysbyXpath(webPage, test[2][1],
+			 * test[2][3], softAssert); commonMethods.sendKeysbyXpath(webPage,
+			 * test[3][1], test[3][3], softAssert);
+			 * commonMethods.clickElementbyXpath(webPage, test[4][1],
+			 * softAssert); Thread.sleep(5000);
+			 * commonMethods.clickElementbyXpath(webPage, test[5][1],
+			 * softAssert); Thread.sleep(5000); } else { log.info(
+			 * "paypal.com url is not loaded"); }
+			 */
 		} catch (Throwable e) {
 			log.error(e.getMessage());
 			softAssert.fail(e.getLocalizedMessage());
@@ -1356,6 +1359,7 @@ public class ConnsProductPurchasePage {
 	public void clickOnMobileMenuOption(WebPage webPage, String[][] mobileMenuData, SoftAssert softAssert) {
 		log.info("Clicking on mobile menu for applicances ");
 		try {
+			webPage.getDriver().manage().deleteAllCookies();
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[0][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[1][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[2][2], softAssert);
@@ -1468,5 +1472,36 @@ public class ConnsProductPurchasePage {
 			log.error(e.getMessage());
 			softAssert.fail(e.getLocalizedMessage());
 		}
+	}
+
+	public String page_Pickup_Checkout_Flow_Cash_On_Delivery(WebPage webPage2, String[][] checkoutFlowCommonLocators,
+			SoftAssert softAssert) {
+		String orderConfirmationText = null;
+		try {
+			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[5][1]),
+			// webPage);
+			ITafElement radioButton = webPage.findObjectByxPath(checkoutFlowCommonLocators[9][1]);
+			webPage.scrollToElement(radioButton);
+			// webPage.scrollUp(1);
+			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[9][1]),
+			// webPage);
+			click_Cash_On_Delivery_Radio_Button(webPage, checkoutFlowCommonLocators, softAssert);
+			click_Payment_Info_Continue_Button(webPage, checkoutFlowCommonLocators, softAssert);
+			Thread.sleep(10000);
+			/*
+			 * ITafElement placeOrderButton=webPage.findObjectByxPath(
+			 * checkoutFlowCommonLocators[33][1]);
+			 * webPage.scrollToElement(placeOrderButton);
+			 * //CommonMethods.waitForWebElement(By.xpath(
+			 * checkoutFlowCommonLocators[15][1]), webPage);
+			 */ click_Place_Order_Button(webPage, checkoutFlowCommonLocators, softAssert);
+			Thread.sleep(10000);
+			orderConfirmationText = commonMethods.getTextbyXpath(webPage, checkoutFlowCommonLocators[33][1],
+					softAssert);
+		} catch (PageException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return orderConfirmationText;
 	}
 }
