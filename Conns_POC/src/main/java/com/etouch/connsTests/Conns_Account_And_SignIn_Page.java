@@ -741,7 +741,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			// ConnsSignInPage.verifyPageTitle(testdata);
 			commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
 			String Actual_Forgot_Password_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
-			softAssert.assertEquals(Actual_Forgot_Password_Page_URL, Expected_Forgot_Password_Page_URL,
+			softAssert.assertTrue(Actual_Forgot_Password_Page_URL.contains(Expected_Forgot_Password_Page_URL),
 					"Page url verification failed. Expected url : " + Expected_Forgot_Password_Page_URL
 							+ "Actual url : " + Actual_Forgot_Password_Page_URL);
 			String Actual_Forgot_Password_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
@@ -750,6 +750,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 							+ "Actual title : " + Actual_Forgot_Password_Page_Title);
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Forgot_Password_Page_Title");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -2197,12 +2198,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			if ((!(Newsletters_Subscription_CheckBox).isSelected())
 					&& ((Newsletters_Subscription_CheckBox)).isEnabled()) {
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+				log.info("*************************verify_Account_Information_Tab_Newsletters_General_Subscription_CheckBox : Single Click Successfull**************************************");
 			} else {
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 				Thread.sleep(3000);
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+				log.info("*************************verify_Account_Information_Tab_Newsletters_General_Subscription_CheckBox : Double Click Successfull**************************************");
 			}
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Page_Go_Back_Link, softAssert);
+			log.info("*************************verify_Account_Information_Tab_Newsletters_General_Subscription_CheckBox : Go_Back_Link Successfull**************************************");
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage,
@@ -2278,7 +2282,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 				"verifyAccountDashBoardPageLogin");
-		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		 ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 				"Address_Book_Newsletters_Functionality");
@@ -2292,10 +2296,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Newsletters_Subscription_Successfully_Saved_Locator = inputdata[0][9];
 		String Expected_Newsletters_Subscription_Successfully_Saved_Message = inputdata[0][10];
 		String Wait_On_Element = inputdata[0][11];
+		String Newsletters_Save_Button_CssPath = inputdata[0][12];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
+			webPage.getDriver().navigate().refresh();
 			/*
 			 * commonMethods.doubleClickElementbyXpath(webPage,
 			 * News_Letters_Subscription_CheckBox, softAssert);
@@ -2305,13 +2311,55 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			 * News_Letters_Subscription_CheckBox, softAssert);
 			 */
 			WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(inputdata[0][5]));
-			if ((!(Newsletters_Subscription_CheckBox).isSelected())
-					&& ((Newsletters_Subscription_CheckBox)).isEnabled()) {
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Newsletters_Subscription_CheckBox Found ******************************************** ");
+			if ((!(Newsletters_Subscription_CheckBox).isSelected())) {
+				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Newsletters_Subscription_CheckBox is  Selected  ******************************************** ");
+				//Thread.sleep(3000);
+				CommonMethods.waitForWebElement(By.xpath(News_Letters_Subscription_CheckBox), webPage);
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Single Click Successfull ******************************************** ");
 			} else {
+				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Newsletters_Subscription_CheckBox is not Selected  ******************************************** ");
+				//Thread.sleep(3000);
+				CommonMethods.waitForWebElement(By.xpath(News_Letters_Subscription_CheckBox), webPage);
 				commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Double Click Successfull ******************************************** ");
 			}
-			commonMethods.clickElementbyXpath(webPage, Newsletters_Save_Button, softAssert);
+			
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Finding Newsletters_Save_Button ******************************************** " +webPage.getCurrentUrl()); // For Safari
+			//webPage.getDriver().navigate().refresh();
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Finding Newsletters_Save_Button ******************************************** ");
+			//WebElement Save_Button = webPage.getDriver().findElement(By.xpath(Newsletters_Save_Button));
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Newsletters_Save_Button Found ******************************************** ");
+			if (webPage.getDriver().findElement(By.xpath(Newsletters_Save_Button)).isDisplayed())
+			{
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Save_Button is Displayed ******************************************** ");
+			//Thread.sleep(6000);
+			WebElement Save_Button = webPage.getDriver().findElement(By.xpath(Newsletters_Save_Button));
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Wait For Save Button Started  ******************************************** " +Newsletters_Save_Button);
+			CommonMethods.waitForWebElement(By.xpath(Newsletters_Save_Button), webPage);
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Wait For Save Button Completed ******************************************** " +Newsletters_Save_Button);
+			Save_Button.submit();
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Save Button Clicked  ******************************************** " +Save_Button);
+			
+			} else {
+				commonMethods.clickElementbyXpath(webPage, Newsletters_Page_Go_Back_Link, softAssert);
+				webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+				WebElement Save_Button = webPage.getDriver().findElement(By.xpath(Newsletters_Save_Button));
+				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Wait For Save Button Started  ******************************************** " +Newsletters_Save_Button);
+				CommonMethods.waitForWebElement(By.xpath(Newsletters_Save_Button), webPage);
+				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Wait For Save Button Completed ******************************************** " +Newsletters_Save_Button);
+				Save_Button.submit();
+				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Save Button Clicked  ******************************************** " +Save_Button);
+				
+			}
+			
+			//commonMethods.clickElementbyXpath(webPage, Newsletters_Save_Button, softAssert);
+			
+			
+			//commonMethods.clickElementbyCss(webPage, Newsletters_Save_Button_CssPath, softAssert);
+			
+			log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Save_Button_Click Successfull ******************************************** ");
 			CommonMethods.waitForWebElement(By.xpath(Wait_On_Element), webPage); // Waiting
 																					// till
 																					// time
@@ -2325,7 +2373,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 																					// Rajesh
 			// Thread.sleep(5000);
 			String actualAccountInformationPageURL = commonMethods.getPageUrl(webPage, softAssert);
-			softAssert.assertEquals(actualAccountInformationPageURL, Expected_Account_Information_Page_URL,
+			softAssert.assertTrue(actualAccountInformationPageURL.contains(Expected_Account_Information_Page_URL) ,
 					"Page url verification failed. Expected url : " + Expected_Account_Information_Page_URL
 							+ "Actual url : " + actualAccountInformationPageURL);
 			String actualAccountInformationPageTitle = commonMethods.getPageTitle(webPage, softAssert);
@@ -2340,12 +2388,101 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 							+ "Actual Page Content Actual Element Name : " + ActualElementName);
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Account_Information_Tab_Newsletters_Save_Button");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	/***********************************************************************
+	
+	
+	
+	
+	
+	/**
+	 * Test Case - 024 - Verify links in Account Information section
+	 * Verify page title : Page title should 'My Account'
+	 * Verify content section on account dashboard page 
+	 * Verify "Account Information" section on page : Verify contact information,newsletter subscription, primary billing address & primary shipping address details of customer : Verify contact information,newsletters subscription, primary billing address & primary shipping address details of customer
+	 * Verify "Edit" link for "Newsletters" : click on "Edit" link for "Contact Newsletters" It should redirect to account information form page : https://www.conns.com/customer/account/edit/
+	 * Verify "Change Password" link : click on "Change Password" link : It should redirect to edit account information form page : https://www.conns.com/customer/account/edit/changepass/1/
+	 * Verify "Edit Address" link for "Primary Billing Address" : click on "Edit Address" link for "Primary Billing Address" : It should redirect to contact information form : https://www.conns.com/customer/address/edit/
+	 * Verify "Edit Address" link for "Primary Shipping Address": click on "Edit Address" link for "Primary Shipping Address" :It should redirect to contact information form : https://www.conns.com/customer/address/edit/ but getting redirected to https://www.conns.com/customer/address/edit/id/6296645/
+	 * Verify "Manage Addresses" link for "address Book" section : click on "Manage Addresses" link : It should redirect to contact information form : https://www.conns.com/customer/address/edit/
+	 */
+	
+
+	/*@Test(priority = 338, enabled = true)
+	public void verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section() {
+		SoftAssert softAssert = new SoftAssert();
+		
+		try{
+			log.info("******Started verification of Links in Account Dashborad tab after login ********");
+
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
+			//String Account_Information_Mobile_Link = test_data[0][2];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			
+			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
+			
+			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
+			
+			for(int r= 0; r < test_data.length;r++)
+			{	
+				String Page_Expected_URL = test_data[r][3];
+				String Page_Expected_Element_Name = test_data[r][4];
+				String Page_Expected_Title = test_data[r][5];
+				if (testType.equalsIgnoreCase("Mobile")) {
+					log.info("***************************************** Account Dashboard Drop Down For Mobile Entered********************************");
+					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
+					log.info("***************************************** Account Dashboard Drop Down For Mobile Clicked Successfully********************************");
+					//commonMethods.clickElementbyXpath(webPage, Account_Information_Mobile_Link, softAssert);
+					//log.info("***************************************** Account_Information_Mobile_Link ******************************** : " + Account_Information_Mobile_Link);
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(test_data);
+					softAssert.assertEquals(Page_URL_Title_Data.get(1),Page_Expected_Title,"Account Information DashBoard Tab verification failed For Page Elements. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Page_Element : "+Page_URL_Title_Data.get(1));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(2));
+					softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Title : "+Page_URL_Title_Data.get(0));
+					//commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
+				
+					softAssert.assertAll();
+				}
+				else {
+					
+
+					log.info("***************************************** Account Dashboard Drop Down For Web********************************");
+
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Account_Tab(test_data);
+					softAssert.assertEquals(Page_URL_Title_Data.get(1),Page_Expected_Title,"Account Information DashBoard Tab verification failed For Page Elements. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Page_Element : "+Page_URL_Title_Data.get(1));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL: "+Page_URL_Title_Data.get(2));
+					softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Title : "+Page_URL_Title_Data.get(0));
+					softAssert.assertAll();
+				}
+				
+			}
+			
+		}
+		
+		catch(Throwable e){
+			e.printStackTrace();
+
+			mainPage.getScreenShotForFailure(webPage, "verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+		
+	}
+	
+	
+*/	/***********************************************************************
 	 * GARBAGE ENDS
 	 *******************************************************************************************************************************************************************************************/
 	/**
