@@ -2282,7 +2282,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 				"verifyAccountDashBoardPageLogin");
-		 ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		 //ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 				"Address_Book_Newsletters_Functionality");
