@@ -2322,7 +2322,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Newsletters_Subscription_CheckBox is not Selected  ******************************************** ");
 				//Thread.sleep(3000);
 				CommonMethods.waitForWebElement(By.xpath(News_Letters_Subscription_CheckBox), webPage);
-				commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+				//commonMethods.doubleClickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
+				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 				log.info(" ******************************************** verify_Account_Information_Tab_Newsletters_Save_Button : Double Click Successfull ******************************************** ");
 			}
 			
