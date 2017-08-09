@@ -266,7 +266,8 @@ public class Conns_Product_Search extends BaseTest {
 				s.selectByVisibleText(test[0][6]);
 				Thread.sleep(18000);
 				//End
-				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				//Shorted in Ascending
+				 s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				s.selectByVisibleText(test[0][7]);
 				Thread.sleep(8000);
 				
@@ -276,9 +277,17 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("element is shorted: " +isSorted);
 				SoftAssertor.assertEquals(isSorted, true,
 						"element is Not shorted by Product Name");
-			//	webPage.findObjectByxPath(test[0][9]).click();
-				//Thread.sleep(5000);
-			//	webPage.getBackToUrl();
+			
+				//For Descending
+				webPage.findObjectByxPath(test[0][9]).click();
+				Thread.sleep(5000);
+				elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+				log.info("element Size-->" + elementList.size());
+				boolean isSortedDesc= mainPage.isSortedByNameDesc(elementList);
+				log.info("element is shorted: " +isSortedDesc);
+				SoftAssertor.assertEquals(isSortedDesc, true,
+						"element is Not shorted by Product Name in Desc");
+				webPage.getBackToUrl();
 			}
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Name");
@@ -314,7 +323,7 @@ public class Conns_Product_Search extends BaseTest {
 				s.selectByVisibleText(test[0][6]);
 				Thread.sleep(18000);
 				//End
-				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				 s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				s.selectByVisibleText(test[0][7]);
 				Thread.sleep(8000);
 				List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
@@ -322,9 +331,17 @@ public class Conns_Product_Search extends BaseTest {
 				boolean isSorted= mainPage.isSorted(elementPriceList);
 				log.info("element is shorted: " +isSorted);
 				SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by price");
-			//	webPage.findObjectByxPath(test[0][9]).click();
-			//	Thread.sleep(5000);
-			//	webPage.getBackToUrl();
+				
+				//For Descending
+				webPage.findObjectByxPath(test[0][9]).click();
+				Thread.sleep(5000);
+				
+				elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+				log.info("element Size-->" + elementPriceList.size());
+				boolean isSortedInDesc= mainPage.isSortedDesc(elementPriceList);
+				log.info("element is shorted: " +isSortedInDesc);
+				SoftAssertor.assertEquals(isSortedInDesc, true, "element is Not shorted by price");
+				webPage.getBackToUrl();
 			}
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Price");
