@@ -261,9 +261,11 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("productDescription" + productDescription);
 				Assert.assertTrue(productDescription.contains(ProductName),
 						"Product description: " + productDescription + " not having: " + ProductName);
+				//Comment this code for failure
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
 				s.selectByVisibleText(test[0][6]);
 				Thread.sleep(18000);
+				//End
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				s.selectByVisibleText(test[0][7]);
 				Thread.sleep(8000);
@@ -307,9 +309,11 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("productDescription" + productDescription);
 				Assert.assertTrue(productDescription.contains(ProductName),
 						"Product description: " + productDescription + " not having: " + ProductName);
+				//Comment this code for failure
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
 				s.selectByVisibleText(test[0][6]);
 				Thread.sleep(18000);
+				//End
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				s.selectByVisibleText(test[0][7]);
 				Thread.sleep(8000);
@@ -351,21 +355,23 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("productDescription" + productDescription);
 			SoftAssertor.assertTrue(productDescription.contains(ProductName),
 					"Product description: " + productDescription + " not having: " + ProductName);
-			// if (testType.equalsIgnoreCase("Web")) {
 			webPage.findObjectByxPath(test[0][4]).click();
 			log.info("Entering Zip Code");
 			webPage.findObjectByxPath(test[0][5]).clear();
 			webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
 			webPage.findObjectByxPath(test[0][7]).click();
+			if(CommonMethods.verifyElementisPresent(webPage,test[0][8]))
+			{	
+			Assert.assertEquals(webPage.findObjectByxPath(test[0][8]).getText(), test[0][9]);
+			Assert.fail("Delivery not available at given location, Search for another product");
+			}
 			CommonMethods.closeLocationPopupForProductSearch(webPage);
 			Thread.sleep(5000);
-			webPage.findObjectByxPath(test[0][8]).click();
+			webPage.findObjectByxPath(test[0][10]).click();
 			Thread.sleep(5000);
-			SoftAssertor.assertTrue(webPage.findObjectByxPath(test[0][9]).getText().contains(test[0][10]),
-					"Shopping Cart: " + webPage.findObjectByxPath(test[0][9]).getText() + " not having: "
-							+ test[0][10]);
-			// }
-
+			SoftAssertor.assertTrue(webPage.findObjectByxPath(test[0][11]).getText().contains(test[0][12]),
+					"Shopping Cart: " + webPage.findObjectByxPath(test[0][11]).getText() + " not having: "
+							+ test[0][12]);
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_Using_Product_Search");
 			SoftAssertor.addVerificationFailure(e.getMessage());

@@ -63,7 +63,15 @@ public class CommonMethods {
 		}
 		return isElementPresent;
 	}
-	
+	public static boolean verifyElementisPresent(WebPage webPage, String locator){
+		Boolean isElementPresent=false;
+		try{
+			log.info("Verifying if element is present by locator - "+locator);
+			isElementPresent = webPage.findObjectByxPath(locator).isDisplayed();
+		}catch(Throwable e){
+		}
+		return isElementPresent;
+	}
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click on link using x-path and return page url
