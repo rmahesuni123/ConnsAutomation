@@ -261,7 +261,7 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("productDescription" + productDescription);
 				Assert.assertTrue(productDescription.contains(ProductName.substring(0,11)),
 						"Product description: " + productDescription + " not having: " + ProductName.substring(0,11));
-				//Comment this code for failure
+				//Comment this code When sorting defect fixed
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
 				s.selectByVisibleText(test[0][6]);
 				Thread.sleep(18000);
@@ -318,7 +318,7 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("productDescription" + productDescription);
 				Assert.assertTrue(productDescription.contains(ProductName.substring(0,11)),
 						"Product description: " + productDescription + " not having: " + ProductName.substring(0,11));
-				//Comment this code for failure
+				//Comment this code When sorting defect fixed
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
 				s.selectByVisibleText(test[0][6]);
 				Thread.sleep(18000);
