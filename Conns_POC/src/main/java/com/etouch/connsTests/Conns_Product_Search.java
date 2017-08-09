@@ -287,7 +287,7 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("element is shorted: " +isSortedDesc);
 				SoftAssertor.assertEquals(isSortedDesc, true,
 						"element is Not shorted by Product Name in Desc");
-				webPage.getBackToUrl();
+				//webPage.getBackToUrl();
 			}
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Name");
@@ -341,7 +341,7 @@ public class Conns_Product_Search extends BaseTest {
 				boolean isSortedInDesc= mainPage.isSortedDesc(elementPriceList);
 				log.info("element is shorted: " +isSortedInDesc);
 				SoftAssertor.assertEquals(isSortedInDesc, true, "element is Not shorted by price");
-				webPage.getBackToUrl();
+				//webPage.getBackToUrl();
 			}
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Price");
