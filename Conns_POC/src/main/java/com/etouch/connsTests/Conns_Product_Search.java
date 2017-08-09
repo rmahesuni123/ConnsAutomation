@@ -97,7 +97,7 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("Clicked on element " + test[0][2]);
 			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
-			Assert.assertTrue(productDescription.contains(ProductName),
+			Assert.assertTrue(productDescription.contains(ProductName.substring(0,11)),
 					"Product description: " + productDescription + " not having: " + ProductName);
 			String[][] contentData;
 			if (testType.equalsIgnoreCase("Web")) {
@@ -139,7 +139,7 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("Clicked on element " + test[0][2]);
 				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 				log.info("productDescription" + productDescription);
-				Assert.assertTrue(productDescription.contains(ProductName),
+				Assert.assertTrue(productDescription.contains(ProductName.substring(0,11)),
 						"Product description: " + productDescription + " not having: " + ProductName);
 
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
@@ -189,8 +189,8 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("Clicked on element ");
 			String actualProductDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + actualProductDescription);
-			Assert.assertTrue(actualProductDescription.contains("French Door"),
-					"Product description: " + actualProductDescription + " not having: " + "French Door");
+			Assert.assertTrue(actualProductDescription.contains(test[0][1]),
+					"Product description: " + actualProductDescription + " not having: " + test[0][1]);
 			Assert.assertEquals(autoSearchProductDescription, actualProductDescription,
 					"Product" + autoSearchProductDescription + " is not same as: " + actualProductDescription);
 		} catch (Throwable e) {
@@ -259,8 +259,8 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("Clicked on element " + test[0][2]);
 				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 				log.info("productDescription" + productDescription);
-				Assert.assertTrue(productDescription.contains(ProductName),
-						"Product description: " + productDescription + " not having: " + ProductName);
+				Assert.assertTrue(productDescription.contains(ProductName.substring(0,11)),
+						"Product description: " + productDescription + " not having: " + ProductName.substring(0,11));
 				//Comment this code for failure
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
 				s.selectByVisibleText(test[0][6]);
@@ -316,8 +316,8 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("Clicked on element " + test[0][2]);
 				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 				log.info("productDescription" + productDescription);
-				Assert.assertTrue(productDescription.contains(ProductName),
-						"Product description: " + productDescription + " not having: " + ProductName);
+				Assert.assertTrue(productDescription.contains(ProductName.substring(0,11)),
+						"Product description: " + productDescription + " not having: " + ProductName.substring(0,11));
 				//Comment this code for failure
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
 				s.selectByVisibleText(test[0][6]);
