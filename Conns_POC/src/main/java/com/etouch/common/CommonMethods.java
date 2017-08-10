@@ -2,6 +2,7 @@ package com.etouch.common;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +13,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,6 +25,7 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.taf.core.exception.PageException;
+import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.webui.selenium.WebPage;
 
@@ -742,5 +746,155 @@ public class CommonMethods {
 			softAssert.fail(e.getLocalizedMessage());
 		}
 		return webPage.getCurrentUrl();
-	}	
+	}
+	
+	/**
+	 * Method to wait for page load
+	 * @author sjadhav
+	 * @param webPage
+	 * @param softAssert
+	 * @throws InterruptedException
+	 */
+	
+	public boolean waitForPageLoad(WebPage webPage, SoftAssert softAssert) throws InterruptedException
+	{
+		WebDriver driver = webPage.getDriver();
+		int count =0;
+		while(!((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete"))
+		{
+			Thread.sleep(1000);
+			count++;
+			if(count>20&&((JavascriptExecutor)driver).executeScript("return document.readyState").equals("loading"))
+			{
+			softAssert.fail("Unable to complete page load, Took more than 20 sec to load page");
+			return false;
+			}
+			
+		}
+		return true;
+	}
+	
+	/**
+	 * @author sjadhav
+	 * The method used to get text using ID
+	 * Return type is String 
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String getTextbyId(WebPage webPage, String locator, SoftAssert softAssert){
+		String actualText= "";
+		try {
+			log.info("Getting text by using xpath - "+locator);
+			actualText = webPage.findObjectById(locator).getText();
+			log.info("Actual text - "+actualText);
+		} catch (PageException e) {
+			softAssert.fail("Unable to Get Text on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return actualText;
+	}
+	
+	/**
+	 * @author sjadhav
+	 * The method used to get webelement using ID
+	 * Return type is WebElement 
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public WebElement getWebElementbyID(WebPage webPage, String locator, SoftAssert softAssert){
+		WebElement element = null;
+		try{
+			log.info("Finding element using id :"+locator);
+			element=webPage.getDriver().findElement(By.id(locator));
+		}catch(Exception e){
+			softAssert.fail("Unable to find element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return element;
+	}
+	
+	/**
+	 * @author sjadhav
+	 * @param webPage
+	 * @param locator
+	 * @param softAssert
+	 */
+	public void clearTextBoxById(WebPage webPage, String locator,SoftAssert softAssert){
+		try{
+			log.info("Clearing text box with locator: "+locator);
+			webPage.findObjectById(locator).clear();
+		}catch(Exception e){
+			softAssert.fail("Unable to clear text box with locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
+	/**
+	 * 
+	 * @param webPage
+	 * @param locator
+	 * @param softAssert
+	 */
+	public void clearTextBoxByXpath(WebPage webPage, String locator,SoftAssert softAssert){
+		try{
+			log.info("Clearing text box with locator: "+locator);
+			webPage.findObjectByxPath(locator).clear();
+		}
+		catch(InvalidElementStateException e){
+		}catch(Exception e){
+			softAssert.fail("Unable to clear text box with locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
+	
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to enter keys using xpath
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void sendKeysById(WebPage webPage, String locator, String text, SoftAssert softAssert){
+		try{
+			log.info("Entering keys "+text+" ");
+			webPage.findObjectById(locator).sendKeys(text);
+		}catch(Exception e){
+			softAssert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
+	/**
+	 * Method to get data from excel sheet in a Key Value pair HashMap
+	 * @param filePath
+	 * @param sheetName
+	 * @param dataKey
+	 * @return
+	 */
+	public static LinkedHashMap<String, String> getDataInHashMap(String filePath,String sheetName, String dataKey) {
+		  LinkedHashMap<String, String> testData = new LinkedHashMap<String, String>();
+		  try {
+
+		   String[][] testDataArray = ExcelUtil.readExcelData(filePath, sheetName, dataKey);
+
+		   for (int i = 0; i < testDataArray.length; i++) {
+		    testData.put(testDataArray[i][0], testDataArray[i][1]);
+		    // log.info(testDataArray[i][0] + " " + testDataArray[i][1]);
+		   }
+		  } catch (Exception e) {
+		   log.error(
+		     " Failed to read excel data by data key  and store in linked hash map due to :::" + e.getMessage());
+		   e.printStackTrace();
+		  }
+		  return testData;
+		 }
+	
+	/**
+	 * @author sjadhav
+	 * The method used to click element using ID 
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void clickElementById(WebPage webPage, String locator, SoftAssert softAssert){
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			webPage.findObjectById(locator).click();
+		} catch (PageException e) {
+			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
 }
