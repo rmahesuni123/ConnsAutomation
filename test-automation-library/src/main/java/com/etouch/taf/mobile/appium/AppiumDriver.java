@@ -72,7 +72,7 @@ public class AppiumDriver {
 
 				DesiredCapabilities cap = createCapabilities(testBed);
 
-				CommonUtil.sop(" TestBed NNNAAAAAMMMMMEEEE : " + testBed.getTestBedName());
+				CommonUtil.sop(" TestBed Name : " + testBed.getTestBedName());
 
 				/**
 				 * If the testBed doesn't have a individual port, then get the
@@ -90,10 +90,12 @@ public class AppiumDriver {
 					if (ConfigUtil.isRemoteEnv(testBed.getTestBedName()))
 						driver = new IOSDriver(new URL("http://" + tbMgrConfig.getMobileConfig().getHub() + ":"
 								+ tbMgrConfig.getMobileConfig().getPort() + "/wd/hub"), cap);
-					else
+					else{
+						cap.setCapability("automationName", "XCUITest");
 						driver = new IOSDriver(new URL(
 								"http://" + tbMgrConfig.getMobileConfig().getHub() + ":" + currentPort + "/wd/hub"),
 								cap);
+					}
 				} else if (testBed.getApp().getBundleId() == null && testBed.getApp().getAppPath() == null
 						&& testBed.getBrowser().getName() == null) {
 					throw new DriverException(
