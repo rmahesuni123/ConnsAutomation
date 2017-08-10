@@ -8,12 +8,16 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.etouch.common.BaseTest;
+import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 import com.etouch.conns.listener.SoftAssertor;
 import com.etouch.connsPages.ConnsMainPage;
@@ -79,7 +83,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 701, enabled = true)
+	@Test(priority = 701, enabled = false)
 	public void Verify_Details_On_Product_Listing_Page() {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
@@ -146,6 +150,146 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Upto_5_Products_Compared");
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Error in Verify_Upto_5_Products_Compared :" + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			String errors = SoftAssertor.readErrorsForTest();
+			if (errors != null && errors.length() > 0)
+				SoftAssertor.displayErrors();
+		}
+	}
+	
+	@Test(priority = 703, enabled = true)
+	public void Verify_Number_Of_Product_Displayed_From_Product_Listing_Page() throws InterruptedException {
+		try {
+			if (testType.equalsIgnoreCase("Web")) {
+				webPage.navigateToUrl(url);
+				String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
+						"Number_Of_Product_Displayed_From_Product_Listing_Page");
+				ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][1]);
+				log.info("Clicked on French Door");
+                Thread.sleep(7000);
+				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				List<WebElement> list = s.getOptions();
+				String str[] = { list.get(0).getText().toString(), list.get(1).getText().toString(),
+						list.get(2).getText().toString() };
+				String str2[] = test[0][6].split(",");
+				int number;
+				for (int i = 0; i < str.length; i++) {
+					number = Integer.parseInt(str[i].trim());
+					SoftAssertor.assertEquals(number, Integer.parseInt(str2[i]), "Number List:  ");
+					log.info("Started iteration for -->" + number);
+					s.selectByVisibleText(String.valueOf(number));
+					Thread.sleep(5000);
+					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
+					log.info("Number: " + number + "    element Size-->" + elementList.size());
+					SoftAssertor.assertEquals(elementList.size() <= number, true, "element is Not As Expected");
+					log.info("Completed for iteration-->");
+					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				}
+			}
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Number_Of_Product_Displayed_From_Product_Listing_Page");
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Error in Verify_Number_Of_Product_Displayed_From_Product_Listing_Page :" + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			String errors = SoftAssertor.readErrorsForTest();
+			if (errors != null && errors.length() > 0)
+				SoftAssertor.displayErrors();
+		}
+	}
+	
+	@Test(priority = 704, enabled = true)
+	public void Verify_Sorting_By_Product_Name_From_Product_Listing_Page() throws InterruptedException {
+		try {
+			if (testType.equalsIgnoreCase("Web")) {
+				webPage.navigateToUrl(url);
+				String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
+						"Sorting_By_Product_Name_From_Product_Listing_Page");
+				ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][1]);
+				log.info("Clicked on French Door");
+				Thread.sleep(5000);
+				CommonMethods.waitForWebElement(By.xpath(test[0][5]), webPage);
+				//Comment this code When sorting defect fixed
+				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
+				s.selectByVisibleText(test[0][6]);
+				Thread.sleep(8000);
+				
+				//End
+				//Shorted in Ascending
+				 s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				s.selectByVisibleText(test[0][7]);
+				Thread.sleep(8000);
+				
+				List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+				log.info("element Size-->" + elementList.size());
+				boolean isSorted= mainPage.isSortedByName(elementList);
+				log.info("element is shorted: " +isSorted);
+				SoftAssertor.assertEquals(isSorted, true,
+						"element is Not shorted by Product Name");
+			
+				//For Descending
+				webPage.findObjectByxPath(test[0][9]).click();
+				Thread.sleep(5000);
+				elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+				log.info("element Size-->" + elementList.size());
+				boolean isSortedDesc= mainPage.isSortedByNameDesc(elementList);
+				log.info("element is shorted: " +isSortedDesc);
+				SoftAssertor.assertEquals(isSortedDesc, true,
+						"element is Not shorted by Product Name in Desc");
+				//webPage.getBackToUrl();
+			}
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Sorting_By_Product_Name_From_Product_Listing_Page");
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Error in Verify_Sorting_By_Product_Name_From_Product_Listing_Page :" + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			String errors = SoftAssertor.readErrorsForTest();
+			if (errors != null && errors.length() > 0)
+				SoftAssertor.displayErrors();
+		}
+	}
+
+	@Test(priority = 705, enabled = true)
+	public void Verify_Sorting_By_Product_Price_From_Product_Listing_Page() throws InterruptedException {
+		try {
+			if (testType.equalsIgnoreCase("Web")) {
+				webPage.navigateToUrl(url);
+				String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
+						"Sorting_By_Product_Price_From_Product_Listing_Page");
+				ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][1]);
+				log.info("Clicked on French Door");
+				//Comment this code When sorting defect fixed
+				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));	
+				s.selectByVisibleText(test[0][6]);
+				Thread.sleep(7000);
+				CommonMethods.waitForWebElement(By.xpath(test[0][5]), webPage);
+				//End
+				 s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				s.selectByVisibleText(test[0][7]);
+				Thread.sleep(8000);
+				List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+				log.info("element Size-->" + elementPriceList.size());
+				boolean isSorted= mainPage.isSorted(elementPriceList);
+				log.info("element is shorted: " +isSorted);
+				SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by price");
+				
+				//For Descending
+				webPage.findObjectByxPath(test[0][9]).click();
+				Thread.sleep(5000);
+				
+				elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+				log.info("element Size-->" + elementPriceList.size());
+				boolean isSortedInDesc= mainPage.isSortedDesc(elementPriceList);
+				log.info("element is shorted: " +isSortedInDesc);
+				SoftAssertor.assertEquals(isSortedInDesc, true, "element is Not shorted by price");
+				//webPage.getBackToUrl();
+			}
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Sorting_By_Product_Price_From_Product_Listing_Page");
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Error in Verify_Sorting_By_Product_Price_From_Product_Listing_Page :" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			String errors = SoftAssertor.readErrorsForTest();
