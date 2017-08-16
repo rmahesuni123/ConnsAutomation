@@ -5,25 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
+
 
 import org.apache.commons.logging.Log;
-import org.apache.http.HttpResponse;
+
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
@@ -34,15 +29,14 @@ import org.testng.asserts.SoftAssert;
 import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
-import com.etouch.connsPages.ConnsHomePage;
+
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.connsPages.ConnsMoneyMatters;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
-import com.etouch.taf.core.driver.web.WebDriver;
-import com.etouch.taf.core.exception.PageException;
+
 import com.etouch.taf.tools.rally.VideoRecorder;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
@@ -118,10 +112,8 @@ public class Conns_Money_Matters extends BaseTest {
 
 	static Log log = LogUtil.getLog(Conns_Money_Matters.class);
 	Logger logger = Logger.getLogger(Conns_Money_Matters.class.getName());
-	private final int MAX_WAIT = 20;
 
 	private String url;
-	private String PageUrl = "";
 	private WebPage webPage;
 
 	static String platform;
@@ -246,7 +238,6 @@ public class Conns_Money_Matters extends BaseTest {
 			commonMethods.verifyBrokenImage(webPage);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			//e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Images");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -272,7 +263,6 @@ public class Conns_Money_Matters extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			//e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -456,7 +446,6 @@ public class Conns_Money_Matters extends BaseTest {
 			softAssert.assertAll();
 
 		} catch (Throwable e) {
-			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -508,7 +497,7 @@ public class Conns_Money_Matters extends BaseTest {
 			softAssert.assertAll();
 
 		} catch (Throwable e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_MoneyMatters_Text");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -570,92 +559,10 @@ public class Conns_Money_Matters extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-
-		}
-	}	
-	
-/*	public String Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
-
-		try {
-			WebElement element = webPage.findObjectByxPath(test).getWebElement();
-			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
-			executor.executeScript("arguments[0].click();", element);
-		} catch (PageException e) {
-			log.error(e.getMessage());
-			softAssert.fail(e.getLocalizedMessage());
-		}
-		return webPage.getCurrentUrl();
-	}*/
-	
-/*
-	@SuppressWarnings("static-access")
-	@Test(priority = 604, enabled = true, description = "Verify_Font_And_Size")
-	public void Verify_Font_And_Size() 
-	{
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
-			
-			if (testType.equalsIgnoreCase("Web")) 
-			{			
-				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
-			}		
-			
-			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters",
-					"VerifyFontandSize");
-			System.out.println("Length : " + ExpectedFontValues.length);
-			for (int i = 0; i < ExpectedFontValues.length; i++) 
-			{		
-				log.info("Value of i : " + i);						
-				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
-						softAssert);
-
-				if (testType.equalsIgnoreCase("Mobile")) 
-				{					
-					softAssert.assertTrue(actualCssValues.get(0).trim().contains(ExpectedFontValues[i][5].trim()),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font Size : " + ExpectedFontValues[i][5] + " Actual Font Size : "
-									+ actualCssValues.get(0));
-					
-					softAssert.assertTrue(actualCssValues.get(1).trim().contains(ExpectedFontValues[i][6].trim()),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font family : "
-									+ actualCssValues.get(1));
-
-					softAssert.assertTrue(actualCssValues.get(2).trim().contains(ExpectedFontValues[i][4].trim()),
-								"CSS value verification failed for link " + ExpectedFontValues[i][0]
-										+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
-										+ actualCssValues.get(2));
-				} else 
-				{
-					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font Size : " + ExpectedFontValues[i][2] + " Actual Font Size : "
-									+ actualCssValues.get(0));
-					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][3]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
-									+ actualCssValues.get(1));
-					softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((ExpectedFontValues[i][4]).toLowerCase()),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
-									+ actualCssValues.get(2));	
-				}
-			}		
-			softAssert.assertAll();
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size");
+			mainPage.getScreenShotForFailure(webPage, "Verify_MoneyMatters_Text");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}	
- */
-	
-	
-	
 	
 }	

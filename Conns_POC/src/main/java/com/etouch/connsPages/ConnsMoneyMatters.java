@@ -54,44 +54,6 @@ public class ConnsMoneyMatters extends CommonPage {
 		super(sbPageUrl, webPage);
 		CommonUtil.sop("webDriver in eTouchWebSite Page : " + webPage.getDriver());
 		loadPage();
-		//webPage.getDriver().manage().window().maximize();
 	}
-	
-
-	public List<String> getFontProperties1(WebPage webPage,String locator, SoftAssert softAssert){
-		System.out.println("Test1");
-		List<String> actualValueList=new ArrayList<String>();
-		try{
-			System.out.println(commonMethods.getCssvaluebyXpath(webPage,locator,"font-size",softAssert));
-			actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"font-size",softAssert));
-			
-			
-/*			actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"color",softAssert));
-			System.out.println(actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"color",softAssert)));
-			
-			actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"font-family",softAssert));
-			System.out.println(actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"font-family",softAssert)));
-			
-			actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"font-weight",softAssert));
-			System.out.println(actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"font-weight",softAssert)));
-			
-			actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"background-color",softAssert));
-			System.out.println(actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"background-color",softAssert)));
-			
-			actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"text-align",softAssert));
-			System.out.println(actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"text-align",softAssert)));
-			
-			actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"text-transform",softAssert));
-			System.out.println(actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"text-transform",softAssert)));
-			
-			actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"text-decoration",softAssert));
-			System.out.println(actualValueList.add(commonMethods.getCssvaluebyXpath(webPage,locator,"text-decoration",softAssert)));*/
-		}catch(Exception e){
-			softAssert.fail("Unable to get font properties for locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
-		}
-		System.out.println("actualValueList.size : " + actualValueList.size());
-		System.out.println("actualValueList : " + actualValueList);
-		return actualValueList;
-	}	
 	
 }	
