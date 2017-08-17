@@ -16,7 +16,8 @@ import org.apache.http.client.ClientProtocolException;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import org.testng.Assert;
@@ -287,6 +288,16 @@ public class Conns_Money_Matters extends BaseTest {
 			
 			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
 			
+			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+	        int width = ((Long) js.executeScript("return window.innerWidth || document.body.clientWidth")).intValue() ;
+	        log.info("width value calculated is :" +width);
+	        int height = ((Long) js.executeScript("return window.innerHeight || document.body.clientHeight")).intValue() ;
+	        log.info("height value calculated is :" +height);
+	        Dimension dimension  = new Dimension(width, height);			
+	        System.out.println("Dimensions" + dimension);        
+	        
+	        //Dimension[width=600,height=792]			
+			
 			if (testType.equalsIgnoreCase("Web")) 
 			{			
 				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
@@ -344,7 +355,8 @@ public class Conns_Money_Matters extends BaseTest {
 			
 			if (testType.equalsIgnoreCase("Mobile")) 
 			{
-				if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().contains("Tab"))
+				if(width>599||width<800)
+				//if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().contains("Tab"))
 				//if(deviceName.contains("Tab"))
 				{				
 					for (int i = 0; i < ExpectedFontValuesTab.length; i++) 

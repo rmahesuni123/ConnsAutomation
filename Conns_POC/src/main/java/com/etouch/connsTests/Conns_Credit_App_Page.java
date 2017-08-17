@@ -133,21 +133,14 @@ public class Conns_Credit_App_Page extends BaseTest {
 			String[][] ExpectedFontValuesMobile = ExcelUtil.readExcelData(DataFilePath, "CreditApp","VerifyFontandSizeMobile");
 			
 			CreditAppPage.navigateToCreditAppPage(softAssert);  
-			System.out.println("Testing Testing!");
-			
-			//System.out.println("Dimensions" + webPage.getDriver().manage().window().getSize());
-			//System.out.println("Dimensions" + webPage.getDriver().manage().window().getSize().getWidth());
-			//System.out.println("Dimensions" + webPage.getDriver().manage().window().getSize().toString());
-			
-			
+		
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 	        int width = ((Long) js.executeScript("return window.innerWidth || document.body.clientWidth")).intValue() ;
 	        log.info("width value calculated is :" +width);
 	        int height = ((Long) js.executeScript("return window.innerHeight || document.body.clientHeight")).intValue() ;
 	        log.info("height value calculated is :" +height);
 	        Dimension dimension  = new Dimension(width, height);			
-	        System.out.println("Dimensions" + dimension);
-	        
+	        System.out.println("Dimensions" + dimension);        
 	        
 	        //Dimension[width=600,height=792]
 			
