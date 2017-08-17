@@ -125,7 +125,7 @@ public class Conns_Product_Search extends BaseTest {
 	}
 
 	@Test(priority = 408, enabled = true)
-	public void Verify_Product_Search_And_Number_Of_Product_Displayed() throws InterruptedException {
+	public void Verify_Number_Of_Product_Displayed_Per_Page_Using_Product_Search() throws InterruptedException {
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
 				webPage.navigateToUrl(url);
@@ -137,11 +137,11 @@ public class Conns_Product_Search extends BaseTest {
 				webPage.findObjectById(Identifier).sendKeys(ProductName);
 				webPage.findObjectByClass(test[0][2]).click();
 				log.info("Clicked on element " + test[0][2]);
-				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
+				/*	String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 				log.info("productDescription" + productDescription);
 				Assert.assertTrue(productDescription.contains(ProductName.substring(0,11)),
 						"Product description: " + productDescription + " not having: " + ProductName);
-
+*/
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				List<WebElement> list = s.getOptions();
 				String str[] = { list.get(0).getText().toString(), list.get(1).getText().toString(),
@@ -163,9 +163,9 @@ public class Conns_Product_Search extends BaseTest {
 				}
 			}
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Number_Of_Product_Displayed");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Number_Of_Product_Displayed_Per_Page_Using_Product_Search");
 			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("Error in Verify_Product_Search_And_Number_Of_Product_Displayed :" + e.getMessage());
+			log.error("Error in Verify_Number_Of_Product_Displayed_Per_Page_Using_Product_Search :" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			String errors = SoftAssertor.readErrorsForTest();
