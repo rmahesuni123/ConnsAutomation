@@ -344,7 +344,8 @@ public class Conns_Money_Matters extends BaseTest {
 			
 			if (testType.equalsIgnoreCase("Mobile")) 
 			{
-				if(deviceName.contains("Tab"))
+				if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().contains("Tab"))
+				//if(deviceName.contains("Tab"))
 				{				
 					for (int i = 0; i < ExpectedFontValuesTab.length; i++) 
 					{
