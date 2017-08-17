@@ -3,6 +3,7 @@ package com.etouch.connsPages;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,12 +19,16 @@ import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
 import com.etouch.common.CommonPage;
+import com.etouch.taf.core.TestBed;
+import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.datamanager.excel.TestParameters;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
+
+import org.testng.ITestContext;
 
 public class ConnsAccountAndSignInPage extends CommonPage {
 
@@ -39,6 +44,10 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	static Log log = LogUtil.getLog(ConnsAccountAndSignInPage.class);
 	String testType;
 	String testBedName;
+	TestBed testBed;
+	Path path;
+	String DataFilePath;
+	static String platform;
 	CommonMethods commonMethods = new CommonMethods();
 
 	public ConnsAccountAndSignInPage(String sbPageUrl, WebPage webPage) {
@@ -327,7 +336,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		return errorMessage;
 	}	
 	
-	static int r = 0;
+	
 	public List<String> verify_Links_Account_Tab(String[][] testdata) {
 		List<String> brokenLinks = new ArrayList<String>();
 		String ParentElementLocator = null;
@@ -347,6 +356,13 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				Expected_Page_Element_Name = testdata[r][4];
 				Expected_Page_Element_Title = testdata[r][5];
 				log.info("Parent Locator is ..." + ParentElementLocator);
+				/*testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
+				CommonUtil.sop("Test bed Name is " + testBedName);
+				testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+				testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+				log.info("Test Type is : " + testType);
+				platform = testBed.getPlatform().getName().toUpperCase();*/
+				
 				
 				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
 					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
@@ -402,23 +418,49 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 							//webPage.getDriver().navigate().back();
 							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+							
+							/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+						}
+							else {
+								webPage.getDriver().navigate().back();
+							}*/
 						}
 							} catch (Exception e) {
 						//webPage.getDriver().navigate().back();
+						e.printStackTrace();
 						JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
-					}
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari */	
+						
+						/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+						}
+							else {
+								webPage.getDriver().navigate().back();
+							}*/
+						}
 				}
 
 			} catch (Exception e) {
 				//webPage.getDriver().navigate().back();
 				JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-				js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+				js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+				
+				/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+				}
+					else {
+						webPage.getDriver().navigate().back();
+					}*/
 				brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 				log.info("getLocalizedMessage :"); 
 				e.printStackTrace();
 			}
 			r++;
+			log.info(" ******************************* incremented value of r second : " +r);
 
 		if (brokenLinks.size() > 0) {
 			Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
@@ -427,6 +469,420 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	}
 
 
+	
+	
+	
+	
+	public List<String> verify_Account_DashBoard_Link(String[][] testdata) {
+		List<String> brokenLinks = new ArrayList<String>();
+		String ParentElementLocator = null;
+		String ChildElementLocator = null;
+		String Expected_Page_URL = null;
+		String Expected_Page_Element_Name = null;
+		String Expected_Page_Element_Title = null;
+		List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
+		String Actual_Page_URL="";
+		String Actual_Page_Title="";
+		String Actual_Page_Element_Name="";
+			try {
+				log.info("Verifying " + testdata[r][0]);
+				ParentElementLocator = testdata[r][1];
+				ChildElementLocator = testdata[r][2];
+				Expected_Page_URL = testdata[r][3];
+				Expected_Page_Element_Name = testdata[r][4];
+				Expected_Page_Element_Title = testdata[r][5];
+				log.info("Parent Locator is ..." + ParentElementLocator);
+				/*testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
+				CommonUtil.sop("Test bed Name is " + testBedName);
+				testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+				testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+				log.info("Test Type is : " + testType);
+				platform = testBed.getPlatform().getName().toUpperCase();*/
+				
+				
+				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+				}
+				log.info("********** Before Execution ******************");
+				Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
+				Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+				//SoftAssertor.assertEquals(Actual_Page_ELement_Name, Expected_Page_Element_Name, "Element name does not match");
+				//webPage.findObjectByxPath(ChildElementLocator).click();
+				String existingWindow = null;
+				String newWindow = null;
+				existingWindow = webPage.getDriver().getWindowHandle();
+				Set<String> windows = webPage.getDriver().getWindowHandles();
+				if (windows.size() >= 2) {
+					windows.remove(existingWindow);
+					newWindow = windows.iterator().next();
+					log.info("Existing window id is" + existingWindow);
+					log.info("New window id is" + newWindow);
+					webPage.getDriver().switchTo().window(newWindow);
+					Thread.sleep(3000);
+					Actual_Page_URL = webPage.getCurrentUrl();
+					Actual_Page_Title = webPage.getPageTitle();
+					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+					
+					webPage.getDriver().close();
+					webPage.getDriver().switchTo().window(existingWindow);
+					log.info("Actual Element Name" + Actual_Page_Element_Name);
+					log.info("Expected Element Name" + Expected_Page_Element_Name);
+					log.info("Actual Page Title" + Actual_Page_Title);
+					log.info("Expected Element Title" + Expected_Page_Element_Title);
+					log.info("Expected URL" + Expected_Page_URL);
+					log.info("Actual URL" + Actual_Page_URL);
+					
+				} else {
+					log.info("******************* Else Execution***************");
+					Actual_Page_URL = webPage.getCurrentUrl();
+					Actual_Page_Title = webPage.getPageTitle();
+					Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					log.info("Actual Element Name : " + Actual_Page_Element_Name);
+					log.info("Expected Element Name : " + Expected_Page_Element_Name);
+					log.info("Actual Page Title : " + Actual_Page_Title);
+					log.info("Expected Element Title : " + Expected_Page_Element_Title);
+					log.info("Actual URL : " + Actual_Page_URL);
+					log.info("Expected URL : " + Expected_Page_URL);
+					try {
+						if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
+								&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
+								&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
+							//webPage.getDriver().navigate().back();
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+							
+							/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+						}
+							else {
+								webPage.getDriver().navigate().back();
+							}*/
+						}
+							} catch (Exception e) {
+						//webPage.getDriver().navigate().back();
+						e.printStackTrace();
+						JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+						//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari */	
+						
+						/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+						}
+							else {
+								webPage.getDriver().navigate().back();
+							}*/
+						}
+				}
+
+			} catch (Exception e) {
+				//webPage.getDriver().navigate().back();
+				JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+				//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+				
+				/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+				}
+					else {
+						webPage.getDriver().navigate().back();
+					}*/
+				brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
+				log.info("getLocalizedMessage :"); 
+				e.printStackTrace();
+			}
+			r++;
+			log.info(" ******************************* incremented value of r second : " +r);
+
+		if (brokenLinks.size() > 0) {
+			Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
+		}
+		return Page_URL_Title_Element_Data;
+	}
+
+	
+	public List<String> verify_Pay_Your_Bill_Link_Account_Dashboard(String[][] testdata) {
+		SoftAssert softAssert = new SoftAssert();
+		List<String> brokenLinks = new ArrayList<String>();
+		String ParentElementLocator = null;
+		String ChildElementLocator = null;
+		String Expected_Page_URL = null;
+		String Expected_Page_Element_Name = null;
+		String Expected_Page_Element_Title = null;
+		List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
+		String Actual_Page_URL="";
+		String Actual_Page_Title="";
+		String Actual_Page_Element_Name="";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator = "";
+		String TestCaseName = "";
+			try {
+				log.info("Verifying " + testdata[r][0]);
+				ParentElementLocator = testdata[r][1];
+				ChildElementLocator = testdata[r][2];
+				Expected_Page_URL = testdata[r][3];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator = testdata[r][4];
+				//TestCaseName = testdata[0][0];
+				//Expected_Page_Element_Name = testdata[r][4];
+				Expected_Page_Element_Title = testdata[r][5];
+				
+				log.info("Parent Locator is ..." + ParentElementLocator);
+				/*testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
+				CommonUtil.sop("Test bed Name is " + testBedName);
+				testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+				testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+				log.info("Test Type is : " + testType);
+				platform = testBed.getPlatform().getName().toUpperCase();*/
+				
+				
+				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+				}
+					log.info("********** Pay_Your_Bill_Page_Link_ChildElementLocator_Execution_Starts : ******************" +ChildElementLocator);
+					log.info("********** Before Execution ******************");
+					log.info("********** Inside TestCaseName Execution ******************");
+					Thread.sleep(3000);
+					
+					log.info("********** Pay_Your_Bill_Page_Link_Test_Case_Name_Execution ******************" + testdata[r][0]);
+					log.info("********** Pay_Your_Bill_Page_Link_ChildElementLocator_Clicked_For_Other_Links_Execution_Starts : ******************" +ChildElementLocator);
+					//Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text);
+					commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
+					String existingWindow = null;
+					String newWindow = null;
+					existingWindow = webPage.getDriver().getWindowHandle();
+					Set<String> windows = webPage.getDriver().getWindowHandles();
+					if (windows.size() >= 2 ) {
+					windows.remove(existingWindow);
+					newWindow = windows.iterator().next();
+					log.info("Existing window id is" + existingWindow);
+					log.info("New window id is" + newWindow);
+					webPage.getDriver().switchTo().window(newWindow);
+					Thread.sleep(9000);
+					log.info("********** Pay_Your_Bill_Page_Link_Execution_Starts : ******************" );
+					
+					Actual_Page_URL = webPage.getCurrentUrl();
+					Actual_Page_Title = webPage.getPageTitle();
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1 = webPage.findObjectByxPath(Pay_Your_Bill_Page_Links_Page_Element_Locator).getText();
+					log.info("********** Pay_Your_Bill_Page_Link_Execution ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1);
+					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					Thread.sleep(3000);
+					webPage.getDriver().close();
+					webPage.getDriver().switchTo().window(existingWindow);
+					log.info("Pay_Your_Bill_Page_Links_Page_Element_Text : " + Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1);
+					log.info("Actual Page Title : " + Actual_Page_Title);
+					log.info("Expected Page Title : " + Expected_Page_Element_Title);
+					log.info("Expected URL : " + Expected_Page_URL);
+					log.info("Actual URL :  " + Actual_Page_URL);
+					
+				} else {
+					log.info("******************* Else Execution***************");
+					Actual_Page_URL = webPage.getCurrentUrl();
+					Actual_Page_Title = webPage.getPageTitle();
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text = webPage.findObjectByxPath(Pay_Your_Bill_Page_Links_Page_Element_Locator).getText();
+					log.info("********** Pay_Your_Bill_Page_Link_Execution ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text);
+					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text);
+
+					
+					log.info("********** Pay_Your_Bill_Page_Link_Execution_Starts : ******************" );
+					//String Actual_Pay_Your_Bill_Page_Element_Text = webPage.findObjectByxPath(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text).getText();
+					//log.info("********** Pay_Your_Bill_Page_Link_Execution_Over ****************** : " + Actual_Pay_Your_Bill_Page_Element_Text);
+					//log.info("Actual Element Name : " + Actual_Page_Element_Name);
+					log.info("Actual_Pay_Your_Bill_Page_Links_Page_Element_Text : " + Pay_Your_Bill_Page_Links_Child_Element_Locator_Text);
+					log.info("Actual Page Title : " + Actual_Page_Title);
+					log.info("Expected Page Title : " + Expected_Page_Element_Title);
+					log.info("Actual URL : " + Actual_Page_URL);
+					log.info("Expected URL : " + Expected_Page_URL);
+					try {
+						if (!Pay_Your_Bill_Page_Links_Child_Element_Locator_Text.equalsIgnoreCase("« Go back")	&& !Pay_Your_Bill_Page_Links_Child_Element_Locator_Text.equalsIgnoreCase("SAVE ADDRESS")
+								&& !Pay_Your_Bill_Page_Links_Child_Element_Locator_Text.equalsIgnoreCase("Newsletter Subscription")) {
+							//webPage.getDriver().navigate().back();
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");	// Used for Safari
+							
+							/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+						}
+							else {
+								webPage.getDriver().navigate().back();
+							}*/
+						}
+							/*} catch (Exception e) {
+						//webPage.getDriver().navigate().back();
+						e.printStackTrace();
+						JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");*
+						/// Used for Safari */	
+						
+						/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+						}							else {
+								webPage.getDriver().navigate().back();
+							}*/
+						//}
+				//}
+
+		} catch (Exception e) {
+				webPage.getDriver().navigate().back();
+				JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+				js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+		}
+			
+				/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+				}
+					else {
+						webPage.getDriver().navigate().back();
+					}*/
+					} 
+			} catch (Exception e) {
+
+				brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
+				log.info("getLocalizedMessage :"); 
+				e.printStackTrace();
+			}
+			r++;
+			log.info(" ******************************* incremented value of r second : " +r);
+
+		if (brokenLinks.size() > 0) {
+			Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
+		}
+		return Page_URL_Title_Element_Data;
+	}
+			
+	
+	static int r = 0;
+		public List<String> verify_Links_Resizeable_Account_Tab(String[][] testdata) {
+			List<String> brokenLinks = new ArrayList<String>();
+			SoftAssert softAssert = new SoftAssert();
+			String ParentElementLocator = null;
+			String ChildElementLocator = null;
+			String Expected_Page_URL = null;
+			String Expected_Page_Element_Name = null;
+			String Expected_Page_Element_Title = null;
+			String Account_DashBoard_Mobile_Drop_Down_Link = null;
+			String Safari_Path_ChildElementLocator = null;
+			String NameofTestCase = testdata[6][0];
+
+			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
+			String Actual_Page_URL="";
+			String Actual_Page_Title="";
+			String Actual_Page_Element_Name="";
+				try {
+					log.info(" ******************************* incremented value of r one *********************  : " +r);
+					log.info(" ******************** Verifying *************************" + testdata[r][0]);
+					ParentElementLocator = testdata[r][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
+					ChildElementLocator = testdata[r][3];
+					Expected_Page_URL = testdata[r][4];
+					Expected_Page_Element_Name = testdata[r][5];
+					Expected_Page_Element_Title = testdata[r][6];
+					
+					//Safari_Path_ChildElementLocator = testdata[r][8];
+					log.info("Parent Locator is ..." + ParentElementLocator);
+					
+					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+					}
+					log.info("********** Before Execution ******************");
+					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
+					Thread.sleep(5000);
+					log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
+					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
+					String existingWindow = null;
+					String newWindow = null;
+					existingWindow = webPage.getDriver().getWindowHandle();
+					Set<String> windows = webPage.getDriver().getWindowHandles();
+					if (windows.size() >= 2) {
+						windows.remove(existingWindow);
+						newWindow = windows.iterator().next();
+						log.info("Existing window id is" + existingWindow);
+						log.info("New window id is" + newWindow);
+						webPage.getDriver().switchTo().window(newWindow);
+						Thread.sleep(3000);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(existingWindow);
+						log.info("Actual Element Name" + Actual_Page_Element_Name);
+						log.info("Expected Element Name" + Expected_Page_Element_Name);
+						log.info("Actual Page Title" + Actual_Page_Title);
+						log.info("Expected Element Title" + Expected_Page_Element_Title);
+						log.info("Expected URL" + Expected_Page_URL);
+						log.info("Actual URL" + Actual_Page_URL);
+						
+					} else {
+						log.info("******************* Else Execution***************");
+						//CommonMethods.waitForWebElement(By.xpath(Actual_Page_Element_Name), webPage);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);	
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						log.info("Actual Element Name : " + Actual_Page_Element_Name);
+						log.info("Expected Element Name : " + Expected_Page_Element_Name);
+						log.info("Actual Page Title : " + Actual_Page_Title);
+						log.info("Expected Element Title : " + Expected_Page_Element_Title);
+						log.info("Actual URL : " + Actual_Page_URL);
+						log.info("Expected URL : " + Expected_Page_URL);
+
+						try {
+							if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
+
+								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
+								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
+								}
+						
+								} catch (Exception e) {
+									e.printStackTrace();
+									/*webPage.getDriver().navigate().back();*/
+									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+
+						}
+					}
+					
+				} catch (Exception e) {
+					/*webPage.getDriver().navigate().back();*/
+					e.printStackTrace();
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
+					log.info("getLocalizedMessage :"); 
+					e.printStackTrace();
+				}
+				r++;
+				log.info(" ******************************* incremented value of r second *********************  : " +r);
+			if (brokenLinks.size() > 0) {
+				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
+			}
+			return Page_URL_Title_Element_Data;
+			
+		}
+
+		
+		
+	
+	
+	
+	
 /*	public void verifyFontandSizeOnLoginPage(String [][] test_data)
 			throws PageException, InterruptedException {
 		Thread.sleep(2000);
