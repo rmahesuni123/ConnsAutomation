@@ -21,6 +21,7 @@ import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 import com.etouch.conns.listener.SoftAssertor;
 import com.etouch.connsPages.ConnsMainPage;
+import com.etouch.connsPages.ConnsProductPurchasePage;
 import com.etouch.connsPages.ConnsStoreLocatorPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
@@ -395,6 +396,7 @@ public class Conns_Product_Search extends BaseTest {
 			CommonMethods.waitForWebElement(By.xpath(test[0][10]), webPage);
 			webPage.findObjectByxPath(test[0][10]).click();
 			//Thread.sleep(5000);
+			ConnsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage);
 			CommonMethods.waitForWebElement(By.xpath(test[0][11]), webPage);
 			SoftAssertor.assertTrue(webPage.findObjectByxPath(test[0][11]).getText().contains(test[0][12]),
 					"Shopping Cart: " + webPage.findObjectByxPath(test[0][11]).getText() + " not having: "
