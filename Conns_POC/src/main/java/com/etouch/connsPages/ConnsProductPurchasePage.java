@@ -1484,20 +1484,12 @@ public class ConnsProductPurchasePage {
 			softAssert.fail(e.getLocalizedMessage());
 		}
 	}
-	public static void page_Is_Shopping_Cart_Empty(WebPage webPage) {
-		try {
-		//	if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
-				boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
-				System.out.println("isShoppingCartEmpty:" + isShoppingCartEmpty);
-				Assert.assertFalse(isShoppingCartEmpty,
-						"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
-				// break;
-		//	} else {
-		//		log.info("shopping cart empty message is not displayed");
-		//	}
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-		}
+	public static void page_Is_Shopping_Cart_Empty(WebPage webPage) throws InterruptedException {
+		Thread.sleep(3000);
+		boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+		System.out.println("isShoppingCartEmpty:" + isShoppingCartEmpty);
+		Assert.assertFalse(isShoppingCartEmpty,
+				"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
 	}
 
 	public String page_Pickup_Checkout_Flow_Cash_On_Delivery(WebPage webPage2, String[][] checkoutFlowCommonLocators,

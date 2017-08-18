@@ -49,7 +49,15 @@ public class CommonMethods {
 			softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-
+	public static void navigateToPage(WebPage webPage,String navigatingUrl){
+		try {
+			log.info("Navigating to URL: "+navigatingUrl);
+			webPage.loadPage(navigatingUrl);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			//softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to verify if element is present
