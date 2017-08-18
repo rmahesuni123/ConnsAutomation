@@ -256,7 +256,7 @@ public class Conns_Product_Search extends BaseTest {
 				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 				log.info("productDescription" + productDescription);
 				Select s;
-				if (testType.equalsIgnoreCase("Web")||(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().equalsIgnoreCase("iPad"))) 
+				if (testType.equalsIgnoreCase("Web")/*||(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().equalsIgnoreCase("iPad"))*/) 
 				{
 					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				} else {
@@ -309,7 +309,7 @@ public class Conns_Product_Search extends BaseTest {
 				String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 				log.info("productDescription" + productDescription);
 				Select s;
-				if (testType.equalsIgnoreCase("Web")||(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().equalsIgnoreCase("iPad"))) {
+				if (testType.equalsIgnoreCase("Web")/*||(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().equalsIgnoreCase("iPad"))*/) {
 					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				} else {
 					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][10]))));
