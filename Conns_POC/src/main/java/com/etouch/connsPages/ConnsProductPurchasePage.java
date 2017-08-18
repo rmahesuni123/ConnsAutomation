@@ -85,7 +85,17 @@ public class ConnsProductPurchasePage {
 			softAssert.fail(e.getLocalizedMessage());
 		}
 	}
-
+	public static void Click_On_Element_JS(WebPage webPage, String test) {
+		try {
+			WebElement element = webPage.findObjectByxPath(test).getWebElement();
+			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+			executor.executeScript("arguments[0].click();", element);
+			log.info("clicked on :" + test);
+		} catch (PageException e) {
+			log.error(e.getMessage());
+		
+		}
+	}
 	public void Add_To_Cart(WebPage webPage, String[][] addToCart, SoftAssert softAssert) {
 		String ProductText = null;
 		WebElement product;
