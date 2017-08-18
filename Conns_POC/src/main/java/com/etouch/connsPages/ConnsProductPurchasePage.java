@@ -1486,15 +1486,15 @@ public class ConnsProductPurchasePage {
 	}
 	public static void page_Is_Shopping_Cart_Empty(WebPage webPage) {
 		try {
-			if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
+		//	if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
 				boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
 				System.out.println("isShoppingCartEmpty:" + isShoppingCartEmpty);
 				Assert.assertFalse(isShoppingCartEmpty,
 						"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
 				// break;
-			} else {
-				log.info("shopping cart empty message is not displayed");
-			}
+		//	} else {
+		//		log.info("shopping cart empty message is not displayed");
+		//	}
 		} catch (Throwable e) {
 			log.error(e.getMessage());
 		}

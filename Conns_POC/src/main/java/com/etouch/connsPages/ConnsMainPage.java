@@ -97,8 +97,8 @@ public class ConnsMainPage extends CommonPage {
 	public boolean isSorted(List<WebElement> list) {
 		boolean sorted = true;
 		for (int i = 1; i < list.size(); i++) {
-			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());
+			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
+					+ list.get(i).getText());*/
 			if (list.get(i - 1).getText().compareTo(list.get(i).getText()) > 0) {
 				System.out.println(
 						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
@@ -110,8 +110,8 @@ public class ConnsMainPage extends CommonPage {
 	public boolean isSortedFloat(List<WebElement> list) {
 		boolean sorted = true;
 		for (int i = 1; i < list.size(); i++) {
-			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());
+			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
+					+ list.get(i).getText());*/
 			if (Float.parseFloat(list.get(i-1).getText().replace("$", "").replace(",", ""))>Float.parseFloat(list.get(i).getText().replace("$", "").replace(",", ""))) {
 				System.out.println(
 						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
@@ -123,8 +123,8 @@ public class ConnsMainPage extends CommonPage {
 	public boolean isSortedDescFloat(List<WebElement> list) {
 		boolean sorted = true;
 		for (int i = 1; i < list.size(); i++) {
-			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());
+			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
+					+ list.get(i).getText());*/
 			if (Float.parseFloat(list.get(i-1).getText().replace("$", "").replace(",", ""))<Float.parseFloat(list.get(i).getText().replace("$", "").replace(",", ""))) {
 				System.out.println(
 						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
@@ -137,8 +137,8 @@ public class ConnsMainPage extends CommonPage {
 	public boolean isSortedDesc(List<WebElement> list) {
 		boolean sorted = true;
 		for (int i = 1; i < list.size(); i++) {
-			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());
+		/*	System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
+					+ list.get(i).getText());*/
 			if (list.get(i - 1).getText().compareTo(list.get(i).getText()) < 0) {
 				System.out.println(
 						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
@@ -163,8 +163,8 @@ public class ConnsMainPage extends CommonPage {
 	public boolean isSortedByNameDesc(List<WebElement> list) {
 		boolean sorted = true;
 		for (int i = 1; i < list.size(); i++) {
-			System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());
+			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
+					+ list.get(i).getText());*/
 			if (list.get(i - 1).getText().substring(0, 2).compareTo(list.get(i).getText().substring(0, 2)) < 0) {
 				System.out.println(
 						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
