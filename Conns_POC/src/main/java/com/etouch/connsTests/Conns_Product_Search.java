@@ -380,9 +380,8 @@ public class Conns_Product_Search extends BaseTest {
 			// Thread.sleep(5000);
 			CommonMethods.waitForWebElement(By.xpath(test[0][10]), webPage);
 			webPage.findObjectByxPath(test[0][10]).click();
-			// Thread.sleep(5000);
-			ConnsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage);
-			CommonMethods.waitForWebElement(By.xpath(test[0][11]), webPage);
+			Assert.assertFalse(webPage.getDriver().getPageSource().contains("Shopping Cart is Empty"),
+					"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
 			SoftAssertor.assertTrue(webPage.findObjectByxPath(test[0][11]).getText().contains(test[0][12]),
 					"Shopping Cart: " + webPage.findObjectByxPath(test[0][11]).getText() + " not having: "
 							+ test[0][12]);
