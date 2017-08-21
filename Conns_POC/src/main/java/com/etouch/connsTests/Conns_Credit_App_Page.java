@@ -101,7 +101,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * @throws Exception 
 	 * 
 	 */
-	@Test(priority = 1, enabled = false, description = "Verify Page Title")
+	@Test(priority = 1, enabled = true, description = "Verify Page Title")
 	public void verify_Page_Title()throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -118,7 +118,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 2, enabled = false, description = "verify Font Size And Style")
+	@Test(priority = 2, enabled = true, description = "verify Font Size And Style")
 	public void verify_Font_Size_And_Style() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -171,7 +171,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 3, enabled = false, description = "Verify Page Content")
+	@Test(priority = 3, enabled = true, description = "Verify Page Content")
 	public void verify_Page_Content() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		CreditAppPage.navigateToCreditAppPage(softAssert);  
@@ -212,7 +212,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * @throws Exception 
 	 * 
 	 */
-	@Test(priority = 4, enabled = false, description = "verify Link Navigation")
+	@Test(priority = 4, enabled = true, description = "verify Link Navigation")
 	public void verify_Link_Navigation() throws Exception {
 		log.info("testing verifyLinkNavigation started------>");
 		SoftAssert softAssert = new SoftAssert();
@@ -246,7 +246,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 5, enabled = false, description = "verify form is rendered with blank fields")
+	@Test(priority = 5, enabled = true, description = "verify form is rendered with blank fields")
 	public void verify_Form_Is_Displayed_With_Blank_Field() throws Exception
 	{
 		//try{
@@ -266,7 +266,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		Assert.fail(e.getLocalizedMessage());
 	}
 }
-	@Test(priority = 6, enabled = false, description = "verify Mandatory Field Validation WithoutData")
+	@Test(priority = 6, enabled = true, description = "verify Mandatory Field Validation WithoutData")
 	public void verify_Mandatory_Field_Validation_Without_Data() throws Exception
 	{
 		log.info("testing verifyMandatoryFieldValidationWithoutData started------>");
@@ -296,7 +296,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * Mortage Rent,Monthly Income,Other income
 	 * @throws Exception 
 	 */
-	@Test(priority=7, enabled = false, description = "verify Error Msg With Blank Data")
+	@Test(priority=7, enabled = true, description = "verify Error Msg With Blank Data")
 	public void verify_Field_Validation_Error_Message_With_InValid_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -320,7 +320,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * Test Case 008 - Verify City and State Auto populates after entering valid Zip Code
 	 * @throws Exception
 	 */
-	@Test(priority=8, enabled = false, description = "Verify Field Auto Populates")
+	@Test(priority=8, enabled = true, description = "Verify Field Auto Populates")
 	public void verify_City_State_Fields_Auto_Populates() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -344,7 +344,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * Test Case 009 - Verify Verify Years There Drop Down Values
 	 * @throws Exception
 	 */
-	@Test(priority=9, enabled = false, description = "verify Years There Drop Down Values")
+	@Test(priority=9, enabled = true, description = "verify Years There Drop Down Values")
 	public void verify_Years_There_DropDown_Values() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -365,7 +365,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * Test Case 010 - verify City And State Fields Are Editable
 	 * @throws Exception
 	 */
-	@Test(priority=10, enabled = false, description = "verify City And State Fields Are Editable")
+	@Test(priority=10, enabled = true, description = "verify City And State Fields Are Editable")
 	public void verify_City_And_State_Field_Are_Editable() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -391,7 +391,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * Test Case 011 - verify Main Source Of Income Field
 	 * @throws Exception
 	 */
-	@Test(priority=11, enabled = false, description = "verify Main Source Of Income Field")
+	@Test(priority=11, enabled = true, description = "verify Main Source Of Income Field")
 	public void verify_Main_Source_Of_Income_Field() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -427,7 +427,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 }
 	
 
-	@Test(priority=12, enabled = false, description = "verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields")
+	@Test(priority=12, enabled = true, description = "verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields")
 	public void verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -456,7 +456,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		Assert.fail(e.getLocalizedMessage());
 	}
 }
-	@Test(priority=13, enabled = false, description = "verify_Error_Message_for_Reference_Code_Field")
+	@Test(priority=13, enabled = true, description = "verify_Error_Message_for_Reference_Code_Field")
 	public void verify_Error_Message_for_Reference_Code_Field() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -478,7 +478,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	}
 }
 
-	@Test(priority=14, enabled = false, description = "verify_Reference_Code_With_Valid_Required_Field_Data")
+	@Test(priority=14, enabled = true, description = "verify_Reference_Code_With_Valid_Required_Field_Data")
 	public void verify_Reference_Code_With_Valid_Required_Field_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -508,7 +508,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 *  all mandatory fields
 	 * @throws Exception 
 	 */
-	@Test(priority = 15, enabled = false, description = "verify Error Msg With Blank Data")
+	@Test(priority = 15, enabled = true, description = "verify Error Msg With Blank Data")
 	public void verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP() throws Exception {
 		log.info("testing verifyValidUserSuccessfulSubmitForNewUser started------>");
 			SoftAssert softAssert = new SoftAssert();
@@ -529,7 +529,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	}
 }
 	
-	@Test(priority = 16, enabled = false, description = "verify Successful Submit For Registered User")
+	@Test(priority = 16, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Credit_App_Submit_With_RefField() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -546,7 +546,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		Assert.fail(e.getLocalizedMessage());
 	}
 }
-	@Test(priority = 17, enabled = false, description = "verify Successful Submit For Registered User")
+	@Test(priority = 17, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Employed_Status_Wait() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -563,7 +563,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		Assert.fail(e.getLocalizedMessage());
 	}
 }
-	@Test(priority = 18, enabled = false, description = "verify Successful Submit For Registered User")
+	@Test(priority = 18, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Social_Security_Status_Out_Of_State() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -580,7 +580,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		Assert.fail(e.getLocalizedMessage());
 	}
 }
-	@Test(priority = 19, enabled = false, description = "verify Successful Submit For With Main source of Income as Disability Income")
+	@Test(priority = 19, enabled = true, description = "verify Successful Submit For With Main source of Income as Disability Income")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Disability_Income() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -597,7 +597,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		Assert.fail(e.getLocalizedMessage());
 	}
 }
-	@Test(priority = 20, enabled = false, description = "verify Successful Submit With Main source of Income as Retired And App_Status as Declined")
+	@Test(priority = 20, enabled = true, description = "verify Successful Submit With Main source of Income as Retired And App_Status as Declined")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Retired_Statue_Declined() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -614,7 +614,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		Assert.fail(e.getLocalizedMessage());
 	}
 }
-	@Test(priority = 21, enabled = false, description = "verify Successful Submit For Registered User")
+	@Test(priority = 21, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -632,7 +632,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	}
 }
 	
-	@Test(priority = 22, enabled = false, description = "verify Successful Submit For Registered User")
+	@Test(priority = 22, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Successful_Submit_Status_Approved_With_DP() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
