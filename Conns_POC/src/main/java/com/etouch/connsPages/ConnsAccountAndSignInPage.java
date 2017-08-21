@@ -78,16 +78,17 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	
 	public void verify_Remember_Me_Functionality(String[][] testdata) {
-		String RememberMeCheckBox = testdata[0][0];
-		String Expected_ToolTip_Text = testdata[0][1];
+		String RememberMeCheckBox = testdata[0][5];
+		String Expected_ToolTip_Text = testdata[0][6];
 		log.info("Checkbox verification starts :" + RememberMeCheckBox);
 		log.info("Checkbox verification starts : "+ Expected_ToolTip_Text );
 		try { log.info("Checkbox verification starts");
 			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 			jse.executeScript("window.scrollTo(0,100)");
 		//	WebElement RemembermeCheckBox = webPage.getDriver().findElement(By.cssSelector("#remember-me-box>div>input"));
-			WebElement RemembermeCheckBox = webPage.getDriver().findElement(By.cssSelector("Remember_me_CheckBox"));
-			 //if ((!(webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isSelected())) && (webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isDisplayed() && (webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isEnabled())))
+		//	WebElement RemembermeCheckBox = webPage.getDriver().findElement(By.cssSelector("Remember_me_CheckBox"));
+			WebElement RemembermeCheckBox = webPage.getDriver().findElement(By.cssSelector(RememberMeCheckBox));
+			//if ((!(webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isSelected())) && (webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isDisplayed() && (webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isEnabled())))
 			if ((!(RemembermeCheckBox).isSelected()) && ((RemembermeCheckBox)).isEnabled())
 								
 			 { log.info("Checkbox verification begins");
@@ -335,6 +336,222 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		log.info("Exit the dragon :" +errorMessage.get(0) + errorMessage.get(1));
 		return errorMessage;
 	}	
+	
+	
+	
+	
+	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Blank_Input(String[][] testdata) {
+		List<String> errorMessage = new ArrayList<String>();
+		String First_Name_Actual_Error_Message_Locator="";
+		String Last_Name_Actual_Error_Message_Locator="";
+		String Email_Address_Actual_Error_Message_Locator="";
+		String Password_Actual_Error_Message_Locator="";
+		String Confirm_Password_Actual_Error_Message_Locator="";
+		String First_Name_Locator = testdata[0][5];
+		String First_Name_Input = testdata[0][6];
+		String Last_Name_Locator = testdata[0][7];
+		String Last_Name_Input = testdata[0][8];
+		String Email_Address_Locator = testdata[0][9];
+		String Email_Address_Input = testdata[0][10];
+		String Password_Locator = testdata[0][11];
+		String Password_Input = testdata[0][12];
+		String Confirm_Password_Locator = testdata[0][13];
+		String Confirm_Password_Input = testdata[0][14];
+		String Submit_Button_Locator = testdata[0][15];
+		String First_Name_Expected_Error_Message_Locator = testdata[0][16];
+		String Last_Name_Expected_Error_Message_Locator = testdata[0][17];
+		String Email_Address_Expected_Error_Message_Locator = testdata[0][18];
+		String Password_Expected_Error_Message_Locator = testdata[0][19];
+		String Confirm_Password_Expected_Error_Message_Locator = testdata[0][20];
+
+		try {
+			if (!(Email_Address_Input.equalsIgnoreCase("NA") && Password_Input.equalsIgnoreCase("NA"))) {
+				webPage.findObjectByxPath(First_Name_Locator).clear();
+				webPage.findObjectByxPath(Last_Name_Locator).clear();
+				webPage.findObjectByxPath(Email_Address_Locator).clear();
+				webPage.findObjectByxPath(Password_Locator).clear();
+				webPage.findObjectByxPath(Confirm_Password_Locator).clear();
+				webPage.findObjectByxPath(First_Name_Locator).sendKeys(First_Name_Input);
+				webPage.findObjectByxPath(Last_Name_Locator).sendKeys(Last_Name_Input);
+				webPage.findObjectByxPath(Email_Address_Locator).sendKeys(Email_Address_Input);
+				webPage.findObjectByxPath(Password_Locator).sendKeys(Password_Input);				
+				webPage.findObjectByxPath(Confirm_Password_Locator).sendKeys(Confirm_Password_Input);
+				webPage.findObjectByxPath(Submit_Button_Locator).click();
+				First_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(First_Name_Expected_Error_Message_Locator).getText();
+				Last_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(Last_Name_Expected_Error_Message_Locator).getText();
+				Email_Address_Actual_Error_Message_Locator = webPage.findObjectByxPath(Email_Address_Expected_Error_Message_Locator).getText();
+				Password_Actual_Error_Message_Locator = webPage.findObjectByxPath(Password_Expected_Error_Message_Locator).getText();
+				Confirm_Password_Actual_Error_Message_Locator = webPage.findObjectByxPath(Confirm_Password_Expected_Error_Message_Locator).getText();
+				errorMessage.add(First_Name_Actual_Error_Message_Locator);
+				errorMessage.add(Last_Name_Actual_Error_Message_Locator);
+				errorMessage.add(Email_Address_Actual_Error_Message_Locator);
+				errorMessage.add(Password_Actual_Error_Message_Locator);
+				errorMessage.add(Confirm_Password_Actual_Error_Message_Locator);
+			}
+		}
+			catch (Throwable e) {
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Login failed");
+			log.error(e.getMessage());
+		}
+		log.info("Exit the dragon :" +errorMessage.get(0) + errorMessage.get(1));
+		return errorMessage;
+	}	
+	
+	
+	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Invalid_Input(String[][] testdata) {
+		List<String> errorMessage = new ArrayList<String>();
+		String First_Name_Actual_Error_Message_Locator="";
+		String Last_Name_Actual_Error_Message_Locator="";
+		String Email_Address_Actual_Error_Message_Locator="";
+		String Password_Actual_Error_Message_Locator="";
+		String Confirm_Password_Actual_Error_Message_Locator="";
+		String First_Name_Locator = testdata[0][5];
+		String First_Name_Input = testdata[0][6];
+		String Last_Name_Locator = testdata[0][7];
+		String Last_Name_Input = testdata[0][8];
+		String Email_Address_Locator = testdata[0][9];
+		String Email_Address_Input = testdata[0][10];
+		String Password_Locator = testdata[0][11];
+		String Password_Input = testdata[0][12];
+		String Confirm_Password_Locator = testdata[0][13];
+		String Confirm_Password_Input = testdata[0][14];
+		String Submit_Button_Locator = testdata[0][15];
+		String First_Name_Expected_Error_Message_Locator = testdata[0][16];
+		String Last_Name_Expected_Error_Message_Locator = testdata[0][17];
+		String Email_Address_Expected_Error_Message_Locator = testdata[0][18];
+		String Password_Expected_Error_Message_Locator = testdata[0][19];
+		String Confirm_Password_Expected_Error_Message_Locator = testdata[0][20];
+		String Invalid_Email_Address_Expected_Error_Message = testdata[0][22];
+		String Invalid_Password_Expected_Error_Message = testdata[0][23];
+		String Invalid_Confirm_Password_Expected_Error_Message = testdata[0][24];
+		String Remember_Me_Box_Area = testdata[0][28];
+
+		try {
+			if (!(Email_Address_Input.equalsIgnoreCase("NA") && Password_Input.equalsIgnoreCase("NA"))) {
+				webPage.findObjectByxPath(First_Name_Locator).clear();
+				webPage.findObjectByxPath(Last_Name_Locator).clear();
+				webPage.findObjectByxPath(Email_Address_Locator).clear();
+				webPage.findObjectByxPath(Password_Locator).clear();
+				webPage.findObjectByxPath(Confirm_Password_Locator).clear();
+				webPage.findObjectByxPath(First_Name_Locator).sendKeys(First_Name_Input);
+				webPage.findObjectByxPath(Last_Name_Locator).sendKeys(Last_Name_Input);
+				webPage.findObjectByxPath(Email_Address_Locator).sendKeys(Email_Address_Input);
+				webPage.findObjectByxPath(Password_Locator).sendKeys(Password_Input);				
+				webPage.findObjectByxPath(Confirm_Password_Locator).sendKeys(Confirm_Password_Input);
+				webPage.findObjectByxPath(Remember_Me_Box_Area).click();
+
+				//webPage.findObjectByxPath(Submit_Button_Locator).click();
+				//First_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(First_Name_Expected_Error_Message_Locator).getText();
+				//Last_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(Last_Name_Expected_Error_Message_Locator).getText();
+				Email_Address_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Email_Address_Expected_Error_Message).getText();
+				Password_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Password_Expected_Error_Message).getText();
+				Confirm_Password_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Confirm_Password_Expected_Error_Message).getText();
+				//errorMessage.add(First_Name_Actual_Error_Message_Locator);
+				//errorMessage.add(Last_Name_Actual_Error_Message_Locator);
+				errorMessage.add(Email_Address_Actual_Error_Message_Locator);
+				errorMessage.add(Password_Actual_Error_Message_Locator);
+				errorMessage.add(Confirm_Password_Actual_Error_Message_Locator);
+			}
+		}
+			catch (Throwable e) {
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Login failed");
+			log.error(e.getMessage());
+		}
+		log.info("Exit the dragon :" +errorMessage.get(0) + errorMessage.get(1));
+		return errorMessage;
+	}
+	
+	
+	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(String[][] testdata) {
+		List<String> errorMessage = new ArrayList<String>();
+		String First_Name_Actual_Error_Message_Locator="";
+		String Last_Name_Actual_Error_Message_Locator="";
+		String Email_Address_Actual_Error_Message_Locator="";
+		String Password_Actual_Error_Message_Locator="";
+		String Confirm_Password_Actual_Error_Message_Locator="";
+		String Email_Address_Actual_Success_Message_Locator_Text = "";
+		String First_Name_Locator = testdata[0][5];
+		String First_Name_Input = testdata[0][6];
+		String Last_Name_Locator = testdata[0][7];
+		String Last_Name_Input = testdata[0][8];
+		String Email_Address_Locator = testdata[0][9];
+		String Email_Address_Input_Dynamic = testdata[0][10];
+		String Password_Locator = testdata[0][11];
+		String Password_Input = testdata[0][12];
+		String Confirm_Password_Locator = testdata[0][13];
+		String Confirm_Password_Input = testdata[0][14];
+		String Submit_Button_Locator = testdata[0][15];
+		String First_Name_Expected_Error_Message_Locator = testdata[0][16];
+		String Last_Name_Expected_Error_Message_Locator = testdata[0][17];
+		String Email_Address_Expected_Error_Message_Locator = testdata[0][18];
+		String Password_Expected_Error_Message_Locator = testdata[0][19];
+		String Confirm_Password_Expected_Error_Message_Locator = testdata[0][20];
+		String Invalid_Email_Address_Expected_Error_Message = testdata[0][22];
+		String Invalid_Password_Expected_Error_Message = testdata[0][23];
+		String Invalid_Confirm_Password_Expected_Error_Message = testdata[0][24];
+		String Remember_Me_Box_Area = testdata[0][28];
+		String Valid_Email_Address_Expected_Successfull_Message_Locator = testdata[0][30];
+		String Newly_Created_User_Name_DashBoard_Header_Title_Locator = testdata[0][32];
+		String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = testdata[0][33];
+		String Email_Address_Input_Random_Number = Email_Address_Input_Dynamic.concat(getID());
+		Email_Address_Input_Dynamic = Email_Address_Input_Random_Number+"@gmail.com";
+
+		try {
+			if (!(Email_Address_Input_Dynamic.equalsIgnoreCase("NA") && Password_Input.equalsIgnoreCase("NA"))) {
+				webPage.findObjectByxPath(First_Name_Locator).clear();
+				webPage.findObjectByxPath(Last_Name_Locator).clear();
+				webPage.findObjectByxPath(Email_Address_Locator).clear();
+				webPage.findObjectByxPath(Password_Locator).clear();
+				webPage.findObjectByxPath(Confirm_Password_Locator).clear();
+				webPage.findObjectByxPath(First_Name_Locator).sendKeys(First_Name_Input);
+				webPage.findObjectByxPath(Last_Name_Locator).sendKeys(Last_Name_Input);
+				webPage.findObjectByxPath(Email_Address_Locator).sendKeys(Email_Address_Input_Dynamic);
+				webPage.findObjectByxPath(Password_Locator).sendKeys(Password_Input);				
+				webPage.findObjectByxPath(Confirm_Password_Locator).sendKeys(Confirm_Password_Input);
+				//webPage.findObjectByxPath(Remember_Me_Box_Area).click();
+				webPage.findObjectByxPath(Submit_Button_Locator).click();
+				Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
+				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
+
+				errorMessage.add(Email_Address_Actual_Success_Message_Locator_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text);
+
+
+			}
+		}
+			catch (Throwable e) {
+				e.printStackTrace();
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Login failed");
+			log.error(e.getMessage());
+		}
+		log.info("Exit  :" +errorMessage.get(0) + errorMessage.get(1));
+		return errorMessage;
+	}
+	
+	
+	public static String getID()
+	 {
+	   //int n=351;
+	   double d=0;
+	   int num=0;    
+	   String Random;   
+	   {                               
+	    while(true)                
+	    {               
+	      int final_limit=100000; //Specify the maximum limit               
+	      d=Math.random()*final_limit;                
+	      num=(int)d;              
+	      Random = "Test" + String.valueOf(num);
+	      break;
+	    }                   
+	    return Random;     
+	   }
+	 }
+	//Utilisation :   
+	
 	
 	
 	public List<String> verify_Links_Account_Tab(String[][] testdata) {
@@ -771,7 +988,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Expected_Page_Element_Title = null;
 			String Account_DashBoard_Mobile_Drop_Down_Link = null;
 			String Safari_Path_ChildElementLocator = null;
-			String NameofTestCase = testdata[6][0];
+			//String NameofTestCase = testdata[6][0];
 
 			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
 			String Actual_Page_URL="";
@@ -873,10 +1090,758 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			if (brokenLinks.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
 			}
+			r = 0;
 			return Page_URL_Title_Element_Data;
 			
 		}
 
+		
+		
+		public List<String> verify_My_Orders_Links_Resizeable_Account_Tab(String[][] testdata) {
+			List<String> brokenLinks = new ArrayList<String>();
+			SoftAssert softAssert = new SoftAssert();
+			String ParentElementLocator = null;
+			String ChildElementLocator = null;
+			String Expected_Page_URL = null;
+			String Expected_Page_Element_Name = null;
+			String Expected_Page_Element_Title = null;
+			String Account_DashBoard_Mobile_Drop_Down_Link = null;
+			String Safari_Path_ChildElementLocator = null;
+			String My_Orders_Expected_Element_Text_Locator = null;
+			String Expected_My_Orders_Expected_Element_Text = null;
+			//String NameofTestCase = testdata[6][0];
+
+			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
+			String Actual_Page_URL="";
+			String Actual_Page_Title="";
+			String Actual_Page_Element_Name="";
+			String Actual_My_Orders_Expected_Element_Text = "";
+				try {
+					log.info(" ******************************* incremented value of r one *********************  : " +r);
+					log.info(" ******************** Verifying *************************" + testdata[r][0]);
+					ParentElementLocator = testdata[r][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
+					ChildElementLocator = testdata[r][3];
+					Expected_Page_URL = testdata[r][4];
+					Expected_Page_Element_Name = testdata[r][5];
+					Expected_Page_Element_Title = testdata[r][6];
+					My_Orders_Expected_Element_Text_Locator = testdata[r][8];
+					Expected_My_Orders_Expected_Element_Text = testdata[r][9];
+					
+					//Safari_Path_ChildElementLocator = testdata[r][8];
+					log.info("Parent Locator is ..." + ParentElementLocator);
+					
+					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+					}
+					log.info("********** Before Execution ******************");
+					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
+					Thread.sleep(5000);
+					log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
+					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
+					Actual_My_Orders_Expected_Element_Text = webPage.findObjectByxPath(My_Orders_Expected_Element_Text_Locator).getText();
+					
+					String existingWindow = null;
+					String newWindow = null;
+					existingWindow = webPage.getDriver().getWindowHandle();
+					Set<String> windows = webPage.getDriver().getWindowHandles();
+					if (windows.size() >= 2) {
+						windows.remove(existingWindow);
+						newWindow = windows.iterator().next();
+						log.info("Existing window id is" + existingWindow);
+						log.info("New window id is" + newWindow);
+						webPage.getDriver().switchTo().window(newWindow);
+						Thread.sleep(3000);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_My_Orders_Expected_Element_Text);
+						
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(existingWindow);
+						log.info("Actual Element Name" + Actual_Page_Element_Name);
+						log.info("Expected Element Name" + Expected_Page_Element_Name);
+						log.info("Actual Page Title" + Actual_Page_Title);
+						log.info("Expected Element Title" + Expected_Page_Element_Title);
+						log.info("Expected URL" + Expected_Page_URL);
+						log.info("Actual URL" + Actual_Page_URL);
+						log.info("Actual_My_Orders_Expected_Element_Text   : " + Actual_My_Orders_Expected_Element_Text);
+						log.info("Expected_My_Orders_Expected_Element_Text : " + Expected_My_Orders_Expected_Element_Text);
+						
+						
+					} else {
+						log.info("******************* Else Execution***************");
+						//CommonMethods.waitForWebElement(By.xpath(Actual_Page_Element_Name), webPage);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);	
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_My_Orders_Expected_Element_Text);
+						log.info("Actual Element Name : " + Actual_Page_Element_Name);
+						log.info("Expected Element Name : " + Expected_Page_Element_Name);
+						log.info("Actual Page Title : " + Actual_Page_Title);
+						log.info("Expected Element Title : " + Expected_Page_Element_Title);
+						log.info("Actual URL : " + Actual_Page_URL);
+						log.info("Expected URL : " + Expected_Page_URL);
+						log.info("Actual_My_Orders_Expected_Element_Text : " + Actual_My_Orders_Expected_Element_Text);
+						log.info("Expected_My_Orders_Expected_Element_Text : " + Expected_My_Orders_Expected_Element_Text);
+						
+
+						try {
+							if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
+
+								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
+								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
+								}
+						
+								} catch (Exception e) {
+									e.printStackTrace();
+									/*webPage.getDriver().navigate().back();*/
+									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+
+						}
+					}
+					
+				} catch (Exception e) {
+					/*webPage.getDriver().navigate().back();*/
+					e.printStackTrace();
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
+					log.info("getLocalizedMessage :"); 
+					e.printStackTrace();
+				}
+				r++;
+				log.info(" ******************************* incremented value of r second *********************  : " +r);
+			if (brokenLinks.size() > 0) {
+				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
+			}
+			return Page_URL_Title_Element_Data;
+			
+		}
+
+		
+	
+		
+		public List<String> verify_My_Wishlist_Links_Resizeable_Account_Tab(String[][] testdata) {
+			List<String> brokenLinks = new ArrayList<String>();
+			SoftAssert softAssert = new SoftAssert();
+			String ParentElementLocator = null;
+			String ChildElementLocator = null;
+			String Expected_Page_URL = null;
+			String Expected_Page_Element_Name = null;
+			String Expected_Page_Element_Title = null;
+			String Account_DashBoard_Mobile_Drop_Down_Link = null;
+			String Safari_Path_ChildElementLocator = null;
+			String Actual_My_Wishlist_Product_Details_And_Comment_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Product_Details_And_Comment_Element_Text = null;
+			String Actual_My_Wishlist_Add_to_Cart_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Add_to_Cart_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Price_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Price_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = null;
+			String Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text_Locator = null;
+			String Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text = null;
+			//String NameofTestCase = testdata[6][0];
+
+			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
+			String Actual_Page_URL="";
+			String Actual_Page_Title="";
+			String Actual_Page_Element_Name="";
+			String Actual_My_Wishlist_Product_Details_And_Comment_Element_Text = "";
+			String Actual_My_Wishlist_Add_to_Cart_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Price_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = "";
+			String Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text = "";
+			 int r = 0;
+			
+				try {
+					log.info(" ******************************* incremented value of r one *********************  : " +r);
+					log.info(" ******************** Verifying *************************" + testdata[r][0]);
+					ParentElementLocator = testdata[r][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
+					ChildElementLocator = testdata[r][3];
+					Expected_Page_URL = testdata[r][4];
+					Expected_Page_Element_Name = testdata[r][5];
+					Expected_Page_Element_Title = testdata[r][6];
+					Actual_My_Wishlist_Product_Details_And_Comment_Element_Text_Locator = testdata[r][8];
+					Expected_My_Wishlist_Product_Details_And_Comment_Element_Text = testdata[r][9];
+					Actual_My_Wishlist_Add_to_Cart_Element_Text_Locator = testdata[r][10];
+					Expected_My_Wishlist_Add_to_Cart_Element_Text = testdata[r][11];
+					Actual_My_Wishlist_Mango_Dining_Element_Text_Locator = testdata[r][12];
+					Expected_My_Wishlist_Mango_Dining_Element_Text = testdata[r][13];
+					Actual_My_Wishlist_Mango_Dining_Price_Element_Text_Locator = testdata[r][14];
+					Expected_My_Wishlist_Mango_Dining_Price_Element_Text = testdata[r][15];
+					Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text_Locator = testdata[r][16];
+					Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text = testdata[r][17];
+					Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text_Locator = testdata[r][18];
+					Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text = testdata[r][19];
+					Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text_Locator = testdata[r][20];
+					Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text = testdata[r][21];
+					Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text_Locator = testdata[r][22];
+					Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text = testdata[r][23];
+					Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text_Locator  = testdata[r][24];
+					Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = testdata[r][25];
+					Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text_Locator = testdata[r][26];
+					Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text = testdata[r][27];
+					Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text_Locator = testdata[r][28];
+					Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text = testdata[r][29];
+					Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text_Locator = testdata[r][30];
+					Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text = testdata[r][31];
+					Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text_Locator = testdata[r][32];
+					Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text = testdata[r][33];
+					Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text_Locator = testdata[r][34];
+					Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text = testdata[r][35];
+					Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text_Locator = testdata[r][36];
+					Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = testdata[r][37];
+					Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text_Locator = testdata[r][38];
+					Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = testdata[r][39];
+					Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text_Locator = testdata[r][40];
+					Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text = testdata[r][41];
+					
+					//Safari_Path_ChildElementLocator = testdata[r][8];
+					log.info("Parent Locator is ..." + ParentElementLocator);
+					
+					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+					}
+					log.info("********** Before Execution ******************");
+					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
+					Thread.sleep(5000);
+					log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
+					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
+					Actual_My_Wishlist_Product_Details_And_Comment_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Product_Details_And_Comment_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Add_to_Cart_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Add_to_Cart_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Price_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Price_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text_Locator).getText();
+					Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text_Locator).getText();
+					
+					String existingWindow = null;
+					String newWindow = null;
+					existingWindow = webPage.getDriver().getWindowHandle();
+					Set<String> windows = webPage.getDriver().getWindowHandles();
+					if (windows.size() >= 2) {
+						windows.remove(existingWindow);
+						newWindow = windows.iterator().next();
+						log.info("Existing window id is" + existingWindow);
+						log.info("New window id is" + newWindow);
+						webPage.getDriver().switchTo().window(newWindow);
+						Thread.sleep(3000);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Product_Details_And_Comment_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Add_to_Cart_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Price_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text);
+
+
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(existingWindow);
+						log.info("Actual Element Name" + Actual_Page_Element_Name);
+						log.info("Expected Element Name" + Expected_Page_Element_Name);
+						log.info("Actual Page Title" + Actual_Page_Title);
+						log.info("Expected Element Title" + Expected_Page_Element_Title);
+						log.info("Expected URL" + Expected_Page_URL);
+						log.info("Actual URL" + Actual_Page_URL);
+						log.info("Actual_My_Wishlist_Product_Details_And_Comment_Element_Text   : " + Actual_My_Wishlist_Product_Details_And_Comment_Element_Text);
+						log.info("Expected_My_Wishlist_Product_Details_And_Comment_Element_Text : " + Expected_My_Wishlist_Product_Details_And_Comment_Element_Text);
+						log.info("Actual_My_Wishlist_Add_to_Cart_Element_Text   : " + Actual_My_Wishlist_Add_to_Cart_Element_Text);
+						log.info("Expected_My_Wishlist_Add_to_Cart_Element_Text : " + Expected_My_Wishlist_Add_to_Cart_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Price_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Price_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text : " + Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text : " + Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text : " + Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text : " + Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text : " + Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text : " + Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text : " + Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text : " + Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text);
+						
+						
+					} else {
+						log.info("******************* Else Execution***************");
+						//CommonMethods.waitForWebElement(By.xpath(Actual_Page_Element_Name), webPage);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);	
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Product_Details_And_Comment_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Add_to_Cart_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Price_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text);
+						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text);
+
+						
+						log.info("Actual Element Name : " + Actual_Page_Element_Name);
+						log.info("Expected Element Name : " + Expected_Page_Element_Name);
+						log.info("Actual Page Title : " + Actual_Page_Title);
+						log.info("Expected Element Title : " + Expected_Page_Element_Title);
+						log.info("Actual URL : " + Actual_Page_URL);
+						log.info("Expected URL : " + Expected_Page_URL);
+						log.info("Actual_My_Wishlist_Product_Details_And_Comment_Element_Text : " + Actual_My_Wishlist_Product_Details_And_Comment_Element_Text);
+						log.info("Expected_My_Wishlist_Product_Details_And_Comment_Element_Text : " + Expected_My_Wishlist_Product_Details_And_Comment_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Price_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Price_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text : " + Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text : " + Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text : " + Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text : " + Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text : " + Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text : " + Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text);
+						log.info("Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text : " + Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text);
+						log.info("Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text : " + Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text);
+						
+						
+						try {
+							if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
+
+								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
+								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
+								}
+						
+								} catch (Exception e) {
+									e.printStackTrace();
+									/*webPage.getDriver().navigate().back();*/
+									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+
+						}
+					}
+					
+				} catch (Exception e) {
+					/*webPage.getDriver().navigate().back();*/
+					e.printStackTrace();
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
+					log.info("getLocalizedMessage :"); 
+					e.printStackTrace();
+				}
+				r++;
+				log.info(" ******************************* incremented value of r second *********************  : " +r);
+			if (brokenLinks.size() > 0) {
+				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
+			}
+			return Page_URL_Title_Element_Data;
+			
+		}
+
+		
+		
+		
+		public List<String> verify_My_Wish_List_Page_Links(String[][] testdata) {
+			List<String> brokenLinks = new ArrayList<String>();
+			SoftAssert softAssert = new SoftAssert();
+			String ParentElementLocator = null;
+			String ChildElementLocator = null;
+			String Expected_Page_URL = null;
+			String Expected_Page_Element_Name = null;
+			String Expected_Page_Element_Title = null;
+			String Account_DashBoard_Mobile_Drop_Down_Link = null;
+			String Safari_Path_ChildElementLocator = null;
+			String My_Wish_List_Page_Element_Expected_Locator = null;
+			String My_Wish_List_Page_Element_Locator_Expected_Text = null;
+			//String NameofTestCase = testdata[6][0];
+
+			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
+			String Actual_Page_URL="";
+			String Actual_Page_Title="";
+			String Actual_Page_Element_Name="";
+			String Actual_My_Wish_List_Page_Expected_Element_Text = "";
+				try {
+					log.info(" ******************************* incremented value of r one *********************  : " +r);
+					log.info(" ******************** Verifying *************************" + testdata[r][0]);
+					ParentElementLocator = testdata[r][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
+					ChildElementLocator = testdata[r][3];
+					Expected_Page_URL = testdata[r][4];
+					Expected_Page_Element_Name = testdata[r][5];
+					Expected_Page_Element_Title = testdata[r][6];
+					My_Wish_List_Page_Element_Expected_Locator = testdata[r][8];
+					My_Wish_List_Page_Element_Locator_Expected_Text = testdata[r][9];
+					
+					//Safari_Path_ChildElementLocator = testdata[r][8];
+					log.info("Parent Locator is ..." + ParentElementLocator);
+					
+					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+					}
+					log.info("********** Before Execution ******************");
+					//commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
+					Thread.sleep(5000);
+					log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
+					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
+					commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
+					Actual_My_Wish_List_Page_Expected_Element_Text = webPage.findObjectByxPath(My_Wish_List_Page_Element_Expected_Locator).getText();
+					
+					String existingWindow = null;
+					String newWindow = null;
+					existingWindow = webPage.getDriver().getWindowHandle();
+					Set<String> windows = webPage.getDriver().getWindowHandles();
+					if (windows.size() >= 2) {
+						windows.remove(existingWindow);
+						newWindow = windows.iterator().next();
+						log.info("Existing window id is" + existingWindow);
+						log.info("New window id is" + newWindow);
+						webPage.getDriver().switchTo().window(newWindow);
+						Thread.sleep(3000);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);					
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_My_Wish_List_Page_Expected_Element_Text);
+						
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(existingWindow);
+						log.info("Actual Element Name" + Actual_Page_Element_Name);
+						log.info("Expected Element Name" + Expected_Page_Element_Name);
+						log.info("Actual Page Title" + Actual_Page_Title);
+						log.info("Expected Element Title" + Expected_Page_Element_Title);
+						log.info("Expected URL" + Expected_Page_URL);
+						log.info("Actual URL" + Actual_Page_URL);
+						log.info("Actual_My_Wish_List_Page_Expected_Element_Text   : " + Actual_My_Wish_List_Page_Expected_Element_Text);
+						log.info("My_Wish_List_Page_Element_Locator_Expected_Text : " + My_Wish_List_Page_Element_Locator_Expected_Text);
+						
+						
+					} else {
+						log.info("******************* Else Execution***************");
+						//CommonMethods.waitForWebElement(By.xpath(Actual_Page_Element_Name), webPage);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);	
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_My_Wish_List_Page_Expected_Element_Text);
+						log.info("Actual Element Name : " + Actual_Page_Element_Name);
+						log.info("Expected Element Name : " + Expected_Page_Element_Name);
+						log.info("Actual Page Title : " + Actual_Page_Title);
+						log.info("Expected Element Title : " + Expected_Page_Element_Title);
+						log.info("Actual URL : " + Actual_Page_URL);
+						log.info("Expected URL : " + Expected_Page_URL);
+						log.info("Actual_My_Wish_List_Page_Expected_Element_Text   : " + Actual_My_Wish_List_Page_Expected_Element_Text);
+						log.info("My_Wish_List_Page_Element_Locator_Expected_Text : " + My_Wish_List_Page_Element_Locator_Expected_Text);
+						
+
+						try {
+							if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
+
+								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
+								/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+*/								
+								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+								//webPage.getDriver().navigate().back();
+								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
+								}
+						
+								} catch (Exception e) {
+									e.printStackTrace();
+									/*webPage.getDriver().navigate().back();*/
+									/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+*/									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+
+						}
+					}
+					
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+					/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)"); */ // Used for Safari
+					/*webPage.getDriver().navigate().back();*/
+					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
+					log.info("getLocalizedMessage :"); 
+					e.printStackTrace();
+				}
+				r++;
+				log.info(" ******************************* incremented value of r second *********************  : " +r);
+			if (brokenLinks.size() > 0) {
+				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
+			}
+			return Page_URL_Title_Element_Data;
+			
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		public List<String> verify_Register_Link_Redirection_From_Home_Page(String[][] testdata) {
+			List<String> brokenLinks = new ArrayList<String>();
+			SoftAssert softAssert = new SoftAssert();
+			String ParentElementLocator = null;
+			String ChildElementLocator = null;
+			String Expected_Page_URL = null;
+			String Expected_Page_Element_Name = null;
+			String Expected_Page_Element_Title = null;
+			String Account_DashBoard_Mobile_Drop_Down_Link = null;
+			String Safari_Path_ChildElementLocator = null;
+			String Create_An_Account_Expected_Element_Text_Locator = null;
+			String Expected_Create_An_Account_Expected_Element_Text = null;
+			//String NameofTestCase = testdata[6][0];
+
+			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
+			String Actual_Page_URL="";
+			String Actual_Page_Title="";
+			String Actual_Page_Element_Name="";
+			String Actual_Create_An_Account_Expected_Element_Text = "";
+				try {
+					log.info(" ******************************* incremented value of r one *********************  : " +r);
+					log.info(" ******************** Verifying *************************" + testdata[r][0]);
+					ParentElementLocator = testdata[r][1];
+					//Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
+					ChildElementLocator = testdata[r][4];
+					Expected_Page_URL = testdata[r][5];
+					Expected_Page_Element_Name = testdata[r][6];
+					Expected_Page_Element_Title = testdata[r][7];
+					Create_An_Account_Expected_Element_Text_Locator = testdata[r][9];
+					Expected_Create_An_Account_Expected_Element_Text = testdata[r][10];
+					
+					//Safari_Path_ChildElementLocator = testdata[r][8];
+					log.info("Parent Locator is ..." + ParentElementLocator);
+					
+					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+					}
+					log.info("********** Before Execution ******************");
+					//commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
+					Thread.sleep(5000);
+					//log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
+					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
+					Actual_Create_An_Account_Expected_Element_Text = webPage.findObjectByxPath(Create_An_Account_Expected_Element_Text_Locator).getText();
+					
+					String existingWindow = null;
+					String newWindow = null;
+					existingWindow = webPage.getDriver().getWindowHandle();
+					Set<String> windows = webPage.getDriver().getWindowHandles();
+					if (windows.size() >= 2) {
+						windows.remove(existingWindow);
+						newWindow = windows.iterator().next();
+						log.info("Existing window id is" + existingWindow);
+						log.info("New window id is" + newWindow);
+						webPage.getDriver().switchTo().window(newWindow);
+						Thread.sleep(3000);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);					
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_Create_An_Account_Expected_Element_Text);
+						
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(existingWindow);
+						log.info("Actual Element Name" + Actual_Page_Element_Name);
+						log.info("Expected Element Name" + Expected_Page_Element_Name);
+						log.info("Actual Page Title" + Actual_Page_Title);
+						log.info("Expected Element Title" + Expected_Page_Element_Title);
+						log.info("Expected URL" + Expected_Page_URL);
+						log.info("Actual URL" + Actual_Page_URL);
+						log.info("Actual_Create_An_Account_Expected_Element_Text   : " + Actual_Create_An_Account_Expected_Element_Text);
+						log.info("Expected_Create_An_Account_Expected_Element_Text : " + Expected_Create_An_Account_Expected_Element_Text);
+						
+						
+					} else {
+						log.info("******************* Else Execution***************");
+						//CommonMethods.waitForWebElement(By.xpath(Actual_Page_Element_Name), webPage);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);	
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_Create_An_Account_Expected_Element_Text);
+						log.info("Actual Element Name : " + Actual_Page_Element_Name);
+						log.info("Expected Element Name : " + Expected_Page_Element_Name);
+						log.info("Actual Page Title : " + Actual_Page_Title);
+						log.info("Expected Element Title : " + Expected_Page_Element_Title);
+						log.info("Actual URL : " + Actual_Page_URL);
+						log.info("Expected URL : " + Expected_Page_URL);
+						log.info("Actual_Create_An_Account_Expected_Element_Text : " + Actual_Create_An_Account_Expected_Element_Text);
+						log.info("Expected_Create_An_Account_Expected_Element_Text : " + Expected_Create_An_Account_Expected_Element_Text);
+						
+
+						try {
+							if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
+
+								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
+								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
+								}
+						
+								} catch (Exception e) {
+									e.printStackTrace();
+									/*webPage.getDriver().navigate().back();*/
+									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+
+						}
+					}
+					
+				} catch (Exception e) {
+					/*webPage.getDriver().navigate().back();*/
+					e.printStackTrace();
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
+					log.info("getLocalizedMessage :"); 
+					e.printStackTrace();
+				}
+				r++;
+				log.info(" ******************************* incremented value of r second *********************  : " +r);
+			if (brokenLinks.size() > 0) {
+				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
+			}
+			return Page_URL_Title_Element_Data;
+			
+		}
+
+		
+		
 		
 		
 	

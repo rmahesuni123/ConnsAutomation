@@ -1384,8 +1384,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
-			//String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-			//ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
@@ -1432,8 +1432,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Links_On_Account_DashBoard_Tab_Pay_Bill_Links_Section() throws Exception {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
-		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);
+		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);*/
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Pay_Your_Bill_Link_On_Account_Information_Resizeable_Menu_Section");
 		//String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 		String Pay_Your_Bill_Link_Resizeable_Link = test_data[0][8];
@@ -1459,6 +1459,632 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			}
 		}
 	}
+
+	@Test(priority = 340, enabled = true)
+	public void verify_My_Orders_Link_On_Account_Information_Resizeable_Menu_Section() throws Exception {
+		log.info("******Started verification of Links in Account Dashborad tab after login ********");
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			log.info("******Started verification of Links in Account Dashborad tab after login ********");
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Orders_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Orders_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
+			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
+			for(int r= 0; r < test_data.length;r++)
+			{	
+				String Page_Expected_URL = test_data[r][4];
+				String Page_Expected_Element_Name = test_data[r][5];
+				String Page_Expected_Title = test_data[r][6];
+				String My_Order_Expected_Page_Element_Name = test_data[r][9]; 
+				if (testType.equalsIgnoreCase("Mobile")) {
+					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_My_Orders_Links_Resizeable_Account_Tab(test_data);
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(My_Order_Expected_Page_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . My_Order_Page_Expected_Element_Name   : "+ My_Order_Expected_Page_Element_Name  +       "   My_Order_Actual_Page_Element_Name : "+Page_URL_Title_Data.get(3));
+					}
+				else {
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_My_Orders_Links_Resizeable_Account_Tab(demo_data);
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(My_Order_Expected_Page_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . My_Order_Page_Expected_Element_Name   : "+ My_Order_Expected_Page_Element_Name  +       "   My_Order_Actual_Page_Element_Name : "+Page_URL_Title_Data.get(3));
+				}
+				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
+			}
+			softAssert.assertAll();
+		}
+		catch(Throwable e){
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	
+	
+	@Test(priority = 341, enabled = true)
+	public void verify_My_Wish_List_Link_On_Account_Information_Resizeable_Menu_Section() throws Exception {
+		log.info("******Started verification of Links in Account Dashborad tab after login ********");
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			log.info("******Started verification of Links in Account Dashborad tab after login ********");
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			String [][] mobile_validation_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Page_Mobile_Links_Section");
+			String [][] web_validation_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Page_Web_Links_Section");
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
+			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
+			for(int r= 0; r < test_data.length;r++)
+			{	
+				String Page_Expected_URL = test_data[r][4];
+				String Page_Expected_Element_Name = test_data[r][5];
+				String Page_Expected_Title = test_data[r][6];
+				String Expected_My_Wishlist_Product_Details_And_Comment_Element_Text = test_data[r][9]; 
+				String Expected_My_Wishlist_Add_to_Cart_Element_Text = test_data[r][11]; 
+				String Expected_My_Wishlist_Mango_Dining_Element_Text = test_data[r][13];
+				String Expected_My_Wishlist_Mango_Dining_Price_Element_Text = test_data[r][15];
+				String Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text = test_data[r][17];
+				String Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text = test_data[r][19];
+				String Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text = test_data[r][21];
+				String Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text = test_data[r][23];
+				String Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = test_data[r][25];
+				String Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text = test_data[r][27];
+				String Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text = test_data[r][29];
+				String Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text = test_data[r][31];
+				String Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text = test_data[r][33];
+				String Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text = test_data[r][35];
+				String Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = test_data[r][37];
+				String Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = test_data[r][39];
+				String Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text =  test_data[r][41];
+				if (testType.equalsIgnoreCase("Mobile")) {
+					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_My_Wishlist_Links_Resizeable_Account_Tab(test_data);
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),                                                        "  Account Information DashBoard Tab verification failed For Page Title.  Expected_Page_Title                                             			    : "+ Page_Expected_Title                                            	    	+       "   Actual_Expected_Title                                       				    : "+ Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),                                                                  "  Account Information DashBoard Tab verification failed For Page URL .   Expected_Page_URL                                                              : "+ Page_Expected_URL                                             		     	+       "   Actual_Page_URL                                             					: "+ Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,                                                "  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element                                         				    : "+ Page_Expected_Element_Name                                   		     	+       "   Actual_Page_Element_Name                                    					: "+ Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(Expected_My_Wishlist_Product_Details_And_Comment_Element_Text) ,             "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Product_Details_And_Comment_Element_Text  				: "+ Expected_My_Wishlist_Product_Details_And_Comment_Element_Text 		        +       "   Actual_My_Wishlist_Product_Details_And_Comment_Element_Text 					: "+ Page_URL_Title_Data.get(3));
+					softAssert.assertTrue(Page_URL_Title_Data.get(4).equalsIgnoreCase(Expected_My_Wishlist_Add_to_Cart_Element_Text) ,                             "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Add_to_Cart_Element_Text                 				    : "+ Expected_My_Wishlist_Add_to_Cart_Element_Text               		     	+       "   Actual_My_Wishlist_Add_to_Cart_Element_Text                 					: "+ Page_URL_Title_Data.get(4));
+					softAssert.assertTrue(Page_URL_Title_Data.get(5).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Element_Text) ,                            "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Element_Text                  			    : "+ Expected_My_Wishlist_Mango_Dining_Element_Text               		     	+       "   Actual_My_Wishlist_Mango_Dining_Element_Text               						: "+ Page_URL_Title_Data.get(5));
+					softAssert.assertTrue(Page_URL_Title_Data.get(6).contains(Expected_My_Wishlist_Mango_Dining_Price_Element_Text) ,                      		   "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Price_Element_Text                           : "+ Expected_My_Wishlist_Mango_Dining_Price_Element_Text         		     	+       "   Actual_My_Wishlist_Mango_Dining_Price_Element_Text                              : "+ Page_URL_Title_Data.get(6));
+					softAssert.assertTrue(Page_URL_Title_Data.get(7).contains(Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text) ,                      "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text   	     	+       "   Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                      : "+ Page_URL_Title_Data.get(7));
+					softAssert.assertTrue(Page_URL_Title_Data.get(8).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text) ,              "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text                      : "+ Page_URL_Title_Data.get(8));
+					softAssert.assertTrue(Page_URL_Title_Data.get(9).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text) ,              "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                      : "+ Page_URL_Title_Data.get(9));
+					softAssert.assertTrue(Page_URL_Title_Data.get(10).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text) ,    "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text          : "+ Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text      +       "   Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text             : "+ Page_URL_Title_Data.get(10));
+					softAssert.assertTrue(Page_URL_Title_Data.get(11).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text) ,     "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text           : "+ Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text       +       "   Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text              : "+ Page_URL_Title_Data.get(11));
+					softAssert.assertTrue(Page_URL_Title_Data.get(12).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text) ,     "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text           : "+ Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text       +       "   Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text              : "+ Page_URL_Title_Data.get(12));
+					softAssert.assertTrue(Page_URL_Title_Data.get(13).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text) ,  "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text        : "+ Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text    +       "   Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text           : "+ Page_URL_Title_Data.get(13));
+					softAssert.assertTrue(Page_URL_Title_Data.get(14).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text) ,                 "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text                       : "+ Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text 			        +       "   Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text                          : "+ Page_URL_Title_Data.get(14));
+					softAssert.assertTrue(Page_URL_Title_Data.get(15).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text) ,           "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text                 : "+ Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text 		 	+       "   Actual_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text                    : "+ Page_URL_Title_Data.get(15));
+					softAssert.assertTrue(Page_URL_Title_Data.get(16).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text) ,         "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text               : "+ Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text 		 	+       "   Actual_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text                  : "+ Page_URL_Title_Data.get(16));
+					softAssert.assertTrue(Page_URL_Title_Data.get(17).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text) ,    "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text          : "+ Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text   	+       "   Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text             : "+ Page_URL_Title_Data.get(17));
+					softAssert.assertTrue(Page_URL_Title_Data.get(18).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text) ,     "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text           : "+ Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text  	 	+       "   Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text              : "+ Page_URL_Title_Data.get(18));
+					softAssert.assertTrue(Page_URL_Title_Data.get(19).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text) ,         "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text               : "+ Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text 		 	+       "   Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text                  : "+ Page_URL_Title_Data.get(19));
+				}
+				else {
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_My_Wishlist_Links_Resizeable_Account_Tab(demo_data);
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).contains(Page_Expected_Title),                                                               "  Account Information DashBoard Tab verification failed For Expected_Page_Title.  Expected_Page_Title                                             			                                                     : "+Page_Expected_Title                                            		            +       "   Actual_Expected_Title                                       			: "+Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),                                                                 "  Account Information DashBoard Tab verification failed For Expected_Page_URL .   Expected_Page_URL                                                                                                               : "+Page_Expected_URL                                             			            +       "   Actual_Page_URL                                             			: "+Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).contains(Page_Expected_Element_Name),                                                        "  Account Information DashBoard Tab verification failed For Expected_Page_Element . Expected_Page_Element                                         				                                                 : "+ Page_Expected_Element_Name                                   			            +       "   Actual_Page_Element_Name                                    		    : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(3).contains(Expected_My_Wishlist_Product_Details_And_Comment_Element_Text) ,                    "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Product_Details_And_Comment_Element_Text . Expected_My_Wishlist_Product_Details_And_Comment_Element_Text  			             : "+ Expected_My_Wishlist_Product_Details_And_Comment_Element_Text 		            +       "   Actual_My_Wishlist_Product_Details_And_Comment_Element_Text 		    : "+Page_URL_Title_Data.get(3));
+					softAssert.assertTrue(Page_URL_Title_Data.get(4).contains(Expected_My_Wishlist_Add_to_Cart_Element_Text),                                     "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Add_to_Cart_Element_Text . Expected_My_Wishlist_Add_to_Cart_Element_Text                 				                         : "+ Expected_My_Wishlist_Add_to_Cart_Element_Text               			            +       "   Actual_My_Wishlist_Add_to_Cart_Element_Text                 		    : "+Page_URL_Title_Data.get(4));
+					softAssert.assertTrue(Page_URL_Title_Data.get(5).contains(Expected_My_Wishlist_Mango_Dining_Element_Text),                                    "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Element_Text . Expected_My_Wishlist_Mango_Dining_Element_Text                  			                         : "+ Expected_My_Wishlist_Mango_Dining_Element_Text               			            +       "   Actual_My_Wishlist_Mango_Dining_Element_Text               			    : "+Page_URL_Title_Data.get(5));
+					softAssert.assertTrue(Page_URL_Title_Data.get(6).contains(Expected_My_Wishlist_Mango_Dining_Price_Element_Text),                              "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Price_Element_Text . Expected_My_Wishlist_Mango_Dining_Price_Element_Text                                           : "+ Expected_My_Wishlist_Mango_Dining_Price_Element_Text         			            +       "   Actual_My_Wishlist_Mango_Dining_Price_Element_Text                      : "+Page_URL_Title_Data.get(6));
+					softAssert.assertTrue(Page_URL_Title_Data.get(7).contains(Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text),                      "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text . Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                           : "+ Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text   		            +       "   Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text              : "+Page_URL_Title_Data.get(7));
+					softAssert.assertTrue(Page_URL_Title_Data.get(8).contains(Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text),                      "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text . Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text                           : "+ Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text           		    +       "   Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text              : "+Page_URL_Title_Data.get(8));
+					softAssert.assertTrue(Page_URL_Title_Data.get(9).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text),              "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text . Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                           : "+ Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text            			+       "   Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text              : "+Page_URL_Title_Data.get(9));
+					softAssert.assertTrue(Page_URL_Title_Data.get(10).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text),    "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text . Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text         : "+ Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text  		 	+       "   Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text     : "+Page_URL_Title_Data.get(10));
+					softAssert.assertTrue(Page_URL_Title_Data.get(11).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text),     "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text . Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text           : "+ Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text            	+       "   Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text      : "+Page_URL_Title_Data.get(11));
+					softAssert.assertTrue(Page_URL_Title_Data.get(12).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text),     "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text . Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text           : "+ Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text           	+       "   Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text      : "+Page_URL_Title_Data.get(12));
+					softAssert.assertTrue(Page_URL_Title_Data.get(13).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text),  "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text . Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text     : "+ Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text   		+       "   Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text   : "+Page_URL_Title_Data.get(13));
+					softAssert.assertTrue(Page_URL_Title_Data.get(14).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text),                 "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text . Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text                                   : "+ Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text 			                +       "   Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text                  : "+Page_URL_Title_Data.get(14));
+					softAssert.assertTrue(Page_URL_Title_Data.get(15).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text),           "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text . Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text                       : "+ Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text 			        +       "   Actual_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text            : "+Page_URL_Title_Data.get(15));
+					softAssert.assertTrue(Page_URL_Title_Data.get(16).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text),         "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text . Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text 			        +       "   Actual_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text          : "+Page_URL_Title_Data.get(16));
+					softAssert.assertTrue(Page_URL_Title_Data.get(17).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text),    "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text . Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text         : "+ Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text  		    +       "   Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text     : "+Page_URL_Title_Data.get(17));
+					softAssert.assertTrue(Page_URL_Title_Data.get(18).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text),     "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text . Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text           : "+ Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text  		    +       "   Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text      : "+Page_URL_Title_Data.get(18));
+					softAssert.assertTrue(Page_URL_Title_Data.get(19).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text),         "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text . Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text 			        +       "   Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text          : "+Page_URL_Title_Data.get(19));
+				}
+			}
+				
+				if (testType.equalsIgnoreCase("Mobile")) {
+					for(int r1 = 0; r1 < mobile_validation_data.length;r1++)
+				{
+					String My_Wish_List_Mobile_Page_Expected_URL = mobile_validation_data[r1][4];
+					String My_Wish_List_Mobile_Page_Expected_Element_Name = mobile_validation_data[r1][5];
+					String My_Wish_List_Mobile_Page_Expected_Title = mobile_validation_data[r1][6];
+					String My_Wish_List_Mobile_Page_Element_Locator_Text =  mobile_validation_data[r1][9];
+					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
+					List<String> Page_URL_Title_Data_My_Wish_List_Links  = ConnsSignInPage.verify_My_Wish_List_Page_Links(mobile_validation_data);
+					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(0).equalsIgnoreCase(My_Wish_List_Mobile_Page_Expected_Title),                 " Account Information DashBoard Tab verification failed For Page Title.  My_Wish_List_Page_Expected_Title                                              : "+ My_Wish_List_Mobile_Page_Expected_Title                                     +       "   My_Wish_List_Page_Actual_Title                                       			: "+ Page_URL_Title_Data_My_Wish_List_Links.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(1).contains(My_Wish_List_Mobile_Page_Expected_URL),                           " Account Information DashBoard Tab verification failed For Page URL .   My_Wish_List_Page_Expected_URL                                                : "+ My_Wish_List_Mobile_Page_Expected_URL                                       +       "   My_Wish_List_Page_Actual_URL                                             		: "+ Page_URL_Title_Data_My_Wish_List_Links.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(2).equalsIgnoreCase(My_Wish_List_Mobile_Page_Expected_Element_Name),          " Account Information DashBoard Tab verification failed For Page Title . My_Wish_List_Page_Expected_Element_Name                                       : "+ My_Wish_List_Mobile_Page_Expected_Element_Name                              +       "   My_Wish_List_Page_Actual_Element_Name                                    		: "+ Page_URL_Title_Data_My_Wish_List_Links.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(3).equalsIgnoreCase(My_Wish_List_Mobile_Page_Element_Locator_Text),           " Account Information DashBoard Tab verification failed For Page Title . My_Wish_List_Mobile_Page_Element_Locator_Text  				                  : "+ My_Wish_List_Mobile_Page_Element_Locator_Text 		                       +       "   Actual_My_Wish_List_Mobile_Page_Element_Locator_Text 					        : "+ Page_URL_Title_Data_My_Wish_List_Links.get(3));
+				}
+				}else
+					{
+					for(int r1 = 0; r1 < web_validation_data.length;r1++)
+					{
+					String My_Wish_List_Web_Page_Expected_URL = web_validation_data[r1][4];
+					String My_Wish_List_Web_Page_Expected_Element_Name = web_validation_data[r1][5];
+					String My_Wish_List_Web_Page_Expected_Title = web_validation_data[r1][6];
+					String My_Wish_List_Web_Page_Element_Locator_Text =  web_validation_data[r1][9];
+					List<String> Page_URL_Title_Data_My_Wish_List_Links  = ConnsSignInPage.verify_My_Wish_List_Page_Links(web_validation_data);
+					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(0).equalsIgnoreCase(My_Wish_List_Web_Page_Expected_Title),                    "  Account Information DashBoard Tab verification failed For Page Title.  My_Wish_List_Web_Page_Expected_Title                                     : "+ My_Wish_List_Web_Page_Expected_Title                                            	       +       "   My_Wish_List_Web_Page_Actual_Title                                       		: "+ Page_URL_Title_Data_My_Wish_List_Links.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(1).contains(My_Wish_List_Web_Page_Expected_URL),                              "  Account Information DashBoard Tab verification failed For Page URL .   My_Wish_List_Web_Page_Expected_URL                                       : "+ My_Wish_List_Web_Page_Expected_URL                                             		   +       "   My_Wish_List_Web_Page_Actual_URL                                             	: "+ Page_URL_Title_Data_My_Wish_List_Links.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(2).equalsIgnoreCase(My_Wish_List_Web_Page_Expected_Element_Name) ,            "  Account Information DashBoard Tab verification failed For Page Title . My_Wish_List_Web_Page_Expected_Element_Name                              : "+ My_Wish_List_Web_Page_Expected_Element_Name                                   		   +       "   My_Wish_List_Web_Page_Actual_Element_Name                                   	    : "+ Page_URL_Title_Data_My_Wish_List_Links.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(3).equalsIgnoreCase(My_Wish_List_Web_Page_Element_Locator_Text) ,             "  Account Information DashBoard Tab verification failed For Page Title . My_Wish_List_Web_Page_Element_Locator_Text  			                  : "+ My_Wish_List_Web_Page_Element_Locator_Text 		                                       +       "   Actual_My_Wish_List_Web_Page_Element_Locator_Text 					            : "+ Page_URL_Title_Data_My_Wish_List_Links.get(3));
+					log.info("Page_URL_Title_Data_My_Wish_List_Links.get(0) : " +Page_URL_Title_Data_My_Wish_List_Links.get(0));
+					log.info("Page_URL_Title_Data_My_Wish_List_Links.get(1) : " +Page_URL_Title_Data_My_Wish_List_Links.get(1));
+					log.info("Page_URL_Title_Data_My_Wish_List_Links.get(2) : " +Page_URL_Title_Data_My_Wish_List_Links.get(2));
+					log.info("Page_URL_Title_Data_My_Wish_List_Links.get(3) : " +Page_URL_Title_Data_My_Wish_List_Links.get(3));
+					}
+				}
+				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
+			softAssert.assertAll();
+		}
+		catch(Throwable e){
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	
+	@Test(priority = 342, enabled = true)
+	public void verify_Register_Link_Redirection_From_Home_Page() throws Exception {
+		log.info("******Started verification of Links in Account Dashborad tab after login ********");
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			log.info("******Started verification of Links in Account Dashborad tab after login ********");
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Link_Redirection_From_Home_Page");
+			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Link_Redirection_From_Home_Page");
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][8];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			//String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
+			String Ham_Burger_Icon_Locator = test_data[0][2];
+			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
+			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+
+
+			for(int r= 0; r < test_data.length;r++)
+			{	
+				String Page_Expected_URL = test_data[r][5];
+				String Page_Expected_Element_Name = test_data[r][6];
+				String Page_Expected_Title = test_data[r][7];
+				String Create_An_Account_Expected_Page_Element_Name = test_data[r][10]; 
+				if (testType.equalsIgnoreCase("Mobile")) {
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Register_Link_Redirection_From_Home_Page(test_data);
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Expected_Page_Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Expected_Page_URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page_Expected_Element_Name . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(Create_An_Account_Expected_Page_Element_Name) ,"  Account Information DashBoard Tab verification failed For Create_An_Account_Expected_Page_Element_Name . Create_An_Account_Expected_Page_Element_Name   : "+ Create_An_Account_Expected_Page_Element_Name  +       "   Create_An_Account_Actual_Page_Element_Name : "+Page_URL_Title_Data.get(3));
+					}
+				else {
+					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Register_Link_Redirection_From_Home_Page(web_data);
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Expected_Page_Element . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(Create_An_Account_Expected_Page_Element_Name) ,"  Account Information DashBoard Tab verification failed For Create_An_Account_Expected_Page_Element_Name . Create_An_Account_Expected_Page_Element_Name   : "+ Create_An_Account_Expected_Page_Element_Name  +       "   Create_An_Account_Actual_Page_Element_Name : "+Page_URL_Title_Data.get(3));
+				}
+				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
+			}
+			softAssert.assertAll();
+		}
+		catch(Throwable e){
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	@Test(priority = 343, enabled = true)
+	public void verify_Register_Create_New_Customer_Functionality_with_Blank_Input() throws InterruptedException {
+		log.info("******Started verification of Register functionality with blank input data ********");
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			log.info("******Started verification of Register Link in Create Account Sign-In or Register Page ********");
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_New_Customer_Functionality_with_Blank_Input");
+			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Blank_Input");
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][22];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl();// For Safari
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			//String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
+			String Ham_Burger_Icon_Locator = test_data[0][2];
+			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
+			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+			String Generic_Error_Message_Text = test_data[0][21];
+			log.info("***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+
+				if (testType.equalsIgnoreCase("Mobile")) {
+					log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Blank_Input(test_data);
+					softAssert.assertEquals(actualErrorMessage.get(0), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_First_Name_Locator.       Expected_First_Name_Error_Message        : " + Generic_Error_Message_Text + " Actual_First_Name_Error_Message       : " + actualErrorMessage.get(0));
+					softAssert.assertEquals(actualErrorMessage.get(1), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_Last_Name_Locator .       Expected_Last_Name_Error_Message         : " + Generic_Error_Message_Text + " Actual_Last_Name_Error_Message        : " + actualErrorMessage.get(1));
+					softAssert.assertEquals(actualErrorMessage.get(2), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_Email_Address_Locator .   Expected_Email_Address_Error_Message     : " + Generic_Error_Message_Text + " Actual_Email_Address_Error_Message    : " + actualErrorMessage.get(2));
+					softAssert.assertEquals(actualErrorMessage.get(3), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_Password_Locator .        Expected_Password_Error_Message          : " + Generic_Error_Message_Text + " Actual_Password_Error_Message         : " + actualErrorMessage.get(3));
+					softAssert.assertEquals(actualErrorMessage.get(4), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_Confirm_Password_Locator .Expected_Confirm_Password_Error_Message  : " + Generic_Error_Message_Text + " Actual_Confirm_Password_Error_Message : " + actualErrorMessage.get(4));
+					} 
+				else {
+					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
+					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Blank_Input(web_data); 
+					softAssert.assertEquals(actualErrorMessage.get(0), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_First_Name_Locator.       Expected_First_Name_Error_Message        : " + Generic_Error_Message_Text + " Actual_First_Name_Error_Message       : " + actualErrorMessage.get(0));
+					softAssert.assertEquals(actualErrorMessage.get(1), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_Last_Name_Locator .       Expected_Last_Name_Error_Message         : " + Generic_Error_Message_Text + " Actual_Last_Name_Error_Message        : " + actualErrorMessage.get(1));
+					softAssert.assertEquals(actualErrorMessage.get(2), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_Email_Address_Locator .   Expected_Email_Address_Error_Message     : " + Generic_Error_Message_Text + " Actual_Email_Address_Error_Message    : " + actualErrorMessage.get(2));
+					softAssert.assertEquals(actualErrorMessage.get(3), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_Password_Locator .        Expected_Password_Error_Message          : " + Generic_Error_Message_Text + " Actual_Password_Error_Message         : " + actualErrorMessage.get(3));
+					softAssert.assertEquals(actualErrorMessage.get(4), Generic_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Blank_Confirm_Password_Locator .Expected_Confirm_Password_Error_Message  : " + Generic_Error_Message_Text + " Actual_Confirm_Password_Error_Message : " + actualErrorMessage.get(4));
+					} 
+				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
+				softAssert.assertAll();
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_Register_Create_New_Customer_Functionality_with_Blank_Input");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	@Test(priority = 344, enabled = true)
+	public void verify_Register_Create_New_Customer_Functionality_with_Invalid_Input() throws InterruptedException {
+		log.info("******Started verification of Register functionality with blank input data ********");
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			log.info("******Started verification of Register Link in Create Account Sign-In or Register Page ********");
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_New_Customer_Functionality_with_Invalid_Input");
+			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Invalid_Input");
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl();// For Safari
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			String Ham_Burger_Icon_Locator = test_data[0][2];
+			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
+			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+			String Invalid_Email_Address_Expected_Error_Message_Text = test_data[0][25];
+			String Invalid_Password_Expected_Error_Message_Text = test_data[0][26];
+			String Invalid_Confirm_Password_Expected_Error_Message_Text = test_data[0][27];
+			log.info("***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+
+				if (testType.equalsIgnoreCase("Mobile")) {
+					log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Invalid_Input(test_data);
+					//softAssert.assertEquals(actualErrorMessage.get(0), Generic_Error_Message_Text,                     "Login Functionality with Invalid Input verification failed For Invalid_First_Name_Locator.       Expected_First_Name_Error_Message        : " + Generic_Error_Message_Text                        + " Actual_First_Name_Error_Message       : " + actualErrorMessage);
+					//softAssert.assertEquals(actualErrorMessage.get(1), Generic_Error_Message_Text,                     "Login Functionality with Invalid Input verification failed For Invalid_Last_Name_Locator .       Expected_Last_Name_Error_Message         : " + Generic_Error_Message_Text                        + " Actual_Last_Name_Error_Message        : " + actualErrorMessage);
+					softAssert.assertEquals(actualErrorMessage.get(0), Invalid_Email_Address_Expected_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Invalid_Email_Address_Expected_Error_Message_Text    . Invalid_Email_Address_Expected_Error_Message_Text    : " + Invalid_Email_Address_Expected_Error_Message_Text      + " Actual_Email_Address_Error_Message    : " + actualErrorMessage.get(0));
+					softAssert.assertEquals(actualErrorMessage.get(1), Invalid_Password_Expected_Error_Message_Text,        "Login Functionality with Invalid Input verification failed For Invalid_Password_Expected_Error_Message_Text         . Invalid_Password_Expected_Error_Message_Text         : " + Invalid_Confirm_Password_Expected_Error_Message_Text   + " Actual_Password_Error_Message         : " + actualErrorMessage.get(1));
+					softAssert.assertEquals(actualErrorMessage.get(2), Invalid_Confirm_Password_Expected_Error_Message_Text,"Login Functionality with Invalid Input verification failed For Invalid_Confirm_Password_Expected_Error_Message_Text . Invalid_Confirm_Password_Expected_Error_Message_Text : " + Invalid_Confirm_Password_Expected_Error_Message_Text   + " Actual_Confirm_Password_Error_Message : " + actualErrorMessage.get(2));
+					softAssert.assertAll();
+					} 
+				else {
+					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
+					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Invalid_Input(web_data); 
+					//softAssert.assertEquals(actualErrorMessage.get(0), Generic_Error_Message_Text,                     "Login Functionality with Invalid Input verification failed For Invalid_First_Name_Locator.       Expected_First_Name_Error_Message        : " + Generic_Error_Message_Text                        + " Actual_First_Name_Error_Message       : " + actualErrorMessage);
+					//softAssert.assertEquals(actualErrorMessage.get(1), Generic_Error_Message_Text,                     "Login Functionality with Invalid Input verification failed For Invalid_Last_Name_Locator .       Expected_Last_Name_Error_Message         : " + Generic_Error_Message_Text                        + " Actual_Last_Name_Error_Message        : " + actualErrorMessage);
+					softAssert.assertEquals(actualErrorMessage.get(0), Invalid_Email_Address_Expected_Error_Message_Text,   "Login Functionality with Invalid Input verification failed For Invalid_Email_Address_Expected_Error_Message_Text    . Invalid_Email_Address_Expected_Error_Message_Text    : " + Invalid_Email_Address_Expected_Error_Message_Text      + " Actual_Email_Address_Error_Message    : " + actualErrorMessage.get(0));
+					softAssert.assertEquals(actualErrorMessage.get(1), Invalid_Password_Expected_Error_Message_Text,        "Login Functionality with Invalid Input verification failed For Invalid_Password_Expected_Error_Message_Text         . Invalid_Password_Expected_Error_Message_Text         : " + Invalid_Confirm_Password_Expected_Error_Message_Text   + " Actual_Password_Error_Message         : " + actualErrorMessage.get(1));
+					softAssert.assertEquals(actualErrorMessage.get(2), Invalid_Confirm_Password_Expected_Error_Message_Text,"Login Functionality with Invalid Input verification failed For Invalid_Confirm_Password_Expected_Error_Message_Text . Invalid_Confirm_Password_Expected_Error_Message_Text : " + Invalid_Confirm_Password_Expected_Error_Message_Text   + " Actual_Confirm_Password_Error_Message : " + actualErrorMessage.get(2));
+					softAssert.assertAll();
+					} 
+				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
+				softAssert.assertAll();
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_Register_Create_New_Customer_Functionality_with_Invalid_Input");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	@Test(priority = 345, enabled = true)
+	public void verify_Register_Create_An_Account_Remember_Me_CheckBox() {
+		log.info("******Started verification of RememberMeCheckBox functionality with valid data ********");
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_An_Account_Remember_Me_Functionality");
+			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_An_Account_Remember_Me_Functionality");
+			String Remember_me_CheckBox = test_data[0][5];
+			String Expected_ToolTip_Text = test_data[0][6];
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];			
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl();// For Safari
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			String Ham_Burger_Icon_Locator = test_data[0][2];
+			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
+			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+			log.info("***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+				if (testType.equalsIgnoreCase("Mobile")) {
+					log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+					ConnsSignInPage.verify_Remember_Me_Functionality(test_data);
+					commonMethods.clickElementbyCssAndGetCurrentURL(webPage, Remember_me_CheckBox, softAssert);
+					String Actual_ToolTip_Text = commonMethods.getAttributebyCss(webPage, Remember_me_CheckBox, "title",softAssert);
+					SoftAssertor.assertEquals(Actual_ToolTip_Text, Expected_ToolTip_Text,"ToolTip_Text of the mouse pointer does not match");
+					softAssert.assertAll();
+				} 
+				else {
+					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
+					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+					ConnsSignInPage.verify_Remember_Me_Functionality(test_data);
+					commonMethods.clickElementbyCssAndGetCurrentURL(webPage, Remember_me_CheckBox, softAssert);
+					String Actual_ToolTip_Text = commonMethods.getAttributebyCss(webPage, Remember_me_CheckBox, "title",softAssert);
+					SoftAssertor.assertEquals(Actual_ToolTip_Text, Expected_ToolTip_Text,"ToolTip_Text of the mouse pointer does not match");
+					softAssert.assertAll();
+				}
+		}catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_Register_Create_An_Account_Remember_Me_CheckBox");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	@Test(priority = 346, enabled = true)
+	public void verify_Register_Create_An_Account_Whats_This_Overlay_Rendered() throws PageException, InterruptedException {
+		log.info("**************Started verification of What's this overlay Rendered on Login Page *******************");
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_An_Account_Whats_This_Overlay");
+			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_An_Account_Whats_This_Overlay");
+			String Locator = test_data[0][5];
+			String contentonoverlaylocator = test_data[0][6];
+			String verify_Whats_This_Overlay_Rendered_Expected_Content = test_data[0][7];
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][11];			
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl();// For Safari
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			String Ham_Burger_Icon_Locator = test_data[0][2];
+			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
+			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+			log.info("***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+			if (testType.equalsIgnoreCase("Mobile")) {
+				log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+				commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
+				String verify_Whats_This_Overlay_Rendered_Actual_Content = commonMethods.getTextbyCss(webPage,contentonoverlaylocator, softAssert);
+				softAssert.assertEquals(verify_Whats_This_Overlay_Rendered_Actual_Content,verify_Whats_This_Overlay_Rendered_Expected_Content,"verify_Whats_This_Overlay_Rendered verification failed. Whats_This_Overlay_Rendered_Expected_Content : "		+ verify_Whats_This_Overlay_Rendered_Expected_Content	+ " Whats_This_Overlay_Rendered_Actual_Content : " + verify_Whats_This_Overlay_Rendered_Actual_Content);
+				softAssert.assertAll();
+			} 
+			else {
+				log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
+				commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
+				String verify_Whats_This_Overlay_Rendered_Actual_Content = commonMethods.getTextbyCss(webPage,contentonoverlaylocator, softAssert);
+				softAssert.assertEquals(verify_Whats_This_Overlay_Rendered_Actual_Content,verify_Whats_This_Overlay_Rendered_Expected_Content,"verify_Whats_This_Overlay_Rendered verification failed. Whats_This_Overlay_Rendered_Expected_Content : "		+ verify_Whats_This_Overlay_Rendered_Expected_Content	+ " Whats_This_Overlay_Rendered_Actual_Content : " + verify_Whats_This_Overlay_Rendered_Actual_Content);
+				softAssert.assertAll();
+			}
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_Register_Create_An_Account_Whats_This_Overlay_Rendered");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	
+	@Test(priority = 347, enabled = true)
+	public void verify_Register_Create_An_Account_Whats_This_Overlay_Close(ITestContext context) {
+		log.info("**************Started verification of What's this overlay Rendered on Login Page *******************");
+		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();
+		try {
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_An_Account_Whats_This_Overlay");
+			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_An_Account_Whats_This_Overlay");
+			//String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyWhatsThisOverlay");
+			String Locator = test_data[0][5];
+			String contentonoverlaylocator = test_data[0][6];
+			//String verify_Whats_This_Overlay_Rendered_Expected_Content = test_data[0][7];
+			String verify_Whats_This_Overlay_Close_Expected_Content = test_data[0][7];
+			String Top_Close_Button_Locator_CSS = test_data[0][8];
+			String Close_Button_Locator_CSS = test_data[0][9];
+			String Close_Button_Locator_Xpath = test_data[0][10];
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][11];			
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl();// For Safari
+			log.info("***************************************** Account Dashboard Drop Down Starts********************************");
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			String Ham_Burger_Icon_Locator = test_data[0][2];
+			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
+			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+
+			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+			log.info("***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+			if (testType.equalsIgnoreCase("Mobile")) {
+				log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+				commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+				jse.executeScript("scroll(0, 250);");
+				commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
+				String verify_Whats_This_Overlay_Close_Actual_Content = commonMethods.getTextbyCss(webPage,contentonoverlaylocator, softAssert);
+				softAssert.assertEquals(verify_Whats_This_Overlay_Close_Actual_Content,verify_Whats_This_Overlay_Close_Expected_Content,"verify_Whats_This_Overlay_Close verification failed.  Whats_This_Overlay_Close_Expected_Content : " + verify_Whats_This_Overlay_Close_Expected_Content	+ " Whats_This_Overlay_Rendered_Actual_Content : "	+ verify_Whats_This_Overlay_Close_Actual_Content);
+				Thread.sleep(7000);
+				if (testBed.getTestBedName().equalsIgnoreCase("Safari")) {
+					commonMethods.clickElementbyCss(webPage, Close_Button_Locator_CSS, softAssert);
+				}
+				else{
+					commonMethods.clickElementbyXpath(webPage, Top_Close_Button_Locator_CSS, softAssert);
+				}
+				softAssert.assertAll();
+				} else{
+				commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+				jse.executeScript("scroll(0, 250);");
+				commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
+				String verify_Whats_This_Overlay_Close_Actual_Content = commonMethods.getTextbyCss(webPage,contentonoverlaylocator, softAssert);
+				softAssert.assertEquals(verify_Whats_This_Overlay_Close_Actual_Content,verify_Whats_This_Overlay_Close_Expected_Content,"verify_Whats_This_Overlay_Close verification failed.  Whats_This_Overlay_Close_Expected_Content : " + verify_Whats_This_Overlay_Close_Expected_Content	+ " Whats_This_Overlay_Rendered_Actual_Content : "	+ verify_Whats_This_Overlay_Close_Actual_Content);
+				Thread.sleep(7000);
+				if (testBed.getTestBedName().equalsIgnoreCase("Safari")) {
+					commonMethods.clickElementbyCss(webPage, Close_Button_Locator_CSS, softAssert);
+				}
+				else{
+					commonMethods.clickElementbyXpath(webPage, Close_Button_Locator_Xpath, softAssert);
+				}
+				softAssert.assertAll();
+				}
+				}catch (Throwable e) {
+					e.printStackTrace();
+					mainPage.getScreenShotForFailure(webPage, "verify_Whats_This_Overlay_Close");
+					softAssert.assertAll();
+					Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+
+	@Test(priority = 348, enabled = true)
+	public void verify_Register_Create_New_Customer_Functionality_with_Valid_Input() throws InterruptedException {
+		log.info("******Started verification of Register functionality with blank input data ********");
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			log.info("******Started verification of Register Link in Create Account Sign-In or Register Page ********");
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_New_Customer_Functionality_with_Valid_Input");
+			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Valid_Input");
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl();// For Safari
+			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			String Ham_Burger_Icon_Locator = test_data[0][2];
+			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
+			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+			String Email_Address_Expected_Success_Message_Locator_Text = test_data[0][31];
+			String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = test_data[0][33];
+			log.info("***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+				if (testType.equalsIgnoreCase("Mobile")) {
+					log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(test_data);
+					softAssert.assertEquals(actualErrorMessage.get(0), Email_Address_Expected_Success_Message_Locator_Text,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
+					softAssert.assertEquals(actualErrorMessage.get(1), Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text,"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
+					softAssert.assertAll();
+					} 
+				else {
+					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
+					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(web_data); 
+					softAssert.assertEquals(actualErrorMessage.get(0), Email_Address_Expected_Success_Message_Locator_Text,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
+					softAssert.assertEquals(actualErrorMessage.get(1), Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text,"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
+					softAssert.assertAll();
+					} 
+				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
+				softAssert.assertAll();
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_Register_Create_New_Customer_Functionality_with_Valid_Input");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	
 	
 	/************************************************************************ GARBAGE ENDS*******************************************************************************************************************************************************************************************/
 	/**
