@@ -74,7 +74,17 @@ public class ConnsProductPurchasePage {
 			log.error(e.getMessage());
 		}
 	}
-
+	public static void Click_On_Element_JS(WebPage webPage, String test) {
+		try {
+			WebElement element = webPage.findObjectByxPath(test).getWebElement();
+			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+			executor.executeScript("arguments[0].click();", element);
+			log.info("clicked on :" + test);
+		} catch (PageException e) {
+			log.error(e.getMessage());
+		
+		}
+	}
 	public void Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) {
 		try {
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
@@ -1523,7 +1533,13 @@ public class ConnsProductPurchasePage {
 			softAssert.fail(e.getLocalizedMessage());
 		}
 	}
-
+	public static void page_Is_Shopping_Cart_Empty(WebPage webPage) throws InterruptedException {
+		Thread.sleep(3000);
+		boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+		System.out.println("isShoppingCartEmpty:" + isShoppingCartEmpty);
+		Assert.assertFalse(isShoppingCartEmpty,
+				"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+	}
 	public String page_Pickup_Checkout_Flow_Cash_On_Delivery(WebPage webPage2, String[][] checkoutFlowCommonLocators,
 			SoftAssert softAssert) {
 		String orderConfirmationText = null;
