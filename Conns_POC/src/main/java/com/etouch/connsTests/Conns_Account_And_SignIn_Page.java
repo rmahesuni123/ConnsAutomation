@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -23,7 +24,6 @@ import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 import com.etouch.connsPages.ConnsAccountAndSignInPage;
 import com.etouch.connsPages.ConnsMainPage;
-import com.etouch.connsPages.ConnsStoreLocatorPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
@@ -33,31 +33,26 @@ import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
-import com.etouch.taf.webui.selenium.MobileView;
 import com.etouch.taf.webui.selenium.WebPage;
 
 @IExcelDataFiles(excelDataFiles = { "ConnsAccountSignINData=testData" })
 public class Conns_Account_And_SignIn_Page extends BaseTest {
-	private ConnsAccountAndSignInPage ConnsSignInPage;
-	static String platform;
-	static Log log = LogUtil.getLog(Conns_Store_Locator_Page.class);
-	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-	private String url = null;
-	private WebPage webPage;
-	private ConnsMainPage mainPage;
-	String testBedName;
+	private String testBedName;
 	TestBed testBed;
-	MobileView mobileView;
 	Path path;
 	String DataFilePath;
 	String testType;
-	static protected String browserName;
-	String testEnv;
-	CommonMethods commonMethods;
-	ConnsStoreLocatorPage connsStoreLocatorPage;
-	String storeLocatorURL = "";
-	String[][] commonData;
+	static Log log = LogUtil.getLog(Conns_Account_And_SignIn_Page.class);
+	Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
+	private String url, testEnv;
+	private WebPage webPage;
+	private ConnsAccountAndSignInPage ConnsSignInPage;
+	private ConnsMainPage mainPage;
+	CommonMethods commonMethods = new CommonMethods();
+	static String platform;
+	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
+	/*** Prepare before class @throws Exception the exception */
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
 		try {
@@ -65,30 +60,34 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
-			connsStoreLocatorPage = new ConnsStoreLocatorPage();
-			commonMethods = new CommonMethods();
-			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
-			System.out.println("Test Type is : " + testType);
+			log.info("Test Type is : " + testType);
 			try {
+				platform = testBed.getPlatform().getName().toUpperCase();
 				testEnv = System.getenv().get("Environment");
-				System.out.println("testEnv is : " + testEnv);
+				log.info("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
-				System.out.println("DataFilePath After is : " + DataFilePath);
-				commonData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "storeLocatorCommonElements");
-				storeLocatorURL = commonData[0][0];
+				log.info("DataFilePath After is : " + DataFilePath);
 				platform = testBed.getPlatform().getName().toUpperCase();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
+				String[][] test = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "PageURL");
+				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL() + test[0][0];
 				synchronized (this) {
 					webPage = new WebPage(context);
+					ConnsSignInPage = new ConnsAccountAndSignInPage(url, webPage);
 					mainPage = new ConnsMainPage(url, webPage);
+					log.info(mainPage);
+				}
+				if (testType.equalsIgnoreCase("Web")) {
+					log.info("Maximize Window in case of Desktop Browsers Only : ");
+					webPage.getDriver().manage().window().maximize();
 				}
 			} catch (Exception e) {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
 			}
 		} catch (Exception e) {
-			CommonUtil.sop("Error is for" + testBedName + " -----------" + e);
+			CommonUtil.sop("errr is for" + testBedName + " -----------" + e);
 			SoftAssertor.addVerificationFailure(e.getMessage());
 		}
 	}
@@ -577,6 +576,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+
 	/******************************************************
 	 * UC 01 END
 	 **********************************************************************************************************************************************/
@@ -710,6 +710,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Account_Login_Page_Forgot_Password_Page_Link = test_data[0][7];
 		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 		webPage.getCurrentUrl();// For Safari
+
 		try {
 			commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
 			for (int r = 0; r < testdata.length; r++) {
@@ -1759,6 +1760,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+
 	/************************************************************************
 	 * UC005 ENDS
 	 *******************************************************************************************************************************************************************************************/
@@ -2540,6 +2542,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 									+ Page_URL_Title_Data.get(19));
 				}
 			}
+
 			if (testType.equalsIgnoreCase("Mobile")) {
 				for (int r1 = 0; r1 < mobile_validation_data.length; r1++) {
 					String My_Wish_List_Mobile_Page_Expected_URL = mobile_validation_data[r1][4];
@@ -2668,6 +2671,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
 			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
 			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+
 			for (int r = 0; r < test_data.length; r++) {
 				String Page_Expected_URL = test_data[r][5];
 				String Page_Expected_Element_Name = test_data[r][6];
@@ -2750,6 +2754,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			webPage.getCurrentUrl();// For Safari
 			log.info(
 					"***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
@@ -2764,6 +2769,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Generic_Error_Message_Text = test_data[0][21];
 			log.info(
 					"***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+
 			if (testType.equalsIgnoreCase("Mobile")) {
 				log.info(
 						"***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
@@ -2867,6 +2873,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Invalid_Confirm_Password_Expected_Error_Message_Text = test_data[0][27];
 			log.info(
 					"***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+
 			if (testType.equalsIgnoreCase("Mobile")) {
 				log.info(
 						"***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
@@ -2989,7 +2996,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				log.info(
 						"***************************************** Account Dashboard Drop Down For Web Starts********************************");
 				commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
-				ConnsSignInPage.verify_Remember_Me_Functionality(test_data);
+				ConnsSignInPage.verify_Remember_Me_Functionality(web_data);
 				commonMethods.clickElementbyCssAndGetCurrentURL(webPage, Remember_me_CheckBox, softAssert);
 				String Actual_ToolTip_Text = commonMethods.getAttributebyCss(webPage, Remember_me_CheckBox, "title",
 						softAssert);
@@ -3108,6 +3115,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Ham_Burger_Icon_Locator = test_data[0][2];
 			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
 			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+
 			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
 			log.info(
 					"***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
@@ -3163,6 +3171,114 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	@Test(priority = 348, enabled = true)
+	public void verify_Register_Create_An_Account_Newsletters_General_Subscription_CheckBox()
+			throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"verify_Mobile_Register_Create_New_Customer_Newsletters_Functionality");
+			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"verify_Web_Register_Create_New_Customer_Newsletters_Functionality");
+			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][5];
+			String Newsletter_Subscription_Register_Create_An_Account_Check_Box_Locator_CssPath = test_data[0][21];
+			String Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator = test_data[0][22];
+			String Newsletter_Subscription_Register_Create_An_Account_Check_Box_CssPath_Locator = test_data[0][23];
+			String Newsletter_Subscription_Expected_Content_Text = test_data[0][19];
+			String Newsletter_Subscription_Expected_ToolTip_Text = test_data[0][20];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl();// For Safari
+			log.info(
+					"***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Test Bed is : " + testBed);
+			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			log.info("Test Type is : " + testType);
+			platform = testBed.getPlatform().getName().toUpperCase();
+			String Ham_Burger_Icon_Locator = test_data[0][2];
+			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
+			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
+			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
+			log.info(
+					"***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
+			if (testType.equalsIgnoreCase("Mobile")) {
+				log.info(
+						"***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+				commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+
+				Thread.sleep(3000);
+				WebElement Newsletters_Subscription_CheckBox = webPage.getDriver()
+						.findElement(By.xpath(test_data[0][22]));
+				if ((!(Newsletters_Subscription_CheckBox).isSelected())
+						&& ((Newsletters_Subscription_CheckBox)).isEnabled()) {
+					commonMethods.clickElementbyXpath(webPage,
+							Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
+				} else {
+					commonMethods.clickElementbyXpath(webPage,
+							Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
+					Thread.sleep(3000);
+					commonMethods.clickElementbyXpath(webPage,
+							Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
+				}
+				String Newsletter_Subscription_Actual_Content_Text = commonMethods.getTextbyCss(webPage,
+						Newsletter_Subscription_Register_Create_An_Account_Check_Box_CssPath_Locator, softAssert);
+				softAssert.assertEquals(Newsletter_Subscription_Actual_Content_Text,
+						Newsletter_Subscription_Expected_Content_Text,
+						"verify_Register_Create_An_Account_Newsletters_General_Subscription_CheckBox verification failed.  Newsletter_Subscription_Expected_Content_Text : "
+								+ Newsletter_Subscription_Expected_Content_Text
+								+ " Newsletter_Subscription_Actual_Content_Text : "
+								+ Newsletter_Subscription_Actual_Content_Text);
+				String Newsletter_Subscription_Actual_ToolTip_Text = commonMethods.getAttributebyCss(webPage,
+						Newsletter_Subscription_Register_Create_An_Account_Check_Box_Locator_CssPath, "title",
+						softAssert);
+				SoftAssertor.assertEquals(Newsletter_Subscription_Actual_ToolTip_Text,
+						Newsletter_Subscription_Expected_ToolTip_Text,
+						"ToolTip_Text of the mouse pointer does not match");
+				softAssert.assertAll();
+			} else {
+				log.info(
+						"***************************************** Account Dashboard Drop Down For Web Starts********************************");
+				commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+				WebElement Newsletters_Subscription_CheckBox = webPage.getDriver()
+						.findElement(By.xpath(test_data[0][22]));
+				if ((!(Newsletters_Subscription_CheckBox).isSelected())
+						&& ((Newsletters_Subscription_CheckBox)).isEnabled()) {
+					commonMethods.clickElementbyXpath(webPage,
+							Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
+				} else {
+					commonMethods.clickElementbyXpath(webPage,
+							Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
+					Thread.sleep(3000);
+					commonMethods.clickElementbyXpath(webPage,
+							Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
+				}
+				String Newsletter_Subscription_Actual_Content_Text = commonMethods.getTextbyCss(webPage,
+						Newsletter_Subscription_Register_Create_An_Account_Check_Box_CssPath_Locator, softAssert);
+				softAssert.assertEquals(Newsletter_Subscription_Actual_Content_Text,
+						Newsletter_Subscription_Expected_Content_Text,
+						"verify_Register_Create_An_Account_Newsletters_General_Subscription_CheckBox verification failed.  Newsletter_Subscription_Expected_Content_Text : "
+								+ Newsletter_Subscription_Expected_Content_Text
+								+ " Newsletter_Subscription_Actual_Content_Text : "
+								+ Newsletter_Subscription_Actual_Content_Text);
+				String Newsletter_Subscription_Actual_ToolTip_Text = commonMethods.getAttributebyCss(webPage,
+						Newsletter_Subscription_Register_Create_An_Account_Check_Box_Locator_CssPath, "title",
+						softAssert);
+				SoftAssertor.assertEquals(Newsletter_Subscription_Actual_ToolTip_Text,
+						Newsletter_Subscription_Expected_ToolTip_Text,
+						"ToolTip_Text of the mouse pointer does not match");
+				softAssert.assertAll();
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage,
+					"verify_Account_Information_Tab_Newsletters_General_Subscription_CheckBox");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 349, enabled = true)
 	public void verify_Register_Create_New_Customer_Functionality_with_Valid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with blank input data ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -3243,70 +3359,5 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	/************************************************************************
-	 * GARBAGE ENDS
-	 *******************************************************************************************************************************************************************************************/
-	/**
-	 * Test Case - 002 - Verify Font Size and Style of specified on element on
-	 * Conns Home Page
-	 */
-	/************************************************************************
-	 * GARBAGE ENDS
-	 *******************************************************************************************************************************************************************************************/
-	/**
-	 * Test Case - 002 - Verify Font Size and Style of specified on element on
-	 * Conns Home Page
-	 */
-	/*
-	 * @Test(priority = 2, enabled = true, description = "Verify_Font_And_Size")
-	 * public void Verify_Font_And_Size() { SoftAssert softAssert = new
-	 * SoftAssert(); try { String[][] ExpectedFontValues =
-	 * ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
-	 * "VerifyFontandSize"); for (int i = 0; i < ExpectedFontValues.length; i++)
-	 * { List<String> actualCssValues = commonMethods.getFontProperties(webPage,
-	 * ExpectedFontValues[i][1], softAssert); if
-	 * (testType.equalsIgnoreCase("Mobile")) {
-	 * softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[
-	 * i][5]), "CSS value verification failed for link " +
-	 * ExpectedFontValues[i][0] + "Expected font Size : " +
-	 * ExpectedFontValues[i][5] + " Actual Font Size : " +
-	 * actualCssValues.get(0));
-	 * softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[
-	 * i][6]), "CSS value verification failed for link " +
-	 * ExpectedFontValues[i][0] + "Expected font color : " +
-	 * ExpectedFontValues[i][6] + " Actual font family : " +
-	 * actualCssValues.get(1));
-	 * softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValues[
-	 * i][4]), "CSS value verification failed for link " +
-	 * ExpectedFontValues[i][0] + "Expected font family : " +
-	 * ExpectedFontValues[i][4] + " Actual font family : " +
-	 * actualCssValues.get(2));
-	 * 
-	 * } else {
-	 * softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[
-	 * i][2]), "CSS value verification failed for link " +
-	 * ExpectedFontValues[i][0] + "Expected font Size : " +
-	 * ExpectedFontValues[i][2] + " Actual Font Size : " +
-	 * actualCssValues.get(0));
-	 * softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[
-	 * i][3]), "CSS value verification failed for link " +
-	 * ExpectedFontValues[i][0] + "Expected font color : " +
-	 * ExpectedFontValues[i][3] + " Actual font family : " +
-	 * actualCssValues.get(1));
-	 * softAssert.assertTrue(actualCssValues.get(2).toLowerCase().contains((
-	 * ExpectedFontValues[i][4]).toLowerCase()),
-	 * "CSS value verification failed for link " + ExpectedFontValues[i][0] +
-	 * "Expected font family : " + ExpectedFontValues[i][4] +
-	 * " Actual font family : " + actualCssValues.get(2));
-	 * 
-	 * } } softAssert.assertAll(); } catch (Throwable e) {
-	 * mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size");
-	 * softAssert.assertAll(); Assert.fail(e.getLocalizedMessage()); } }
-	 */
-	/************************************************************************
-	 * GARBAGE ENDS
-	 *******************************************************************************************************************************************************************************************/
+
 }
-/************************************************************************
- * UC001-UC006 ENDS
- *******************************************************************************************************************************************************************************************/

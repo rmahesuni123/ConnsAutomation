@@ -495,6 +495,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Valid_Email_Address_Expected_Successfull_Message_Locator = testdata[0][30];
 		String Newly_Created_User_Name_DashBoard_Header_Title_Locator = testdata[0][32];
 		String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = testdata[0][33];
+		String Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator = testdata[0][34];
 		String Email_Address_Input_Random_Number = Email_Address_Input_Dynamic.concat(getID());
 		Email_Address_Input_Dynamic = Email_Address_Input_Random_Number+"@gmail.com";
 
@@ -505,13 +506,16 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				webPage.findObjectByxPath(Email_Address_Locator).clear();
 				webPage.findObjectByxPath(Password_Locator).clear();
 				webPage.findObjectByxPath(Confirm_Password_Locator).clear();
+				webPage.findObjectByxPath(Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator).click();
 				webPage.findObjectByxPath(First_Name_Locator).sendKeys(First_Name_Input);
 				webPage.findObjectByxPath(Last_Name_Locator).sendKeys(Last_Name_Input);
 				webPage.findObjectByxPath(Email_Address_Locator).sendKeys(Email_Address_Input_Dynamic);
 				webPage.findObjectByxPath(Password_Locator).sendKeys(Password_Input);				
 				webPage.findObjectByxPath(Confirm_Password_Locator).sendKeys(Confirm_Password_Input);
-				//webPage.findObjectByxPath(Remember_Me_Box_Area).click();
+				webPage.findObjectByxPath(Remember_Me_Box_Area).click();
 				webPage.findObjectByxPath(Submit_Button_Locator).click();
+				
+
 				Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
 				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
 
