@@ -37,8 +37,6 @@ public class Conns_Product_Search extends BaseTest {
 	static String platform;
 	static Log log = LogUtil.getLog(Conns_Product_Search.class);
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
-			.concat("/ConnsTestData/Output/Env/Video");
 	private String url = null;
 	private WebPage webPage;
 	private ConnsMainPage mainPage;
@@ -56,7 +54,6 @@ public class Conns_Product_Search extends BaseTest {
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
-			// log.info(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName());
 			log.info("Test Type is : " + testType);
 			try {
 				testEnv = System.getenv().get("Environment");
@@ -65,9 +62,6 @@ public class Conns_Product_Search extends BaseTest {
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				log.info("DataFilePath After is : " + DataFilePath);
 				platform = testBed.getPlatform().getName().toUpperCase();
-				if (testType.equalsIgnoreCase("Web")) {
-					log.info("videoLocation" + videoLocation.toString().replace("Env", testEnv));
-				}
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				synchronized (this) {
 					webPage = new WebPage(context);

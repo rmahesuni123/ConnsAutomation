@@ -44,8 +44,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	static String platform;
 	static Log log = LogUtil.getLog(Conns_Store_Locator_Page.class);
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
-			.concat("/src/test/resources/testdata/videos");
 	private String url = null;
 	private WebPage webPage;
 	private ConnsMainPage mainPage;
@@ -72,8 +70,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			connsStoreLocatorPage= new ConnsStoreLocatorPage();
 			commonMethods = new CommonMethods();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
-			
-			
 			System.out.println("Test Type is : " + testType);
 			try {
 				testEnv = System.getenv().get("Environment");
@@ -84,10 +80,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				commonData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "storeLocatorCommonElements");
 				storeLocatorURL=commonData[0][0];
 				platform = testBed.getPlatform().getName().toUpperCase();
-				if (testType.equalsIgnoreCase("Web")) {
-					System.out.println("videoLocation" + videoLocation.toString().replace("Env", testEnv));
-				}
-
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				synchronized (this) {
 					webPage = new WebPage(context);
@@ -99,7 +91,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			}
 		}
 		catch (Exception e) {
-
 			CommonUtil.sop("Error is for" + testBedName + " -----------" + e);
 			SoftAssertor.addVerificationFailure(e.getMessage());
 		}
