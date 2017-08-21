@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 
+import com.etouch.common.CommonMethods;
 import com.etouch.connsTests.Conns_Credit_App_Page;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.LogUtil;
@@ -291,14 +292,59 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param softAssert
 	 * @throws Exception
 	 */
-	public static void submitCreditAppForNewUser(SoftAssert softAssert) throws Exception {
+	public static void submitCreditApp(SoftAssert softAssert) throws Exception {
 		commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
 		commonMethods.waitForPageLoad(webPage, softAssert);
-		Thread.sleep(10000);
-		String actual = commonMethods.getTextbyXpath(webPage, commonData.get("NewUserSuccessPageXpath"), softAssert);
-		softAssert.assertTrue(actual.equals(commonData.get("NewUserSuccessPageMessage")),
-				"Expected : " + commonData.get("NewUserSuccessPageMessage") + " Actual : " + actual);
+		String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+		softAssert.assertTrue(actualUrl.contains(commonData.get("SuccessPage")),
+				"Expected Url : " + commonData.get("SuccessPage") + " Actual Url : " + actualUrl);
 	}
+	
+	
+	/**
+	 * Submits credit app page for and verifies processing page and status 
+	 * @author sjadhav
+	 * @param softAssert
+	 * @throws Exception
+	 */
+	public static void submitCreditAppAndVerifyStatus(SoftAssert softAssert, String expectedStatus) throws Exception {
+		commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
+		Thread.sleep(2000);
+		System.out.println("Url isd : "+commonMethods.getPageUrl(webPage, softAssert));
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		
+		if(commonMethods.getPageUrl(webPage, softAssert).contains(commonData.get("ProcessingPage")))
+				{log.info("Processing Page is Displayed");}
+		else{
+			log.info("Unable to catch processing page");
+		}
+		String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+		softAssert.assertTrue(actualUrl.contains(commonData.get(expectedStatus)),
+				"Expected Url : " + commonData.get(expectedStatus) + " Actual Url : " + actualUrl);
+		
+		/*WebElement element = null;
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		System.out.println("Getting element using js");
+		while(element==null){
+		element	=	(WebElement) js.executeAsyncScript("document.evaluate(\".//*[@id='success-wireframe']//p[contains(text(),'Please wait. We are processing your application.')]\","
+						+ " document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;");
+		}
+	//	String processingPageUrl = (String) js.executeAsyncScript("document.URL;");
+		String processingPageUrl = commonMethods.getPageUrl(webPage, softAssert);
+		System.out.println("processingPageUrl is  :"+processingPageUrl);
+		softAssert.assertTrue(processingPageUrl.contains(commonData.get("ProcessingPage")),
+				"Expected : " + commonData.get("ProcessingPage") + " Actual : " + processingPageUrl);
+		log.info("Expected Url : " + commonData.get("ProcessingPage") + " Actual Url : " + processingPageUrl);
+		while(commonMethods.verifyElementisPresent(webPage, commonData.get("ProcessingPageHeadingXpath"), softAssert))
+			{commonMethods.waitForGivenTime(2, softAssert);}
+
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+		softAssert.assertTrue(actualUrl.contains(commonData.get(expectedStatus)),
+				"Expected : " + commonData.get("NewUserSuccessPageMessage") + " Actual : " + actualUrl);*/
+	}
+	
+	
 
 	/**
 	 * Verify expected and actual error message using xPath
@@ -308,11 +354,13 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param errorMessageFieldName
 	 * @param locator
 	 * @param expectedErrorMessage
+	 * @throws PageException 
 	 */
 	public static void verifyErrorMessageByXpath(SoftAssert softAssert, String errorMessageFieldName, String locator,
-			String expectedErrorMessage) {
+			String expectedErrorMessage) throws PageException {
 		log.info("Verifiyikng error message for : " + errorMessageFieldName + " : Expected Message : "
 				+ expectedErrorMessage);
+		commonMethods.waitForWebElement(By.xpath(locator), webPage);
 		String actualErrorMessage = commonMethods.getTextbyXpath(webPage, locator, softAssert);
 		softAssert.assertTrue(expectedErrorMessage.equals(actualErrorMessage), "Failed to verify error field :"
 				+ errorMessageFieldName + " : Expected : " + expectedErrorMessage + " Actual : " + actualErrorMessage);
@@ -443,6 +491,11 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public static boolean verifyTextFieldIsEditableByXpath(SoftAssert softAssert, String FieldName, String locator,
 			String newValue) {
+		if(newValue==""||newValue==null)
+		{
+			log.info("Value was passed as blank for textField "+FieldName);
+			return true;
+		}
 		if (commonMethods.getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
 			log.info("TextBox is enabled");
 			log.info("Setting TextBox \"" + FieldName + "\" Value to : " + newValue);
@@ -450,18 +503,11 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			if (!((String) js.executeScript("return arguments[0].getValue()",
 					commonMethods.getWebElementbyXpath(webPage, locator, softAssert)) == null))
 				commonMethods.clearTextBoxByXpath(webPage, locator, softAssert);
-			// WebElement element = commonMethods.getWebElementbyXpath(webPage,
-			// locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, locator, newValue, softAssert);
 			String actual = (String) js.executeScript("return arguments[0].getValue()",
 					commonMethods.getWebElementbyXpath(webPage, locator, softAssert));
-			// String actual = commonMethods.getTextbyXpath(webPage, locator,
-			// softAssert);
 			if (actual.equals(newValue))
 				return true;
-			// softAssert.assertTrue(actual.equals(newValue),"Failed to Update
-			// TextBox value, New Value : "+newValue+" Existing Value :
-			// "+actual);
 		} else if (!verifyElementisPresent(webPage, locator, softAssert)) {
 			log.info("TextBox \"" + FieldName + "\" is Not Displayed");
 			softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
@@ -550,7 +596,22 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			softAssert.fail(" CheckBox Field " + FieldName + " is disabled ");
 		}
 	}
-
+	/**
+	 * Select Button using xpath
+	 * @author sjadhav
+	 * @param softAssert
+	 * @param FieldName
+	 * @param locator
+	 */
+	public static void selectButtonByXpath(SoftAssert softAssert, String FieldName, String locator) {
+		if (commonMethods.getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+			log.info("Clicking on Button : \"" + FieldName + "\"");
+			commonMethods.clickElementbyXpath(webPage, locator, softAssert);
+		} else {
+			log.info("Button is Disabled");
+			softAssert.fail(" Button Field " + FieldName + " is disabled ");
+		}
+	}
 	/**
 	 * Select value from drop down menu using Id
 	 * @author sjadhav
@@ -622,6 +683,10 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 					break;
 				case "checkBox":
 					selectCheckBoxByXpath(softAssert, FieldData[i][0], FieldData[i][2]);
+					break;
+					
+				case "button":
+					selectButtonByXpath(softAssert, FieldData[i][0], FieldData[i][2]);
 					break;
 				default:
 					softAssert.fail("Invalid Data in datasheet. FieldType is not set as expected. Current value is : "
