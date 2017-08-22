@@ -67,10 +67,11 @@ public class AppiumLauncher {
 		String portNumber = testBed.getPort();
 
 		try {
-			File batchFile_windows = new File("C://awsslave//workspace//Mobile_POC//test-automation-library//resources");
+			File batchFile_windows = new File("..//test-automation-library//resources");
+			//File batchFile_windows = new File("C://Users//test//git//ConnsAutomation5//test-automation-library//resources");
 
 			if (isWindows()) {
-				executeCommand("cmd /c " + batchFile_windows.getAbsolutePath() + "\\" + "killport_windows.bat" + " " + portNumber);
+				executeCommand("cmd /c " + batchFile_windows.getAbsolutePath() + "//" + "killport_windows.bat" + " " + portNumber);
 			
 			} else if (isMac() || isUnix() || isSolaris()) {
 				executeCommand("sh " + "..//test-automation-library//resources//killport_mac" + " " + portNumber);
