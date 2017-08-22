@@ -31,7 +31,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public static void navigateToCreditAppPage(SoftAssert softAssert) throws Exception {
 		if (CreditAppUrl == null) {
-			webPage.navigateToUrl(url);
+			//webPage.navigateToUrl(url);
 			log.info("Navigating to Home Page");
 			log.info("Navigating to Credit App Page");
 			commonMethods.clickElementbyXpath(webPage, commonData.get("YesMoneyGetCreditTodayApplyNowLink"),
