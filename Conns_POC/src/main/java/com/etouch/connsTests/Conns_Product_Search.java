@@ -133,6 +133,7 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("Clicked on element " + test[0][2]);
 			String str2[] = test[0][6].split(",");
 			if (testType.equalsIgnoreCase("Web")) {
+				CommonMethods.waitForGivenTime(5);
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				List<WebElement> list = s.getOptions();
 				String str[] = { list.get(0).getText().toString(), list.get(1).getText().toString(),
@@ -142,6 +143,7 @@ public class Conns_Product_Search extends BaseTest {
 					number = Integer.parseInt(str[i].trim());
 					SoftAssertor.assertEquals(number, Integer.parseInt(str2[i]), "Number List:  ");
 					s.selectByVisibleText(String.valueOf(number));
+					CommonMethods.waitForGivenTime(5);
 					CommonMethods.waitForWebElement(By.xpath(test[0][7]), webPage);
 					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
 					SoftAssertor.assertEquals(elementList.size() <= number, true, "element is Not As Expected");
