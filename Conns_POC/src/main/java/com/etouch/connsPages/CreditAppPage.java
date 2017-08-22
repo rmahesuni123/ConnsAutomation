@@ -309,15 +309,17 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public static void submitCreditAppAndVerifyStatus(SoftAssert softAssert, String expectedStatus) throws Exception {
 		commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		System.out.println("Url isd : "+commonMethods.getPageUrl(webPage, softAssert));
-		commonMethods.waitForPageLoad(webPage, softAssert);
+	//	commonMethods.waitForPageLoad(webPage, softAssert);
 		
 		if(commonMethods.getPageUrl(webPage, softAssert).contains(commonData.get("ProcessingPage")))
-				{log.info("Processing Page is Displayed");}
+				{log.info("Processing Page is Displayed");
+				Thread.sleep(3000);}
 		else{
 			log.info("Unable to catch processing page");
 		}
+		commonMethods.waitForPageLoad(webPage, softAssert);
 		String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 		softAssert.assertTrue(actualUrl.contains(commonData.get(expectedStatus)),
 				"Expected Url : " + commonData.get(expectedStatus) + " Actual Url : " + actualUrl);
