@@ -259,6 +259,7 @@ public class Conns_Product_Search extends BaseTest {
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][10]))));
 			}
 			s.selectByVisibleText(test[0][7]);
+			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
 			List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
 			log.info("element Size-->" + elementList.size());
@@ -267,6 +268,7 @@ public class Conns_Product_Search extends BaseTest {
 			SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by Product Name in Ascending order");
 			// For Descending
 			webPage.findObjectByxPath(test[0][9]).click();
+			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
 			elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
 			log.info("element Size-->" + elementList.size());
@@ -307,6 +309,7 @@ public class Conns_Product_Search extends BaseTest {
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][10]))));
 			}
 			s.selectByVisibleText(test[0][7]);
+			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
 			List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
 			log.info("element Size-->" + elementPriceList.size());
@@ -315,6 +318,7 @@ public class Conns_Product_Search extends BaseTest {
 			SoftAssertor.assertEquals(isSorted, true, "element is Not in Ascending order by price");
 			// For Descending
 			webPage.findObjectByxPath(test[0][9]).click();
+			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
 			elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
 			log.info("element Size-->" + elementPriceList.size());
