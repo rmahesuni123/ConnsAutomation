@@ -616,6 +616,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				"CreditApp", "verifyCreditAppSubmitWithRefField");
 		CreditAppPage.navigateToCreditAppPage(softAssert);
 		CreditAppPage.fillForm(softAssert, testData);
+		CreditAppPage.submitCreditApp(softAssert);
 		softAssert.assertAll();
 	}
 	
