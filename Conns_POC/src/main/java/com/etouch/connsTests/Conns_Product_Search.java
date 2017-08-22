@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -53,6 +54,7 @@ public class Conns_Product_Search extends BaseTest {
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			log.info("Arrays:::"+Arrays.deepToString(TestBedManagerConfiguration.INSTANCE.getWebConfig().getCurrentTestBeds()));
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			log.info("Test Type is : " + testType);
 			try {
@@ -97,6 +99,7 @@ public class Conns_Product_Search extends BaseTest {
 			} else {
 				contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContentForMobile");
 			}
+		
 			for (int i = 0; i < contentData.length; i++) {
 				log.info("Actual:  " + webPage.findObjectByxPath(contentData[i][0]).getText() + "   Expected: "
 						+ contentData[i][1]);
@@ -261,7 +264,7 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("element Size-->" + elementList.size());
 			boolean isSorted = mainPage.isSortedByName(elementList);
 			log.info("element is shorted: " + isSorted);
-			SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by Product Name");
+			SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by Product Name in Ascending order");
 			// For Descending
 			webPage.findObjectByxPath(test[0][9]).click();
 			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
@@ -269,7 +272,7 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("element Size-->" + elementList.size());
 			boolean isSortedDesc = mainPage.isSortedByNameDesc(elementList);
 			log.info("element is shorted: " + isSortedDesc);
-			SoftAssertor.assertEquals(isSortedDesc, true, "element is Not shorted by Product Name in Desc");
+			SoftAssertor.assertEquals(isSortedDesc, true, "element is Not shorted by Product Name in Descending order");
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Name");
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -309,7 +312,7 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("element Size-->" + elementPriceList.size());
 			boolean isSorted = mainPage.isSortedFloat(elementPriceList);
 			log.info("element is shorted: " + isSorted);
-			SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by price");
+			SoftAssertor.assertEquals(isSorted, true, "element is Not in Ascending order by price");
 			// For Descending
 			webPage.findObjectByxPath(test[0][9]).click();
 			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
@@ -317,7 +320,7 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("element Size-->" + elementPriceList.size());
 			boolean isSortedInDesc = mainPage.isSortedDescFloat(elementPriceList);
 			log.info("element is shorted: " + isSortedInDesc);
-			SoftAssertor.assertEquals(isSortedInDesc, true, "element is Not shorted by price");
+			SoftAssertor.assertEquals(isSortedInDesc, true, "element is Not in Descending order by price");
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Price");
 			SoftAssertor.addVerificationFailure(e.getMessage());
