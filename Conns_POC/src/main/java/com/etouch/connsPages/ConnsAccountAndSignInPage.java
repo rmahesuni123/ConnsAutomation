@@ -78,6 +78,62 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	
 	public void verify_Remember_Me_Functionality(String[][] testdata) {
+		String RememberMeCheckBox = testdata[0][0];
+		String Expected_ToolTip_Text = testdata[0][1];
+		log.info("Checkbox verification starts :" + RememberMeCheckBox);
+		log.info("Checkbox verification starts : "+ Expected_ToolTip_Text );
+		try { log.info("Checkbox verification starts");
+			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
+			jse.executeScript("window.scrollTo(0,100)");
+		//	WebElement RemembermeCheckBox = webPage.getDriver().findElement(By.cssSelector("#remember-me-box>div>input"));
+		//	WebElement RemembermeCheckBox = webPage.getDriver().findElement(By.cssSelector("Remember_me_CheckBox"));
+			Thread.sleep(2000);
+			WebElement RemembermeCheckBox = webPage.getDriver().findElement(By.cssSelector(RememberMeCheckBox));
+			//if ((!(webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isSelected())) && (webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isDisplayed() && (webPage.getDriver().findElement(By.cssSelector(RemembermeCheckBox)).isEnabled())))
+			if ((!(RemembermeCheckBox).isSelected()) && ((RemembermeCheckBox)).isEnabled())
+								
+			 { log.info("Checkbox verification begins");
+				 boolean checkstatus;
+				 checkstatus=RemembermeCheckBox.isSelected();
+				 if (checkstatus==false){
+					 log.info("Checkbox is already unchecked");
+					 RemembermeCheckBox.click();
+					 log.info("Checked the checkbox");
+				     RemembermeCheckBox.click();
+					 log.info("Unchecked the checkbox");
+				 }
+				
+		}  
+			else if (((RemembermeCheckBox).isSelected()) && ((RemembermeCheckBox)).isEnabled())
+			{ log.info("Checkbox verification begins for when Checkbox is selected");
+			boolean checkstatus;
+			checkstatus=RemembermeCheckBox.isSelected();
+			if (checkstatus==true) {
+				RemembermeCheckBox.click();
+				log.info("Checkbox is unchecked");
+			    RemembermeCheckBox.click();
+				log.info("Checkbox is checked");
+			    RemembermeCheckBox.click();
+				log.info("Checkbox is unchecked");
+			}
+			else
+			{
+			log.info("Checkbox is already unchecked");	
+			}
+		}
+			}
+			catch (Throwable e) {
+				e.printStackTrace();
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Login failed");
+			log.error(e.getMessage());
+
+		}
+
+	}
+	
+	
+	public void verify_Register_Create_An_Account_Remember_Me_Functionality(String[][] testdata) {
 		String RememberMeCheckBox = testdata[0][5];
 		String Expected_ToolTip_Text = testdata[0][6];
 		log.info("Checkbox verification starts :" + RememberMeCheckBox);
@@ -130,6 +186,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 	}
 	
+	
+
 	
 
 	public void verifyLoginFunctionality(String[][] testdata) {
@@ -263,14 +321,13 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String ActualEmailErrMsg="";
 			String ActualPwdErrMsg="";
 		
-			String EmailAddlocator = testdata[1][0];
-			String EmailErrlocator = testdata[1][1];
-			String EmailAddInput = testdata[1][2];
-			String Pwdlocator = testdata[1][4];
-			String PwdErrlocator = testdata[1][5];
-			String PwdInput = testdata[1][6];
-			
-			String LoginButtLocator = testdata[1][8];
+			String EmailAddlocator = testdata[0][0];
+			String EmailErrlocator = testdata[0][1];
+			String EmailAddInput = testdata[0][2];
+			String Pwdlocator = testdata[0][4];
+			String PwdErrlocator = testdata[0][5];
+			String PwdInput = testdata[0][6];			
+			String LoginButtLocator = testdata[0][8];
 		try {
 		
 		if (!(EmailAddInput.equalsIgnoreCase("NA") && PwdInput.equalsIgnoreCase("NA"))) {
@@ -279,7 +336,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		webPage.findObjectByxPath(Pwdlocator).clear();
 		webPage.findObjectByxPath(EmailAddlocator).sendKeys(EmailAddInput);
 		webPage.findObjectByxPath(Pwdlocator).sendKeys(PwdInput);
+		Thread.sleep(2000);
 		webPage.findObjectByxPath(LoginButtLocator).click();
+		Thread.sleep(2000);
 		ActualEmailErrMsg = webPage.findObjectByxPath(EmailErrlocator).getText();
 		ActualPwdErrMsg = webPage.findObjectByxPath(PwdErrlocator).getText();
 		errorMessage.add(ActualEmailErrMsg);
@@ -290,9 +349,12 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 	}
 		catch (Throwable e) {
+			e.printStackTrace();
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Login failed");
 			log.error(e.getMessage());
+			log.info("Exit the dragon :" +errorMessage.get(0) + errorMessage.get(1));
+
 
 		}
 		return errorMessage;
@@ -557,7 +619,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	//Utilisation :   
 	
 	
-	
+	static int r = 0;
 	public List<String> verify_Links_Account_Tab(String[][] testdata) {
 		List<String> brokenLinks = new ArrayList<String>();
 		String ParentElementLocator = null;
@@ -569,7 +631,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Actual_Page_URL="";
 		String Actual_Page_Title="";
 		String Actual_Page_Element_Name="";
-			try {
+		try {
 				log.info("Verifying " + testdata[r][0]);
 				ParentElementLocator = testdata[r][1];
 				ChildElementLocator = testdata[r][2];
@@ -705,6 +767,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Actual_Page_URL="";
 		String Actual_Page_Title="";
 		String Actual_Page_Element_Name="";
+		int r =0;
 			try {
 				log.info("Verifying " + testdata[r][0]);
 				ParentElementLocator = testdata[r][1];
@@ -788,7 +851,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 						//webPage.getDriver().navigate().back();
 						e.printStackTrace();
 						JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-						//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari */	
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari */	
 						
 						/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
 							JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
@@ -803,7 +866,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			} catch (Exception e) {
 				//webPage.getDriver().navigate().back();
 				JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-				//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+				js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
 				
 				/*if (testBed.getTestBedName().equalsIgnoreCase("Safari")){
 					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
@@ -827,6 +890,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 	
 	public List<String> verify_Pay_Your_Bill_Link_Account_Dashboard(String[][] testdata) {
+		int r =0;
 		SoftAssert softAssert = new SoftAssert();
 		List<String> brokenLinks = new ArrayList<String>();
 		String ParentElementLocator = null;
@@ -981,7 +1045,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	}
 			
 	
-	static int r = 0;
+	static int b = 0;
 		public List<String> verify_Links_Resizeable_Account_Tab(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			SoftAssert softAssert = new SoftAssert();
@@ -993,26 +1057,25 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Account_DashBoard_Mobile_Drop_Down_Link = null;
 			String Safari_Path_ChildElementLocator = null;
 			//String NameofTestCase = testdata[6][0];
-
 			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
 			String Actual_Page_URL="";
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 				try {
-					log.info(" ******************************* incremented value of r one *********************  : " +r);
-					log.info(" ******************** Verifying *************************" + testdata[r][0]);
-					ParentElementLocator = testdata[r][1];
-					Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
-					ChildElementLocator = testdata[r][3];
-					Expected_Page_URL = testdata[r][4];
-					Expected_Page_Element_Name = testdata[r][5];
-					Expected_Page_Element_Title = testdata[r][6];
+					log.info(" ******************************* incremented value of b one *********************  : " +b);
+					log.info(" ******************** Verifying *************************" + testdata[b][0]);
+					ParentElementLocator = testdata[b][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[b][2];
+					ChildElementLocator = testdata[b][3];
+					Expected_Page_URL = testdata[b][4];
+					Expected_Page_Element_Name = testdata[b][5];
+					Expected_Page_Element_Title = testdata[b][6];
 					
 					//Safari_Path_ChildElementLocator = testdata[r][8];
 					log.info("Parent Locator is ..." + ParentElementLocator);
 					
 					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+						webPage.hoverOnElement(By.cssSelector(testdata[b][0]));
 					}
 					log.info("********** Before Execution ******************");
 					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
@@ -1067,7 +1130,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
 								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
 								}
 						
@@ -1075,7 +1138,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 									e.printStackTrace();
 									/*webPage.getDriver().navigate().back();*/
 									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 
 						}
 					}
@@ -1084,17 +1147,17 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					/*webPage.getDriver().navigate().back();*/
 					e.printStackTrace();
 					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
 				}
-				r++;
-				log.info(" ******************************* incremented value of r second *********************  : " +r);
+				b++;
+				log.info(" ******************************* incremented value of b second *********************  : " +b);
 			if (brokenLinks.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
 			}
-			r = 0;
+			
 			return Page_URL_Title_Element_Data;
 			
 		}
@@ -1120,6 +1183,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 			String Actual_My_Orders_Expected_Element_Text = "";
+			int r =0;
 				try {
 					log.info(" ******************************* incremented value of r one *********************  : " +r);
 					log.info(" ******************** Verifying *************************" + testdata[r][0]);
@@ -1201,7 +1265,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
 								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
 								}
 						
@@ -1209,7 +1273,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 									e.printStackTrace();
 									/*webPage.getDriver().navigate().back();*/
 									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 
 						}
 					}
@@ -1218,7 +1282,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					/*webPage.getDriver().navigate().back();*/
 					e.printStackTrace();
 					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
@@ -1302,7 +1366,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = "";
 			String Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = "";
 			String Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text = "";
-			 int r = 0;
+			int r = 0;
 			
 				try {
 					log.info(" ******************************* incremented value of r one *********************  : " +r);
@@ -1356,7 +1420,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					}
 					log.info("********** Before Execution ******************");
 					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
-					Thread.sleep(5000);
+					Thread.sleep(6000);
 					log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
 					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 					Actual_My_Wishlist_Product_Details_And_Comment_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Product_Details_And_Comment_Element_Text_Locator).getText();
@@ -1530,7 +1594,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
 								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
 								}
 						
@@ -1538,7 +1602,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 									e.printStackTrace();
 									/*webPage.getDriver().navigate().back();*/
 									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 
 						}
 					}
@@ -1547,7 +1611,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					/*webPage.getDriver().navigate().back();*/
 					e.printStackTrace();
 					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
@@ -1563,7 +1627,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 		
 		
-		
+		static int c = 0;
 		public List<String> verify_My_Wish_List_Page_Links(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			SoftAssert softAssert = new SoftAssert();
@@ -1576,35 +1640,34 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Safari_Path_ChildElementLocator = null;
 			String My_Wish_List_Page_Element_Expected_Locator = null;
 			String My_Wish_List_Page_Element_Locator_Expected_Text = null;
+			String Navigate_To_Account_Information_Tab_Form_URL = null;
 			//String NameofTestCase = testdata[6][0];
-
 			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
 			String Actual_Page_URL="";
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 			String Actual_My_Wish_List_Page_Expected_Element_Text = "";
 				try {
-					log.info(" ******************************* incremented value of r one *********************  : " +r);
-					log.info(" ******************** Verifying *************************" + testdata[r][0]);
-					ParentElementLocator = testdata[r][1];
-					Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
-					ChildElementLocator = testdata[r][3];
-					Expected_Page_URL = testdata[r][4];
-					Expected_Page_Element_Name = testdata[r][5];
-					Expected_Page_Element_Title = testdata[r][6];
-					My_Wish_List_Page_Element_Expected_Locator = testdata[r][8];
-					My_Wish_List_Page_Element_Locator_Expected_Text = testdata[r][9];
+					log.info(" ******************************* incremented value of c one *********************  : " +c);
+					log.info(" ******************** Verifying *************************" + testdata[c][0]);
+					ParentElementLocator = testdata[c][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[c][2];
+					ChildElementLocator = testdata[c][3];
+					Expected_Page_URL = testdata[c][4];
+					Expected_Page_Element_Name = testdata[c][5];
+					Expected_Page_Element_Title = testdata[c][6];
+					Navigate_To_Account_Information_Tab_Form_URL = testdata[c][7];
+					My_Wish_List_Page_Element_Expected_Locator = testdata[c][8];
+					My_Wish_List_Page_Element_Locator_Expected_Text = testdata[c][9];
 					
 					//Safari_Path_ChildElementLocator = testdata[r][8];
 					log.info("Parent Locator is ..." + ParentElementLocator);
 					
 					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+						webPage.hoverOnElement(By.cssSelector(testdata[c][0]));
 					}
 					log.info("********** Before Execution ******************");
-					//commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
-					Thread.sleep(5000);
-					log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
+					webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 					commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
 					Actual_My_Wish_List_Page_Expected_Element_Text = webPage.findObjectByxPath(My_Wish_List_Page_Element_Expected_Locator).getText();
@@ -1665,21 +1728,19 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
 								/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
-*/								
+								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari*/								
 								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari 
 								//webPage.getDriver().navigate().back();
 								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
 								}
-						
 								} catch (Exception e) {
 									e.printStackTrace();
 									/*webPage.getDriver().navigate().back();*/
 									/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
 */									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari 
 
 						}
 					}
@@ -1688,7 +1749,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					
 					e.printStackTrace();
 					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari 
 					/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)"); */ // Used for Safari
 					/*webPage.getDriver().navigate().back();*/
@@ -1696,8 +1757,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
 				}
-				r++;
-				log.info(" ******************************* incremented value of r second *********************  : " +r);
+				c++;
+				log.info(" ******************************* incremented value of c second *********************  : " +c);
 			if (brokenLinks.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
 			}
@@ -1705,13 +1766,6 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			
 		}
 
-		
-		
-		
-		
-		
-		
-		
 		
 		public List<String> verify_Register_Link_Redirection_From_Home_Page(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
@@ -1732,6 +1786,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 			String Actual_Create_An_Account_Expected_Element_Text = "";
+			int r =0;
 				try {
 					log.info(" ******************************* incremented value of r one *********************  : " +r);
 					log.info(" ******************** Verifying *************************" + testdata[r][0]);
@@ -1813,7 +1868,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
 								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
 								}
 						
@@ -1821,7 +1876,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 									e.printStackTrace();
 									/*webPage.getDriver().navigate().back();*/
 									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 
 						}
 					}
@@ -1830,7 +1885,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					/*webPage.getDriver().navigate().back();*/
 					e.printStackTrace();
 					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
