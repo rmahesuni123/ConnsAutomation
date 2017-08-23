@@ -94,82 +94,85 @@ public class ConnsMainPage extends CommonPage {
 		}
 	}
 
-	public boolean isSorted(List<WebElement> list) {
-		boolean sorted = true;
-		for (int i = 1; i < list.size(); i++) {
-			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());*/
-			if (list.get(i - 1).getText().compareTo(list.get(i).getText()) > 0) {
-				System.out.println(
-						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
-				sorted = false;
-			}
-		}
-		return sorted;
-	}
 	public boolean isSortedFloat(List<WebElement> list) {
 		boolean sorted = true;
+		String str1;
+		String str2;
+		str1=list.get(0).getText().replace("$", "").replace(",", "");
 		for (int i = 1; i < list.size(); i++) {
-			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());*/
-			if (Float.parseFloat(list.get(i-1).getText().replace("$", "").replace(",", ""))>Float.parseFloat(list.get(i).getText().replace("$", "").replace(",", ""))) {
+			String actualString=list.get(i).getText();
+			str2=actualString.replace("$", "").replace(",", "");
+			Float a=Float.parseFloat(str1);
+			Float b=Float.parseFloat(str2);
+			System.out.println(
+					"Comparing:" + a + "  With " + b);
+			if (a>b) {
 				System.out.println(
-						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
+						"Failed for comparison among:" + a + "  And " + b);
 				sorted = false;
+				break;
 			}
+			str1=str2;
 		}
 		return sorted;
 	}
 	public boolean isSortedDescFloat(List<WebElement> list) {
 		boolean sorted = true;
+		String str1;
+		String str2;
+		str1=list.get(0).getText().replace("$", "").replace(",", "");
 		for (int i = 1; i < list.size(); i++) {
-			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());*/
-			if (Float.parseFloat(list.get(i-1).getText().replace("$", "").replace(",", ""))<Float.parseFloat(list.get(i).getText().replace("$", "").replace(",", ""))) {
+			String actualString=list.get(i).getText();
+			str2=actualString.replace("$", "").replace(",", "");
+			Float a=Float.parseFloat(str1);
+			Float b=Float.parseFloat(str2);
+			System.out.println(
+					"Comparing:" + a + "  With " + b);
+			if (b>a) {
 				System.out.println(
-						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
+						"Failed for comparison among:" + a + "  And " + b);
 				sorted = false;
+				break;
 			}
-		}
-		return sorted;
-	}
-	
-	public boolean isSortedDesc(List<WebElement> list) {
-		boolean sorted = true;
-		for (int i = 1; i < list.size(); i++) {
-		/*	System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());*/
-			if (list.get(i - 1).getText().compareTo(list.get(i).getText()) < 0) {
-				System.out.println(
-						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
-				sorted = false;
-			}
+			str1=str2;
 		}
 		return sorted;
 	}
 	public boolean isSortedByName(List<WebElement> list) {
 		boolean sorted = true;
+		String str1;
+		String str2;
+		str1=list.get(0).getText();
 		for (int i = 1; i < list.size(); i++) {
-			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());*/
-			if (list.get(i - 1).getText().substring(0, 2).compareTo(list.get(i).getText().substring(0, 2)) > 0) {
+		    str2=list.get(i).getText();
+			System.out.println(
+					"Comparing:" + str1 + "  With " + str2);
+			if (str1.substring(0, 2).compareTo(str2.substring(0, 2))>0) {
 				System.out.println(
-						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
+						"Failed for comparison among:" + str1 + "  And " + str2);
 				sorted = false;
+				break;
 			}
+			str1=str2;	
 		}
 		return sorted;
 	}
 	public boolean isSortedByNameDesc(List<WebElement> list) {
 		boolean sorted = true;
+		String str1;
+		String str2;
+		str1=list.get(0).getText();
 		for (int i = 1; i < list.size(); i++) {
-			/*System.out.println("Iteration-->" + i + "   Comparing: Element->: " + list.get(i - 1).getText() + " With-->"
-					+ list.get(i).getText());*/
-			if (list.get(i - 1).getText().substring(0, 2).compareTo(list.get(i).getText().substring(0, 2)) < 0) {
+			str2=list.get(i).getText();
+			System.out.println(
+					"Comparing:" + str1 + "  With " + str2);
+			if (str1.substring(0, 2).compareTo(str2.substring(0, 2))<0) {
 				System.out.println(
-						"Failed for comparison among:" + list.get(i - 1).getText() + "  And " + list.get(i).getText());
+						"Failed for comparison among:" + str1 + "  And " + str2);
 				sorted = false;
+				break;
 			}
+			str1=str2;		
 		}
 		return sorted;
 	}

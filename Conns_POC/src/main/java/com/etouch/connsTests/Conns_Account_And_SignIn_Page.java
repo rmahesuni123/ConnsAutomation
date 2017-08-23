@@ -107,8 +107,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-			String Sign_In_Home_Page_Header_Link = testdata[0][3];
-			////commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+			/*String Sign_In_Home_Page_Header_Link = testdata[0][3];
+			commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 			webPage.getCurrentUrl();// For Safari
 			String actualPageUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(actualPageUrl.contains(testdata[0][0]),"Page url verification failed. Expected url : " + testdata[0][0] + "Actual url   :   " + actualPageUrl);
@@ -128,8 +128,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-			String Sign_In_Home_Page_Header_Link = testdata[0][3];
-			////commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+			/*String Sign_In_Home_Page_Header_Link = testdata[0][3];
+			commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 			webPage.getCurrentUrl();// For Safari
 			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Verify_Font_And_Size_Login_Page");
 			for (int i = 0; i < ExpectedFontValues.length; i++) {
@@ -161,8 +161,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyContentOnLoginPage");
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 		SoftAssert softAssert = new SoftAssert();
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
-		////commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		webPage.getCurrentUrl();// For Safari
 		try {
 			for (int r = 0; r < testdata.length; r++) {
@@ -186,18 +186,21 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("******Started verification of Login functionality with invalid data ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginfuncInvalidInput");
-		String ExpErrMsgEmail = testdata[1][3];
-		String ExpErrMsgPwd = testdata[1][7];
+		String ExpErrMsgEmail = testdata[0][3];
+		String ExpErrMsgPwd = testdata[0][7];
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
-		////commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		String Navigate_To_Account_Login_Form_URL = test_data[0][2];
+		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			List<String> actualErrorMessage = ConnsSignInPage.verify_Login_Functionality_with_Invalid_Input(testdata);
-			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgEmail, "Login Functionality with Invalid Input verification failed For Invalid Email Address. Expected Email Address Error Message : "	+ ExpErrMsgEmail + "Actual Email Address Error Message : " + actualErrorMessage);
-			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgPwd,   "Login Functionality with Invalid Input verification failed For Invalid Password . Expected Password Error Message : " + ExpErrMsgPwd + "Actual Password Error Message : " + actualErrorMessage);
+			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgEmail, "Login Functionality with Invalid Input verification failed For Invalid Email Address. Expected Email Address Error Message : "	+ ExpErrMsgEmail + "Actual Email Address Error Message : " + actualErrorMessage.get(0));
+			softAssert.assertEquals(actualErrorMessage.get(1), ExpErrMsgPwd,   "Login Functionality with Invalid Input verification failed For Invalid Password . Expected Password Error Message : " + ExpErrMsgPwd + "Actual Password Error Message : " + actualErrorMessage.get(1));
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verifyLoginPageTitle");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -213,13 +216,13 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String ExpErrMsgEmail = testdata[1][3];
 		String ExpErrMsgPwd = testdata[1][7];
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
-		////commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		webPage.getCurrentUrl();// For Safari
 		try {
 			List<String> actualErrorMessage = ConnsSignInPage.verify_Login_Functionality_with_Blank_Input(testdata);
-			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgEmail,	"Login Functionality with Blank Input verification failed For Blank Email Address. Expected Email Address Error Message : "		+ ExpErrMsgEmail + "Actual Email Address Error Message : " + actualErrorMessage);
-			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgPwd, "  Login Functionality with Blank Input verification failed For Blank Password . Expected Password Error Message : "	+ ExpErrMsgPwd + "Actual Password Error Message : " + actualErrorMessage);
+			softAssert.assertEquals(actualErrorMessage.get(0), ExpErrMsgEmail,	"Login Functionality with Blank Input verification failed For Blank Email Address. Expected Email Address Error Message : "		+ ExpErrMsgEmail + "Actual Email Address Error Message : " + actualErrorMessage.get(0));
+			softAssert.assertEquals(actualErrorMessage.get(1), ExpErrMsgPwd, "  Login Functionality with Blank Input verification failed For Blank Password . Expected Password Error Message : "	+ ExpErrMsgPwd + "Actual Password Error Message : " + actualErrorMessage.get(1));
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "verify_Login_Functionality_with_Blank_Input");
@@ -238,10 +241,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String contentonoverlaylocator = testdata[0][1];
 		String verify_Whats_This_Overlay_Rendered_Expected_Content = testdata[0][2];
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
-		////commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		webPage.getCurrentUrl();// For Safari
 		try {
+			Thread.sleep(5000);
 			commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
 			String verify_Whats_This_Overlay_Rendered_Actual_Content = commonMethods.getTextbyCss(webPage,contentonoverlaylocator, softAssert);
 			softAssert.assertEquals(verify_Whats_This_Overlay_Rendered_Actual_Content,verify_Whats_This_Overlay_Rendered_Expected_Content,"verify_Whats_This_Overlay_Rendered verification failed. Whats_This_Overlay_Rendered_Expected_Content : "		+ verify_Whats_This_Overlay_Rendered_Expected_Content	+ " Whats_This_Overlay_Rendered_Actual_Content : " + verify_Whats_This_Overlay_Rendered_Actual_Content);
@@ -260,12 +264,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyWhatsThisOverlay");
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
 		String Locator = testdata[0][0];
 		String contentonoverlaylocator = testdata[0][1];
 		String verify_Whats_This_Overlay_Close_Expected_Content = testdata[0][2];
 		String Close_Button_Locator_CSS = testdata[0][4];
 		String Close_Button_Locator_Xpath = testdata[0][5];
+		String Navigate_To_Account_Login_Form_URL = testdata[0][6];
 		testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 		CommonUtil.sop("Test bed Name is " + testBedName);
 		testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
@@ -273,21 +277,25 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("Test Type is : " + testType);
 		platform = testBed.getPlatform().getName().toUpperCase();
 		try {
-			////commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+			/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+		      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
+			webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 			webPage.getCurrentUrl();// For Safari
 			Thread.sleep(3000);
 			commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
 			String verify_Whats_This_Overlay_Close_Actual_Content = commonMethods.getTextbyCss(webPage,contentonoverlaylocator, softAssert);
 			softAssert.assertEquals(verify_Whats_This_Overlay_Close_Actual_Content,verify_Whats_This_Overlay_Close_Expected_Content,"verify_Whats_This_Overlay_Close verification failed.  Whats_This_Overlay_Close_Expected_Content : " + verify_Whats_This_Overlay_Close_Expected_Content	+ " Whats_This_Overlay_Rendered_Actual_Content : "	+ verify_Whats_This_Overlay_Close_Actual_Content);
-			Thread.sleep(7000);
+			Thread.sleep(2000);
 			if (testBed.getTestBedName().equalsIgnoreCase("Safari")) {
 				commonMethods.clickElementbyCss(webPage, Close_Button_Locator_CSS, softAssert);
 			}
 			else{
-			commonMethods.clickElementbyXpath(webPage, Close_Button_Locator_Xpath, softAssert);
+				Thread.sleep(2000);
+			    commonMethods.clickElementbyXpath(webPage, Close_Button_Locator_Xpath, softAssert);
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Whats_This_Overlay_Close");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -301,9 +309,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		List<String> brokenLinks = new ArrayList<String>();
 		log.info("******Started verification of Redirectional_links functionality with valid data ********");
 		SoftAssert softAssert = new SoftAssert();
-		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
-		////commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		/*String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		  String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
+		String Navigate_To_Account_Login_Form_URL = testdata[0][6];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			for (int r = 0; r < testdata.length; r++) {
@@ -314,7 +324,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				String Expected_Element_Name = testdata[r][4];
 				String Expected_Page_Title = testdata[r][5];
 				log.info("Parent Locator is ..." + ParentElementLocator);
+				Thread.sleep(2000);
 				String Actual_Element_Name = commonMethods.getTextbyCss(webPage, ChildElementLocator, softAssert);
+				Thread.sleep(2000);
 				commonMethods.clickElementbyCssAndGetCurrentURL(webPage, ChildElementLocator, softAssert);
 				String Actual_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
 				String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
@@ -343,17 +355,21 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyRememberMeFunctionality");
-			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+			//String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 			String Remember_me_CheckBox = testdata[0][0];
 			String Expected_ToolTip_Text = testdata[0][1];
-			String Sign_In_Home_Page_Header_Link = test_data[0][3];
-			//commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+			String Navigate_To_Account_Login_Form_URL = testdata[0][2];
+			/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+		      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
+			webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
+			Thread.sleep(2000);
 			ConnsSignInPage.verify_Remember_Me_Functionality(testdata);
 			commonMethods.clickElementbyCssAndGetCurrentURL(webPage, Remember_me_CheckBox, softAssert);
 			String Actual_ToolTip_Text = commonMethods.getAttributebyCss(webPage, Remember_me_CheckBox, "title",softAssert);
 			SoftAssertor.assertEquals(Actual_ToolTip_Text, Expected_ToolTip_Text,"ToolTip_Text of the mouse pointer does not match");
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Remember_Me_CheckBox");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -394,8 +410,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][7];
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 	    String Navigate_To_Account_Login_Form_URL = test_data[0][2];
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
-		//commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+	    /*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		webPage.getCurrentUrl();// For Safari
 		try {
 			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
@@ -420,7 +436,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, ".//*[@id='account-welcome']", softAssert);
 				commonMethods.clickElementbyXpath(webPage, ".//*[@id='account-menu']/ul/li[4]/a", softAssert);
 			}
-			softAssert.assertEquals(Actual_Page_Url, Expected_Page_URL,"verify_Login_Functionality_Registered_User  with valid Input verification failed For Login_Functionality_Registered_User. Expected Login_Functionality_Registered_User_Page_URL  : "	+ Expected_Page_URL + "Actual Login_Functionality_Registered_User_Page_URL  : "	+ Actual_Page_Url);
+			softAssert.assertTrue(Actual_Page_Url.contains(Expected_Page_URL),"verify_Login_Functionality_Registered_User  with valid Input verification failed For Login_Functionality_Registered_User. Expected Login_Functionality_Registered_User_Page_URL  : "	+ Expected_Page_URL + "Actual Login_Functionality_Registered_User_Page_URL  : "	+ Actual_Page_Url);
 			webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 			webPage.getCurrentUrl();// For Safari
 			Thread.sleep(7000);
@@ -442,12 +458,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String Expected_Forgot_Password_Page_URL = testdata[0][0];
 		String Expected_Forgot_Password_Page_Title = testdata[0][1];
-		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][3];
-		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
-		//commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][2];
+		//String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		try {
-			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
+			commonMethods.clickElementbyXpath(webPage, Account_Login_Page_Forgot_Password_Page_Link, softAssert);
   			String Actual_Forgot_Password_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(Actual_Forgot_Password_Page_URL.contains(Expected_Forgot_Password_Page_URL),"Page url verification failed. Expected url : " + Expected_Forgot_Password_Page_URL  + "Actual url : " + Actual_Forgot_Password_Page_URL);
 			String Actual_Forgot_Password_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
@@ -466,11 +482,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Font_and_Size_On_Forgot_Password_Page() throws InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Font_And_Size_On_Forgot_Password_Page");
-		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
+		//String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][7];
 		String Forgot_Password_Link = testdata[0][8];
-		String Sign_In_Home_Page_Header_Link = test_data[0][3];
-		//commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 		webPage.getCurrentUrl();// For Safari
 		try {
@@ -506,8 +522,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifycontentonforgotPwdPage");
 		String Forgot_Password_Link = testdata[0][2];
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Font_And_Size_On_Forgot_Password_Page");
-		String Sign_In_Home_Page_Header_Link = input_data[0][3];
-		//commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		String Account_Login_Page_Forgot_Password_Page_Link = test_data[0][7];
 		webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 		webPage.getCurrentUrl();// For Safari
@@ -541,8 +557,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Forgot_Password_Error_Message = testdata[0][4];
 		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];
 		String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
-		String Sign_In_Home_Page_Header_Link = input_data[0][3];
-		//commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);
+		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
+	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		try {
 			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 			webPage.getCurrentUrl();// For Safari
@@ -686,6 +702,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,	"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   :  " + Page_Expected_Element_Name  +  "   Actual_Page_Title : " + Page_URL_Title_Data.get(0));
 				softAssert.assertAll();
 			} catch (Throwable e) {
+				e.printStackTrace();
 				mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Content");
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
@@ -1309,8 +1326,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	@Test(priority = 337, enabled = true)
 	public void verify_Account_Information_Tab_Newsletters_Save_Button() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
-		//String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Newsletters_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1389,21 +1406,22 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			log.info("Test Type is : " + testType);
 			platform = testBed.getPlatform().getName().toUpperCase();
-			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			for(int r= 0; r < test_data.length;r++)
 			{	
 				String Page_Expected_URL = test_data[r][4];
 				String Page_Expected_Element_Name = test_data[r][5];
 				String Page_Expected_Title = test_data[r][6];
 				if (testType.equalsIgnoreCase("Mobile")) {
+					log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(test_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
@@ -1411,6 +1429,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
 					}
 				else {
+					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(demo_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
 					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
@@ -1428,29 +1447,45 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 339, enabled = true)
+	@Test(priority = 339, enabled = false)
 	public void verify_Links_On_Account_DashBoard_Tab_Pay_Bill_Links_Section() throws Exception {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
 		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);*/
-		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Pay_Your_Bill_Link_On_Account_Information_Resizeable_Menu_Section");
-		//String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
-		String Pay_Your_Bill_Link_Resizeable_Link = test_data[0][8];
+		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Pay_Your_Bill_Link_On_Account_Information_Resizeable_Menu_Section");
+		String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Pay_Your_Bill_Link_On_Account_Information_Resizeable_Menu_Section");
+		//String Pay_Your_Bill_Link_Resizeable_Link = test_data[0][8];
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
+		String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Option = test_data [0][8];
+		String Resizeable_Account_DashBoard_Menu_Web_Drop_Down_Option = demo_data[0][8];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		commonMethods.clickElementbyXpath(webPage, Pay_Your_Bill_Link_Resizeable_Link, softAssert);
+		log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
+		String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
+		String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
+		//commonMethods.clickElementbyXpath(webPage, Pay_Your_Bill_Link_Resizeable_Link, softAssert);
 		log.info("******Started verification of Links in Pay Your Bill Page after Navigation ********" +webPage.getCurrentUrl() +"\t" +"\n"  + webPage.getPageTitle());
 		for (int r = 0; r < test_data.length; r++) {
 			String Page_Expected_URL = test_data[r][3];
 			String Page_Expected_Element_Name = test_data[r][5];
 			String Page_Expected_Title = test_data[r][7];
 			try {
+				if (testType.equalsIgnoreCase("Mobile")) {
+				commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Option, softAssert);
 				List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Pay_Your_Bill_Link_Account_Dashboard(test_data);
 				softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
 				softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
 				softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
 				softAssert.assertAll();
+				}else{
+					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Web_Drop_Down_Option, softAssert);
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Pay_Your_Bill_Link_Account_Dashboard(demo_data);
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+					softAssert.assertAll();
+				}
 			} catch (Throwable e) {
 				e.printStackTrace();
 				mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Content");
@@ -1467,7 +1502,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
 			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/			
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Orders_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Orders_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
@@ -1481,8 +1516,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
 			for(int r= 0; r < test_data.length;r++)
-			{	
-				String Page_Expected_URL = test_data[r][4];
+			{	String Page_Expected_URL = test_data[r][4];
 				String Page_Expected_Element_Name = test_data[r][5];
 				String Page_Expected_Title = test_data[r][6];
 				String My_Order_Expected_Page_Element_Name = test_data[r][9]; 
@@ -1495,6 +1529,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(My_Order_Expected_Page_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . My_Order_Page_Expected_Element_Name   : "+ My_Order_Expected_Page_Element_Name  +       "   My_Order_Actual_Page_Element_Name : "+Page_URL_Title_Data.get(3));
 					}
 				else {
+					//commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_My_Orders_Links_Resizeable_Account_Tab(demo_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
 					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
@@ -1529,7 +1564,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String [][] mobile_validation_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Page_Mobile_Links_Section");
 			String [][] web_validation_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Page_Web_Links_Section");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
@@ -1538,6 +1572,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			for(int r= 0; r < test_data.length;r++)
 			{	
 				String Page_Expected_URL = test_data[r][4];
@@ -1631,6 +1666,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					String My_Wish_List_Web_Page_Expected_Element_Name = web_validation_data[r1][5];
 					String My_Wish_List_Web_Page_Expected_Title = web_validation_data[r1][6];
 					String My_Wish_List_Web_Page_Element_Locator_Text =  web_validation_data[r1][9];
+					String Account_DashBoard_Mobile_Drop_Down_Link = web_validation_data[r1][2];
+					//commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
 					List<String> Page_URL_Title_Data_My_Wish_List_Links  = ConnsSignInPage.verify_My_Wish_List_Page_Links(web_validation_data);
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(0).equalsIgnoreCase(My_Wish_List_Web_Page_Expected_Title),                    "  Account Information DashBoard Tab verification failed For Page Title.  My_Wish_List_Web_Page_Expected_Title                                     : "+ My_Wish_List_Web_Page_Expected_Title                                            	       +       "   My_Wish_List_Web_Page_Actual_Title                                       		: "+ Page_URL_Title_Data_My_Wish_List_Links.get(0));	
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(1).contains(My_Wish_List_Web_Page_Expected_URL),                              "  Account Information DashBoard Tab verification failed For Page URL .   My_Wish_List_Web_Page_Expected_URL                                       : "+ My_Wish_List_Web_Page_Expected_URL                                             		   +       "   My_Wish_List_Web_Page_Actual_URL                                             	: "+ Page_URL_Title_Data_My_Wish_List_Links.get(1));
@@ -1647,15 +1684,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 		catch(Throwable e){
 			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			mainPage.getScreenShotForFailure(webPage, "verify_My_Wish_List_Link_On_Account_Information_Resizeable_Menu_Section");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	
-	
-	
-	
 	
 	
 	@Test(priority = 342, enabled = true)
@@ -1664,25 +1697,23 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
-			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Link_Redirection_From_Home_Page");
 			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Link_Redirection_From_Home_Page");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][8];
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);			
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			log.info("Test Type is : " + testType);
 			platform = testBed.getPlatform().getName().toUpperCase();
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
-			//String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 			String Ham_Burger_Icon_Locator = test_data[0][2];
 			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
 			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
 			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
-
-
+			String Mobile_Ham_Burger_Icon_Sign_Out_Locator = test_data[0][11];
+			String Web_Welcome_Message_Locator = test_data[0][12];
+			String Web_Log_Out_Drop_Down_Locator = test_data[0][13];
 			for(int r= 0; r < test_data.length;r++)
 			{	
 				String Page_Expected_URL = test_data[r][5];
@@ -1690,6 +1721,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				String Page_Expected_Title = test_data[r][7];
 				String Create_An_Account_Expected_Page_Element_Name = test_data[r][10]; 
 				if (testType.equalsIgnoreCase("Mobile")) {
+					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Mobile_Ham_Burger_Icon_Sign_Out_Locator, softAssert);					
+					webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
@@ -1700,6 +1735,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(Create_An_Account_Expected_Page_Element_Name) ,"  Account Information DashBoard Tab verification failed For Create_An_Account_Expected_Page_Element_Name . Create_An_Account_Expected_Page_Element_Name   : "+ Create_An_Account_Expected_Page_Element_Name  +       "   Create_An_Account_Actual_Page_Element_Name : "+Page_URL_Title_Data.get(3));
 					}
 				else {
+					commonMethods.clickElementbyXpath(webPage, Web_Welcome_Message_Locator, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Web_Log_Out_Drop_Down_Locator, softAssert);
+					webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Register_Link_Redirection_From_Home_Page(web_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
@@ -1713,15 +1751,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 		catch(Throwable e){
 			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			mainPage.getScreenShotForFailure(webPage, "verify_Register_Link_Redirection_From_Home_Page");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	
-	
-	
-	
+
 	
 	@Test(priority = 343, enabled = true)
 	public void verify_Register_Create_New_Customer_Functionality_with_Blank_Input() throws InterruptedException {
@@ -1743,7 +1778,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			log.info("Test Type is : " + testType);
 			platform = testBed.getPlatform().getName().toUpperCase();
-			//String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
+			//String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Register_Create_New_Customer_Functionality_with_Blank_Input");
 			String Ham_Burger_Icon_Locator = test_data[0][2];
 			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
 			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];

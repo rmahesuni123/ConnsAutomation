@@ -268,7 +268,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
 			List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
 			log.info("element Size-->" + elementPriceList.size());
-			boolean isSorted = mainPage.isSorted(elementPriceList);
+			boolean isSorted = mainPage.isSortedFloat(elementPriceList);
 			log.info("element is shorted: " + isSorted);
 			SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by price");
 			// For Descending
@@ -277,7 +277,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
 			elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
 			log.info("element Size-->" + elementPriceList.size());
-			boolean isSortedInDesc = mainPage.isSortedDesc(elementPriceList);
+			boolean isSortedInDesc = mainPage.isSortedDescFloat(elementPriceList);
 			log.info("element is shorted: " + isSortedInDesc);
 			SoftAssertor.assertEquals(isSortedInDesc, true, "element is Not shorted by price");
 			// webPage.getBackToUrl();

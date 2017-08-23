@@ -562,6 +562,18 @@ public class CommonMethods {
 	}
 	
 	/**
+	 * @author Name - Deepak Bhambri
+	 * The method is used to wait for given time	
+	 **/
+	public static void waitForGivenTime(int givenTimeinSec) throws InterruptedException{
+		try {
+			log.info("Waiting for given time "+givenTimeinSec+"sec");
+			Thread.sleep(givenTimeinSec*1000);			
+		} catch (Exception e) {
+			//softAssert.fail("Unable to wait for given time "+givenTimeinSec+" sec. Localized Message: "+e.getLocalizedMessage());			
+		}
+	}
+	/**
 	 * @author Name - Madhukar
 	 * get webelements in to a list and return the list to a calling method
 	 **/
