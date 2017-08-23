@@ -679,7 +679,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 					// commonMethods.sendKeysByXpath(webPage, FieldData[i][2],
 					// FieldData[i][3], softAssert);
 					break;
-				case "dropDown":
+				case "dropDown": 
 					verifyDropDownFieldIsEditableByXpath(softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
 					// selectValueFromDropDownByXpath(softAssert,
 					// FieldData[i][0], FieldData[i][2], FieldData[i][3]);
