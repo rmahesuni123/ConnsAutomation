@@ -577,7 +577,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				webPage.findObjectByxPath(Remember_Me_Box_Area).click();
 				webPage.findObjectByxPath(Submit_Button_Locator).click();
 				
-
+				Thread.sleep(2000);
 				Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
 				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
 
@@ -1061,7 +1061,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_URL="";
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
-				try {
+			try {
 					log.info(" ******************************* incremented value of b one *********************  : " +b);
 					log.info(" ******************** Verifying *************************" + testdata[b][0]);
 					ParentElementLocator = testdata[b][1];
@@ -1647,7 +1647,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 			String Actual_My_Wish_List_Page_Expected_Element_Text = "";
-				try {
+			try {
 					log.info(" ******************************* incremented value of c one *********************  : " +c);
 					log.info(" ******************** Verifying *************************" + testdata[c][0]);
 					ParentElementLocator = testdata[c][1];
