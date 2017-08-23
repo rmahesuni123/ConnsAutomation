@@ -13,6 +13,7 @@ import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
 import com.etouch.connsTests.Conns_Credit_App_Page;
+import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.webui.selenium.WebPage;
@@ -667,11 +668,14 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public static void fillForm(SoftAssert softAssert, String[][] FieldData) {
 		int dataLength = FieldData.length;
+		String testType = TestBedManagerConfiguration.INSTANCE.getTestTypes()[0];
 		for (int i = 0; i < dataLength; i++) {
 			try {
 				switch (FieldData[i][1]) {
 				case "textField":
-					verifyTextFieldIsEditableByXpath(softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
+					if(testType.equalsIgnoreCase("Mobile")&&FieldData[i][2].equalsIgnoreCase(".//*[@id='applicant:middle-initial']"))
+					break;
+						verifyTextFieldIsEditableByXpath(softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
 					// commonMethods.sendKeysByXpath(webPage, FieldData[i][2],
 					// FieldData[i][3], softAssert);
 					break;
