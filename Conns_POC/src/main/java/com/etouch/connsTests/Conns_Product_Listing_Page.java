@@ -157,35 +157,40 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	@Test(priority = 703, enabled = true)
 	public void Verify_Number_Of_Product_Displayed_From_Product_Listing_Page() throws InterruptedException {
 		try {
+			CommonMethods.navigateToPage(webPage, url);
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
+					"Number_Of_Product_Displayed_From_Product_Listing_Page");
+			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
+			log.info("Clicked on French Door");
+			String str2[] = test[0][6].split(",");
 			if (testType.equalsIgnoreCase("Web")) {
-				webPage.navigateToUrl(url);
-				String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
-						"Number_Of_Product_Displayed_From_Product_Listing_Page");
-				ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][1]);
-				log.info("Clicked on French Door");
-				Thread.sleep(7000);
-				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+				CommonMethods.waitForGivenTime(5);
+				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][2]))));
 				List<WebElement> list = s.getOptions();
 				String str[] = { list.get(0).getText().toString(), list.get(1).getText().toString(),
 						list.get(2).getText().toString() };
-				String str2[] = test[0][6].split(",");
 				int number;
 				for (int i = 0; i < str.length; i++) {
 					number = Integer.parseInt(str[i].trim());
-					SoftAssertor.assertEquals(number, Integer.parseInt(str2[i]), "Number List:  ");
-					log.info("Started iteration for -->" + number);
+					//SoftAssertor.assertEquals(number, Integer.parseInt(str2[i]), "Number List:  ");
 					s.selectByVisibleText(String.valueOf(number));
-					// Thread.sleep(5000);
-					CommonMethods.waitForWebElement(By.xpath(test[0][7]), webPage);
-					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
-					log.info("Number: " + number + "    element Size-->" + elementList.size());
+					CommonMethods.waitForGivenTime(5);
+					CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][4]));
 					SoftAssertor.assertEquals(elementList.size() <= number, true, "element is Not As Expected");
-					log.info("Completed for iteration-->");
-					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
+					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][2]))));
+				}
+			} else {
+				for (int i = 0; i < str2.length; i++) {
+					ConnsProductPurchasePage.Click_On_Element_JS(webPage, test[0][10 + i]);
+					List<WebElement> list = webPage.getDriver().findElements(By.xpath(test[0][9]));
+					SoftAssertor.assertEquals(list.size() <= Integer.parseInt(str2[i]), true,
+							"element is Not As Expected");
 				}
 			}
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Number_Of_Product_Displayed_From_Product_Listing_Page");
+			mainPage.getScreenShotForFailure(webPage,
+					"Verify_Number_Of_Product_Displayed_From_Product_Listing_Page");
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Error in Verify_Number_Of_Product_Displayed_From_Product_Listing_Page :" + e.getMessage());
 			e.printStackTrace();
@@ -195,49 +200,42 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
-
+	
 	@Test(priority = 704, enabled = true)
 	public void Verify_Sorting_By_Product_Name_From_Product_Listing_Page() throws InterruptedException {
 		try {
-			// if (testType.equalsIgnoreCase("Web")) {
-			webPage.navigateToUrl(url);
+			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
 					"Sorting_By_Product_Name_From_Product_Listing_Page");
-			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][1]);
+			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
 			log.info("Clicked on French Door");
-			// Thread.sleep(5000);
-			CommonMethods.waitForWebElement(By.xpath(test[0][5]), webPage);
-			/*
-			 * //Comment this code When sorting defect fixed Select s = new
-			 * Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
-			 * s.selectByVisibleText(test[0][6]); //Thread.sleep(8000);
-			 * CommonMethods.waitForWebElement(By.xpath(test[0][5]), webPage);
-			 * //End //Shorted in Ascending
-			 */
-			Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
-			s.selectByVisibleText(test[0][7]);
-			// Thread.sleep(8000);
-			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
-			List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+			Select s;
+			if (testType.equalsIgnoreCase("Web")) {
+				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][2]))));
+			} else {
+				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][6]))));
+			}
+			s.selectByVisibleText(test[0][3]);
+			CommonMethods.waitForGivenTime(4);
+			CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+			List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][4]));
 			log.info("element Size-->" + elementList.size());
 			boolean isSorted = mainPage.isSortedByName(elementList);
 			log.info("element is shorted: " + isSorted);
-			SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by Product Name");
+			SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by Product Name in Ascending order");
 			// For Descending
-			webPage.findObjectByxPath(test[0][9]).click();
-			// Thread.sleep(5000);
-			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
-			elementList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+			webPage.findObjectByxPath(test[0][5]).click();
+			CommonMethods.waitForGivenTime(5);
+			CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+			elementList = webPage.getDriver().findElements(By.xpath(test[0][4]));
 			log.info("element Size-->" + elementList.size());
 			boolean isSortedDesc = mainPage.isSortedByNameDesc(elementList);
 			log.info("element is shorted: " + isSortedDesc);
-			SoftAssertor.assertEquals(isSortedDesc, true, "element is Not shorted by Product Name in Desc");
-			// webPage.getBackToUrl();
-			// }
+			SoftAssertor.assertEquals(isSortedDesc, true, "element is Not shorted by Product Name in Descending order");
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Sorting_By_Product_Name_From_Product_Listing_Page");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Product_Search_And_Shorting_By_Product_Name");
 			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("Error in Verify_Sorting_By_Product_Name_From_Product_Listing_Page :" + e.getMessage());
+			log.error("Error in Verify_Product_Search_And_Shorting_By_Product_Name :" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			String errors = SoftAssertor.readErrorsForTest();
@@ -249,39 +247,37 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	@Test(priority = 705, enabled = true)
 	public void Verify_Sorting_By_Product_Price_From_Product_Listing_Page() throws InterruptedException {
 		try {
-			// if (testType.equalsIgnoreCase("Web")) {
-			webPage.navigateToUrl(url);
+			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
 					"Sorting_By_Product_Price_From_Product_Listing_Page");
-			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][1]);
+			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
 			log.info("Clicked on French Door");
-			/*
-			 * //Comment this code When sorting defect fixed Select s = new
-			 * Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
-			 * s.selectByVisibleText(test[0][6]); //Thread.sleep(7000);
-			 * CommonMethods.waitForWebElement(By.xpath(test[0][5]), webPage);
-			 * //End
-			 */
-			Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
-			s.selectByVisibleText(test[0][7]);
-			// Thread.sleep(8000);
-			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
-			List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+			CommonMethods.waitForWebElement(By.xpath(test[0][2]), webPage);
+			String productDescription = webPage.findObjectByxPath(test[0][2]).getText();
+			log.info("productDescription" + productDescription);
+			Select s;
+			if (testType.equalsIgnoreCase("Web")) {
+				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][2]))));
+			} else {
+				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][6]))));
+			}
+			s.selectByVisibleText(test[0][3]);
+			CommonMethods.waitForGivenTime(5);
+			CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+			List<WebElement> elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][4]));
 			log.info("element Size-->" + elementPriceList.size());
 			boolean isSorted = mainPage.isSortedFloat(elementPriceList);
 			log.info("element is shorted: " + isSorted);
-			SoftAssertor.assertEquals(isSorted, true, "element is Not shorted by price");
+			SoftAssertor.assertEquals(isSorted, true, "element is Not in Ascending order by price");
 			// For Descending
-			webPage.findObjectByxPath(test[0][9]).click();
-			// Thread.sleep(5000);
-			CommonMethods.waitForWebElement(By.xpath(test[0][8]), webPage);
-			elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][8]));
+			webPage.findObjectByxPath(test[0][5]).click();
+			CommonMethods.waitForGivenTime(5);
+			CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+			elementPriceList = webPage.getDriver().findElements(By.xpath(test[0][4]));
 			log.info("element Size-->" + elementPriceList.size());
 			boolean isSortedInDesc = mainPage.isSortedDescFloat(elementPriceList);
 			log.info("element is shorted: " + isSortedInDesc);
-			SoftAssertor.assertEquals(isSortedInDesc, true, "element is Not shorted by price");
-			// webPage.getBackToUrl();
-			// }
+			SoftAssertor.assertEquals(isSortedInDesc, true, "element is Not in Descending order by price");
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Sorting_By_Product_Price_From_Product_Listing_Page");
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -293,4 +289,5 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
+
 }
