@@ -728,7 +728,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
 		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			log.info(" Actual_Account_Dashboard_Page_URL Validation Starts  :  ****************************** "	);
@@ -759,7 +759,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyAccountPageContent");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][18];
 		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			List<String> content = new ArrayList<String>();
@@ -794,7 +794,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		  ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
 		for (int r = 0; r < testdata.length; r++) {
 			try {
-				webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+				//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 				webPage.getCurrentUrl();// For Safari
 				String Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = commonMethods.getTextbyXpath(webPage, testdata[r][0], null);
 				String Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = testdata[r][1];
@@ -821,7 +821,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form = testdata[0][12];
 		String Expected_Email_ID_NA_Error_Message = testdata[0][10];
 		String Expected_Email_ID_Error_Message_Invalid_Email = testdata[1][10];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			for (int r = 0; r < testdata.length; r++) {
@@ -859,7 +859,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "VerifyChangePasswordfun");
 		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 		try {
 			log.info(" verify_Account_Information_Tab_Change_Password_Functionality_Starting  : ^^^^^^^^^^^^^^^^^^^^^^^^^^ ");
 			List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_Tab_Change_Password_Functionality(inputdata);
@@ -902,7 +902,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Page_URL_After_Page_Redirection = inputdata[0][13];
 		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][13];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 		webPage.getCurrentUrl();// For Safari
 		String GO_BACK_Link_Locator = inputdata[0][14];
 		try {
@@ -934,16 +934,17 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/************************************************************************ UC005 STARTS *******************************************************************************************************************************************************************************************/
-	/*** Test Case - 029 - Verify "Contact Information" form input validations by tapping on edit & submitting blank form Verify "Account Information" form input validations by submitting blank form Application should throw anerror message : "This is a required field." */
+	/*** Test Case - 029 - Verify "Contact Information" form input validations by tapping on edit & submitting blank form Verify "Account Information" form input validations by submitting blank form Application should throw anerror message : "This is a required field." * @throws InterruptedException */
 	@Test(priority = 327, enabled = true)
-	public void verify_Contact_Information_Tab_Edit_Link_Blank_Input() throws PageException {
+	public void verify_Contact_Information_Tab_Edit_Link_Blank_Input() throws PageException, InterruptedException {
 		 SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
 		  ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","ContactInformationFunctionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getCurrentUrl();// For Safari
 		String Contact_Information_Edit_Link_Locator = inputdata[0][1];
 		commonMethods.clickElementbyXpath(webPage, Contact_Information_Edit_Link_Locator, softAssert);
 		for (int r = 0; r < inputdata.length; r++) {
@@ -1621,6 +1622,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(5).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Element_Text) ,                            "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Element_Text                  			    : "+ Expected_My_Wishlist_Mango_Dining_Element_Text               		     	+       "   Actual_My_Wishlist_Mango_Dining_Element_Text               						: "+ Page_URL_Title_Data.get(5));
 					softAssert.assertTrue(Page_URL_Title_Data.get(6).contains(Expected_My_Wishlist_Mango_Dining_Price_Element_Text) ,                      		   "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Price_Element_Text                           : "+ Expected_My_Wishlist_Mango_Dining_Price_Element_Text         		     	+       "   Actual_My_Wishlist_Mango_Dining_Price_Element_Text                              : "+ Page_URL_Title_Data.get(6));
 					softAssert.assertTrue(Page_URL_Title_Data.get(7).contains(Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text) ,                      "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text   	     	+       "   Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                      : "+ Page_URL_Title_Data.get(7));
+					
 					//softAssert.assertTrue(Page_URL_Title_Data.get(8).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text) ,              "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text                      : "+ Page_URL_Title_Data.get(8));
 					softAssert.assertTrue(Page_URL_Title_Data.get(9).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text) ,              "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                      : "+ Page_URL_Title_Data.get(9));
 					softAssert.assertTrue(Page_URL_Title_Data.get(10).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text) ,    "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text          : "+ Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text      +       "   Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text             : "+ Page_URL_Title_Data.get(10));
