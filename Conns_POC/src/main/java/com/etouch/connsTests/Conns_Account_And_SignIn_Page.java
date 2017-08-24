@@ -599,7 +599,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Expected_Login_Page_Title = testdata[2][5];
 			String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];
 			log.info("Parent Locator is ..." + ParentElementLocator);
-			//webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
+			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 			webPage.getCurrentUrl();// For Safari
 			Thread.sleep(3000);
 			commonMethods.clickElementbyCss(webPage, Forgot_Password_Link, softAssert);
@@ -609,7 +609,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Page_URL,Expected_Forgot_Password_Page_Go_Back_Link_Page_URL,"Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Page_URL. Expected_Forgot_Password_Page_Go_Back_Link_Page_URL  : "	+ Expected_Forgot_Password_Page_Go_Back_Link_Page_URL + "Actual_Forgot_Password_Page_Go_Back_Link_Page_URL  : "	+ Actual_Forgot_Password_Page_Go_Back_Link_Page_URL);
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Element_Name,Expected_Forgot_Password_Page_Go_Back_Link_Element_Name, "  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Element_Name . Expected_Forgot_Password_Page_Go_Back_Link_Element_Name : "	+ Expected_Forgot_Password_Page_Go_Back_Link_Element_Name + "Actual_Forgot_Password_Page_Go_Back_Link_Element_Name : " + Actual_Forgot_Password_Page_Go_Back_Link_Element_Name);
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Page_Title,Expected_Forgot_Password_Page_Go_Back_Link_Page_Title, "  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Page_Title . Expected_Forgot_Password_Page_Go_Back_Link_Page_Title  : " + Expected_Forgot_Password_Page_Go_Back_Link_Page_Title + "Actual_Forgot_Password_Page_Go_Back_Link_Page_Title  : " + Actual_Forgot_Password_Page_Go_Back_Link_Page_Title);
-			CommonMethods.waitForWebElement(By.cssSelector(Go_Back_Link), webPage);
+			//CommonMethods.waitForWebElement(By.cssSelector(Go_Back_Link), webPage);
 			commonMethods.clickElementbyCss(webPage, Go_Back_Link, softAssert);
 			String Actual_Login_Page_Element_Name = commonMethods.getTextbyXpath(webPage, Login_Page_Element,softAssert);
 			String Actual_Login_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
