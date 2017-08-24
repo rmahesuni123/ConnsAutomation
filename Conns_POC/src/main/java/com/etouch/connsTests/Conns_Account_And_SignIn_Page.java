@@ -794,7 +794,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		  ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
 		for (int r = 0; r < testdata.length; r++) {
 			try {
-				//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+				webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 				webPage.getCurrentUrl();// For Safari
 				String Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = commonMethods.getTextbyXpath(webPage, testdata[r][0], null);
 				String Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = testdata[r][1];
@@ -821,7 +821,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form = testdata[0][12];
 		String Expected_Email_ID_NA_Error_Message = testdata[0][10];
 		String Expected_Email_ID_Error_Message_Invalid_Email = testdata[1][10];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			for (int r = 0; r < testdata.length; r++) {
@@ -859,7 +859,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "VerifyChangePasswordfun");
 		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 		try {
 			log.info(" verify_Account_Information_Tab_Change_Password_Functionality_Starting  : ^^^^^^^^^^^^^^^^^^^^^^^^^^ ");
 			List<String> actualErrorMessage = ConnsSignInPage.verify_Account_Information_Tab_Change_Password_Functionality(inputdata);
@@ -902,7 +902,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Page_URL_After_Page_Redirection = inputdata[0][13];
 		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][13];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 		webPage.getCurrentUrl();// For Safari
 		String GO_BACK_Link_Locator = inputdata[0][14];
 		try {
@@ -943,7 +943,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","ContactInformationFunctionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		String Contact_Information_Edit_Link_Locator = inputdata[0][1];
 		commonMethods.clickElementbyXpath(webPage, Contact_Information_Edit_Link_Locator, softAssert);
@@ -1033,8 +1033,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			softAssert.assertEquals(actualPageUrl, Address_Book_Expected_Page_URL_Index,"Page url verification failed.    Expected  url   : " + Address_Book_Expected_Page_URL_Index	+ " Actual url :   "   + actualPageUrl);
 			String actualPageTitle = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(actualPageTitle, Address_Book_Expected_Page_Title,	"Page title verification failed.  Expected  title : " + Address_Book_Expected_Page_Title		+ " Actual title : "  + actualPageTitle);
-			// webPage.getDriver().navigate().refresh();// for other browser
-			// webPage.getCurrentUrl();// Rajesh ...For Safari
+			webPage.getDriver().navigate().refresh();// for other browser
+			webPage.getCurrentUrl();// Rajesh ...For Safari
 			webPage.getDriver().navigate().refresh();
 			Thread.sleep(10000); // Rajesh
 			commonMethods.clickElementbyXpath(webPage, Change_Shipping_Address_Edit_Link_Locator, softAssert);
