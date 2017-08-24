@@ -651,6 +651,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
 				}
 				log.info("********** Before Execution ******************");
+				CommonMethods.waitForWebElement(By.xpath(ChildElementLocator), webPage);
 				Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 				Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
 				//SoftAssertor.assertEquals(Actual_Page_ELement_Name, Expected_Page_Element_Name, "Element name does not match");
