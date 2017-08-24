@@ -599,7 +599,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Expected_Login_Page_Title = testdata[2][5];
 			String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];
 			log.info("Parent Locator is ..." + ParentElementLocator);
-			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
+			//webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 			webPage.getCurrentUrl();// For Safari
 			Thread.sleep(3000);
 			commonMethods.clickElementbyCss(webPage, Forgot_Password_Link, softAssert);
@@ -1276,7 +1276,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Newsletters_Edit_Link_Locator = inputdata[0][1];
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		String News_Letters_Subscription_CheckBox = inputdata[0][5];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			Thread.sleep(3000);
@@ -2159,7 +2159,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_New_Customer_Functionality_with_Valid_Input");
 			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Valid_Input");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			webPage.getCurrentUrl();// For Safari
 			Thread.sleep(3000);
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
