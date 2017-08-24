@@ -689,8 +689,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Links_On_Account_DashBoard_Tab() {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
-		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);*/
+		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
