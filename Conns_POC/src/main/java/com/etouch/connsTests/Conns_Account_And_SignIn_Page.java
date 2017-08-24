@@ -600,6 +600,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];
 			log.info("Parent Locator is ..." + ParentElementLocator);
 			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
+			webPage.getCurrentUrl();// For Safari
+			CommonMethods.waitForWebElement(By.cssSelector(Forgot_Password_Link), webPage);
 			commonMethods.clickElementbyCss(webPage, Forgot_Password_Link, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Element_Name = commonMethods.getTextbyCss(webPage,Go_Back_Link, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Page_URL = commonMethods.getPageUrl(webPage,softAssert);
@@ -684,9 +686,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	/*** Test Case - 024 - Verify links in Account Information section Verify page title : Page title should 'My Account' Verify content section on account dashboard page Verify "Account Information" section on page : Verify contact information,newsletter subscription, primary billing address & primary shipping address details of customer : Verify contact information,newsletters subscription, primary billing address & primary shipping address details of customer Verify "Edit" link for "Newsletters" : click on "Edit" link for "Contact Newsletters" It should redirect to account information form page : https://www.conns.com/customer/account/edit/ Verify "Change Password" link : click on "Change Password" link : It should redirect to edit account information form page : https://www.conns.com/customer/account/edit/changepass/1/ Verify "Edit Address" link for "Primary Billing Address" : click on "Edit Address" link for "Primary Billing Address" : It should redirect to contact information form : https://www.conns.com/customer/address/edit/ Verify "Edit Address" link for "Primary Shipping Address": click on "Edit Address" link for "Primary Shipping Address" :It should redirect to contact information form : https://www.conns.com/customer/address/edit/ but getting redirected to https://www.conns.com/customer/address/edit/id/6296645/ Verify "Manage Addresses" link for "address Book" section : click on "Manage Addresses" link : It should redirect to contact information form : https://www.conns.com/customer/address/edit/	 * @throws InterruptedException */
+	/*** Test Case - 024 - Verify links in Account Information section Verify page title : Page title should 'My Account' Verify content section on account dashboard page Verify "Account Information" section on page : Verify contact information,newsletter subscription, primary billing address & primary shipping address details of customer : Verify contact information,newsletters subscription, primary billing address & primary shipping address details of customer Verify "Edit" link for "Newsletters" : click on "Edit" link for "Contact Newsletters" It should redirect to account information form page : https://www.conns.com/customer/account/edit/ Verify "Change Password" link : click on "Change Password" link : It should redirect to edit account information form page : https://www.conns.com/customer/account/edit/changepass/1/ Verify "Edit Address" link for "Primary Billing Address" : click on "Edit Address" link for "Primary Billing Address" : It should redirect to contact information form : https://www.conns.com/customer/address/edit/ Verify "Edit Address" link for "Primary Shipping Address": click on "Edit Address" link for "Primary Shipping Address" :It should redirect to contact information form : https://www.conns.com/customer/address/edit/ but getting redirected to https://www.conns.com/customer/address/edit/id/6296645/ Verify "Manage Addresses" link for "address Book" section : click on "Manage Addresses" link : It should redirect to contact information form : https://www.conns.com/customer/address/edit/	 * @throws InterruptedException * @throws InterruptedException */
 	@Test(priority = 320, enabled = true)
-	public void verify_Links_On_Account_DashBoard_Tab() {
+	public void verify_Links_On_Account_DashBoard_Tab() throws InterruptedException {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
@@ -694,6 +696,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getCurrentUrl();// For Safari
 		for (int r = 0; r < test_data.length; r++) {
 			String Page_Expected_URL = test_data[r][3];
 			String Page_Expected_Element_Name = test_data[r][4];
@@ -1270,6 +1273,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
+			Thread.sleep(3000);
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
 			Thread.sleep(3000);
 			WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(inputdata[0][5]));
@@ -1418,6 +1422,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl(); // For Safari
 			for(int r= 0; r < test_data.length;r++)
 			{	
 				String Page_Expected_URL = test_data[r][4];
@@ -1510,6 +1515,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Orders_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl(); //For Safari
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
@@ -1576,6 +1582,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getCurrentUrl(); //For Safari
 			for(int r= 0; r < test_data.length;r++)
 			{	
 				String Page_Expected_URL = test_data[r][4];
@@ -2147,6 +2154,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			webPage.getCurrentUrl();// For Safari
+			Thread.sleep(3000);
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
@@ -2172,8 +2180,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					} 
 				else {
 					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
+					Thread.sleep(2000);
 					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
-					Thread.sleep(4000);
+					Thread.sleep(2000);
 					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(web_data); 
 					softAssert.assertEquals(actualErrorMessage.get(0), Email_Address_Expected_Success_Message_Locator_Text,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
 					softAssert.assertEquals(actualErrorMessage.get(1), Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text,"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
