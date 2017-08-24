@@ -728,7 +728,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
 		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			log.info(" Actual_Account_Dashboard_Page_URL Validation Starts  :  ****************************** "	);
@@ -759,13 +759,13 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyAccountPageContent");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][18];
 		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			List<String> content = new ArrayList<String>();
 			for (int r = 0; r < test_data.length; r++) {
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 					String Actual_Element_Name_On_Account_Page_For_Page_Content_Verification = commonMethods.getTextbyXpath(webPage, test_data[r][20], softAssert);
 					String Expected_Element_Name_On_Account_Page_For_Page_Content_Verification = test_data[r][19];
 					softAssert.assertEquals(Actual_Element_Name_On_Account_Page_For_Page_Content_Verification,	Expected_Element_Name_On_Account_Page_For_Page_Content_Verification,"Page Element Content verification failed. Expected_Element_Name_On_Account_Page_For_Page_Content_Verification : "		+ Expected_Element_Name_On_Account_Page_For_Page_Content_Verification	+ "Actual_Element_Name_On_Account_Page_For_Page_Content_Verification :       "		+ Actual_Element_Name_On_Account_Page_For_Page_Content_Verification);
@@ -794,7 +794,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		  ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
 		for (int r = 0; r < testdata.length; r++) {
 			try {
-				webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+				//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 				webPage.getCurrentUrl();// For Safari
 				String Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = commonMethods.getTextbyXpath(webPage, testdata[r][0], null);
 				String Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = testdata[r][1];
@@ -821,7 +821,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form = testdata[0][12];
 		String Expected_Email_ID_NA_Error_Message = testdata[0][10];
 		String Expected_Email_ID_Error_Message_Invalid_Email = testdata[1][10];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			for (int r = 0; r < testdata.length; r++) {
@@ -902,7 +902,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Page_URL_After_Page_Redirection = inputdata[0][13];
 		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][13];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 		webPage.getCurrentUrl();// For Safari
 		String GO_BACK_Link_Locator = inputdata[0][14];
 		try {
@@ -1005,7 +1005,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Manage_Addresses_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		String Address_Book_Manage_Addresses_Edit_Link_Locator = inputdata[0][1];
 		String Change_Billing_Address_Edit_Link_Locator = inputdata[0][2];
