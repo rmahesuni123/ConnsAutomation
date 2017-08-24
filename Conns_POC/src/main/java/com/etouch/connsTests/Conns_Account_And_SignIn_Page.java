@@ -717,9 +717,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	/*** Test Case - 022 - Verify Page Title in Account Information section**/
+	/*** Test Case - 022 - Verify Page Title in Account Information section* @throws InterruptedException **/
 	@Test(priority = 321, enabled = true)
-	public void verify_Account_DashBoard_Page_Title() {
+	public void verify_Account_DashBoard_Page_Title() throws InterruptedException {
 		log.info("******Started verification of content on Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
@@ -728,10 +728,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
 		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().refresh();
+		//webPage.getCurrentUrl();// For Safari
 		try {
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl();// For Safari
-			Thread.sleep(3000);
+			log.info(" Actual_Account_Dashboard_Page_URL Validation Starts  :  ****************************** "	);
 			String Actual_Account_Dashboard_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(Actual_Account_Dashboard_Page_URL, Expected_Account_Dashboard_Page_URL,	"Page url verification failed.        Expected url :           " + Expected_Account_Dashboard_Page_URL	            +    "Actual url  :          " + Actual_Account_Dashboard_Page_URL);
 			log.info(" Actual_Account_Dashboard_Page_URL   :****************************** "	+ Actual_Account_Dashboard_Page_URL);
@@ -758,7 +759,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyAccountPageContent");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][18];
 		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().refresh();
 		webPage.getCurrentUrl();// For Safari
 		try {
 			List<String> content = new ArrayList<String>();
