@@ -406,7 +406,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Locator_2 = testdata[0][10];
 		String Locator_3 = testdata[0][11];
 		String Locator_4 = testdata[0][12];
-		String Expected_Mobile_Element_Name = testdata[0][14];
+		String Locator_5 = testdata[0][13];
+		String Locator_6 = testdata[0][14];		
+		String Expected_Mobile_Element_Name = testdata[0][16];
 		String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][7];
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 	    String Navigate_To_Account_Login_Form_URL = test_data[0][2];
@@ -418,6 +420,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			commonMethods.sendKeysbyXpath(webPage, EmailAddressLocator, EmailAddress, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, PasswordLocator, Password, softAssert);
 			commonMethods.clickElementbyXpath(webPage, LogInButtonLocator, softAssert);
+			CommonMethods.waitForWebElement(By.xpath(ChildElementLocator), webPage);
 			Actual_Element_Name = commonMethods.getTextbyXpath(webPage, ChildElementLocator, softAssert);
 			if (testType.equalsIgnoreCase("Mobile")) {
 				softAssert.assertEquals(Actual_Element_Name, Expected_Mobile_Element_Name, " Redirectional_links Functionality with valid Input verification failed For Login_Functionality_Registered_User . Expected_Login_Functionality_Registered_User_Page_Element_Name  :  " + Expected_Mobile_Element_Name	+ "   Actual Login_Functionality_Registered_User_Page_Actual_Element_Name  : "	+ Actual_Element_Name);
@@ -433,8 +436,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, Locator_3, softAssert);
 				commonMethods.clickElementbyXpath(webPage, Locator_4, softAssert);
 			} else {
-				commonMethods.clickElementbyXpath(webPage, ".//*[@id='account-welcome']", softAssert);
-				commonMethods.clickElementbyXpath(webPage, ".//*[@id='account-menu']/ul/li[4]/a", softAssert);
+				commonMethods.clickElementbyXpath(webPage, Locator_5, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Locator_6, softAssert);
 			}
 			softAssert.assertTrue(Actual_Page_Url.contains(Expected_Page_URL),"verify_Login_Functionality_Registered_User  with valid Input verification failed For Login_Functionality_Registered_User. Expected Login_Functionality_Registered_User_Page_URL  : "	+ Expected_Page_URL + "Actual Login_Functionality_Registered_User_Page_URL  : "	+ Actual_Page_Url);
 			webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
@@ -686,8 +689,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Links_On_Account_DashBoard_Tab() {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
-		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);
+		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);*/
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
