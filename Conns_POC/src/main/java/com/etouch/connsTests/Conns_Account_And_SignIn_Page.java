@@ -734,7 +734,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		try {
 			log.info(" Actual_Account_Dashboard_Page_URL Validation Starts  :  ****************************** "	);
 			String Actual_Account_Dashboard_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
-			softAssert.assertEquals(Actual_Account_Dashboard_Page_URL, Expected_Account_Dashboard_Page_URL,	"Page url verification failed.        Expected url :           " + Expected_Account_Dashboard_Page_URL	            +    "Actual url  :          " + Actual_Account_Dashboard_Page_URL);
+			//softAssert.assertTrue(actualPageUrl.contains(Expected_Contact_Information_Page_URL),"Page url verification failed. Expected url : " + Expected_Contact_Information_Page_URL		+ "Actual url   : " + actualPageUrl);
+			softAssert.assertTrue(Actual_Account_Dashboard_Page_URL.contains(Expected_Account_Dashboard_Page_URL),	"Page url verification failed.        Expected url :  " + Expected_Account_Dashboard_Page_URL	            +     "  Actual url  :  " + Actual_Account_Dashboard_Page_URL);
 			log.info(" Actual_Account_Dashboard_Page_URL   :****************************** "	+ Actual_Account_Dashboard_Page_URL);
 			log.info(" Expected_Account_Dashboard_Page_URL :****************************** "	+ Expected_Account_Dashboard_Page_URL);
 			String Actual_Account_Dashboard_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
