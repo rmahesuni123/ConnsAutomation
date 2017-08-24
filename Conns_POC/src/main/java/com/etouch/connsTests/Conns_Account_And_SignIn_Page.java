@@ -601,7 +601,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			log.info("Parent Locator is ..." + ParentElementLocator);
 			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 			webPage.getCurrentUrl();// For Safari
-			CommonMethods.waitForWebElement(By.cssSelector(Forgot_Password_Link), webPage);
+			Thread.sleep(3000);
 			commonMethods.clickElementbyCss(webPage, Forgot_Password_Link, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Element_Name = commonMethods.getTextbyCss(webPage,Go_Back_Link, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Page_URL = commonMethods.getPageUrl(webPage,softAssert);
@@ -609,6 +609,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Page_URL,Expected_Forgot_Password_Page_Go_Back_Link_Page_URL,"Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Page_URL. Expected_Forgot_Password_Page_Go_Back_Link_Page_URL  : "	+ Expected_Forgot_Password_Page_Go_Back_Link_Page_URL + "Actual_Forgot_Password_Page_Go_Back_Link_Page_URL  : "	+ Actual_Forgot_Password_Page_Go_Back_Link_Page_URL);
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Element_Name,Expected_Forgot_Password_Page_Go_Back_Link_Element_Name, "  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Element_Name . Expected_Forgot_Password_Page_Go_Back_Link_Element_Name : "	+ Expected_Forgot_Password_Page_Go_Back_Link_Element_Name + "Actual_Forgot_Password_Page_Go_Back_Link_Element_Name : " + Actual_Forgot_Password_Page_Go_Back_Link_Element_Name);
 			softAssert.assertEquals(Actual_Forgot_Password_Page_Go_Back_Link_Page_Title,Expected_Forgot_Password_Page_Go_Back_Link_Page_Title, "  Forgot_Password_Page_Go_Back_Link Functionality with verification failed For Forgot_Password_Page_Go_Back_Link_Page_Title . Expected_Forgot_Password_Page_Go_Back_Link_Page_Title  : " + Expected_Forgot_Password_Page_Go_Back_Link_Page_Title + "Actual_Forgot_Password_Page_Go_Back_Link_Page_Title  : " + Actual_Forgot_Password_Page_Go_Back_Link_Page_Title);
+			CommonMethods.waitForWebElement(By.cssSelector(Go_Back_Link), webPage);
 			commonMethods.clickElementbyCss(webPage, Go_Back_Link, softAssert);
 			String Actual_Login_Page_Element_Name = commonMethods.getTextbyXpath(webPage, Login_Page_Element,softAssert);
 			String Actual_Login_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
@@ -761,6 +762,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			List<String> content = new ArrayList<String>();
 			for (int r = 0; r < test_data.length; r++) {
 				try {
+					Thread.sleep(2000);
 					String Actual_Element_Name_On_Account_Page_For_Page_Content_Verification = commonMethods.getTextbyXpath(webPage, test_data[r][20], softAssert);
 					String Expected_Element_Name_On_Account_Page_For_Page_Content_Verification = test_data[r][19];
 					softAssert.assertEquals(Actual_Element_Name_On_Account_Page_For_Page_Content_Verification,	Expected_Element_Name_On_Account_Page_For_Page_Content_Verification,"Page Element Content verification failed. Expected_Element_Name_On_Account_Page_For_Page_Content_Verification : "		+ Expected_Element_Name_On_Account_Page_For_Page_Content_Verification	+ "Actual_Element_Name_On_Account_Page_For_Page_Content_Verification :       "		+ Actual_Element_Name_On_Account_Page_For_Page_Content_Verification);
