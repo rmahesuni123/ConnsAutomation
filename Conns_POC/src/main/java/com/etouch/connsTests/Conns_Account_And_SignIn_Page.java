@@ -728,9 +728,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
 		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		//webPage.getDriver().navigate().refresh();
-		//webPage.getCurrentUrl();// For Safari
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getCurrentUrl();// For Safari
 		try {
 			log.info(" Actual_Account_Dashboard_Page_URL Validation Starts  :  ****************************** "	);
 			String Actual_Account_Dashboard_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
@@ -760,8 +759,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyAccountPageContent");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][18];
 		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		webPage.getDriver().navigate().refresh();
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			List<String> content = new ArrayList<String>();
@@ -1623,7 +1621,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(5).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Element_Text) ,                            "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Element_Text                  			    : "+ Expected_My_Wishlist_Mango_Dining_Element_Text               		     	+       "   Actual_My_Wishlist_Mango_Dining_Element_Text               						: "+ Page_URL_Title_Data.get(5));
 					softAssert.assertTrue(Page_URL_Title_Data.get(6).contains(Expected_My_Wishlist_Mango_Dining_Price_Element_Text) ,                      		   "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Price_Element_Text                           : "+ Expected_My_Wishlist_Mango_Dining_Price_Element_Text         		     	+       "   Actual_My_Wishlist_Mango_Dining_Price_Element_Text                              : "+ Page_URL_Title_Data.get(6));
 					softAssert.assertTrue(Page_URL_Title_Data.get(7).contains(Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text) ,                      "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text   	     	+       "   Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                      : "+ Page_URL_Title_Data.get(7));
-					softAssert.assertTrue(Page_URL_Title_Data.get(8).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text) ,              "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text                      : "+ Page_URL_Title_Data.get(8));
+					//softAssert.assertTrue(Page_URL_Title_Data.get(8).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text) ,              "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text                      : "+ Page_URL_Title_Data.get(8));
 					softAssert.assertTrue(Page_URL_Title_Data.get(9).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text) ,              "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                      : "+ Page_URL_Title_Data.get(9));
 					softAssert.assertTrue(Page_URL_Title_Data.get(10).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text) ,    "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text          : "+ Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text      +       "   Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text             : "+ Page_URL_Title_Data.get(10));
 					softAssert.assertTrue(Page_URL_Title_Data.get(11).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text) ,     "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text           : "+ Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text       +       "   Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text              : "+ Page_URL_Title_Data.get(11));
