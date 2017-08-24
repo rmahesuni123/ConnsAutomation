@@ -723,14 +723,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("******Started verification of content on Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
-		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
-		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+		/* ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/		
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
+		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
+		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
 		try {
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			webPage.getCurrentUrl();// For Safari
+			Thread.sleep(3000);
 			String Actual_Account_Dashboard_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(Actual_Account_Dashboard_Page_URL, Expected_Account_Dashboard_Page_URL,	"Page url verification failed.        Expected url :           " + Expected_Account_Dashboard_Page_URL	            +    "Actual url  :          " + Actual_Account_Dashboard_Page_URL);
 			log.info(" Actual_Account_Dashboard_Page_URL   :****************************** "	+ Actual_Account_Dashboard_Page_URL);
@@ -741,6 +742,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			log.info(" Expected_Account_Dashboard_Page_Title :****************************** "	+ Expected_Account_Dashboard_Page_Title);
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Account_DashBoard_Page_Title");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
