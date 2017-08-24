@@ -7,9 +7,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -76,32 +78,47 @@ public class Conns_Product_Listing_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 701, enabled = false)
-	public void Verify_Details_On_Product_Listing_Page() {
+	@Test(priority = 701, enabled = true)
+	public void Verify_For_Pagination_And_Product_Details() {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
-					"Details_On_Product_Listing_Page");
-			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][1]);
+					"Verify_For_Pagination_And_Product_Details");
+			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
 			log.info("Clicked on French Door");
-			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
-			log.info("productDescription" + productDescription);
+			// Pagination using index number
+			String paginationNumber = webPage.findObjectByxPath(test[0][2]).getText();
+			Assert.assertEquals(paginationNumber, test[0][3], "Pagination Number: ");
+			webPage.findObjectByxPath(test[0][2]).click();
+			paginationNumber = webPage.findObjectByxPath(test[0][8]).getText();
+			Assert.assertEquals(paginationNumber, test[0][9], "Pagination Number: ");
+			webPage.findObjectByxPath(test[0][8]).click();
+			// Pagination using Next and Back
+			String nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
+			Assert.assertEquals(nextPagination, test[0][5], "nextPagination: ");
+			webPage.findObjectByxPath(test[0][4]).click();
+			String backPagination = webPage.findObjectByxPath(test[0][6]).getText();
+			Assert.assertEquals(backPagination, test[0][7], "backPagination: ");
+			webPage.findObjectByxPath(test[0][6]).click();
+			// Click on any Product
+			webPage.findObjectByxPath(test[0][10]).click();
+			webPage.findObjectByxPath(test[0][11]).click();
 			String[][] contentData;
 			if (testType.equalsIgnoreCase("Web")) {
-				contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContent");
+				contentData = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage", "verifyProductDetails");
 			} else {
-				contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContentForMobile");
+				contentData = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
+						"verifyProductDetailsForMobile");
 			}
 			for (int i = 0; i < contentData.length; i++) {
-				log.info("Actual:  " + webPage.findObjectByxPath(contentData[i][0]).getText() + "   Expected: "
-						+ contentData[i][1]);
-				SoftAssertor.assertTrue(
-						webPage.findObjectByxPath(contentData[i][0]).getText().contains(contentData[i][1]),
-						"expectedContent: " + contentData[i][0] + "Failed to Match Actual:" + contentData[i][1]);
+				String actualContent = webPage.findObjectByxPath(contentData[i][0]).getText();
+				log.info("Actual:  " + actualContent + "   Expected: " + contentData[i][1]);
+				SoftAssertor.assertTrue(actualContent.contains(contentData[i][1]),
+						"expectedContent: " + contentData[i][1] + "  Failed to Match Actual:" + actualContent);
 			}
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Search_Functionality_And_Results_Contents");
+			mainPage.getScreenShotForFailure(webPage, "Verify_For_Pagination_And_Product_Details");
 			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("Error in Verify_Search_Functionality_And_Results_Contents :" + e.getMessage());
+			log.error("Error in Verify_For_Pagination_And_Product_Details :" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			String errors = SoftAssertor.readErrorsForTest();
@@ -114,28 +131,26 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	public void Verify_Upto_5_Products_Compared() throws InterruptedException {
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
-				webPage.navigateToUrl(url);
+				CommonMethods.navigateToPage(webPage, url);
 				String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
 						"Verify_Upto_5_Products_Compared");
 				ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][1]);
 				log.info("Clicked on French Door");
 				List<ITafElement> compareList = webPage.findObjectsByXpath(test[0][2]);
 				log.info("Total Size-->" + compareList.size());
-				for (int i = 0; i < 5; i++) {
-					Thread.sleep(2000);
+				for (int i = 0; i < 6; i++) {
+					CommonMethods.waitForGivenTime(2);
 					compareList.get(i).click();
+					if (i == 5) {
+						Alert alert = webPage.getDriver().switchTo().alert();
+						Assert.assertTrue(alert.getText().contains("Only 5 items to compare"),
+								"Alert Message does not contain: " + "Only 5 items to compare");
+						alert.accept();
+					}
 				}
-				/*
-				 * Alert alert = webPage.getDriver().switchTo().alert();
-				 * Assert.assertTrue(alert.getText().contains(
-				 * "Only 5 items to compare"),
-				 * "Alert Message does not contain: " +
-				 * "Only 5 items to compare"); alert.accept();
-				 */
 				log.info(webPage.findObjectByxPath(test[0][3]).getText());
 				log.info(webPage.findObjectByxPath(test[0][4]).getText());
 				webPage.findObjectByxPath(test[0][5]).click();
-				// Thread.sleep(5000);
 				CommonMethods.waitForWebElement(By.xpath(test[0][6]), webPage);
 				log.info(webPage.findObjectByxPath(test[0][6]).getText());
 				List<ITafElement> newList = webPage.findObjectsByXpath(test[0][7]);
@@ -172,7 +187,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				int number;
 				for (int i = 0; i < str.length; i++) {
 					number = Integer.parseInt(str[i].trim());
-					//SoftAssertor.assertEquals(number, Integer.parseInt(str2[i]), "Number List:  ");
+					// SoftAssertor.assertEquals(number,
+					// Integer.parseInt(str2[i]), "Number List: ");
 					s.selectByVisibleText(String.valueOf(number));
 					CommonMethods.waitForGivenTime(5);
 					CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
@@ -189,8 +205,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				}
 			}
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage,
-					"Verify_Number_Of_Product_Displayed_From_Product_Listing_Page");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Number_Of_Product_Displayed_From_Product_Listing_Page");
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Error in Verify_Number_Of_Product_Displayed_From_Product_Listing_Page :" + e.getMessage());
 			e.printStackTrace();
@@ -200,7 +215,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
-	
+
 	@Test(priority = 704, enabled = true)
 	public void Verify_Sorting_By_Product_Name_From_Product_Listing_Page() throws InterruptedException {
 		try {
@@ -289,5 +304,4 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
-
 }
