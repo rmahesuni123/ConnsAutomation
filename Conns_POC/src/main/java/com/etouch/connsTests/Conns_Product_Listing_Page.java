@@ -101,7 +101,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			webPage.findObjectByxPath(test[0][6]).click();
 			// Click on any Product
 			webPage.findObjectByxPath(test[0][10]).click();
+			if(CommonMethods.verifyElementisPresent(webPage, test[0][11])){
 			webPage.findObjectByxPath(test[0][11]).click();
+			}
 			String[][] contentData;
 			if (testType.equalsIgnoreCase("Web")) {
 				contentData = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage", "verifyProductDetails");
@@ -187,8 +189,6 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				int number;
 				for (int i = 0; i < str.length; i++) {
 					number = Integer.parseInt(str[i].trim());
-					// SoftAssertor.assertEquals(number,
-					// Integer.parseInt(str2[i]), "Number List: ");
 					s.selectByVisibleText(String.valueOf(number));
 					CommonMethods.waitForGivenTime(5);
 					CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
