@@ -601,7 +601,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			log.info("Parent Locator is ..." + ParentElementLocator);
 			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
 			webPage.getCurrentUrl();// For Safari
-			Thread.sleep(3000);
 			commonMethods.clickElementbyCss(webPage, Forgot_Password_Link, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Element_Name = commonMethods.getTextbyCss(webPage,Go_Back_Link, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Page_URL = commonMethods.getPageUrl(webPage,softAssert);
