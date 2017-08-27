@@ -890,9 +890,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	/*** Test Case - 028 - Verify "Go back" link in Account Information page  @throws PageException Application should redirect to previous page : https://www.conns.com/customer/account/  @throws InterruptedException */
 	@Test(priority = 326, enabled = true)
 	public void verify_Account_Information_Tab_Change_Password_Form_Go_Back_Link() throws PageException, InterruptedException {
-		 SoftAssert softAssert = new SoftAssert();
+		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		  ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "VerifyChangePasswordfun");
 		String Expected_Page_URL = inputdata[0][16];
@@ -915,7 +915,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			log.info("Actual_Page_Title   : " + Actual_Page_Title);
 			log.info("Expected_Page_Title : " + Expected_Page_Title);
 			commonMethods.clickElementbyXpath(webPage, GO_BACK_Link_Locator, softAssert);
-			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			String Actual_Page_Url_After_Page_Redirection = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(Actual_Page_Url_After_Page_Redirection, Expected_Page_URL_After_Page_Redirection,    "Page url verification failed. Expected_Page_URL_After_Page_Redirection         :  "     + Expected_Page_URL_After_Page_Redirection         +     " Actual_Page_Url_After_Page_Redirection    :  " + Actual_Page_Url_After_Page_Redirection);
 			String Actual_Page_Title_After_Page_Redirection = commonMethods.getPageTitle(webPage, softAssert);
