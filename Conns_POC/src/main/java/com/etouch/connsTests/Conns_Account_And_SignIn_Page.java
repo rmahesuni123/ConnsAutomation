@@ -901,13 +901,13 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Page_URL_After_Page_Redirection = inputdata[0][13];
 		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][13];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_Change_Password_URL);
 		webPage.getCurrentUrl();// For Safari
 		String GO_BACK_Link_Locator = inputdata[0][14];
 		try {
 			log.info("*******************************Entered Change Password Functionality alongwith Go_Back_Link Functionality will be starting ****************************** ");
 			String Actual_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
-			softAssert.assertEquals(Actual_Page_URL, Expected_Page_URL,	"Page url verification failed. Expected_Page_URL : " + Expected_Page_URL + " Actual_Page_URL : " + Actual_Page_URL);
+			softAssert.assertTrue(Actual_Page_URL.contains(Expected_Page_URL),"Page url verification failed. Expected_Page_URL   : " + Expected_Page_URL	+ " Actual_Page_URL   : " + Actual_Page_URL);
 			String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(Actual_Page_Title, Expected_Page_Title,	"Page title verification failed. Expected_Page_Title : " + Expected_Page_Title	+ " Actual_Page_Title : " + Actual_Page_Title);
 			log.info("Actual_Page_URL     : " + Actual_Page_URL);
@@ -915,7 +915,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			log.info("Actual_Page_Title   : " + Actual_Page_Title);
 			log.info("Expected_Page_Title : " + Expected_Page_Title);
 			commonMethods.clickElementbyXpath(webPage, GO_BACK_Link_Locator, softAssert);
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			String Actual_Page_Url_After_Page_Redirection = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertEquals(Actual_Page_Url_After_Page_Redirection, Expected_Page_URL_After_Page_Redirection,    "Page url verification failed. Expected_Page_URL_After_Page_Redirection         :  "     + Expected_Page_URL_After_Page_Redirection         +     " Actual_Page_Url_After_Page_Redirection    :  " + Actual_Page_Url_After_Page_Redirection);
 			String Actual_Page_Title_After_Page_Redirection = commonMethods.getPageTitle(webPage, softAssert);
