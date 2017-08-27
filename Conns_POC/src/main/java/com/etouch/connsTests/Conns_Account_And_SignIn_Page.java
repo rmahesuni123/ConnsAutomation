@@ -909,7 +909,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Actual_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(Actual_Page_URL.contains(Expected_Page_URL),"Page url verification failed. Expected_Page_URL   : " + Expected_Page_URL	+ " Actual_Page_URL   : " + Actual_Page_URL);
 			String Actual_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
-			softAssert.assertEquals(Actual_Page_Title, Expected_Page_Title,	"Page title verification failed. Expected_Page_Title : " + Expected_Page_Title	+ " Actual_Page_Title : " + Actual_Page_Title);
+			softAssert.assertEquals(Actual_Page_Title, Expected_Page_Title,	  "Page title verification failed. Expected_Page_Title : " + Expected_Page_Title	+ " Actual_Page_Title : " + Actual_Page_Title);
 			log.info("Actual_Page_URL     : " + Actual_Page_URL);
 			log.info("Expected_Page_URL   : " + Expected_Page_URL);
 			log.info("Actual_Page_Title   : " + Actual_Page_Title);
