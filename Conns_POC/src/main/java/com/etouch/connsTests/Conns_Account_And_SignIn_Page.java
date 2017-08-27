@@ -614,7 +614,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Actual_Login_Page_Element_Name = commonMethods.getTextbyXpath(webPage, Login_Page_Element,softAssert);
 			String Actual_Login_Page_Url = commonMethods.getPageUrl(webPage, softAssert);
 			String Actual_Login_Page_Title = commonMethods.getPageTitle(webPage, softAssert);
-			softAssert.assertTrue(Actual_Login_Page_Url.contains(Expected_Login_Page_URL),	" Login_Page_URL Functionality with verification failed For Login_Page_URL. Expected_Login_Page_URL  : "	+ Expected_Login_Page_URL + "Actual_Login_Page_Url  : " + Actual_Login_Page_Url);
+			softAssert.assertTrue(Actual_Login_Page_Url.contains(Expected_Login_Page_URL)," Login_Page_URL Functionality with verification failed For Login_Page_URL. Expected_Login_Page_URL  : "	+ Expected_Login_Page_URL + "Actual_Login_Page_Url  : " + Actual_Login_Page_Url);
 			softAssert.assertEquals(Actual_Login_Page_Element_Name, Expected_Login_Page_Element_Name,"  Login_Page_Element Functionality with verification failed For Expected_Login_Page_Element_Name . Expected_Login_Page_Element_Name : " + Expected_Login_Page_Element_Name +  "    Actual_Login_Page_Element_Name : "	+ Actual_Login_Page_Element_Name);
 			softAssert.assertEquals(Actual_Login_Page_Title, Expected_Login_Page_Title,	"  Login_Page_Title Functionality with verification failed For Login_Page_Title . Expected_Login_Page_Title  : " + Expected_Login_Page_Title + "Actual_Login_Page_Title  : " + Actual_Login_Page_Title);
 		} catch (Throwable e) {
