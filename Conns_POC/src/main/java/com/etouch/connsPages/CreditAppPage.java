@@ -494,26 +494,37 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public static boolean verifyTextFieldIsEditableByXpath(SoftAssert softAssert, String FieldName, String locator,
 			String newValue) {
-		if(newValue==""||newValue==null)
-		{
-			log.info("Value was passed as blank for textField "+FieldName);
-			return true;
-		}
-		if (commonMethods.getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+		
+			if (!verifyElementisPresent(webPage, locator, softAssert)) {
+				log.info("TextBox \"" + FieldName + "\" is Not Displayed");
+				softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
+				return false;
+			}
+			else{
+				if(newValue==""||newValue==null)
+				{
+					log.info("Value was passed as blank for textField "+FieldName);
+					return true;
+				}
+			if (commonMethods.getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
 			log.info("TextBox is enabled");
 			log.info("Setting TextBox \"" + FieldName + "\" Value to : " + newValue);
+			WebElement textField = commonMethods.getWebElementbyXpath(webPage, locator, softAssert);
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 			if (!((String) js.executeScript("return arguments[0].getValue()",
-					commonMethods.getWebElementbyXpath(webPage, locator, softAssert)) == null))
-				commonMethods.clearTextBoxByXpath(webPage, locator, softAssert);
-			commonMethods.sendKeysbyXpath(webPage, locator, newValue, softAssert);
-			String actual = (String) js.executeScript("return arguments[0].getValue()",
+					textField) == null))
+				js.executeScript("arguments[0].value='';", textField);
+				js.executeScript("arguments[0].value='"+newValue+"';", textField);
+			//	commonMethods.clearTextBoxByXpath(webPage, locator, softAssert);
+			
+			//commonMethods.sendKeysbyXpath(webPage, locator, newValue, softAssert);
+			
+			/*String actual = (String) js.executeScript("return arguments[0].getValue()",
 					commonMethods.getWebElementbyXpath(webPage, locator, softAssert));
 			if (actual.equals(newValue))
-				return true;
-		} else if (!verifyElementisPresent(webPage, locator, softAssert)) {
-			log.info("TextBox \"" + FieldName + "\" is Not Displayed");
-			softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
+				return true;*/
+		}
+			
 		}
 		return false;
 	}
@@ -676,13 +687,9 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 					if(testType.equalsIgnoreCase("Mobile")&&FieldData[i][2].equalsIgnoreCase(".//*[@id='applicant:middle-initial']"))
 					break;
 						verifyTextFieldIsEditableByXpath(softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
-					// commonMethods.sendKeysByXpath(webPage, FieldData[i][2],
-					// FieldData[i][3], softAssert);
 					break;
 				case "dropDown":
 					verifyDropDownFieldIsEditableByXpath(softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
-					// selectValueFromDropDownByXpath(softAssert,
-					// FieldData[i][0], FieldData[i][2], FieldData[i][3]);
 					break;
 				case "radio":
 					selectRadioButtonByXpath(softAssert, FieldData[i][0], FieldData[i][2]);
