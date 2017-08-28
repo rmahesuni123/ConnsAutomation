@@ -1081,7 +1081,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					}
 					log.info("********** Before Execution ******************");
 					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
-					//Thread.sleep(5000);
+					Thread.sleep(2000);
 					log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
 					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 					String existingWindow = null;
