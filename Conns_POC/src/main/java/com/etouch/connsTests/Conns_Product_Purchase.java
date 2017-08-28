@@ -691,7 +691,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 211, enabled = false, description = "Verify the 'continue' button without selecting shipping option")
+	@Test(priority = 211, enabled = true, description = "Verify the 'continue' button without selecting shipping option")
 	public void Verify_Continue_Button_Without_Selecting_Payment_Info() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualText = null;
@@ -746,7 +746,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 212, enabled = false, description = "Verify_Payment_Info_ConnsCredit")
+	@Test(priority = 212, enabled = true, description = "Verify_Payment_Info_ConnsCredit")
 	public void Verify_CheckoutFlow_Using_ConnsCredit() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualURL = null;
@@ -794,7 +794,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 213, enabled = false, description = "Verify the checkout flow using PayPal option in payment info section in checkout page")
+	@Test(priority = 213, enabled = true, description = "Verify the checkout flow using PayPal option in payment info section in checkout page")
 	public void Verify_Checkout_Flow_Paypal() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualPaypalURL = null;
@@ -837,7 +837,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 214, enabled = false, description = "Verify 'Edit Your Cart' link in Order Review section")
+	@Test(priority = 214, enabled = true, description = "Verify 'Edit Your Cart' link in Order Review section")
 	public void Verify_Edit_Your_Cart_Link_Functionality_In_Order_Review_Section() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualURL = null;
@@ -892,7 +892,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 215, enabled = false, description = "Verify 'CONTINUE SHOPPING' button in order confirmation page")
+	@Test(priority = 215, enabled = true, description = "Verify 'CONTINUE SHOPPING' button in order confirmation page")
 	public void Verify_Continue_Shopping_Button_Order_Confirmation_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualContinueShoppingButtonNavigation = null;
@@ -955,7 +955,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * UC - 004 - 2 test cases are clubbed in this test method ( TC_004 , TC_006
 	 * )
 	 */
-	@Test(priority = 216, enabled = false, description = "Verify Zip Code Functionality for In-Stock Product and Verify ADD TO CART on overlay without entering input in Zip code")
+	@Test(priority = 216, enabled = true, description = "Verify Zip Code Functionality for In-Stock Product and Verify ADD TO CART on overlay without entering input in Zip code")
 	public void Verify_In_Stock_Product_Zip_Code_Functionality() {
 		SoftAssert softAssert = new SoftAssert();
 		/*
@@ -1008,7 +1008,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * 
 	 * TC_007
 	 */
-	@Test(priority = 217, enabled = false, description = "Verify ADD TO CART on overlay with valid input in Zip code")
+	@Test(priority = 217, enabled = true, description = "Verify ADD TO CART on overlay with valid input in Zip code")
 	public void Verify_In_Stock_Product_Zip_Code_Functionality_Valid_Data() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualCartPageURL = null;
@@ -1052,7 +1052,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * UC - 005 - 2 test cases are clubbed in this test method ( TC_002 , TC_006
 	 * )
 	 */
-	@Test(priority = 218, enabled = false, description = "Verify Zip code functionality for Pick-up only Product")
+	@Test(priority = 218, enabled = true, description = "Verify Zip code functionality for Pick-up only Product")
 	public void Verify_Pickup_Only_Product_Zip_Code_Functionality() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1117,7 +1117,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * 
 	 * TC - 002
 	 */
-	@Test(priority = 219, enabled = false, description = "Verify Zip Code textbox with invalid input")
+	@Test(priority = 219, enabled = true, description = "Verify Zip Code textbox with invalid input")
 	public void Verify_Zip_Code_Functionality_In_Stock_PickUp_Product() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1144,7 +1144,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 220, enabled = false, description = "Verify Zip Code textbox with invalid input")
+	@Test(priority = 220, enabled = true, description = "Verify Zip Code textbox with invalid input")
 	public void Verify_Add_To_Cart_Functionality_In_Stock_PickUp_Product_Valid_Data() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualPageURL = null;
@@ -1179,7 +1179,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 221, enabled = false, description = "Verify 'Pick Up IN-STORE'(product with Pick Up IN-STORE) button in cart page")
+	@Test(priority = 221, enabled = true, description = "Verify 'Pick Up IN-STORE'(product with Pick Up IN-STORE) button in cart page")
 	public void Verify_Pickup_In_Store_Option_Cart_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1246,7 +1246,7 @@ public class Conns_Product_Purchase extends BaseTest {
 
 
 	/* get actual value from excel */
-	@Test(priority = 222, enabled = false, description = "Verify Zip Code textbox with invalid input")
+	@Test(priority = 222, enabled = true, description = "Verify Zip Code textbox with invalid input")
 	public void Verify_Ship_To_This_Address_Radio_Button_Valid_Billing_Info() {
 		SoftAssert softAssert = new SoftAssert();
 		String billingInfoFirstName = null;
@@ -1293,7 +1293,7 @@ public class Conns_Product_Purchase extends BaseTest {
 
 	// Verify_Ship_To_Different_Address_Radio_Button_Valid_Billing_Info changed
 	// to Verify_Ship_To_Different_Address_Radio_Button_For_InStock
-	@Test(priority = 223, enabled = false, description = "Verify ship different address radio button in billing info section for in stock product")
+	@Test(priority = 223, enabled = true, description = "Verify ship different address radio button in billing info section for in stock product")
 	public void Verify_Ship_To_Different_Address_Radio_Button_For_InStock() {
 		SoftAssert softAssert = new SoftAssert();
 		String expectedValue = null;
@@ -1339,7 +1339,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 224, enabled = false, description = "Verify Zip Code textbox with invalid input")
+	@Test(priority = 224, enabled = true, description = "Verify Zip Code textbox with invalid input")
 	public void Verify_Checkout_Flow_With_Zip_Code_Outside_Conns_Network() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1379,7 +1379,7 @@ public class Conns_Product_Purchase extends BaseTest {
 
 	// Not getting 2 raiod buttons (shipToDifferentAddressRadioButton) so
 	// skipping this test for now.
-	// @Test(priority = 240, enabled = false, description = "Verify the 'Continue
+	// @Test(priority = 240, enabled = true, description = "Verify the 'Continue
 	// ' button by providing valid inputs in shipping information")
 	public void Verify_Shipping_Info_Continue_Button_Valid_Info() {
 		SoftAssert softAssert = new SoftAssert();
@@ -1423,7 +1423,7 @@ public class Conns_Product_Purchase extends BaseTest {
 
 	// Not getting 2 raiod buttons (shipToDifferentAddressRadioButton) so
 	// skipping this test for now.
-	// @Test(priority = 241, enabled = false, description = "Verify the 'Continue
+	// @Test(priority = 241, enabled = true, description = "Verify the 'Continue
 	// ' button by providing invalid inputs in shipping information")
 	public void Verify_Shipping_Info_Continue_Button_InValid_Info() {
 		SoftAssert softAssert = new SoftAssert();
@@ -1468,7 +1468,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	}
 
 	/* need test data to get conns shipping option in Shipping Method section */
-	@Test(priority = 225, enabled = false, description = "Verify the 'continue' button by selecting shipping option as \"Conn's shipping\"")
+	@Test(priority = 225, enabled = true, description = "Verify the 'continue' button by selecting shipping option as \"Conn's shipping\"")
 	public void Verify_Continue_Button_functionality_Conns_Shipping() {
 		SoftAssert softAssert = new SoftAssert();
 		// submitShippingInfo[5][3] = "(454) 4";
@@ -1533,7 +1533,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * product expected: pickup location section should not displayed for
 	 * In_Stock product
 	 */
-	@Test(priority = 226, enabled = false, description = "Verify the 'continue' button by selecting shipping option in checkout location as Free Delivery option")
+	@Test(priority = 226, enabled = true, description = "Verify the 'continue' button by selecting shipping option in checkout location as Free Delivery option")
 	public void Verify_Continue_Button_functionality_Free_Shipping() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1598,7 +1598,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 227, enabled = false, description = "Verify the field validation with -ve inputs for Billing Information form in checkout page")
+	@Test(priority = 227, enabled = true, description = "Verify the field validation with -ve inputs for Billing Information form in checkout page")
 	public void Verify_BillingInfo_Field_Validation_Negative_Inputs() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1644,7 +1644,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 228, enabled = false, description = "Verify the field validation with -ve inputs for Billing Information form in checkout page")
+	@Test(priority = 228, enabled = true, description = "Verify the field validation with -ve inputs for Billing Information form in checkout page")
 	public void Verify_BillingInfo_Field_Validation_Positive_Inputs() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1689,7 +1689,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 229, enabled = false, description = "Verify the field validation with +ve inputs for Shipping Information form in checkout page")
+	@Test(priority = 229, enabled = true, description = "Verify the field validation with +ve inputs for Shipping Information form in checkout page")
 	public void Verify_Shippinginfo_Field_Validation_Positive_Inputs() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1722,7 +1722,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 230, enabled = false, description = "Verify the field validation with -ve inputs for shipping Information form in checkout page")
+	@Test(priority = 230, enabled = true, description = "Verify the field validation with -ve inputs for shipping Information form in checkout page")
 	public void Verify_ShippingInfo_Field_Validation_Negative_Inputs() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1756,7 +1756,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 231, enabled = false, description = "Verify all product related details in cart page with list page")
+	@Test(priority = 231, enabled = true, description = "Verify all product related details in cart page with list page")
 	public void Verify_Cart_Page_Product_Details() {
 		SoftAssert softAssert = new SoftAssert();
 		String productDetails = null;
@@ -1799,7 +1799,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 232, enabled = false, description = "Verify product name & price in different stages while performing checkout flow")
+	@Test(priority = 232, enabled = true, description = "Verify product name & price in different stages while performing checkout flow")
 	public void Verify_Pickup_Checkout_Flow_Cash_On_Delivery() {
 		SoftAssert softAssert = new SoftAssert();
 		String productDetails = null;
