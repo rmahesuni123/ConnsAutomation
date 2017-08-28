@@ -1080,7 +1080,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 						webPage.hoverOnElement(By.cssSelector(testdata[b][0]));
 					}
 					log.info("********** Before Execution ******************");
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
 					Thread.sleep(2000);
 					log.info(" ******************************* Account_DashBoard_Mobile_Drop_Down_Link  : " +Account_DashBoard_Mobile_Drop_Down_Link);
