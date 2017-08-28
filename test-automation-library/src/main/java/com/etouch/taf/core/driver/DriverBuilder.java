@@ -85,9 +85,9 @@ public abstract class DriverBuilder {
 		capabilities.setCapability("browserName", testBed.getBrowser().getName());
 		log.info("Browser Name: "+testBed.getBrowser().getName());
 		capabilities.setCapability("browserstack.debug", "true");
-		capabilities.setCapability("realMobile", "true");
+		capabilities.setCapability("realMobile", "false");
 		capabilities.setCapability("device", testBed.getDevice().getName());
-		capabilities.setCapability("os_version", testBed.getPlatform().getName());
+		capabilities.setCapability("os_version", testBed.getPlatform().getVersion());
 		log.info("OS_Version: "+testBed.getPlatform().getName());
 		try {
 			driver = new RemoteWebDriver(new URL(buildBrowserStackUrl()), capabilities);
@@ -189,6 +189,8 @@ public abstract class DriverBuilder {
 	 * @return browserStackURL
 	 */
 	public String buildBrowserStackUrl(){
+		browserStackURL=tbMgrConfig.getWebConfig().getHub();		
+		log.info("Hub url is : "+browserStackURL);
 		return browserStackURL;
 	}
 	

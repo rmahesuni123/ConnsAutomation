@@ -1,3 +1,4 @@
+
 package com.etouch.taf.mobile.appium;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -56,12 +57,19 @@ public class AppiumDriver {
 
 				DesiredCapabilities cap = new DesiredCapabilities();
 
-				CommonUtil.sop(" TestBed NNNAAAAAMMMMMEEEE : " + testBed.getTestBedName());
-
-				cap.setCapability("browserName", testBed.getBrowser().getName());
+				CommonUtil.sop(" TestBed NAAME : " + testBed.getTestBedName());
+				
+				//Capabilities to run on real device in browserstack  
+				cap.setCapability("browserstack.debug", "true");
+				cap.setCapability("device", testBed.getDevice().getName());
+			    cap.setCapability("realMobile", "true");
+			    cap.setCapability("os_version", testBed.getPlatform().getVersion());
+				
+			    //Old Capbilities
+				/*cap.setCapability("browserName", testBed.getBrowser().getName());
 				cap.setCapability("platform", testBed.getPlatform().getName());
 				cap.setCapability("device", testBed.getDevice().getName());
-				cap.setCapability("version", testBed.getPlatform().getVersion());
+				cap.setCapability("version", testBed.getPlatform().getVersion());*/
 				CommonUtil.sop("Setting Capabilities to IOSDriver: " + cap.toString());
 				driver = new IOSDriver(new URL(tbMgrConfig.getMobileConfig().getHub()), cap);
 
