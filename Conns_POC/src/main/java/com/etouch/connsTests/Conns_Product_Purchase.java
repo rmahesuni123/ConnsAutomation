@@ -1309,16 +1309,16 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
-			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
+			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Verify_Different_Address_Radio_Button(webPage, clickOnAddToCart, softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			// Thread.sleep(5000);
-			WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,
-					"//*[@id='billing:use_for_shipping_no']", softAssert);
-			// Assert.assertEquals(shipToDifferentAddressRadioButton.isDisplayed(),
-			// true, "ship To Different Address Radio Button not displayed ");
-			shipToDifferentAddressRadioButton.click();
+
+				WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,"//*[@id='billing:use_for_shipping_no']", softAssert);
+				shipToDifferentAddressRadioButton.click();
+			
+
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
@@ -1354,7 +1354,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
-			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
+			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Verify_Different_Address_Radio_Button(webPage, clickOnAddToCart, softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);

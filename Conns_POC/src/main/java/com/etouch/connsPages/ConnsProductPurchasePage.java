@@ -897,7 +897,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 						//try/catch added by deepak to fix issue
 						try{
 							commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
-							commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);	
+							commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 						}catch(Exception e){
 							log.info("Overlay box is already open");
 						}
@@ -981,6 +981,133 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+	
+	
+	
+	
+	//added by deepak
+	public void Add_In_Stock_Pickup_Only_Product_To_Verify_Different_Address_Radio_Button(WebPage webPage, String[][] test, SoftAssert softAssert) {
+		String errorMessage = null;
+		try {
+			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
+					commonData[1][1], softAssert);
+			WebElement product;
+			int counter = 1;
+			for (int i = 1; i <= listOfProducts.size(); i++) {
+				product = webPage.getDriver().findElement(By.xpath(
+						commonData[0][1] + i + "]"));
+				System.out.println("Web Element Details:::" + product.getText() + i);
+				/*
+				 * verifying whether availability text is pickup only or not
+				 */
+				boolean isInStockAvailabilityDisplayed = (product.getText().contains(test[0][3])
+						&& product.getText().contains(test[0][2]));
+				System.out.println("isInStockAvailabilityDisplayed:" + isInStockAvailabilityDisplayed);
+				System.out.println("test[0][3]:::" + test[0][3]);
+				System.out.println("i::::::::::::::::::::::::::" + i
+						+ "-------------------------------------------------------------------------");
+				if (isInStockAvailabilityDisplayed) {
+					commonMethods.clickElementbyXpath(webPage, commonData[2][1] + i + "]",
+							softAssert);
+					boolean isPickupCheckboxDisplayed = webPage.getDriver().findElements(By.xpath(commonData[6][1])).size() == 1;
+					System.out.println("isPickupCheckboxDisplayed:" + isPickupCheckboxDisplayed);
+					if (isPickupCheckboxDisplayed) {
+						//try/catch added by deepak to fix issue
+						try{
+							commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
+						}catch(Exception e){
+							log.info("Overlay box is already open");
+						}
+						//done
+						// counter++;
+						webPage.waitOnElement(By.xpath(test[5][1]), 10);
+						JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+						executor.executeScript("document.getElementById('warehouse-zip-code').value='';");
+						executor.executeScript("document.getElementById('warehouse-zip-code').value='77701';");
+						System.out.println("test[5][3]:" + test[5][3]);
+						webPage.waitOnElement(By.xpath(test[6][1]), 10);
+						commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
+						Thread.sleep(3000);
+						boolean isPresent = webPage.getDriver().findElements(By.xpath(test[8][1])).size() > 0;
+						System.out.println("isPresent:" + isPresent);
+						System.out.println("webPage.getDriver().findElements(By.xpath(test[8][1])).size():"
+								+ webPage.getDriver().findElements(By.xpath(test[8][1])).size());
+						if (!isPresent) {
+							System.out.println("before clicking add to cart on modal box");
+							commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
+							System.out.println("after clicking add to cart on modal box");
+							if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
+								boolean isShoppingCartEmpty = webPage.getDriver().getPageSource()
+										.contains("Shopping Cart is Empty");
+								System.out.println("isShoppingCartEmpty:" + isShoppingCartEmpty);
+								Assert.assertFalse(isShoppingCartEmpty,
+										"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
+								// break;
+							}
+							break;
+						} else {
+							errorMessage = commonMethods.getTextbyXpath(webPage, test[8][1], softAssert);
+							System.out.println("errorMessage:::" + errorMessage);
+							System.out.println("test[8][4]:::" + test[8][4]);
+							if (errorMessage.contains(test[8][4])) {
+								System.out.println("captures error message:::" + errorMessage);
+								webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
+								Thread.sleep(3000);
+								webPage.getDriver().navigate().back();
+								webPage.getDriver().navigate().refresh();
+							}
+						}
+						/*
+						 * if(isAlertPresent()){
+						 * 
+						 * 
+						 * Alert alert = webPage.getDriver().switchTo().alert();
+						 * String alertBoxErrorText=alert.getText();
+						 * System.out.println("alertBoxErrorText:"+
+						 * alertBoxErrorText); alert.accept();
+						 * 
+						 * }
+						 */
+					} else {
+						System.out.println("in else block driver navigate back");
+						counter++;
+						
+						//commented by deepak added below code
+						/*webPage.getDriver().navigate().back();
+						webPage.getDriver().navigate().refresh();*/
+						if (testType.equalsIgnoreCase("Web")) {
+							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+							commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+						} else {
+							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+						}
+						
+						Thread.sleep(10000);
+					}
+				} else {
+				}
+			}
+		} catch (Throwable e) {
+			log.error(e.getMessage());
+			// mainPage.getScreenShotForFailure(webPage,
+			// "Click_On_PickUp_Only_Add_To_Cart_Button");
+			log.error("Click_On_PickUp_Only_Add_To_Cart_Button failed");
+			log.error(e.getMessage());
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/*
 	 * 
