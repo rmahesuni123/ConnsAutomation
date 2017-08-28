@@ -32,7 +32,7 @@ public class TafExecutor {
 	static String AbsolutePath= TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	static String  RequiredPath = AbsolutePath.substring(0,AbsolutePath.indexOf("target/classes/")).substring(1);
 	static String configFilePath = RequiredPath.concat("src/test/resources");
-
+	private static String OS = System.getProperty("os.name").toLowerCase();
 	
 	
 	static Log log = LogUtil.getLog(TafExecutor.class);
@@ -75,13 +75,13 @@ public class TafExecutor {
 		try {
 
 			String configFileName = TestUtil.pickConfigFile(currentEnvironment);
-			
+			if (isWindows()) {
 			in = convertFileToInputStream(configFilePath + "\\" + configFileName);
-	
+			} else if (isMac() || isUnix() || isSolaris()) {
+				in = convertFileToInputStream("/"+configFilePath + "/" + configFileName);
+			}
 			CommonUtil.sop(configFileName.substring(0, configFileName.indexOf("Config.yml"))
 					+ " config file input stream is ready");
-
-		
 		} catch (Exception e1) {
 
 			log.error(e1);
@@ -138,5 +138,28 @@ public class TafExecutor {
 	}
 		
 	
-	 
+	public static boolean isWindows() {
+
+		return OS.indexOf("win") >= 0;
+
+	}
+
+	public static boolean isMac() {
+
+		return OS.indexOf("mac") >= 0;
+
+	}
+
+	public static boolean isUnix() {
+
+		return OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0;
+
+	}
+
+	public static boolean isSolaris() {
+
+		return OS.indexOf("sunos") >= 0;
+
+	}
+ 
 	}
