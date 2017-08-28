@@ -1050,6 +1050,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		public List<String> verify_Links_Resizeable_Account_Tab(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			SoftAssert softAssert = new SoftAssert();
+			JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 			String ParentElementLocator = null;
 			String ChildElementLocator = null;
 			String Expected_Page_URL = null;
@@ -1130,7 +1131,6 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 									&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
 
 								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
-								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
 								}
@@ -1138,7 +1138,6 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 								} catch (Exception e) {
 									e.printStackTrace();
 									/*webPage.getDriver().navigate().back();*/
-									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 
 						}
@@ -1147,7 +1146,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				} catch (Exception e) {
 					/*webPage.getDriver().navigate().back();*/
 					e.printStackTrace();
-					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					
 					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
 					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 					log.info("getLocalizedMessage :"); 
