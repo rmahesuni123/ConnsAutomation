@@ -1131,14 +1131,14 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 									&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
 
 								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
-								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
+								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
 								}
 						
 								} catch (Exception e) {
 									e.printStackTrace();
 									/*webPage.getDriver().navigate().back();*/
-									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 
 						}
 					}
@@ -1147,7 +1147,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					/*webPage.getDriver().navigate().back();*/
 					e.printStackTrace();
 					
-					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 1000)");// Used for Safari
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
