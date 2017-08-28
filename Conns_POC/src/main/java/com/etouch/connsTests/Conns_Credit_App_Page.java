@@ -718,10 +718,22 @@ public class Conns_Credit_App_Page extends BaseTest {
 		//	CreditAppPage.navigateToCreditAppPage(softAssert);
 		LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, 
 				"CreditApp", "verifyEmailIsNotEditable");
-		if(CreditAppPage.verifyTextFieldIsEditableByXpath(softAssert, 
-				"FirstName", testData.get("EmailIdentifier"), testData.get("EmailData")))
-			softAssert.fail("TextBox \"Email Address\" is Editable. Able to set new value as : "+
-				testData.get("EmailData"));
+		if (!CreditAppPage.verifyElementisPresent(webPage, testData.get("EmailIdentifier"), softAssert)) {
+			log.info("TextBox EmailAddress is Not Displayed");
+			softAssert.fail("TextBox EmailAddress is Not Displayed");
+		}
+		else{
+			SoftAssert softAssert1 = new SoftAssert();
+			commonMethods.sendKeysbyXpath(webPage, testData.get("EmailIdentifier"), testData.get("EmailData"), softAssert1);
+			String value = CreditAppPage.getTextBoxValueByJs("EmailAdress", testData.get("EmailIdentifier"),softAssert);
+			log.info("textField Value is : "+value);
+			log.info("Updated value is : "+testData.get("EmailData"));
+			if(value.equals(testData.get("EmailData")))
+			{
+				softAssert.fail("Email Field is editable for Registered user , Able to set new value to "+value );
+			}
+		}
+		
 		softAssert.assertAll();
 	}
 	catch(Throwable e){

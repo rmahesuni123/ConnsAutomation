@@ -275,6 +275,27 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		}
 	}
 
+	
+	public static String getTextBoxValueByJs(String FieldName, String xPtah, SoftAssert softAssert)
+	{
+		
+		if (!verifyElementisPresent(webPage, xPtah, softAssert)) {
+			softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
+		}
+		else{
+	
+		WebElement textField = commonMethods.getWebElementbyXpath(webPage, xPtah, softAssert);
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		/*if (!((String) js.executeScript("return arguments[0].getValue()",
+				textField) == null))*/
+			return (String) js.executeScript("return arguments[0].getValue()",
+					textField);
+		
+	
+		
+	}
+		return null;
+	}
 	/**
 	 * Clicks on Submit button on Credit Application Page for registered user(Method incomplete)
 	 * 
@@ -513,8 +534,9 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 			if (!((String) js.executeScript("return arguments[0].getValue()",
 					textField) == null))
-				js.executeScript("arguments[0].value='';", textField);
+			{	js.executeScript("arguments[0].value='';", textField);
 				js.executeScript("arguments[0].value='"+newValue+"';", textField);
+				return true;}
 			//	commonMethods.clearTextBoxByXpath(webPage, locator, softAssert);
 			
 			//commonMethods.sendKeysbyXpath(webPage, locator, newValue, softAssert);
@@ -524,12 +546,17 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			if (actual.equals(newValue))
 				return true;*/
 		}
+			else{
+				softAssert.fail("TextBox \"" + FieldName + "\" is Disabled ");
+			}
 			
 		}
 		return false;
 	}
 
 	public void getTextByJs() {
+		
+		
 	}
 	/**
 	 * Verifies if dropdown Value is editable using Id
