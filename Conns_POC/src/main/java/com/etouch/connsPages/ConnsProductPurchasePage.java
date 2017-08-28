@@ -17,6 +17,7 @@ import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
+import com.etouch.connsTests.Conns_Product_Purchase;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.ExcelUtil;
@@ -25,7 +26,7 @@ import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
-public class ConnsProductPurchasePage {
+public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	static String platform;
 	static Log log = LogUtil.getLog(ConnsProductPurchasePage.class);
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -51,12 +52,14 @@ public class ConnsProductPurchasePage {
 		}
 	}
 
-	public void Click_On_French_Door_Link(WebPage webPage, String test, SoftAssert softAssert) {
+	public void Click_On_French_Door_Link(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
 		try {
 			webPage.getDriver().manage().deleteAllCookies();
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			//commonMethods.waitForGivenTime(3, softAssert);
 			log.info("clicked on :" + test);
 		} catch (PageException e) {
 			log.error(e.getMessage());
@@ -101,41 +104,38 @@ public class ConnsProductPurchasePage {
 		String ProductText = null;
 		WebElement product;
 		try {
-			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"html/body/div[2]/div/div[4]/div[2]/div/div[4]/div[5]/ul/li", softAssert);
+			 List<WebElement>listOfProducts = commonMethods.getWebElementsbyXpath(webPage,"html/body/div[2]/div/div[4]/div[2]/div/div[4]/div[5]/ul/li", softAssert);
+				
+			log.info("Size of List: "+listOfProducts.size());
 			for (int j = 1; j < listOfProducts.size(); j++) {
-				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + j + "]"));
+				product = webPage.getDriver().findElement(By.xpath(commonData[0][1] + j + "]"));
 				System.out.println(j + ":::" + "Web Element Details are:::" + product.getText());
 				ProductText = product.getText();
-				commonMethods.clickElementbyXpath(webPage,
-						"(//button[@class='button btn-cart' and @title='Add to Cart'])[" + j + "]", softAssert);
-				// commonMethods.clickElementbyXpath(webPage, addToCart[0][1],
-				// softAssert);
-				if (ProductText.contains(addToCart[0][3])) {
-					boolean isOverLayBoxPresent = webPage.getDriver().findElements(By.xpath(addToCart[1][1]))
-							.size() >= 1;
+				if ((ProductText.contains(addToCart[0][3]))&&(ProductText.contains(addToCart[3][3]))) {
+					commonMethods.clickElementbyXpath(webPage,addToCart[4][1] + j + "]", softAssert);
+					Thread.sleep(3000);
+					boolean isOverLayBoxPresent = commonMethods.verifyElementisPresent(webPage, addToCart[1][1], softAssert);
 					System.out.println("isOverLayBoxPresent:::" + isOverLayBoxPresent);
 					softAssert.assertTrue(isOverLayBoxPresent,
 							"verification 1 failed: Over Lay Box is not displayed on clicking ADD to Cart Button"
 									+ "\n ");
-					boolean isZipCodeTextBoxDisplayed = webPage.getDriver().findElements(By.xpath(addToCart[2][1]))
-							.size() >= 1;
+					boolean isZipCodeTextBoxDisplayed = webPage.getDriver().findElements(By.xpath(addToCart[2][1])).size() >= 1;
 					System.out.println("isZipCodeTextBoxDisplayed:::" + isZipCodeTextBoxDisplayed);
-				} else if (ProductText.contains(addToCart[1][3])) {
-					boolean isOverLayBoxPresent = webPage.getDriver().findElements(By.xpath(addToCart[1][2]))
-							.size() >= 1;
+					break;
+				} else if ((ProductText.contains(addToCart[1][3]))&&(ProductText.contains(addToCart[3][3]))) {
+					commonMethods.clickElementbyXpath(webPage,addToCart[4][1] + j + "]", softAssert);
+					Thread.sleep(3000);
+					boolean isOverLayBoxPresent = commonMethods.verifyElementisPresent(webPage, addToCart[1][1], softAssert);
 					System.out.println("isOverLayBoxPresent:::" + isOverLayBoxPresent);
 					softAssert.assertTrue(isOverLayBoxPresent,
-							"verification 1 failed: Over Lay Box is not displayed on clicking ADD to Cart Button"
-									+ "\n ");
-					boolean isZipCodeTextBoxDisplayed = webPage.getDriver().findElements(By.xpath(addToCart[2][2]))
-							.size() >= 1;
+							"verification 1 failed: Over Lay Box is not displayed on clicking ADD to Cart Button"+ "\n ");
+					boolean isZipCodeTextBoxDisplayed = webPage.getDriver().findElements(By.xpath(addToCart[2][2])).size() >= 1;
 					System.out.println("isZipCodeTextBoxDisplayed:::" + isZipCodeTextBoxDisplayed);
+					break;
 				} else {
 					log.error("No product is not displayed with Add to cart button in product list page ");
 				}
-				break;
+				
 			}
 		} catch (Throwable e) {
 			log.error(e.getMessage());
@@ -295,6 +295,7 @@ public class ConnsProductPurchasePage {
 
 	public void Submit_Paypal_Payment_Info(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		try {
+			CommonMethods.waitForWebElement(By.xpath(test[0][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
 			Thread.sleep(5000);
@@ -505,12 +506,12 @@ public class ConnsProductPurchasePage {
 		String errorMessage = null;
 		try {
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+					commonData[1][1], softAssert);
 			WebElement product;
 			// int counter = 1;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+						commonData[0][1] + i + "]"));
 				/*
 				 * verifying whether availability text is pickup only or not
 				 * 
@@ -518,9 +519,9 @@ public class ConnsProductPurchasePage {
 				 */
 				System.out.println("test[0][3]:::" + test[0][3]);
 				if ((product.getText().contains(test[0][3])) && (product.getText().contains(test[0][2]))) {
-					commonMethods.clickElementbyXpath(webPage, "(//h2[@class='product-name']/a)[" + i + "]",
+					commonMethods.clickElementbyXpath(webPage, commonData[2][1] + i + "]",
 							softAssert);
-					commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+					commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 					// counter++;
 					commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
 					Thread.sleep(3000);
@@ -552,9 +553,18 @@ public class ConnsProductPurchasePage {
 						System.out.println("test[8][4]:::" + test[8][4]);
 						if (errorMessage.contains(test[8][4])) {
 							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
+							webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
 							Thread.sleep(3000);
-							webPage.getDriver().navigate().back();
+							
+							////commented by deeepak used code below
+							//webPage.getDriver().navigate().back();
+							if (testType.equalsIgnoreCase("Web")) {
+								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							} else {
+								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							}
 						}
 					}
 				}
@@ -631,18 +641,18 @@ public class ConnsProductPurchasePage {
 		String errorMessage = null;
 		try {
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+					commonData[1][1], softAssert);
 			WebElement product;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+						commonData[0][1] + i + "]"));
 				System.out.println("Web Element Details:" + product.getText() + i);
 				System.out.println("test[0][3]:::" + test[0][3]);
 				if (product.getText().equalsIgnoreCase(test[0][3])) {
 					System.out.println("clicking on element:::" + i);
-					commonMethods.clickElementbyXpath(webPage, "(//div[@class='rwd-category-list']/h2/a)[" + i + "]",
+					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",
 							softAssert);
-					commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+					commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 					commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
 					Thread.sleep(3000);
 					webPage.findObjectByxPath(test[5][1]).clear();
@@ -671,9 +681,18 @@ public class ConnsProductPurchasePage {
 						System.out.println("test[8][4]:::" + test[8][4]);
 						if (errorMessage.contains(test[8][4])) {
 							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
+							webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
 							Thread.sleep(3000);
-							webPage.getDriver().navigate().back();
+							
+							//commented by deepak used below code
+							//webPage.getDriver().navigate().back();
+							if (testType.equalsIgnoreCase("Web")) {
+								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							} else {
+								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							}
 						}
 					}
 				}
@@ -764,11 +783,11 @@ public class ConnsProductPurchasePage {
 	 * for (int i = 1; i <= listOfProducts.size(); i++) {
 	 * 
 	 * listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-	 * "(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])",
+	 * commonData[1][1],
 	 * softAssert);
 	 * 
 	 * product = webPage.getDriver().findElement(By.xpath(
-	 * "(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])["
+	 * commonData[0][1]
 	 * + i + "]"));
 	 * 
 	 * System.out.println("Web Element Details" + product.getText() + i);
@@ -818,7 +837,7 @@ public class ConnsProductPurchasePage {
 	 * 
 	 * }
 	 */
-	public void Product_With_In_Stock_Add_To_Cart_Button_With_Avilability(WebPage webPage, String[][] testData,
+/*	public void Product_With_In_Stock_Add_To_Cart_Button_With_Avilability(WebPage webPage, String[][] testData,
 			SoftAssert softAssert) {
 		try {
 			int i = 1;
@@ -843,7 +862,7 @@ public class ConnsProductPurchasePage {
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
-	}
+	}*/
 
 	/*
 	 * 
@@ -853,12 +872,12 @@ public class ConnsProductPurchasePage {
 		String errorMessage = null;
 		try {
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+					commonData[1][1], softAssert);
 			WebElement product;
 			int counter = 1;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+						commonData[0][1] + i + "]"));
 				System.out.println("Web Element Details:::" + product.getText() + i);
 				/*
 				 * verifying whether availability text is pickup only or not
@@ -870,15 +889,15 @@ public class ConnsProductPurchasePage {
 				System.out.println("i::::::::::::::::::::::::::" + i
 						+ "-------------------------------------------------------------------------");
 				if (isInStockAvailabilityDisplayed) {
-					commonMethods.clickElementbyXpath(webPage, "(//h2[@class='product-name']/a)[" + i + "]",
+					commonMethods.clickElementbyXpath(webPage, commonData[2][1] + i + "]",
 							softAssert);
-					boolean isPickupCheckboxDisplayed = webPage.getDriver().findElements(By.xpath("//input[@id='instore']")).size() == 1;
+					boolean isPickupCheckboxDisplayed = webPage.getDriver().findElements(By.xpath(commonData[6][1])).size() == 1;
 					System.out.println("isPickupCheckboxDisplayed:" + isPickupCheckboxDisplayed);
 					if (isPickupCheckboxDisplayed) {
 						//try/catch added by deepak to fix issue
 						try{
-							commonMethods.clickElementbyXpath(webPage, "//input[@id='instore']", softAssert);
-							commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);	
+							commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
+							commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);	
 						}catch(Exception e){
 							log.info("Overlay box is already open");
 						}
@@ -915,7 +934,7 @@ public class ConnsProductPurchasePage {
 							System.out.println("test[8][4]:::" + test[8][4]);
 							if (errorMessage.contains(test[8][4])) {
 								System.out.println("captures error message:::" + errorMessage);
-								webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
+								webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
 								Thread.sleep(3000);
 								webPage.getDriver().navigate().back();
 								webPage.getDriver().navigate().refresh();
@@ -935,9 +954,18 @@ public class ConnsProductPurchasePage {
 					} else {
 						System.out.println("in else block driver navigate back");
 						counter++;
-						webPage.getDriver().navigate().back();
-						webPage.getDriver().navigate().refresh();
-						// webPage.getDriver().navigate().to("http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/appliances/refrigerators/french-door");
+						
+						//commented by deepak added below code
+						/*webPage.getDriver().navigate().back();
+						webPage.getDriver().navigate().refresh();*/
+						if (testType.equalsIgnoreCase("Web")) {
+							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+							commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+						} else {
+							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+						}
+						
 						Thread.sleep(10000);
 					}
 				} else {
@@ -962,12 +990,12 @@ public class ConnsProductPurchasePage {
 			SoftAssert softAssert) {
 		try {
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+					commonData[1][1], softAssert);
 			WebElement product;
 			int counter = 1;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+						commonData[0][1] + i + "]"));
 				System.out.println("Web Element Details:::" + product.getText() + i);
 				/*
 				 * verifying whether availability text is pickup only or not
@@ -978,16 +1006,16 @@ public class ConnsProductPurchasePage {
 				System.out.println("test[0][3]:::" + test[0][3]);
 				System.out.println("test[0][2]:::" + test[0][2]);
 				if (isInStockAvailabilityDisplayed) {
-					commonMethods.clickElementbyXpath(webPage, "(//h2[@class='product-name']/a)[" + i + "]",
+					commonMethods.clickElementbyXpath(webPage, commonData[2][1] + i + "]",
 							softAssert);
 					boolean isPickupCheckboxDisplayed = webPage.getDriver()
-							.findElements(By.xpath("//input[@id='instore']")).size() >= 1;
+							.findElements(By.xpath(commonData[6][1])).size() >= 1;
 					System.out.println("isPickupCheckboxDisplayed:" + isPickupCheckboxDisplayed);
 					if (isPickupCheckboxDisplayed) {
 						//added by deepak to fix overlayissue
 						try{
-							commonMethods.clickElementbyXpath(webPage, "//input[@id='instore']", softAssert);
-							commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+							commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
+							commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 						}catch(Exception e){
 							log.info("Overlay box is already open");
 						}
@@ -1005,8 +1033,16 @@ public class ConnsProductPurchasePage {
 					} else {
 						System.out.println("driver navigating back to search results page");
 						counter++;
-						webPage.getDriver().navigate().back();
-						webPage.getDriver().navigate().refresh();
+						//commented by deepak added below code
+						/*webPage.getDriver().navigate().back();
+						webPage.getDriver().navigate().refresh();*/
+						if (testType.equalsIgnoreCase("Web")) {
+							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+							commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+						} else {
+							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+						}
 						Thread.sleep(10000);
 					}
 				}
@@ -1048,25 +1084,24 @@ public class ConnsProductPurchasePage {
 		String productText = null;
 		try {
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+					commonData[1][1], softAssert);
 			System.out.println("list items:" + listOfProducts.size());
 			WebElement product;
 			int counter = 1;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				log.info("IN FOR: "+i);
-				
-				product = webPage.getDriver().findElement(By.xpath("(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+				product = webPage.getDriver().findElement(By.xpath(commonData[0][1] + i + "]"));
 				if ((product.getText().contains(inStockOnlyAddToCart[0][3]))&& (product.getText().contains(inStockOnlyAddToCart[0][2]))) {
 					System.out.println("inside if");
 					productText = product.getText();
 					System.out.println("clicking on element:::" + i);
 					System.out.println(i + ":::clicking on link");
-					commonMethods.clickElementbyXpath(webPage, "(//div[@class='rwd-category-list']/h2/a)[" + i + "]",
+					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",
 							softAssert);
 					System.out.println(i + ":::clicked on link");
 					//try catch block added by deepak for failing test
 					try{
-						commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+						commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 					}catch(Exception e){
 						log.info("Clicking Add to Cart button not required as Overlay box is already open");
 					}
@@ -1119,13 +1154,24 @@ public class ConnsProductPurchasePage {
 						System.out.println("test[8][4]:::" + inStockOnlyAddToCart[8][4]);
 						if (errorMessage.contains(inStockOnlyAddToCart[8][4])) {
 							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
-							Thread.sleep(3000);
+							webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
+							
+							//commented by deeepak used code below
+							/*Thread.sleep(3000);
 							webPage.getDriver().navigate().back();
 							//Added by deepak
 							Thread.sleep(3000);
 							//done
-							webPage.getDriver().navigate().refresh();
+							webPage.getDriver().navigate().refresh();*/
+							
+							if (testType.equalsIgnoreCase("Web")) {
+								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							} else {
+								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							}
+							
 						}
 					}
 				}
@@ -1149,11 +1195,11 @@ public class ConnsProductPurchasePage {
 	public void Click_Add_To_Cart_As_Per_Avilability_Message(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		try {
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+					commonData[1][1], softAssert);
 			WebElement product;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+						commonData[0][1] + i + "]"));
 				System.out.println("Web Element Details:" + product.getText() + i);
 				System.out.println("test[0][3]:::" + test[0][3]);
 				/*
@@ -1161,11 +1207,11 @@ public class ConnsProductPurchasePage {
 				 */
 				if ((product.getText().contains(test[0][3])) && (product.getText().contains(test[0][2]))) {
 					System.out.println("clicking on element:::" + i);
-					commonMethods.clickElementbyXpath(webPage, "(//div[@class='rwd-category-list']/h2/a)[" + i + "]",
+					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",
 							softAssert);
 					//below line is commented deepak to test on UAT
 					try{
-						commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+						commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 					}catch(Exception e){
 						log.info("Unable to click on ADD TO CART button from product page as modal is already open.");
 					}
@@ -1221,12 +1267,12 @@ public class ConnsProductPurchasePage {
 		String errorMessage = null;
 		try {
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+					commonData[1][1], softAssert);
 			WebElement product;
 			int counter = 1;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+						commonData[0][1] + i + "]"));
 				System.out.println("Web Element Details" + product.getText() + i);
 				/*
 				 * checking on add to cart button if it is available
@@ -1234,9 +1280,9 @@ public class ConnsProductPurchasePage {
 				if (product.getText().contains(inStockOnlyAddToCart[0][3])
 						|| product.getText().contains(inStockOnlyAddToCart[1][3])) {
 					System.out.println("clicking on element:::" + i);
-					commonMethods.clickElementbyXpath(webPage, "(//div[@class='rwd-category-list']/h2/a)[" + i + "]",
+					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",
 							softAssert);
-					commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+					commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 					boolean isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,
 							inStockOnlyAddToCart[4][1], softAssert);
 					// Thread.sleep(3000);
@@ -1275,10 +1321,19 @@ public class ConnsProductPurchasePage {
 						System.out.println("test[8][4]:::" + inStockOnlyAddToCart[8][4]);
 						if (errorMessage.contains(inStockOnlyAddToCart[8][4])) {
 							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
+							webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
 							Thread.sleep(3000);
-							webPage.getDriver().navigate().back();
-							webPage.getDriver().navigate().refresh();
+							
+							//commented by deeepak used code below
+							/*webPage.getDriver().navigate().back();
+							webPage.getDriver().navigate().refresh();*/
+							if (testType.equalsIgnoreCase("Web")) {
+								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							} else {
+								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							}
 						}
 					}
 				}
@@ -1295,7 +1350,7 @@ public class ConnsProductPurchasePage {
 		return webPage;
 	}
 
-	public void navigateToRefrigeratorsMobile(WebPage webPage, String[][] frenchDoor, SoftAssert softAssert) {
+/*	public void navigateToRefrigeratorsMobile(WebPage webPage, String[][] frenchDoor, SoftAssert softAssert) {
 		try {
 			webPage.getDriver().manage().deleteAllCookies();
 			commonMethods.clickElementbyXpath(webPage, "//*[@id='slide-nav']/div/div[1]/div/div[3]/div[1]/button",
@@ -1305,19 +1360,19 @@ public class ConnsProductPurchasePage {
 					"//*[@id='li-primary-pronav-appliances']/div/div/div[2]/ul[1]/li/ul/li[1]/a", softAssert);
 			commonMethods.clickElementbyXpath(webPage,
 					"//*[@id='li-primary-pronav-appliances']/div/div/div[2]/ul[1]/li/ul/li[2]/a", softAssert);
-			/*
+			
 			 * commonMethods.clickElementbyXpath(webPage, frenchDoor[0][1],
 			 * softAssert); commonMethods.clickElementbyXpath(webPage,
 			 * frenchDoor[0][1], softAssert);
 			 * commonMethods.clickElementbyXpath(webPage, frenchDoor[0][1],
 			 * softAssert); commonMethods.clickElementbyXpath(webPage,
 			 * frenchDoor[0][1], softAssert);
-			 */
+			 
 		} catch (Throwable e) {
 			log.error(e.getMessage());
 			softAssert.fail(e.getLocalizedMessage());
 		}
-	}
+	}*/
 
 	public List<String> page_Verify_Product_Details_Cart(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		ArrayList<String> actualValue = new ArrayList<String>();
@@ -1435,13 +1490,13 @@ public class ConnsProductPurchasePage {
 		String productText = null;
 		try {
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])", softAssert);
+					commonData[1][1], softAssert);
 			System.out.println("list items:" + listOfProducts.size());
 			WebElement product;
 			int counter = 1;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				product = webPage.getDriver().findElement(By.xpath(
-						"(//*[contains(@class,'category-products')]//ul//li[contains(@class,'item')])[" + i + "]"));
+						commonData[0][1] + i + "]"));
 				System.out.println("Web Element Details" + product.getText() + i);
 				System.out.println("+++++++++++++++++++++++++++++++++++++++++");
 				System.out.println("inStockOnlyAddToCart[0][3]):" + mobilePickupAvilable[0][3]);
@@ -1455,10 +1510,10 @@ public class ConnsProductPurchasePage {
 					productText = product.getText();
 					System.out.println("clicking on element:::" + i);
 					System.out.println(i + ":::clicking on link");
-					commonMethods.clickElementbyXpath(webPage, "(//div[@class='rwd-category-list']/h2/a)[" + i + "]",
+					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",
 							softAssert);
 					System.out.println(i + ":::clicked on link");
-					commonMethods.clickElementbyXpath(webPage, "//*[@id='add-to-cart-submit-button']", softAssert);
+					commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 					boolean isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,
 							mobilePickupAvilable[4][1], softAssert);
 					// Thread.sleep(3000);
@@ -1497,10 +1552,19 @@ public class ConnsProductPurchasePage {
 						System.out.println("test[8][4]:::" + mobilePickupAvilable[8][4]);
 						if (errorMessage.contains(mobilePickupAvilable[8][4])) {
 							System.out.println("captures error message:::" + errorMessage);
-							webPage.getDriver().findElement(By.xpath("//*[@id='fancybox-close']")).click();
+							webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
 							Thread.sleep(3000);
-							webPage.getDriver().navigate().back();
-							webPage.getDriver().navigate().refresh();
+							
+							//commented by deeepak used code below
+							/*webPage.getDriver().navigate().back();
+							webPage.getDriver().navigate().refresh();*/
+							if (testType.equalsIgnoreCase("Web")) {
+								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							} else {
+								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							}
 						}
 					}
 				}
