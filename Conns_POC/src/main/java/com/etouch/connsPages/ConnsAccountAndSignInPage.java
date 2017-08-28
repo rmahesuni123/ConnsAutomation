@@ -1628,7 +1628,159 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		
 		
 		static int c = 0;
-		public List<String> verify_My_Wish_List_Page_Links(String[][] testdata) {
+		public List<String> verify_My_Wish_List_Page_Links_Mobile(String[][] testdata) {
+			List<String> brokenLinks = new ArrayList<String>();
+			SoftAssert softAssert = new SoftAssert();
+			String ParentElementLocator = null;
+			String ChildElementLocator = null;
+			String Expected_Page_URL = null;
+			String Expected_Page_Element_Name = null;
+			String Expected_Page_Element_Title = null;
+			String Account_DashBoard_Mobile_Drop_Down_Link = null;
+			String Safari_Path_ChildElementLocator = null;
+			String My_Wish_List_Page_Element_Expected_Locator = null;
+			String My_Wish_List_Page_Element_Locator_Expected_Text = null;
+			String Navigate_To_Account_Information_Tab_Form_URL = null;
+			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = null;
+			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Wish_List_Option = null;
+			//String NameofTestCase = testdata[6][0];
+			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
+			String Actual_Page_URL="";
+			String Actual_Page_Title="";
+			String Actual_Page_Element_Name="";
+			String Actual_My_Wish_List_Page_Expected_Element_Text = "";
+			try {
+					log.info(" ******************************* incremented value of c one *********************  : " +c);
+					log.info(" ******************** Verifying *************************" + testdata[c][0]);
+					ParentElementLocator = testdata[c][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[c][2];
+					ChildElementLocator = testdata[c][3];
+					Expected_Page_URL = testdata[c][4];
+					Expected_Page_Element_Name = testdata[c][5];
+					Expected_Page_Element_Title = testdata[c][6];
+					Navigate_To_Account_Information_Tab_Form_URL = testdata[c][7];
+					My_Wish_List_Page_Element_Expected_Locator = testdata[c][8];
+					My_Wish_List_Page_Element_Locator_Expected_Text = testdata[c][9];
+					Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = testdata[c][10];
+					Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Wish_List_Option  = testdata[c][2];
+					
+					//Safari_Path_ChildElementLocator = testdata[r][8];
+					log.info("Parent Locator is ..." + ParentElementLocator);
+					
+					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
+						webPage.hoverOnElement(By.cssSelector(testdata[c][0]));
+					}
+					log.info("********** Before Execution ******************");
+				
+					JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
+					jse.executeScript("scroll(0, -250);");	
+					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
+					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Wish_List_Option, softAssert);
+					Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
+					commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
+					Actual_My_Wish_List_Page_Expected_Element_Text = webPage.findObjectByxPath(My_Wish_List_Page_Element_Expected_Locator).getText();
+					String existingWindow = null;
+					String newWindow = null;
+					existingWindow = webPage.getDriver().getWindowHandle();
+					Set<String> windows = webPage.getDriver().getWindowHandles();
+					if (windows.size() >= 2) {
+						windows.remove(existingWindow);
+						newWindow = windows.iterator().next();
+						log.info("Existing window id is" + existingWindow);
+						log.info("New window id is" + newWindow);
+						webPage.getDriver().switchTo().window(newWindow);
+						Thread.sleep(3000);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);					
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_My_Wish_List_Page_Expected_Element_Text);
+						
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(existingWindow);
+						log.info("Actual Element Name" + Actual_Page_Element_Name);
+						log.info("Expected Element Name" + Expected_Page_Element_Name);
+						log.info("Actual Page Title" + Actual_Page_Title);
+						log.info("Expected Element Title" + Expected_Page_Element_Title);
+						log.info("Expected URL" + Expected_Page_URL);
+						log.info("Actual URL" + Actual_Page_URL);
+						log.info("Actual_My_Wish_List_Page_Expected_Element_Text   : " + Actual_My_Wish_List_Page_Expected_Element_Text);
+						log.info("My_Wish_List_Page_Element_Locator_Expected_Text : " + My_Wish_List_Page_Element_Locator_Expected_Text);
+						
+						
+					} else {
+						log.info("******************* Else Execution***************");
+						//CommonMethods.waitForWebElement(By.xpath(Actual_Page_Element_Name), webPage);
+						Actual_Page_URL = webPage.getCurrentUrl();
+						Actual_Page_Title = webPage.getPageTitle();
+						Page_URL_Title_Element_Data.add(Actual_Page_Title);
+						Page_URL_Title_Element_Data.add(Actual_Page_URL);	
+						Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+						Page_URL_Title_Element_Data.add(Actual_My_Wish_List_Page_Expected_Element_Text);
+						log.info("Actual Element Name : " + Actual_Page_Element_Name);
+						log.info("Expected Element Name : " + Expected_Page_Element_Name);
+						log.info("Actual Page Title : " + Actual_Page_Title);
+						log.info("Expected Element Title : " + Expected_Page_Element_Title);
+						log.info("Actual URL : " + Actual_Page_URL);
+						log.info("Expected URL : " + Expected_Page_URL);
+						log.info("Actual_My_Wish_List_Page_Expected_Element_Text   : " + Actual_My_Wish_List_Page_Expected_Element_Text);
+						log.info("My_Wish_List_Page_Element_Locator_Expected_Text : " + My_Wish_List_Page_Element_Locator_Expected_Text);
+						
+
+						try {
+							if (!Expected_Page_Element_Name.equalsIgnoreCase("« Go back")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("SAVE ADDRESS")
+									&& !Expected_Page_Element_Name.equalsIgnoreCase("Newsletter Subscription")) {
+
+								log.info(" ******************************* WebPage.getcurrentURL 1 :  *********************  : " +webPage.getCurrentUrl());
+								/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+								js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari*/								
+								JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+								js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+								//webPage.getDriver().navigate().back();
+								log.info(" ******************************* WebPage.getCurrentURL 2 :  *********************  : " +webPage.getCurrentUrl());
+								}
+								} catch (Exception e) {
+									e.printStackTrace();
+									/*webPage.getDriver().navigate().back();*/
+									/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+*/									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+
+						}
+					}
+			}  
+			
+			catch (Exception e) {
+
+					e.printStackTrace();
+					JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
+					/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)"); */ // Used for Safari
+					/*webPage.getDriver().navigate().back();*/
+					brokenLinks.add(Expected_Page_Element_Name + " " + e.getLocalizedMessage());
+					log.info("getLocalizedMessage :"); 
+					e.printStackTrace();
+				}
+				c++;
+				log.info(" ******************************* incremented value of c second *********************  : " +c);
+			if (brokenLinks.size() > 0) {
+				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
+			}
+			return Page_URL_Title_Element_Data;
+			
+		}
+		
+		
+		
+		
+		
+		
+		static int d = 0;
+		public List<String> verify_My_Wish_List_Page_Links_Web(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			SoftAssert softAssert = new SoftAssert();
 			String ParentElementLocator = null;
@@ -1648,23 +1800,23 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_Element_Name="";
 			String Actual_My_Wish_List_Page_Expected_Element_Text = "";
 			try {
-					log.info(" ******************************* incremented value of c one *********************  : " +c);
-					log.info(" ******************** Verifying *************************" + testdata[c][0]);
-					ParentElementLocator = testdata[c][1];
-					Account_DashBoard_Mobile_Drop_Down_Link = testdata[c][2];
-					ChildElementLocator = testdata[c][3];
-					Expected_Page_URL = testdata[c][4];
-					Expected_Page_Element_Name = testdata[c][5];
-					Expected_Page_Element_Title = testdata[c][6];
-					Navigate_To_Account_Information_Tab_Form_URL = testdata[c][7];
-					My_Wish_List_Page_Element_Expected_Locator = testdata[c][8];
-					My_Wish_List_Page_Element_Locator_Expected_Text = testdata[c][9];
+					log.info(" ******************************* incremented value of c one *********************  : " +d);
+					log.info(" ******************** Verifying *************************" + testdata[d][0]);
+					ParentElementLocator = testdata[d][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[d][2];
+					ChildElementLocator = testdata[d][3];
+					Expected_Page_URL = testdata[d][4];
+					Expected_Page_Element_Name = testdata[d][5];
+					Expected_Page_Element_Title = testdata[d][6];
+					Navigate_To_Account_Information_Tab_Form_URL = testdata[d][7];
+					My_Wish_List_Page_Element_Expected_Locator = testdata[d][8];
+					My_Wish_List_Page_Element_Locator_Expected_Text = testdata[d][9];
 					
 					//Safari_Path_ChildElementLocator = testdata[r][8];
 					log.info("Parent Locator is ..." + ParentElementLocator);
 					
 					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-						webPage.hoverOnElement(By.cssSelector(testdata[c][0]));
+						webPage.hoverOnElement(By.cssSelector(testdata[d][0]));
 					}
 					log.info("********** Before Execution ******************");
 					webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
@@ -1757,8 +1909,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
 				}
-				c++;
-				log.info(" ******************************* incremented value of c second *********************  : " +c);
+				d++;
+				log.info(" ******************************* incremented value of d second *********************  : " +d);
 			if (brokenLinks.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
 			}

@@ -1413,8 +1413,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
@@ -1569,6 +1569,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_My_Wish_List_Link_On_Account_Information_Resizeable_Menu_Section() throws Exception {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
 			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
@@ -1586,11 +1587,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
+			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Wish_List_Option = mobile_validation_data[0][2];
+			//String NameofTestCase = mobile_validation_data[3][0];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			webPage.getCurrentUrl(); //For Safari
 			for(int r= 0; r < test_data.length;r++)
-			{	
-				String Page_Expected_URL = test_data[r][4];
+			{	String Page_Expected_URL = test_data[r][4];
 				String Page_Expected_Element_Name = test_data[r][5];
 				String Page_Expected_Title = test_data[r][6];
 				String Expected_My_Wishlist_Product_Details_And_Comment_Element_Text = test_data[r][9]; 
@@ -1621,7 +1623,6 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(5).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Element_Text) ,                            "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Element_Text                  			    : "+ Expected_My_Wishlist_Mango_Dining_Element_Text               		     	+       "   Actual_My_Wishlist_Mango_Dining_Element_Text               						: "+ Page_URL_Title_Data.get(5));
 					softAssert.assertTrue(Page_URL_Title_Data.get(6).contains(Expected_My_Wishlist_Mango_Dining_Price_Element_Text) ,                      		   "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Price_Element_Text                           : "+ Expected_My_Wishlist_Mango_Dining_Price_Element_Text         		     	+       "   Actual_My_Wishlist_Mango_Dining_Price_Element_Text                              : "+ Page_URL_Title_Data.get(6));
 					softAssert.assertTrue(Page_URL_Title_Data.get(7).contains(Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text) ,                      "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text   	     	+       "   Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text                      : "+ Page_URL_Title_Data.get(7));
-					
 					//softAssert.assertTrue(Page_URL_Title_Data.get(8).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text) ,            "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text                      : "+ Page_URL_Title_Data.get(8));
 					softAssert.assertTrue(Page_URL_Title_Data.get(9).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text) ,              "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text               +       "   Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text                      : "+ Page_URL_Title_Data.get(9));
 					softAssert.assertTrue(Page_URL_Title_Data.get(10).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text) ,    "  Account Information DashBoard Tab verification failed For Page Title . Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text          : "+ Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text      +       "   Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text             : "+ Page_URL_Title_Data.get(10));
@@ -1659,32 +1660,28 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(19).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text),         "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text . Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text 			        +       "   Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text          : "+Page_URL_Title_Data.get(19));
 				}
 			}
-				
 				if (testType.equalsIgnoreCase("Mobile")) {
 					for(int r1 = 0; r1 < mobile_validation_data.length;r1++)
-				{
-					String My_Wish_List_Mobile_Page_Expected_URL = mobile_validation_data[r1][4];
+				{	String My_Wish_List_Mobile_Page_Expected_URL = mobile_validation_data[r1][4];
 					String My_Wish_List_Mobile_Page_Expected_Element_Name = mobile_validation_data[r1][5];
 					String My_Wish_List_Mobile_Page_Expected_Title = mobile_validation_data[r1][6];
 					String My_Wish_List_Mobile_Page_Element_Locator_Text =  mobile_validation_data[r1][9];
-					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
-					List<String> Page_URL_Title_Data_My_Wish_List_Links  = ConnsSignInPage.verify_My_Wish_List_Page_Links(mobile_validation_data);
+					String NameofTestCase = mobile_validation_data[r1][0];
+					List<String> Page_URL_Title_Data_My_Wish_List_Links  = ConnsSignInPage.verify_My_Wish_List_Page_Links_Mobile(mobile_validation_data);
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(0).equalsIgnoreCase(My_Wish_List_Mobile_Page_Expected_Title),                 " Account Information DashBoard Tab verification failed For Page Title.  My_Wish_List_Page_Expected_Title                                              : "+ My_Wish_List_Mobile_Page_Expected_Title                                     +       "   My_Wish_List_Page_Actual_Title                                       			: "+ Page_URL_Title_Data_My_Wish_List_Links.get(0));	
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(1).contains(My_Wish_List_Mobile_Page_Expected_URL),                           " Account Information DashBoard Tab verification failed For Page URL .   My_Wish_List_Page_Expected_URL                                                : "+ My_Wish_List_Mobile_Page_Expected_URL                                       +       "   My_Wish_List_Page_Actual_URL                                             		: "+ Page_URL_Title_Data_My_Wish_List_Links.get(1));
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(2).equalsIgnoreCase(My_Wish_List_Mobile_Page_Expected_Element_Name),          " Account Information DashBoard Tab verification failed For Page Title . My_Wish_List_Page_Expected_Element_Name                                       : "+ My_Wish_List_Mobile_Page_Expected_Element_Name                              +       "   My_Wish_List_Page_Actual_Element_Name                                    		: "+ Page_URL_Title_Data_My_Wish_List_Links.get(2));
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(3).equalsIgnoreCase(My_Wish_List_Mobile_Page_Element_Locator_Text),           " Account Information DashBoard Tab verification failed For Page Title . My_Wish_List_Mobile_Page_Element_Locator_Text  				                  : "+ My_Wish_List_Mobile_Page_Element_Locator_Text 		                       +       "   Actual_My_Wish_List_Mobile_Page_Element_Locator_Text 					        : "+ Page_URL_Title_Data_My_Wish_List_Links.get(3));
 				}
 				}else
-					{
-					for(int r1 = 0; r1 < web_validation_data.length;r1++)
-					{
-					String My_Wish_List_Web_Page_Expected_URL = web_validation_data[r1][4];
+				{ for(int r1 = 0; r1 < web_validation_data.length;r1++)
+				{	String My_Wish_List_Web_Page_Expected_URL = web_validation_data[r1][4];
 					String My_Wish_List_Web_Page_Expected_Element_Name = web_validation_data[r1][5];
 					String My_Wish_List_Web_Page_Expected_Title = web_validation_data[r1][6];
 					String My_Wish_List_Web_Page_Element_Locator_Text =  web_validation_data[r1][9];
 					String Account_DashBoard_Mobile_Drop_Down_Link = web_validation_data[r1][2];
-					//commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
-					List<String> Page_URL_Title_Data_My_Wish_List_Links  = ConnsSignInPage.verify_My_Wish_List_Page_Links(web_validation_data);
+					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Wish_List_Option, softAssert);
+					List<String> Page_URL_Title_Data_My_Wish_List_Links  = ConnsSignInPage.verify_My_Wish_List_Page_Links_Web(web_validation_data);
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(0).equalsIgnoreCase(My_Wish_List_Web_Page_Expected_Title),                    "  Account Information DashBoard Tab verification failed For Page Title.  My_Wish_List_Web_Page_Expected_Title                                     : "+ My_Wish_List_Web_Page_Expected_Title                                            	       +       "   My_Wish_List_Web_Page_Actual_Title                                       		: "+ Page_URL_Title_Data_My_Wish_List_Links.get(0));	
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(1).contains(My_Wish_List_Web_Page_Expected_URL),                              "  Account Information DashBoard Tab verification failed For Page URL .   My_Wish_List_Web_Page_Expected_URL                                       : "+ My_Wish_List_Web_Page_Expected_URL                                             		   +       "   My_Wish_List_Web_Page_Actual_URL                                             	: "+ Page_URL_Title_Data_My_Wish_List_Links.get(1));
 					softAssert.assertTrue(Page_URL_Title_Data_My_Wish_List_Links.get(2).equalsIgnoreCase(My_Wish_List_Web_Page_Expected_Element_Name) ,            "  Account Information DashBoard Tab verification failed For Page Title . My_Wish_List_Web_Page_Expected_Element_Name                              : "+ My_Wish_List_Web_Page_Expected_Element_Name                                   		   +       "   My_Wish_List_Web_Page_Actual_Element_Name                                   	    : "+ Page_URL_Title_Data_My_Wish_List_Links.get(2));
@@ -2049,7 +2046,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyCss(webPage, Close_Button_Locator_CSS, softAssert);
 				}
 				else{
-					commonMethods.clickElementbyXpath(webPage, Top_Close_Button_Locator_CSS, softAssert);
+					commonMethods.clickElementbyCss(webPage, Top_Close_Button_Locator_CSS, softAssert);
 				}
 				softAssert.assertAll();
 				} else{
