@@ -145,7 +145,7 @@ public class Conns_Product_Search extends BaseTest {
 					CommonMethods.waitForGivenTime(5);
 					CommonMethods.waitForWebElement(By.xpath(test[0][7]), webPage);
 					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
-					SoftAssertor.assertEquals(elementList.size() <= number, true, "element is Not As Expected");
+					SoftAssertor.assertEquals(elementList.size() <= number, true, "Number of element is not as expected---->Actual Size: " +elementList.size()+"Should be less than: "+number);
 					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				}
 			} else {
