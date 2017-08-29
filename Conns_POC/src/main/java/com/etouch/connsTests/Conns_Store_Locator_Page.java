@@ -136,11 +136,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, test[2][0], softAssert),
 					"Element not present using locator - " + test[2][0]);
 			String homeplusText1 = commonMethods.getTextbyXpath(webPage, test[0][1], softAssert);
-			softAssert.assertEquals(homeplusText1, test[0][2],
-					"Text verification failed. Expected text : " + test[0][2] + " Actual text : " + homeplusText1);
+			softAssert.assertTrue(homeplusText1.contains(test[0][2]),"Text verification failed. Expected text : " + test[0][2] + " Actual text : " + homeplusText1);
 			String homeplusText2 = commonMethods.getTextbyXpath(webPage, test[1][1], softAssert);
-			softAssert.assertEquals(homeplusText2, test[1][2],
-					"Text verification failed. Expected text : " + test[1][2] + " Actual text : " + homeplusText2);
+			softAssert.assertTrue(homeplusText2.contains(test[1][2]),"Text verification failed. Expected text : " + test[1][2] + " Actual text : " + homeplusText2);
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_HomePlus_Component");
