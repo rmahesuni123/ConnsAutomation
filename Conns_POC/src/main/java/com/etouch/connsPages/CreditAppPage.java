@@ -787,6 +787,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		// navigateToHomePage(softAssert);
 		commonMethods.clickElementbyXpath(webPage, commonData.get("SignInNowLink"), softAssert);
 		login(commonData.get("Username"), commonData.get("Password"), softAssert);
+		commonMethods.waitForPageLoad(webPage, softAssert);
 	}
 	
 	/**
@@ -801,7 +802,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.sendKeysbyXpath(webPage, commonData.get("EmailIdTextBox"), username, softAssert);
 		commonMethods.sendKeysbyXpath(webPage, commonData.get("PassTextBox"), password, softAssert);
 		commonMethods.clickElementbyXpath(webPage, commonData.get("LoginButton"), softAssert);
-		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(5000);
 	}
 	
 	/**
