@@ -117,10 +117,10 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean validateLinkRedirection(String linkName, String locator, String expectedUrl)
+	public static boolean validateLinkRedirection(String linkName, String locator, String expectedUrl,SoftAssert softAssert)
 			throws Exception {
 		String ActualUrl;
-		ActualUrl = clickAndGetPageURL(locator, linkName);
+		ActualUrl = clickAndGetPageURL(locator, linkName,softAssert);
 		if (ActualUrl.contains(expectedUrl)) {
 			log.info("Redirection for link " + linkName + " is successful");
 			webPage.getBackToUrl();
@@ -141,12 +141,13 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @throws PageException
 	 *             If an input or output exception occurred
 	 **/
-	public static String clickAndGetPageURL(String locator, String linkName) throws Exception {
+	public static String clickAndGetPageURL(String locator, String linkName, SoftAssert softAssert) throws Exception {
 		String pageUrl = "";
 		try {
 			log.info("Clicking on link : " + linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			webPage.findObjectByxPath(locator).click();
+			commonMethods.waitForPageLoad(webPage, softAssert);
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
 			if (windowHandlesSet.size() > 1) {
 				for (String winHandle : windowHandlesSet) {

@@ -230,7 +230,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 
 			try {
 				log.info("Verifying Link --->" +linkName);
-				CreditAppPage.validateLinkRedirection(linkName, locator, ExpectedURL);
+				CreditAppPage.validateLinkRedirection(linkName, locator, ExpectedURL,softAssert);
 				log.info("testing verify_Link_Navigation completed------>");
 
 			} catch (Throwable e) {
