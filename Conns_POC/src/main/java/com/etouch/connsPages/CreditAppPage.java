@@ -795,11 +795,13 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param username
 	 * @param password
 	 * @param softAssert
+	 * @throws InterruptedException 
 	 */
-	public static void login(String username, String password, SoftAssert softAssert) {
+	public static void login(String username, String password, SoftAssert softAssert) throws InterruptedException {
 		commonMethods.sendKeysbyXpath(webPage, commonData.get("EmailIdTextBox"), username, softAssert);
 		commonMethods.sendKeysbyXpath(webPage, commonData.get("PassTextBox"), password, softAssert);
 		commonMethods.clickElementbyXpath(webPage, commonData.get("LoginButton"), softAssert);
+		commonMethods.waitForPageLoad(webPage, softAssert);
 	}
 	
 	/**
