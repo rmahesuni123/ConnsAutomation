@@ -153,7 +153,7 @@ public class Conns_Product_Search extends BaseTest {
 					ConnsProductPurchasePage.Click_On_Element_JS(webPage, test[0][10 + i]);
 					List<WebElement> list = webPage.getDriver().findElements(By.xpath(test[0][9]));
 					SoftAssertor.assertEquals(list.size() <= Integer.parseInt(str2[i]), true,
-							"element is Not As Expected");
+							"Number of element is not as expected---->Actual Size: " +list.size()+"Should be less than: "+Integer.parseInt(str2[i]));
 				}
 			}
 		} catch (Throwable e) {
