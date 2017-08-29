@@ -84,6 +84,7 @@ public class Conns_Home_Page extends BaseTest {
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				synchronized (this) {
 					webPage = new WebPage(context);
+					ConnsHomePage = new ConnsHomePage(url, webPage);
 					mainPage = new ConnsMainPage(url, webPage);
 				}
 			} catch (Exception e) {
