@@ -121,6 +121,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			throws Exception {
 		String ActualUrl;
 		ActualUrl = clickAndGetPageURL(locator, linkName,softAssert);
+		commonMethods.waitForPageLoad(webPage, softAssert);
 		if (ActualUrl.contains(expectedUrl)) {
 			log.info("Redirection for link " + linkName + " is successful");
 			webPage.getBackToUrl();
@@ -147,7 +148,6 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			log.info("Clicking on link : " + linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			webPage.findObjectByxPath(locator).click();
-			commonMethods.waitForPageLoad(webPage, softAssert);
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
 			if (windowHandlesSet.size() > 1) {
 				for (String winHandle : windowHandlesSet) {
@@ -803,6 +803,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.sendKeysbyXpath(webPage, commonData.get("EmailIdTextBox"), username, softAssert);
 		commonMethods.sendKeysbyXpath(webPage, commonData.get("PassTextBox"), password, softAssert);
 		commonMethods.clickElementbyXpath(webPage, commonData.get("LoginButton"), softAssert);
+		commonMethods.waitForPageLoad(webPage, softAssert);
 		Thread.sleep(5000);
 	}
 	
