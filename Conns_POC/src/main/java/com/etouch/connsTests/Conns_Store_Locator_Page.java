@@ -282,7 +282,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 108, description = "Verify content for all region pages")
+	@Test(enabled = true, priority = 121, description = "Verify content for all region pages")
 	public void Verify_All_Regions_Page_Content() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{

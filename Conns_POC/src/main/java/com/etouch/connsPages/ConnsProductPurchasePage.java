@@ -202,13 +202,13 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 	public void Submit_Billing_Information(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		try {
-			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[1][1], test[1][3], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[2][1], test[2][3], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[3][1], test[3][3], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[4][1], test[4][3], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[6][1], test[6][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[1][1], test[1][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[2][1], test[2][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[3][1], test[3][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[4][1], test[4][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[6][1], test[6][3], softAssert);
 			commonMethods.selectDropdownByValue(webPage, test[7][1], test[7][3], softAssert);
 			Thread.sleep(2000);
 			// commonMethods.selectDropdownByValue(webPage, test[8][1],
@@ -250,13 +250,13 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	public void Submit_Shipping_Info(WebPage webPage, String[][] submitShippingInfo, SoftAssert softAssert) {
 		try {
 			commonMethods.getWebElementbyXpath(webPage, submitShippingInfo[0][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, submitShippingInfo[0][1], submitShippingInfo[0][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, submitShippingInfo[0][1], submitShippingInfo[0][3], softAssert);
 			commonMethods.getWebElementbyXpath(webPage, submitShippingInfo[1][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, submitShippingInfo[1][1], submitShippingInfo[1][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, submitShippingInfo[1][1], submitShippingInfo[1][3], softAssert);
 			commonMethods.getWebElementbyXpath(webPage, submitShippingInfo[2][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, submitShippingInfo[2][1], submitShippingInfo[2][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, submitShippingInfo[2][1], submitShippingInfo[2][3], softAssert);
 			commonMethods.getWebElementbyXpath(webPage, submitShippingInfo[3][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, submitShippingInfo[3][1], submitShippingInfo[3][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, submitShippingInfo[3][1], submitShippingInfo[3][3], softAssert);
 			/*
 			 * commonMethods.getWebElementbyXpath(webPage,
 			 * submitShippingInfo[4][1], softAssert).clear();
@@ -264,7 +264,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			 * submitShippingInfo[4][3], softAssert);
 			 */
 			commonMethods.getWebElementbyXpath(webPage, submitShippingInfo[5][1], softAssert).clear();
-			commonMethods.sendKeysbyXpath(webPage, submitShippingInfo[5][1], submitShippingInfo[5][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, submitShippingInfo[5][1], submitShippingInfo[5][3], softAssert);
 			commonMethods.selectDropdownByValue(webPage, submitShippingInfo[6][1], submitShippingInfo[6][3],
 					softAssert);
 			/*
@@ -321,8 +321,8 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 	public void fill_Login_Crdentials(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		try {
-			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[1][1], test[1][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
+			checkoutSendKeysbyXpath(webPage, test[1][1], test[1][3], softAssert);
 		} catch (Throwable e) {
 			log.error(e.getMessage());
 			softAssert.fail(e.getLocalizedMessage());
@@ -1760,5 +1760,15 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			e.printStackTrace();
 		}
 		return orderConfirmationText;
+	}
+	
+	public void checkoutSendKeysbyXpath(WebPage webPage, String locator, String text, SoftAssert softAssert){
+		try{
+			log.info("Entering keys "+text+" ");
+			webPage.findObjectByxPath(locator).sendKeys(text);
+		}catch(Exception e){
+			softAssert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
+			Assert.fail();
+		}
 	}
 }

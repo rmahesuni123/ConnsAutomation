@@ -713,9 +713,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			// clicking on billing info continue button
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[9][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			connsProductPurchasePage.page_Is_Shopping_Cart_Empty(webPage, softAssert);
-			Thread.sleep(10000);
+			Thread.sleep(3000);
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
 			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
 			log.info("Clicking on Pickuplocation continue");
 			// clicking on pickup location continue button
@@ -771,13 +773,17 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[9][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[10][1], softAssert);
 			Thread.sleep(3000);
+			CommonMethods.waitForWebElement(By.xpath(test[0][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
 			Thread.sleep(3000);
+			CommonMethods.waitForWebElement(By.xpath(test[2][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
 			Thread.sleep(3000);
 			actualURL = commonMethods.getPageUrl(webPage, softAssert);
@@ -814,9 +820,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[9][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on pickup location continue button
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[10][1], softAssert);
 			connsProductPurchasePage.Submit_Paypal_Payment_Info(webPage, paypalInfo, softAssert);
 			Thread.sleep(3000);
@@ -863,14 +871,17 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			// clicking on billing info continue button
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[9][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on pickup location continue button
 			// commonMethods.clickElementbyXpath(webPage,
 			// submitBillingInfo[10][1], softAssert);
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
 			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
 			Thread.sleep(10000);
 			// clicking on cash on delivery radio button
+			CommonMethods.waitForWebElement(By.xpath(test[0][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 			// clicking on checkout method continue button
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
@@ -917,20 +928,24 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			// clicking on billing info continue button
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[9][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on pickup location continue button
 			// commonMethods.clickElementbyXpath(webPage,
 			// submitBillingInfo[10][1], softAssert);
-			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[10][1], softAssert);
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[10][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on cash on delivery radio button
+			CommonMethods.waitForWebElement(By.xpath(test[0][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 			// clicking on checkout method continue button
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
 			//
 			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
 			// order review button
+			CommonMethods.waitForWebElement(By.xpath(".//*[@id='review-buttons-container']/button"), webPage);
 			commonMethods.clickElementbyXpath(webPage, ".//*[@id='review-buttons-container']/button", softAssert);
 			// continue shopping button on order confirmation page
 			commonMethods.clickElementbyXpath(webPage, "//button[@title='Continue Shopping']", softAssert);
