@@ -103,7 +103,7 @@ public class Conns_Product_Search extends BaseTest {
 			for (int i = 0; i < contentData.length; i++) {
 				String actualContent = webPage.findObjectByxPath(contentData[i][0]).getText();
 				log.info("Actual:  " + actualContent + "   Expected: " + contentData[i][1]);
-				SoftAssertor.assertTrue(actualContent.contains(contentData[i][1]),
+				SoftAssertor.assertTrue(actualContent.toLowerCase().contains(contentData[i][1].toLowerCase()),
 						"expectedContent: " + contentData[i][1] + "  Failed to Match Actual:" + actualContent);
 			}
 		} catch (Throwable e) {
