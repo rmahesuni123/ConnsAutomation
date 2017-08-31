@@ -43,7 +43,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	protected static String url;
 	protected static WebPage webPage;
 	ConnsMainPage mainPage;
-	String testBedName;
+	protected static String testBedName;
 	TestBed testBed;
 	Path path;
 	String DataFilePath;
@@ -217,7 +217,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		log.info("testing verifyLinkNavigation started------>");
 		SoftAssert softAssert = new SoftAssert();
 		try{
-	//	CreditAppPage.navigateToCreditAppPage(softAssert); 
+		CreditAppPage.navigateToCreditAppPage(softAssert); 
 		String[][] test= ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyLinksforNewUser");
 		String linkName = null;
 		String locator = null;
@@ -303,7 +303,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
 		String[][] test= ExcelUtil.readExcelData(DataFilePath,
 				"CreditApp", "verifyFieldValidationErrorMessageWithInValidData");
-	//	CreditAppPage.navigateToCreditAppPage(softAssert);
+		CreditAppPage.navigateToCreditAppPage(softAssert);
 		for(int r=0; r<test.length; r++) {
 			CreditAppPage.verifyErrorMessageWithInvalidDataById(softAssert,
 					test[r][0], test[r][1], test[r][2], test[r][3],test[r][4]);
