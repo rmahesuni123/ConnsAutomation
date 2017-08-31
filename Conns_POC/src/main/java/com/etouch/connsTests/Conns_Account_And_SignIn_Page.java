@@ -42,6 +42,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	Path path;
 	String DataFilePath;
 	String testType;
+	String currentTestBedName;
 	static Log log = LogUtil.getLog(Conns_Account_And_SignIn_Page.class);
 	Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
 	private String url, testEnv;
@@ -1191,7 +1192,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Address_Book_Page_URL = inputdata[0][29];
 		String Expected_Address_Book_Page_Title = inputdata[0][30];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		webPage.getCurrentUrl();// For Safari
+		//webPage.getCurrentUrl();// For Safari
 		Thread.sleep(3000);
 		commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator,	softAssert);
 		webPage.getCurrentUrl();// For Safari
@@ -1247,7 +1248,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Newsletters_Page_Title = inputdata[0][3];
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		webPage.getCurrentUrl();// For Safari
+		//webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
 			String Actual_Newsletters_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
@@ -1276,7 +1277,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		String News_Letters_Subscription_CheckBox = inputdata[0][5];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		webPage.getCurrentUrl();// For Safari
+		//webPage.getCurrentUrl();// For Safari
 		try {
 			Thread.sleep(3000);
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
@@ -1302,8 +1303,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	@Test(priority = 336, enabled = true)
 	public void verify_Account_Information_Tab_Newsletters_Go_Back_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
-		/* String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
-		   ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
+		ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Address_Book_Newsletters_Functionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
@@ -1314,7 +1315,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Account_Information_Page_URL = inputdata[0][6];
 		String Expected_Account_Information_Page_Title = inputdata[0][7];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		webPage.getCurrentUrl();// For Safari
+		//webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
 			String Actual_Newsletters_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
@@ -1354,7 +1355,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Wait_On_Element = inputdata[0][11];
 		String Navigate_To_Newsletters_Subscription_Form_CheckBox_Save_Button_URL = inputdata[0][13];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		webPage.getCurrentUrl();// For Safari
+		//webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
 			webPage.getDriver().navigate().to(Navigate_To_Newsletters_Subscription_Form_CheckBox_Save_Button_URL);
@@ -1417,17 +1418,17 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
+			String[][] generic_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Generic_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
-			
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			log.info("Test Type is : " + testType);
+			currentTestBedName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestBedName();
+			log.info("currentTestBedName is : " + currentTestBedName);
 			platform = testBed.getPlatform().getName().toUpperCase();
 			String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl(); // For Safari
 			for(int r= 0; r < test_data.length;r++)
 			{	
 				String Page_Expected_URL = test_data[r][4];
@@ -1441,13 +1442,23 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
 					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
 					}
-				else {
+				else if (currentTestBedName.equalsIgnoreCase("Safari")) {
+					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
+					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(generic_data);
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+				}
+				else if (testType.equalsIgnoreCase("Web")) {
 					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(demo_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
 					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
 					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
 				}
+
+				
+				
 				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
 			}
 			softAssert.assertAll();
@@ -1520,7 +1531,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Orders_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl(); //For Safari
+			//webPage.getCurrentUrl(); //For Safari
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
@@ -1589,8 +1600,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Wish_List_Option = mobile_validation_data[0][2];
 			//String NameofTestCase = mobile_validation_data[3][0];
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl(); //For Safari
+			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			//webPage.getCurrentUrl(); //For Safari
 			for(int r= 0; r < test_data.length;r++)
 			{	String Page_Expected_URL = test_data[r][4];
 				String Page_Expected_Element_Name = test_data[r][5];
@@ -1783,7 +1794,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Blank_Input");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][22];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl();// For Safari
+			//webPage.getCurrentUrl();// For Safari
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
@@ -1844,8 +1855,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_New_Customer_Functionality_with_Invalid_Input");
 			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Invalid_Input");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl();// For Safari
+			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			//webPage.getCurrentUrl();// For Safari
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
@@ -1877,6 +1888,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				else {
 					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
 					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
+					log.info("***************************************** Web_Register_Button_Child_Element_Locator_Clicked********************************");
 					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Invalid_Input(web_data); 
 					//softAssert.assertEquals(actualErrorMessage.get(0), Generic_Error_Message_Text,                     "Login Functionality with Invalid Input verification failed For Invalid_First_Name_Locator.       Expected_First_Name_Error_Message        : " + Generic_Error_Message_Text                        + " Actual_First_Name_Error_Message       : " + actualErrorMessage);
 					//softAssert.assertEquals(actualErrorMessage.get(1), Generic_Error_Message_Text,                     "Login Functionality with Invalid Input verification failed For Invalid_Last_Name_Locator .       Expected_Last_Name_Error_Message         : " + Generic_Error_Message_Text                        + " Actual_Last_Name_Error_Message        : " + actualErrorMessage);
@@ -1908,7 +1920,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Expected_ToolTip_Text = test_data[0][6];
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][7];			
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl();// For Safari
+			//webPage.getCurrentUrl();// For Safari
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
@@ -1960,7 +1972,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String verify_Whats_This_Overlay_Rendered_Expected_Content = test_data[0][7];
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][11];			
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl();// For Safari
+			//webPage.getCurrentUrl();// For Safari
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
@@ -2019,7 +2031,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Close_Button_Locator_Xpath = test_data[0][10];
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][11];			
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl();// For Safari
+			//webPage.getCurrentUrl();// For Safari
 			log.info("***************************************** Account Dashboard Drop Down Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
@@ -2086,7 +2098,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Newsletter_Subscription_Expected_Content_Text = test_data[0][19];
 			String Newsletter_Subscription_Expected_ToolTip_Text = test_data[0][20];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getCurrentUrl();// For Safari
+			//webPage.getCurrentUrl();// For Safari
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
@@ -2157,7 +2169,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			webPage.getDriver().navigate().refresh();
-			webPage.getCurrentUrl();// For Safari
+			//webPage.getCurrentUrl();// For Safari
 			Thread.sleep(3000);
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
