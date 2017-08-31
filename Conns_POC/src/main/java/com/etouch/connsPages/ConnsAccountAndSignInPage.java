@@ -1746,7 +1746,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 									e.printStackTrace();
 									/*webPage.getDriver().navigate().back();*/
 									JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-									js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used for Safari
+									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 									/*JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 									js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari 
 */

@@ -1457,9 +1457,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
 				}
 
-				
-				
-				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
+				 log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
 			}
 			softAssert.assertAll();
 		}
