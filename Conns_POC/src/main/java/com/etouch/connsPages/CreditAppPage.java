@@ -17,6 +17,7 @@ import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.webui.selenium.WebPage;
+import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
 
 public class CreditAppPage extends Conns_Credit_App_Page {
 	static Log log = LogUtil.getLog(CreditAppPage.class);
@@ -148,6 +149,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			log.info("Clicking on link : " + linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			webPage.findObjectByxPath(locator).click();
+			commonMethods.waitForPageLoad(webPage, softAssert);
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
 			if (windowHandlesSet.size() > 1) {
 				for (String winHandle : windowHandlesSet) {
