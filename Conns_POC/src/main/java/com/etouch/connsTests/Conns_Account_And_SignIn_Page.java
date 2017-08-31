@@ -1434,15 +1434,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				String Page_Expected_URL = test_data[r][4];
 				String Page_Expected_Element_Name = test_data[r][5];
 				String Page_Expected_Title = test_data[r][6];
-				if (testType.equalsIgnoreCase("Mobile")) {
+				/*if (testType.equalsIgnoreCase("Mobile")) {
 					log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(test_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
 					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
 					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
-					}
-				else if ((currentTestBedName.equalsIgnoreCase("Safari")) || (currentTestBedName.equalsIgnoreCase("edge"))) {
+					}*/
+				 if ((currentTestBedName.equalsIgnoreCase("Safari")) || (currentTestBedName.equalsIgnoreCase("edge")) || (testType.equalsIgnoreCase("Mobile"))) {
 					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(generic_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
