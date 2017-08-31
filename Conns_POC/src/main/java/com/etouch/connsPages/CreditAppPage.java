@@ -36,7 +36,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	public static void navigateToCreditAppPage(SoftAssert softAssert) throws Exception {
 		if (CreditAppUrl == null) {
 			//webPage.navigateToUrl(url);
-			log.info("Navigating to Home Page");
+			//log.info("Navigating to Home Page");
 			log.info("Navigating to Credit App Page");
 			commonMethods.clickElementbyXpath(webPage, commonData.get("YesMoneyGetCreditTodayApplyNowLink"),
 					softAssert);
@@ -429,7 +429,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		element.sendKeys(inputText + Keys.TAB);
 		String deviceName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().toLowerCase();
 		if(deviceName.contains("iphone")||deviceName.contains("ipad"))
-			commonMethods.clearElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
+			commonMethods.clickElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
 
 		verifyErrorMessageById(softAssert, FieldName, errorMessageLocator, expectedErrorMessage);
 	}
@@ -811,8 +811,9 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.sendKeysbyXpath(webPage, commonData.get("EmailIdTextBox"), username, softAssert);
 		commonMethods.sendKeysbyXpath(webPage, commonData.get("PassTextBox"), password, softAssert);
 		commonMethods.clickElementbyXpath(webPage, commonData.get("LoginButton"), softAssert);
-		commonMethods.waitForPageLoad(webPage, softAssert);
 		Thread.sleep(5000);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		
 	}
 
 	/**

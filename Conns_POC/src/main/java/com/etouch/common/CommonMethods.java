@@ -824,6 +824,7 @@ public class CommonMethods {
 		WebElement element = null;
 		try{
 			log.info("Finding element using id :"+locator);
+			CommonMethods.waitForWebElement(By.id(locator), webPage);
 			element=webPage.getDriver().findElement(By.id(locator));
 		}catch(Exception e){
 			softAssert.fail("Unable to find element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
