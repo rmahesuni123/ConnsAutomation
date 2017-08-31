@@ -808,7 +808,7 @@ public class CommonMethods {
 			actualText = webPage.findObjectById(locator).getText();
 			log.info("Actual text - "+actualText);
 		} catch (PageException e) {
-			softAssert.fail("Unable to Get Text on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+			softAssert.fail("Unable to Get Text on element using ID : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return actualText;
 	}
