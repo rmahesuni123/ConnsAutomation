@@ -427,10 +427,12 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			String inputText, String errorMessageLocator, String expectedErrorMessage) {
 		WebElement element = commonMethods.getWebElementbyID(webPage, locator, softAssert);
 		element.sendKeys(inputText + Keys.TAB);
+		if(testType.equalsIgnoreCase("Mobile"))
+		{
 		String deviceName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().toLowerCase();
-		if(deviceName.contains("iphone")||deviceName.contains("ipad")||deviceName.contains("ipad")||browserName.equalsIgnoreCase("Safari"))
+		if(deviceName.contains("iphone")||deviceName.contains("ipad")||deviceName.contains("ipad")/*||browserName.equalsIgnoreCase("Safari")*/)
 			commonMethods.clickElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
-
+		}
 		verifyErrorMessageById(softAssert, FieldName, errorMessageLocator, expectedErrorMessage);
 	}
 
