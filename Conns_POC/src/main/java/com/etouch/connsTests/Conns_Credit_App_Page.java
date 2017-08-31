@@ -51,7 +51,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	protected static CommonMethods commonMethods;
 	ConnsStoreLocatorPage connsStoreLocatorPage;
 	protected static LinkedHashMap<String, String> commonData;
-	String testType,browserName;
+	protected static String testType,browserName;
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
 		try {
