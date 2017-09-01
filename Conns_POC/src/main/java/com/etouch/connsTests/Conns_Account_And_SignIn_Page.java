@@ -1862,6 +1862,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_New_Customer_Functionality_with_Invalid_Input");
 			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Invalid_Input");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			//webPage.getCurrentUrl();// For Safari
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
