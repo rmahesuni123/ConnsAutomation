@@ -1,5 +1,8 @@
 package com.etouch.connsPages;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Set;
 
@@ -16,10 +19,9 @@ import com.etouch.connsTests.Conns_Credit_App_Page;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
-import com.etouch.taf.core.resources.TestBedTypeConfig;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.webui.selenium.WebPage;
-import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
+import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptExecutor;
 
 public class CreditAppPage extends Conns_Credit_App_Page {
 	static Log log = LogUtil.getLog(CreditAppPage.class);
@@ -127,7 +129,9 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.waitForPageLoad(webPage, softAssert);
 		if (ActualUrl.contains(expectedUrl)) {
 			log.info("Redirection for link " + linkName + " is successful");
-			webPage.getBackToUrl();
+			if(browserName.contains("safari"))
+			{navigateToCreditAppPage(softAssert); }
+			else{webPage.getBackToUrl();}
 		} else {
 			throw new Exception("Redirection for link " + linkName
 					+ " failed. Actual URL does not contain Expected partial URL : Expected = " + expectedUrl
@@ -284,7 +288,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	public static String getTextBoxValueByJs(String FieldName, String xPtah, SoftAssert softAssert)
 	{
 
-		if (!verifyElementisPresent(webPage, xPtah, softAssert)) {
+		if (!verifyElementisPresentByXPath(webPage, xPtah, softAssert)) {
 			softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
 		}
 		else{
@@ -323,7 +327,11 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
 		commonMethods.waitForPageLoad(webPage, softAssert);
 		String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-		softAssert.assertTrue(actualUrl.contains(commonData.get("SuccessPage")),
+		if(actualUrl.contains(commonData.get("ProcessingPage")))
+		{Thread.sleep(5000);}
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		String actualSuccessUrl = commonMethods.getPageUrl(webPage, softAssert);
+		softAssert.assertTrue(actualSuccessUrl.contains(commonData.get("SuccessPage")),
 				"Expected Url : " + commonData.get("SuccessPage") + " Actual Url : " + actualUrl);
 	}
 
@@ -422,21 +430,31 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param inputText
 	 * @param errorMessageLocator
 	 * @param expectedErrorMessage
+	 * @throws AWTException 
 	 */
 	public static void verifyErrorMessageWithInvalidDataById(SoftAssert softAssert, String FieldName, String locator,
-			String inputText, String errorMessageLocator, String expectedErrorMessage) {
+			String inputText, String errorMessageLocator, String expectedErrorMessage) throws AWTException {
+		Robot robot= new Robot();
 		WebElement element = commonMethods.getWebElementbyID(webPage, locator, softAssert);
-		element.sendKeys(inputText + Keys.TAB);
-		if(testType.equalsIgnoreCase("Mobile"))
-		{
-		String deviceName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().toLowerCase();
-		if(deviceName.contains("iphone")||deviceName.contains("ipad")||deviceName.contains("ipad"))
-			commonMethods.clickElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
-		}
-		else if(browserName.equalsIgnoreCase("Safari"))
-		{
-			commonMethods.clickElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
-		}
+		element.sendKeys(inputText);
+		commonMethods.clickElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
+//		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+//		js.executeScript("var key = require('selenium-webdriver').Key;"
+//				+ "var actionSequence = require('selenium-webdriver').ActionSequence;"
+//				+ "new actionSequence("+webPage.getDriver()+").sendKeys(key.TAB).perform().then(function(){"
+//						+ "});", element);
+		//		if(testType.equalsIgnoreCase("Mobile"))
+//		{
+//		String deviceName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().toLowerCase();
+//		if(deviceName.contains("iphone")||deviceName.contains("ipad")||deviceName.contains("ipad"))
+//			robot.keyPress(KeyEvent.VK_ENTER);
+//		}
+//		else if(browserName.equalsIgnoreCase("Safari"))
+//		{
+//			//verifyErrorMessageForIos(softAssert, FieldName, errorMessageLocator, expectedErrorMessage);
+//			 robot.keyPress(KeyEvent.VK_ENTER);
+//			commonMethods.clickElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
+//		}
 		verifyErrorMessageById(softAssert, FieldName, errorMessageLocator, expectedErrorMessage);
 	}
 
@@ -518,6 +536,39 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			softAssert.fail(" Text Field \"" + FieldName + "\" is disabled ");
 		}
 	}
+	
+	public static boolean verifyTextFieldIsEditableByIdJs(SoftAssert softAssert, String FieldName, String locator,
+			String newValue) {
+		if (!verifyElementisPresentByID(webPage, locator, softAssert)) {
+			log.info("TextBox \"" + FieldName + "\" is Not Displayed");
+			softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
+			return false;
+		}
+		else{
+			if(newValue==""||newValue==null)
+			{
+				log.info("Value was passed as blank for textField "+FieldName);
+				return true;
+			}
+			if (commonMethods.getWebElementbyID(webPage, locator, softAssert).isEnabled()) {
+				log.info("TextBox is enabled");
+				log.info("Setting TextBox \"" + FieldName + "\" Value to : " + newValue);
+				WebElement textField = commonMethods.getWebElementbyID(webPage, locator, softAssert);
+				JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+				if (!((String) js.executeScript("return arguments[0].getValue()",
+						textField) == null))
+				{	js.executeScript("arguments[0].value='';", textField);
+				js.executeScript("arguments[0].value='"+newValue+"';", textField);
+				return true;}
+			}
+			else{
+				softAssert.fail("TextBox \"" + FieldName + "\" is Disabled ");
+			}
+
+		}
+		return false;
+		
+	}
 
 	/**
 	 * Verifies if textField is editable using xPath
@@ -531,7 +582,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	public static boolean verifyTextFieldIsEditableByXpath(SoftAssert softAssert, String FieldName, String locator,
 			String newValue) {
 
-		if (!verifyElementisPresent(webPage, locator, softAssert)) {
+		if (!verifyElementisPresentByXPath(webPage, locator, softAssert)) {
 			log.info("TextBox \"" + FieldName + "\" is Not Displayed");
 			softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
 			return false;
@@ -552,14 +603,6 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 				{	js.executeScript("arguments[0].value='';", textField);
 				js.executeScript("arguments[0].value='"+newValue+"';", textField);
 				return true;}
-				//	commonMethods.clearTextBoxByXpath(webPage, locator, softAssert);
-
-				//commonMethods.sendKeysbyXpath(webPage, locator, newValue, softAssert);
-
-				/*String actual = (String) js.executeScript("return arguments[0].getValue()",
-					commonMethods.getWebElementbyXpath(webPage, locator, softAssert));
-			if (actual.equals(newValue))
-				return true;*/
 			}
 			else{
 				softAssert.fail("TextBox \"" + FieldName + "\" is Disabled ");
@@ -830,11 +873,29 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param softAssert
 	 * @return
 	 */
-	public static boolean verifyElementisPresent(WebPage webPage, String locator, SoftAssert softAssert) {
+	public static boolean verifyElementisPresentByXPath(WebPage webPage, String locator, SoftAssert softAssert) {
 		Boolean isElementPresent = false;
 		try {
 			log.info("Verifying if element is present by locator - " + locator);
 			isElementPresent = webPage.findObjectByxPath(locator).isDisplayed();
+		} catch (Throwable e) {
+		}
+		return isElementPresent;
+	}
+	
+	/**
+	 * Verifies if element is present using xPath
+	 * @author sjadhav
+	 * @param webPage
+	 * @param locator
+	 * @param softAssert
+	 * @return
+	 */
+	public static boolean verifyElementisPresentByID(WebPage webPage, String locator, SoftAssert softAssert) {
+		Boolean isElementPresent = false;
+		try {
+			log.info("Verifying if element is present by locator - " + locator);
+			isElementPresent = webPage.findObjectById(locator).isDisplayed();
 		} catch (Throwable e) {
 		}
 		return isElementPresent;
@@ -870,6 +931,20 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.clickElementbyXpath(webPage, commonData.get("SignInMenuLogoutOption"), softAssert);
 		navigateToCreditAppPage(softAssert);
 	}
+
+	public static void verifyErrorMessageForIos(SoftAssert softAssert ,String[][] test) {
+		for(int r=0; r<test.length; r++)
+		{
+			commonMethods.sendKeysById(webPage, test[r][1], test[r][2], softAssert);
+			//verifyTextFieldIsEditableByIdJs(softAssert, test[r][0], test[r][1], test[r][2]);
+		}
+		commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
+		
+		for(int i=0; i<test.length; i++)
+		{
+		verifyErrorMessageById(softAssert, test[i][0], test[i][3],test[i][4]);
+		}
+		}
 }
 
 

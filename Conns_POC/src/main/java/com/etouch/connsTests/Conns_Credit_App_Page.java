@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
@@ -61,7 +62,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			connsStoreLocatorPage= new ConnsStoreLocatorPage();
 			commonMethods = new CommonMethods();
-			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
+			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName().toLowerCase();
 			log.info("Test Type is : " + testType);
 			try {
 				testEnv = System.getenv().get("Environment");
@@ -300,13 +301,20 @@ public class Conns_Credit_App_Page extends BaseTest {
 	public void verify_Field_Validation_Error_Message_With_InValid_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
+			CreditAppPage.navigateToCreditAppPage(softAssert);
 		log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
 		String[][] test= ExcelUtil.readExcelData(DataFilePath,
 				"CreditApp", "verifyFieldValidationErrorMessageWithInValidData");
-		CreditAppPage.navigateToCreditAppPage(softAssert);
+		if(browserName.contains("iphone")||browserName.contains("ipad")||browserName.contains("safari"))
+		{
+			CreditAppPage.verifyErrorMessageForIos(softAssert,test);
+		}
+		else{
+		
 		for(int r=0; r<test.length; r++) {
 			CreditAppPage.verifyErrorMessageWithInvalidDataById(softAssert,
 					test[r][0], test[r][1], test[r][2], test[r][3],test[r][4]);
+		}
 		}
 		softAssert.assertAll();
 	}
@@ -462,11 +470,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 	public void verify_Error_Message_for_Reference_Code_Field() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-	//	CreditAppPage.navigateToCreditAppPage(softAssert);
+		CreditAppPage.navigateToCreditAppPage(softAssert);
 		log.info("testing verify_Error_Message_for_Reference_Code_Field started------>");
 		LinkedHashMap<String, String> testData= commonMethods.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
 		commonMethods.sendKeysbyXpath(webPage, testData.get("RefCodeXpath"), testData.get("RefCodeValue"), softAssert);
 		commonMethods.clickElementbyXpath(webPage, testData.get("RefCodeSubmitXpath"), softAssert);
+		commonMethods.waitForWebElement(By.xpath(testData.get("RefCodeErrorXpath")), webPage);
 		Thread.sleep(3000);
 		CreditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError", testData.get("RefCodeErrorXpath"), testData.get("RefCodeError"));
 		log.info("testing verify_Error_Message_for_Reference_Code_Field completed------>");
@@ -718,7 +727,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		//	CreditAppPage.navigateToCreditAppPage(softAssert);
 		LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, 
 				"CreditApp", "verifyEmailIsNotEditable");
-		if (!CreditAppPage.verifyElementisPresent(webPage, testData.get("EmailIdentifier"), softAssert)) {
+		if (!CreditAppPage.verifyElementisPresentByXPath(webPage, testData.get("EmailIdentifier"), softAssert)) {
 			log.info("TextBox EmailAddress is Not Displayed");
 			softAssert.fail("TextBox EmailAddress is Not Displayed");
 		}
@@ -747,7 +756,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 	//	CreditAppPage.navigateToCreditAppPage(softAssert);
-		if(CreditAppPage.verifyElementisPresent(webPage, commonData.get("SignInNowLink"), softAssert))
+		if(CreditAppPage.verifyElementisPresentByXPath(webPage, commonData.get("SignInNowLink"), softAssert))
 			softAssert.fail("Sign In Now Link is Displayed For Registered User");
 		softAssert.assertAll();
 	}
