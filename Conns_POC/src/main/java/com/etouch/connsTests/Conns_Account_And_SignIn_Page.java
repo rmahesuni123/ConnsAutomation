@@ -696,7 +696,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		for (int r = 0; r < test_data.length; r++) {
 			String Page_Expected_URL = test_data[r][3];
@@ -2175,10 +2175,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Register_Create_New_Customer_Functionality_with_Valid_Input");
 			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Valid_Input");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
+			Thread.sleep(1000);
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			webPage.getDriver().navigate().refresh();
+			//webPage.getDriver().navigate().refresh();
 			//webPage.getCurrentUrl();// For Safari
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
@@ -2204,7 +2205,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					} 
 				else {
 					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
 					Thread.sleep(2000);
 					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(web_data); 
