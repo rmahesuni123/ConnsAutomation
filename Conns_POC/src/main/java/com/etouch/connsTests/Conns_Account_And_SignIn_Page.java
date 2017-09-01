@@ -1590,8 +1590,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String [][] mobile_validation_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Page_Mobile_Links_Section");
