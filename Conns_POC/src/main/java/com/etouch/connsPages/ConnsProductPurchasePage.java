@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -54,7 +55,11 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 	public void Click_On_French_Door_Link(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
 		try {
-			webPage.getDriver().manage().deleteAllCookies();
+			try{
+				webPage.getDriver().manage().deleteAllCookies();	
+			}catch(Exception e){
+				log.info("Unable to delete cookies for current browser.");
+			}
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
@@ -66,6 +71,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			softAssert.fail(e.getLocalizedMessage());
 		}
 	}
+	
 	public static void Click_On_French_Door_Link(WebPage webPage, String test) {
 		try {
 			webPage.getDriver().manage().deleteAllCookies();
@@ -505,9 +511,9 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		String stockAvilabilityText = null;
 		String errorMessage = null;
 		try {
-			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,
-					commonData[1][1], softAssert);
+			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,commonData[1][1], softAssert);
 			WebElement product;
+			log.info("Size of list: "+listOfProducts.size());
 			// int counter = 1;
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				product = webPage.getDriver().findElement(By.xpath(
@@ -519,14 +525,24 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 				 */
 				System.out.println("test[0][3]:::" + test[0][3]);
 				if ((product.getText().contains(test[0][3])) && (product.getText().contains(test[0][2]))) {
-					commonMethods.clickElementbyXpath(webPage, commonData[2][1] + i + "]",
-							softAssert);
-					commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
+					commonMethods.clickElementbyXpath(webPage, commonData[2][1] + i + "]",softAssert);
+					
+					boolean isOverlayOpen = commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
+					if(!isOverlayOpen){
+						try{
+							commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);	
+						}catch(Exception e){
+							log.info("Overlay box is already open");
+						}
+					}
+					
+
 					// counter++;
-					commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
+					
 					Thread.sleep(3000);
 					webPage.findObjectByxPath(test[5][1]).clear();
 					webPage.waitOnElement(By.xpath(test[5][1]), 10);
+					commonMethods.clearElementbyXpath(webPage, test[5][3], softAssert);
 					commonMethods.sendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
 					Thread.sleep(5000);
 					webPage.waitOnElement(By.xpath(test[6][1]), 10);
@@ -560,7 +576,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 							//webPage.getDriver().navigate().back();
 							if (testType.equalsIgnoreCase("Web")) {
 								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+								numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 							} else {
 								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -688,7 +704,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 							//webPage.getDriver().navigate().back();
 							if (testType.equalsIgnoreCase("Web")) {
 								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+								numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 							} else {
 								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -960,7 +976,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 						webPage.getDriver().navigate().refresh();*/
 						if (testType.equalsIgnoreCase("Web")) {
 							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-							commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -1077,7 +1093,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 						webPage.getDriver().navigate().refresh();*/
 						if (testType.equalsIgnoreCase("Web")) {
 							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-							commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -1165,7 +1181,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 						webPage.getDriver().navigate().refresh();*/
 						if (testType.equalsIgnoreCase("Web")) {
 							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-							commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -1293,7 +1309,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 							
 							if (testType.equalsIgnoreCase("Web")) {
 								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+								numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 							} else {
 								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -1456,7 +1472,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 							webPage.getDriver().navigate().refresh();*/
 							if (testType.equalsIgnoreCase("Web")) {
 								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+								numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 							} else {
 								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -1687,7 +1703,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 							webPage.getDriver().navigate().refresh();*/
 							if (testType.equalsIgnoreCase("Web")) {
 								Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-								commonMethods.selectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+								numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 							} else {
 								clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -1769,6 +1785,19 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		}catch(Exception e){
 			softAssert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 			Assert.fail();
+		}
+	}
+	
+	public void numberOfProductDisplaySelectDropdownByValue(WebPage webPage, String locator,String dropdownvalue ,SoftAssert softAssert) {
+		try {
+			log.info("Selecting dropdown value - "+dropdownvalue);
+
+			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
+			Select select=new Select(web);
+			select.selectByVisibleText(dropdownvalue);
+			Thread.sleep(3000);
+		} catch (Throwable e) {
+			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
 }
