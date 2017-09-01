@@ -252,7 +252,7 @@ public class Conns_Money_Matters extends BaseTest {
 	 */
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 603, enabled = false, description = "Verify_Broken_Links")
+	@Test(priority = 603, enabled = true, description = "Verify_Broken_Links")
 	public void Verify_Broken_Links() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -309,6 +309,7 @@ public class Conns_Money_Matters extends BaseTest {
 				{
 					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesWeb[i][0]);
 					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],softAssert);
+
 					if(!ExpectedFontValuesWeb[i][2].equalsIgnoreCase("NA")){
 						log.info("expected : " + ExpectedFontValuesWeb[i][2]);
 						log.info("actual   : " + actualCssValues.get(0));
@@ -485,28 +486,54 @@ public class Conns_Money_Matters extends BaseTest {
 				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
 			}	
 			
-			String[][] ExpectedValues = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters",
-					"VerifyFontandSize");
-			System.out.println("Length : " + ExpectedValues.length);
-			for (int i = 0; i < ExpectedValues.length; i++) 
-			{		
-				log.info("Value of i : " + i);						
-				actualTextValues = commonMethods.getTextbyXpath(webPage, ExpectedValues[i][1],
-						softAssert);
-				if (testType.equalsIgnoreCase("Mobile")) 
-				{									
-					softAssert.assertTrue(actualTextValues.toLowerCase().trim().contains((ExpectedValues[i][0]).toLowerCase().trim()),
-							"Text value verification failed for element " + ExpectedValues[i][0]
-									+ "Expected Text : " + ExpectedValues[i][0] + " Actual Text : "
-									+ actualTextValues);
-				} else 
+			String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters","VerifyFontandSizeWeb");
+			String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters","VerifyFontandSizeTab");
+			String[][] ExpectedFontValuesMobile = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters","VerifyFontandSizeMobile");
+			
+			if (testType.equalsIgnoreCase("Web")) 
+			{
+				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) 
 				{
-					softAssert.assertTrue(actualTextValues.toLowerCase().contains((ExpectedValues[i][0]).toLowerCase()),
-							"Text value verification failed for element " + ExpectedValues[i][0]
-									+ "Expected Text : " + ExpectedValues[i][0] + " Actual Text : "
-									+ actualTextValues);
-				}
-			}		
+					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesWeb[i][0]);
+					actualTextValues = commonMethods.getTextbyXpath(webPage, ExpectedFontValuesWeb[i][1],
+							softAssert);
+					
+						softAssert.assertTrue(actualTextValues.toLowerCase().trim().contains((ExpectedFontValuesWeb[i][0]).toLowerCase().trim()),
+								"Text value verification failed for element " + ExpectedFontValuesWeb[i][0]
+										+ "Expected Text : " + ExpectedFontValuesWeb[i][0] + " Actual Text : "
+										+ actualTextValues);
+				}  
+
+			}else if (testType.equalsIgnoreCase("Mobile")) 
+			{
+				for (int i = 0; i < ExpectedFontValuesMobile.length; i++) 
+				{
+					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesMobile[i][0]);
+					actualTextValues = commonMethods.getTextbyXpath(webPage, ExpectedFontValuesMobile[i][1],
+							softAssert);
+					
+						softAssert.assertTrue(actualTextValues.toLowerCase().trim().contains((ExpectedFontValuesMobile[i][0]).toLowerCase().trim()),
+								"Text value verification failed for element " + ExpectedFontValuesMobile[i][0]
+										+ "Expected Text : " + ExpectedFontValuesMobile[i][0] + " Actual Text : "
+										+ actualTextValues);
+				}  
+
+			}else
+			{
+				for (int i = 0; i < ExpectedFontValuesTab.length; i++) 
+				{
+					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesTab[i][0]);
+					actualTextValues = commonMethods.getTextbyXpath(webPage, ExpectedFontValuesTab[i][1],
+							softAssert);
+					
+						softAssert.assertTrue(actualTextValues.toLowerCase().trim().contains((ExpectedFontValuesTab[i][0]).toLowerCase().trim()),
+								"Text value verification failed for element " + ExpectedFontValuesTab[i][0]
+										+ "Expected Text : " + ExpectedFontValuesTab[i][0] + " Actual Text : "
+										+ actualTextValues);
+				}  
+
+			}
+
 			softAssert.assertAll();
 
 		} catch (Throwable e) {

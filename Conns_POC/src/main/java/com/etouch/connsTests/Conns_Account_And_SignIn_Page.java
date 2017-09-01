@@ -2124,13 +2124,13 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
 				commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
 				
-				Thread.sleep(3000);
+				Thread.sleep(4000);
 				WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(test_data[0][22]));
 				if ((!(Newsletters_Subscription_CheckBox).isSelected())	&& ((Newsletters_Subscription_CheckBox)).isEnabled()) {
 					commonMethods.clickElementbyXpath(webPage, Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
 				} else {
 					commonMethods.clickElementbyXpath(webPage, Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
-					Thread.sleep(3000);
+					Thread.sleep(4000);
 					commonMethods.clickElementbyXpath(webPage, Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
 				}
 				String Newsletter_Subscription_Actual_Content_Text = commonMethods.getTextbyCss(webPage,Newsletter_Subscription_Register_Create_An_Account_Check_Box_CssPath_Locator, softAssert);
@@ -2146,7 +2146,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
 				} else {
 					commonMethods.clickElementbyXpath(webPage, Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
-					Thread.sleep(3000);
+					Thread.sleep(4000);
 					commonMethods.clickElementbyXpath(webPage, Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
 				}
 				String Newsletter_Subscription_Actual_Content_Text = commonMethods.getTextbyCss(webPage,Newsletter_Subscription_Register_Create_An_Account_Check_Box_CssPath_Locator, softAssert);
