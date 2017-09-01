@@ -1429,13 +1429,13 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					Actual_My_Wishlist_Mango_Dining_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Element_Text_Locator).getText();
 					Actual_My_Wishlist_Mango_Dining_Price_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Price_Element_Text_Locator).getText();
 					Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text_Locator).getText();
-					Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text_Locator).getText();
+					/*Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text_Locator).getText();*/
 					Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text_Locator).getText();
 					Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text_Locator).getText();
-					Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text_Locator).getText();
+					/*Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text_Locator).getText();*/
 					Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text_Locator).getText();
 					Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text_Locator).getText();
-					Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text_Locator).getText();
+					/*Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text_Locator).getText();*/
 					Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text_Locator).getText();
 					Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text_Locator).getText();
 					Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = webPage.findObjectByxPath(Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text_Locator).getText();
@@ -1463,10 +1463,10 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Element_Text);
 						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Price_Element_Text);
 						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
-						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						/*Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);*/
 						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
 						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
-						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text);
+						/*Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text);*/
 						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text);
 						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text);
 						Page_URL_Title_Element_Data.add(Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text);
