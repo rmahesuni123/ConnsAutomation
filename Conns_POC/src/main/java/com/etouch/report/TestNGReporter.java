@@ -523,9 +523,9 @@ public class TestNGReporter implements IReporter {
 	        .append("  <td>").append(instances).append("</td> ")
 	        .append("</tr>\n")
 	        ;
-	      Utils.appendToFile(getOutputDirectory(xmlSuite), outputFileName, table.toString());
+	  //    Utils.appendToFile(getOutputDirectory(xmlSuite), outputFileName, table.toString());
 	    }
-	    Utils.appendToFile(getOutputDirectory(xmlSuite), outputFileName, "</table>\n");
+	  //  Utils.appendToFile(getOutputDirectory(xmlSuite), outputFileName, "</table>\n");
 	  }
 
 	  /**
