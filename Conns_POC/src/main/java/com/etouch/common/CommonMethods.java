@@ -561,10 +561,6 @@ public class CommonMethods {
 		}
 	}
 	
-	/**
-	 * @author Name - Deepak Bhambri
-	 * The method is used to wait for given time	
-	 **/
 	public static void waitForGivenTime(int givenTimeinSec) throws InterruptedException{
 		try {
 			log.info("Waiting for given time "+givenTimeinSec+"sec");
@@ -648,8 +644,8 @@ public class CommonMethods {
 		}
 		if (brokenImageNumber.size() > 0) {
 
-			Assert.fail("Image number of the broken images : " + Arrays.deepToString(brokenImageNumber.toArray())
-			+ " -- Image source of the broken images : " + Arrays.deepToString(brokenImageSrc.toArray()));
+			Assert.fail("Broken Image number : " + Arrays.deepToString(brokenImageNumber.toArray())
+			+ "\nImage source of the Broken image : " + Arrays.deepToString(brokenImageSrc.toArray()));
 
 		}
 
@@ -697,8 +693,8 @@ public class CommonMethods {
 		}
 		if (brokenLinkNumber.size() > 0) {
 
-			Assert.fail("Link number of the broken links : " + Arrays.deepToString(brokenLinkNumber.toArray())
-			+ " -- Link href of the broken links : " + Arrays.deepToString(brokenLinkHref.toArray()));
+			Assert.fail("Link number of the broken link : " + Arrays.deepToString(brokenLinkNumber.toArray())
+			+ "\nLink (href) of the broken link : " + Arrays.deepToString(brokenLinkHref.toArray()));
 
 		}
 
@@ -808,7 +804,7 @@ public class CommonMethods {
 			actualText = webPage.findObjectById(locator).getText();
 			log.info("Actual text - "+actualText);
 		} catch (PageException e) {
-			softAssert.fail("Unable to Get Text on element using ID : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+			softAssert.fail("Unable to Get Text on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return actualText;
 	}
@@ -824,7 +820,6 @@ public class CommonMethods {
 		WebElement element = null;
 		try{
 			log.info("Finding element using id :"+locator);
-			CommonMethods.waitForWebElement(By.id(locator), webPage);
 			element=webPage.getDriver().findElement(By.id(locator));
 		}catch(Exception e){
 			softAssert.fail("Unable to find element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
