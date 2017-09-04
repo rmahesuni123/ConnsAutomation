@@ -86,23 +86,38 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
 			log.info("Clicked on French Door");
 			// Pagination using index number
-			String paginationNumber = webPage.findObjectByxPath(test[0][2]).getText();
-			Assert.assertEquals(paginationNumber, test[0][3], "Pagination Number: ");
-			webPage.findObjectByxPath(test[0][2]).click();
-			paginationNumber = webPage.findObjectByxPath(test[0][8]).getText();
-			Assert.assertEquals(paginationNumber, test[0][9], "Pagination Number: ");
-			webPage.findObjectByxPath(test[0][8]).click();
-			// Pagination using Next and Back
-			String nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
-			Assert.assertEquals(nextPagination, test[0][5], "nextPagination: ");
-			webPage.findObjectByxPath(test[0][4]).click();
-			String backPagination = webPage.findObjectByxPath(test[0][6]).getText();
-			Assert.assertEquals(backPagination, test[0][7], "backPagination: ");
+			if (testType.equalsIgnoreCase("Web")) {
+				String paginationNumber = webPage.findObjectByxPath(test[0][2]).getText();
+				Assert.assertEquals(paginationNumber, test[0][3], "Pagination Number: ");
+				webPage.findObjectByxPath(test[0][2]).click();
+				paginationNumber = webPage.findObjectByxPath(test[0][8]).getText();
+				Assert.assertEquals(paginationNumber, test[0][9], "Pagination Number: ");
+				webPage.findObjectByxPath(test[0][8]).click();
+				// Pagination using Next and Back
+				String nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
+				Assert.assertEquals(nextPagination, test[0][5], "nextPagination: ");
+				webPage.findObjectByxPath(test[0][4]).click();
+				String backPagination = webPage.findObjectByxPath(test[0][6]).getText();
+				Assert.assertEquals(backPagination, test[0][7], "backPagination: ");
+			} else {
+				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
+						"Verify_For_Pagination_And_Product_Details_For_Mobile");
+				// Pagination using Next and Back
+				String nextPagination = webPage.findObjectByxPath(mobileData[0][0]).getText();
+				Assert.assertEquals(nextPagination, mobileData[0][1], "nextPagination: ");
+				webPage.findObjectByxPath(mobileData[0][0]).click();
+				String backPagination = webPage.findObjectByxPath(mobileData[0][2]).getText();
+				Assert.assertEquals(backPagination, mobileData[0][3], "backPagination: ");
+				webPage.findObjectByxPath(mobileData[0][2]).click();
+				// Verifying Next button is displayed
+				nextPagination = webPage.findObjectByxPath(mobileData[0][0]).getText();
+				Assert.assertEquals(nextPagination, mobileData[0][1], "nextPagination: ");
+			}
 			webPage.findObjectByxPath(test[0][6]).click();
 			// Click on any Product
 			webPage.findObjectByxPath(test[0][10]).click();
-			if(CommonMethods.verifyElementisPresent(webPage, test[0][11])){
-			webPage.findObjectByxPath(test[0][11]).click();
+			if (CommonMethods.verifyElementisPresent(webPage, test[0][11])) {
+				webPage.findObjectByxPath(test[0][11]).click();
 			}
 			String[][] contentData;
 			if (testType.equalsIgnoreCase("Web")) {
@@ -198,7 +213,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				}
 			} else {
 				for (int i = 0; i < str2.length; i++) {
-					ConnsProductPurchasePage.Click_On_Element_JS(webPage, test[0][10 + i]);
+					ConnsProductPurchasePage.Click_On_Element_JS(webPage, test[0][7 + i]);
 					List<WebElement> list = webPage.getDriver().findElements(By.xpath(test[0][9]));
 					SoftAssertor.assertEquals(list.size() <= Integer.parseInt(str2[i]), true,
 							"element is Not As Expected");
@@ -267,7 +282,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					"Sorting_By_Product_Price_From_Product_Listing_Page");
 			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
 			log.info("Clicked on French Door");
-			CommonMethods.waitForGivenTime(3);	
+			CommonMethods.waitForGivenTime(3);
 			Select s;
 			if (testType.equalsIgnoreCase("Web")) {
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][2]))));
