@@ -677,7 +677,7 @@ public class CommonMethods {
 							+ response.getStatusLine().getStatusCode());
 				} else {
 					brokenLinkNumber.add(linkCount);
-					brokenLinkHref.add(link.getAttribute("src"));
+					brokenLinkHref.add(link.getAttribute("href"));//Nalini
 					log.info("Link number " + linkCount + " is not as expected "
 							+ response.getStatusLine().getStatusCode());
 					log.info("Broken Link source is : " + link.getAttribute("href"));
@@ -686,7 +686,7 @@ public class CommonMethods {
 			} catch (Exception e) {
 				log.info("Link number ....." + linkCount + " is not as expected ");
 				brokenLinkNumber.add(linkCount);
-				brokenLinkHref.add(link.getAttribute("src"));
+				brokenLinkHref.add(link.getAttribute("href"));//nalini
 				log.info("linkCount  : " + linkCount + " : " + brokenLinkHref);			
 			}
 
