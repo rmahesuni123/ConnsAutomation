@@ -112,18 +112,18 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						"Verify_For_Pagination_And_Product_Details_For_Mobile");
 				// Pagination using Next and Back
 				String nextPagination = webPage.findObjectByxPath(mobileData[0][0]).getText();
-				Assert.assertTrue(nextPagination.equalsIgnoreCase(mobileData[0][1]), "NextPagination: ");
+				Assert.assertTrue(nextPagination.equalsIgnoreCase(mobileData[0][1]), "NextPagination: Expected:"+mobileData[0][1]+" Actual: "+nextPagination);
 				webPage.findObjectByxPath(mobileData[0][0]).click();
 				CommonMethods.waitForGivenTime(5);
 				
 				String backPagination = webPage.findObjectByxPath(mobileData[0][2]).getText();
-				Assert.assertTrue(backPagination.equalsIgnoreCase(mobileData[0][3]), "backPagination: ");
+				Assert.assertTrue(backPagination.equalsIgnoreCase(mobileData[0][3]), "backPagination: Expected:"+mobileData[0][3]+" Actual: "+backPagination);
 				webPage.findObjectByxPath(mobileData[0][2]).click();
 				CommonMethods.waitForGivenTime(5);
 				
 				// Verifying Next button is displayed
 				nextPagination = webPage.findObjectByxPath(mobileData[0][0]).getText();
-				Assert.assertTrue(nextPagination.equalsIgnoreCase(mobileData[0][1]), "NextPagination: ");
+				Assert.assertTrue(nextPagination.equalsIgnoreCase(mobileData[0][1]), "NextPagination: Expected:"+mobileData[0][1]+" Actual: "+nextPagination);
 			}
 		//	webPage.findObjectByxPath(test[0][6]).click();
 			// Click on any Product
@@ -220,7 +220,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					CommonMethods.waitForGivenTime(5);
 					CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
 					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][4]));
-					SoftAssertor.assertEquals(elementList.size() <= number, true, "element is Not As Expected");
+					SoftAssertor.assertEquals(elementList.size() <= number, true, "Number of element is not as expected---->Actual Size: " +elementList.size()+" Should be less than: "+number);
 					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][2]))));
 				}
 			} else {
@@ -231,7 +231,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					log.info("list.size():: "+list.size());
 					log.info("Integer.parseInt(str2[i]):: "+Integer.parseInt(str2[i]));
 					SoftAssertor.assertEquals(list.size() <= Integer.parseInt(str2[i]), true,
-							"element is Not As Expected");
+							"Number of element is not as expected---->Actual Size: " +list.size()+" Should be less than: "+Integer.parseInt(str2[i]));
 				}
 			}
 		} catch (Throwable e) {
