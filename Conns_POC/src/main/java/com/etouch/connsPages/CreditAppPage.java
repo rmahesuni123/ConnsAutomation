@@ -129,7 +129,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.waitForPageLoad(webPage, softAssert);
 		if (ActualUrl.contains(expectedUrl)) {
 			log.info("Redirection for link " + linkName + " is successful");
-			if(browserName.contains("safari"))
+			if(browserName.contains("safari")||browserName.contains("iphone")||browserName.contains("ipad"))
 			{navigateToCreditAppPage(softAssert); }
 			else{webPage.getBackToUrl();}
 		} else {
