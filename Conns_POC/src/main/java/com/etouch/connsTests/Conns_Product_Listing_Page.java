@@ -99,21 +99,29 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				webPage.findObjectByxPath(test[0][4]).click();
 				String backPagination = webPage.findObjectByxPath(test[0][6]).getText();
 				Assert.assertEquals(backPagination, test[0][7], "backPagination: ");
+				//Checking again Next is displayed or not
+				nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
+				Assert.assertEquals(nextPagination, test[0][5], "nextPagination: ");
 			} else {
+				CommonMethods.waitForGivenTime(5);
 				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
 						"Verify_For_Pagination_And_Product_Details_For_Mobile");
 				// Pagination using Next and Back
 				String nextPagination = webPage.findObjectByxPath(mobileData[0][0]).getText();
-				Assert.assertEquals(nextPagination, mobileData[0][1], "nextPagination: ");
+				Assert.assertTrue(nextPagination.equalsIgnoreCase(mobileData[0][1]), "NextPagination: ");
 				webPage.findObjectByxPath(mobileData[0][0]).click();
+				CommonMethods.waitForGivenTime(5);
+				
 				String backPagination = webPage.findObjectByxPath(mobileData[0][2]).getText();
-				Assert.assertEquals(backPagination, mobileData[0][3], "backPagination: ");
+				Assert.assertTrue(backPagination.equalsIgnoreCase(mobileData[0][3]), "backPagination: ");
 				webPage.findObjectByxPath(mobileData[0][2]).click();
+				CommonMethods.waitForGivenTime(5);
+				
 				// Verifying Next button is displayed
 				nextPagination = webPage.findObjectByxPath(mobileData[0][0]).getText();
-				Assert.assertEquals(nextPagination, mobileData[0][1], "nextPagination: ");
+				Assert.assertTrue(nextPagination.equalsIgnoreCase(mobileData[0][1]), "NextPagination: ");
 			}
-			webPage.findObjectByxPath(test[0][6]).click();
+		//	webPage.findObjectByxPath(test[0][6]).click();
 			// Click on any Product
 			webPage.findObjectByxPath(test[0][10]).click();
 			if (CommonMethods.verifyElementisPresent(webPage, test[0][11])) {
@@ -194,7 +202,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					"Number_Of_Product_Displayed_From_Product_Listing_Page");
 			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
 			log.info("Clicked on French Door");
-			String str2[] = test[0][6].split(",");
+			String str2[] = test[0][3].split(",");
 			if (testType.equalsIgnoreCase("Web")) {
 				CommonMethods.waitForGivenTime(5);
 				Select s = new Select(webPage.getDriver().findElement(By.xpath((test[0][2]))));
@@ -214,7 +222,10 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			} else {
 				for (int i = 0; i < str2.length; i++) {
 					ConnsProductPurchasePage.Click_On_Element_JS(webPage, test[0][7 + i]);
+					CommonMethods.waitForGivenTime(5);
 					List<WebElement> list = webPage.getDriver().findElements(By.xpath(test[0][9]));
+					log.info("list.size():: "+list.size());
+					log.info("Integer.parseInt(str2[i]):: "+Integer.parseInt(str2[i]));
 					SoftAssertor.assertEquals(list.size() <= Integer.parseInt(str2[i]), true,
 							"element is Not As Expected");
 				}
