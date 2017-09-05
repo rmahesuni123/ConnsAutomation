@@ -253,7 +253,6 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
 					"Sorting_By_Product_Name_From_Product_Listing_Page");
 			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
-			
 			log.info("Clicked on French Door");
 			Select s;
 			if (testType.equalsIgnoreCase("Web")) {
@@ -300,11 +299,12 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					"Sorting_By_Product_Price_From_Product_Listing_Page");
 			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
 			log.info("Clicked on French Door");
-			CommonMethods.waitForGivenTime(3);
 			Select s;
 			if (testType.equalsIgnoreCase("Web")) {
+				CommonMethods.waitForWebElement(By.xpath(test[0][2]), webPage);
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][2]))));
 			} else {
+				CommonMethods.waitForWebElement(By.xpath(test[0][6]), webPage);
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][6]))));
 			}
 			s.selectByVisibleText(test[0][3]);
