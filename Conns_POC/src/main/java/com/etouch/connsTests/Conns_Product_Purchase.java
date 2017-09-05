@@ -559,58 +559,6 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	
-
-	@Test(priority = 209, enabled = true, description = "Verify 'Continue' button by selecting 'Checkout as Guest' in checkout page")
-	public void Verify_UI_Checkout_Page() {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Verify_UI_Checkout_Page");
-			log.info("testing flow Verify_UI_Checkout_Page started");
-			commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
-			} else {
-				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
-			}
-			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
-			boolean isCheckoutSectionIsExpandededModeByDefault = commonMethods.verifyElementisPresent(webPage,test[3][1], softAssert);
-			softAssert.assertTrue(isCheckoutSectionIsExpandededModeByDefault,"By default checkout method is not in expanded mode");
-			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
-			boolean isCheckoutSectionCollapsed = commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
-			softAssert.assertTrue(isCheckoutSectionCollapsed, "checkout method is not in collapsed mode for Guest");
-			boolean isBillingInformationSectionInExpanded = commonMethods.verifyElementisPresent(webPage, test[5][1],softAssert);
-			softAssert.assertTrue(isBillingInformationSectionInExpanded,"Billing Information Section Is Not In Expanded Mode for Guest");
-			
-			//merge TC 218
-			commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
-			boolean isCheckoutSectionCollapsedforRegister = commonMethods.verifyElementisPresent(webPage,"//li[@id='opc-login' and @class='section allow']", softAssert);
-			softAssert.assertTrue(isCheckoutSectionCollapsed, "checkout method is not in collapsed mode for Register user");
-			boolean isBillingInformationSectionInExpandModeforRegister = commonMethods.verifyElementisPresent(webPage,"//li[@id='opc-billing' and @class='section allow active']", softAssert);
-			softAssert.assertTrue(isBillingInformationSectionInExpandModeforRegister,"Billing Information Section Is Not In Expanded Mode for Register");
-			//done
-			
-			//merge TC 219
-			commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[8][1], test[8][3], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, test[9][1], test[9][3], softAssert);
-			commonMethods.clickElementbyXpath(webPage, test[10][1], softAssert);
-			boolean isBillingInformationSectionInExpandMode = commonMethods.verifyElementisPresent(webPage, test[5][1],softAssert);
-			softAssert.assertTrue(isBillingInformationSectionInExpandMode, "Login is not successful");
-			
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_UI_Checkout_Page");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
 
 
 
@@ -1746,6 +1694,57 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertAll();
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_Checkout_Flow_Cash_On_Delivery");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	@Test(priority = 233, enabled = true, description = "Verify 'Continue' button by selecting 'Checkout as Guest' in checkout page")
+	public void Verify_UI_Checkout_Page() {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Verify_UI_Checkout_Page");
+			log.info("testing flow Verify_UI_Checkout_Page started");
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+			} else {
+				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+			}
+			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
+			boolean isCheckoutSectionIsExpandededModeByDefault = commonMethods.verifyElementisPresent(webPage,test[3][1], softAssert);
+			softAssert.assertTrue(isCheckoutSectionIsExpandededModeByDefault,"By default checkout method is not in expanded mode");
+			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
+			boolean isCheckoutSectionCollapsed = commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
+			softAssert.assertTrue(isCheckoutSectionCollapsed, "checkout method is not in collapsed mode for Guest");
+			boolean isBillingInformationSectionInExpanded = commonMethods.verifyElementisPresent(webPage, test[5][1],softAssert);
+			softAssert.assertTrue(isBillingInformationSectionInExpanded,"Billing Information Section Is Not In Expanded Mode for Guest");
+			
+			//merge TC 218
+			commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
+			boolean isCheckoutSectionCollapsedforRegister = commonMethods.verifyElementisPresent(webPage,"//li[@id='opc-login' and @class='section allow']", softAssert);
+			softAssert.assertTrue(isCheckoutSectionCollapsed, "checkout method is not in collapsed mode for Register user");
+			boolean isBillingInformationSectionInExpandModeforRegister = commonMethods.verifyElementisPresent(webPage,"//li[@id='opc-billing' and @class='section allow active']", softAssert);
+			softAssert.assertTrue(isBillingInformationSectionInExpandModeforRegister,"Billing Information Section Is Not In Expanded Mode for Register");
+			//done
+			
+			//merge TC 219
+			commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, test[8][1], test[8][3], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, test[9][1], test[9][3], softAssert);
+			commonMethods.clickElementbyXpath(webPage, test[10][1], softAssert);
+			boolean isBillingInformationSectionInExpandMode = commonMethods.verifyElementisPresent(webPage, test[5][1],softAssert);
+			softAssert.assertTrue(isBillingInformationSectionInExpandMode, "Login is not successful");
+			
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_UI_Checkout_Page");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
