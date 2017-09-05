@@ -90,18 +90,22 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String paginationNumber = webPage.findObjectByxPath(test[0][2]).getText();
 				Assert.assertEquals(paginationNumber, test[0][3], "Pagination Number: ");
 				webPage.findObjectByxPath(test[0][2]).click();
+				CommonMethods.waitForGivenTime(2);
 				paginationNumber = webPage.findObjectByxPath(test[0][8]).getText();
 				Assert.assertEquals(paginationNumber, test[0][9], "Pagination Number: ");
 				webPage.findObjectByxPath(test[0][8]).click();
+				CommonMethods.waitForGivenTime(2);
+				
 				// Pagination using Next and Back
 				String nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
 				Assert.assertEquals(nextPagination, test[0][5], "nextPagination: ");
 				webPage.findObjectByxPath(test[0][4]).click();
+				CommonMethods.waitForGivenTime(2);
 				String backPagination = webPage.findObjectByxPath(test[0][6]).getText();
 				Assert.assertEquals(backPagination, test[0][7], "backPagination: ");
 				//Checking again Next is displayed or not
-				nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
-				Assert.assertEquals(nextPagination, test[0][5], "nextPagination: ");
+				//nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
+				//Assert.assertEquals(nextPagination, test[0][5], "nextPagination: ");
 			} else {
 				CommonMethods.waitForGivenTime(5);
 				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
