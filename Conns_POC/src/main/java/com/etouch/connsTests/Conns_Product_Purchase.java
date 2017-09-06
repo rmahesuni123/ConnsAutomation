@@ -352,7 +352,6 @@ public class Conns_Product_Purchase extends BaseTest {
 	public void Verify_Update_Functionality_Cart_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualquandityAfterUpdate = null;
-		String productPriceCartPageAfterUpdate = null;
 		int actualProductPrice = 0;
 		int expectedProductPrice = 0;
 		try {
@@ -380,14 +379,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("productQuandityBeforeUpdateOnCart:" + productQuandityBeforeUpdate);
 			// price when QTY=1
 			log.info("price string:" + commonMethods.getTextbyXpath(webPage, ItemLink[10][1], softAssert));
-			expectedProductPrice = Integer.parseInt(commonMethods.getTextbyXpath(webPage, ItemLink[10][1], softAssert)
-					.replace("$", "").replace(",", "").replace(".", ""));
+			expectedProductPrice = Integer.parseInt(commonMethods.getTextbyXpath(webPage, ItemLink[10][1], softAssert).replace("$", "").replace(",", "").replace(".", ""));
 			log.info("expectedProductPrice:" + expectedProductPrice);
 			commonMethods.getWebElementbyXpath(webPage, checkoutFlowCommonLocators[18][1], softAssert).clear();
 			commonMethods.sendKeysbyXpath(webPage, checkoutFlowCommonLocators[18][1], "2", softAssert);
 			commonMethods.clickElementbyXpath(webPage, checkoutFlowCommonLocators[19][1], softAssert);
-			actualquandityAfterUpdate = commonMethods
-					.getWebElementbyXpath(webPage, checkoutFlowCommonLocators[18][1], softAssert).getAttribute("value");
+			actualquandityAfterUpdate = commonMethods.getWebElementbyXpath(webPage, checkoutFlowCommonLocators[18][1], softAssert).getAttribute("value");
 			// price when QTY=2
 			actualProductPrice = Integer.parseInt(commonMethods.getTextbyXpath(webPage, ItemLink[11][1], softAssert)
 					.replace("$", "").replace(",", "").replace(".", ""));
@@ -578,8 +575,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
-			boolean isForgotYourPasswordLinkDisplayed = commonMethods.verifyElementisPresent(webPage, test[1][1],
-					softAssert);
+			boolean isForgotYourPasswordLinkDisplayed = commonMethods.verifyElementisPresent(webPage, test[1][1],softAssert);
 			softAssert.assertTrue(isForgotYourPasswordLinkDisplayed, "forgot your password link is not displayed");
 			if (isForgotYourPasswordLinkDisplayed) {
 				commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
@@ -826,10 +822,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			//
 			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
 			// order review button
-			CommonMethods.waitForWebElement(By.xpath(".//*[@id='review-buttons-container']/button"), webPage);
-			commonMethods.clickElementbyXpath(webPage, ".//*[@id='review-buttons-container']/button", softAssert);
+			CommonMethods.waitForWebElement(By.xpath(test[5][1]), webPage);
+			commonMethods.clickElementbyXpath(webPage, test[5][1], softAssert);
 			// continue shopping button on order confirmation page
-			commonMethods.clickElementbyXpath(webPage, "//button[@title='Continue Shopping']", softAssert);
+			commonMethods.clickElementbyXpath(webPage, test[3][1], softAssert);
 			actualContinueShoppingButtonNavigation = commonMethods.getPageUrl(webPage, softAssert);
 			expectedURL = testUrl;
 			log.info("expectedURL:" + expectedURL);
@@ -906,8 +902,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String actualCartPageURL = null;
 		String expectedCartPageURL = null;
 		try {
-			zipCodeValid = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
-					"Click_Add_To_Cart_As_Per_Avilability_Message2");
+			zipCodeValid = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_Add_To_Cart_As_Per_Avilability_Message2");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
@@ -921,9 +916,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("actualCartPageURL:" + actualCartPageURL);
 			expectedCartPageURL = zipCodeValid[5][4];
 			log.info("expectedCartPageURL:" + expectedCartPageURL);
-			softAssert.assertTrue(actualCartPageURL.contains(zipCodeValid[5][4]),
-					"cart page URL is not seen on clicking add to cart for avilable product:" + "Actual URL:"
-							+ actualCartPageURL);
+			softAssert.assertTrue(actualCartPageURL.contains(zipCodeValid[5][4]),"cart page URL is not seen on clicking add to cart for avilable product:" + "Actual URL:"+ actualCartPageURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_In_Stock_Product_Zip_Code_Functionality_Valid_Data");
@@ -1009,8 +1002,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	public void Verify_Zip_Code_Functionality_In_Stock_PickUp_Product() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
-					"Add_In_Stock_Pickup_Only_Product_To_Cart");
+			String[][] clickOnAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_In_Stock_Pickup_Only_Product_To_Cart");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
@@ -1061,8 +1053,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	public void Verify_Pickup_In_Store_Option_Cart_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
-					"Verify_Pickup_In_Store_Option_Cart_Page");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Pickup_In_Store_Option_Cart_Page");
 			
 			zipCodeValid=ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_Add_To_Cart_As_Per_Avilability_Message2");
 			log.info("Verify_Pickup_In_Store_Option_Cart_Page started");
@@ -1079,28 +1070,26 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			//merge TC 236
 			// send keys to get a quote text box
-			commonMethods.sendKeysbyXpath(webPage, "//*[@id='postcode']", "8888", softAssert);
+			commonMethods.sendKeysbyXpath(webPage, test[4][1], test[3][3], softAssert);
 			// clicking on get a quote button
-			commonMethods.clickElementbyXpath(webPage, "//*[@id='shipping-zip-form']//button", softAssert);
+			commonMethods.clickElementbyXpath(webPage, test[9][1], softAssert);
 			// verifying whether shipping option with conns shipping is
 			// displayed on passing valid zip code
-			boolean isErrorMessageDisplayedGetaQuote = commonMethods.verifyElementisPresent(webPage,"//*[@id='advice-validate-zip-postcode']", softAssert);
+			boolean isErrorMessageDisplayedGetaQuote = commonMethods.verifyElementisPresent(webPage,test[10][1], softAssert);
 			softAssert.assertTrue(isErrorMessageDisplayedGetaQuote,"Error message is not displayed on passing invalid zip code:");
 			
 			
 			//merge TC 235
 			// send keys to get a quote text box
-			commonMethods.clearElementbyXpath(webPage, "//*[@id='postcode']", softAssert);
-			commonMethods.sendKeysbyXpath(webPage, "//*[@id='postcode']", "77702", softAssert);
+			commonMethods.clearElementbyXpath(webPage, test[4][1], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, test[4][1], test[1][3], softAssert);
 			// clicking on get a quote button
-			commonMethods.clickElementbyXpath(webPage, "//*[@id='shipping-zip-form']//button", softAssert);
+			commonMethods.clickElementbyXpath(webPage, test[9][1], softAssert);
 			// verifying whther shipping option with conns shipping is displayed
 			// on passing valid zip code
-			boolean isShippingOptionisDisplayed = commonMethods.verifyElementisPresent(webPage,".//*[@id='co-shipping-method-form']//label", softAssert);
+			boolean isShippingOptionisDisplayed = commonMethods.verifyElementisPresent(webPage,test[11][1], softAssert);
 			softAssert.assertTrue(isShippingOptionisDisplayed,"Shipping option is not displayed on clicking get a quote button");
 			//deepak-done
-			
-			
 			
 			boolean isPickupLinkDisplayed = commonMethods.verifyElementisPresent(webPage, test[0][1], softAssert);
 			softAssert.assertTrue(isPickupLinkDisplayed,"Pick-up link is not displayed in cart for InStock Pickup flow");
@@ -1142,9 +1131,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
-			connsProductPurchasePage.Click_On_Element_JS(webPage, "//*[@id='opc-shipping']/div[1]/h2/a", softAssert);
-			shippingInfoFirstName = commonMethods
-					.getWebElementbyXpath(webPage, "//*[@id='shipping:firstname']", softAssert).getAttribute("value");
+			connsProductPurchasePage.Click_On_Element_JS(webPage, submitBillingInfo[13][1], softAssert);
+			shippingInfoFirstName = commonMethods.getWebElementbyXpath(webPage,submitBillingInfo[14][1], softAssert).getAttribute("value");
 			// shippingInfoFirstName=submitBillingInfo[0][3];
 			log.info("shippingfirstName:" + shippingInfoFirstName);
 			billingInfoFirstName = submitBillingInfo[0][3];
@@ -1181,15 +1169,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			// Thread.sleep(5000);
 
-				WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,"//*[@id='billing:use_for_shipping_no']", softAssert);
+				WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,submitBillingInfo[12][1], softAssert);
 				shipToDifferentAddressRadioButton.click();
 
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
 			// comparing shipping info first name with billing info first name
-			String shippingfirstName = commonMethods
-					.getWebElementbyXpath(webPage, "//*[@id='shipping:firstname']", softAssert).getAttribute("value");
+			String shippingfirstName = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[14][1], softAssert).getAttribute("value");
 			log.info("shippingfirstName:" + shippingfirstName);
 			expectedValue = submitBillingInfo[0][3];
 			softAssert.assertNotEquals(shippingfirstName, expectedValue,"Shipping Info Section is expanded after selecting ship to this address radio button");
@@ -1220,12 +1207,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-			WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,"//*[@id='billing:use_for_shipping_no']", softAssert);
+			WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,submitBillingInfo[12][1], softAssert);
 			shipToDifferentAddressRadioButton.click();
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			boolean isShippingInfoFirstNameEnabled = commonMethods
-					.getWebElementbyXpath(webPage, "//*[@id='shipping:firstname']", softAssert).isEnabled();
+					.getWebElementbyXpath(webPage, submitBillingInfo[14][1], softAssert).isEnabled();
 			softAssert.assertTrue(isShippingInfoFirstNameEnabled,
 					"Shipping Info Section is expanded after selecting ship to this address radio button");
 			softAssert.assertAll();
@@ -1258,16 +1245,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-			WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,
-					"//*[@id='billing:use_for_shipping_no']", softAssert);
+			WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,submitBillingInfo[12][1], softAssert);
 			shipToDifferentAddressRadioButton.click();
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			connsProductPurchasePage.Submit_Shipping_Info(webPage, submitBillingInfo, softAssert);
 			// clicking on shipping info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[8][1], softAssert);
-			boolean isShippingMethodDisplayed = commonMethods.verifyElementisPresent(webPage,
-					"//*[@id='checkout-shipping-method-load']/dl/dt", softAssert);
+			boolean isShippingMethodDisplayed = commonMethods.verifyElementisPresent(webPage,submitBillingInfo[15][1], softAssert);
 			softAssert.assertTrue(isShippingMethodDisplayed,
 					"Shipping Info Section is expanded after selecting ship to this address radio button");
 			softAssert.assertAll();
@@ -1303,8 +1288,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-			WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,
-					"//*[@id='billing:use_for_shipping_no']", softAssert);
+			WebElement shipToDifferentAddressRadioButton = commonMethods.getWebElementbyXpath(webPage,submitBillingInfo[12][1], softAssert);
 			shipToDifferentAddressRadioButton.click();
 			// clicking on billing info continue button
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
@@ -1347,13 +1331,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			int shipToDifferentAddressRadioButton = commonMethods
-					.getWebElementsbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert).size();
+					.getWebElementsbyXpath(webPage, submitBillingInfo[12][1], softAssert).size();
 			log.info("shipToDifferentAddressRadioButton:" + shipToDifferentAddressRadioButton);
 			log.info("checking ship To Different Address radio button presence");
 			if (shipToDifferentAddressRadioButton != 0) {
 				log.info("ship To Different Address radio button is displayed");
-				WebElement shipToDifferentAddressRadio = commonMethods.getWebElementbyXpath(webPage,
-						"//*[@id='billing:use_for_shipping_no']", softAssert);
+				WebElement shipToDifferentAddressRadio = commonMethods.getWebElementbyXpath(webPage,submitBillingInfo[12][1], softAssert);
 				shipToDifferentAddressRadio.click();
 				// clicking on billing info continue button
 				commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
@@ -1363,8 +1346,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				// clicking on shipping info continue button
 				commonMethods.clickElementbyXpath(webPage, submitShippingInfo[8][1], softAssert);
 				Thread.sleep(3000);
-				String shippingOptionText = commonMethods.getTextbyXpath(webPage, ".//*[@id='checkout-shipping-method-load']/dl/dd/ul/li/label",
-						softAssert);
+				String shippingOptionText = commonMethods.getTextbyXpath(webPage, submitBillingInfo[16][1],softAssert);
 				log.info("shippingOptionText text is:" + shippingOptionText);
 				softAssert.assertTrue(shippingOptionText.contains("Conn's White Glove"),"Conns shipping is not displayed in Shipping method section. Actual text: "+shippingOptionText);
 				//below line commented by deepak as it is not required and is causing failure
@@ -1409,13 +1391,13 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			Thread.sleep(2000);
 			int shipToDifferentAddressRadioButton = commonMethods
-					.getWebElementsbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert).size();
+					.getWebElementsbyXpath(webPage, submitBillingInfo[12][1], softAssert).size();
 			log.info("shipToDifferentAddressRadioButton:" + shipToDifferentAddressRadioButton);
 			log.info("checking ship To Different Address radio button presence");
 			if (shipToDifferentAddressRadioButton != 0) {
 				log.info("ship To Different Address radio button is displayed");
 				WebElement shipToDifferentAddressRadio = commonMethods.getWebElementbyXpath(webPage,
-						"//*[@id='billing:use_for_shipping_no']", softAssert);
+						submitBillingInfo[12][1], softAssert);
 				shipToDifferentAddressRadio.click();
 				// clicking on billing info continue button
 				commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
@@ -1424,17 +1406,15 @@ public class Conns_Product_Purchase extends BaseTest {
 				// clicking on shipping info continue button
 				commonMethods.clickElementbyXpath(webPage, submitShippingInfo[8][1], softAssert);
 				Thread.sleep(3000);
-				String shippingOptionText = commonMethods.getTextbyXpath(webPage, "//*[@id='co-shipping-method-form']",softAssert);
+				String shippingOptionText = commonMethods.getTextbyXpath(webPage, submitShippingInfo[18][1],softAssert);
 				log.info("shippingOptionText:" + shippingOptionText);
 				softAssert.assertTrue(shippingOptionText.contains("Free Delivery"),"Free Delivery shipping is not displayed in Shipping method section");
 				
 				//added by deepak to fix issue
-				commonMethods.clickElementbyXpath(webPage, ".//*[@id='checkout-shipping-method-load']/dl/dd/ul/li/input", softAssert);
+				commonMethods.clickElementbyXpath(webPage, submitShippingInfo[17][1], softAssert);
 				//done
-				commonMethods.clickElementbyXpath(webPage, "//*[@id='shipping-method-buttons-container']/button",
-						softAssert);
-				String checkoutCarWrapperText = commonMethods.getTextbyXpath(webPage,
-						"//*[@id='checkout-cart-wrapper']/div", softAssert);
+				commonMethods.clickElementbyXpath(webPage, submitShippingInfo[19][1],softAssert);
+				String checkoutCarWrapperText = commonMethods.getTextbyXpath(webPage,submitShippingInfo[20][1], softAssert);
 				log.info("checkoutCarWrapperText:" + checkoutCarWrapperText);
 				softAssert.assertTrue(checkoutCarWrapperText.contains("Your Cart contains"),
 						"Free Delivery is not displayed in checkout cart wrapper section");
