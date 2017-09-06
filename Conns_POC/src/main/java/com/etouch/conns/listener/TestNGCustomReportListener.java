@@ -61,7 +61,7 @@ public class TestNGCustomReportListener implements IReporter {
 		generateSuiteSummaryReport(suites);
 		writeSummary("Execution Results");
 		generateMethodSummaryReport(suites);
-		//generateMethodDetailReport(suites);
+		generateMethodDetailReport(suites);
 		endHtml(writer);
 		writer.flush();
 		writer.close();
@@ -89,13 +89,13 @@ public class TestNGCustomReportListener implements IReporter {
 				ITestContext testContext = r2.getTestContext();
 				String testName = testContext.getName();
 				m_testIndex = testIndex;
-				resultSummary(suite, testContext.getFailedConfigurations(), testName, "failed",
-						" (configuration methods)");
-				resultSummary(suite, testContext.getFailedTests(), testName, "failed", "");
+				resultSummary(suite, testContext.getPassedTests(), testName, "passed", "");
 				resultSummary(suite, testContext.getSkippedConfigurations(), testName, "skipped",
 						" (configuration methods)");
 				resultSummary(suite, testContext.getSkippedTests(), testName, "skipped", "");
-				resultSummary(suite, testContext.getPassedTests(), testName, "passed", "");
+				resultSummary(suite, testContext.getFailedConfigurations(), testName, "failed",
+						" (configuration methods)");
+				resultSummary(suite, testContext.getFailedTests(), testName, "failed", "");
 				testIndex++;
 			}
 		}
@@ -112,11 +112,11 @@ public class TestNGCustomReportListener implements IReporter {
 				if (r.values().size() > 0) {
 					writer.println("<h1>" + testContext.getName() + "</h1>");
 				}
-				resultDetail(testContext.getFailedConfigurations());
-				resultDetail(testContext.getFailedTests());
+				resultDetail(testContext.getPassedTests());
 				resultDetail(testContext.getSkippedConfigurations());
 				resultDetail(testContext.getSkippedTests());
-				resultDetail(testContext.getPassedTests());
+				resultDetail(testContext.getFailedConfigurations());
+				resultDetail(testContext.getFailedTests());
 			}
 		}
 	}
@@ -152,7 +152,7 @@ public class TestNGCustomReportListener implements IReporter {
 						if (mq > 1) {
 							writer.print(" rowspan=\"" + mq + "\"");
 						}
-						writer.println(">" + lastClassName + "</td>" + buff);
+						writer.println(">" + lastClassName.replace("com.etouch.connsTests.", "") + "</td>" + buff);
 					}
 					mq = 0;
 					buff.setLength(0);
@@ -220,7 +220,7 @@ public class TestNGCustomReportListener implements IReporter {
 				if (mq > 1) {
 					writer.print(" rowspan=\"" + mq + "\"");
 				}
-				writer.println(">" + lastClassName + "</td>" + buff);
+				writer.println(">" + lastClassName.replace("com.etouch.connsTests.", "") + "</td>" + buff);
 			}
 		}
 	}
@@ -398,7 +398,7 @@ public class TestNGCustomReportListener implements IReporter {
 		tableColumnStart("Test Scripts<br/>Passed");
 		tableColumnStart("No. of Skipped Tests");
 		tableColumnStart("No. of failed Tests");
-		tableColumnStart("Browser");
+		tableColumnStart("TestBed\\Browser");
 		tableColumnStart("Start<br/>Time");
 		tableColumnStart("End<br/>Time");
 		tableColumnStart("Total<br/>Time(hh:mm:ss)");
@@ -416,6 +416,9 @@ public class TestNGCustomReportListener implements IReporter {
 		int qty_fail = 0;
 		long time_end = Long.MIN_VALUE;
 		m_testIndex = 1;
+		String suitStartTime="";
+		String suitEndTime="";
+		long totalTimeinSeconds=0;
 		for (ISuite suite : suites) {
 		//	if (suites.size() >= 1) {
 			//	titleRow(suite.getName(), 10);
@@ -443,16 +446,20 @@ public class TestNGCustomReportListener implements IReporter {
 				writer.println("</td>");
 							
 				SimpleDateFormat summaryFormat = new SimpleDateFormat("hh:mm:ss");
+				if(qty_tests==1)
+				{
+				 suitStartTime=summaryFormat.format(overview.getStartDate());
+				}
 				summaryCell(summaryFormat.format(overview.getStartDate()),true);				
 				writer.println("</td>");
 				
 				summaryCell(summaryFormat.format(overview.getEndDate()),true);
 				writer.println("</td>");
-
+				suitEndTime=summaryFormat.format(overview.getEndDate());
 				time_start = Math.min(overview.getStartDate().getTime(), time_start);
 				time_end = Math.max(overview.getEndDate().getTime(), time_end);
 				summaryCell(timeConversion((overview.getEndDate().getTime() - overview.getStartDate().getTime()) / 1000), true);
-				
+			    totalTimeinSeconds=totalTimeinSeconds+(overview.getEndDate().getTime() - overview.getStartDate().getTime());
 			//	summaryCell(overview.getIncludedGroups());
 			//	summaryCell(overview.getExcludedGroups());
 				writer.println("</tr>");
@@ -465,10 +472,12 @@ public class TestNGCustomReportListener implements IReporter {
 			summaryCell(qty_skip, 0);
 			summaryCell(qty_fail, 0);
 			summaryCell(" ", true);
-			summaryCell(" ", true);
-			summaryCell(" ", true);
-			summaryCell(timeConversion(((time_end - time_start) / 1000)), true);
-			writer.println("<td colspan=\"3\">&nbsp;</td></tr>");
+			summaryCell(suitStartTime, true);
+			summaryCell(suitEndTime, true);
+			//summaryCell(timeConversion(((time_end - time_start) / 1000)), true);
+			summaryCell(timeConversion((totalTimeinSeconds / 1000)), true);
+			//writer.println("<td colspan=\"3\">&nbsp;</td></tr>");
+			writer.println("</tr>");
 		}
 		writer.println("</table>");
 	}
