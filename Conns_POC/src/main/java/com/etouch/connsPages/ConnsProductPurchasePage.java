@@ -55,6 +55,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		try {
 			try{
 				webPage.getDriver().manage().deleteAllCookies();
+				webPage.getDriver().manage().deleteAllCookies();
 			}catch(Exception e){
 				log.info("Unable to delete cookies for current browser.");
 			}
