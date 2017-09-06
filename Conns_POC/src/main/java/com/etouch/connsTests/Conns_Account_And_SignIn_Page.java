@@ -943,7 +943,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","ContactInformationFunctionality");
 		String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		String Contact_Information_Edit_Link_Locator = inputdata[0][1];
 		commonMethods.clickElementbyXpath(webPage, Contact_Information_Edit_Link_Locator, softAssert);
@@ -1071,7 +1071,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Contact_Information_Page_Title = inputdata[0][10];
 		String Expected_Contact_Information_Page_URL = inputdata[0][11];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		webPage.getCurrentUrl();// For Safari
+		//webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
 			commonMethods.clickElementbyXpath(webPage, Change_Billing_Address_Edit_Link_Locator, softAssert);
@@ -1248,6 +1248,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Newsletters_Page_Title = inputdata[0][3];
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		
 		//webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
@@ -1276,18 +1277,18 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Newsletters_Edit_Link_Locator = inputdata[0][1];
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		String News_Letters_Subscription_CheckBox = inputdata[0][5];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		//webPage.getCurrentUrl();// For Safari
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getCurrentUrl();// For Safari
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			WebElement Newsletters_Subscription_CheckBox = webPage.getDriver().findElement(By.xpath(inputdata[0][5]));
 			if ((!(Newsletters_Subscription_CheckBox).isSelected())	&& ((Newsletters_Subscription_CheckBox)).isEnabled()) {
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 			} else {
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
-				Thread.sleep(3000);
+				Thread.sleep(5000);
 				commonMethods.clickElementbyXpath(webPage, News_Letters_Subscription_CheckBox, softAssert);
 			}
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Page_Go_Back_Link, softAssert);
@@ -1452,7 +1453,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
 				} */
 				else if ((currentTestBedName.equalsIgnoreCase("edge")) || (currentTestBedName.equalsIgnoreCase("Safari")) && (testType.equalsIgnoreCase("Web"))) {
-					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
+					log.info("***************************************** Account Dashboard Drop Down For Edge/Safari Starts********************************");
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(edge_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
 					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));

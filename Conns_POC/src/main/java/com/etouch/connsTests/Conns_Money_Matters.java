@@ -553,7 +553,7 @@ public class Conns_Money_Matters extends BaseTest {
 
 	@SuppressWarnings("static-access")
 	@Test(priority = 606, enabled = true, description = "Verify_MoneyMatters_LinksRedirection")
-	public void Verify_MoneyMatters_LinksRedirection() {
+	public void verify_Learn_More_Related_Link_Redirection() {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
 		
