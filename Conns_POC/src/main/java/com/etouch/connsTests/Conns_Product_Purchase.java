@@ -1448,13 +1448,13 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[2][1], "dhfhsdbfj", softAssert);
+			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[2][1], inStockAvialableProduct[1][3], softAssert);
 			emailField.sendKeys(Keys.TAB);
 			boolean isEmailErrorDisplayed = commonMethods.verifyElementisPresent(webPage, billingFormValidation[0][1],softAssert);
 			log.info("isEmailErrorDisplayed:" + isEmailErrorDisplayed);
 			softAssert.assertTrue(isEmailErrorDisplayed,"email address error message is not displayed for invalid email address");
 			WebElement zipcodeField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[5][1], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[5][1], "88898878", softAssert);
+			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[5][1], inStockAvialableProduct[2][3], softAssert);
 			zipcodeField.sendKeys(Keys.TAB);
 			boolean isZipcodeErrorDisplayed = commonMethods.verifyElementisPresent(webPage, billingFormValidation[1][1],softAssert);
 			log.info("isZipcodeErrorDisplayed:" + isZipcodeErrorDisplayed);
@@ -1486,14 +1486,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[2][1], "lee@gmail.com", softAssert);
+			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[2][1], inStockAvialableProduct[3][3], softAssert);
 			emailField.sendKeys(Keys.TAB);
 			boolean isEmailErrorDisplayed = commonMethods.verifyElementisPresent(webPage, billingFormValidation[0][1],
 					softAssert);
 			log.info("isEmailErrorDisplayed:" + isEmailErrorDisplayed);
 			softAssert.assertFalse(isEmailErrorDisplayed,"email address error message is displayed for valid email address");
 			WebElement zipcodeField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[5][1], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[5][1], "99999", softAssert);
+			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[5][1], submitBillingInfo[4][3], softAssert);
 			zipcodeField.sendKeys(Keys.TAB);
 			boolean isZipcodeErrorDisplayed = commonMethods.verifyElementisPresent(webPage, billingFormValidation[1][1],softAssert);
 			log.info("isZipcodeErrorDisplayed:" + isZipcodeErrorDisplayed);
@@ -1525,7 +1525,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-			commonMethods.clickElementbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[12][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Shippinginfo_Field_Validation_Positive_Inputs");
@@ -1556,7 +1556,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			Thread.sleep(3000);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-			commonMethods.clickElementbyXpath(webPage, "//*[@id='billing:use_for_shipping_no']", softAssert);
+			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[12][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_ShippingInfo_Field_Validation_Negative_Inputs");
@@ -1606,8 +1606,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String productDetails = null;
 		String expectedSuccessMessage = checkoutFlowCommonLocators[33][4];
 		try {
-			String[][] pickupAvialableProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
-					"Click_Add_To_Cart_As_Per_Avilability_Message_Pickup2");
+			String[][] pickupAvialableProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_Add_To_Cart_As_Per_Avilability_Message_Pickup2");
 			log.info("testing flow Verify_Checkout_Flow_Cash_On_Delivery started");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
@@ -1708,9 +1707,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
-			boolean isCheckoutSectionCollapsedforRegister = commonMethods.verifyElementisPresent(webPage,"//li[@id='opc-login' and @class='section allow']", softAssert);
+			boolean isCheckoutSectionCollapsedforRegister = commonMethods.verifyElementisPresent(webPage,test[4][1], softAssert);
 			softAssert.assertTrue(isCheckoutSectionCollapsed, "checkout method is not in collapsed mode for Register user");
-			boolean isBillingInformationSectionInExpandModeforRegister = commonMethods.verifyElementisPresent(webPage,"//li[@id='opc-billing' and @class='section allow active']", softAssert);
+			boolean isBillingInformationSectionInExpandModeforRegister = commonMethods.verifyElementisPresent(webPage,test[5][1], softAssert);
 			softAssert.assertTrue(isBillingInformationSectionInExpandModeforRegister,"Billing Information Section Is Not In Expanded Mode for Register");
 			//done
 			
