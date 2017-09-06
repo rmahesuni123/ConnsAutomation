@@ -81,9 +81,9 @@ public class TestNGCustomReportListener implements IReporter {
 		startResultSummaryTable("methodOverview");
 		int testIndex = 1;
 		for (ISuite suite : suites) {
-			//if (suites.size() >= 1) {
-			//	titleRow(suite.getName(), 6);
-		//	}
+			if (suites.size() >= 1) {
+				titleRow(suite.getName(), 6);
+			}
 			Map<String, ISuiteResult> r = suite.getResults();
 			for (ISuiteResult r2 : r.values()) {
 				ITestContext testContext = r2.getTestContext();
@@ -140,7 +140,7 @@ public class TestNGCustomReportListener implements IReporter {
 				if (mq == 0) {
 					String id = (m_testIndex == null ? null : "t"
 							+ Integer.toString(m_testIndex));
-					titleRow(testname + " &#8212; " + style + details, 5, id);
+					titleRow(testname + " &#8212; " + style + details, 6, id);
 					m_testIndex = null;
 				}
 				if (!className.equalsIgnoreCase(lastClassName)) {
@@ -179,6 +179,7 @@ public class TestNGCustomReportListener implements IReporter {
 						String str = Utils.stackTrace(exception, true)[0];
 						Scanner scanner = new Scanner(str);
 						firstLine = scanner.nextLine();
+						firstLine=firstLine+" "+scanner.nextLine();
 					}
 				}
 				DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
@@ -195,24 +196,32 @@ public class TestNGCustomReportListener implements IReporter {
 				String description = method.getDescription();
 				String testInstanceName = resultSet
 						.toArray(new ITestResult[] {})[0].getTestName();
-				buff.append("<td><a href=\"#m"
+				if(description != null && description.length() > 0){
+					buff.append("<td><a href=\"#m"
 						+ m_methodIndex
 						+ "\">"
+							+  description 	 + "</a>"
+									+ (null == testInstanceName ? "" : "<br>"
+											+ testInstanceName + "") 
+									+  "</td>"
+											+ "<td class=\"numi\" style=\"text-align:left;padding-right:2em\">" + firstLine+"<br/></td>"
+											+ "<td style=\"text-align:right\">" + value1+ "</td>" 
+											//Added for end time
+											+ "<td class=\"numi\">"+ value2+ "</td>" + 
+											"</td>" + "<td class=\"numi\">"
+											+ timeConversion(end - start) + "</td>" + "</tr>");
+				}
+				else
+				{ buff.append("<td>"
 						+ qualifiedName(method)
-						+ " "
-						+ (description != null && description.length() > 0 ? "(\""
-								+ description + "\")"
-								: "")
-								+ "</a>"
-								+ (null == testInstanceName ? "" : "<br>("
-										+ testInstanceName + ")") + "</td>"
+						 + "</td>"
 										+ "<td class=\"numi\" style=\"text-align:left;padding-right:2em\">" + firstLine+"<br/></td>"
 										+ "<td style=\"text-align:right\">" + value1+ "</td>" 
 										//Added for end time
 										+ "<td class=\"numi\">"+ value2+ "</td>" + 
 										"</td>" + "<td class=\"numi\">"
 										+ timeConversion(end - start) + "</td>" + "</tr>");
-				
+				}
 			}
 			if (mq > 0) {
 				cq += 1;
@@ -248,7 +257,7 @@ public class TestNGCustomReportListener implements IReporter {
 	private void startResultSummaryTable(String style) {
 		tableStart(style, "summary");
 		writer.println("<tr><th>Page Name</th>"
-				+ "<th>Test Scenarios</th><th>Exception Info</th><th>Start Time </th><th>End Time </th><th>Execution Time<br/>(hh:mm:ss)</th></tr>");
+				+ "<th>Test Scenarios</th><th>Exception Info</th><th>Start Time </th><th>End Time </th><th>Execution Time (hh:mm:ss)</th></tr>");
 		m_row = 0;
 	}
 
@@ -395,10 +404,10 @@ public class TestNGCustomReportListener implements IReporter {
 		tableStart("testOverview", null);
 		writer.print("<tr>");
 		tableColumnStart("Test");
+		tableColumnStart("Browser\\Mobile");
 		tableColumnStart("Test Scripts<br/>Passed");
 		tableColumnStart("No. of Skipped Tests");
 		tableColumnStart("No. of failed Tests");
-		tableColumnStart("TestBed\\Browser");
 		tableColumnStart("Start<br/>Time");
 		tableColumnStart("End<br/>Time");
 		tableColumnStart("Total<br/>Time(hh:mm:ss)");
@@ -429,6 +438,9 @@ public class TestNGCustomReportListener implements IReporter {
 				ITestContext overview = r.getTestContext();
 				//startSummaryRow(overview.getName());
 				startSummaryRow(suite.getName());
+				// Write OS and Browser
+				//startSummaryRow(overview.getName());
+				summaryCell(overview.getName(), true);
 				int q = getMethodSet(overview.getPassedTests(), suite).size();
 				qty_pass_m += q;
 				summaryCell(q, Integer.MAX_VALUE);
@@ -439,9 +451,7 @@ public class TestNGCustomReportListener implements IReporter {
 				qty_fail += q;
 				summaryCell(q, 0);
 				
-				// Write OS and Browser
-				//startSummaryRow(overview.getName());
-				summaryCell(overview.getName(), true);
+				
 			//	summaryCell(suite.getParameter("browserType"), true);
 				writer.println("</td>");
 							
@@ -468,10 +478,10 @@ public class TestNGCustomReportListener implements IReporter {
 		}
 		if (qty_tests > 1) {
 			writer.println("<tr class=\"total\"><td>Total</td>");
+			summaryCell(" ", true);
 			summaryCell(qty_pass_m, Integer.MAX_VALUE);
 			summaryCell(qty_skip, 0);
 			summaryCell(qty_fail, 0);
-			summaryCell(" ", true);
 			summaryCell(suitStartTime, true);
 			summaryCell(suitEndTime, true);
 			//summaryCell(timeConversion(((time_end - time_start) / 1000)), true);
@@ -561,7 +571,8 @@ public class TestNGCustomReportListener implements IReporter {
 		out.println(".result th {vertical-align:bottom}");
 		out.println(".param th {padding-left:1em;padding-right:1em}");
 		out.println(".param td {padding-left:.5em;padding-right:2em}");
-		out.println(".stripe td,.stripe th {background-color: #E6EBF9}");
+		//out.println(".stripe td,.stripe th {background-color: #E6EBF9}");
+		out.println(".stripe td,.stripe th {text-align:right}");
 		out.println(".numi,.numi_attn {text-align:right}");
 		out.println(".total td {font-weight:bold}");
 		
