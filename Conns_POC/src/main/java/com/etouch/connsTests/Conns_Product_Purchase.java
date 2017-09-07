@@ -375,6 +375,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, addToCartInStockValid,softAssert);
+			
 			String productQuandityBeforeUpdate = commonMethods.getWebElementbyXpath(webPage, checkoutFlowCommonLocators[18][1], softAssert).getAttribute("value");
 			log.info("productQuandityBeforeUpdateOnCart:" + productQuandityBeforeUpdate);
 			// price when QTY=1
@@ -663,7 +664,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
-			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,softAssert);
+			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,softAssert);			
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -799,8 +800,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
-			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,
-					softAssert);
+			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -912,6 +912,12 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
+			try{
+				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			}catch(Exception e){
+				log.info("Not able to reduce product quantity.");
+			}
+			
 			actualCartPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			log.info("actualCartPageURL:" + actualCartPageURL);
 			expectedCartPageURL = zipCodeValid[5][4];
@@ -1066,7 +1072,11 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-			
+			try{
+				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			}catch(Exception e){
+				log.info("Not able to reduce product quantity.");
+			}
 			
 			//merge TC 236
 			// send keys to get a quote text box
@@ -1242,6 +1252,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
+			
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1327,6 +1338,11 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
+			try{
+				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			}catch(Exception e){
+				log.info("Not able to reduce product quantity.");
+			}
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1445,6 +1461,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
+			try{
+				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			}catch(Exception e){
+				log.info("Not able to reduce product quantity.");
+			}
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
@@ -1481,8 +1502,12 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			// adding pickup only product to cart
-			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,
-					softAssert);
+			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
+			try{
+				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			}catch(Exception e){
+				log.info("Not able to reduce product quantity.");
+			}
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
@@ -1520,8 +1545,12 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			// adding pickup only product to cart
-			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,
-					softAssert);
+			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
+			try{
+				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			}catch(Exception e){
+				log.info("Not able to reduce product quantity.");
+			}
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1550,8 +1579,12 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			// adding pickup only product to cart
-			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,
-					softAssert);
+			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
+			try{
+				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			}catch(Exception e){
+				log.info("Not able to reduce product quantity.");
+			}
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			Thread.sleep(3000);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
@@ -1583,8 +1616,12 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			// adding pickup only product to cart
-			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,
-					inStockAvialableProduct, softAssert);
+			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,inStockAvialableProduct, softAssert);
+			try{
+				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			}catch(Exception e){
+				log.info("Not able to reduce product quantity.");
+			}
 			log.info("productDetails:" + productDetails);
 			productPriceCartPage = commonMethods.getTextbyXpath(webPage, ItemLink[10][1], softAssert);
 			log.info("productPriceCartPage:" + productPriceCartPage);
@@ -1616,8 +1653,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
-			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,
-					pickupAvialableProduct, softAssert);
+			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,pickupAvialableProduct, softAssert);
 			log.info("Product Details:" + productDetails);
 			List<String> actualValue = connsProductPurchasePage.page_Verify_Product_Details_Cart(webPage,
 					checkoutFlowCommonLocators, softAssert);
