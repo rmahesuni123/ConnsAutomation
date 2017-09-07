@@ -1233,4 +1233,23 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
+	
+	public void reducingProductquantity(WebPage webPage, String[][] checkoutFlowCommonLocators, SoftAssert softAssert){
+		try{
+			log.info("Verifying if product quantity is greater than or equal to 3");
+			String iteQuatityString = commonMethods.getAttributebyXpath(webPage, checkoutFlowCommonLocators[18][1], "value", softAssert);
+			int iteQuantityInt = Integer.parseInt(iteQuatityString);
+			if(iteQuantityInt>=3){
+				log.info("Product quantity is greater than or equal to 3");
+				commonMethods.clearTextBox(webPage, checkoutFlowCommonLocators[18][1], softAssert);
+				commonMethods.sendKeysbyXpath(webPage, checkoutFlowCommonLocators[18][1], commonData[9][1], softAssert);
+				commonMethods.clickElementbyXpath(webPage, checkoutFlowCommonLocators[19][1], softAssert);
+				log.info("Reduced product quantity to "+commonData[9][1]);
+			}else{
+				log.info("Product quantity is not greater than or equal to 3");
+			}
+		}catch(Exception e){
+			log.error("Not able to reduce product quantity");
+		}
+	}
 }
