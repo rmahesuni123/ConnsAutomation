@@ -162,7 +162,7 @@ public class TestNGCustomReportListener implements IReporter {
 				long end = Long.MIN_VALUE;
 				long start = Long.MAX_VALUE;
 				long startMS=0;
-				String firstLine="";
+				String firstLine="",SecondLine="";
 				
 				for (ITestResult testResult : tests.getResults(method)) {
 					if (testResult.getEndMillis() > end) {
@@ -179,7 +179,7 @@ public class TestNGCustomReportListener implements IReporter {
 						String str = Utils.stackTrace(exception, true)[0];
 						Scanner scanner = new Scanner(str);
 						firstLine = scanner.nextLine();
-						firstLine=firstLine+"\n"+scanner.nextLine();
+						SecondLine=scanner.nextLine();
 					}
 				}
 				DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
@@ -204,7 +204,7 @@ public class TestNGCustomReportListener implements IReporter {
 									+ (null == testInstanceName ? "" : "<br>"
 											+ testInstanceName + "") 
 									+  "</td>"
-											+ "<td class=\"numi\" style=\"text-align:left;padding-right:2em\">" + firstLine+"<br/></td>"
+											+ "<td class=\"numi\" style=\"text-align:left;padding-right:2em\">" + firstLine+"<br/>"+SecondLine+"</td>"
 											+ "<td style=\"text-align:right\">" + value1+ "</td>" 
 											//Added for end time
 											+ "<td class=\"numi\">"+ value2+ "</td>" + 
@@ -215,7 +215,7 @@ public class TestNGCustomReportListener implements IReporter {
 				{ buff.append("<td>"
 						+ qualifiedName(method)
 						 + "</td>"
-										+ "<td class=\"numi\" style=\"text-align:left;padding-right:2em\">" + firstLine+"<br/></td>"
+										+ "<td class=\"numi\" style=\"text-align:left;padding-right:2em\">" + firstLine+"<br/>"+SecondLine+"</td>"
 										+ "<td style=\"text-align:right\">" + value1+ "</td>" 
 										//Added for end time
 										+ "<td class=\"numi\">"+ value2+ "</td>" + 
