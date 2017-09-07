@@ -120,6 +120,15 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 					commonMethods.clickElementbyXpath(webPage,addToCart[4][1] + j + "]", softAssert);
 					Thread.sleep(3000);
 					boolean isOverLayBoxPresent = commonMethods.verifyElementisPresent(webPage, addToCart[1][1], softAssert);
+					if(!isOverLayBoxPresent){
+						try{
+							commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);	
+						}catch(Exception e){
+							log.info("Overlay box is already open");
+						}
+					}
+					CommonMethods.waitForWebElement(By.xpath(addToCart[1][1]), webPage);
+					isOverLayBoxPresent = commonMethods.verifyElementisPresent(webPage, addToCart[1][1], softAssert);
 					log.info("isOverLayBoxPresent:::" + isOverLayBoxPresent);
 					softAssert.assertTrue(isOverLayBoxPresent,"verification 1 failed: Over Lay Box is not displayed on clicking ADD to Cart Button"+ "\n ");
 					boolean isZipCodeTextBoxDisplayed = webPage.getDriver().findElements(By.xpath(addToCart[2][1])).size() >= 1;
@@ -129,6 +138,15 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 					commonMethods.clickElementbyXpath(webPage,addToCart[4][1] + j + "]", softAssert);
 					Thread.sleep(3000);
 					boolean isOverLayBoxPresent = commonMethods.verifyElementisPresent(webPage, addToCart[1][1], softAssert);
+					if(!isOverLayBoxPresent){
+						try{
+							commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);	
+						}catch(Exception e){
+							log.info("Overlay box is already open");
+						}
+					}
+					CommonMethods.waitForWebElement(By.xpath(addToCart[1][1]), webPage);
+					isOverLayBoxPresent = commonMethods.verifyElementisPresent(webPage, addToCart[1][1], softAssert);
 					log.info("isOverLayBoxPresent:::" + isOverLayBoxPresent);
 					softAssert.assertTrue(isOverLayBoxPresent,"verification 1 failed: Over Lay Box is not displayed on clicking ADD to Cart Button"+ "\n ");
 					boolean isZipCodeTextBoxDisplayed = webPage.getDriver().findElements(By.xpath(addToCart[2][2])).size() >= 1;

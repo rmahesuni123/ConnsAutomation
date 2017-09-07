@@ -446,7 +446,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
-			CommonMethods.waitForWebElement(By.xpath(test[2][1]),webPage);
+			Thread.sleep(3000);
 			actual_Coupon_Code_Error_Message = commonMethods.getTextbyXpath(webPage, test[2][1], softAssert).replaceAll(" ", "");
 			expected_Coupon_Code_Error_Message = test[0][4].replaceAll(" ", "");
 			softAssert.assertTrue(actual_Coupon_Code_Error_Message.contains(expected_Coupon_Code_Error_Message),"Coupon_Code_Error_Messages are not matching::" + " Expected is:"+ expected_Coupon_Code_Error_Message + " Actual is: " + actual_Coupon_Code_Error_Message);
@@ -912,11 +912,11 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-			try{
-				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+		/*	try{
+				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
 			}catch(Exception e){
 				log.info("Not able to reduce product quantity.");
-			}
+			}*/
 			
 			actualCartPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			log.info("actualCartPageURL:" + actualCartPageURL);
@@ -1072,11 +1072,11 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-			try{
-				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			/*try{
+				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
 			}catch(Exception e){
 				log.info("Not able to reduce product quantity.");
-			}
+			}*/
 			
 			//merge TC 236
 			// send keys to get a quote text box
@@ -1338,11 +1338,11 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-			try{
-				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			/*try{
+				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
 			}catch(Exception e){
 				log.info("Not able to reduce product quantity.");
-			}
+			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1461,11 +1461,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			try{
-				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			/*try{
+				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
 			}catch(Exception e){
 				log.info("Not able to reduce product quantity.");
-			}
+			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
@@ -1503,11 +1503,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			try{
-				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			/*try{
+				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
 			}catch(Exception e){
 				log.info("Not able to reduce product quantity.");
-			}
+			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
@@ -1546,11 +1546,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			try{
-				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			/*try{
+				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
 			}catch(Exception e){
 				log.info("Not able to reduce product quantity.");
-			}
+			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1580,11 +1580,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			try{
-				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			/*try{
+				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
 			}catch(Exception e){
 				log.info("Not able to reduce product quantity.");
-			}
+			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			Thread.sleep(3000);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
@@ -1617,11 +1617,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,inStockAvialableProduct, softAssert);
-			try{
-				connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
+			/*try{
+				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
 			}catch(Exception e){
 				log.info("Not able to reduce product quantity.");
-			}
+			}*/
 			log.info("productDetails:" + productDetails);
 			productPriceCartPage = commonMethods.getTextbyXpath(webPage, ItemLink[10][1], softAssert);
 			log.info("productPriceCartPage:" + productPriceCartPage);
@@ -1658,39 +1658,29 @@ public class Conns_Product_Purchase extends BaseTest {
 			List<String> actualValue = connsProductPurchasePage.page_Verify_Product_Details_Cart(webPage,
 					checkoutFlowCommonLocators, softAssert);
 			log.info("Product name:" + actualValue.get(0));
-			softAssert.assertTrue(productDetails.contains(actualValue.get(0)),
-					"Product Detail:" + productDetails + " Does Not contains Product Name as: " + actualValue.get(0));
+			softAssert.assertTrue(productDetails.contains(actualValue.get(0)),"Product Detail:" + productDetails + " Does Not contains Product Name as: " + actualValue.get(0));
 			log.info("Product price:" + actualValue.get(1));
-			softAssert.assertTrue(productDetails.contains(actualValue.get(1)),
-					"Product Detail:" + productDetails + " Does Not contains Product Price as: " + actualValue.get(1));
+			softAssert.assertTrue(productDetails.contains(actualValue.get(1)),"Product Detail:" + productDetails + " Does Not contains Product Price as: " + actualValue.get(1));
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-			connsProductPurchasePage.click_Billing_Info_Continue_Button(webPage, checkoutFlowCommonLocators,
-					softAssert);
+			connsProductPurchasePage.click_Billing_Info_Continue_Button(webPage, checkoutFlowCommonLocators,softAssert);
 			Thread.sleep(10000);
-			String productNamePickupLocationSection = connsProductPurchasePage.get_Pickup_Location_Product_Name(webPage,
-					checkoutFlowCommonLocators, softAssert);
+			String productNamePickupLocationSection = connsProductPurchasePage.get_Pickup_Location_Product_Name(webPage,checkoutFlowCommonLocators, softAssert);
 			softAssert.assertTrue(productDetails.contains(productNamePickupLocationSection),
-					"Actual text is: " + productDetails + " Excpected is:" + productNamePickupLocationSection
-							+ "product name displayed in pickup location section is not matching is not matching with list page "
-							+ "expected is:" + productNamePickupLocationSection);
-			connsProductPurchasePage.click_Pickup_Location_Continue_Button(webPage, checkoutFlowCommonLocators,
-					softAssert);
+					"Actual text is: " + productDetails + " Excpected is:" + productNamePickupLocationSection+ "product name displayed in pickup location section is not matching is not matching with list page "+ "expected is:" + productNamePickupLocationSection);
+			connsProductPurchasePage.click_Pickup_Location_Continue_Button(webPage, checkoutFlowCommonLocators,softAssert);
 			Thread.sleep(10000);
 			CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[5][1]), webPage);
-			connsProductPurchasePage.click_Pickup_Location_Continue_Button(webPage, checkoutFlowCommonLocators,
-					softAssert);
+			connsProductPurchasePage.click_Pickup_Location_Continue_Button(webPage, checkoutFlowCommonLocators,softAssert);
 			Thread.sleep(10000);
 			ITafElement radioButton = webPage.findObjectByxPath(checkoutFlowCommonLocators[9][1]);
 			webPage.scrollToElement(radioButton);
 			// webPage.scrollUp(1);
 			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[9][1]),
 			// webPage);
-			connsProductPurchasePage.click_Cash_On_Delivery_Radio_Button(webPage, checkoutFlowCommonLocators,
-					softAssert);
-			connsProductPurchasePage.click_Payment_Info_Continue_Button(webPage, checkoutFlowCommonLocators,
-					softAssert);
+			connsProductPurchasePage.click_Cash_On_Delivery_Radio_Button(webPage, checkoutFlowCommonLocators,softAssert);
+			connsProductPurchasePage.click_Payment_Info_Continue_Button(webPage, checkoutFlowCommonLocators,softAssert);
 			Thread.sleep(10000);
 			/*
 			 * ITafElement placeOrderButton=webPage.findObjectByxPath(
