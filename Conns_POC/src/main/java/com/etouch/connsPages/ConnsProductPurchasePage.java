@@ -1252,22 +1252,18 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		}
 	}
 	
-	public void reducingProductquantity(WebPage webPage, String[][] checkoutFlowCommonLocators, SoftAssert softAssert){
-		try{
-			log.info("Verifying if product quantity is greater than or equal to 3");
-			String iteQuatityString = commonMethods.getAttributebyXpath(webPage, checkoutFlowCommonLocators[18][1], "value", softAssert);
-			int iteQuantityInt = Integer.parseInt(iteQuatityString);
-			if(iteQuantityInt>=3){
-				log.info("Product quantity is greater than or equal to 3");
-				commonMethods.clearTextBox(webPage, checkoutFlowCommonLocators[18][1], softAssert);
-				commonMethods.sendKeysbyXpath(webPage, checkoutFlowCommonLocators[18][1], commonData[9][1], softAssert);
-				commonMethods.clickElementbyXpath(webPage, checkoutFlowCommonLocators[19][1], softAssert);
-				log.info("Reduced product quantity to "+commonData[9][1]);
-			}else{
-				log.info("Product quantity is not greater than or equal to 3");
+	
+	public void removeProductsFromCart(WebPage webPage, SoftAssert softAssert) throws InterruptedException{
+		List<WebElement> removeIteList = webPage.getDriver().findElements(By.xpath(commonData[9][1]));
+		if(removeIteList.size()>1){
+			log.info("Removing products from cart");
+			for(WebElement element:removeIteList){
+				element.click();
+				Thread.sleep(1000);
 			}
-		}catch(Exception e){
-			log.error("Not able to reduce product quantity");
+		}else{
+			log.info("More than 1 item not present in cart");
 		}
 	}
+	
 }

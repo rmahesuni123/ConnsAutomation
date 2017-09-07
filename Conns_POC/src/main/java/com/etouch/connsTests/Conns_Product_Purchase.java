@@ -446,7 +446,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			actual_Coupon_Code_Error_Message = commonMethods.getTextbyXpath(webPage, test[2][1], softAssert).replaceAll(" ", "");
 			expected_Coupon_Code_Error_Message = test[0][4].replaceAll(" ", "");
 			softAssert.assertTrue(actual_Coupon_Code_Error_Message.contains(expected_Coupon_Code_Error_Message),"Coupon_Code_Error_Messages are not matching::" + " Expected is:"+ expected_Coupon_Code_Error_Message + " Actual is: " + actual_Coupon_Code_Error_Message);
@@ -912,12 +912,6 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-		/*	try{
-				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
-			}catch(Exception e){
-				log.info("Not able to reduce product quantity.");
-			}*/
-			
 			actualCartPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			log.info("actualCartPageURL:" + actualCartPageURL);
 			expectedCartPageURL = zipCodeValid[5][4];
@@ -1047,6 +1041,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			actualPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			expectedPageURL = testData2[0][4];
 			softAssert.assertTrue(actualPageURL.contains(expectedPageURL),"Verify ADD TO CART on overlay with valid input in Zip code failed : " + "Expected is: "+ expectedPageURL + " Actual is: " + actualPageURL);
+			try{
+				connsProductPurchasePage.removeProductsFromCart(webPage, softAssert);
+			}catch(Exception e){
+				log.error("Unable to remove products from cart");
+			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage,"Verify_Add_To_Cart_Functionality_In_Stock_PickUp_Product_Valid_Data");
@@ -1071,13 +1070,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
-			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-			/*try{
-				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
-			}catch(Exception e){
-				log.info("Not able to reduce product quantity.");
-			}*/
-			
+			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);		
 			//merge TC 236
 			// send keys to get a quote text box
 			commonMethods.sendKeysbyXpath(webPage, test[4][1], test[3][3], softAssert);
@@ -1338,11 +1331,6 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-			/*try{
-				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
-			}catch(Exception e){
-				log.info("Not able to reduce product quantity.");
-			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1461,11 +1449,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			/*try{
-				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
-			}catch(Exception e){
-				log.info("Not able to reduce product quantity.");
-			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
@@ -1503,11 +1486,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			/*try{
-				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
-			}catch(Exception e){
-				log.info("Not able to reduce product quantity.");
-			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
@@ -1546,11 +1524,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			/*try{
-				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
-			}catch(Exception e){
-				log.info("Not able to reduce product quantity.");
-			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1580,11 +1553,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			/*try{
-				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
-			}catch(Exception e){
-				log.info("Not able to reduce product quantity.");
-			}*/
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			Thread.sleep(3000);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
@@ -1617,11 +1585,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,inStockAvialableProduct, softAssert);
-			/*try{
-				//connsProductPurchasePage.reducingProductquantity(webPage, checkoutFlowCommonLocators, softAssert);	
-			}catch(Exception e){
-				log.info("Not able to reduce product quantity.");
-			}*/
 			log.info("productDetails:" + productDetails);
 			productPriceCartPage = commonMethods.getTextbyXpath(webPage, ItemLink[10][1], softAssert);
 			log.info("productPriceCartPage:" + productPriceCartPage);
