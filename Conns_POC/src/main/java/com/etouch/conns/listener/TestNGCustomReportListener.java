@@ -179,7 +179,7 @@ public class TestNGCustomReportListener implements IReporter {
 						String str = Utils.stackTrace(exception, true)[0];
 						Scanner scanner = new Scanner(str);
 						firstLine = scanner.nextLine();
-						firstLine=firstLine+" "+scanner.nextLine();
+						firstLine=firstLine+"\n"+scanner.nextLine();
 					}
 				}
 				DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
