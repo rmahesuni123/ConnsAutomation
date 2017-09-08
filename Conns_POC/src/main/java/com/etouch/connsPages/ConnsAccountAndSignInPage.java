@@ -2877,7 +2877,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					//webPage.getDriver().navigate().refresh();
 					//commonMethods.clickElementbyXpath(webPage, Change_Password_Locator, softAssert);
 					
-					//Thread.sleep(5000);
+					webPage.waitForWebElement(By.xpath(ConfPwdErrMsgLocator));
 					Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page = commonMethods.getTextbyXpath(webPage,ConfPwdErrMsgLocator, softAssert);
 					log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " +Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
 					log.info("********************************************ConfPwdErrMsgLocator : *************************************************** " +ConfPwdErrMsgLocator);

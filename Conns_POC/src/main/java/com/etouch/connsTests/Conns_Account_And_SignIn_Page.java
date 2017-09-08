@@ -244,6 +244,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
 	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
+		webPage.getDriver().navigate().refresh();
 		webPage.getCurrentUrl();// For Safari
 		try {
 			Thread.sleep(5000);
@@ -280,7 +281,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		try {
 			/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
 		      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
-			webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
+			//webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
+			//webPage.getDriver().navigate().refresh();
 			webPage.getCurrentUrl();// For Safari
 			Thread.sleep(3000);
 			commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
@@ -310,11 +312,13 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		List<String> brokenLinks = new ArrayList<String>();
 		log.info("******Started verification of Redirectional_links functionality with valid data ********");
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		/*String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 		  String Sign_In_Home_Page_Header_Link = test_data[0][3];
 	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 		String Navigate_To_Account_Login_Form_URL = testdata[0][6];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
+		webPage.getDriver().navigate().refresh();
 		webPage.getCurrentUrl();// For Safari
 		try {
 			for (int r = 0; r < testdata.length; r++) {
@@ -334,7 +338,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				softAssert.assertEquals(Actual_Page_Url, Expected_URL, "Redirectional_links Functionality with Invalid Input verification failed For Redirectional_URL. Expected Redirectional_URL  : " + Expected_URL + "Actual Redirectional_URL  : " + Actual_Page_Url);
 				softAssert.assertTrue(Actual_Element_Name.equalsIgnoreCase(Expected_Element_Name),"Redirectional_links Functionality with Invalid Input verification failed For Redirectional_Parent_Element_Name . Expected Redirectional Parent_Element_Name : "	+ Expected_Element_Name + "Actual Redirectional_Parent_Element_Name : "	+ Actual_Element_Name);
 				softAssert.assertEquals(Actual_Page_Title, Expected_Page_Title,"Redirectional_links Functionality with Invalid Input verification failed For Redirectional_Page_Title . Expected Redirectional_Page_Title  : " + Expected_Page_Title + "Actual Redirectional_Page_Title  : " + Actual_Page_Title);
-				JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+				
 				js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
 				webPage.getDriver().getCurrentUrl();// Used for Safari
 				softAssert.assertAll();
@@ -466,6 +470,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		//String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLoginPageTitle");
 		/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
 	      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
+		webPage.getDriver().navigate().refresh();
+	    webPage.waitForWebElement(By.xpath(Account_Login_Page_Forgot_Password_Page_Link));
 		try {
 			commonMethods.clickElementbyXpath(webPage, Account_Login_Page_Forgot_Password_Page_Link, softAssert);
   			String Actual_Forgot_Password_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
@@ -648,6 +654,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Forgot_Password_Email_Address_Locator,Forgot_Password_Email_Address_Data, softAssert);
 			commonMethods.clickElementbyXpath(webPage, Forgot_Passowrd_Submit_Button_Locator, softAssert);
+		    webPage.waitForWebElement(By.xpath(Forgot_Password_Email_Address_Error_Message_Locator));
 			String Actual_Forgot_Password_Email_Address_Error_Message_Locator = commonMethods.getTextbyXpath(webPage,Forgot_Password_Email_Address_Error_Message_Locator, softAssert);
 			softAssert.assertEquals(Actual_Forgot_Password_Email_Address_Error_Message_Locator,	Expected_Forgot_Password_Error_Message,	"Forgot_Password_Function_with_Invalid_Data Functionality Failed For Invalid Email Address Input. Expected_Forgot_Password_Email_Address_Error_Message  : "	+ Expected_Forgot_Password_Error_Message + "Actual_Forgot_Password_Error_Message : " + Actual_Forgot_Password_Email_Address_Error_Message_Locator);
 			softAssert.assertAll();
@@ -677,6 +684,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, Forgot_Password_Link, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Forgot_Password_Email_Address_Locator,Forgot_Password_Email_Address_Data, softAssert);
 			commonMethods.clickElementbyXpath(webPage, Forgot_Passowrd_Submit_Button_Locator, softAssert);
+		     webPage.waitForWebElement(By.xpath(Forgot_Password_Email_Address_Error_Message_Locator));
 			String Actual_Forgot_Password_Valid_Email_Address_Confirmation_Message = commonMethods.getTextbyXpath(webPage, Forgot_Password_Email_Address_Error_Message_Locator, softAssert);
 			softAssert.assertEquals(Actual_Forgot_Password_Valid_Email_Address_Confirmation_Message,Expected_Forgot_Password_Valid_Email_Address_Confirmation_Message,"Forgot Password Blank Input Error Message Functionality Failed For Blank Email Address Input. Expected_Forgot_Password_Error_Message  : "+ Expected_Forgot_Password_Valid_Email_Address_Confirmation_Message	+ "Actual_Forgot_Password_Valid_Email_Address_Confirmation_Message : "	+ Actual_Forgot_Password_Valid_Email_Address_Confirmation_Message);
 			softAssert.assertAll();
