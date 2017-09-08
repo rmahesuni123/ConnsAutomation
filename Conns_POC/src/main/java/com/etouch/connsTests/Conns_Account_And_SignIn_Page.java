@@ -2218,10 +2218,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
-					webPage.getDriver().navigate().refresh();
+					//webPage.getDriver().navigate().refresh();
 					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(test_data);
-					softAssert.assertEquals(actualErrorMessage.get(0).equalsIgnoreCase(Email_Address_Expected_Success_Message_Locator_Text) ,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
-					softAssert.assertEquals(actualErrorMessage.get(1).equalsIgnoreCase(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text),"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
+					softAssert.assertEquals(actualErrorMessage.get(0), Email_Address_Expected_Success_Message_Locator_Text,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
+					softAssert.assertEquals(actualErrorMessage.get(1), Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text,"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + actualErrorMessage.get(1));
 					softAssert.assertAll();
 					} 
 				else {
