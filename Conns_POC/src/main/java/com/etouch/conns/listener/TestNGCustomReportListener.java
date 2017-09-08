@@ -42,7 +42,7 @@ public class TestNGCustomReportListener implements IReporter {
 	private int m_row;
 	private Integer m_testIndex;
 	private int m_methodIndex;
-	private String reportTitle = "TestNG Customized Report";
+	private String reportTitle = "Conn's Execution Report";
 	private String reportFileName = "custom-report.html";
 
 	/** Creates summary of the run */
@@ -81,9 +81,9 @@ public class TestNGCustomReportListener implements IReporter {
 		startResultSummaryTable("methodOverview");
 		int testIndex = 1;
 		for (ISuite suite : suites) {
-			if (suites.size() >= 1) {
-				titleRow(suite.getName(), 6);
-			}
+		//	if (suites.size() >= 1) {
+		//		titleRow(suite.getName(), 6);
+		//	}
 			Map<String, ISuiteResult> r = suite.getResults();
 			for (ISuiteResult r2 : r.values()) {
 				ITestContext testContext = r2.getTestContext();
@@ -403,7 +403,7 @@ public class TestNGCustomReportListener implements IReporter {
 	public void generateSuiteSummaryReport(List<ISuite> suites) {
 		tableStart("testOverview", null);
 		writer.print("<tr>");
-		tableColumnStart("Test");
+	//	tableColumnStart("Test");
 		tableColumnStart("Browser\\Mobile");
 		tableColumnStart("Test Scripts<br/>Passed");
 		tableColumnStart("No. of Skipped Tests");
@@ -430,17 +430,17 @@ public class TestNGCustomReportListener implements IReporter {
 		long totalTimeinSeconds=0;
 		for (ISuite suite : suites) {
 		//	if (suites.size() >= 1) {
-			//	titleRow(suite.getName(), 10);
+		//		titleRow(suite.getName(), 10);
 		//	}
 			Map<String, ISuiteResult> tests = suite.getResults();
 			for (ISuiteResult r : tests.values()) {
 				qty_tests += 1;
 				ITestContext overview = r.getTestContext();
 				//startSummaryRow(overview.getName());
-				startSummaryRow(suite.getName());
+				//startSummaryRow(suite.getName());
 				// Write OS and Browser
 				//startSummaryRow(overview.getName());
-				summaryCell(overview.getName(), true);
+				summaryCell(overview.getName().replace("Test", "   "), true);
 				int q = getMethodSet(overview.getPassedTests(), suite).size();
 				qty_pass_m += q;
 				summaryCell(q, Integer.MAX_VALUE);
@@ -477,8 +477,9 @@ public class TestNGCustomReportListener implements IReporter {
 			}
 		}
 		if (qty_tests > 1) {
-			writer.println("<tr class=\"total\"><td>Total</td>");
-			summaryCell(" ", true);
+			writer.println("<tr class=\"total\">");//<td>Total</td>
+			summaryCell("Total", true);
+		//	summaryCell(" ", true);
 			summaryCell(qty_pass_m, Integer.MAX_VALUE);
 			summaryCell(qty_skip, 0);
 			summaryCell(qty_fail, 0);
@@ -564,7 +565,7 @@ public class TestNGCustomReportListener implements IReporter {
 		out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">");
 		out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
 		out.println("<head>");
-		out.println("<title>TestNG Report</title>");
+		out.println("<title>Customized Report</title>");
 		out.println("<style type=\"text/css\">");
 		out.println("table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}");
 		out.println("td,th {border:1px solid #009;padding:.25em .5em}");
