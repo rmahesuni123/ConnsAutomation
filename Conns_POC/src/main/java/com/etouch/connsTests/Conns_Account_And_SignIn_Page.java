@@ -282,7 +282,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			/*String Sign_In_Home_Page_Header_Link = test_data[0][3];
 		      commonMethods.clickElementbyXpath(webPage, Sign_In_Home_Page_Header_Link, softAssert);*/
 			//webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
-			//webPage.getDriver().navigate().refresh();
+			webPage.getDriver().navigate().refresh();
 			webPage.getCurrentUrl();// For Safari
 			Thread.sleep(3000);
 			commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
