@@ -284,7 +284,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			//webPage.getDriver().navigate().to(Navigate_To_Account_Login_Form_URL);
 			webPage.getDriver().navigate().refresh();
 			webPage.getCurrentUrl();// For Safari
-			Thread.sleep(3000);
+			Thread.sleep(4000);
 			commonMethods.clickElementbyXpath(webPage, Locator, softAssert);
 			String verify_Whats_This_Overlay_Close_Actual_Content = commonMethods.getTextbyCss(webPage,contentonoverlaylocator, softAssert);
 			softAssert.assertEquals(verify_Whats_This_Overlay_Close_Actual_Content,verify_Whats_This_Overlay_Close_Expected_Content,"verify_Whats_This_Overlay_Close verification failed.  Whats_This_Overlay_Close_Expected_Content : " + verify_Whats_This_Overlay_Close_Expected_Content	+ " Whats_This_Overlay_Rendered_Actual_Content : "	+ verify_Whats_This_Overlay_Close_Actual_Content);
