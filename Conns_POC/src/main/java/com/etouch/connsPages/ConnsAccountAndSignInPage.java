@@ -404,6 +404,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Blank_Input(String[][] testdata) {
 		List<String> errorMessage = new ArrayList<String>();
+		SoftAssert softAssert = new SoftAssert();
 		String First_Name_Actual_Error_Message_Locator="";
 		String Last_Name_Actual_Error_Message_Locator="";
 		String Email_Address_Actual_Error_Message_Locator="";
@@ -428,7 +429,23 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 		try {
 			if (!(Email_Address_Input.equalsIgnoreCase("NA") && Password_Input.equalsIgnoreCase("NA"))) {
-				webPage.findObjectByxPath(First_Name_Locator).clear();
+				
+				commonMethods.clearElementbyXpath(webPage, First_Name_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Last_Name_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Email_Address_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Password_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Confirm_Password_Locator, softAssert);
+				
+				
+				commonMethods.sendKeysbyXpath(webPage, First_Name_Locator, First_Name_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Last_Name_Locator, Last_Name_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Email_Address_Locator, Email_Address_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Password_Locator, Password_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Confirm_Password_Locator, Confirm_Password_Input, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Submit_Button_Locator, softAssert);
+				
+				
+				/*webPage.findObjectByxPath(First_Name_Locator).clear();
 				webPage.findObjectByxPath(Last_Name_Locator).clear();
 				webPage.findObjectByxPath(Email_Address_Locator).clear();
 				webPage.findObjectByxPath(Password_Locator).clear();
@@ -438,7 +455,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				webPage.findObjectByxPath(Email_Address_Locator).sendKeys(Email_Address_Input);
 				webPage.findObjectByxPath(Password_Locator).sendKeys(Password_Input);				
 				webPage.findObjectByxPath(Confirm_Password_Locator).sendKeys(Confirm_Password_Input);
-				webPage.findObjectByxPath(Submit_Button_Locator).click();
+				webPage.findObjectByxPath(Submit_Button_Locator).click();*/
+				
 				First_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(First_Name_Expected_Error_Message_Locator).getText();
 				Last_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(Last_Name_Expected_Error_Message_Locator).getText();
 				Email_Address_Actual_Error_Message_Locator = webPage.findObjectByxPath(Email_Address_Expected_Error_Message_Locator).getText();
@@ -463,6 +481,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Invalid_Input(String[][] testdata) {
 		List<String> errorMessage = new ArrayList<String>();
+		SoftAssert softAssert = new SoftAssert();
 		String First_Name_Actual_Error_Message_Locator="";
 		String Last_Name_Actual_Error_Message_Locator="";
 		String Email_Address_Actual_Error_Message_Locator="";
@@ -491,7 +510,30 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 		try {
 			if (!(Email_Address_Input.equalsIgnoreCase("NA") && Password_Input.equalsIgnoreCase("NA"))) {
-				webPage.findObjectByxPath(First_Name_Locator).clear();
+				
+				
+				commonMethods.clearElementbyXpath(webPage, First_Name_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Last_Name_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Email_Address_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Password_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Confirm_Password_Locator, softAssert);
+				
+				log.info("First_Name_Input : " +First_Name_Input);
+				log.info("Last_Name_Input : " +Last_Name_Input);
+				log.info("Email_Address_Input : " +Email_Address_Input);
+				log.info("Password_Input : " +Password_Input);
+				log.info("Confirm_Password_Input : " +Confirm_Password_Input);
+				
+				commonMethods.sendKeysbyXpath(webPage, First_Name_Locator, First_Name_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Last_Name_Locator, Last_Name_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Email_Address_Locator, Email_Address_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Password_Locator, Password_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Confirm_Password_Locator, Confirm_Password_Input, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Remember_Me_Box_Area, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Submit_Button_Locator, softAssert);
+				
+				
+			/*	webPage.findObjectByxPath(First_Name_Locator).clear();
 				webPage.findObjectByxPath(Last_Name_Locator).clear();
 				webPage.findObjectByxPath(Email_Address_Locator).clear();
 				webPage.findObjectByxPath(Password_Locator).clear();
@@ -502,7 +544,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				webPage.findObjectByxPath(Password_Locator).sendKeys(Password_Input);				
 				webPage.findObjectByxPath(Confirm_Password_Locator).sendKeys(Confirm_Password_Input);
 				webPage.findObjectByxPath(Remember_Me_Box_Area).click();
-				webPage.findObjectByxPath(Submit_Button_Locator).click();
+				webPage.findObjectByxPath(Submit_Button_Locator).click();*/
 				//First_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(First_Name_Expected_Error_Message_Locator).getText();
 				//Last_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(Last_Name_Expected_Error_Message_Locator).getText();
 				CommonMethods.waitForWebElement(By.xpath(Invalid_Email_Address_Expected_Error_Message), webPage);
@@ -528,6 +570,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(String[][] testdata) {
 		List<String> errorMessage = new ArrayList<String>();
+		SoftAssert softAssert = new SoftAssert();
 		String First_Name_Actual_Error_Message_Locator="";
 		String Last_Name_Actual_Error_Message_Locator="";
 		String Email_Address_Actual_Error_Message_Locator="";
@@ -564,21 +607,46 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 		try {
 			if (!(Email_Address_Input_Dynamic.equalsIgnoreCase("NA") && Password_Input.equalsIgnoreCase("NA"))) {
-				webPage.findObjectByxPath(First_Name_Locator).clear();
+			
+				
+				commonMethods.clearElementbyXpath(webPage, First_Name_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Last_Name_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Email_Address_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Password_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Confirm_Password_Locator, softAssert);
+					
+				
+				webPage.getDriver().navigate().refresh();
+				commonMethods.clickElementbyXpath(webPage, Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
+				//webPage.findObjectByxPath(Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator).click();
+				log.info("First_Name_Input : " +First_Name_Input);
+				log.info("Last_Name_Input : " +Last_Name_Input);
+				log.info("Email_Address_Input_Dynamic : " +Email_Address_Input_Dynamic);
+				log.info("Password_Input : " +Password_Input);
+				log.info("Confirm_Password_Input : " +Confirm_Password_Input);
+				
+				commonMethods.sendKeysbyXpath(webPage, First_Name_Locator, First_Name_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Last_Name_Locator, Last_Name_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Email_Address_Locator, Email_Address_Input_Dynamic, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Password_Locator, Password_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Confirm_Password_Locator, Confirm_Password_Input, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Submit_Button_Locator, softAssert);
+				
+				/*webPage.findObjectByxPath(First_Name_Locator).clear();
 				webPage.findObjectByxPath(Last_Name_Locator).clear();
 				webPage.findObjectByxPath(Email_Address_Locator).clear();
 				webPage.findObjectByxPath(Password_Locator).clear();
 				webPage.findObjectByxPath(Confirm_Password_Locator).clear();
-				webPage.findObjectByxPath(Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator).click();
 				webPage.findObjectByxPath(First_Name_Locator).sendKeys(First_Name_Input);
 				webPage.findObjectByxPath(Last_Name_Locator).sendKeys(Last_Name_Input);
 				webPage.findObjectByxPath(Email_Address_Locator).sendKeys(Email_Address_Input_Dynamic);
 				webPage.findObjectByxPath(Password_Locator).sendKeys(Password_Input);				
 				webPage.findObjectByxPath(Confirm_Password_Locator).sendKeys(Confirm_Password_Input);
 				//webPage.findObjectByxPath(Remember_Me_Box_Area).click();
-				webPage.findObjectByxPath(Submit_Button_Locator).click();
+				webPage.findObjectByxPath(Submit_Button_Locator).click();*/
 				
-				Thread.sleep(3000);
+				//Thread.sleep(1000);
+				CommonMethods.waitForWebElement(By.xpath(Valid_Email_Address_Expected_Successfull_Message_Locator), webPage);
 				Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
 				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
 				Thread.sleep(1000);

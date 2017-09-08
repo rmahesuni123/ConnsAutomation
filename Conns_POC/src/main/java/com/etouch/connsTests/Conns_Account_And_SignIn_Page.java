@@ -1871,7 +1871,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	
 	@Test(priority = 344, enabled = true)
 	public void verify_Register_Create_New_Customer_Functionality_with_Invalid_Input() throws InterruptedException {
-		log.info("******Started verification of Register functionality with blank input data ********");
+		log.info("******Started verification of Register functionality with Invalid input data ********");
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			log.info("******Started verification of Register Link in Create Account Sign-In or Register Page ********");
@@ -2186,7 +2186,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 
 	@Test(priority = 349, enabled = true)
 	public void verify_Register_Create_New_Customer_Functionality_with_Valid_Input() throws InterruptedException {
-		log.info("******Started verification of Register functionality with blank input data ********");
+		log.info("******Started verification of Register functionality with valid input data ********");
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			log.info("******Started verification of Register Link in Create Account Sign-In or Register Page ********");
@@ -2196,7 +2196,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Valid_Input");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
 			Thread.sleep(1000);
-			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			webPage.getDriver().navigate().refresh();
 			//webPage.getCurrentUrl();// For Safari
 			Thread.sleep(2000);
@@ -2218,9 +2218,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Locator, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
+					webPage.getDriver().navigate().refresh();
 					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(test_data);
-					softAssert.assertEquals(actualErrorMessage.get(0), Email_Address_Expected_Success_Message_Locator_Text,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
-					softAssert.assertEquals(actualErrorMessage.get(1), Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text,"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
+					softAssert.assertEquals(actualErrorMessage.get(0).equalsIgnoreCase(Email_Address_Expected_Success_Message_Locator_Text) ,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
+					softAssert.assertEquals(actualErrorMessage.get(1).equalsIgnoreCase(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text),"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
 					softAssert.assertAll();
 					} 
 				else {
