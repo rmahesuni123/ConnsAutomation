@@ -318,6 +318,7 @@ public class CommonMethods {
 		}
 	}
 	
+	
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get webelement using xpath
@@ -601,7 +602,16 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+	public void selectDropdownByValue(WebPage webPage, String locator,String dropdownvalue) {
+		try {
+			log.info("Selecting dropdown value - "+dropdownvalue);
+			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
+			Select select=new Select(web);
+			select.selectByValue(dropdownvalue);
+		} catch (Throwable e) {
+			Assert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
 	/**
 	 * @author Name - Shantanu Kulkarni
 	 * The method is used to get broken images	
