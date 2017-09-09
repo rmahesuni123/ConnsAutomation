@@ -13,3 +13,9 @@
 [0131/192803:ERROR:process_reader_win.cc(142)] SuspendThread: Access is denied. (0x5)
 [0131/192803:ERROR:exception_snapshot_win.cc(87)] thread ID 10716 not found in process
 [0131/192803:WARNING:crash_report_exception_handler.cc(61)] ProcessSnapshotWin::Initialize failed
+[0808/084732.302:ERROR:file_io_win.cc(164)] CreateFile C:\Users\asingh\AppData\Local\Temp\scoped_dir10072_31707\Crashpad\reports\167709a9-322d-43eb-a8e1-ac2d4f63f51f.dmp: The system cannot find the path specified. (0x3)
+[0808/084732.717:ERROR:http_body_gzip.cc(119)] deflateEnd: data error (-3)
+[0811/103425.302:ERROR:file_io_win.cc(164)] CreateFile C:\Users\asingh\AppData\Local\Temp\scoped_dir7752_28124\Crashpad\reports\bfe6596b-683d-4d81-be7f-9ee629c9277b.dmp: The system cannot find the path specified. (0x3)
+[0811/103425.317:ERROR:http_body_gzip.cc(119)] deflateEnd: data error (-3)
+[0818/214404.561:ERROR:file_io_win.cc(164)] CreateFile C:\Users\asingh\AppData\Local\Temp\scoped_dir8732_22819\Crashpad\reports\30adf761-20a2-49b1-9933-b9157c5d4b7e.dmp: The system cannot find the path specified. (0x3)
+[0818/214404.580:ERROR:http_body_gzip.cc(119)] deflateEnd: data error (-3)

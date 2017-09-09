@@ -108,31 +108,32 @@ testngConfig:
  groupName:
 
 webConfig:
-# hub: https://nalinikadam1:6jzexgNzHRz6SR5CLBKz@hub-cloud.browserstack.com/wd/hub
- hub: localhost
+ hub: https://nalinikadam1:6jzexgnzhrz6sr5clbkz@hub-cloud.browserstack.com/wd/hub
+ #hub: https://rajesh721:jykr2hewe4uuc2uvxyzp@hub-cloud.browserstack.com/wd/hub
+ #hub: localhost
  port: 4001
- URL: http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/
+ URL: http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/uat/
  tool: Selenium
  seleniumServerPath: ..\\test-automation-library\\resources\\selenium-server-standalone-2.48.2.jar
-# testEnv: remote
- testEnv: local
+ testEnv: remote
+ #testEnv: local
  testngClass:
- - className: com.etouch.connsTests.Conns_Account_And_SignIn_Page
-   methodList: [verify_Login_Page_Title]
- #- className: com.etouch.connsTests.Conns_Account_And_SignIn_Page
-  # methodList: [Verify_Payment_Info_ConnsCredit]  
- currentTestBeds: [Chrome]
-#currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari]
+ #- className: com.etouch.connsTests.Conns_Home_Page
+  # methodList: []
+ - className: com.etouch.connsTests.Conns_Money_Matters
+   methodList: []  
+ currentTestBeds: [Firefox,InternetExplorer]
+#currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari,edge]
  testBeds:
  #FireFox TestBed
  - testBedName: Firefox
    browser:
     name: fireFox
-    version: 53
+    version: 50.0
     driverLocation:
    platform:
-    name: Windows																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					z
-    version: 10
+    name: Windows
+    version: 7
     
  #IE11 TestBed
  - testBedName: InternetExplorer
@@ -142,15 +143,15 @@ webConfig:
     driverLocation: ..\\test-automation-library\\resources\\IEDriverServer.exe
    platform:
     name: Windows
-    version: 11
+    version: 7
     
  #Chrome TestBed
  - testBedName: Chrome
    browser:
-    name: Chrome
     version: 56.0
     driverLocation: ..\\test-automation-library\\resources\\chromedriver.exe
    platform:
+    name: Chrome
     name: Windows
     version: 10
 
@@ -163,44 +164,56 @@ webConfig:
    platform:
     name: OS X
     version: El Capitan
+    
+#Edge TestBed
+ - testBedName: edge
+   browser:
+    name: Edge
+    version: 14.0
+    driverLocation: ..\\test-automation-library\\resources\\MicrosoftWebDriver.exe
+   platform:
+    name: Windows
+    version: 10    
 
 
 mobileConfig:
- #hub: https://nalinikadam1:6jzexgNzHRz6SR5CLBKz@hub-cloud.browserstack.com/wd/hub
+ #hub: https://rajesh721:jykr2hewe4uuc2uvxyzp@hub-cloud.browserstack.com/wd/hub
+ #hub: https://rajesh721:jykr2hewe4uuc2uvxyzp@hub-cloud.browserstack.com/wd/hub
  hub: localhost
+ #hub: https://nalinikadam1:6jzexgnzhrz6sr5clbkz@hub-cloud.browserstack.com/wd/hub
  port: 4001
  tool: Appium
- #testEnv: remote
+ #testEnv: browserstack
  testEnv: local
  testngClass:
- - className: com.etouch.connsTests.Conns_Home_Page
-   methodList: [Verify_HomePage_Title,Verify_LinksRedirection_Of_Above_Header_Section]
- #- className: com.etouch.connsTests.Conns_Store_Locator_Page
-  # methodList: []
- currentTestBeds: [AndroidMotoG]
- #currentTestBeds: [AndroidNative,AndroidMotoG,iPhoneNative,iPadNative,Android1, Android]
+ - className: com.etouch.connsTests.Conns_Account_And_SignIn_Page
+   methodList: [verify_Register_Create_New_Customer_Functionality_with_Valid_Input]
+ #- className: com.etouch.connsTests.Conns_Account_And_SignIn_Page
+ #  methodList: []
+ currentTestBeds: [AndroidNative]
+ #currentTestBeds: [iPhoneNative,iPadNative,Android1, Android,AndroidNative,AndroidHybrid]
  
 
  appiumConfig:
-  nodePath: C:/Appium/node.exe
-  appiumJSPath: C:/Appium/node_modules/appium/bin/appium.js
+  nodePath: F:/Appium/node.exe
+  appiumJSPath: F:/Appium/node_modules/appium/bin/appium.js
 
 
  testBeds:
  #ios TestBeds
- - testBedName: AndroidNative
+ - testBedName: AndroidNative1
    port: 4753
    device:
-    name: LG
+    name: Google Nexus 6
     type: device
-    udid: 0a63d36b
+    udid: 0a63d36b 
    browser:
     name: chrome
     version: 52.0.2743.98
     driverLocation: /Users/eTouch
    platform:
     name: ANDROID
-    version: 5.1
+    version: 6.0
    app:
     appPath:
     appPackage: com.android.chrome
@@ -260,12 +273,12 @@ mobileConfig:
     appActivity: com.google.android.apps.chrome.Main
  
  #ios TestBeds
- - testBedName: Android12
-   port: 4733
+ - testBedName: AndroidNative
+   port: 4783
    device:
     name: Google Nexus 7
     type: device
-    udid: ce12160c8418570504
+    udid: 320817cf646a5131
    browser:
     name: Chrome
     version: 52.0.2743.98
@@ -298,12 +311,12 @@ mobileConfig:
     appActivity: com.google.android.apps.chrome.Main
 
  #ios TestBeds
- - testBedName: AndroidHybrid
+ - testBedName: AndroidNative12
    port: 4753
    device:
-    name: Karbonn
+    name: Samsung
     type: device
-    udid: LS1437839535
+    udid: 320817cf646a5131
    browser:
     name: chrome
     version: 52.0.2743.98
@@ -315,5 +328,3 @@ mobileConfig:
     appPath:
     appPackage: com.android.chrome
     appActivity: com.google.android.apps.chrome.Main
-
-
