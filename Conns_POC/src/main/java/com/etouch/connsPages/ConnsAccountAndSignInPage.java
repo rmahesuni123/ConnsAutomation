@@ -2944,14 +2944,15 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				else if (NameofTestCase.equalsIgnoreCase("invalidCrrpwd")) {
 					log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " );
 					
-					webPage.getDriver().navigate().refresh();
 					//commonMethods.clickElementbyXpath(webPage, Change_Password_Locator, softAssert);
 					
 					//webPage.waitForWebElement(By.xpath(ConfPwdErrMsgLocator));
 					Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page = commonMethods.getTextbyXpath(webPage,ConfPwdErrMsgLocator, softAssert);
 					log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " +Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
 					log.info("********************************************ConfPwdErrMsgLocator : *************************************************** " +ConfPwdErrMsgLocator);
-					//Thread.sleep(2000);
+					Thread.sleep(2000);
+					webPage.getDriver().navigate().refresh();
+
 					//SoftAssertor.assertEquals(webPage.findObjectByxPath(ConfPwdErrMsgLocator).getText(),ExpectedValMsg);
 
 			}
@@ -2960,7 +2961,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			errorMessage.add(Short_Password_Error_Message_Locator_Account_Information_Page);
 			errorMessage.add(New_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
 			errorMessage.add(Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
-			//errorMessage.add(Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
+			errorMessage.add(Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
 			//errorMessage.add(Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page);
 		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Short_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +Short_Password_Error_Message_Locator_Account_Information_Page);
 		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    New_Different_Value_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +New_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
