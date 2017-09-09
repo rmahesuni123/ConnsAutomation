@@ -2870,6 +2870,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	public List<String> verify_Account_Information_Tab_Change_Password_Functionality (String[][] inputdata) throws PageException, InterruptedException, AWTException {
 			List<String> errorMessage = new ArrayList<String>();
+			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 			String Short_Password_Error_Message_Locator_Account_Information_Page="";
 			String New_Different_Value_Password_Error_Message_Locator_Account_Information_Page="";
 			String Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page = "";
@@ -2895,7 +2896,6 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				String NameofTestCase = inputdata[r][12];
 				String Change_Password_Locator = inputdata[0][0];
 				
-				JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 				jse.executeScript("scroll(0, 250);");
 				log.info("******************************************** :::: verify_Account_Information_Tab_Change_Password_Functionality_Method_Call_Starts :::: *************************************************** ");
 				commonMethods.clickElementbyXpath(webPage, CurrPwdLocator, softAssert);
@@ -2914,6 +2914,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				log.info("********************************************ConfPwdinput : *************************************************** " +ConfPwdinput);
 				log.info("********************************************ButtonLocator : *************************************************** " +ButtonLocator);
 				commonMethods.clickElementbyXpath(webPage, ButtonLocator, softAssert);
+				webPage.getDriver().navigate().refresh();
 				log.info("******************************************** |||||||||||||||||||||||||||||||||||||||||||||||  ButtonLocator Clicked Successfully ||||||||||||||||||||||||||||||||||||||||||||  : *************************************************** " +ButtonLocator);
 				if (NameofTestCase.equalsIgnoreCase("ShortPassword")) {
 					log.info("********************************************Short_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " );
