@@ -2960,7 +2960,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			errorMessage.add(Short_Password_Error_Message_Locator_Account_Information_Page);
 			errorMessage.add(New_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
 			errorMessage.add(Confirm_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
-			errorMessage.add(Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
+			//errorMessage.add(Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
 			//errorMessage.add(Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page);
 		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    Short_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +Short_Password_Error_Message_Locator_Account_Information_Page);
 		//	log.info(":::::::::::::::::::::::::::::::::::::::::*********************************************    New_Different_Value_Password_Error_Message_Locator_Account_Information_Page *************************************************** ::::::::::::::::::::::: " +New_Different_Value_Password_Error_Message_Locator_Account_Information_Page);
