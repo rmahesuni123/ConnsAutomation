@@ -531,6 +531,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				commonMethods.sendKeysbyXpath(webPage, Confirm_Password_Locator, Confirm_Password_Input, softAssert);
 				commonMethods.clickElementbyXpath(webPage, Remember_Me_Box_Area, softAssert);
 				commonMethods.clickElementbyXpath(webPage, Submit_Button_Locator, softAssert);
+				Thread.sleep(3000);
 				
 				
 			/*	webPage.findObjectByxPath(First_Name_Locator).clear();
@@ -548,9 +549,12 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				//First_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(First_Name_Expected_Error_Message_Locator).getText();
 				//Last_Name_Actual_Error_Message_Locator = webPage.findObjectByxPath(Last_Name_Expected_Error_Message_Locator).getText();
 				CommonMethods.waitForWebElement(By.xpath(Invalid_Email_Address_Expected_Error_Message), webPage);
-				Email_Address_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Email_Address_Expected_Error_Message).getText();
-				Password_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Password_Expected_Error_Message).getText();
-				Confirm_Password_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Confirm_Password_Expected_Error_Message).getText();
+				//Email_Address_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Email_Address_Expected_Error_Message).getText();
+				//Password_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Password_Expected_Error_Message).getText();
+				//Confirm_Password_Actual_Error_Message_Locator = webPage.findObjectByxPath(Invalid_Confirm_Password_Expected_Error_Message).getText();
+				Email_Address_Actual_Error_Message_Locator = commonMethods.getTextbyXpath(webPage, Invalid_Email_Address_Expected_Error_Message, softAssert);
+				Password_Actual_Error_Message_Locator = commonMethods.getTextbyXpath(webPage, Invalid_Password_Expected_Error_Message, softAssert);
+				Confirm_Password_Actual_Error_Message_Locator = commonMethods.getTextbyXpath(webPage, Invalid_Confirm_Password_Expected_Error_Message, softAssert);
 				//errorMessage.add(First_Name_Actual_Error_Message_Locator);
 				//errorMessage.add(Last_Name_Actual_Error_Message_Locator);
 				errorMessage.add(Email_Address_Actual_Error_Message_Locator);
@@ -647,8 +651,12 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				
 				//Thread.sleep(1000);
 				CommonMethods.waitForWebElement(By.xpath(Valid_Email_Address_Expected_Successfull_Message_Locator), webPage);
-				Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
-				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
+				//Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
+				//Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
+				Email_Address_Actual_Success_Message_Locator_Text = commonMethods.getTextbyXpath(webPage, Valid_Email_Address_Expected_Successfull_Message_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Header_Title_Locator, softAssert);
+
+				
 				Thread.sleep(1000);
 				errorMessage.add(Email_Address_Actual_Success_Message_Locator_Text);
 				errorMessage.add(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text);
