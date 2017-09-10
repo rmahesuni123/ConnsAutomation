@@ -2914,6 +2914,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				log.info("********************************************ConfPwdinput : *************************************************** " +ConfPwdinput);
 				log.info("********************************************ButtonLocator : *************************************************** " +ButtonLocator);
 				commonMethods.clickElementbyXpath(webPage, ButtonLocator, softAssert);
+				Thread.sleep(3000);
 				log.info("******************************************** |||||||||||||||||||||||||||||||||||||||||||||||  ButtonLocator Clicked Successfully ||||||||||||||||||||||||||||||||||||||||||||  : *************************************************** " +ButtonLocator);
 				if (NameofTestCase.equalsIgnoreCase("ShortPassword")) {
 					log.info("********************************************Short_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " );
@@ -2946,12 +2947,12 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					
 					//commonMethods.clickElementbyXpath(webPage, Change_Password_Locator, softAssert);
 					
-					//webPage.waitForWebElement(By.xpath(ConfPwdErrMsgLocator));
+					webPage.waitForWebElement(By.xpath(ConfPwdErrMsgLocator));
 					Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page = commonMethods.getTextbyXpath(webPage,ConfPwdErrMsgLocator, softAssert);
 					log.info("********************************************Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page : *************************************************** " +Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page);
 					log.info("********************************************ConfPwdErrMsgLocator : *************************************************** " +ConfPwdErrMsgLocator);
 					Thread.sleep(2000);
-					webPage.getDriver().navigate().refresh();
+					//webPage.getDriver().navigate().refresh();
 
 					//SoftAssertor.assertEquals(webPage.findObjectByxPath(ConfPwdErrMsgLocator).getText(),ExpectedValMsg);
 
