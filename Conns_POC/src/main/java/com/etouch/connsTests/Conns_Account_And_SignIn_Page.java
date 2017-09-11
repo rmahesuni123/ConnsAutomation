@@ -802,8 +802,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][2];
 		/*String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
 		log.info("verify_Account_DashBoard_Login will be executing");
-		if(ConnsSignInPage==null)System.out.println("NULLLLLLLLLLLLLLLLl");
-		if(test_data==null)System.out.println("NULLLLLLLLLLLLLLLLl2222222222222");
+		if(ConnsSignInPage==null)log.info("NULLLLLLLLLLLLLLLLl");
+		if(test_data==null)log.info("NULLLLLLLLLLLLLLLLl2222222222222");
 		ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
 		for (int r = 0; r < testdata.length; r++) {
 			
@@ -1431,8 +1431,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
-			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] safari_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Safari_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
@@ -1479,9 +1479,12 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				else if (testType.equalsIgnoreCase("Web")) {
 					log.info("***************************************** Account Dashboard Drop Down For Web Starts********************************");
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Resizeable_Account_Tab(demo_data);
-					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
-					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
-					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase((Page_Expected_Title).trim()),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains((Page_Expected_URL).trim()),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
+					log.info("text1 : "+Page_URL_Title_Data.get(2).trim()+"---"+Page_URL_Title_Data.get(2).trim().length());
+					log.info("text2 : "+Page_Expected_Element_Name.trim()+"---"+Page_Expected_Element_Name.trim().length());
+					//softAssert.assertEquals(Page_URL_Title_Data.get(2).trim(),Page_Expected_Element_Name.trim() ,"  Account Information DashBoard Tab verification failed For Page Element Name . Expected_Page_Element  contains : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name contains : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).trim().equalsIgnoreCase((Page_Expected_Element_Name).trim()) ,"  Account Information DashBoard Tab verification failed For Page Element Name . Expected_Page_Element  contains : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name contains : "+Page_URL_Title_Data.get(2));
 				}
 
 				 log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
