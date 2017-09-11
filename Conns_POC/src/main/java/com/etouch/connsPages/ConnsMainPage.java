@@ -40,7 +40,7 @@ public class ConnsMainPage extends CommonPage {
 		// if(TestBedManager.INSTANCE.getCurrentTestBed().getDevice().getName()
 		// != null){
 
-		loadPage();
+		//loadPage();
 
 		// }
 	}

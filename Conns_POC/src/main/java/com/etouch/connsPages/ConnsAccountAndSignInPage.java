@@ -53,7 +53,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	public ConnsAccountAndSignInPage(String sbPageUrl, WebPage webPage) {
 		super(sbPageUrl, webPage);
 		log.info("webDriver in Conns Page : " + webPage.getDriver());
-		loadPage();		
+		//loadPage();		
 	}
 
 	public void verifyPageTitle(String[][] testdata) {
@@ -224,6 +224,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Navigate_To_RWD_URL = testdata[0][8];
 		//SoftAssert softAssert = new SoftAssert();
 		try {	
+			log.info("verify_Account_DashBoard_Login will start :  ");
 			webPage.getDriver().navigate().to(Navigate_To_RWD_URL);
 			commonMethods.sendKeysbyXpath(webPage, EmailAddressLocator, EmailAddress, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, PasswordLocator, Password, softAssert);	
@@ -572,7 +573,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	}
 	
 	
-	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(String[][] testdata) {
+	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Mobile_Valid_Input(String[][] testdata) {
 		List<String> errorMessage = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
 		String First_Name_Actual_Error_Message_Locator="";
@@ -653,6 +654,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				CommonMethods.waitForWebElement(By.xpath(Valid_Email_Address_Expected_Successfull_Message_Locator), webPage);
 				//Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
 				//Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
+				
+						
+				
 				Email_Address_Actual_Success_Message_Locator_Text = commonMethods.getTextbyXpath(webPage, Valid_Email_Address_Expected_Successfull_Message_Locator, softAssert);
 				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Header_Title_Locator, softAssert);
 
@@ -673,6 +677,117 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		log.info("Exit  :" +errorMessage.get(0) + errorMessage.get(1));
 		return errorMessage;
 	}
+	
+	
+	
+	
+	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Web_Valid_Input(String[][] testdata) {
+		List<String> errorMessage = new ArrayList<String>();
+		SoftAssert softAssert = new SoftAssert();
+		String First_Name_Actual_Error_Message_Locator="";
+		String Last_Name_Actual_Error_Message_Locator="";
+		String Email_Address_Actual_Error_Message_Locator="";
+		String Password_Actual_Error_Message_Locator="";
+		String Confirm_Password_Actual_Error_Message_Locator="";
+		String Email_Address_Actual_Success_Message_Locator_Text = "";
+		String First_Name_Locator = testdata[0][5];
+		String First_Name_Input = testdata[0][6];
+		String Last_Name_Locator = testdata[0][7];
+		String Last_Name_Input = testdata[0][8];
+		String Email_Address_Locator = testdata[0][9];
+		String Email_Address_Input_Dynamic = testdata[0][10];
+		String Password_Locator = testdata[0][11];
+		String Password_Input = testdata[0][12];
+		String Confirm_Password_Locator = testdata[0][13];
+		String Confirm_Password_Input = testdata[0][14];
+		String Submit_Button_Locator = testdata[0][15];
+		String First_Name_Expected_Error_Message_Locator = testdata[0][16];
+		String Last_Name_Expected_Error_Message_Locator = testdata[0][17];
+		String Email_Address_Expected_Error_Message_Locator = testdata[0][18];
+		String Password_Expected_Error_Message_Locator = testdata[0][19];
+		String Confirm_Password_Expected_Error_Message_Locator = testdata[0][20];
+		String Invalid_Email_Address_Expected_Error_Message = testdata[0][22];
+		String Invalid_Password_Expected_Error_Message = testdata[0][23];
+		String Invalid_Confirm_Password_Expected_Error_Message = testdata[0][24];
+		String Remember_Me_Box_Area = testdata[0][28];
+		String Valid_Email_Address_Expected_Successfull_Message_Locator = testdata[0][30];
+		String Newly_Created_User_Name_DashBoard_Header_Title_Locator = testdata[0][32];
+		//String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = testdata[0][33];
+		String Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator = testdata[0][34];
+		String Email_Address_Input_Random_Number = Email_Address_Input_Dynamic.concat(getID());
+		Email_Address_Input_Dynamic = Email_Address_Input_Random_Number+"@gmail.com";
+		String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = null;
+
+		try {
+			if (!(Email_Address_Input_Dynamic.equalsIgnoreCase("NA") && Password_Input.equalsIgnoreCase("NA"))) {
+			
+				
+				commonMethods.clearElementbyXpath(webPage, First_Name_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Last_Name_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Email_Address_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Password_Locator, softAssert);
+				commonMethods.clearElementbyXpath(webPage, Confirm_Password_Locator, softAssert);
+					
+				
+				webPage.getDriver().navigate().refresh();
+				commonMethods.clickElementbyXpath(webPage, Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator, softAssert);
+				//webPage.findObjectByxPath(Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator).click();
+				log.info("First_Name_Input : " +First_Name_Input);
+				log.info("Last_Name_Input : " +Last_Name_Input);
+				log.info("Email_Address_Input_Dynamic : " +Email_Address_Input_Dynamic);
+				log.info("Password_Input : " +Password_Input);
+				log.info("Confirm_Password_Input : " +Confirm_Password_Input);
+				
+				commonMethods.sendKeysbyXpath(webPage, First_Name_Locator, First_Name_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Last_Name_Locator, Last_Name_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Email_Address_Locator, Email_Address_Input_Dynamic, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Password_Locator, Password_Input, softAssert);
+				commonMethods.sendKeysbyXpath(webPage, Confirm_Password_Locator, Confirm_Password_Input, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Submit_Button_Locator, softAssert);
+				
+				/*webPage.findObjectByxPath(First_Name_Locator).clear();
+				webPage.findObjectByxPath(Last_Name_Locator).clear();
+				webPage.findObjectByxPath(Email_Address_Locator).clear();
+				webPage.findObjectByxPath(Password_Locator).clear();
+				webPage.findObjectByxPath(Confirm_Password_Locator).clear();
+				webPage.findObjectByxPath(First_Name_Locator).sendKeys(First_Name_Input);
+				webPage.findObjectByxPath(Last_Name_Locator).sendKeys(Last_Name_Input);
+				webPage.findObjectByxPath(Email_Address_Locator).sendKeys(Email_Address_Input_Dynamic);
+				webPage.findObjectByxPath(Password_Locator).sendKeys(Password_Input);				
+				webPage.findObjectByxPath(Confirm_Password_Locator).sendKeys(Confirm_Password_Input);
+				//webPage.findObjectByxPath(Remember_Me_Box_Area).click();
+				webPage.findObjectByxPath(Submit_Button_Locator).click();*/
+				
+				//Thread.sleep(1000);
+				CommonMethods.waitForWebElement(By.xpath(Valid_Email_Address_Expected_Successfull_Message_Locator), webPage);
+				//Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
+				//Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
+				
+						
+				
+				Email_Address_Actual_Success_Message_Locator_Text = commonMethods.getTextbyXpath(webPage, Valid_Email_Address_Expected_Successfull_Message_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Header_Title_Locator, softAssert);
+
+				
+				Thread.sleep(1000);
+				errorMessage.add(Email_Address_Actual_Success_Message_Locator_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text);
+
+
+			}
+		}
+			catch (Throwable e) {
+				e.printStackTrace();
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Login failed");
+			log.error(e.getMessage());
+		}
+		log.info("Exit  :" +errorMessage.get(0) + errorMessage.get(1));
+		return errorMessage;
+	}
+	
+	
+	
 	
 	
 	public static String getID()

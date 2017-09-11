@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -794,14 +795,18 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	/*** Test Case - 025 - Verify "Credit Applications" section on My Account page It should shows the applied credit status/details*/
 	@Test(priority = 323, enabled = true)
 	public void Verify_Credit_Application_Sec() {
-		log.info("******Started verification of credit Application sec on Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
+		try {
+		log.info("******Started verification of credit Application sec on Account Dashborad tab after login ********");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Verify_Credit_Application_Section");
 		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][2];
 		/*String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		  ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
+		log.info("verify_Account_DashBoard_Login will be executing");
+		if(ConnsSignInPage==null)System.out.println("NULLLLLLLLLLLLLLLLl");
+		if(test_data==null)System.out.println("NULLLLLLLLLLLLLLLLl2222222222222");
+		ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
 		for (int r = 0; r < testdata.length; r++) {
-			try {
+			
 				//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 				webPage.getCurrentUrl();// For Safari
 				String Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = commonMethods.getTextbyXpath(webPage, testdata[r][0], null);
@@ -810,12 +815,15 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				log.info("Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification    :*****************************  "	+ Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification);
 				log.info("Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification  :*****************************  "	+ Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification);
 				softAssert.assertAll();
-				} catch (Throwable e) {
-				mainPage.getScreenShotForFailure(webPage, "Verify_Credit_Application_Sec");
-				softAssert.assertAll();
-				Assert.fail(e.getLocalizedMessage());
+				
 			}
-		}
+		
+	} catch (Throwable e) {
+		e.printStackTrace();	
+		mainPage.getScreenShotForFailure(webPage, "Verify_Credit_Application_Sec");
+		softAssert.assertAll();
+		Assert.fail(e.getLocalizedMessage());
+	}
 	}
 
 	/*** Test Case - 026 - Verify AccountInformationTab and Change Password functionality  @throws PageException Verify "Account Information" page title,Verify  "Account Information" form input validations by submitting blank form,Verify email address field validation with some invalid email address  @throws InterruptedException	 */
@@ -863,7 +871,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	public void verify_Account_Information_Tab_Change_Password_Functionality() throws PageException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		 ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
+		ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
 		log.info("verification of Mandatory field validation message started");
 		String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "VerifyChangePasswordfun");
 		String Navigate_To_Account_Information_Tab_Form_Change_Password_URL = inputdata[0][16];
@@ -1423,8 +1431,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
-			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] safari_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Safari_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
@@ -2196,7 +2204,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String[][] web_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Register_Create_New_Customer_Functionality_with_Valid_Input");
 			String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][29];
 			Thread.sleep(1000);
-			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 			webPage.getDriver().navigate().refresh();
 			//webPage.getCurrentUrl();// For Safari
 			Thread.sleep(2000);
@@ -2210,8 +2218,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Ham_Burger_Icon_Sign_In_Button_Locator = test_data[0][3];
 			String Mobile_Register_Button_Child_Element_Locator = test_data[0][4];
 			String Web_Register_Button_Child_Element_Locator = web_data[0][4];
-			String Email_Address_Expected_Success_Message_Locator_Text = test_data[0][31];
-			String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = test_data[0][33];
+			String Mobile_Email_Address_Expected_Success_Message_Locator_Text = test_data[0][31];
+			String Mobile_Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = test_data[0][33];
+			String Web_Email_Address_Expected_Success_Message_Locator_Text = web_data[0][31];
+			String Web_Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = web_data[0][33];
+			
 			log.info("***************************************** Account Dashboard Drop Down For Mobile will be starting********************************");
 				if (testType.equalsIgnoreCase("Mobile")) {
 					log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
@@ -2219,9 +2230,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, Ham_Burger_Icon_Sign_In_Button_Locator, softAssert);
 					commonMethods.clickElementbyXpath(webPage, Mobile_Register_Button_Child_Element_Locator, softAssert);
 					webPage.getDriver().navigate().refresh();
-					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(test_data);
-					softAssert.assertEquals(actualErrorMessage.get(0).equalsIgnoreCase(Email_Address_Expected_Success_Message_Locator_Text) ,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
-					softAssert.assertEquals(actualErrorMessage.get(1).equalsIgnoreCase(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text),"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Mobile_Valid_Input(test_data);
+					softAssert.assertTrue(actualErrorMessage.get(0).equalsIgnoreCase(Mobile_Email_Address_Expected_Success_Message_Locator_Text) ,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Mobile_Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
+					softAssert.assertTrue(actualErrorMessage.get(1).equalsIgnoreCase(Mobile_Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text),"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Mobile_Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
 					softAssert.assertAll();
 					} 
 				else {
@@ -2229,9 +2240,9 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					Thread.sleep(1000);
 					commonMethods.clickElementbyXpath(webPage, Web_Register_Button_Child_Element_Locator, softAssert);
 					Thread.sleep(2000);
-					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Valid_Input(web_data); 
-					softAssert.assertEquals(actualErrorMessage.get(0), Email_Address_Expected_Success_Message_Locator_Text,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
-					softAssert.assertEquals(actualErrorMessage.get(1), Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text,"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
+					List<String> actualErrorMessage = ConnsSignInPage.verify_Register_New_User_Create_An_Account_Functionality_with_Web_Valid_Input(web_data); 
+					softAssert.assertTrue(actualErrorMessage.get(0).equalsIgnoreCase(Web_Email_Address_Expected_Success_Message_Locator_Text) ,"Login Functionality with Valid Input verification failed For Email_Address_Expected_Success_Message_Locator_Text . Email_Address_Expected_Success_Message_Locator_Text : " + Web_Email_Address_Expected_Success_Message_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(0));
+					softAssert.assertTrue(actualErrorMessage.get(1).equalsIgnoreCase(Web_Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text),"Login Functionality with Valid Input verification failed For Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text . Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text : " + Web_Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text   + " Email_Address_Actual_Success_Message_Locator_Text : " + actualErrorMessage.get(1));
 					softAssert.assertAll();
 					} 
 				log.info("***************************************** Account Dashboard Drop Down For Web Count ******************************** : " +count);
