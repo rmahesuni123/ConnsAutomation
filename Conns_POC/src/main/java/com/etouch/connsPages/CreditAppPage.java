@@ -75,17 +75,15 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param softAssert
 	 * @throws Exception
 	 */
-	public static void navigateToHomePage(SoftAssert softAssert) throws Exception {
-		if (webPage.getPageTitle().equalsIgnoreCase(commonData.get("HomePageTitle"))) {
-			log.info("Already on HomePage");
-			webPage.getDriver().navigate().refresh();
-		} else {
-			webPage.navigateToUrl(url);
-			log.info("Navigating to Home Page");
-			verifyPageTitle(commonData.get("HomePageTitle"), softAssert);
-		}
-	}
-
+	/*
+	 * public static void navigateToHomePage(SoftAssert softAssert) throws
+	 * Exception { if
+	 * (webPage.getPageTitle().equalsIgnoreCase(commonData.get("HomePageTitle"))
+	 * ) { log.info("Already on HomePage");
+	 * webPage.getDriver().navigate().refresh(); } else {
+	 * webPage.navigateToUrl(url); log.info("Navigating to Home Page");
+	 * verifyPageTitle(commonData.get("HomePageTitle"), softAssert); } }
+	 */
 	/**
 	 * Verify page title
 	 * 
@@ -932,17 +930,20 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param softAssert
 	 * @throws Exception
 	 */
-	public static void chnageEmailAddress(String newEmailAddress, SoftAssert softAssert) throws Exception {
-		navigateToHomePage(softAssert);
-		commonMethods.clickElementbyXpath(webPage, commonData.get("SignInMenu"), softAssert);
-		commonMethods.clickElementbyXpath(webPage, commonData.get("SignInMenuMyAccountOption"), softAssert);
-		commonMethods.clickElementbyXpath(webPage, commonData.get("ContactInformationEditOption"), softAssert);
-		commonMethods.sendKeysbyXpath(webPage, commonData.get("AccountInformationEmailAddress"), newEmailAddress,
-				softAssert);
-		commonMethods.clickElementbyXpath(webPage, commonData.get("AccountInformationSaveButton"), softAssert);
-		navigateToCreditAppPage(softAssert);
-	}
-
+	/*
+	 * public static void chnageEmailAddress(String newEmailAddress,SoftAssert
+	 * softAssert) throws Exception { navigateToHomePage(softAssert);
+	 * commonMethods.clickElementbyXpath(webPage, commonData.get("SignInMenu"),
+	 * softAssert); commonMethods.clickElementbyXpath(webPage,
+	 * commonData.get("SignInMenuMyAccountOption"), softAssert);
+	 * commonMethods.clickElementbyXpath(webPage,
+	 * commonData.get("ContactInformationEditOption"), softAssert);
+	 * commonMethods.sendKeysbyXpath(webPage,
+	 * commonData.get("AccountInformationEmailAddress"),newEmailAddress,
+	 * softAssert); commonMethods.clickElementbyXpath(webPage,
+	 * commonData.get("AccountInformationSaveButton"), softAssert);
+	 * navigateToCreditAppPage(softAssert); }
+	 */
 	/**
 	 * Logout already logged in user and navigates to credit app page
 	 * 
@@ -950,13 +951,14 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param softAssert
 	 * @throws Exception
 	 */
-	public static void signOut(SoftAssert softAssert) throws Exception {
-		navigateToHomePage(softAssert);
-		commonMethods.clickElementbyXpath(webPage, commonData.get("SignInMenu"), softAssert);
-		commonMethods.clickElementbyXpath(webPage, commonData.get("SignInMenuLogoutOption"), softAssert);
-		navigateToCreditAppPage(softAssert);
-	}
-
+	/*
+	 * public static void signOut(SoftAssert softAssert) throws Exception {
+	 * navigateToHomePage(softAssert);
+	 * commonMethods.clickElementbyXpath(webPage, commonData.get("SignInMenu"),
+	 * softAssert); commonMethods.clickElementbyXpath(webPage,
+	 * commonData.get("SignInMenuLogoutOption"), softAssert);
+	 * navigateToCreditAppPage(softAssert); }
+	 */
 	public static void verifyErrorMessageForIos(SoftAssert softAssert, String[][] test) {
 		for (int r = 0; r < test.length; r++) {
 			commonMethods.sendKeysById(webPage, test[r][1], test[r][2], softAssert);
@@ -969,9 +971,30 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		}
 	}
 
-	public static void selectValueWithGivenDate(String date, String mm, String dd, String yyyy) throws Exception {
-		commonMethods.selectDropdownByValue(webPage, date.substring(0, 2), mm);
-		commonMethods.selectDropdownByValue(webPage, date.substring(3, 5), dd);
-		commonMethods.selectDropdownByValue(webPage, date.substring(6, 10), yyyy);
+	/*public void selectValueWithInvalidDate(String mmXpath, String ddXpath, String yyyyXpath) throws Exception {
+		commonMethods.selectDropdownByValue(webPage, mmXpath, "02");
+		commonMethods.selectDropdownByValue(webPage, ddXpath, "30");
+		commonMethods.selectDropdownByValue(webPage, yyyyXpath, "2017");
+	}
+
+	public void selectValueWithCurrentDate(String mmXpath, String ddXpath, String yyyyXpath, String currentDate)
+			throws Exception {
+		commonMethods.selectDropdownByValue(webPage, mmXpath, currentDate.substring(0, 2));
+		commonMethods.selectDropdownByValue(webPage, ddXpath, currentDate.substring(3, 5));
+		commonMethods.selectDropdownByValue(webPage, yyyyXpath, currentDate.substring(6, 10));
+	}*/
+
+	public static void selectValueWithGivenDate(String mmXpath, String ddXpath, String yyyyXpath, String date) throws Exception {
+		commonMethods.selectDropdownByValue(webPage, yyyyXpath, date.substring(6, 10));
+		commonMethods.selectDropdownByValue(webPage, mmXpath, date.substring(0, 2));
+		commonMethods.selectDropdownByValue(webPage, ddXpath, date.substring(3, 5));
+		Thread.sleep(7000);
 	}
 }
+/*
+ * public static void verifyAutoPopulateCityState() { WebElement element =
+ * commonMethods.getWebElementbyID(webPage, locator, softAssert);
+ * element.sendKeys(inputText+Keys.TAB);
+ * 
+ * }
+ */
