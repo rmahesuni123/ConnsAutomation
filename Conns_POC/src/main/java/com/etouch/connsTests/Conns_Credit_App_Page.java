@@ -891,8 +891,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 						"Last Pay Date with Invalid Date:");
 				CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
 						PastDate_2month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getText(), YesLeaseData[2][2],
-						"Last Pay Date with Next Month validation:");
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[47][1]).getText(), YesLeaseData[48][1],
+						"Last Pay Date with PastDate_2month validation:");
 				CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
 						yesterdays_Date);
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getText(),"","Last Pay Date with yesterdays_Date validation:");
@@ -958,6 +958,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				CardNumberField.sendKeys("2345");
 				routingNumberField.sendKeys("0210001");
 				accountNumberField.sendKeys("123");	
+				accountNumberField.sendKeys(Keys.TAB);
 				// Verify for Error Messages
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(),
 						YesLeaseData[29][1], "Card Error Message: ");
@@ -972,6 +973,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 				CardNumberField.sendKeys("412345");
 				routingNumberField.sendKeys("021000128");
 				accountNumberField.sendKeys("21000128");
+				accountNumberField.sendKeys(Keys.TAB);
+				Thread.sleep(6000);
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getAttribute("style"),"opacity: 0; display: none;","CARD Error Message:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getAttribute("style"),"opacity: 0; display: none;","ROUTING Number Error Message:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getAttribute("style"),"opacity: 0; display: none;","Account Number Error Message:");
