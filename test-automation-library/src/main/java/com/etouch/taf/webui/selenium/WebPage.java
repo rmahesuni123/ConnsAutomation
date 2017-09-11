@@ -134,15 +134,19 @@ public class WebPage {
 	 *            web page URL
 	 */
 	public void loadPage(String pageUrl) {
+		log.info("Initialization of driver and Maximization of WebPage will start after driver is initialized with Page URL :  "+pageUrl );
 		this.driver.get(pageUrl);
 		if(testTypeName.equalsIgnoreCase("Web")){
-			maximizeWindow();
+		log.info("Maximization of WebPage will start in a moment :  " +testTypeName);			
+		//	maximizeWindow();
+		log.info("Maximization of WebPage completed :  " +testTypeName);	
 		}
 		
 
 	}
 
 	private void maximizeWindow() {
+		log.info("Maximize Window method will be executing now : ");
 		BrowserInfoUtil biUtil = new BrowserInfoUtil(testBedName);
 		if (biUtil.isFF() || biUtil.isIE() || biUtil.isChrome()) {
 			if (TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName()
@@ -152,8 +156,9 @@ public class WebPage {
 
 			else if (new BrowserInfoUtil(testBedName).isFF() || new BrowserInfoUtil(testBedName).isIE()
 					|| new BrowserInfoUtil(testBedName).isChrome() || new BrowserInfoUtil(testBedName).isSafari()) {
-
-					this.driver.manage().window().maximize();
+				
+				log.info("Maximization of WebPage Found will now be executed :  " +testTypeName);
+				//	this.driver.manage().window().maximize();
 			}
 		}
 	}
