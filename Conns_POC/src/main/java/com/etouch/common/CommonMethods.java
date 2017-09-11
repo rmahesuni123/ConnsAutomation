@@ -709,6 +709,50 @@ public class CommonMethods {
 		}
 
 	}
+	
+	public void verifyBrokenLinksForGivenLinks(WebPage webPage,List<WebElement> linkList) {
+		log.info("Total number of links : " + linkList.size());
+		int linkCount = 0;
+		List<Integer> brokenLinkNumber = new ArrayList<Integer>();
+		List<String> brokenLinkHref = new ArrayList<String>();
+		for (WebElement link : linkList) 		
+		{
+			try {
+				linkCount++;				
+				log.info("Verifying link number : " + linkCount);
+				HttpClient client = HttpClientBuilder.create().build();
+				HttpGet request = new HttpGet(link.getAttribute("href"));
+
+				HttpResponse response = client.execute(request);
+				//log.info("src : " + image.getAttribute("src"));
+				//log.info("response.getStatusLine().getStatusCode() : " + response.getStatusLine().getStatusCode());
+				if (response.getStatusLine().getStatusCode() == 200) {
+					log.info("Link number " + linkCount + " is as expected "
+							+ response.getStatusLine().getStatusCode());
+				} else {
+					brokenLinkNumber.add(linkCount);
+					brokenLinkHref.add(link.getAttribute("href"));//Nalini
+					log.info("Link number " + linkCount + " is not as expected "
+							+ response.getStatusLine().getStatusCode());
+					log.info("Broken Link source is : " + link.getAttribute("href"));
+
+				}
+			} catch (Exception e) {
+				log.info("Link number ....." + linkCount + " is not as expected ");
+				brokenLinkNumber.add(linkCount);
+				brokenLinkHref.add(link.getAttribute("href"));//nalini
+				log.info("linkCount  : " + linkCount + " : " + brokenLinkHref);			
+			}
+
+		}
+		if (brokenLinkNumber.size() > 0) {
+
+			Assert.fail("Link number of the broken link : " + Arrays.deepToString(brokenLinkNumber.toArray())
+			+ "\nLink (href) of the broken link : " + Arrays.deepToString(brokenLinkHref.toArray()));
+
+		}
+
+	}
 	/**
 	 * @author Name - Rajesh Surve
 	 * The method used to click element using Java script executor 
@@ -922,5 +966,24 @@ public class CommonMethods {
 		} catch (PageException e) {
 			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
+	}
+	
+	/**
+	 * @author Name - Deepak Bhambri
+	 * The method used to get list of webelement by xpath
+	 * Return type is list of webelement
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public List<WebElement> findElementsByXpath(WebPage webPage, String locator,SoftAssert softAssert){
+		log.info("Finding multiple elements by x-path: "+locator);
+		List<WebElement> elementList= new ArrayList<WebElement>();
+		try {
+			waitForWebElement(By.xpath(locator), webPage);
+			elementList = webPage.getDriver().findElements(By.xpath(locator));
+		} catch (Exception e) {
+			softAssert.fail("Unable to find multiple elements using xpath: "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return elementList;
 	}
 }

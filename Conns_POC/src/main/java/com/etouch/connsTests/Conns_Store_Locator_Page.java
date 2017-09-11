@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -127,8 +128,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyHomePlusComponent");
-			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, test[0][0], softAssert),"Element not present using locator - " + test[0][0]);
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, test[1][0], softAssert),
@@ -151,22 +150,20 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_ChoseYourRegion_Links() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-			String[][] regionLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
-					"verifyChoseYourRegionLinks");
+			String[][] regionLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyChoseYourRegionLinks");
+			List<WebElement> linkList = commonMethods.findElementsByXpath(webPage,commonData[6][1] , softAssert);
+			commonMethods.verifyBrokenLinksForGivenLinks(webPage, linkList);
 			for (int i = 0; i < regionLinksData.length; i++) {
-				commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 				if (testType.equalsIgnoreCase("Web")) {
-					connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-					commonMethods.hoverOnelementbyXpath(webPage, regionLinksData[i][1], softAssert);
-					String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, regionLinksData[i][1], "color", softAssert);
-					log.info("Region "+regionLinksData[i][0]+" after hover color attribute value is : "+afterLinkHover);
 					if(!regionLinksData[i][3].equalsIgnoreCase("NA")){
+						commonMethods.hoverOnelementbyXpath(webPage, regionLinksData[i][1], softAssert);
+						String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, regionLinksData[i][1], "color", softAssert);
+						log.info("Region "+regionLinksData[i][0]+" after hover color attribute value is : "+afterLinkHover);
 						softAssert.assertEquals(afterLinkHover, regionLinksData[i][3],"Hover functionality failed for link "+regionLinksData[i][0]+" Expected color: "+regionLinksData[i][3]+" Actual color: "+afterLinkHover);	
 					}
 				}
-				String actualUrl = commonMethods.clickAndGetPageURL(webPage, regionLinksData[i][1], regionLinksData[i][0],softAssert,commonData[2][1]);
-				softAssert.assertEquals(actualUrl, regionLinksData[i][2],"URL verification failed for link : '" + regionLinksData[i][0] + "'. Expected URL - "+ regionLinksData[i][2] + " Actual URL - " + actualUrl);
+				String actual_hrefValue = commonMethods.getAttributebyXpath(webPage, regionLinksData[i][1],"href",softAssert);
+				softAssert.assertEquals(actual_hrefValue, regionLinksData[i][2],"href value verification failed for link: '" + regionLinksData[i][0] + "'. Expected href value: "+ regionLinksData[i][2] + " Actual URL: " + actual_hrefValue);
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
@@ -181,22 +178,21 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] TexasSubLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyTexasSubLinks");
+			commonMethods.clickElementbyXpath(webPage, commonData[8][1], softAssert);
+			List<WebElement> texasSublinkList = commonMethods.findElementsByXpath(webPage,commonData[7][1] , softAssert);
+			commonMethods.verifyBrokenLinksForGivenLinks(webPage, texasSublinkList);
 			for (int i = 0; i < TexasSubLinksData.length; i++) {
-				commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-				commonMethods.clickElementbyXpath(webPage, TexasSubLinksData[i][1], softAssert);
-				CommonMethods.waitForWebElement(By.xpath(commonData[3][1]), webPage);
 				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.hoverOnelementbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
-					String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);
 					if(!TexasSubLinksData[i][4].equalsIgnoreCase("NA")){
+						commonMethods.hoverOnelementbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
+						String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);
 						softAssert.assertEquals(afterLinkHover, TexasSubLinksData[i][4],"Hover functionality failed for link "+TexasSubLinksData[i][0]+" Expected color: "+TexasSubLinksData[i][4]+" Actual color: "+afterLinkHover);
 					}
 				}
 				String textOnLink = commonMethods.getTextbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
 				softAssert.assertEquals(textOnLink, TexasSubLinksData[i][0],"Link text verification failed. Expected text : " + TexasSubLinksData[i][0] + " Actual text : "+ textOnLink);
-				String actualUrl = commonMethods.clickAndGetPageURL(webPage, TexasSubLinksData[i][2],TexasSubLinksData[i][0], softAssert,commonData[2][1]);
-				softAssert.assertEquals(actualUrl, TexasSubLinksData[i][3],"URL verification failed for link : '" + TexasSubLinksData[i][0] + "'. Expected URL : "+ TexasSubLinksData[i][3] + " Actual URL : " + actualUrl);
+				String actual_hrefValue = commonMethods.getAttributebyXpath(webPage, TexasSubLinksData[i][2],"href", softAssert);
+				softAssert.assertEquals(actual_hrefValue, TexasSubLinksData[i][3],"href value verification failed for link : '" + TexasSubLinksData[i][0] + "'. Expected href value: "+ TexasSubLinksData[i][3] + " Actual href value: " + actual_hrefValue);
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
@@ -232,8 +228,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		try{
 			String[][] verifyRegionMapData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyRegionMapToolTip");
 			if (testType.equalsIgnoreCase("Web")) {
-				commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-				connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 				CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
 				for (int i = 0; i < verifyRegionMapData.length; i++) {
 					String attributeValue = commonMethods.getAttributebyXpath(webPage, verifyRegionMapData[i][1], "title", softAssert);
@@ -254,27 +248,54 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	public void Verify_AllRegion_PageDescription() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
-		String[][] allRegionDescriptiondata = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllRegionPageDescription");
-		for (int i = 0; i < allRegionDescriptiondata.length; i++) {
-			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			commonMethods.clickWithChildElementbyXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],allRegionDescriptiondata[i][0], softAssert);
-			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3], softAssert);
-			softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
-					"Store locator description text verification failed. Expected text : "
-							+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
-			String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);
-			softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
-					"Bread Crumbs verification failed. Expected text : "
-							+ allRegionDescriptiondata[i][8] + " Actual text : " + breadCrumbsActualText);
-			String yesmoneyLinkUrl = commonMethods.clickAndGetPageURL(webPage, allRegionDescriptiondata[i][5],allRegionDescriptiondata[i][0], softAssert,commonData[4][1]);
-			softAssert.assertEquals(yesmoneyLinkUrl, allRegionDescriptiondata[i][6],
-					"URL verification failed for link : '" + allRegionDescriptiondata[i][0] + "'. Expected URL : "
-							+ allRegionDescriptiondata[i][6] + " Actual URL : " + yesmoneyLinkUrl);
-		}
-		softAssert.assertAll();
+			String[][] allRegionDescriptiondata = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllRegionPageDescription");
+			String key = "";
+			for (int i = 0; i < allRegionDescriptiondata.length; i++) {
+				commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);			
+				key = allRegionDescriptiondata[i][0];
+				String[][] keyData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", key + "Region");
+				try{
+					CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);	
+				}catch(Exception e){
+					e.getLocalizedMessage();
+				}
+				commonMethods.clickWithChildElementbyXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],allRegionDescriptiondata[i][0], softAssert);
+				try{
+					CommonMethods.waitForWebElement(By.xpath(allRegionDescriptiondata[i][8]), webPage);	
+				}catch(Exception e){
+					e.getLocalizedMessage();
+				}
+				String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3], softAssert);
+				softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
+						"Store locator description text verification failed. Expected text : "
+								+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
+				String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);
+				softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
+						"Bread Crumbs verification failed. Expected text : "
+								+ allRegionDescriptiondata[i][8] + " Actual text : " + breadCrumbsActualText);
+				String actual_hrefYesmoneyLink = commonMethods.getAttributebyXpath(webPage, allRegionDescriptiondata[i][5],"href", softAssert);
+				softAssert.assertEquals(actual_hrefYesmoneyLink, allRegionDescriptiondata[i][6],
+						"href value verification failed for link : '" + allRegionDescriptiondata[i][0] + "'. Expected href value for Yesmoney link: "
+								+ allRegionDescriptiondata[i][6] + " Actual href value for Yesmoney link: " + actual_hrefYesmoneyLink);
+				for (int j = 0; j < keyData.length; j++) {
+					String subkey = keyData[j][0];
+					try{
+						CommonMethods.waitForWebElement(By.xpath(commonData[2][1]), webPage);	
+					}catch(Exception e){
+						e.getLocalizedMessage();
+					}
+
+					String pageContentText = commonMethods.getTextbyXpath(webPage, subkey, softAssert);
+					if(testType.equalsIgnoreCase("Mobile")){
+						pageContentText=pageContentText.replace("Mon-Fri", "Store Hours\nMon-Fri");
+					}
+					softAssert.assertTrue(pageContentText.contains(keyData[j][1]),"Text verification failed for region "+allRegionDescriptiondata[i][1]+". Expected Text : " + keyData[j][1] + " Actual Text : " + pageContentText);
+					String actual_onclickValueGoogleMap = commonMethods.getAttributebyXpath(webPage, keyData[j][2], "onclick",softAssert);
+					softAssert.assertTrue(actual_onclickValueGoogleMap.contains(keyData[j][3]),"onclick attribute value verification failed. Expected onclick value: "+keyData[j][3]+". Actual onclick value: "+actual_onclickValueGoogleMap);
+				}
+			}
+			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_AllRegion_PageDescription");
 			softAssert.assertAll();
@@ -282,47 +303,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@Test(enabled = true, priority = 121, description = "Verify content for all region pages")
-	public void Verify_All_Regions_Page_Content() throws PageException, InterruptedException {
-		SoftAssert softAssert = new SoftAssert();
-		try{
-			String[][] regionPageTextdata = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllRegionsPageTemplate");
-			String key = "";
-			for (int i = 0; i < regionPageTextdata.length; i++) {
-				commonMethods.navigateToPage(webPage, regionPageTextdata[i][1], softAssert);
-				connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
-				key = regionPageTextdata[i][0];
-				String[][] keyData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", key + "Region");
-				for (int j = 0; j < keyData.length; j++) {
-					String subkey = keyData[j][0];
-					CommonMethods.waitForWebElement(By.xpath(commonData[2][1]), webPage);
-					String pageContentText = commonMethods.getTextbyXpath(webPage, subkey, softAssert);
-					if(testType.equalsIgnoreCase("Mobile")){
-						pageContentText=pageContentText.replace("Mon-Fri", "Store Hours\nMon-Fri");
-					}
-					softAssert.assertTrue(pageContentText.contains(keyData[j][1]),"Text verification failed for region "+regionPageTextdata[i][1]+". Expected Text : " + keyData[j][1] + " Actual Text : " + pageContentText);
-					String actualUrlGoogleMap = commonMethods.clickAndGetPageURL(webPage, keyData[j][2], "Get Directions Region - "+regionPageTextdata[i][0],softAssert);
-					if(actualUrlGoogleMap.contains("/dir//")){
-						actualUrlGoogleMap=actualUrlGoogleMap.replace("/dir//", "?daddr=");
-					}
-					if(actualUrlGoogleMap.contains("daddr=Conn's+HomePlus,+")){
-						actualUrlGoogleMap=actualUrlGoogleMap.replace("daddr=Conn's+HomePlus,+", "?daddr=");
-					}
-					if(actualUrlGoogleMap.contains("??")){
-						actualUrlGoogleMap=actualUrlGoogleMap.replace("??", "?");
-					}
-					softAssert.assertTrue(actualUrlGoogleMap.startsWith(keyData[j][3]),"Url verification failed. Expected URL : "+keyData[j][3]+". Actual URL : "+actualUrlGoogleMap);
-				}
-			}
-			softAssert.assertAll();
-		}catch(Throwable e){
-			mainPage.getScreenShotForFailure(webPage, "Verify_All_Regions_Page_Content");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(enabled = false, priority = 109, description = "Verify alert box for empty Find Store field")
+	@Test(enabled = true, priority = 109, description = "Verify alert box for empty Find Store field")
 	public void Verify_FindStore_AlertBox() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -583,11 +564,13 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
 			String[][] verifyAllStoreLocatorData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllStoreLocatorLinks");
+			commonMethods.navigateToPage(webPage, commonData[0][1], softAssert);
 			for(int i=0;i<verifyAllStoreLocatorData.length;i++){
-				commonMethods.navigateToPage(webPage, commonData[0][1], softAssert);
-				String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyAllStoreLocatorData[i][2], verifyAllStoreLocatorData[i][1], softAssert,commonData[5][1]);
-				softAssert.assertTrue(actualUrl.contains(verifyAllStoreLocatorData[i][3]),"Expected URL: "+verifyAllStoreLocatorData[i][3]+" Actual URL: "+actualUrl);
+				String actual_hrefValue = commonMethods.getAttributebyXpath(webPage, verifyAllStoreLocatorData[i][2],"href", softAssert);
+				softAssert.assertTrue(actual_hrefValue.contains(verifyAllStoreLocatorData[i][3]),"Expected href value: "+verifyAllStoreLocatorData[i][3]+" Actual href value: "+actual_hrefValue);
 			}
+			List<WebElement> allStorelinkList = commonMethods.findElementsByXpath(webPage,commonData[9][1] , softAssert);
+			commonMethods.verifyBrokenLinksForGivenLinks(webPage, allStorelinkList);
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_All_Store_Locator_Links");
