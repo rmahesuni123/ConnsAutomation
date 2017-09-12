@@ -331,7 +331,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		// commonMethods.waitForPageLoad(webPage, softAssert);
 		if (commonMethods.getPageUrl(webPage, softAssert).contains(commonData.get("ProcessingPage"))) {
 			log.info("Processing Page is Displayed");
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 		} else {
 			log.info("Unable to catch processing page");
 		}
