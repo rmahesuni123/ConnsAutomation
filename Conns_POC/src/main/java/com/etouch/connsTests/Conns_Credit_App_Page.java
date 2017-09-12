@@ -52,14 +52,11 @@ public class Conns_Credit_App_Page extends BaseTest {
 	Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
 	private String url, testEnv;
 	protected static WebPage webPage;
-	private ConnsAccountAndSignInPage ConnsSignInPage;
 	private ConnsMainPage mainPage;
 	protected static LinkedHashMap<String, String> commonData;
 	protected static CommonMethods commonMethods;
 	static String platform;
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-	static String videoLocation = AbsolutePath.substring(0, AbsolutePath.indexOf("/target/classes/")).substring(1)
-			.concat("/src/test/resources/testdata/videos");
 	boolean declinedStatus = false;
 	String[][] YesLeaseData;
 
@@ -77,10 +74,6 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("Test Type is : " + testType);
 			try {
 				platform = testBed.getPlatform().getName().toUpperCase();
-				if (testType.equalsIgnoreCase("Web")) {
-					log.info("videoLocation" + videoLocation);
-				} else {
-				}
 				testEnv = System.getenv().get("Environment");
 				log.info("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
@@ -88,15 +81,9 @@ public class Conns_Credit_App_Page extends BaseTest {
 				log.info("DataFilePath After is : " + DataFilePath);
 				commonData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp", "CreditAppCommonElements");
 				platform = testBed.getPlatform().getName().toUpperCase();
-				if (testType.equalsIgnoreCase("Web")) {
-					log.info("videoLocation" + videoLocation.toString().replace("Env", testEnv));
-				}
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
-				String[][] test = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "PageURL");
-				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL() + test[0][0];
 				synchronized (this) {
 					webPage = new WebPage(context);
-					ConnsSignInPage = new ConnsAccountAndSignInPage(url, webPage);
 					mainPage = new ConnsMainPage(url, webPage);
 					log.info(mainPage);
 				}
@@ -104,6 +91,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 					log.info("Maximize Window in case of Desktop Browsers Only : ");
 					webPage.getDriver().manage().window().maximize();
 				}
+				CommonMethods.navigateToPage(webPage, url);
 			} catch (Exception e) {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
@@ -475,12 +463,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 		try {
 			CreditAppPage.navigateToCreditAppPage(softAssert);
 			log.info("testing verify_Error_Message_for_Reference_Code_Field started------>");
-			LinkedHashMap<String, String> testData = commonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 					"verifyErrorMessageForRefCode");
 			commonMethods.sendKeysbyXpath(webPage, testData.get("RefCodeXpath"), testData.get("RefCodeValue"),
 					softAssert);
 			commonMethods.clickElementbyXpath(webPage, testData.get("RefCodeSubmitXpath"), softAssert);
-			commonMethods.waitForWebElement(By.xpath(testData.get("RefCodeErrorXpath")), webPage);
+			CommonMethods.waitForWebElement(By.xpath(testData.get("RefCodeErrorXpath")), webPage);
 			Thread.sleep(3000);
 			CreditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError", testData.get("RefCodeErrorXpath"),
 					testData.get("RefCodeError"));
@@ -504,7 +492,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			CreditAppPage.fillForm(softAssert, testData);
 			// Data is used from above testcase
 			// verify_Error_Message_for_Reference_Code_Field
-			LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = commonMethods
+			LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = CommonMethods
 					.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
 			Thread.sleep(5000);
 			CreditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",

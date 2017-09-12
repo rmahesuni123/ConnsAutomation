@@ -48,24 +48,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			verifyPageTitle(commonData.get("CreditAppPageTitle"), softAssert);
 		}
-		/*
-		 * if(webPage.getPageTitle().equalsIgnoreCase(commonData.get(
-		 * "CreditAppPageTitle"))) {log.info("Already on Credit App Page");
-		 * webPage.getDriver().navigate().refresh(); } else{
-		 * if(!webPage.getPageTitle().equalsIgnoreCase(commonData.get(
-		 * "YesMoneyGetCreditTodayApplyNowLink"))) { System.out.println(
-		 * "aaaaaaaaaa "+url); webPage.navigateToUrl(url); log.info(
-		 * "Navigating to Home Page"); } log.info(
-		 * "Navigating to Credit App Page");
-		 * commonMethods.clickElementbyXpath(webPage,
-		 * commonData.get("YesMoneyGetCreditTodayApplyNowLink"), softAssert);
-		 * commonMethods.waitForPageLoad(webPage, softAssert);
-		 * commonMethods.clickElementbyXpath(webPage,
-		 * commonData.get("ApplyForMyYesMoney"), softAssert);
-		 * commonMethods.waitForPageLoad(webPage, softAssert);
-		 * verifyPageTitle(commonData.get("CreditAppPageTitle"),softAssert);
-		 * log.info("Navigated to Credit App Page"); }
-		 */
+		
 	}
 
 	/**
