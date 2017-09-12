@@ -1331,7 +1331,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		String Expected_Account_Information_Page_URL = inputdata[0][6];
 		String Expected_Account_Information_Page_Title = inputdata[0][7];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		//webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
