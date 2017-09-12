@@ -459,7 +459,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 
 	/****************************************************** UC 02 STARTS **********************************************************************************************************************************************/
 	/**Test Case - 013 - Verify forgot password page title @throws PageException  Verify Page Title : Page should load without any error : Page title should "Forgot Your Password" Navigate to  https://www.conns.com/customer/account/forgotpassword/ &   Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password? link */
-	@Test(priority = 311, enabled = true)
+	@Test(priority = 311, enabled = false)
 	public void verify_Forgot_Password_Page_Title() throws PageException {
 		log.info("******Started verification of title on Forgot Password Page ********");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "ForgotPasswordPageTitle");
@@ -488,7 +488,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 014 - Verify Fonts and Size on Forgot Password Page Verify Font Size & Style : Page font size & style should shown as per specification Navigate to https://www.conns.com/customer/account/forgotpassword/ & Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password? link Page should load without any error @throws InterruptedException	 */
-	@Test(priority = 312, enabled = true, description = "Verify_Font_And_Size")
+	@Test(priority = 312, enabled = false, description = "Verify_Font_And_Size")
 	public void verify_Font_and_Size_On_Forgot_Password_Page() throws InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Font_And_Size_On_Forgot_Password_Page");
@@ -523,7 +523,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 017 - Verify ForgotPwdPage Content Verify Page content	 Navigate to https://www.conns.com/customer/account/forgotpassword/ &	 * Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password? link Page should load without any error  @throws InterruptedException	 */
-	@Test(priority = 315, enabled = true)
+	@Test(priority = 315, enabled = false)
 	public void verify_Forgot_Password_Page_Content() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		log.info("******Started verification of content on Forgot Password Page *********");
@@ -556,7 +556,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 018 - Verify ForgotPwdPage_Submit_Button functionality with Blank Input Verify error message when submit button is clicked without any inputs Click on Submit button : Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password? link Error message as 'This is a required field.' should render .*/
-	@Test(priority = 316, enabled = true)
+	@Test(priority = 316, enabled = false)
 	public void verify_Forgot_Password_Page_Submit_Button_Blank_Input() throws PageException {
 		log.info("******Started verification of Error Message content on Forgot Password Page Submit Button with Blank Input *********");
 		SoftAssert softAssert = new SoftAssert();
@@ -585,7 +585,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 019 - Verify Forgot_Password_Page_GoBack_Link functionality Verify 'Go back' link Click on 'Go back' link : Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password?->'Go back' link Page should navigate to https://www.conns.com/customer/account/login/ */
-	@Test(priority = 317, enabled = true)
+	@Test(priority = 317, enabled = false)
 	public void verify_Forgot_Password_Page_Go_Back_Link() throws PageException {
 		log.info("******Started verification of Go_Back_Link on Forgot Password Page ********");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyLinksOnforgotPwdPage");
@@ -636,7 +636,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 020 - Verify Forgot Password Page functionality with Invalid Input Verify email address field validation with some invalid email address Input invalid email address : Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password? link Error message 'Please enter a valid email address. For example johndoe@domain.com.' should render */
-	@Test(priority = 318, enabled = true)
+	@Test(priority = 318, enabled = false)
 	public void verify_Forgot_Password_Function_with_Invalid_Email_ID() throws PageException {
 		log.info("******Started verification of Forgot Password functionality with Invalid and valid data ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -666,7 +666,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 021- Verify Forgot Password Page functionality with Valid Input Verify forget password functionality with valid email address : Input valid email address : Mobile view :Tap on Hamberger Menu -> 'SIGN IN'-> Forgot Your Password? link Page should navigate to https://www.conns.com/customer/account/login/ and Message 'If there is an account associated with test@gmail.com you will receive an email with a link to reset your password' should render on top of page , */
-	@Test(priority = 319, enabled = true)
+	@Test(priority = 319, enabled = false)
 	public void verify_Forgot_Password_Function_with_Valid_Email_ID() throws PageException {
 		log.info("******Started verification of Forgot Password functionality with Invalid and valid data ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -819,7 +819,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 026 - Verify AccountInformationTab and Change Password functionality  @throws PageException Verify "Account Information" page title,Verify  "Account Information" form input validations by submitting blank form,Verify email address field validation with some invalid email address  @throws InterruptedException	 */
-	@Test(priority = 324, enabled = true)
+	@Test(priority = 324, enabled = false)
 	public void verify_Account_Information_Tab_Verify_Validation_Messages() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
@@ -1004,7 +1004,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 031 - Verify default billing & shipping address by clicking on manage addresses Billing & shipping address must be editable default billing & shipping address' should be editable when tapped on Manage addresses On clicking on 'Manage Addresses' user is redirected to non-editable address book section. On clicking on 'change billing address' editable form is displayed.  @throws InterruptedException	 */
-	@Test(priority = 329, enabled = true)
+	@Test(priority = 329, enabled = false)
 	public void verify_Contact_Information_Tab_Default_Billing_Shipping_Address_Link() throws PageException, InterruptedException {
 		JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();
 		SoftAssert softAssert = new SoftAssert();
@@ -1065,7 +1065,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 032 - Verify "Change Billing Address" link Application should redirect to "Contact Information" form  @throws InterruptedException */
-	@Test(priority = 330, enabled = true)
+	@Test(priority = 330, enabled = false)
 	public void verify_Contact_Information_Tab_Change_Billing_Address_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1098,7 +1098,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 033 - Verify "Change Shipping Address" link Application should redirect to "Contact Information" form  @throws InterruptedException	 */
-	@Test(priority = 331, enabled = true)
+	@Test(priority = 331, enabled = false)
 	public void verify_Contact_Information_Tab_Change_Shipping_Address_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1131,7 +1131,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 034 - Verify "Go back" link in "Contact Information" form input all mandatory fields with valid data and Click on Save button Success message should render "The address has been saved." : https://www.conns.com/customer/address/index/  @throws InterruptedException	 */
-	@Test(priority = 332, enabled = true)
+	@Test(priority = 332, enabled = false)
 	public void verify_Contact_Information_Tab_Go_Back_Link() throws InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1184,7 +1184,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 035 - Verify add new address functionality by adding valid data "Additional Address Entries" section in Address Book page input all mandatory fields with valid data and Click on Save button Success message should render "The address has been saved." : https://www.conns.com/customer/address/index/  @throws InterruptedException */
-	@Test(priority = 333, enabled = true)
+	@Test(priority = 333, enabled = false)
 	public void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries()	throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1243,7 +1243,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	/************************************************************************ UC006 STARTS *******************************************************************************************************************************************************************************************/
 
 	/*** Test Case - 036 - Verify editing "Newsletters" link Application should redirect to "Newsletter subscription" form * @throws InterruptedException*/
-	@Test(priority = 334, enabled = true)
+	@Test(priority = 334, enabled = false)
 	public void verify_Account_Information_Tab_Newsletters_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1274,7 +1274,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 037 - Verify "General subscription" checkbox can be checked The checkbox should be checked when tapped on it  @throws InterruptedException */
-	@Test(priority = 335, enabled = true)
+	@Test(priority = 335, enabled = false)
 	public void verify_Account_Information_Tab_Newsletters_General_Subscription_CheckBox()	throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1309,7 +1309,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/*** Test Case - 038 - Verify "Go back" link on Newsletter subscription form Application should redirect to previous page : https://www.conns.com/customer/account/  @throws InterruptedException */
-	@Test(priority = 336, enabled = true)
+	@Test(priority = 336, enabled = false)
 	public void verify_Account_Information_Tab_Newsletters_Go_Back_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1345,7 +1345,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	}
 
 	/**	 * Test Case - 039 - Verify "Save" link on Newsletter subscription form. User should be redirected to previous page: https://www.conns.com/customer/account/ & "The Subscription has been saved" message should appear in green box on top of page  @throws InterruptedException */
-	@Test(priority = 337, enabled = true)
+	@Test(priority = 337, enabled = false)
 	public void verify_Account_Information_Tab_Newsletters_Save_Button() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageLogin");
@@ -1418,7 +1418,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	 * Verify "Manage Addresses" link for "address Book" section : click on "Manage Addresses" link : It should redirect to contact information form : https://www.conns.com/customer/address/edit/
 	 */
 	static int count = 0;
-	@Test(priority = 338, enabled = true)
+	@Test(priority = 338, enabled = false)
 	public void verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section() {
 		SoftAssert softAssert = new SoftAssert();
 		try{
@@ -1593,7 +1593,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 	
 	
 	
-	@Test(priority = 341, enabled = true)
+	@Test(priority = 341, enabled = false)
 	public void verify_My_Wish_List_Link_On_Account_Information_Resizeable_Menu_Section() throws Exception {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();

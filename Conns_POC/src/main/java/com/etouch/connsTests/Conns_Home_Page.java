@@ -773,7 +773,7 @@ public class Conns_Home_Page extends BaseTest {
 	 * Test Case - 014 - verify Save Big With Conns section Conns Home Page
 	 * 
 	 */
-	@Test(priority = 14, enabled = true, description = "Verify_Details_Under_Save_Big_With_Conns_Latest_Deals")
+	@Test(priority = 14, enabled = false, description = "Verify_Details_Under_Save_Big_With_Conns_Latest_Deals")
 	public void Verify_Details_Under_Save_Big_With_Conns_Latest_Deals() throws PageException, InterruptedException {
 		webPage.getDriver().get(url);
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifySaveBigWithConns");
@@ -1049,7 +1049,7 @@ public class Conns_Home_Page extends BaseTest {
 	 * Test Case - 020 - verify Follow Us Section Conns Home Page
 	 * 
 	 */
-	@Test(priority = 20, enabled = true, description = "Verify_LinkRedirection_Under_Follow_Us_Section")
+	@Test(priority = 20, enabled = false, description = "Verify_LinkRedirection_Under_Follow_Us_Section")
 	public void Verify_LinkRedirection_Under_Follow_Us_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
@@ -1096,7 +1096,7 @@ public class Conns_Home_Page extends BaseTest {
 	 * Test Case - 021 - verify BBBRating Banner Conns Home Page
 	 * 
 	 */
-	@Test(priority = 21, enabled = true, description = "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner")
+	@Test(priority = 21, enabled = false, description = "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner")
 	public void Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
@@ -1225,7 +1225,7 @@ public class Conns_Home_Page extends BaseTest {
 	 * Test Case - 024 - verify Footer We Accpet Conns Home Page
 	 * 
 	 */
-	@Test(priority = 24, enabled = true, description = "Verify_Element_Visibility_Under_We_Accept_Section")
+	@Test(priority = 24, enabled = false, description = "Verify_Element_Visibility_Under_We_Accept_Section")
 	public void Verify_Element_Visibility_Under_We_Accept_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		// webPage.getDriver().get(url);
@@ -1245,7 +1245,7 @@ public class Conns_Home_Page extends BaseTest {
 	 * Test Case - 025 - verify Footer Copyright Conns Home Page
 	 * 
 	 */
-	@Test(priority = 25, enabled = true, description = "Verify_Content_Under_Footer_Copyright_Section")
+	@Test(priority = 25, enabled = false, description = "Verify_Content_Under_Footer_Copyright_Section")
 	public void Verify_Content_Under_Footer_Copyright_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		// webPage.getDriver().get(url);
