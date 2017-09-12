@@ -830,7 +830,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			}
 		}
 		else{
-			Assert.fail();
+			Assert.fail("Declined state could not be generated");
 			}
 	}
 
@@ -942,7 +942,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				e.printStackTrace();
 			}
 		}else{
-			Assert.fail();
+			Assert.fail("Declined state could not be generated");
 			}
 	}
 	@Test(priority = 1032, enabled = true, description = "verify_Yes_Lease_Page_Payment_Details_Validation")
@@ -959,6 +959,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				routingNumberField.sendKeys("0210001");
 				accountNumberField.sendKeys("123");	
 				accountNumberField.sendKeys(Keys.TAB);
+				Thread.sleep(4000);
 				// Verify for Error Messages
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(),
 						YesLeaseData[29][1], "Card Error Message: ");
@@ -988,7 +989,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				e.printStackTrace();
 			}
 		}else{
-			Assert.fail();
+			Assert.fail("Declined state could not be generated");
 			}
 	}
 /*	@Test(priority = 1032, enabled = true, description = "verify_Yes_Lease_Page_Payment_Details_Validation")
@@ -1063,13 +1064,19 @@ public class Conns_Credit_App_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, YesLeaseData[23][1], softAssert);
 				commonMethods.clickElementbyXpath(webPage, YesLeaseData[24][1], softAssert);
 				commonMethods.clickElementbyXpath(webPage, commonData.get("progressiveFormSubmit"), softAssert);
+				Thread.sleep(8000);
 				commonMethods.waitForPageLoad(webPage, softAssert);
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 				// State could be declined-001, approved,-002,
 				// timeout-003,Invalid Unique ID-004, Wait-005
 				if (actualUrl.contains("001") || (actualUrl.contains("002")) || (actualUrl.contains("003"))
 						|| (actualUrl.contains("004")) || (actualUrl.contains("005"))) {
-				} else {
+					if(actualUrl.contains("004"))
+					{}
+					else{
+					softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[49][1]).getText(),YesLeaseData[49][1],"Yes Lease page Header:");	
+					}
+					} else {
 					SoftAssertor.assertFail("Current URL is not as expected,Actual URL: " + actualUrl);
 				}
 				log.info("testing verify_Yes_Lease_Page_Submition completed------>");
@@ -1079,9 +1086,76 @@ public class Conns_Credit_App_Page extends BaseTest {
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
 				e.printStackTrace();
-			}
-		
+			}	
 	}else{
-		Assert.fail();
+		Assert.fail("Declined state could not be generated");
 		}
-}}
+}
+	@Test(priority = 1034, enabled = true, description = "verify_YesLease_Submit_With_Unique_ID")
+	public void verify_YesLease_Submit_With_Unique_ID() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			YesLeaseData = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyYesLeasePageData");
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyForYesLeaseSubmitWithUniqueID");
+				CreditAppPage.navigateToCreditAppPage(softAssert);
+			CreditAppPage.fillForm(softAssert, testData);
+			CreditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DeclinedPage");
+			String url=webPage.getCurrentUrl()+YesLeaseData[51][1];//"?uniqueid=1A7BB00C79CF19F1B58F0004AC1";
+		//	webPage.loadPage(url);
+			webPage.getDriver().get(url);
+		//	http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/yes-money-credit/application/success/0007/?uniqueid=1A7BB00C79CF19F1B58F0004AC1
+			Calendar cal = Calendar.getInstance();
+			DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+			Date date = new Date();
+			cal.setTime(date);
+			String todays_Date = dateFormat.format(cal.getTime());
+			System.out.println("Todays Date: " + todays_Date);
+			cal.add(Calendar.DATE, -1);
+			String yesterdays_Date = dateFormat.format(cal.getTime());
+			System.out.println("yesterdays_Date : " + yesterdays_Date);
+			
+			cal.add(Calendar.MONTH, 1);
+			String futureDate_1month = dateFormat.format(cal.getTime());
+			System.out.println("futureDate_1month: " + futureDate_1month);
+			//Hire Date
+			CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
+					yesterdays_Date);
+			commonMethods.selectDropdownByValue(webPage, YesLeaseData[13][1], YesLeaseData[39][1]);
+			//Last Pay Date
+			CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
+					yesterdays_Date);
+			//Next Pay Date
+			CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
+					futureDate_1month);
+			
+			
+			ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+			ITafElement routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);	
+			ITafElement accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
+			CardNumberField.sendKeys("412345");
+			routingNumberField.sendKeys("021000128");
+			accountNumberField.sendKeys("21000128");
+			accountNumberField.sendKeys(Keys.TAB);
+			//Account Opened Date
+			CreditAppPage.selectValueWithGivenDate(YesLeaseData[20][1], YesLeaseData[21][1], YesLeaseData[22][1],
+					yesterdays_Date);
+			commonMethods.clickElementbyXpath(webPage, YesLeaseData[23][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, YesLeaseData[24][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, commonData.get("progressiveFormSubmit"), softAssert);
+			
+			Thread.sleep(10000);
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+			softAssert.assertTrue(actualUrl.contains(YesLeaseData[51][2]),"Unique ID Yes Lease page URL:" +actualUrl+" does not conatain: "+YesLeaseData[51][2]);	
+			SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[52][1]).getText(),YesLeaseData[52][2],"Yes Lease with uniqueID header Validation:");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage,
+					"verify_YesLease_Submit_With_Unique_ID");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	}
