@@ -354,7 +354,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")){
 				commonMethods.waitForGivenTime(7, softAssert);
 			}
-			CommonMethods.waitForWebElement(By.xpath("verifyFindStoreInvalidData[3][0]"), webPage);
+			CommonMethods.waitForWebElement(By.xpath(verifyFindStoreInvalidData[3][0]), webPage);
 			String errorMsgActualText = commonMethods.getTextbyXpath(webPage, verifyFindStoreInvalidData[3][0], softAssert);
 			String errorMessageActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyFindStoreInvalidData[3][0],"color", softAssert);
 			softAssert.assertEquals(errorMessageActualColor, verifyFindStoreInvalidData[2][1],"Color attribute verification failed. Expected Color : " + verifyFindStoreInvalidData[2][1]+ " Actual Color : " + errorMessageActualColor);
