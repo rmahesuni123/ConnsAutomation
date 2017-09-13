@@ -138,7 +138,7 @@ public class WebPage {
 		this.driver.get(pageUrl);
 		if(testTypeName.equalsIgnoreCase("Web")){
 		log.info("Maximization of WebPage will start in a moment :  " +testTypeName);			
-		//	maximizeWindow();
+			maximizeWindow();
 		log.info("Maximization of WebPage completed :  " +testTypeName);	
 		}
 		
