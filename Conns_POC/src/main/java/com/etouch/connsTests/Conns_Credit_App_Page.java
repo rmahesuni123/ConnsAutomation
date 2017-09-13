@@ -869,12 +869,6 @@ public class Conns_Credit_App_Page extends BaseTest {
 				accountNumberField.sendKeys("123");
 				accountNumberField.sendKeys(Keys.TAB);
 				Thread.sleep(2000);
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(), YesLeaseData[29][1],
-						"Card Error Message: ");
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getText(), YesLeaseData[33][1],
-						"Bank Routing Error Message: ");
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getText(), YesLeaseData[38][1],
-						"Account Number Error Message: ");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
 						"Hire Date with Invalid Date:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getText(), YesLeaseData[2][2],
@@ -883,6 +877,13 @@ public class Conns_Credit_App_Page extends BaseTest {
 						"Next Pay Date with past 1 month Date:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[46][1]).getText(), YesLeaseData[7][2],
 						"Account Open Date with 1 month Future Date:");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(), YesLeaseData[29][1],
+						"Card Error Message: ");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getText(), YesLeaseData[33][1],
+						"Bank Routing Error Message: ");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getText(), YesLeaseData[38][1],
+						"Account Number Error Message: ");
+				
 				webPage.getDriver().navigate().refresh();
 				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, futureDate_1month, PastDate_2month,
 						futureDate_4thmonth, yesterdays_Date);
@@ -892,16 +893,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 				CardNumberField.sendKeys("700004A");
 				routingNumberField.sendKeys("ABA");
 				accountNumberField.sendKeys("12x");
-				;
-				accountNumberField.sendKeys(Keys.TAB);
-				softAssert.assertNotEquals(CardNumberField.getText(), "700004A", "Card  Number Field");
-				Thread.sleep(2000);
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[53][1]).getText(), YesLeaseData[53][2],
-						"Card Error Message: ");
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[5][1]).getText(), YesLeaseData[5][2],
-						"Bank Routing Error Message: ");
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getText(), YesLeaseData[38][1],
-						"Account Number Error Message: ");
+				accountNumberField.sendKeys(Keys.TAB);	
+				
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
 						"Hire Date with futureDate_1month validation:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[47][1]).getText(), YesLeaseData[48][1],
@@ -910,6 +903,14 @@ public class Conns_Credit_App_Page extends BaseTest {
 						"Next Pay Date with future 4th Month validation:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
 						"Account Open Date with yesterday's Date:");
+                softAssert.assertNotEquals(CardNumberField.getText(), "700004A", "Card  Number Field");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[53][1]).getText(), YesLeaseData[53][2],
+						"Card Error Message: ");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[5][1]).getText(), YesLeaseData[5][2],
+						"Bank Routing Error Message: ");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getText(), YesLeaseData[38][1],
+						"Account Number Error Message: ");
+				
 				webPage.getDriver().navigate().refresh();
 				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, PastDate_1month, yesterdays_Date,
 						tomorrows_Date, PastDate_2month);
@@ -920,15 +921,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				routingNumberField.sendKeys("112345");
 				accountNumberField.sendKeys("41111100011000128212334");
 				accountNumberField.sendKeys(Keys.TAB);
-				Thread.sleep(2000);
-				softAssert.assertNotEquals(accountNumberField.getText(), "41111100011000128212334",
-						"Account Number Field");
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(), YesLeaseData[29][1],
-						"Card Error Message: ");
-				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getText(), YesLeaseData[33][1],
-						"Bank Routing Error Message: ");
-				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
-						"Account Number Error Message: ");
+				
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[41][1]),
 						"Hire Date with PastDate_1month validation:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
@@ -937,6 +930,16 @@ public class Conns_Credit_App_Page extends BaseTest {
 						"Next Pay Date with tomorrows_Date:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
 						"Account Open Date with Past 2 month Date");
+			
+				softAssert.assertNotEquals(accountNumberField.getText(), "41111100011000128212334",
+						"Account Number Field");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(), YesLeaseData[29][1],
+						"Card Error Message: ");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getText(), YesLeaseData[33][1],
+						"Bank Routing Error Message: ");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
+						"Account Number Error Message: ");
+				
 				webPage.getDriver().navigate().refresh();
 				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, yesterdays_Date, PastDate_1month,
 						futureDate_1month, PastDate_1month);
@@ -947,13 +950,6 @@ public class Conns_Credit_App_Page extends BaseTest {
 				routingNumberField.sendKeys("021000128");
 				accountNumberField.sendKeys("21000128");
 				accountNumberField.sendKeys(Keys.TAB);
-				Thread.sleep(2000);
-				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[29][1]),
-						"Card Error Message: ");
-				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[32][1]),
-						"Bank Routing Error Message: ");
-				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
-						"Account Number Error Message: ");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[41][1]),
 						"Hire Date with yesterdays_Date validation:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
@@ -962,7 +958,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 						"Next Pay Date with future 1 month Date:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
 						"Account Open Date with Past 1 month Date");
-				webPage.getDriver().navigate().refresh();
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[29][1]),
+						"Card Error Message: ");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[32][1]),
+						"Bank Routing Error Message: ");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
+						"Account Number Error Message: ");
 				log.info("testing verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
