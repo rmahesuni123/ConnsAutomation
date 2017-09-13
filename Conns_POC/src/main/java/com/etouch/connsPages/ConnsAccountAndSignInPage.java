@@ -23,6 +23,7 @@ import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.datamanager.excel.TestParameters;
 import com.etouch.taf.core.exception.PageException;
+import com.etouch.taf.util.BrowserInfoUtil;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
@@ -50,11 +51,35 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	static String platform;
 	CommonMethods commonMethods = new CommonMethods();
 
-	public ConnsAccountAndSignInPage(String sbPageUrl, WebPage webPage) {
+	public ConnsAccountAndSignInPage(String sbPageUrl, WebPage webPage,ITestContext context) {
+		
+		
 		super(sbPageUrl, webPage);
 		log.info("webDriver in Conns Page : " + webPage.getDriver());
-		loadPage();		
-	}
+		System.out.println("PAGE URL : " + pageUrl);
+		log.info(" Inside Load_page method, Page will be getting loaded and maximize    ");
+		this.webPage.getDriver().get(pageUrl);
+		testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
+		CommonUtil.sop("Test bed Name is " + testBedName);
+		testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+		testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+		log.info("Test Type is : " + testType);
+		if (testType.equalsIgnoreCase("Web")) {
+				log.info("Maximize Window in case of Desktop Browsers Only : ");
+				webPage.getDriver().manage().window().maximize();
+			}
+			 else if (TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName()
+						.equalsIgnoreCase("Mac") && new BrowserInfoUtil(testBedName).isChrome()) {
+					this.resize(1400, 700);
+		
+				}
+		}
+
+		
+		public void resize(int width, int height) {
+			webPage.getDriver().manage().window().setSize(new org.openqa.selenium.Dimension(width, height));
+			return;
+		}
 
 	public void verifyPageTitle(String[][] testdata) {
 		String expurl = testdata[0][0];

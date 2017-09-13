@@ -84,14 +84,11 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL() + test[0][0];
 				synchronized (this) {
 					webPage = new WebPage(context);
-					ConnsSignInPage = new ConnsAccountAndSignInPage(url, webPage);
+					ConnsSignInPage = new ConnsAccountAndSignInPage(url, webPage,context);
 					mainPage = new ConnsMainPage(url, webPage);
 					log.info(mainPage);
 				}
-				if (testType.equalsIgnoreCase("Web")) {
-					log.info("Maximize Window in case of Desktop Browsers Only : ");
-					webPage.getDriver().manage().window().maximize();
-				}
+				
 			} catch (Exception e) {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
