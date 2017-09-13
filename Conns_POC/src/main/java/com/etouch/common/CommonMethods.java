@@ -541,7 +541,7 @@ public class CommonMethods {
 	 **/
 	public void clearElementbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
 		try {
-			log.info("Clicking on element using xpath - "+locator);
+			log.info("Clearing object using xpath - "+locator);
 			webPage.findObjectByxPath(locator).clear();
 		} catch (PageException e) {
 			softAssert.fail("Unable to clear on inputbox using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
