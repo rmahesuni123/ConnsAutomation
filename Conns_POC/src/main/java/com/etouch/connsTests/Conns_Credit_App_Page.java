@@ -843,6 +843,9 @@ public class Conns_Credit_App_Page extends BaseTest {
 				cal.add(Calendar.DATE, -1);
 				String yesterdays_Date = dateFormat.format(cal.getTime());
 				System.out.println("yesterdays_Date : " + yesterdays_Date);
+				cal.add(Calendar.DATE, 2);
+				String tomorrows_Date = dateFormat.format(cal.getTime());
+				System.out.println("tomorrows_Date : " + tomorrows_Date);
 				cal.add(Calendar.MONTH, -1);
 				String PastDate_1month = dateFormat.format(cal.getTime());
 				System.out.println("PastDate_1month: " + PastDate_1month);
@@ -909,7 +912,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 						"Account Open Date with yesterday's Date:");
 				webPage.getDriver().navigate().refresh();
 				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, PastDate_1month, yesterdays_Date,
-						todays_Date, PastDate_2month);
+						tomorrows_Date, PastDate_2month);
 				CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
 				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
 				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
@@ -931,7 +934,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
 						"Last Pay Date with yesterdays_Date validation:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[43][1]),
-						"Next Pay Date with current Date:");
+						"Next Pay Date with tomorrows_Date:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
 						"Account Open Date with Past 2 month Date");
 				webPage.getDriver().navigate().refresh();
