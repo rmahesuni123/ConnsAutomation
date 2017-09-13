@@ -2134,7 +2134,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Newsletter_Subscription_Expected_Content_Text = test_data[0][19];
 			String Newsletter_Subscription_Expected_ToolTip_Text = test_data[0][20];
 			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-			//webPage.getCurrentUrl();// For Safari
+			webPage.getCurrentUrl();// For Safari
 			log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			log.info("Test Bed is : " + testBed);
