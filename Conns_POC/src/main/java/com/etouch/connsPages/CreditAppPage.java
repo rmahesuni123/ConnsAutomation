@@ -2,12 +2,17 @@ package com.etouch.connsPages;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
@@ -16,6 +21,7 @@ import com.etouch.connsTests.Conns_Credit_App_Page;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.LogUtil;
+import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
 public class CreditAppPage extends Conns_Credit_App_Page {
@@ -326,7 +332,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public static void submitCreditAppAndVerifyStatus(SoftAssert softAssert, String expectedStatus) throws Exception {
 		commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
-		// Thread.sleep(2000);
+		 Thread.sleep(5000);
 		System.out.println("Url isd : " + commonMethods.getPageUrl(webPage, softAssert));
 		// commonMethods.waitForPageLoad(webPage, softAssert);
 		if (commonMethods.getPageUrl(webPage, softAssert).contains(commonData.get("ProcessingPage"))) {
@@ -954,30 +960,94 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		}
 	}
 
-	/*public void selectValueWithInvalidDate(String mmXpath, String ddXpath, String yyyyXpath) throws Exception {
-		commonMethods.selectDropdownByValue(webPage, mmXpath, "02");
-		commonMethods.selectDropdownByValue(webPage, ddXpath, "30");
-		commonMethods.selectDropdownByValue(webPage, yyyyXpath, "2017");
-	}
-
-	public void selectValueWithCurrentDate(String mmXpath, String ddXpath, String yyyyXpath, String currentDate)
-			throws Exception {
-		commonMethods.selectDropdownByValue(webPage, mmXpath, currentDate.substring(0, 2));
-		commonMethods.selectDropdownByValue(webPage, ddXpath, currentDate.substring(3, 5));
-		commonMethods.selectDropdownByValue(webPage, yyyyXpath, currentDate.substring(6, 10));
-	}*/
-
-	public static void selectValueWithGivenDate(String mmXpath, String ddXpath, String yyyyXpath, String date) throws Exception {
+public static void selectValueWithGivenDate(String mmXpath, String ddXpath, String yyyyXpath, String date) throws Exception {
 		commonMethods.selectDropdownByValue(webPage, yyyyXpath, date.substring(6, 10));
 		commonMethods.selectDropdownByValue(webPage, mmXpath, date.substring(0, 2));
 		commonMethods.selectDropdownByValue(webPage, ddXpath, date.substring(3, 5));
-		Thread.sleep(7000);
+		Thread.sleep(2000);
 	}
+public static void selectSpecificValuesWithGivenDate(String YesLeaseData[][], String hireDate, String lastPayDate, String nextPayDate, String accountOpenedDate) throws Exception {
+	//Hire Date
+	CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
+			hireDate);
+	// Last Pay Date
+	CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
+			lastPayDate);
+	// Next Pay Date
+	CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
+			nextPayDate);
+	//Account Opened Date
+	CreditAppPage.selectValueWithGivenDate(YesLeaseData[20][1], YesLeaseData[21][1], YesLeaseData[22][1],
+			accountOpenedDate);
+	Thread.sleep(2000);
 }
-/*
- * public static void verifyAutoPopulateCityState() { WebElement element =
- * commonMethods.getWebElementbyID(webPage, locator, softAssert);
- * element.sendKeys(inputText+Keys.TAB);
- * 
- * }
- */
+
+public static void submitYesLeaseWithValidData(String YesLeaseData[][], SoftAssert softAssert) throws Exception {
+	Calendar cal = Calendar.getInstance();
+	DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+	Date date = new Date();
+	cal.setTime(date);
+	String todays_Date = dateFormat.format(cal.getTime());
+	System.out.println("Todays Date: " + todays_Date);
+	cal.add(Calendar.DATE, -1);
+	String yesterdays_Date = dateFormat.format(cal.getTime());
+	System.out.println("yesterdays_Date : " + yesterdays_Date);
+	cal.add(Calendar.MONTH, 1);
+	String futureDate_1month = dateFormat.format(cal.getTime());
+	System.out.println("futureDate_1month: " + futureDate_1month);
+	commonMethods.selectDropdownByValue(webPage, YesLeaseData[13][1], YesLeaseData[39][1]);
+	
+	selectSpecificValuesWithGivenDate(YesLeaseData,yesterdays_Date,yesterdays_Date,futureDate_1month,yesterdays_Date);
+	/*// Hire Date
+	CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
+			yesterdays_Date);
+	// Last Pay Date
+	CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
+			yesterdays_Date);
+	// Next Pay Date
+	CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
+			futureDate_1month);
+	// Account Opened Date
+	CreditAppPage.selectValueWithGivenDate(YesLeaseData[20][1], YesLeaseData[21][1], YesLeaseData[22][1],
+			yesterdays_Date);*/
+	ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+	ITafElement routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
+	ITafElement accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
+	CardNumberField.sendKeys("412345");
+	routingNumberField.sendKeys("021000128");
+	accountNumberField.sendKeys("21000128");
+	accountNumberField.sendKeys(Keys.TAB);
+
+	commonMethods.clickElementbyXpath(webPage, YesLeaseData[23][1], softAssert);
+	commonMethods.clickElementbyXpath(webPage, YesLeaseData[24][1], softAssert);
+	commonMethods.clickElementbyXpath(webPage, commonData.get("progressiveFormSubmit"), softAssert);
+	Thread.sleep(8000);
+	commonMethods.waitForPageLoad(webPage, softAssert);
+}
+public static String getExpectedDate(String value) throws Exception {
+	Calendar cal = Calendar.getInstance();
+	DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+	Date date = new Date();
+	cal.setTime(date);
+	String todays_Date = dateFormat.format(cal.getTime());
+	System.out.println("Todays Date: " + todays_Date);
+	cal.add(Calendar.DATE, -1);
+	String yesterdays_Date = dateFormat.format(cal.getTime());
+	System.out.println("yesterdays_Date : " + yesterdays_Date);
+	cal.add(Calendar.MONTH, -1);
+	String PastDate_1month = dateFormat.format(cal.getTime());
+	System.out.println("PastDate_1month: " + PastDate_1month);
+	cal.add(Calendar.MONTH, -1);
+	String PastDate_2month = dateFormat.format(cal.getTime());
+	System.out.println("PastDate_2month: " + PastDate_2month);
+	cal.add(Calendar.MONTH, 3);
+	String futureDate_1month = dateFormat.format(cal.getTime());
+	System.out.println("futureDate_1month: " + futureDate_1month);
+	cal.add(Calendar.MONTH, 2);
+	cal.add(Calendar.DATE, 15);
+	String futureDate_4thmonth = dateFormat.format(cal.getTime());
+	System.out.println("futureDate_4thmonth: " + futureDate_4thmonth);
+	return futureDate_4thmonth;
+}
+}
+

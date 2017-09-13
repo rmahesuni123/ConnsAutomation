@@ -592,7 +592,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1020, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1019, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Credit_App_Submit_With_RefField() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -609,7 +609,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1021, enabled = true, description = "verify Successful Submit For With Main source of Income as Disability Income")
+	@Test(priority = 1020, enabled = true, description = "verify Successful Submit For With Main source of Income as Disability Income")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Disability_Income() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -627,7 +627,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1022, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1021, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -650,7 +650,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1023, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1022, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Fields_Are_AutoPopulated_For_Registered_User() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -668,7 +668,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1024, dependsOnMethods = "verify_Fields_Are_AutoPopulated_For_Registered_User", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1023, dependsOnMethods = "verify_Fields_Are_AutoPopulated_For_Registered_User", enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_First_Name_And_Last_Name_Field_Are_Editable() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -691,7 +691,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1025, dependsOnMethods = "verify_First_Name_And_Last_Name_Field_Are_Editable", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1024, dependsOnMethods = "verify_First_Name_And_Last_Name_Field_Are_Editable", enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Email_Is_Not_Editable() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -721,7 +721,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1026, dependsOnMethods = "verify_Email_Is_Not_Editable", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1025, dependsOnMethods = "verify_Email_Is_Not_Editable", enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -736,7 +736,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1027, dependsOnMethods = "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1026, dependsOnMethods = "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User", enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -757,7 +757,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1028, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1027, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields", enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Successful_Submit_For_Registered_User_Status_Duplicate() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -777,7 +777,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1029, enabled = true, description = "verify Successful Submit With Main source of Income as Retired And App_Status as Declined")
+	@Test(priority = 1028, enabled = true, description = "verify Successful Submit With Main source of Income as Retired And App_Status as Declined")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Retired_Statue_Declined() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -796,9 +796,11 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1030, enabled = true, description = "verify_Yes_Lease_MandatoryFiedlValidation")
-	public void verify_Yes_Lease_Page_MandatoryFiedlValidation() throws Exception {
-		log.info("testing verify_Yes_Lease_Page_MandatoryFiedlValidation started------>");
+	@Test(priority = 1029, enabled = true, description = "verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit")
+	public void verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit()
+			throws Exception {
+		log.info(
+				"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit started------>");
 		SoftAssert softAssert = new SoftAssert();
 		if (declinedStatus == true) {
 			try {
@@ -808,10 +810,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 					CreditAppPage.verifyErrorMessageByXpath(softAssert, YesLeaseData[i][0], YesLeaseData[i][1],
 							YesLeaseData[i][2]);
 				}
-				log.info("testing verify_Yes_Lease_Page_MandatoryFiedlValidation completed------>");
+				log.info(
+						"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
-				mainPage.getScreenShotForFailure(webPage, "verify_Yes_Lease_Page_MandatoryFiedlValidation");
+				mainPage.getScreenShotForFailure(webPage,
+						"verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit");
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
 				e.printStackTrace();
@@ -821,9 +825,9 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1031, enabled = true, description = "verify_Yes_Lease_Page_Date_Validation")
-	public void verify_Yes_Lease_Page_Required_Date_Validation() throws Exception {
-		log.info("testing verify_Yes_Lease_Page_Required_Date_Validation started------>");
+	@Test(priority = 1030, enabled = true, description = "verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input")
+	public void verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input() throws Exception {
+		log.info("testing verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input started------>");
 		SoftAssert softAssert = new SoftAssert();
 		if (declinedStatus == true) {
 			try {
@@ -849,95 +853,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 				cal.add(Calendar.DATE, 15);
 				String futureDate_4thmonth = dateFormat.format(cal.getTime());
 				System.out.println("futureDate_4thmonth: " + futureDate_4thmonth);
-				// Verify for Hire Date with 02-30-2017, next month date,
-				// previous date and
-				// then today's Date
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
-						"02-30-2017");
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
-						"Hire Date with Invalid Date:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
-						futureDate_1month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
-						"Hire Date with futureDate_1month validation:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
-						PastDate_1month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "Hire Date with PastDate_1month validation:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
-						yesterdays_Date);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "Hire Date with yesterdays_Date validation:");
-				// Verify for Last Pay Date with Future Date, 2 month past date,
-				// Vaild-->current Date, 1 month past date (success with till
-				// last 35 days)
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
-						futureDate_1month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getText(), YesLeaseData[2][2],
-						"Last Pay Date with Invalid Date:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
-						PastDate_2month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[47][1]).getText(), YesLeaseData[48][1],
-						"Last Pay Date with PastDate_2month validation:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
-						yesterdays_Date);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getText(), "",
-						"Last Pay Date with yesterdays_Date validation:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
-						PastDate_1month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "Last Pay Date with Past 1 month Date validation:");
-				// Verify for Next Pay Date with past date, current date till
-				// next 90 days
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
-						PastDate_1month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[43][1]).getText(), YesLeaseData[40][1],
-						"Next Pay Date with past 1 month Date:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
-						futureDate_4thmonth);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[44][1]).getText(), YesLeaseData[45][1],
-						"Next Pay Date with future 4th Month validation:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
-						todays_Date);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[43][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "Next Pay Date with current Date:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
-						futureDate_1month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[44][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "Next Pay Date with future 1 month Date:");
-				// Verify for Account Open Date with Future date -Invalid,
-				// current date and past date
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[20][1], YesLeaseData[21][1], YesLeaseData[22][1],
-						futureDate_1month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[46][1]).getText(), YesLeaseData[7][2],
-						"Account Open Date with 1 month Future Date:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[20][1], YesLeaseData[21][1], YesLeaseData[22][1],
-						yesterdays_Date);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[46][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "Account Open Date with yesterday's Date:");
-				CreditAppPage.selectValueWithGivenDate(YesLeaseData[20][1], YesLeaseData[21][1], YesLeaseData[22][1],
-						PastDate_1month);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[46][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "Account Open Date with Past 1 month Date");
-				log.info("testing verify_Yes_Lease_Page_Required_Date_Validation completed------>");
-				softAssert.assertAll();
-			} catch (Throwable e) {
-				mainPage.getScreenShotForFailure(webPage, "verify_Yes_Lease_Page_Required_Date_Validation");
-				softAssert.assertAll();
-				Assert.fail(e.getLocalizedMessage());
-				e.printStackTrace();
-			}
-		} else {
-			Assert.fail("Declined state could not be generated");
-		}
-	}
-
-	@Test(priority = 1032, enabled = true, description = "verify_Yes_Lease_Page_Payment_Details_Validation")
-	public void verify_Yes_Lease_Page_Payment_Details_Validation() throws Exception {
-		log.info("testing verify_Yes_Lease_Page_Payment_Details_Validatio started------>");
-		SoftAssert softAssert = new SoftAssert();
-		if (declinedStatus == true) {
-			try {
+				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, "02-30-2017", futureDate_1month,
+						PastDate_1month, futureDate_1month);
 				ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
 				ITafElement routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
 				ITafElement accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
@@ -945,32 +862,105 @@ public class Conns_Credit_App_Page extends BaseTest {
 				routingNumberField.sendKeys("0210001");
 				accountNumberField.sendKeys("123");
 				accountNumberField.sendKeys(Keys.TAB);
-				Thread.sleep(4000);
-				// Verify for Error Messages
+				Thread.sleep(2000);
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(), YesLeaseData[29][1],
 						"Card Error Message: ");
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getText(), YesLeaseData[33][1],
 						"Bank Routing Error Message: ");
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getText(), YesLeaseData[38][1],
 						"Account Number Error Message: ");
-				CardNumberField.clear();
-				routingNumberField.clear();
-				accountNumberField.clear();
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
+						"Hire Date with Invalid Date:");
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getText(), YesLeaseData[2][2],
+						"Last Pay Date with futureDate_1month Date:");
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[43][1]).getText(), YesLeaseData[40][1],
+						"Next Pay Date with past 1 month Date:");
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[46][1]).getText(), YesLeaseData[7][2],
+						"Account Open Date with 1 month Future Date:");
+				webPage.getDriver().navigate().refresh();
+				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, futureDate_1month, PastDate_2month,
+						futureDate_4thmonth, yesterdays_Date);
+				CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
+				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
+				CardNumberField.sendKeys("700004A");
+				routingNumberField.sendKeys("ABA");
+				accountNumberField.sendKeys("12x");
+				;
+				accountNumberField.sendKeys(Keys.TAB);
+				softAssert.assertNotEquals(CardNumberField.getText(), "700004A", "Card  Number Field");
+				Thread.sleep(2000);
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[53][1]).getText(), YesLeaseData[53][2],
+						"Card Error Message: ");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[5][1]).getText(), YesLeaseData[5][2],
+						"Bank Routing Error Message: ");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getText(), YesLeaseData[38][1],
+						"Account Number Error Message: ");
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
+						"Hire Date with futureDate_1month validation:");
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[47][1]).getText(), YesLeaseData[48][1],
+						"Last Pay Date with PastDate_2month validation:");
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[44][1]).getText(), YesLeaseData[45][1],
+						"Next Pay Date with future 4th Month validation:");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
+						"Account Open Date with yesterday's Date:");
+				webPage.getDriver().navigate().refresh();
+				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, PastDate_1month, yesterdays_Date,
+						todays_Date, PastDate_2month);
+				CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
+				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
+				CardNumberField.sendKeys("34003");
+				routingNumberField.sendKeys("112345");
+				accountNumberField.sendKeys("41111100011000128212334");
+				accountNumberField.sendKeys(Keys.TAB);
+				Thread.sleep(2000);
+				softAssert.assertNotEquals(accountNumberField.getText(), "41111100011000128212334",
+						"Account Number Field");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(), YesLeaseData[29][1],
+						"Card Error Message: ");
+				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getText(), YesLeaseData[33][1],
+						"Bank Routing Error Message: ");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
+						"Account Number Error Message: ");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[41][1]),
+						"Hire Date with PastDate_1month validation:");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
+						"Last Pay Date with yesterdays_Date validation:");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[43][1]),
+						"Next Pay Date with current Date:");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
+						"Account Open Date with Past 2 month Date");
+				webPage.getDriver().navigate().refresh();
+				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, yesterdays_Date, PastDate_1month,
+						futureDate_1month, PastDate_1month);
+				CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
+				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
 				CardNumberField.sendKeys("412345");
 				routingNumberField.sendKeys("021000128");
 				accountNumberField.sendKeys("21000128");
 				accountNumberField.sendKeys(Keys.TAB);
-				Thread.sleep(6000);
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "CARD Error Message:");
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "ROUTING Number Error Message:");
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getAttribute("style"),
-						"opacity: 0; display: none;", "Account Number Error Message:");
-				log.info("testing verify_Yes_Lease_Page_Payment_Details_Validatio completed------>");
+				Thread.sleep(2000);
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[29][1]),
+						"Card Error Message: ");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[32][1]),
+						"Bank Routing Error Message: ");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
+						"Account Number Error Message: ");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[41][1]),
+						"Hire Date with yesterdays_Date validation:");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
+						"Last Pay Date with Past 1 month Date validation:");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[44][1]),
+						"Next Pay Date with future 1 month Date:");
+				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
+						"Account Open Date with Past 1 month Date");
+				webPage.getDriver().navigate().refresh();
+				log.info("testing verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
-				mainPage.getScreenShotForFailure(webPage, "verify_Yes_Lease_Page_Payment_Details_Validation");
+				mainPage.getScreenShotForFailure(webPage, "verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input");
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
 				e.printStackTrace();
@@ -980,43 +970,32 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1033, enabled = true, description = "verify_Yes_Lease_Page_Submition")
-	public void verify_Yes_Lease_Page_Submition() throws Exception {
-		log.info("testing verify_Yes_Lease_Page_Submition started------>");
+	@Test(priority = 1031, enabled = true, description = "verify_YesLease_Submit_With_Unique_ID")
+	public void verify_YesLease_Submit_With_Valid_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
-		if (declinedStatus == true) {
-			try {
-				commonMethods.selectDropdownByValue(webPage, YesLeaseData[13][1], YesLeaseData[39][1]);
-				commonMethods.clickElementbyXpath(webPage, YesLeaseData[23][1], softAssert);
-				commonMethods.clickElementbyXpath(webPage, YesLeaseData[24][1], softAssert);
-				commonMethods.clickElementbyXpath(webPage, commonData.get("progressiveFormSubmit"), softAssert);
-				Thread.sleep(8000);
-				commonMethods.waitForPageLoad(webPage, softAssert);
-				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-				// State could be declined-001, approved,-002,
-				// timeout-003,Invalid Unique ID-004, Wait-005
-				if (actualUrl.contains("001") || (actualUrl.contains("002")) || (actualUrl.contains("003"))
-						|| (actualUrl.contains("005"))) {
-					softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[49][1]).getText(),
-							YesLeaseData[50][1], "Yes Lease page Header:");
-				} else {
-					SoftAssertor.assertFail("Current URL is not as expected,Actual URL: " + actualUrl);
-				}
-				log.info("testing verify_Yes_Lease_Page_Submition completed------>");
-				softAssert.assertAll();
-			} catch (Throwable e) {
-				mainPage.getScreenShotForFailure(webPage, "verify_Yes_Lease_Page_Submition");
-				softAssert.assertAll();
-				Assert.fail(e.getLocalizedMessage());
-				e.printStackTrace();
+		try {
+			CreditAppPage.submitYesLeaseWithValidData(YesLeaseData, softAssert);
+			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+			// State could be declined-001, approved,-002,
+			// timeout-003,Invalid Unique ID-004, Wait-005
+			if (actualUrl.contains("001") || (actualUrl.contains("002")) || (actualUrl.contains("003"))
+					|| (actualUrl.contains("005"))) {
+				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[49][1]).getText(), YesLeaseData[50][1],
+						"Yes Lease page Header:");
+			} else {
+				SoftAssertor.assertFail("Current URL is not as expected,Actual URL: " + actualUrl);
 			}
-		} else {
-			Assert.fail("Declined state could not be generated");
+			log.info("testing verify_Yes_Lease_Page_Submition completed------>");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "verify_YesLease_Submit_With_Unique_ID");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
-	@Test(priority = 1034, enabled = true, description = "verify_YesLease_Submit_With_Unique_ID")
-	public void verify_YesLease_Submit_With_Unique_ID() throws Exception {
+	@Test(priority = 1032, enabled = true, description = "verify_YesLease_Submit_For_Unique_ID")
+	public void verify_YesLease_Submit_For_Unique_ID() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			YesLeaseData = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyYesLeasePageData");
@@ -1029,43 +1008,9 @@ public class Conns_Credit_App_Page extends BaseTest {
 			// webPage.loadPage(url);
 			webPage.getDriver().get(url);
 			// http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/yes-money-credit/application/success/0007/?uniqueid=1A7BB00C79CF19F1B58F0004AC1
-			Calendar cal = Calendar.getInstance();
-			DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-			Date date = new Date();
-			cal.setTime(date);
-			String todays_Date = dateFormat.format(cal.getTime());
-			System.out.println("Todays Date: " + todays_Date);
-			cal.add(Calendar.DATE, -1);
-			String yesterdays_Date = dateFormat.format(cal.getTime());
-			System.out.println("yesterdays_Date : " + yesterdays_Date);
-			cal.add(Calendar.MONTH, 1);
-			String futureDate_1month = dateFormat.format(cal.getTime());
-			System.out.println("futureDate_1month: " + futureDate_1month);
-			// Hire Date
-			CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
-					yesterdays_Date);
-			commonMethods.selectDropdownByValue(webPage, YesLeaseData[13][1], YesLeaseData[39][1]);
-			// Last Pay Date
-			CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
-					yesterdays_Date);
-			// Next Pay Date
-			CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
-					futureDate_1month);
-			ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
-			ITafElement routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
-			ITafElement accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
-			CardNumberField.sendKeys("412345");
-			routingNumberField.sendKeys("021000128");
-			accountNumberField.sendKeys("21000128");
-			accountNumberField.sendKeys(Keys.TAB);
-			// Account Opened Date
-			CreditAppPage.selectValueWithGivenDate(YesLeaseData[20][1], YesLeaseData[21][1], YesLeaseData[22][1],
-					yesterdays_Date);
-			commonMethods.clickElementbyXpath(webPage, YesLeaseData[23][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, YesLeaseData[24][1], softAssert);
-			commonMethods.clickElementbyXpath(webPage, commonData.get("progressiveFormSubmit"), softAssert);
-			Thread.sleep(10000);
-			commonMethods.waitForPageLoad(webPage, softAssert);
+			CreditAppPage.submitYesLeaseWithValidData(YesLeaseData, softAssert);
+			// Thread.sleep(10000);
+			// commonMethods.waitForPageLoad(webPage, softAssert);
 			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(actualUrl.contains(YesLeaseData[51][2]),
 					"Unique ID Yes Lease page URL:" + actualUrl + " does not conatain: " + YesLeaseData[51][2]);
@@ -1073,7 +1018,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 					"Yes Lease with uniqueID header Validation:");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_YesLease_Submit_With_Unique_ID");
+			mainPage.getScreenShotForFailure(webPage, "verify_YesLease_Submit_For_Unique_ID");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
