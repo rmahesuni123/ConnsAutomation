@@ -785,8 +785,9 @@ public class Conns_Credit_App_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyCreditAppSubmitForYesLease");
 			CreditAppPage.navigateToCreditAppPage(softAssert);
-			int ssn=600+random.nextInt(90);
-			testData[21][3]=String.valueOf(ssn);
+		//	int ssn=600+random.nextInt(90);
+		//	testData[21][3]=String.valueOf(ssn);
+		//	System.out.println(testData[21][3]);
 			CreditAppPage.fillForm(softAssert, testData);
 			CreditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DeclinedPage");
 			softAssert.assertAll();
@@ -1008,8 +1009,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 			YesLeaseData = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyYesLeasePageData");
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyForYesLeaseSubmitWithUniqueID");
-			int ssn=700+random.nextInt(90);
-			testData[21][3]=String.valueOf(ssn);
+			//int ssn=700+random.nextInt(90);
+		//	testData[21][3]=String.valueOf(ssn);
 			CreditAppPage.navigateToCreditAppPage(softAssert);
 			CreditAppPage.fillForm(softAssert, testData);
 			CreditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DeclinedPage");
