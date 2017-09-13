@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Random;
 
 import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
@@ -59,7 +60,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	boolean declinedStatus = false;
 	String[][] YesLeaseData;
-
+	Random random=new Random();
 	/*** Prepare before class @throws Exception the exception */
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -784,6 +785,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyCreditAppSubmitForYesLease");
 			CreditAppPage.navigateToCreditAppPage(softAssert);
+			int ssn=600+random.nextInt(90);
+			testData[21][3]=String.valueOf(ssn);
 			CreditAppPage.fillForm(softAssert, testData);
 			CreditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DeclinedPage");
 			softAssert.assertAll();
@@ -1001,6 +1004,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 			YesLeaseData = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyYesLeasePageData");
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyForYesLeaseSubmitWithUniqueID");
+			int ssn=700+random.nextInt(90);
+			testData[21][3]=String.valueOf(ssn);
 			CreditAppPage.navigateToCreditAppPage(softAssert);
 			CreditAppPage.fillForm(softAssert, testData);
 			CreditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DeclinedPage");
