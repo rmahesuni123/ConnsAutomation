@@ -346,8 +346,8 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[0][0], softAssert);
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
+			//commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[0][0], softAssert);
+			//connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			commonMethods.clearTextBox(webPage, verifyFindStoreInvalidData[1][0], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, verifyFindStoreInvalidData[1][0], verifyFindStoreInvalidData[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[2][0], softAssert);
@@ -378,8 +378,8 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[0][0], softAssert);
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
+			//commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[0][0], softAssert);
+			//connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			commonMethods.clearTextBox(webPage, verifyValidRegionSearchData[1][0], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, verifyValidRegionSearchData[1][0], verifyValidRegionSearchData[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[2][0], softAssert);
@@ -406,8 +406,8 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRegionSearchData[0][0], softAssert);
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
+			//commonMethods.clickElementbyXpath(webPage, verifyZipCodeRegionSearchData[0][0], softAssert);
+			//connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			commonMethods.clearTextBox(webPage, verifyZipCodeRegionSearchData[1][0], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, verifyZipCodeRegionSearchData[1][0],
 					verifyZipCodeRegionSearchData[0][1], softAssert);
@@ -477,8 +477,8 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[0][0], softAssert);
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
+			//commonMethods.clickElementbyXpath(webPage, verifyCitySearchData[0][0], softAssert);
+			//connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			commonMethods.clearTextBox(webPage, verifyCitySearchData[1][0], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, verifyCitySearchData[1][0],
 					verifyCitySearchData[0][1], softAssert);
@@ -505,8 +505,8 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[0][0], softAssert);
-			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
+			//commonMethods.clickElementbyXpath(webPage, verifyCityRadiusSearchData[0][0], softAssert);
+			//connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			commonMethods.clearTextBox(webPage, verifyCityRadiusSearchData[1][0], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, verifyCityRadiusSearchData[1][0],
 					verifyCityRadiusSearchData[0][1], softAssert);
