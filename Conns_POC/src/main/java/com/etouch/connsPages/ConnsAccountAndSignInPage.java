@@ -75,10 +75,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		
 				}
 		
-			 else if (TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestBedName().equalsIgnoreCase("Safari")) {
-					this.resize(1400, 700);
-		
-				}
+			/* else if (TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestBedName().equalsIgnoreCase("Safari")) {
+					this.resize(1400, 700);		
+				}*/
 		}
 
 		
