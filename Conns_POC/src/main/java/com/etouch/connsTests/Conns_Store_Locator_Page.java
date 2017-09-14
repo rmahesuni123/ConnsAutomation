@@ -109,16 +109,11 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyPageTitle");
-			String expectedTitle = test[0][1];
-			String actualTitle = "";
-			CommonMethods.waitForWebElement(By.xpath(commonData[10][1]), webPage);
-			commonMethods.clickElementbyXpath(webPage, commonData[10][1], softAssert);
+			String ExpectedTitle = test[0][1];
+			commonMethods.navigateToPage(webPage,storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
-			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			actualTitle = webPage.getPageTitle();
-			log.info("Expected Title: "+ test[0][1]);
-			log.info("Actual Title: "+ actualTitle);
-			softAssert.assertEquals(expectedTitle, actualTitle,"Page Title verification failed. Expected title - " + expectedTitle + " Actual title - "+ webPage.getPageTitle());
+			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage); //Added By Rajesh
+			softAssert.assertEquals(ExpectedTitle, webPage.getPageTitle(),"Page Title verification failed. Expected title - " + ExpectedTitle + " Actual title - "+ webPage.getPageTitle());
 			softAssert.assertAll();
 		}catch(Throwable e){
 			mainPage.getScreenShotForFailure(webPage, "Verify_StoreLocator_PageTitle");
