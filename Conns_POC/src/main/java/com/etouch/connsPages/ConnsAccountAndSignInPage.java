@@ -64,6 +64,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 		testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 		log.info("Test Type is : " + testType);
+		log.info("Safari  : " +TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestBedName().equalsIgnoreCase("Safari"));
 		if (testType.equalsIgnoreCase("Web")) {
 				log.info("Maximize Window in case of Desktop Browsers Only : ");
 				webPage.getDriver().manage().window().maximize();
@@ -74,8 +75,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		
 				}
 		
-			 else if (TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName()
-						.equalsIgnoreCase("Mac") && new BrowserInfoUtil(testBedName).isSafari()) {
+			 else if (TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestBedName().equalsIgnoreCase("Safari")) {
 					this.resize(1400, 700);
 		
 				}
