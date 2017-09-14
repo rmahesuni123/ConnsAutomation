@@ -73,6 +73,12 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					this.resize(1400, 700);
 		
 				}
+		
+			 else if (TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName()
+						.equalsIgnoreCase("Mac") && new BrowserInfoUtil(testBedName).isSafari()) {
+					this.resize(1400, 700);
+		
+				}
 		}
 
 		
