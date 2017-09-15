@@ -2,6 +2,7 @@ package com.etouch.connsPages;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -94,12 +95,18 @@ public class ConnsMainPage extends CommonPage {
 		}
 	}
 
-	public boolean isSortedFloat(List<WebElement> list) {
+	public boolean isSortedFloat(List<WebElement> oldlist) {
+		List<WebElement> list=new <WebElement> ArrayList();;
+		for (int i = 0; i < oldlist.size(); i++) {
+			if(oldlist.get(i).isDisplayed()){
+				list.add(oldlist.get(i));
+		}}
 		boolean sorted = true;
 		String str1;
 		String str2;
 		str1=list.get(0).getText().replace("$", "").replace(",", "");
 		for (int i = 1; i < list.size(); i++) {
+			//if(list.get(i).isDisplayed()){
 			String actualString=list.get(i).getText();
 			str2=actualString.replace("$", "").replace(",", "");
 			Float a=Float.parseFloat(str1);
@@ -113,10 +120,16 @@ public class ConnsMainPage extends CommonPage {
 				break;
 			}
 			str1=str2;
+			//}
 		}
 		return sorted;
 	}
-	public boolean isSortedDescFloat(List<WebElement> list) {
+	public boolean isSortedDescFloat(List<WebElement> oldlist) {
+		List<WebElement> list=new <WebElement> ArrayList();;
+		for (int i = 0; i < oldlist.size(); i++) {
+			if(oldlist.get(i).isDisplayed()){
+				list.add(oldlist.get(i));
+		}}
 		boolean sorted = true;
 		String str1;
 		String str2;
@@ -138,7 +151,12 @@ public class ConnsMainPage extends CommonPage {
 		}
 		return sorted;
 	}
-	public boolean isSortedByName(List<WebElement> list) {
+	public boolean isSortedByName(List<WebElement> oldlist) {
+		List<WebElement> list=new <WebElement> ArrayList();;
+		for (int i = 0; i < oldlist.size(); i++) {
+			if(oldlist.get(i).isDisplayed()){
+				list.add(oldlist.get(i));
+		}}
 		boolean sorted = true;
 		String str1;
 		String str2;
@@ -157,7 +175,12 @@ public class ConnsMainPage extends CommonPage {
 		}
 		return sorted;
 	}
-	public boolean isSortedByNameDesc(List<WebElement> list) {
+	public boolean isSortedByNameDesc(List<WebElement> oldlist) {
+		List<WebElement> list=new <WebElement> ArrayList();;
+		for (int i = 0; i < oldlist.size(); i++) {
+			if(oldlist.get(i).isDisplayed()){
+				list.add(oldlist.get(i));
+		}}
 		boolean sorted = true;
 		String str1;
 		String str2;
