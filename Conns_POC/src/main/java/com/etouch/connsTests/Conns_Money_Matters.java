@@ -200,7 +200,7 @@ public class Conns_Money_Matters extends BaseTest {
 		
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			commonMethods.waitForWebElement(By.xpath("//div[2]/div/div[4]/div[2]/div/div[2]/div/div[1]/div[1]/div/img"), webPage);
+			
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "MoneyMatters", "Verifytitle");
 			String ExpectedTitle = test[0][1];
 			commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);				
