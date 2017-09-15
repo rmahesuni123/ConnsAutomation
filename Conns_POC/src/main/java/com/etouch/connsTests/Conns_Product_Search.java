@@ -82,6 +82,7 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 401, enabled = true)
 	public void Verify_Search_Functionality_And_Results_Contents() {
 		try {
+			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchUsingKeyword");
 			String Identifier = test[0][0];
 			String ProductName = test[0][1];
@@ -203,6 +204,7 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 404, enabled = true)
 	public void Verify_Column_Layout_For_Product_Search() throws PageException, InterruptedException {
 		try {
+			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
 					"verifyProductSearchAndShortByName");
 			if (testType.equalsIgnoreCase("Web")) {
