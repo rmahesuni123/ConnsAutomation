@@ -83,7 +83,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
 					"Verify_For_Pagination_And_Product_Details");
-			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
+			CommonMethods.navigateToPage(webPage, url);
+            ConnsProductPurchasePage.Click_On_French_Door_Link(webPage, test[0][0]);
 			log.info("Clicked on French Door");
 			// Pagination using index number
 			if (testType.equalsIgnoreCase("Web")) {
