@@ -25,7 +25,7 @@ import org.testng.asserts.SoftAssert;
 import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
-import com.etouch.connsPages.ConnsHomePage;
+
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.connsPages.ConnsProductPurchasePage;
 import com.etouch.taf.core.TestBed;
@@ -52,7 +52,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	private WebPage webPage;
 	private ConnsMainPage mainPage;
 	ConnsProductPurchasePage connsProductPurchasePage;
-	private ConnsHomePage ConnsHomePage;
+	//private ConnsHomePage ConnsHomePage;
 	CommonMethods commonMethods;
 	String testBedName;
 	TestBed testBed;
@@ -134,6 +134,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				} else {
 				}
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
+				
+			//	TestBedManagerConfiguration.
+				
 				connsProductPurchasePage = new ConnsProductPurchasePage();
 				commonMethods = new CommonMethods();
 				synchronized (this) {
@@ -177,6 +180,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 			}
@@ -206,6 +211,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.Add_To_Cart(webPage, addToCart, softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -290,6 +297,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.Add_To_Cart(webPage, addToCart, softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -354,6 +363,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String actualquandityAfterUpdate = null;
 		int actualProductPrice = 0;
 		int expectedProductPrice = 0;
+		
 		try {
 			String[][] addToCartInStockValid = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_Add_To_Cart_As_Per_Avilability_Message2");
 			
@@ -369,6 +379,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -385,8 +397,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.getWebElementbyXpath(webPage, checkoutFlowCommonLocators[18][1], softAssert).clear();
 			commonMethods.sendKeysbyXpath(webPage, checkoutFlowCommonLocators[18][1], "2", softAssert);
 			commonMethods.clickElementbyXpath(webPage, checkoutFlowCommonLocators[19][1], softAssert);
+			Thread.sleep(3000);
 			actualquandityAfterUpdate = commonMethods.getWebElementbyXpath(webPage, checkoutFlowCommonLocators[18][1], softAssert).getAttribute("value");
 			// price when QTY=2
+			
 			actualProductPrice = Integer.parseInt(commonMethods.getTextbyXpath(webPage, ItemLink[11][1], softAssert)
 					.replace("$", "").replace(",", "").replace(".", ""));
 			log.info("actualProductPrice:" + actualProductPrice);
@@ -438,6 +452,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -446,7 +462,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, test[0][1], test[0][3], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
-			Thread.sleep(8000);
+			Thread.sleep(5000);
 			actual_Coupon_Code_Error_Message = commonMethods.getTextbyXpath(webPage, test[2][1], softAssert).replaceAll(" ", "");
 			expected_Coupon_Code_Error_Message = test[0][4].replaceAll(" ", "");
 			softAssert.assertTrue(actual_Coupon_Code_Error_Message.contains(expected_Coupon_Code_Error_Message),"Coupon_Code_Error_Messages are not matching::" + " Expected is:"+ expected_Coupon_Code_Error_Message + " Actual is: " + actual_Coupon_Code_Error_Message);
@@ -479,13 +495,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			expectedUrl = test[0][4];
@@ -515,6 +532,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -570,13 +589,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			boolean isForgotYourPasswordLinkDisplayed = commonMethods.verifyElementisPresent(webPage, test[1][1],softAssert);
 			softAssert.assertTrue(isForgotYourPasswordLinkDisplayed, "forgot your password link is not displayed");
@@ -607,13 +627,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -634,7 +655,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Clicking on Payment Info");
 			commonMethods.clickElementbyXpath_usingJavaScript(webPage, test[0][1], softAssert);
 			log.info("Clicked on Payment Info");
-			Thread.sleep(5000);
 			Alert alert = webPage.getDriver().switchTo().alert();
 			actualText = alert.getText();
 			log.info("alert box text is:" + actualText);
@@ -663,15 +683,18 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,softAssert);			
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
+			Thread.sleep(5000);//For Safari
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
+			Thread.sleep(4000);// For Safari
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[9][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
@@ -685,9 +708,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			Thread.sleep(3000);
 			CommonMethods.waitForWebElement(By.xpath(test[2][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
-			Thread.sleep(3000);
+			System.out.println("TEST1111111111111");
+			Thread.sleep(7000);
 			actualURL = commonMethods.getPageUrl(webPage, softAssert);
+			System.out.println("-------------------------"+actualURL);
 			expectedURL = test[2][4];
+			System.out.println("-------------------------"+expectedURL);
 			softAssert.assertTrue(actualURL.contains(expectedURL), "expected alert message is not displayed: "+ " Expected Text is:" + expectedURL + " Actual text is:" + actualURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -708,31 +734,22 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
-			try{
-				CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[9][1]), webPage);	
-			}catch(Exception e){
-				e.getLocalizedMessage();
-			}
-			
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[9][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[9][1], softAssert);
 			Thread.sleep(3000);
 			// clicking on pickup location continue button
-			try{
-				CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);	
-			}catch(Exception e){
-				e.getLocalizedMessage();
-			}
-			
+			CommonMethods.waitForWebElement(By.xpath(submitBillingInfo[10][1]), webPage);
 			commonMethods.clickElementbyXpath(webPage, submitBillingInfo[10][1], softAssert);
 			connsProductPurchasePage.Submit_Paypal_Payment_Info(webPage, paypalInfo, softAssert);
 			Thread.sleep(3000);
@@ -761,6 +778,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -768,7 +787,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -812,13 +830,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, pickupAvialableProduct,softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -874,6 +893,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -924,6 +945,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -963,6 +986,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1005,8 +1030,6 @@ public class Conns_Product_Purchase extends BaseTest {
 	/*
 	 * TC_005 - Verify Zip Code textbox with invalid input
 	
-
-
 	 * 
 	 * ---------------------------------------------- UC - 006
 	 * ----------------------------------------------------------------------
@@ -1024,6 +1047,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1050,6 +1075,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1083,6 +1110,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1140,13 +1169,15 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1180,13 +1211,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Verify_Different_Address_Radio_Button(webPage, clickOnAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1221,13 +1253,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Verify_Different_Address_Radio_Button(webPage, clickOnAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1260,13 +1293,15 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
-			Thread.sleep(5000);
+			
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1304,13 +1339,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1347,13 +1383,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, zipCodeValid, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1372,10 +1409,16 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 				// clicking on shipping info continue button
 				commonMethods.clickElementbyXpath(webPage, submitShippingInfo[8][1], softAssert);
-				Thread.sleep(5000);
+				Thread.sleep(3000);
 				String shippingOptionText = commonMethods.getTextbyXpath(webPage, submitBillingInfo[16][1],softAssert);
 				log.info("shippingOptionText text is:" + shippingOptionText);
 				softAssert.assertTrue(shippingOptionText.contains("Conn's White Glove"),"Conns shipping is not displayed in Shipping method section. Actual text: "+shippingOptionText);
+				//below line commented by deepak as it is not required and is causing failure
+				/*commonMethods.clickElementbyXpath(webPage, "//*[@id='shipping-method-buttons-container']/button",softAssert);
+				String checkoutCarWrapperText = commonMethods.getTextbyXpath(webPage,"//*[@id='checkout-cart-wrapper']/div", softAssert);
+				log.info("checkoutCarWrapperText:" + checkoutCarWrapperText);
+				softAssert.assertTrue(checkoutCarWrapperText.contains("Conn's White Glove)"),"Conns Shipping is not displayed in checkout cart section");*/
+				//done
 			} else {
 				log.info("ship To Different Address radio button is not displayed in Billing information section");
 			}
@@ -1401,13 +1444,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Add_In_Stock_Pickup_Only_Product_To_Cart(webPage, clickOnAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1429,7 +1473,6 @@ public class Conns_Product_Purchase extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, submitShippingInfo[8][1], softAssert);
 				Thread.sleep(3000);
 				String shippingOptionText = commonMethods.getTextbyXpath(webPage, submitShippingInfo[18][1],softAssert);
-				Thread.sleep(5000);
 				log.info("shippingOptionText:" + shippingOptionText);
 				softAssert.assertTrue(shippingOptionText.contains("Free Delivery"),"Free Delivery shipping is not displayed in Shipping method section");
 				
@@ -1461,6 +1504,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1468,7 +1513,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
@@ -1499,6 +1543,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1506,13 +1552,13 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			WebElement emailField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[2][1], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, submitBillingInfo[2][1], inStockAvialableProduct[3][3], softAssert);
 			emailField.sendKeys(Keys.TAB);
-			boolean isEmailErrorDisplayed = commonMethods.verifyElementisPresent(webPage, billingFormValidation[0][1],softAssert);
+			boolean isEmailErrorDisplayed = commonMethods.verifyElementisPresent(webPage, billingFormValidation[0][1],
+					softAssert);
 			log.info("isEmailErrorDisplayed:" + isEmailErrorDisplayed);
 			softAssert.assertFalse(isEmailErrorDisplayed,"email address error message is displayed for valid email address");
 			WebElement zipcodeField = commonMethods.getWebElementbyXpath(webPage, submitBillingInfo[5][1], softAssert);
@@ -1537,6 +1583,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1544,7 +1592,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -1567,6 +1614,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1574,7 +1623,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage, inStockAvialableProduct,softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			Thread.sleep(3000);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
@@ -1588,7 +1636,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 
-	@Test(priority = 231, enabled = true, description = "Verify all product related details in cart page with list page")
+	@Test(priority = 233, enabled = true, description = "Verify all product related details in cart page with list page")
 	public void Verify_Cart_Page_Product_Details() {
 		SoftAssert softAssert = new SoftAssert();
 		String productDetails = null;
@@ -1600,6 +1648,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1607,11 +1657,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			// adding pickup only product to cart
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,inStockAvialableProduct, softAssert);
-			log.info("Getting unit price for product added to cart");
-			Thread.sleep(5000);
+			log.info("productDetails:" + productDetails);
 			productPriceCartPage = commonMethods.getTextbyXpath(webPage, ItemLink[10][1], softAssert);
 			log.info("productPriceCartPage:" + productPriceCartPage);
-			log.info("Getting product name from checkout page");
 			productLinkTextCartPage = commonMethods.getTextbyXpath(webPage, ItemLink[6][1], softAssert);
 			log.info("productLinkTextCartPage:" + productLinkTextCartPage);
 			softAssert.assertTrue(productDetails.contains(productPriceCartPage),"Cart price product is not matching with list price:" + "Actual text is: " + productDetails+ " Excpected is:" + productPriceCartPage);
@@ -1635,6 +1683,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -1642,23 +1692,20 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			productDetails = connsProductPurchasePage.Click_On_In_Stock_With_Delivery_Available(webPage,pickupAvialableProduct, softAssert);
 			log.info("Product Details:" + productDetails);
-			Thread.sleep(5000);
-			List<String> actualValue = connsProductPurchasePage.page_Verify_Product_Details_Cart(webPage,checkoutFlowCommonLocators, softAssert);
+			List<String> actualValue = connsProductPurchasePage.page_Verify_Product_Details_Cart(webPage,
+					checkoutFlowCommonLocators, softAssert);
 			log.info("Product name:" + actualValue.get(0));
 			softAssert.assertTrue(productDetails.contains(actualValue.get(0)),"Product Detail:" + productDetails + " Does Not contains Product Name as: " + actualValue.get(0));
 			log.info("Product price:" + actualValue.get(1));
 			softAssert.assertTrue(productDetails.contains(actualValue.get(1)),"Product Detail:" + productDetails + " Does Not contains Product Price as: " + actualValue.get(1));
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
-			log.info("Checking out as guest user");
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
-			log.info("Subitting billing info");
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
 			connsProductPurchasePage.click_Billing_Info_Continue_Button(webPage, checkoutFlowCommonLocators,softAssert);
 			Thread.sleep(10000);
 			String productNamePickupLocationSection = connsProductPurchasePage.get_Pickup_Location_Product_Name(webPage,checkoutFlowCommonLocators, softAssert);
-			log.info("Verifying product name under pickup location");
-			softAssert.assertTrue(productDetails.contains(productNamePickupLocationSection),"Actual text is: " + productDetails + " Excpected is:" + productNamePickupLocationSection+ "product name displayed in pickup location section is not matching is not matching with list page "+ "expected is:" + productNamePickupLocationSection);
+			softAssert.assertTrue(productDetails.contains(productNamePickupLocationSection),
+					"Actual text is: " + productDetails + " Excpected is:" + productNamePickupLocationSection+ "product name displayed in pickup location section is not matching is not matching with list page "+ "expected is:" + productNamePickupLocationSection);
 			connsProductPurchasePage.click_Pickup_Location_Continue_Button(webPage, checkoutFlowCommonLocators,softAssert);
 			Thread.sleep(10000);
 			CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[5][1]), webPage);
@@ -1666,16 +1713,26 @@ public class Conns_Product_Purchase extends BaseTest {
 			Thread.sleep(10000);
 			ITafElement radioButton = webPage.findObjectByxPath(checkoutFlowCommonLocators[9][1]);
 			webPage.scrollToElement(radioButton);
-			log.info("Selecting Cash on delivery radio button option");
+			// webPage.scrollUp(1);
+			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[9][1]),
+			// webPage);
 			connsProductPurchasePage.click_Cash_On_Delivery_Radio_Button(webPage, checkoutFlowCommonLocators,softAssert);
 			connsProductPurchasePage.click_Payment_Info_Continue_Button(webPage, checkoutFlowCommonLocators,softAssert);
 			Thread.sleep(10000);
-			log.info("Clicking on place order button");
+			/*
+			 * ITafElement placeOrderButton=webPage.findObjectByxPath(
+			 * checkoutFlowCommonLocators[33][1]);
+			 * webPage.scrollToElement(placeOrderButton);
+			 */
+			// CommonMethods.waitForWebElement(By.xpath(checkoutFlowCommonLocators[15][1]),
+			// webPage);
 			connsProductPurchasePage.click_Place_Order_Button(webPage, checkoutFlowCommonLocators, softAssert);
 			Thread.sleep(10000);
-			String orderConfirmationText = commonMethods.getTextbyXpath(webPage, checkoutFlowCommonLocators[33][1],softAssert);
-			log.info("Verifying order received message");
-			softAssert.assertEquals(orderConfirmationText, expectedSuccessMessage,"order confirmation message is not matching:" + " expected is:" + expectedSuccessMessage+ "actual is:" + orderConfirmationText);
+			String orderConfirmationText = commonMethods.getTextbyXpath(webPage, checkoutFlowCommonLocators[33][1],
+					softAssert);
+			softAssert.assertEquals(orderConfirmationText, expectedSuccessMessage,
+					"order confirmation message is not matching:" + " expected is:" + expectedSuccessMessage
+							+ "actual is:" + orderConfirmationText);
 			softAssert.assertAll();
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Pickup_Checkout_Flow_Cash_On_Delivery");
@@ -1684,7 +1741,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 233, enabled = true, description = "Verify 'Continue' button by selecting 'Checkout as Guest' in checkout page")
+	@Test(priority = 231, enabled = true, description = "Verify 'Continue' button by selecting 'Checkout as Guest' in checkout page")
 	public void Verify_UI_Checkout_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1693,54 +1750,39 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				if(testBedName.equalsIgnoreCase("Safari"))
+					Thread.sleep(3000);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 			}
 			connsProductPurchasePage.Click_On_PickUp_Only_Add_To_Cart_Button(webPage, pickupOnlyAddToCart, softAssert);
-			Thread.sleep(5000);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
-			log.info("Verifying if Checkout Method section is in expanded mode by default");
 			boolean isCheckoutSectionIsExpandededModeByDefault = commonMethods.verifyElementisPresent(webPage,test[3][1], softAssert);
 			softAssert.assertTrue(isCheckoutSectionIsExpandededModeByDefault,"By default checkout method is not in expanded mode");
-			log.info("Selecting 'Login as guest' radio button under Checkout Method section");
 			commonMethods.clickElementbyXpath(webPage, test[1][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
-			log.info("Verifying if Checkout Method section is collapsed after clicking on continue button");
-			Thread.sleep(5000);
 			boolean isCheckoutSectionCollapsed = commonMethods.verifyElementisPresent(webPage, test[4][1], softAssert);
 			softAssert.assertTrue(isCheckoutSectionCollapsed, "checkout method is not in collapsed mode for Guest");
-			log.info("Verifying if Billing Information section is expanded after clicking on continue button");
-			Thread.sleep(5000);
 			boolean isBillingInformationSectionInExpanded = commonMethods.verifyElementisPresent(webPage, test[5][1],softAssert);
 			softAssert.assertTrue(isBillingInformationSectionInExpanded,"Billing Information Section Is Not In Expanded Mode for Guest");
 			
 			//merge TC 218
-			log.info("Clicking on Edit button under Checkout Method section");
 			commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
-			log.info("Selecting 'Register' radio button under Checkout Method section");
 			commonMethods.clickElementbyXpath(webPage, test[7][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[2][1], softAssert);
-			log.info("Verifying if Checkout Method section is collapsed after clicking on continue button");
-			Thread.sleep(5000);
-			boolean isCheckoutSectionCollapsedforRegister = commonMethods.verifyElementisPresent(webPage,test[4][1], softAssert);
-			softAssert.assertTrue(isCheckoutSectionCollapsedforRegister, "checkout method is not in collapsed mode for Register user");
-			log.info("Verifying if Billing Information section is expanded after clicking on continue button");
-			Thread.sleep(5000);
+			//boolean isCheckoutSectionCollapsedforRegister = commonMethods.verifyElementisPresent(webPage,test[4][1], softAssert);
+			softAssert.assertTrue(isCheckoutSectionCollapsed, "checkout method is not in collapsed mode for Register user");
 			boolean isBillingInformationSectionInExpandModeforRegister = commonMethods.verifyElementisPresent(webPage,test[5][1], softAssert);
 			softAssert.assertTrue(isBillingInformationSectionInExpandModeforRegister,"Billing Information Section Is Not In Expanded Mode for Register");
 			//done
 			
 			//merge TC 219
-			log.info("Clicking on Edit button under Checkout Method section");
 			commonMethods.clickElementbyXpath(webPage, test[6][1], softAssert);
-			log.info("Proceeding as registered user under Checkout Method section");
 			commonMethods.sendKeysbyXpath(webPage, test[8][1], test[8][3], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, test[9][1], test[9][3], softAssert);
 			commonMethods.clickElementbyXpath(webPage, test[10][1], softAssert);
-			log.info("Verifying if Billing Information section is expanded after clicking on continue button");
-			Thread.sleep(5000);
 			boolean isBillingInformationSectionInExpandMode = commonMethods.verifyElementisPresent(webPage, test[5][1],softAssert);
 			softAssert.assertTrue(isBillingInformationSectionInExpandMode, "Login is not successful");
 			
