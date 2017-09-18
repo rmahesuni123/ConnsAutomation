@@ -1113,7 +1113,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 	
 	public List<String> verify_Pay_Your_Bill_Link_Account_Dashboard(String[][] testdata) {
-		int r =0;
+	//	int r =0;
 		SoftAssert softAssert = new SoftAssert();
 		List<String> brokenLinks = new ArrayList<String>();
 		String ParentElementLocator = null;
@@ -1125,17 +1125,38 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Actual_Page_URL="";
 		String Actual_Page_Title="";
 		String Actual_Page_Element_Name="";
+		String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text = "";
 		String Pay_Your_Bill_Page_Links_Page_Element_Locator = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_1 = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_2 = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_3 = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_4 = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_5 = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_6 = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_7 = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_8 = "";
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_9 = "";
+		
 		String TestCaseName = "";
 			try {
 				log.info("Verifying " + testdata[r][0]);
 				ParentElementLocator = testdata[r][1];
 				ChildElementLocator = testdata[r][2];
+				Pay_Your_Bill_Page_Links_Child_Element_Locator_Text = testdata[r][2];
 				Expected_Page_URL = testdata[r][3];
 				Pay_Your_Bill_Page_Links_Page_Element_Locator = testdata[r][4];
 				//TestCaseName = testdata[0][0];
 				//Expected_Page_Element_Name = testdata[r][4];
 				Expected_Page_Element_Title = testdata[r][5];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_1 = testdata[2][4];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_2 = testdata[3][4];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_3 = testdata[4][4];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_4 = testdata[5][4];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_5 = testdata[6][4];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_6 = testdata[7][4];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_7 = testdata[8][4];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_8 = testdata[9][4];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator_9 = testdata[10][4];
 				
 				log.info("Parent Locator is ..." + ParentElementLocator);
 				/*testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
@@ -1145,19 +1166,19 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				log.info("Test Type is : " + testType);
 				platform = testBed.getPlatform().getName().toUpperCase();*/
 				
-				
+				/*
 				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
 					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
-				}
+				}*/
 					log.info("********** Pay_Your_Bill_Page_Link_ChildElementLocator_Execution_Starts : ******************" +ChildElementLocator);
 					log.info("********** Before Execution ******************");
 					log.info("********** Inside TestCaseName Execution ******************");
-					Thread.sleep(3000);
-					
+					Thread.sleep(3000);					
 					log.info("********** Pay_Your_Bill_Page_Link_Test_Case_Name_Execution ******************" + testdata[r][0]);
 					log.info("********** Pay_Your_Bill_Page_Link_ChildElementLocator_Clicked_For_Other_Links_Execution_Starts : ******************" +ChildElementLocator);
 					//Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text);
-					commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
+					//commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
+					//String Child_Element_Locator_Text = commonMethods.getTextbyXpath(webPage, ChildElementLocator, softAssert);
 					String existingWindow = null;
 					String newWindow = null;
 					existingWindow = webPage.getDriver().getWindowHandle();
@@ -1173,15 +1194,44 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					
 					Actual_Page_URL = webPage.getCurrentUrl();
 					Actual_Page_Title = webPage.getPageTitle();
-					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1 = webPage.findObjectByxPath(Pay_Your_Bill_Page_Links_Page_Element_Locator).getText();
-					log.info("********** Pay_Your_Bill_Page_Link_Execution ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1);
-					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_1 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_1, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_2 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_2, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_3 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_3, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_4 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_4, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_5 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_5, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_6 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_6, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_7 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_7, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_8 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_8, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_9 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_9, softAssert);
+					log.info("********** Actual_Page_URL   ******************"                                     +Actual_Page_URL);
+					log.info("********** Actual_Page_Title ******************"                                     +Actual_Page_Title);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_1 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_1);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_2 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_2);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_3 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_3);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_4 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_4);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_5 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_5);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_6 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_6);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_7 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_7);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_8 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_8);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_9 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_9);
+					//String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1 = webPage.findObjectByxPath(Pay_Your_Bill_Page_Links_Page_Element_Locator).getText();
+					
 					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
 					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_1);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_2);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_3);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_4);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_5);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_6);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_7);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_8);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_9);
+					
 					Thread.sleep(3000);
 					webPage.getDriver().close();
 					webPage.getDriver().switchTo().window(existingWindow);
-					log.info("Pay_Your_Bill_Page_Links_Page_Element_Text : " + Pay_Your_Bill_Page_Links_Child_Element_Locator_Text1);
+					
 					log.info("Actual Page Title : " + Actual_Page_Title);
 					log.info("Expected Page Title : " + Expected_Page_Element_Title);
 					log.info("Expected URL : " + Expected_Page_URL);
@@ -1191,11 +1241,40 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("******************* Else Execution***************");
 					Actual_Page_URL = webPage.getCurrentUrl();
 					Actual_Page_Title = webPage.getPageTitle();
-					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text = webPage.findObjectByxPath(Pay_Your_Bill_Page_Links_Page_Element_Locator).getText();
-					log.info("********** Pay_Your_Bill_Page_Link_Execution ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text);
-					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_1 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_1, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_2 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_2, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_3 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_3, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_4 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_4, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_5 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_5, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_6 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_6, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_7 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_7, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_8 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_8, softAssert);
+					String Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_9 = commonMethods.getTextbyXpath(webPage, Pay_Your_Bill_Page_Links_Page_Element_Locator_9, softAssert);
+					log.info("********** Actual_Page_URL   ******************"                                     +Actual_Page_URL);
+					log.info("********** Actual_Page_Title ******************"                                     +Actual_Page_Title);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_1 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_1);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_2 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_2);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_3 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_3);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_4 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_4);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_5 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_5);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_6 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_6);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_7 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_7);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_8 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_8);
+					log.info("********** Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_9 ******************" +Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_9);
+					
 					Page_URL_Title_Element_Data.add(Actual_Page_URL);					
-					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text);
+					Page_URL_Title_Element_Data.add(Actual_Page_Title);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_1);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_2);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_3);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_4);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_5);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_6);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_7);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_8);
+					Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text_9);
+					
+					
 
 					
 					log.info("********** Pay_Your_Bill_Page_Link_Execution_Starts : ******************" );
@@ -1258,7 +1337,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				log.info("getLocalizedMessage :"); 
 				e.printStackTrace();
 			}
-			r++;
+		//	r++;
 			log.info(" ******************************* incremented value of r second : " +r);
 
 		if (brokenLinks.size() > 0) {

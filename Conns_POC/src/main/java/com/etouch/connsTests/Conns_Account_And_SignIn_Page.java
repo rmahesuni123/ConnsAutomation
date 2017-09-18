@@ -1261,8 +1261,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Newsletters_Page_Title = inputdata[0][3];
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		
-		//webPage.getCurrentUrl();// For Safari
+		webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
 			String Actual_Newsletters_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
@@ -1500,7 +1499,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 339, enabled = false)
+	@Test(priority = 339, enabled = true)
 	public void verify_Links_On_Account_DashBoard_Tab_Pay_Bill_Links_Section() throws Exception {
 		log.info("******Started verification of Links in Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -1508,35 +1507,59 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);*/
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Mobile_Pay_Your_Bill_Link_On_Account_Information_Resizeable_Menu_Section");
 		String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Web_Pay_Your_Bill_Link_On_Account_Information_Resizeable_Menu_Section");
-		//String Pay_Your_Bill_Link_Resizeable_Link = test_data[0][8];
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Option = test_data [0][8];
 		String Resizeable_Account_DashBoard_Menu_Web_Drop_Down_Option = demo_data[0][8];
-		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		log.info("***************************************** Account Dashboard Drop Down For Mobile Starts********************************");
 		String[][] input_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section_Mobile");
 		String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
-		//commonMethods.clickElementbyXpath(webPage, Pay_Your_Bill_Link_Resizeable_Link, softAssert);
 		log.info("******Started verification of Links in Pay Your Bill Page after Navigation ********" +webPage.getCurrentUrl() +"\t" +"\n"  + webPage.getPageTitle());
-		for (int r = 0; r < test_data.length; r++) {
-			String Page_Expected_URL = test_data[r][3];
-			String Page_Expected_Element_Name = test_data[r][5];
-			String Page_Expected_Title = test_data[r][7];
-			try {
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_1 = test_data[0][3];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_2 = test_data[0][5];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_3 = test_data[2][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_4 = test_data[3][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_5 = test_data[4][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_6 = test_data[5][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_7 = test_data[6][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_8 = test_data[7][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_9 = test_data[8][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_10 = demo_data[0][3];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_11 = demo_data[0][5];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_12 = demo_data[2][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_13 = demo_data[3][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_14 = demo_data[4][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_15 = demo_data[5][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_16 = demo_data[6][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_17 = demo_data[7][7];
+		String Pay_Your_Bill_Page_Links_Page_Element_Locator_18 = demo_data[8][7];
+		try {
 				if (testType.equalsIgnoreCase("Mobile")) {
 				commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
 				commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Option, softAssert);
 				List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Pay_Your_Bill_Link_Account_Dashboard(test_data);
-				softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
-				softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
-				softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+				softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_1) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_1 . Pay_Your_Bill_Page_Links_Page_Element_Content_1   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_1  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_1 : "+Page_URL_Title_Data.get(0));
+				softAssert.assertTrue(Page_URL_Title_Data.get(1).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_2) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_2 . Pay_Your_Bill_Page_Links_Page_Element_Content_2   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_2  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_2 : "+Page_URL_Title_Data.get(1));
+				softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_3) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_3 . Pay_Your_Bill_Page_Links_Page_Element_Content_3   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_3  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_3 : "+Page_URL_Title_Data.get(2));
+				softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_4) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_4 . Pay_Your_Bill_Page_Links_Page_Element_Content_4   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_4  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_4 : "+Page_URL_Title_Data.get(3));
+				softAssert.assertTrue(Page_URL_Title_Data.get(4).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_5) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_5 . Pay_Your_Bill_Page_Links_Page_Element_Content_5   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_5  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_5 : "+Page_URL_Title_Data.get(4));
+				softAssert.assertTrue(Page_URL_Title_Data.get(5).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_6) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_6 . Pay_Your_Bill_Page_Links_Page_Element_Content_6   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_6  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_6 : "+Page_URL_Title_Data.get(5));
+				softAssert.assertTrue(Page_URL_Title_Data.get(6).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_7) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_7 . Pay_Your_Bill_Page_Links_Page_Element_Content_7   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_7  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_7 : "+Page_URL_Title_Data.get(6));
+				softAssert.assertTrue(Page_URL_Title_Data.get(7).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_8) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_8 . Pay_Your_Bill_Page_Links_Page_Element_Content_8   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_8  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_8 : "+Page_URL_Title_Data.get(7));
+				softAssert.assertTrue(Page_URL_Title_Data.get(8).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_9) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Content_9 . Pay_Your_Bill_Page_Links_Page_Element_Content_9   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_9  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_9 : "+Page_URL_Title_Data.get(8));
+				
 				softAssert.assertAll();
 				}else{
 					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Web_Drop_Down_Option, softAssert);
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Pay_Your_Bill_Link_Account_Dashboard(demo_data);
-					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),"Account Information DashBoard Tab verification failed For Page Title. Expected_Page_Title  : "+Page_Expected_Title   +  "   Actual_Expected_Title : "+Page_URL_Title_Data.get(0));	
-					softAssert.assertTrue(Page_URL_Title_Data.get(1).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL . Expected_Page_URL : "+Page_Expected_URL + "  Actual_Page_URL : "+Page_URL_Title_Data.get(1));
-					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Page_Expected_Element_Name) ,"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   : "+ Page_Expected_Element_Name  +       "   Actual_Page_Element_Name : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_10) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_10 . Pay_Your_Bill_Page_Links_Page_Element_Locator_10   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_10  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_1 : "+Page_URL_Title_Data.get(0));
+					softAssert.assertTrue(Page_URL_Title_Data.get(1).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_11) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_11 . Pay_Your_Bill_Page_Links_Page_Element_Locator_11   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_11  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_2 : "+Page_URL_Title_Data.get(1));
+					softAssert.assertTrue(Page_URL_Title_Data.get(2).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_12) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_12 . Pay_Your_Bill_Page_Links_Page_Element_Locator_12   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_12  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_3 : "+Page_URL_Title_Data.get(2));
+					softAssert.assertTrue(Page_URL_Title_Data.get(3).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_13) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_13 . Pay_Your_Bill_Page_Links_Page_Element_Locator_13   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_13  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_4 : "+Page_URL_Title_Data.get(3));
+					softAssert.assertTrue(Page_URL_Title_Data.get(4).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_14) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_14 . Pay_Your_Bill_Page_Links_Page_Element_Locator_14   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_14  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_5 : "+Page_URL_Title_Data.get(4));
+					softAssert.assertTrue(Page_URL_Title_Data.get(5).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_15) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_15 . Pay_Your_Bill_Page_Links_Page_Element_Locator_15   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_15  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_6 : "+Page_URL_Title_Data.get(5));
+					softAssert.assertTrue(Page_URL_Title_Data.get(6).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_16) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_16 . Pay_Your_Bill_Page_Links_Page_Element_Locator_16   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_16  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_7 : "+Page_URL_Title_Data.get(6));
+					softAssert.assertTrue(Page_URL_Title_Data.get(7).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_17) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_17 . Pay_Your_Bill_Page_Links_Page_Element_Locator_17   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_17  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_8 : "+Page_URL_Title_Data.get(7));
+					softAssert.assertTrue(Page_URL_Title_Data.get(8).equalsIgnoreCase(Pay_Your_Bill_Page_Links_Page_Element_Locator_18) ,"  Account Information DashBoard Tab verification failed For Pay_Your_Bill_Page_Links_Page_Element_Locator_18 . Pay_Your_Bill_Page_Links_Page_Element_Locator_18   : "+ Pay_Your_Bill_Page_Links_Page_Element_Locator_18  +       "   Actual_Pay_Your_Bill_Page_Links_Page_Element_Content_9 : "+Page_URL_Title_Data.get(8));
 					softAssert.assertAll();
 				}
 			} catch (Throwable e) {
@@ -1545,7 +1568,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
 			}
-		}
+		//}
 	}
 
 	@Test(priority = 340, enabled = true)
