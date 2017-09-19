@@ -778,8 +778,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1028, enabled = true, description = "verify_Credit_App_Submit_With_Statue_Declined")
-	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Retired_Statue_Declined() throws Exception {
+	@Test(priority = 1028, enabled = true, description = "verify_Credit_App_Submit_With_Status_Declined")
+	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Retired_Status_Declined() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",

@@ -998,18 +998,6 @@ public static void submitYesLeaseWithValidData(String YesLeaseData[][], SoftAsse
 	commonMethods.selectDropdownByValue(webPage, YesLeaseData[13][1], YesLeaseData[39][1]);
 	
 	selectSpecificValuesWithGivenDate(YesLeaseData,yesterdays_Date,yesterdays_Date,futureDate_1month,yesterdays_Date);
-	/*// Hire Date
-	CreditAppPage.selectValueWithGivenDate(YesLeaseData[10][1], YesLeaseData[11][1], YesLeaseData[12][1],
-			yesterdays_Date);
-	// Last Pay Date
-	CreditAppPage.selectValueWithGivenDate(YesLeaseData[14][1], YesLeaseData[15][1], YesLeaseData[16][1],
-			yesterdays_Date);
-	// Next Pay Date
-	CreditAppPage.selectValueWithGivenDate(YesLeaseData[17][1], YesLeaseData[18][1], YesLeaseData[19][1],
-			futureDate_1month);
-	// Account Opened Date
-	CreditAppPage.selectValueWithGivenDate(YesLeaseData[20][1], YesLeaseData[21][1], YesLeaseData[22][1],
-			yesterdays_Date);*/
 	ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
 	ITafElement routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
 	ITafElement accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
