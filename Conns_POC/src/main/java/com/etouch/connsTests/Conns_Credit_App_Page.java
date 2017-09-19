@@ -886,8 +886,10 @@ public class Conns_Credit_App_Page extends BaseTest {
 						"Account Number Error Message: ");
 				
 				webPage.getDriver().navigate().refresh();
+				/*CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, futureDate_1month, PastDate_2month,
+						futureDate_4thmonth, yesterdays_Date);*/
 				CreditAppPage.selectSpecificValuesWithGivenDate(YesLeaseData, futureDate_1month, PastDate_2month,
-						futureDate_4thmonth, yesterdays_Date);
+								PastDate_1month, yesterdays_Date);
 				CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
 				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
 				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
@@ -900,8 +902,10 @@ public class Conns_Credit_App_Page extends BaseTest {
 						"Hire Date with futureDate_1month validation:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[47][1]).getText(), YesLeaseData[48][1],
 						"Last Pay Date with PastDate_2month validation:");
-				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[44][1]).getText(), YesLeaseData[45][1],
-						"Next Pay Date with future 4th Month validation:");
+				/*softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[43][1]).getText(), YesLeaseData[40][1],
+						"Next Pay Date with past 1 month Date:");
+				/*softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[44][1]).getText(), YesLeaseData[45][1],
+						"Next Pay Date with future 4th Month validation:");*/
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
 						"Account Open Date with yesterday's Date:");
                 softAssert.assertNotEquals(CardNumberField.getText(), "700004A", "Card  Number Field");
