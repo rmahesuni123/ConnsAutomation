@@ -606,12 +606,37 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Mobile_Valid_Input(String[][] testdata) {
 		List<String> errorMessage = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		String First_Name_Actual_Error_Message_Locator="";
 		String Last_Name_Actual_Error_Message_Locator="";
 		String Email_Address_Actual_Error_Message_Locator="";
 		String Password_Actual_Error_Message_Locator="";
 		String Confirm_Password_Actual_Error_Message_Locator="";
-		String Email_Address_Actual_Success_Message_Locator_Text = "";
+		String Email_Address_Success_Message_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Actual_Text = "";
+	
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Newsletters_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Address_Book_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Credit_App_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator_Actual_Text = "";
 		String First_Name_Locator = testdata[0][5];
 		String First_Name_Input = testdata[0][6];
 		String Last_Name_Locator = testdata[0][7];
@@ -634,6 +659,29 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Remember_Me_Box_Area = testdata[0][28];
 		String Valid_Email_Address_Expected_Successfull_Message_Locator = testdata[0][30];
 		String Newly_Created_User_Name_DashBoard_Header_Title_Locator = testdata[0][32];
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Locator = testdata [0][35];
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator = testdata [0][37];
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator = testdata [0][39];
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator = testdata [0][41];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_Locator = testdata [0][43];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator = testdata [0][45];
+		String Newly_Created_User_Name_DashBoard_Newsletters_Locator = testdata [0][47];
+		String Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator = testdata [0][49];
+		String Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator = testdata [0][51];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator = testdata [0][53];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator = testdata [0][55];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator = testdata [0][57];
+		String Newly_Created_User_Name_DashBoard_Address_Book_Locator = testdata [0][59];
+		String Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator = testdata [0][61];
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator = testdata [0][63];
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator = testdata [0][65];
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator = testdata [0][67];
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator = testdata [0][69];
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator = testdata [0][71];
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator = testdata [0][73];
+		String Newly_Created_User_Name_DashBoard_Credit_App_Locator = testdata [0][75];
+		String Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator = testdata [0][77];
+
 		//String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = testdata[0][33];
 		String Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator = testdata[0][34];
 		String Email_Address_Input_Random_Number = Email_Address_Input_Dynamic.concat(getID());
@@ -687,24 +735,72 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				
 						
 				
-				Email_Address_Actual_Success_Message_Locator_Text = commonMethods.getTextbyXpath(webPage, Valid_Email_Address_Expected_Successfull_Message_Locator, softAssert);
-				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Header_Title_Locator, softAssert);
+				Email_Address_Success_Message_Locator_Actual_Text = commonMethods.getTextbyXpath(webPage, Valid_Email_Address_Expected_Successfull_Message_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Actual_Text = commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Header_Title_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Welcome_Message_Locator_Actual_Text =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Welcome_Message_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Newsletters_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Newsletters_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Address_Book_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Address_Book_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator, softAssert);
+				js.executeScript("scroll(0, -250);");
+				Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Credit_App_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Credit_App_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator, softAssert);
 
 				
+				
 				Thread.sleep(1000);
-				errorMessage.add(Email_Address_Actual_Success_Message_Locator_Text);
-				errorMessage.add(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text);
+				errorMessage.add(Email_Address_Success_Message_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Welcome_Message_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Newsletters_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Address_Book_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Credit_App_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator_Actual_Text);
+				
+				
 
 
 			}
 		}
 			catch (Throwable e) {
-				e.printStackTrace();
+			e.printStackTrace();
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Login failed");
 			log.error(e.getMessage());
 		}
-		log.info("Exit  :" +errorMessage.get(0) + errorMessage.get(1));
+		//log.info("Exit  :" +errorMessage.get(0) + errorMessage.get(1) + errorMessage.get(2) + errorMessage.get(3) + errorMessage.get(4) + errorMessage.get(5) +errorMessage.get(6) + errorMessage.get(7) + errorMessage.get(8) + errorMessage.get(9) + errorMessage.get(10) + errorMessage.get(12) + errorMessage.get(13) +errorMessage.get(14) + errorMessage.get(15) + errorMessage.get(16) + errorMessage.get(17) + errorMessage.get(18) + errorMessage.get(19) + errorMessage.get(20) + errorMessage.get(21) + errorMessage.get(22) + errorMessage.get(23));
 		return errorMessage;
 	}
 	
@@ -714,12 +810,40 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	public List<String> verify_Register_New_User_Create_An_Account_Functionality_with_Web_Valid_Input(String[][] testdata) {
 		List<String> errorMessage = new ArrayList<String>();
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		String First_Name_Actual_Error_Message_Locator="";
 		String Last_Name_Actual_Error_Message_Locator="";
 		String Email_Address_Actual_Error_Message_Locator="";
 		String Password_Actual_Error_Message_Locator="";
 		String Confirm_Password_Actual_Error_Message_Locator="";
-		String Email_Address_Actual_Success_Message_Locator_Text = "";
+		String Email_Address_Success_Message_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Actual_Text = "";
+
+		
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Newsletters_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Address_Book_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Credit_App_Locator_Actual_Text = "";
+		String Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator_Actual_Text = "";
+		
+		
 		String First_Name_Locator = testdata[0][5];
 		String First_Name_Input = testdata[0][6];
 		String Last_Name_Locator = testdata[0][7];
@@ -742,6 +866,30 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Remember_Me_Box_Area = testdata[0][28];
 		String Valid_Email_Address_Expected_Successfull_Message_Locator = testdata[0][30];
 		String Newly_Created_User_Name_DashBoard_Header_Title_Locator = testdata[0][32];
+
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Locator = testdata [0][35];
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator = testdata [0][37];
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator = testdata [0][39];
+		String Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator = testdata [0][41];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_Locator = testdata [0][43];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator = testdata [0][45];
+		String Newly_Created_User_Name_DashBoard_Newsletters_Locator = testdata [0][47];
+		String Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator = testdata [0][49];
+		String Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator = testdata [0][51];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator = testdata [0][53];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator = testdata [0][55];
+		String Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator = testdata [0][57];
+		String Newly_Created_User_Name_DashBoard_Address_Book_Locator = testdata [0][59];
+		String Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator = testdata [0][61];
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator = testdata [0][63];
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator = testdata [0][65];
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator = testdata [0][67];
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator = testdata [0][69];
+		String Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator = testdata [0][71];
+		String Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator = testdata [0][73];
+		String Newly_Created_User_Name_DashBoard_Credit_App_Locator = testdata [0][75];
+		String Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator = testdata [0][77];
+		
 		//String Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = testdata[0][33];
 		String Newsletter_Subscription_Register_Create_An_Account_Check_Box_Xpath_Locator = testdata[0][34];
 		String Email_Address_Input_Random_Number = Email_Address_Input_Dynamic.concat(getID());
@@ -793,9 +941,77 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				//Email_Address_Actual_Success_Message_Locator_Text = webPage.findObjectByxPath(Valid_Email_Address_Expected_Successfull_Message_Locator).getText();
 				//Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = webPage.findObjectByxPath(Newly_Created_User_Name_DashBoard_Header_Title_Locator).getText();
 				
-						
+				Email_Address_Success_Message_Locator_Actual_Text = commonMethods.getTextbyXpath(webPage, Valid_Email_Address_Expected_Successfull_Message_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Actual_Text = commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Header_Title_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Welcome_Message_Locator_Actual_Text =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Welcome_Message_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Newsletters_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Newsletters_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Address_Book_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Address_Book_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator, softAssert);
+				js.executeScript("scroll(0, -250);");					
+				Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Credit_App_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Credit_App_Locator, softAssert);
+				Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator_Actual_Text  =  commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator, softAssert);
+
 				
-				Email_Address_Actual_Success_Message_Locator_Text = commonMethods.getTextbyXpath(webPage, Valid_Email_Address_Expected_Successfull_Message_Locator, softAssert);
+				
+				Thread.sleep(1000);
+				errorMessage.add(Email_Address_Success_Message_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Header_Title_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Welcome_Message_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Welcome_Message_Sub_Title_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_1_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Welcome_Message_Greeting_2_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_Edit_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Newsletters_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Newsletters_Edit_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Newsletters_Content_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_1st_Content_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_2nd_Content_Email_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Contact_Information_3rd_Content_Change_Password_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Address_Book_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Address_Book_Manage_Addresses_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Content_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Content_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Billing_Address_Edit_Address_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Primary_Shipping_Address_Edit_Address_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Credit_App_Locator_Actual_Text);
+				errorMessage.add(Newly_Created_User_Name_DashBoard_Credit_App_Content_Locator_Actual_Text);
+				
+				
+
+
+			}
+		}
+			catch (Throwable e) {
+			e.printStackTrace();
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Login failed");
+			log.error(e.getMessage());
+		}
+		//log.info("Exit  :" +errorMessage.get(0) + errorMessage.get(1) + errorMessage.get(2) + errorMessage.get(3) + errorMessage.get(4) + errorMessage.get(5) +errorMessage.get(6) + errorMessage.get(7) + errorMessage.get(8) + errorMessage.get(9) + errorMessage.get(10) + errorMessage.get(12) + errorMessage.get(13) +errorMessage.get(14) + errorMessage.get(15) + errorMessage.get(16) + errorMessage.get(17) + errorMessage.get(18) + errorMessage.get(19) + errorMessage.get(20) + errorMessage.get(21) + errorMessage.get(22) + errorMessage.get(23));
+		return errorMessage;
+	}
+			
+				
+				/*Email_Address_Actual_Success_Message_Locator_Text = commonMethods.getTextbyXpath(webPage, Valid_Email_Address_Expected_Successfull_Message_Locator, softAssert);
 				Newly_Created_User_Name_DashBoard_Header_Title_Locator_Text = commonMethods.getTextbyXpath(webPage, Newly_Created_User_Name_DashBoard_Header_Title_Locator, softAssert);
 
 				
@@ -816,7 +1032,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		return errorMessage;
 	}
 	
-	
+	*/
 	
 	
 	
