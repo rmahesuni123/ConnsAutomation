@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 import org.apache.commons.logging.Log;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,7 @@ import org.testng.asserts.SoftAssert;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.CommonPage;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
+import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.ITafElement;
@@ -279,7 +281,15 @@ public class YesLeasePage extends CommonPage {
 				date.substring(3, 5));
 		Thread.sleep(2000);
 	}
-
+	public static void verifyErrorMessageByXpath(WebPage webPage,SoftAssert softAssert, String errorMessageFieldName, String locator,
+			String expectedErrorMessage) throws PageException {
+		log.info("Verifiyikng error message for : " + errorMessageFieldName + " : Expected Message : "
+				+ expectedErrorMessage);
+		CommonMethods.waitForWebElement(By.xpath(locator), webPage);
+		String actualErrorMessage = commonMethods.getTextbyXpath(webPage, locator, softAssert);
+		softAssert.assertTrue(expectedErrorMessage.equals(actualErrorMessage), "Failed to verify error field :"
+				+ errorMessageFieldName + " : Expected : " + expectedErrorMessage + " Actual : " + actualErrorMessage);
+	}
 	public static void selectSpecificValuesWithGivenDate(WebPage webPage,
 			String YesLeaseData[][], String hireDate, String lastPayDate,
 			String nextPayDate, String accountOpenedDate) throws Exception {
