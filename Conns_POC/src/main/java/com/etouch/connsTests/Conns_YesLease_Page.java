@@ -136,8 +136,10 @@ public class Conns_YesLease_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		if (declinedStatus == true) {
 			try {
-				commonMethods.clickElementbyXpath(webPage, commonData.get("progressiveFormSubmit"), softAssert);
+				
+				//commonMethods.clickElementbyXpath(webPage, commonData.get("progressiveFormSubmit"), softAssert);
 				YesLeaseData = ExcelUtil.readExcelData(DataFilePath, "YesLeasePage", "verifyYesLeasePageData");
+				commonMethods.clickElementbyXpath(webPage, YesLeaseData[54][2], softAssert);
 				for (int i = 0; i < 10; i++) {
 					YesLeasePage.verifyErrorMessageByXpath(webPage,softAssert, YesLeaseData[i][0], YesLeaseData[i][1],
 							YesLeaseData[i][2]);
