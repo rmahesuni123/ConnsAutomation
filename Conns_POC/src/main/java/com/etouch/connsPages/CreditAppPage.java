@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.connsTests.Conns_Credit_App_Page;
+import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.LogUtil;
@@ -112,6 +113,8 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.waitForPageLoad(webPage, softAssert);
 		if (ActualUrl.contains(expectedUrl)) {
 			log.info("Redirection for link " + linkName + " is successful");
+			String browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId()))
+					.getBrowser().getName();
 			if (browserName.contains("safari") || browserName.contains("iphone") || browserName.contains("ipad")) {
 				navigateToCreditAppPage(softAssert);
 			} else {

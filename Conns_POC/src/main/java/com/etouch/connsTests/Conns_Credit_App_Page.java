@@ -47,7 +47,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	TestBed testBed;
 	Path path;
 	String DataFilePath;
-	protected static String testType, browserName;
+	protected String testType, browserName;
 	String currentTestBedName;
 	static Log log = LogUtil.getLog(Conns_Account_And_SignIn_Page.class);
 	Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
@@ -56,22 +56,26 @@ public class Conns_Credit_App_Page extends BaseTest {
 	private ConnsMainPage mainPage;
 	protected static LinkedHashMap<String, String> commonData;
 	protected static CommonMethods commonMethods;
-	static String platform;
-	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+	String platform;
+	String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	boolean declinedStatus = false;
 	String[][] YesLeaseData;
 	Random random=new Random();
+	protected static LinkedHashMap<Long, String> testBedNames = new LinkedHashMap<Long, String>();
+	
 	/*** Prepare before class @throws Exception the exception */
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
 		try {
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
+			testBedNames.put(Thread.currentThread().getId(), testBedName);
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			commonMethods = new CommonMethods();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName()
 					.toLowerCase();
+			
 			log.info("Test Type is : " + testType);
 			try {
 				platform = testBed.getPlatform().getName().toUpperCase();
@@ -118,6 +122,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 	public void verify_Page_Title() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
+			System.err.println("testBedNames size is : "+testBedNames.size());
+			
 			CreditAppPage.navigateToCreditAppPage(softAssert);
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "verify_Page_Title");
