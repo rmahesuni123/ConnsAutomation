@@ -113,7 +113,6 @@ public class Conns_YesLease_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "YesLeasePage",
 					"verifyCreditAppSubmitForYesLease");
 			YesLeasePage.navigateToCreditAppPage(commonData, webPage, softAssert);
-			// Thread.sleep(5000);
 			int ssnSerial = 1000 + random.nextInt(8999);
 			testData[23][3] = String.valueOf(ssnSerial);
 			YesLeasePage.fillForm(webPage, softAssert, testData);
@@ -136,10 +135,8 @@ public class Conns_YesLease_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		if (declinedStatus == true) {
 			try {
-				
-				//commonMethods.clickElementbyXpath(webPage, commonData.get("progressiveFormSubmit"), softAssert);
 				YesLeaseData = ExcelUtil.readExcelData(DataFilePath, "YesLeasePage", "verifyYesLeasePageData");
-				commonMethods.clickElementbyXpath(webPage, YesLeaseData[54][2], softAssert);
+				commonMethods.clickElementbyXpath(webPage, YesLeaseData[56][1], softAssert);
 				for (int i = 0; i < 10; i++) {
 					YesLeasePage.verifyErrorMessageByXpath(webPage,softAssert, YesLeaseData[i][0], YesLeaseData[i][1],
 							YesLeaseData[i][2]);
@@ -193,14 +190,15 @@ public class Conns_YesLease_Page extends BaseTest {
 				String url = commonMethods.getPageUrl(webPage, softAssert);
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage, YesLeaseData, "02-30-2017", futureDate_1month,
 						PastDate_1month, futureDate_1month);
-				ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,0);
+				/*ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
 				ITafElement routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
 				ITafElement accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
 				CardNumberField.sendKeys("2345");
 				routingNumberField.sendKeys("0210001");
 				accountNumberField.sendKeys("123");
 				accountNumberField.sendKeys(Keys.TAB);
-				Thread.sleep(2000);
+				Thread.sleep(2000);*/
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
 						"Hire Date with Invalid Date:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getText(), YesLeaseData[2][2],
@@ -216,21 +214,22 @@ public class Conns_YesLease_Page extends BaseTest {
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getText(), YesLeaseData[38][1],
 						"Account Number Error Message: ");
 				webPage.getDriver().get(url);
-				Thread.sleep(5000);
+				CommonMethods.waitForGivenTime(5);
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage,YesLeaseData, futureDate_1month, PastDate_2month,
 						PastDate_1month, yesterdays_Date);
+				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,1);
 				/*
 				 * yesLeasePage.selectSpecificValuesWithGivenDate(webPage,
 				 * YesLeaseData, futureDate_1month, PastDate_2month,
 				 * futureDate_4thmonth, yesterdays_Date);
 				 */
-				CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+				/*CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
 				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
 				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
 				CardNumberField.sendKeys("700004A");
 				routingNumberField.sendKeys("ABA");
 				accountNumberField.sendKeys("12x");
-				accountNumberField.sendKeys(Keys.TAB);
+				accountNumberField.sendKeys(Keys.TAB);*/
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
 						"Hire Date with futureDate_1month validation:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[47][1]).getText(), YesLeaseData[48][1],
@@ -242,7 +241,7 @@ public class Conns_YesLease_Page extends BaseTest {
 				 */
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
 						"Account Open Date with yesterday's Date:");
-				softAssert.assertNotEquals(CardNumberField.getText(), "700004A", "Card  Number Field");
+				//softAssert.assertNotEquals(CardNumberField.getText(), "700004A", "Card  Number Field");
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[53][1]).getText(), YesLeaseData[53][2],
 						"Card Error Message: ");
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[5][1]).getText(), YesLeaseData[5][2],
@@ -250,16 +249,17 @@ public class Conns_YesLease_Page extends BaseTest {
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[37][1]).getText(), YesLeaseData[38][1],
 						"Account Number Error Message: ");
 				webPage.getDriver().get(url);
-				Thread.sleep(5000);
+				CommonMethods.waitForGivenTime(5);
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage, YesLeaseData, PastDate_1month, yesterdays_Date,
 						tomorrows_Date, PastDate_2month);
-				CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,2);
+			/*	CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
 				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
 				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
 				CardNumberField.sendKeys("34003");
 				routingNumberField.sendKeys("112345");
 				accountNumberField.sendKeys("41111100011000128212334");
-				accountNumberField.sendKeys(Keys.TAB);
+				accountNumberField.sendKeys(Keys.TAB);*/
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[41][1]),
 						"Hire Date with PastDate_1month validation:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
@@ -268,8 +268,8 @@ public class Conns_YesLease_Page extends BaseTest {
 						"Next Pay Date with tomorrows_Date:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[46][1]),
 						"Account Open Date with Past 2 month Date");
-				softAssert.assertNotEquals(accountNumberField.getText(), "41111100011000128212334",
-						"Account Number Field");
+				/*softAssert.assertNotEquals(accountNumberField.getText(), "41111100011000128212334",
+						"Account Number Field");*/
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[28][1]).getText(), YesLeaseData[29][1],
 						"Card Error Message: ");
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getText(), YesLeaseData[33][1],
@@ -277,16 +277,17 @@ public class Conns_YesLease_Page extends BaseTest {
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
 						"Account Number Error Message: ");
 				webPage.getDriver().get(url);
-				Thread.sleep(5000);
+				CommonMethods.waitForGivenTime(5);
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage, YesLeaseData, yesterdays_Date, PastDate_1month,
 						futureDate_1month, PastDate_1month);
-				CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,3);
+				/*CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
 				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
 				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
 				CardNumberField.sendKeys("412345");
 				routingNumberField.sendKeys("021000128");
 				accountNumberField.sendKeys("21000128");
-				accountNumberField.sendKeys(Keys.TAB);
+				accountNumberField.sendKeys(Keys.TAB);*/
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[41][1]),
 						"Hire Date with yesterdays_Date validation:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
@@ -297,14 +298,13 @@ public class Conns_YesLease_Page extends BaseTest {
 						"Account Open Date with Past 1 month Date");
 				commonMethods.selectDropdownByValue(webPage, YesLeaseData[13][1], YesLeaseData[39][1]);
 				commonMethods.clickElementbyXpath(webPage, YesLeaseData[23][1], softAssert);
-				commonMethods.clickElementbyXpath(webPage, YesLeaseData[24][1], softAssert);
+				commonMethods.clickElementbyXpath(webPage, YesLeaseData[54][1], softAssert);
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[29][1]),
 						"Card Error Message: ");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[32][1]),
 						"Bank Routing Error Message: ");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
 						"Account Number Error Message: ");
-				// webPage.getDriver().get(url);
 				log.info("testing verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
@@ -322,17 +322,13 @@ public class Conns_YesLease_Page extends BaseTest {
 	public void verify_YesLease_Submit_With_Valid_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			// yesLeasePage.submitYesLeaseWithValidData(webPage,YesLeaseData,
-			// softAssert);
-			
-			commonMethods.clickElementbyXpath(webPage, YesLeaseData[54][2], softAssert);
-			Thread.sleep(8000);
+			commonMethods.clickElementbyXpath(webPage, YesLeaseData[56][1], softAssert);
+			CommonMethods.waitForGivenTime(8);
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-			// State could be declined-001, approved,-002,
-			// timeout-003,Invalid Unique ID-004, Wait-005
-			if (actualUrl.contains("001") || (actualUrl.contains("002")) || (actualUrl.contains("003"))
-					|| (actualUrl.contains("005"))) {
+			String[] statusCodeList=YesLeaseData[25][1].split(". ");
+			if (actualUrl.contains(statusCodeList[0]) || (actualUrl.contains(statusCodeList[1])) || (actualUrl.contains(statusCodeList[2]))
+					|| (actualUrl.contains(statusCodeList[3]))) {
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[49][1]).getText(), YesLeaseData[50][1],
 						"Yes Lease page Header:");
 			} else {
@@ -355,18 +351,13 @@ public class Conns_YesLease_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "YesLeasePage",
 					"verifyForYesLeaseSubmitWithUniqueID");
 			YesLeasePage.navigateToCreditAppPage(commonData, webPage, softAssert);
-			// Thread.sleep(5000);
 			int ssnSerial = 1000 + random.nextInt(8999);
 			testData[23][3] = String.valueOf(ssnSerial);
 			YesLeasePage.fillForm(webPage, softAssert, testData);
 			yesLeasePage.submitCreditAppAndVerifyStatus(webPage, commonData, softAssert, "DeclinedPage");
-			String url = webPage.getCurrentUrl() + YesLeaseData[51][1];// "?uniqueid=1A7BB00C79CF19F1B58F0004AC1";
-			// webPage.loadPage(url);
+			String url = webPage.getCurrentUrl() + YesLeaseData[51][1];
 			webPage.getDriver().get(url);
-			// http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/yes-money-credit/application/success/0007/?uniqueid=1A7BB00C79CF19F1B58F0004AC1
 			YesLeasePage.submitYesLeaseWithValidData(webPage, YesLeaseData, softAssert);
-			// Thread.sleep(10000);
-			// commonMethods.waitForPageLoad(webPage, softAssert);
 			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(actualUrl.contains(YesLeaseData[51][2]),
 					"Unique ID Yes Lease page URL:" + actualUrl + " does not conatain: " + YesLeaseData[51][2]);

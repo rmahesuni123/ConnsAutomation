@@ -182,7 +182,7 @@ public class Conns_Product_Search extends BaseTest {
 			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyAutoPredictProductSearch");
 			webPage.findObjectById(test[0][0]).sendKeys(test[0][1]);
-			// Thread.sleep(10000);
+			CommonMethods.waitForGivenTime(7);
 			CommonMethods.waitForWebElement(By.xpath(test[0][2]), webPage);
 			String autoSearchProductDescription = webPage.findObjectByxPath(test[0][2]).getText();
 			webPage.findObjectByxPath(test[0][2]).click();
@@ -217,7 +217,7 @@ public class Conns_Product_Search extends BaseTest {
 				int width[] = { 350, 700, 1050 };
 				for (int i = 0; i < width.length; i++) {
 					webPage.resize(width[i], height[i]);
-					Thread.sleep(4000);
+					CommonMethods.waitForGivenTime(4);
 					int cols = layoutManager.getColumnLayout(width[i], height[i]);
 					log.info("Column Layout " + cols);
 					if (cols == 1 || cols == 2) {

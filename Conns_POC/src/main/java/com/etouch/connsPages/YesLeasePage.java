@@ -2,6 +2,7 @@ package com.etouch.connsPages;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -68,6 +69,9 @@ public class YesLeasePage extends CommonPage {
 					break;
 				case "button":
 					selectButtonByXpath(webPage,softAssert, FieldData[i][0], FieldData[i][2]);
+					break;
+				case "NA":
+					//selectButtonByXpath(webPage,softAssert, FieldData[i][0], FieldData[i][2]);
 					break;
 				default:
 					softAssert.fail("Invalid Data in datasheet. FieldType is not set as expected. Current value is : "
@@ -327,8 +331,8 @@ public class YesLeasePage extends CommonPage {
 
 		selectSpecificValuesWithGivenDate(webPage,YesLeaseData, yesterdays_Date,
 				yesterdays_Date, futureDate_1month, yesterdays_Date);
-
-		ITafElement CardNumberField = webPage
+		YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,3);
+		/*ITafElement CardNumberField = webPage
 				.findObjectByxPath(YesLeaseData[26][1]);
 		ITafElement routingNumberField = webPage
 				.findObjectByxPath(YesLeaseData[30][1]);
@@ -337,18 +341,38 @@ public class YesLeasePage extends CommonPage {
 		CardNumberField.sendKeys("412345");
 		routingNumberField.sendKeys("021000128");
 		accountNumberField.sendKeys("21000128");
-		accountNumberField.sendKeys(Keys.TAB);
+		accountNumberField.sendKeys(Keys.TAB);*/
 
-		commonMethods.clickElementbyXpath(webPage, YesLeaseData[23][1],
-				softAssert);
+		
 		commonMethods.clickElementbyXpath(webPage, YesLeaseData[24][1],
 				softAssert);
+		commonMethods.clickElementbyXpath(webPage, YesLeaseData[54][1],
+				softAssert);
 		commonMethods.clickElementbyXpath(webPage,
-				YesLeaseData[54][2], softAssert);
+				YesLeaseData[55][1], softAssert);
+		commonMethods.clickElementbyXpath(webPage,
+				YesLeaseData[56][1], softAssert);
 		Thread.sleep(8000);
 		commonMethods.waitForPageLoad(webPage, softAssert);
 	}
-
+	public static void enterAccountSpecificDetails(WebPage webPage,String YesLeaseData[][], int n) throws PageException
+	{
+		String[] CardNumberList=YesLeaseData[27][1].split(". ");
+		String[] routingNumberList=YesLeaseData[31][1].split(". ");
+		String[] accountNumberList=YesLeaseData[36][1].split(". ");
+		ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
+		ITafElement routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
+		ITafElement accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
+		CardNumberField.sendKeys(CardNumberList[n]);
+		routingNumberField.sendKeys(routingNumberList[n]);
+		accountNumberField.sendKeys(accountNumberList[n]);
+		/*CardNumberField.sendKeys("412345");
+		routingNumberField.sendKeys("021000128");
+		accountNumberField.sendKeys("21000128");*/
+		accountNumberField.sendKeys(Keys.TAB);	
+		
+	}
+	
 	public static String getExpectedDate(String value) throws Exception {
 		Calendar cal = Calendar.getInstance();
 		DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
