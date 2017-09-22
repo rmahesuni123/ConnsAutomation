@@ -459,7 +459,7 @@ public class Conns_Home_Page extends BaseTest {
 			for (int i = 0; i < testData.length; i++) {
 				log.info("Iteration under test : " + i);
 				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+				//	//commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
 					log.info("ActualURL: " + ActualURL);
@@ -506,7 +506,7 @@ public class Conns_Home_Page extends BaseTest {
 			for (int i = 0; i < testData.length; i++) {
 				log.info("Iteration under test : " + i);
 				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+					//commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.toLowerCase().contains(testData[i][2].toLowerCase()),
@@ -551,7 +551,7 @@ public class Conns_Home_Page extends BaseTest {
 			for (int i = 0; i < testData.length; i++) {
 				log.info("Iteration under test : " + i);
 				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+					//commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.toLowerCase().contains(testData[i][2].toLowerCase()),
@@ -614,7 +614,7 @@ public class Conns_Home_Page extends BaseTest {
 			for (int i = 0; i < testData.length; i++) {
 				log.info("Iteration under test : " + i);
 				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+					//commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.toLowerCase().contains(testData[i][2].toLowerCase()),
@@ -658,7 +658,7 @@ public class Conns_Home_Page extends BaseTest {
 			for (int i = 0; i < testData.length; i++) {
 				log.info("Iteration under test : " + i);
 				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
+					//commonMethods.hoverOnelementbyXpath(webPage, testData[i][0], softAssert);
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][3],
 							testData[i][8], softAssert);
 					softAssert.assertTrue(ActualURL.toLowerCase().contains(testData[i][2].toLowerCase()),
