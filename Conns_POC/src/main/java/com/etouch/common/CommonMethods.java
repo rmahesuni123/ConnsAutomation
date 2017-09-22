@@ -162,6 +162,7 @@ public class CommonMethods {
 					}
 				}
 			}else{
+				CommonMethods.waitForWebElement(By.xpath(waitOnelementLocator), webPage);
 				pageUrl= webPage.getCurrentUrl();
 			}
 			log.info("Actual URL : "+pageUrl);
