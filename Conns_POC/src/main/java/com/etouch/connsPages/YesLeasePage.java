@@ -332,18 +332,7 @@ public class YesLeasePage extends CommonPage {
 		selectSpecificValuesWithGivenDate(webPage,YesLeaseData, yesterdays_Date,
 				yesterdays_Date, futureDate_1month, yesterdays_Date);
 		YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,3);
-		/*ITafElement CardNumberField = webPage
-				.findObjectByxPath(YesLeaseData[26][1]);
-		ITafElement routingNumberField = webPage
-				.findObjectByxPath(YesLeaseData[30][1]);
-		ITafElement accountNumberField = webPage
-				.findObjectByxPath(YesLeaseData[35][1]);
-		CardNumberField.sendKeys("412345");
-		routingNumberField.sendKeys("021000128");
-		accountNumberField.sendKeys("21000128");
-		accountNumberField.sendKeys(Keys.TAB);*/
-
-		
+	
 		commonMethods.clickElementbyXpath(webPage, YesLeaseData[24][1],
 				softAssert);
 		commonMethods.clickElementbyXpath(webPage, YesLeaseData[54][1],

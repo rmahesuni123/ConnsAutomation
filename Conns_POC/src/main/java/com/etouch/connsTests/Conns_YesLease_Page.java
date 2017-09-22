@@ -191,14 +191,7 @@ public class Conns_YesLease_Page extends BaseTest {
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage, YesLeaseData, "02-30-2017", futureDate_1month,
 						PastDate_1month, futureDate_1month);
 				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,0);
-				/*ITafElement CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
-				ITafElement routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
-				ITafElement accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
-				CardNumberField.sendKeys("2345");
-				routingNumberField.sendKeys("0210001");
-				accountNumberField.sendKeys("123");
-				accountNumberField.sendKeys(Keys.TAB);
-				Thread.sleep(2000);*/
+				Thread.sleep(2000);
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
 						"Hire Date with Invalid Date:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[42][1]).getText(), YesLeaseData[2][2],
@@ -218,18 +211,7 @@ public class Conns_YesLease_Page extends BaseTest {
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage,YesLeaseData, futureDate_1month, PastDate_2month,
 						PastDate_1month, yesterdays_Date);
 				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,1);
-				/*
-				 * yesLeasePage.selectSpecificValuesWithGivenDate(webPage,
-				 * YesLeaseData, futureDate_1month, PastDate_2month,
-				 * futureDate_4thmonth, yesterdays_Date);
-				 */
-				/*CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
-				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
-				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
-				CardNumberField.sendKeys("700004A");
-				routingNumberField.sendKeys("ABA");
-				accountNumberField.sendKeys("12x");
-				accountNumberField.sendKeys(Keys.TAB);*/
+			
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[41][1]).getText(), YesLeaseData[0][2],
 						"Hire Date with futureDate_1month validation:");
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[47][1]).getText(), YesLeaseData[48][1],
@@ -253,13 +235,7 @@ public class Conns_YesLease_Page extends BaseTest {
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage, YesLeaseData, PastDate_1month, yesterdays_Date,
 						tomorrows_Date, PastDate_2month);
 				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,2);
-			/*	CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
-				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
-				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
-				CardNumberField.sendKeys("34003");
-				routingNumberField.sendKeys("112345");
-				accountNumberField.sendKeys("41111100011000128212334");
-				accountNumberField.sendKeys(Keys.TAB);*/
+		
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[41][1]),
 						"Hire Date with PastDate_1month validation:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
@@ -281,13 +257,7 @@ public class Conns_YesLease_Page extends BaseTest {
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage, YesLeaseData, yesterdays_Date, PastDate_1month,
 						futureDate_1month, PastDate_1month);
 				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,3);
-				/*CardNumberField = webPage.findObjectByxPath(YesLeaseData[26][1]);
-				routingNumberField = webPage.findObjectByxPath(YesLeaseData[30][1]);
-				accountNumberField = webPage.findObjectByxPath(YesLeaseData[35][1]);
-				CardNumberField.sendKeys("412345");
-				routingNumberField.sendKeys("021000128");
-				accountNumberField.sendKeys("21000128");
-				accountNumberField.sendKeys(Keys.TAB);*/
+			
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[41][1]),
 						"Hire Date with yesterdays_Date validation:");
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[42][1]),
