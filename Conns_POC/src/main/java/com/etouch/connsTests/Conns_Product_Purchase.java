@@ -607,7 +607,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[14][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
-			CommonMethods.waitForWebElement(By.xpath(checkoutPageData[30][1]), webPage);
+			//CommonMethods.waitForWebElement(By.xpath(checkoutPageData[30][1]), webPage);
+			CommonMethods.waitForGivenTime(5);
 			connsPayPalActualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			connsPayPalExpectedUrl = checkoutPageData[14][2];
 			softAssert.assertTrue(connsPayPalActualUrl.contains(connsPayPalExpectedUrl));
