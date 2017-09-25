@@ -344,7 +344,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					test[0][0]);
 			log.info("Clicked on French Door");
 			Select s;
-			if (testType.equalsIgnoreCase("Web")) {
+			if (testType.equalsIgnoreCase("Web")||(testBedName.contains("iPadNative"))) {
 				CommonMethods.waitForWebElement(By.xpath(test[0][2]), webPage);
 				s = new Select(webPage.getDriver().findElement(
 						By.xpath((test[0][2]))));
@@ -402,7 +402,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					test[0][0]);
 			log.info("Clicked on French Door");
 			Select s;
-			if (testType.equalsIgnoreCase("Web")) {
+			if (testType.equalsIgnoreCase("Web")||(testBedName.contains("iPadNative"))) {
 				CommonMethods.waitForWebElement(By.xpath(test[0][2]), webPage);
 				s = new Select(webPage.getDriver().findElement(
 						By.xpath((test[0][2]))));
