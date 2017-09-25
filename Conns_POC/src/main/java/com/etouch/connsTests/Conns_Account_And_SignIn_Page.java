@@ -1655,8 +1655,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down = input_data[0][2];
 			String Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down_Wish_List_Option = mobile_validation_data[0][2];
 			String Resizeable_Account_DashBoard_Menu_Web_Drop_Down_Wish_List_Option = web_validation_data[0][2];
-			//String NameofTestCase = mobile_validation_data[3][0];
-			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			/*String NameofTestCase = mobile_validation_data[3][0];
+			webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);*/
 			webPage.getCurrentUrl(); //For Safari
 			for(int r= 0; r < test_data.length;r++)
 			{	String Page_Expected_URL = test_data[r][4];

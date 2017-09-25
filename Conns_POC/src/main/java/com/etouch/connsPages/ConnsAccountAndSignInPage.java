@@ -2320,7 +2320,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String My_Wish_List_Page_Element_Expected_Locator = null;
 			String My_Wish_List_Page_Element_Locator_Expected_Text = null;
 			String Navigate_To_Wish_List_Tab_Form_URL = null;
-			//String NameofTestCase = testdata[6][0];
+			String NameofTestCase = testdata[4][0];
 			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
 			String Actual_Page_URL="";
 			String Actual_Page_Title="";
@@ -2351,7 +2351,12 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					//webPage.findObjectByxPath(My_Wish_List_Page_Element_Expected_Locator).getText();
 					Actual_Page_Element_Name = commonMethods.getTextbyXpath(webPage, ChildElementLocator, softAssert);
 					//commonMethods.doubleClickElementbyXpath(webPage, ChildElementLocator, softAssert);
-					commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
+					if(!(NameofTestCase.contains("Back")))
+					{
+					js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used for Safari
+					}else {
+						commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
+					}
 					Actual_My_Wish_List_Page_Expected_Element_Text = commonMethods.getTextbyXpath(webPage, My_Wish_List_Page_Element_Expected_Locator, softAssert);
 					//Thread.sleep(1000);
 					//webPage.getDriver().navigate().refresh();
