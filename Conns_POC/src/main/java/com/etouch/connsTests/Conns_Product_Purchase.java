@@ -66,7 +66,6 @@ public class Conns_Product_Purchase extends BaseTest {
 	String[][] checkoutRegister;
 	String[][] addToCart;
 	String[][] submitBillingInfo;
-	String[][] submitShippingInfo;
 	String[][] proceedToCheckout;
 	String[][] paypalInfo;
 	String[][] pickupOnlyAddToCart;
@@ -112,7 +111,6 @@ public class Conns_Product_Purchase extends BaseTest {
 				checkoutRegister = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Checkout_Register");
 				//addToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Verify_Add_To_Cart_Button_Functionality");
 				submitBillingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Submit_Billing_Information");
-				submitShippingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Shipping_Info");
 				proceedToCheckout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Proceed_To_Checkout_Button");
 				paypalInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Submit_Paypal_Payment_Info");
 				pickupOnlyAddToCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Click_On_PickUp_Only_Add_To_Cart_Button");

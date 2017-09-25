@@ -247,7 +247,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				log.info("Searching product "+i+" for text "+openOverlayData[1][2]);
 				product = webPage.getDriver().findElement(By.xpath(commonData[0][1] + i + "]"));
-				if ((product.getText().contains(openOverlayData[0][2]))&& (product.getText().contains(openOverlayData[1][2]))) {
+				if ((product.getText().toUpperCase().contains(openOverlayData[0][2]))&& (product.getText().toUpperCase().contains(openOverlayData[1][2]))) {
 					log.info("Found product number "+i+" with text "+openOverlayData[1][2]);
 					productText = product.getText();
 					log.info("clicking on product:::" + i);
@@ -314,7 +314,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				log.info("Searching product "+i+" for text "+inStockProduct[0][3]);
 				product = webPage.getDriver().findElement(By.xpath(commonData[0][1] + i + "]"));
-				if ((product.getText().contains(inStockProduct[0][3]))&& (product.getText().contains(inStockProduct[0][2]))) {
+				if ((product.getText().toUpperCase().contains(inStockProduct[0][3]))&& (product.getText().toUpperCase().contains(inStockProduct[0][2]))) {
 					log.info("Found product number "+i+" with text "+inStockProduct[0][3]);
 					log.info("Clicking on product:::" + i);
 					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",softAssert);
@@ -411,7 +411,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				log.info("Searching product "+i+" for text "+pickupOnlyProduct[0][3]);
 				product = webPage.getDriver().findElement(By.xpath(commonData[0][1] + i + "]"));
-				if ((product.getText().contains(pickupOnlyProduct[0][3]))&& (product.getText().contains(pickupOnlyProduct[0][2]))) {
+				if ((product.getText().toUpperCase().contains(pickupOnlyProduct[0][3]))&& (product.getText().toUpperCase().contains(pickupOnlyProduct[0][2]))) {
 					log.info("Found product number "+i+" with text "+pickupOnlyProduct[0][3]);
 					log.info("Clicking on product:::" + i);
 					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",softAssert);
@@ -501,7 +501,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			for (int i = 1; i <= listOfProducts.size(); i++) {
 				log.info("Searching product "+i+" for text "+inStockProduct[0][3]);
 				product = webPage.getDriver().findElement(By.xpath(commonData[0][1] + i + "]"));
-				if ((product.getText().contains(inStockProduct[0][3]))&& (product.getText().contains(inStockProduct[0][2]))) {
+				if ((product.getText().toUpperCase().contains(inStockProduct[0][3]))&& (product.getText().toUpperCase().contains(inStockProduct[0][2]))) {
 					log.info("Found product number "+i+" with text "+inStockProduct[0][3]);
 					log.info("Clicking on product:::" + i);
 					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",softAssert);
