@@ -203,7 +203,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	public void numberOfProductDisplaySelectDropdownByValue(WebPage webPage, String locator,String dropdownvalue ,SoftAssert softAssert) {
 		try {
 			log.info("Selecting dropdown value - "+dropdownvalue);
-			if(!(browserName.equalsIgnoreCase("edge")||browserName.equalsIgnoreCase("Safari"))){
+			if(!(browserNames.get(Thread.currentThread().getId()).equalsIgnoreCase("edge")||browserNames.get(Thread.currentThread().getId()).equalsIgnoreCase("Safari"))){
 				Thread.sleep(3000);
 				CommonMethods.waitForWebElement(By.xpath(locator), webPage);
 				WebElement web=webPage.getDriver().findElement(By.xpath(locator));

@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
-
-import javax.script.ScriptException;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
@@ -38,7 +37,6 @@ import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
-import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 //import mx4j.log.Logger;
 
@@ -87,6 +85,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	static protected String[][] commonData;
 	String[][] PageUrlData;
 	String testUrl = "";
+	protected static Map<Long,String> browserNames = new LinkedHashMap<Long,String>();
 
 	// String testUrl =
 	// "http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/uat/";
@@ -130,6 +129,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				PageUrlData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Page_URL");
 				testUrl = PageUrlData[0][0];
 				browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
+				browserNames.put(Thread.currentThread().getId(), TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName());
 				platform = testBed.getPlatform().getName().toUpperCase();
 				if (testType.equalsIgnoreCase("Web")) {
 					log.info("videoLocation" + videoLocation);
@@ -164,7 +164,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	/*This method will cover below scenarios
 	 * - Verify page title for products under Appliances menu option. For eg- French door refrigertaor
 	 */
-	@Test(priority = 901, enabled = true, description = "")
+	@Test(priority = 901, enabled = true, description = "Verifying page title for product page")
 	public void Verify_Page_Title() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualTitle = null;
