@@ -433,8 +433,8 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			String inputText, String errorMessageLocator, String expectedErrorMessage) throws AWTException {
 		Robot robot = new Robot();
 		WebElement element = commonMethods.getWebElementbyID(webPage, locator, softAssert);
-		element.sendKeys(inputText);
-		commonMethods.clickElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
+		element.sendKeys(inputText+Keys.TAB);
+		//commonMethods.clickElementbyXpath(webPage, commonData.get("FirstNameLable"), softAssert);
 		// JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		// js.executeScript("var key = require('selenium-webdriver').Key;"
 		// + "var actionSequence =
