@@ -358,7 +358,7 @@ public class YesLeasePage extends CommonPage {
 		/*CardNumberField.sendKeys("412345");
 		routingNumberField.sendKeys("021000128");
 		accountNumberField.sendKeys("21000128");*/
-		//accountNumberField.sendKeys(Keys.TAB);	
+		accountNumberField.sendKeys(Keys.TAB);	
 		
 	}
 	
