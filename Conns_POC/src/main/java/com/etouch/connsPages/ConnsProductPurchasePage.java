@@ -203,7 +203,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	public void numberOfProductDisplaySelectDropdownByValue(WebPage webPage, String locator,String dropdownvalue ,SoftAssert softAssert) {
 		try {
 			log.info("Selecting dropdown value - "+dropdownvalue);
-
+			CommonMethods.waitForWebElement(By.xpath(locator), webPage);
 			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
 			Select select=new Select(web);
 			select.selectByVisibleText(dropdownvalue);
