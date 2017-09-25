@@ -342,6 +342,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				softAssert.assertAll();
 			}
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Redirectional_links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -702,7 +703,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		ConnsSignInPage.verify_Account_DashBoard_Login(testdata, softAssert);
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		for (int r = 0; r < test_data.length; r++) {
 			String Page_Expected_URL = test_data[r][3];
@@ -729,7 +730,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("******Started verification of content on Account Dashborad tab after login ********");
 		SoftAssert softAssert = new SoftAssert();
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-		/* ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/		
+		/*ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/		
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
