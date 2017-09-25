@@ -435,7 +435,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			Select select = new Select(commonMethods.getWebElementbyXpath(webPage, verifyZipCodeRadiusSearchData[4][0], softAssert));
 			select.selectByValue(verifyZipCodeRadiusSearchData[2][1]);
 			commonMethods.clickElementbyXpath(webPage, verifyZipCodeRadiusSearchData[5][0], softAssert);
-			CommonMethods.waitForWebElement(By.xpath(verifyZipCodeRadiusSearchData[6][1]), webPage);
+			CommonMethods.waitForWebElement(By.xpath(verifyZipCodeRadiusSearchData[6][0]), webPage);
 			String search75MilesActualData = commonMethods.getTextbyXpath(webPage, verifyZipCodeRadiusSearchData[6][0], softAssert);
 			search75MilesActualData = search75MilesActualData.replace("mi","").replaceAll(" ", "");
 			int intSearch75MilesActualData=Double.valueOf(search75MilesActualData).intValue();;
