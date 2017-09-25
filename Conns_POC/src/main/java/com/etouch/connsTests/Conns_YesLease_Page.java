@@ -203,11 +203,12 @@ public class Conns_YesLease_Page extends BaseTest {
 				System.out.println("futureDate_4thmonth: "
 						+ futureDate_4thmonth);
 				String url = commonMethods.getPageUrl(webPage, softAssert);
+				
+				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
+						0);
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage,
 						YesLeaseData, "02-30-2017", futureDate_1month,
 						PastDate_1month, futureDate_1month);
-				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
-						0);
 				Thread.sleep(2000);
 				softAssert.assertEquals(
 						webPage.findObjectByxPath(YesLeaseData[41][1])
@@ -239,11 +240,12 @@ public class Conns_YesLease_Page extends BaseTest {
 						"Account Number Error Message for 1st iteration: ");
 				webPage.getDriver().get(url);
 				CommonMethods.waitForGivenTime(5);
+				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
+						1);
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage,
 						YesLeaseData, futureDate_1month, PastDate_2month,
 						PastDate_1month, yesterdays_Date);
-				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
-						1);
+				
 				Thread.sleep(2000);
 				softAssert.assertEquals(
 						webPage.findObjectByxPath(YesLeaseData[41][1])
@@ -278,11 +280,12 @@ public class Conns_YesLease_Page extends BaseTest {
 						"Account Number Error Message for 2nd iteration: ");
 				webPage.getDriver().get(url);
 				CommonMethods.waitForGivenTime(5);
+				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
+						2);
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage,
 						YesLeaseData, PastDate_1month, yesterdays_Date,
 						tomorrows_Date, PastDate_2month);
-				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
-						2);
+				
 				Thread.sleep(2000);
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(
 						webPage, YesLeaseData[41][1]),
@@ -313,11 +316,12 @@ public class Conns_YesLease_Page extends BaseTest {
 						"Account Number Error Message for 3rd iteration: ");
 				webPage.getDriver().get(url);
 				CommonMethods.waitForGivenTime(5);
+				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
+						3);
 				YesLeasePage.selectSpecificValuesWithGivenDate(webPage,
 						YesLeaseData, yesterdays_Date, PastDate_1month,
 						futureDate_1month, PastDate_1month);
-				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
-						3);
+			
 				Thread.sleep(2000);
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(
 						webPage, YesLeaseData[41][1]),
