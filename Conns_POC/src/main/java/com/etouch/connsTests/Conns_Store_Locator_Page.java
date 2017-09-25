@@ -561,10 +561,10 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
 			String[][] verifyAllStoreLocatorData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllStoreLocatorLinks");
 			commonMethods.navigateToPage(webPage, commonData[0][1], softAssert);
-			for(int i=0;i<verifyAllStoreLocatorData.length;i++){
+			/*for(int i=0;i<verifyAllStoreLocatorData.length;i++){
 				String actual_hrefValue = commonMethods.getAttributebyXpath(webPage, verifyAllStoreLocatorData[i][2],"href", softAssert);
 				softAssert.assertTrue(actual_hrefValue.contains(verifyAllStoreLocatorData[i][3]),"Expected href value: "+verifyAllStoreLocatorData[i][3]+" Actual href value: "+actual_hrefValue);
-			}
+			}*/
 			List<WebElement> allStorelinkList = commonMethods.findElementsByXpath(webPage,commonData[9][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, allStorelinkList);
 			softAssert.assertAll();
