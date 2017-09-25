@@ -31,7 +31,7 @@ public class YesLeasePage extends CommonPage {
 
 	public  void submitCreditAppAndVerifyStatus(WebPage webPage,LinkedHashMap<String, String> commonData, SoftAssert softAssert, String expectedStatus) throws Exception {
 		commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
-		 Thread.sleep(10000);
+		 Thread.sleep(12000);
 		System.out.println("Url isd : " + commonMethods.getPageUrl(webPage, softAssert));
 		// commonMethods.waitForPageLoad(webPage, softAssert);
 		if (commonMethods.getPageUrl(webPage, softAssert).contains(commonData.get("ProcessingPage"))) {

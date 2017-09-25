@@ -244,7 +244,7 @@ public class Conns_YesLease_Page extends BaseTest {
 						PastDate_1month, yesterdays_Date);
 				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
 						1);
-
+				Thread.sleep(2000);
 				softAssert.assertEquals(
 						webPage.findObjectByxPath(YesLeaseData[41][1])
 								.getText(), YesLeaseData[0][2],
@@ -283,7 +283,7 @@ public class Conns_YesLease_Page extends BaseTest {
 						tomorrows_Date, PastDate_2month);
 				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
 						2);
-
+				Thread.sleep(2000);
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(
 						webPage, YesLeaseData[41][1]),
 						"Hire Date with PastDate_1month validation:");
@@ -318,7 +318,7 @@ public class Conns_YesLease_Page extends BaseTest {
 						futureDate_1month, PastDate_1month);
 				YesLeasePage.enterAccountSpecificDetails(webPage, YesLeaseData,
 						3);
-
+				Thread.sleep(2000);
 				softAssert.assertFalse(CommonMethods.verifyElementisPresent(
 						webPage, YesLeaseData[41][1]),
 						"Hire Date with yesterdays_Date validation:");
@@ -365,7 +365,7 @@ public class Conns_YesLease_Page extends BaseTest {
 		try {
 			commonMethods.clickElementbyXpath(webPage, YesLeaseData[56][1],
 					softAssert);
-			CommonMethods.waitForGivenTime(8);
+			CommonMethods.waitForGivenTime(12);
 			System.out.println("Url is : "
 					+ commonMethods.getPageUrl(webPage, softAssert));
 			if (commonMethods.getPageUrl(webPage, softAssert).contains(
