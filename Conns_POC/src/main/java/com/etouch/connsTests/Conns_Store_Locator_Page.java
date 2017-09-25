@@ -154,7 +154,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			List<WebElement> linkList = commonMethods.findElementsByXpath(webPage,commonData[6][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, linkList);
 			for (int i = 0; i < regionLinksData.length; i++) {
-				if (testType.equalsIgnoreCase("Web")) {
+				if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari"))) {
 					if(!regionLinksData[i][3].equalsIgnoreCase("NA")){
 						commonMethods.hoverOnelementbyXpath(webPage, regionLinksData[i][1], softAssert);
 						String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, regionLinksData[i][1], "color", softAssert);
@@ -182,7 +182,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			List<WebElement> texasSublinkList = commonMethods.findElementsByXpath(webPage,commonData[7][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, texasSublinkList);
 			for (int i = 0; i < TexasSubLinksData.length; i++) {
-				if (testType.equalsIgnoreCase("Web")) {
+				if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari"))) {
 					if(!TexasSubLinksData[i][4].equalsIgnoreCase("NA")){
 						commonMethods.hoverOnelementbyXpath(webPage, TexasSubLinksData[i][2], softAssert);
 						String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, TexasSubLinksData[i][2], "color", softAssert);

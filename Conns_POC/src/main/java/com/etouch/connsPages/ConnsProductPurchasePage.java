@@ -203,10 +203,16 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	public void numberOfProductDisplaySelectDropdownByValue(WebPage webPage, String locator,String dropdownvalue ,SoftAssert softAssert) {
 		try {
 			log.info("Selecting dropdown value - "+dropdownvalue);
-			CommonMethods.waitForWebElement(By.xpath(locator), webPage);
-			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
-			Select select=new Select(web);
-			select.selectByVisibleText(dropdownvalue);
+			if(!(browserName.equalsIgnoreCase("edge")||browserName.equalsIgnoreCase("Safari"))){
+				Thread.sleep(3000);
+				CommonMethods.waitForWebElement(By.xpath(locator), webPage);
+				WebElement web=webPage.getDriver().findElement(By.xpath(locator));
+				Select select=new Select(web);
+				select.selectByVisibleText(dropdownvalue);
+			}else{
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+			}
+			
 			Thread.sleep(3000);
 		} catch (Throwable e) {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
