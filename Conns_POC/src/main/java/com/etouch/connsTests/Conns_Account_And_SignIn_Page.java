@@ -1638,8 +1638,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		webPage.getDriver().navigate().refresh();
 		try{
 			log.info("******Started verification of Links in Account Dashborad tab after login ********");
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
-			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
+			/*String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
+			ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);*/
 			String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Mobile_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String[][] demo_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Web_Links_On_Account_DashBoard_Tab_Resizeable_Menu_Links_Section");
 			String [][] mobile_validation_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verify_My_Wish_List_Page_Mobile_Links_Section");
@@ -1679,7 +1679,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 				String Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = test_data[r][37];
 				String Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = test_data[r][39];
 				String Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text =  test_data[r][41];
-				/*if (testType.equalsIgnoreCase("Mobile")) {
+				if (testType.equalsIgnoreCase("Mobile")) {
 					commonMethods.clickElementbyXpath(webPage, Resizeable_Account_DashBoard_Menu_Mobile_Drop_Down, softAssert);
 					List<String> Page_URL_Title_Data = ConnsSignInPage.verify_My_Wishlist_Links_Resizeable_Account_Tab(test_data);
 					softAssert.assertTrue(Page_URL_Title_Data.get(0).equalsIgnoreCase(Page_Expected_Title),                                                        "  Account Information DashBoard Tab verification failed For Page Title.  Expected_Page_Title                                             			    : "+ Page_Expected_Title                                            	    	+       "   Actual_Expected_Title                                       				    : "+ Page_URL_Title_Data.get(0));	
@@ -1725,7 +1725,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 					softAssert.assertTrue(Page_URL_Title_Data.get(17).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text),    "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text . Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text         : "+ Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text  		    +       "   Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text     : "+Page_URL_Title_Data.get(17));
 					softAssert.assertTrue(Page_URL_Title_Data.get(18).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text),     "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text . Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text           : "+ Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text  		    +       "   Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text      : "+Page_URL_Title_Data.get(18));
 					softAssert.assertTrue(Page_URL_Title_Data.get(19).equalsIgnoreCase(Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text),         "  Account Information DashBoard Tab verification failed For Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text . Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text                   : "+ Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text 			        +       "   Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text          : "+Page_URL_Title_Data.get(19));
-				}*/
+				}
 			}
 				if (testType.equalsIgnoreCase("Mobile")) {
 					for(int r1 = 0; r1 < mobile_validation_data.length;r1++)

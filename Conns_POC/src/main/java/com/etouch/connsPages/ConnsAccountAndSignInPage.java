@@ -2021,8 +2021,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 						log.info("Expected_My_Wishlist_Mango_Dining_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Price_Element_Text);
 						log.info("Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
 						log.info("Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
-						log.info("Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
-						log.info("Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						//log.info("Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						//log.info("Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
 						log.info("Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text : " + Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
 						log.info("Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text : " + Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
 						log.info("Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
@@ -2088,8 +2088,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 						log.info("Expected_My_Wishlist_Mango_Dining_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Price_Element_Text);
 						log.info("Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
 						log.info("Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text);
-						log.info("Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
-						log.info("Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						//log.info("Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
+						//log.info("Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text : " + Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text);
 						log.info("Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text : " + Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
 						log.info("Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text : " + Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text);
 						log.info("Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text : " + Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text);
