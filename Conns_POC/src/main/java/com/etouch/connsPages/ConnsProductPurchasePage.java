@@ -49,6 +49,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
 			commonMethods.waitForPageLoad(webPage, softAssert);
+			Thread.sleep(3000);
 			log.info("clicked on :" + test);
 		} catch (PageException e) {
 			log.error(e.getMessage());
@@ -380,10 +381,10 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 						if (testType.equalsIgnoreCase("Web")) {
 							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							//numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							//commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 						}
 					}
 				}
@@ -469,10 +470,10 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 						if (testType.equalsIgnoreCase("Web")) {
 							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							//numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							//commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 						}
 					}
 				}
@@ -565,10 +566,10 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 						if (testType.equalsIgnoreCase("Web")) {
 							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+							//numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							//commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 						}
 					}
 				}
