@@ -735,7 +735,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		String Expected_Account_Dashboard_Page_URL = testdata[0][0];
 		String Expected_Account_Dashboard_Page_Title = testdata[0][1];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			log.info(" Actual_Account_Dashboard_Page_URL Validation Starts  :  ****************************** "	);
@@ -766,7 +766,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage", "verifyAccountPageContent");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][18];
 		// ConnsSignInPage.verify_Account_DashBoard_Login(testdata,softAssert);
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		webPage.getCurrentUrl();// For Safari
 		try {
 			List<String> content = new ArrayList<String>();
@@ -798,6 +798,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		log.info("******Started verification of credit Application sec on Account Dashborad tab after login ********");
 		String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","Verify_Credit_Application_Section");
 		String Navigate_To_Account_Information_Tab_Form_URL = testdata[0][2];
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
 		/*String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyAccountDashBoardPageTitle");
 		log.info("verify_Account_DashBoard_Login will be executing");
 		if(ConnsSignInPage==null)log.info("NULLLLLLLLLLLLLLLLl");
@@ -805,7 +806,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		ConnsSignInPage.verify_Account_DashBoard_Login(test_data,softAssert);*/
 		for (int r = 0; r < testdata.length; r++) {
 			
-				//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+				
 				webPage.getCurrentUrl();// For Safari
 				String Actual_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = commonMethods.getTextbyXpath(webPage, testdata[r][0], null);
 				String Expected_Content_On_Account_Information_Credit_Application_Section_For_Credit_Status_Content_Verification = testdata[r][1];
