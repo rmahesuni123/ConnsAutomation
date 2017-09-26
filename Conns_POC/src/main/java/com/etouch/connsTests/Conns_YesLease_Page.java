@@ -120,7 +120,7 @@ public class Conns_YesLease_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 11002, enabled = true, description = "verify_Page_Content")
+	@Test(priority = 1102, enabled = true, description = "verify_Page_Content")
 	public void verify_Page_Content() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		log.info("testing verifyPageContent started------>");
@@ -142,7 +142,7 @@ public class Conns_YesLease_Page extends BaseTest {
 		softAssert.assertAll();
 	}
 
-	@Test(priority = 11003, enabled = true, description = "Verify_Broken_Links")
+	@Test(priority = 1103, enabled = true, description = "Verify_Broken_Links")
 	public void Verify_Broken_Links() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try {
