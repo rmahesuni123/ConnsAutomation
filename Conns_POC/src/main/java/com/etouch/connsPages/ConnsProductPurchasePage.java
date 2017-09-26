@@ -174,7 +174,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			}catch(Exception e){
 				log.info("Unable to delete cookies for the browser");
 			}
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[0][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[1][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[2][2], softAssert);
