@@ -52,10 +52,10 @@ public class Conns_Credit_App_Page extends BaseTest {
 	static Log log = LogUtil.getLog(Conns_Account_And_SignIn_Page.class);
 	//Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
 	private String url, testEnv;
-	protected static WebPage webPage;
+	WebPage webPage;
 	private ConnsMainPage mainPage;
 	protected static LinkedHashMap<String, String> commonData;
-	protected static CommonMethods commonMethods;
+	CommonMethods commonMethods;
 	String platform;
 	String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	boolean declinedStatus = false;
@@ -63,7 +63,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	Random random=new Random();
 	protected static LinkedHashMap<Long, String> testBedNames = new LinkedHashMap<Long, String>();
 	CreditAppPage creditAppPage;
-	
+	protected static LinkedHashMap<Long, WebPage> webPageMap = new LinkedHashMap<Long, WebPage>();
 	/*** Prepare before class @throws Exception the exception */
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -91,14 +91,15 @@ public class Conns_Credit_App_Page extends BaseTest {
 				synchronized (this) {
 					creditAppPage = new CreditAppPage();
 					webPage = new WebPage(context);
-					mainPage = new ConnsMainPage(url, webPage);
+					webPageMap.put(Thread.currentThread().getId(), webPage);
+					mainPage = new ConnsMainPage(url, webPageMap.get(Thread.currentThread().getId()));
 					log.info(mainPage);
 				}
 				if (testType.equalsIgnoreCase("Web")) {
 					log.info("Maximize Window in case of Desktop Browsers Only : ");
-					webPage.getDriver().manage().window().maximize();
+					webPageMap.get(Thread.currentThread().getId()).getDriver().manage().window().maximize();
 				}
-				CommonMethods.navigateToPage(webPage, url);
+				CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), url);
 			} catch (Exception e) {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
@@ -127,7 +128,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			
 			creditAppPage.navigateToCreditAppPage(softAssert);
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Page_Title");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Page_Title");
 			softAssert.assertAll();
 		}
 	}
@@ -161,7 +162,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				expectedValue = test[r][s];
 				try {
 					log.info("Verifying font size and style for element no. " + r);
-					ITafElement pageHeading = webPage.findObjectByClass(pageHeadingClass);
+					ITafElement pageHeading = webPageMap.get(Thread.currentThread().getId()).findObjectByClass(pageHeadingClass);
 					String value = pageHeading.getCssValue(fontAttribute).replaceAll("\"", "").replaceAll(" ", "")
 							.toLowerCase().trim();
 					softAssert.assertTrue(value.contains(expectedValue) || expectedValue.contains(value),
@@ -175,7 +176,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("Ending verify_Font_Size_And_Style");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Font_Size_And_Style");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Font_Size_And_Style");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -201,7 +202,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			Fieldxpath = test[r][1];
 			try {
 				log.info("testing verifying Page Content for element no. " + r);
-				returnValue = webPage.findObjectByxPath(Fieldxpath).isDisplayed();
+				returnValue = webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(Fieldxpath).isDisplayed();
 				softAssert.assertTrue(returnValue,
 						"Verify Page content failed!!! " + FieldName + "Not rendered on page");
 				log.info("testing verifyPageContent Completed------>");
@@ -253,7 +254,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Link_Navigation");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Link_Navigation");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -271,7 +272,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("testing verify_Form_Is_Displayed_With_Blank_Field completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Form_Is_Displayed_With_Blank_Field");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Form_Is_Displayed_With_Blank_Field");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -283,7 +284,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			// creditAppPage.navigateToCreditAppPage(softAssert);
-			commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyMandatoryFieldValidationWithoutData");
 			for (int i = 0; i < test.length; i++) {
@@ -292,7 +293,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("testing verify_Mandatory_Field_Validation_Without_Data completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Mandatory_Field_Validation_Without_Data");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Mandatory_Field_Validation_Without_Data");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -323,7 +324,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Texas_SubLinks");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "Verify_Texas_SubLinks");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -342,14 +343,14 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyFieldAutoPopulates");
 			// creditAppPage.navigateToCreditAppPage(softAssert);
-			commonMethods.clearTextBoxById(webPage, test[0][0], softAssert);
-			commonMethods.sendKeysById(webPage, test[0][0], test[0][1], softAssert);
-			commonMethods.clickElementById(webPage, test[0][2], softAssert);
-			softAssert.assertEquals(test[0][3], commonMethods.getTextbyId(webPage, test[0][2], softAssert));
+			commonMethods.clearTextBoxById(webPageMap.get(Thread.currentThread().getId()), test[0][0], softAssert);
+			commonMethods.sendKeysById(webPageMap.get(Thread.currentThread().getId()), test[0][0], test[0][1], softAssert);
+			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), test[0][2], softAssert);
+			softAssert.assertEquals(test[0][3], commonMethods.getTextbyId(webPageMap.get(Thread.currentThread().getId()), test[0][2], softAssert));
 			softAssert.assertEquals(test[0][5],
 					creditAppPage.getSelectedValueFromDropDownID(softAssert, test[0][0], test[0][4]));
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Field_Validation_Error_Message_With_InValid_Data");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Field_Validation_Error_Message_With_InValid_Data");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -372,7 +373,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.verifyDropDownValuesById(softAssert, test[0][0], test[0][1], yearsThereDropDownValues);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Years_There_DropDown_Values");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Years_There_DropDown_Values");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -391,16 +392,16 @@ public class Conns_Credit_App_Page extends BaseTest {
 			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 					"verifyCityAndStateFieldAreEditable");
 			// creditAppPage.navigateToCreditAppPage(softAssert);
-			commonMethods.clearTextBoxById(webPage, testData.get("ZipcodeID"), softAssert);
-			commonMethods.sendKeysById(webPage, testData.get("ZipcodeID"), testData.get("ZipcodeValue"), softAssert);
-			commonMethods.clickElementById(webPage, testData.get("CityID"), softAssert);
+			commonMethods.clearTextBoxById(webPageMap.get(Thread.currentThread().getId()), testData.get("ZipcodeID"), softAssert);
+			commonMethods.sendKeysById(webPageMap.get(Thread.currentThread().getId()), testData.get("ZipcodeID"), testData.get("ZipcodeValue"), softAssert);
+			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), testData.get("CityID"), softAssert);
 			creditAppPage.verifyTextFieldIsEditableByID(softAssert, "City", testData.get("CityID"),
 					testData.get("CityValue"));
 			creditAppPage.verifyDropDownFieldIsEditableById(softAssert, "State", testData.get("StateID"),
 					testData.get("StateValue"));
 			log.info("testing verify_City_And_State_Field_Are_Editable completed------>");
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_City_And_State_Field_Are_Editable");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_City_And_State_Field_Are_Editable");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -435,7 +436,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			}
 			log.info("testing verify_Main_Source_Of_Income_Field completed------>");
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Main_Source_Of_Income_Field");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Main_Source_Of_Income_Field");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -455,7 +456,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 						testData[j][2]);
 				String[][] MonthlyIncomeErrorMessage = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 						testData[j][2] + "DataSet");
-				commonMethods.clickElementbyXpath(webPage, commonData.get("SubmitButton"), softAssert);
+				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
 				for (int k = 0; k < MonthlyIncomeErrorMessage.length; k++) {
 					creditAppPage.verifyErrorMessageByXpath(softAssert, MonthlyIncomeErrorMessage[k][0],
 							MonthlyIncomeErrorMessage[k][1], MonthlyIncomeErrorMessage[k][2]);
@@ -465,7 +466,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info(
 					"testing verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields completed------>");
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Main_Source_Of_Income_Field");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Main_Source_Of_Income_Field");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -479,17 +480,17 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("testing verify_Error_Message_for_Reference_Code_Field started------>");
 			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 					"verifyErrorMessageForRefCode");
-			commonMethods.sendKeysbyXpath(webPage, testData.get("RefCodeXpath"), testData.get("RefCodeValue"),
+			commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("RefCodeXpath"), testData.get("RefCodeValue"),
 					softAssert);
-			commonMethods.clickElementbyXpath(webPage, testData.get("RefCodeSubmitXpath"), softAssert);
-			CommonMethods.waitForWebElement(By.xpath(testData.get("RefCodeErrorXpath")), webPage);
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("RefCodeSubmitXpath"), softAssert);
+			CommonMethods.waitForWebElement(By.xpath(testData.get("RefCodeErrorXpath")), webPageMap.get(Thread.currentThread().getId()));
 			Thread.sleep(3000);
 			creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError", testData.get("RefCodeErrorXpath"),
 					testData.get("RefCodeError"));
 			log.info("testing verify_Error_Message_for_Reference_Code_Field completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Error_Message_for_Reference_Code_Field");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Error_Message_for_Reference_Code_Field");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -515,7 +516,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("testing verify_Reference_Code_With_Valid_Required_Field_Data completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Reference_Code_With_Valid_Required_Field_Data");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Reference_Code_With_Valid_Required_Field_Data");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -535,7 +536,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithDownPaymentPage");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Successful_Submit_Status_Approved_With_DP");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_Status_Approved_With_DP");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -562,7 +563,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info(
 					"testing flow verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP Completed");
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage,
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
 					"verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -580,7 +581,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "WaitPage");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage,
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
 					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Employed_Status_Wait");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -599,7 +600,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "OutOfStatePage");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage,
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
 					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Social_Security_Status_Out_Of_State");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -617,7 +618,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.submitCreditApp(softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Credit_App_Submit_With_RefField");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Credit_App_Submit_With_RefField");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -634,7 +635,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.submitCreditApp(softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage,
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
 					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Disability_Income");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -652,7 +653,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.submitCreditApp(softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage,
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
 					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -676,7 +677,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.verifyFieldValues(testData, softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Fields_Are_AutoPopulated_For_Registered_User");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Fields_Are_AutoPopulated_For_Registered_User");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -699,7 +700,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 						+ testData.get("FirstNameData"));
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_First_Name_And_Last_Name_Field_Are_Editable");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_First_Name_And_Last_Name_Field_Are_Editable");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -712,12 +713,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 			// creditAppPage.navigateToCreditAppPage(softAssert);
 			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 					"verifyEmailIsNotEditable");
-			if (!creditAppPage.verifyElementisPresentByXPath(webPage, testData.get("EmailIdentifier"), softAssert)) {
+			if (!creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData.get("EmailIdentifier"), softAssert)) {
 				log.info("TextBox EmailAddress is Not Displayed");
 				softAssert.fail("TextBox EmailAddress is Not Displayed");
 			} else {
 				SoftAssert softAssert1 = new SoftAssert();
-				commonMethods.sendKeysbyXpath(webPage, testData.get("EmailIdentifier"), testData.get("EmailData"),
+				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("EmailIdentifier"), testData.get("EmailData"),
 						softAssert1);
 				String value = creditAppPage.getTextBoxValueByJs("EmailAdress", testData.get("EmailIdentifier"),
 						softAssert);
@@ -729,7 +730,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Email_Is_Not_Editable");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Email_Is_Not_Editable");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -740,11 +741,11 @@ public class Conns_Credit_App_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			// creditAppPage.navigateToCreditAppPage(softAssert);
-			if (creditAppPage.verifyElementisPresentByXPath(webPage, commonData.get("SignInNowLink"), softAssert))
+			if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SignInNowLink"), softAssert))
 				softAssert.fail("Sign In Now Link is Displayed For Registered User");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -760,7 +761,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.fillForm(softAssert, testData);
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -785,7 +786,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DuplicatePage");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Successful_Submit_For_Registered_User_Status_Duplicate");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_For_Registered_User_Status_Duplicate");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -798,10 +799,10 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.navigateToCreditAppPage(softAssert);
 			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 					"verifyImportanceNoticeField");
-			softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, testData.get("ImportantNoticeMessage"), softAssert).contains(testData.get("ImportantNoticeMessage")));
+			softAssert.assertTrue(commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("ImportantNoticeMessage"), softAssert).contains(testData.get("ImportantNoticeMessage")));
 			System.out.println();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Important_Notice_Text");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Important_Notice_Text");
 			softAssert.assertAll();
 		}
 	}
