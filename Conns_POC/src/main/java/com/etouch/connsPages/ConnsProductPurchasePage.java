@@ -153,6 +153,9 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 	public void Proceed_To_Checkout_Button(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		try {
+			if(browserName.equalsIgnoreCase("Safari")||browserName.contains("iPad")||browserName.contains("iPhone")){
+				Thread.sleep(5000);
+			}
 			log.info("Clicking on Proceed to checkout");
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
 			Thread.sleep(5000);
@@ -166,7 +169,12 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	public void clickOnMobileMenuOption(WebPage webPage, String[][] mobileMenuData, SoftAssert softAssert) {
 		log.info("Clicking on mobile menu for applicances ");
 		try {
-			webPage.getDriver().manage().deleteAllCookies();
+			try{
+				webPage.getDriver().manage().deleteAllCookies();	
+			}catch(Exception e){
+				log.info("Unable to delete cookies for the browser");
+			}
+			Thread.sleep(3000);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[0][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[1][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[2][2], softAssert);
