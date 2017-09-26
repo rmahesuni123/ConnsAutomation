@@ -3,16 +3,23 @@ package com.etouch.connsPages;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
@@ -387,4 +394,49 @@ public class YesLeasePage extends CommonPage {
 		System.out.println("futureDate_4thmonth: " + futureDate_4thmonth);
 		return futureDate_4thmonth;
 	}
+	/*public static void verifyBrokenLinks(WebPage webPage, String linkData[][]) {
+		List<WebElement> linkList = webPage.getDriver().findElements(By.tagName("a"));
+		log.info("Total number of links : " + linkList.size());
+		int linkCount = 0;
+		List<Integer> brokenLinkNumber = new ArrayList<Integer>();
+		List<String> brokenLinkHref = new ArrayList<String>();
+		
+		for (WebElement link : linkList) 		
+		{
+			try {
+				linkCount++;				
+				log.info("Verifying link number : " + linkCount);
+				HttpClient client = HttpClientBuilder.create().build();
+				HttpGet request = new HttpGet(link.getAttribute("href"));
+
+				HttpResponse response = client.execute(request);
+				//log.info("src : " + image.getAttribute("src"));
+				//log.info("response.getStatusLine().getStatusCode() : " + response.getStatusLine().getStatusCode());
+				if (response.getStatusLine().getStatusCode() == 200) {
+					log.info("Link number " + linkCount + " is as expected "
+							+ response.getStatusLine().getStatusCode());
+				} else {
+					brokenLinkNumber.add(linkCount);
+					brokenLinkHref.add(link.getAttribute("href"));//Nalini
+					log.info("Link number " + linkCount + " is not as expected "
+							+ response.getStatusLine().getStatusCode());
+					log.info("Broken Link source is : " + link.getAttribute("href"));
+
+				}
+			} catch (Exception e) {
+				log.info("Link number ....." + linkCount + " is not as expected ");
+				brokenLinkNumber.add(linkCount);
+				brokenLinkHref.add(link.getAttribute("href"));//nalini
+				log.info("linkCount  : " + linkCount + " : " + brokenLinkHref);			
+			}
+
+		}
+		if (brokenLinkNumber.size() > 0) {
+
+			Assert.fail("Link number of the broken link : " + Arrays.deepToString(brokenLinkNumber.toArray())
+			+ "\nLink (href) of the broken link : " + Arrays.deepToString(brokenLinkHref.toArray()));
+
+		}
+
+	}*/
 }

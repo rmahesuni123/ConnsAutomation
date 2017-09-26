@@ -13,7 +13,11 @@ import java.util.LinkedHashMap;
 import java.util.Random;
 
 import org.apache.commons.logging.Log;
-import org.apache.log4j.Logger;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
@@ -23,12 +27,8 @@ import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
-import com.etouch.common.TafExecutor;
-import com.etouch.connsPages.ConnsAccountAndSignInPage;
 import com.etouch.connsPages.ConnsMainPage;
-import com.etouch.connsPages.CreditAppPage;
 import com.etouch.connsPages.YesLeasePage;
-import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
@@ -36,30 +36,26 @@ import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
+import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
 @Test(groups = "YesMoneyCreditApplication")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
 public class Conns_YesLease_Page extends BaseTest {
 	private String testBedName;
-	TestBed testBed;
 	Path path;
 	String DataFilePath;
 	protected String testType, browserName;
 	String currentTestBedName;
 	static Log log = LogUtil.getLog(Conns_YesLease_Page.class);
-	//Logger logger = Logger.getLogger(YesLeasePage.class.getName());
 	private String url, testEnv;
 	protected WebPage webPage;
 	private ConnsMainPage mainPage;
 	protected static LinkedHashMap<String, String> commonData;
 	protected static CommonMethods commonMethods;
-	 String platform;
-	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	boolean declinedStatus = false;
 	String[][] YesLeaseData;
 	YesLeasePage yesLeasePage = new YesLeasePage();
-	CreditAppPage creditAppPage = new CreditAppPage();
 	Random random = new Random();
 
 	/*** Prepare before class @throws Exception the exception */
@@ -68,21 +64,18 @@ public class Conns_YesLease_Page extends BaseTest {
 		try {
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			CommonUtil.sop("Test bed Name is " + testBedName);
-			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			commonMethods = new CommonMethods();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName()
 					.toLowerCase();
 			log.info("Test Type is : " + testType);
 			try {
-				platform = testBed.getPlatform().getName().toUpperCase();
 				testEnv = System.getenv().get("Environment");
 				log.info("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				log.info("DataFilePath After is : " + DataFilePath);
 				commonData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp", "CreditAppCommonElements");
-				platform = testBed.getPlatform().getName().toUpperCase();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				synchronized (this) {
 					webPage = new WebPage(context);
@@ -112,8 +105,8 @@ public class Conns_YesLease_Page extends BaseTest {
 					"verifyCreditAppSubmitForYesLease");
 			YesLeasePage.navigateToCreditAppPage(commonData, webPage, softAssert);
 			synchronized (this) {
-			int ssnSerial = 1000 + random.nextInt(8999);
-			testData[23][3] = String.valueOf(ssnSerial);
+				int ssnSerial = 1000 + random.nextInt(8999);
+				testData[23][3] = String.valueOf(ssnSerial);
 			}
 			YesLeasePage.fillForm(webPage, softAssert, testData);
 			yesLeasePage.submitCreditAppAndVerifyStatus(webPage, commonData, softAssert, "DeclinedPage");
@@ -127,7 +120,54 @@ public class Conns_YesLease_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1102, enabled = true, description = "verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit")
+	@Test(priority = 11002, enabled = true, description = "verify_Page_Content")
+	public void verify_Page_Content() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		log.info("testing verifyPageContent started------>");
+		if (declinedStatus == true) {
+			String[][] contentData = ExcelUtil.readExcelData(DataFilePath, "YesLeasePage", "verifyPageContent");
+			for (int i = 0; i < contentData.length; i++) {
+				log.info("testing verifying Page Content for element no. " + i);
+				String actualContent = webPage.findObjectByxPath(contentData[i][0]).getText();
+				log.info("Actual:  " + actualContent + "   Expected: " + contentData[i][1]);
+				softAssert.assertTrue(
+						actualContent.toLowerCase().trim().contains(contentData[i][1].toLowerCase().trim()),
+						"expectedContent: " + contentData[i][1] + "  Failed to Match Actual:" + actualContent);
+				log.info("testing verifyPageContent Completed------>");
+			}
+			log.info("Ending verify_Page_Content");
+		}
+		softAssert.assertAll();
+	}
+
+	@Test(priority = 11003, enabled = true, description = "Verify_Broken_Links")
+	public void Verify_Broken_Links() throws ClientProtocolException, IOException {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			if (declinedStatus == true) {
+				String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "YesLeasePage", "verifyLinksRedirection");
+				for (int i = 0; i < linkData.length; i++) {
+					{
+						ITafElement link = webPage.findObjectByxPath(linkData[i][1]);
+						log.info("iteration " + i + " : " + link.getAttribute("href"));
+						HttpClient client = HttpClientBuilder.create().build();
+						HttpGet request = new HttpGet(link.getAttribute("href"));
+						HttpResponse response = client.execute(request);
+						log.info("Status code for iteration " + i + " : " + response.getStatusLine().getStatusCode());
+						softAssert.assertEquals(response.getStatusLine().getStatusCode(), 200,
+								"Validation for " + linkData[i][0] + " :");
+					}
+				}
+			}
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1104, enabled = true, description = "verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit")
 	public void verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit()
 			throws Exception {
 		log.info(
@@ -156,7 +196,7 @@ public class Conns_YesLease_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1103, enabled = true, description = "verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input")
+	@Test(priority = 1105, enabled = true, description = "verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input")
 	public void verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input() throws Exception {
 		log.info("testing verify_Yes_Lease_Page_Field_Validation_With_Invalid_Input started------>");
 		SoftAssert softAssert = new SoftAssert();
@@ -297,7 +337,7 @@ public class Conns_YesLease_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1104, enabled = true, description = "verify_YesLease_Submit_With_Valid_Data")
+	@Test(priority = 1106, enabled = true, description = "verify_YesLease_Submit_With_Valid_Data")
 	public void verify_YesLease_Submit_With_Valid_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -329,7 +369,7 @@ public class Conns_YesLease_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1105, enabled = true, description = "verify_YesLease_Submit_For_Unique_ID")
+	@Test(priority = 1107, enabled = true, description = "verify_YesLease_Submit_For_Unique_ID")
 	public void verify_YesLease_Submit_For_Unique_ID() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
