@@ -111,8 +111,10 @@ public class Conns_YesLease_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "YesLeasePage",
 					"verifyCreditAppSubmitForYesLease");
 			YesLeasePage.navigateToCreditAppPage(commonData, webPage, softAssert);
+			synchronized (this) {
 			int ssnSerial = 1000 + random.nextInt(8999);
 			testData[23][3] = String.valueOf(ssnSerial);
+			}
 			YesLeasePage.fillForm(webPage, softAssert, testData);
 			yesLeasePage.submitCreditAppAndVerifyStatus(webPage, commonData, softAssert, "DeclinedPage");
 			softAssert.assertAll();
@@ -251,11 +253,11 @@ public class Conns_YesLease_Page extends BaseTest {
 						"Card Error Message: ");
 				SoftAssertor.assertEquals(webPage.findObjectByxPath(YesLeaseData[32][1]).getText(), YesLeaseData[33][1],
 						"Bank Routing Error Message: ");
-				if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")){
+				if (testBedName.contains("iPadNative") || testBedName.contains("iPhoneNative")
+						|| testBedName.equalsIgnoreCase("Safari")) {
 					softAssert.assertTrue(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
 							"Account Number Error Message for 3rd iteration: ");
-				}
-				else{
+				} else {
 					softAssert.assertFalse(CommonMethods.verifyElementisPresent(webPage, YesLeaseData[37][1]),
 							"Account Number Error Message for 3rd iteration: ");
 				}
@@ -300,11 +302,11 @@ public class Conns_YesLease_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			commonMethods.clickElementbyXpath(webPage, YesLeaseData[56][1], softAssert);
-			CommonMethods.waitForGivenTime(12);
+			CommonMethods.waitForGivenTime(15);
 			System.out.println("Url is : " + commonMethods.getPageUrl(webPage, softAssert));
 			if (commonMethods.getPageUrl(webPage, softAssert).contains("processing")) {
 				log.info("Processing Page is Displayed");
-				Thread.sleep(5000);
+				Thread.sleep(8000);
 			} else {
 				log.info("Unable to catch processing page");
 			}
@@ -335,8 +337,10 @@ public class Conns_YesLease_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "YesLeasePage",
 					"verifyForYesLeaseSubmitWithUniqueID");
 			YesLeasePage.navigateToCreditAppPage(commonData, webPage, softAssert);
-			int ssnSerial = 1000 + random.nextInt(8999);
-			testData[23][3] = String.valueOf(ssnSerial);
+			synchronized (this) {
+				int ssnSerial = 1000 + random.nextInt(8999);
+				testData[23][3] = String.valueOf(ssnSerial);
+			}
 			YesLeasePage.fillForm(webPage, softAssert, testData);
 			yesLeasePage.submitCreditAppAndVerifyStatus(webPage, commonData, softAssert, "DeclinedPage");
 			String url = webPage.getCurrentUrl() + YesLeaseData[51][1];
