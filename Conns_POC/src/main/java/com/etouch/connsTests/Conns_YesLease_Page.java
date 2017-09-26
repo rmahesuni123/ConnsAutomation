@@ -302,7 +302,7 @@ public class Conns_YesLease_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			commonMethods.clickElementbyXpath(webPage, YesLeaseData[56][1], softAssert);
-			CommonMethods.waitForGivenTime(15);
+			CommonMethods.waitForGivenTime(20);
 			System.out.println("Url is : " + commonMethods.getPageUrl(webPage, softAssert));
 			if (commonMethods.getPageUrl(webPage, softAssert).contains("processing")) {
 				log.info("Processing Page is Displayed");
@@ -318,7 +318,7 @@ public class Conns_YesLease_Page extends BaseTest {
 				softAssert.assertEquals(webPage.findObjectByxPath(YesLeaseData[49][1]).getText(), YesLeaseData[50][1],
 						"Yes Lease page Header:");
 			} else {
-				SoftAssertor.assertFail("Current URL is not as expected,Actual URL: " + actualUrl);
+				SoftAssertor.assertFail("Current URL is not as expected, Actual URL is: " + actualUrl);
 			}
 			log.info("testing verify_Yes_Lease_Page_Submition completed------>");
 			softAssert.assertAll();

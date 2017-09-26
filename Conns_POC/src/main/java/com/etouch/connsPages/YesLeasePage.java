@@ -341,7 +341,7 @@ public class YesLeasePage extends CommonPage {
 				YesLeaseData[55][1], softAssert);
 		commonMethods.clickElementbyXpath(webPage,
 				YesLeaseData[56][1], softAssert);
-		Thread.sleep(8000);
+		Thread.sleep(20000);
 		commonMethods.waitForPageLoad(webPage, softAssert);
 	}
 	public static void enterAccountSpecificDetails(WebPage webPage,String YesLeaseData[][], int n) throws PageException
