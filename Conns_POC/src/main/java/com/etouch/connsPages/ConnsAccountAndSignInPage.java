@@ -1066,7 +1066,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	//Utilisation :   
 	
 	
-	static int r = 0;
+	int qr = 0;
 	public List<String> verify_Links_Account_Tab(String[][] testdata) {
 		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		SoftAssert softAssert = new SoftAssert();
@@ -1080,13 +1080,14 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Actual_Page_URL="";
 		String Actual_Page_Title="";
 		String Actual_Page_Element_Name="";
+		
 		try {
-				log.info("Verifying " + testdata[r][0]);
-				ParentElementLocator = testdata[r][1];
-				ChildElementLocator = testdata[r][2];
-				Expected_Page_URL = testdata[r][3];
-				Expected_Page_Element_Name = testdata[r][4];
-				Expected_Page_Element_Title = testdata[r][5];
+				log.info("Verifying " + testdata[qr][0]);
+				ParentElementLocator = testdata[qr][1];
+				ChildElementLocator = testdata[qr][2];
+				Expected_Page_URL = testdata[qr][3];
+				Expected_Page_Element_Name = testdata[qr][4];
+				Expected_Page_Element_Title = testdata[qr][5];
 				log.info("Parent Locator is ..." + ParentElementLocator);
 				/*testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 				CommonUtil.sop("Test bed Name is " + testBedName);
@@ -1097,9 +1098,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				
 				
 				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+					webPage.hoverOnElement(By.cssSelector(testdata[qr][0]));
 				}
-				log.info("********** Before Execution ******************");
+				log.info("********** Before Execution value of qr ****************** : " +qr);
 				CommonMethods.waitForWebElement(By.xpath(ChildElementLocator), webPage);
 				Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 				Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
@@ -1188,8 +1189,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				log.info("getLocalizedMessage :"); 
 				e.printStackTrace();
 			}
-			r++;
-			log.info(" ******************************* incremented value of r second : " +r);
+		 qr++;
+			log.info(" ******************************* incremented value of qr second : " +qr);
 
 		if (brokenLinks.size() > 0) {
 			Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
@@ -1200,7 +1201,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 	
 	
-	
+	int e =0;
 	
 	public List<String> verify_Account_DashBoard_Link(String[][] testdata) {
 		List<String> brokenLinks = new ArrayList<String>();
@@ -1213,14 +1214,14 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String Actual_Page_URL="";
 		String Actual_Page_Title="";
 		String Actual_Page_Element_Name="";
-		int r =0;
+		
 			try {
-				log.info("Verifying " + testdata[r][0]);
-				ParentElementLocator = testdata[r][1];
-				ChildElementLocator = testdata[r][2];
-				Expected_Page_URL = testdata[r][3];
-				Expected_Page_Element_Name = testdata[r][4];
-				Expected_Page_Element_Title = testdata[r][5];
+				log.info("Verifying " + testdata[e][0]);
+				ParentElementLocator = testdata[e][1];
+				ChildElementLocator = testdata[e][2];
+				Expected_Page_URL = testdata[e][3];
+				Expected_Page_Element_Name = testdata[e][4];
+				Expected_Page_Element_Title = testdata[e][5];
 				log.info("Parent Locator is ..." + ParentElementLocator);
 				/*testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 				CommonUtil.sop("Test bed Name is " + testBedName);
@@ -1231,9 +1232,9 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				
 				
 				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+					webPage.hoverOnElement(By.cssSelector(testdata[e][0]));
 				}
-				log.info("********** Before Execution ******************");
+				log.info("********** Before Execution value of e ****************** : " +e);
 				Actual_Page_Element_Name = webPage.findObjectByxPath(ChildElementLocator).getText();
 				Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
 				//SoftAssertor.assertEquals(Actual_Page_ELement_Name, Expected_Page_Element_Name, "Element name does not match");
@@ -1325,8 +1326,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				log.info("getLocalizedMessage :"); 
 				e.printStackTrace();
 			}
-			r++;
-			log.info(" ******************************* incremented value of r second : " +r);
+			e++;
+			log.info(" ******************************* incremented value of r second : " +e);
 
 		if (brokenLinks.size() > 0) {
 			Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
@@ -1334,9 +1335,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		return Page_URL_Title_Element_Data;
 	}
 
-	
+	int f =0;
 	public List<String> verify_Pay_Your_Bill_Link_Account_Dashboard(String[][] testdata) {
-	//	int r =0;
 		SoftAssert softAssert = new SoftAssert();
 		List<String> brokenLinks = new ArrayList<String>();
 		String ParentElementLocator = null;
@@ -1362,15 +1362,15 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		
 		String TestCaseName = "";
 			try {
-				log.info("Verifying " + testdata[r][0]);
-				ParentElementLocator = testdata[r][1];
-				ChildElementLocator = testdata[r][2];
-				Pay_Your_Bill_Page_Links_Child_Element_Locator_Text = testdata[r][2];
-				Expected_Page_URL = testdata[r][3];
-				Pay_Your_Bill_Page_Links_Page_Element_Locator = testdata[r][4];
+				log.info("Verifying " + testdata[f][0]);
+				ParentElementLocator = testdata[f][1];
+				ChildElementLocator = testdata[f][2];
+				Pay_Your_Bill_Page_Links_Child_Element_Locator_Text = testdata[f][2];
+				Expected_Page_URL = testdata[f][3];
+				Pay_Your_Bill_Page_Links_Page_Element_Locator = testdata[f][4];
 				//TestCaseName = testdata[0][0];
-				//Expected_Page_Element_Name = testdata[r][4];
-				Expected_Page_Element_Title = testdata[r][5];
+				//Expected_Page_Element_Name = testdata[f][4];
+				Expected_Page_Element_Title = testdata[f][5];
 				Pay_Your_Bill_Page_Links_Page_Element_Locator_1 = testdata[2][4];
 				Pay_Your_Bill_Page_Links_Page_Element_Locator_2 = testdata[3][4];
 				Pay_Your_Bill_Page_Links_Page_Element_Locator_3 = testdata[4][4];
@@ -1397,7 +1397,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("********** Before Execution ******************");
 					log.info("********** Inside TestCaseName Execution ******************");
 					Thread.sleep(3000);					
-					log.info("********** Pay_Your_Bill_Page_Link_Test_Case_Name_Execution ******************" + testdata[r][0]);
+					log.info("********** Pay_Your_Bill_Page_Link_Test_Case_Name_Execution ******************" + testdata[f][0]);
 					log.info("********** Pay_Your_Bill_Page_Link_ChildElementLocator_Clicked_For_Other_Links_Execution_Starts : ******************" +ChildElementLocator);
 					//Page_URL_Title_Element_Data.add(Pay_Your_Bill_Page_Links_Child_Element_Locator_Text);
 					//commonMethods.clickElementbyXpath(webPage, ChildElementLocator, softAssert);
@@ -1413,7 +1413,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("New window id is" + newWindow);
 					webPage.getDriver().switchTo().window(newWindow);
 					Thread.sleep(9000);
-					log.info("********** Pay_Your_Bill_Page_Link_Execution_Starts : ******************" );
+					log.info("********** Pay_Your_Bill_Page_Link_Execution_Starts : value of f  ****************** : " +f );
 					
 					Actual_Page_URL = webPage.getCurrentUrl();
 					Actual_Page_Title = webPage.getPageTitle();
@@ -1560,8 +1560,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 				log.info("getLocalizedMessage :"); 
 				e.printStackTrace();
 			}
-		//	r++;
-			log.info(" ******************************* incremented value of r second : " +r);
+		//	f++;
+			log.info(" ******************************* incremented value of f second : " +f);
 
 		if (brokenLinks.size() > 0) {
 			Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
@@ -1570,7 +1570,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	}
 			
 	
-	static int b = 0;
+		int b = 0;
 		public List<String> verify_Links_Resizeable_Account_Tab(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			SoftAssert softAssert = new SoftAssert();
@@ -1586,6 +1586,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			List<String> Page_URL_Title_Element_Data = new ArrayList<String>();
 			String Actual_Page_URL="";
 			String Actual_Page_Title="";
+			
 			String Actual_Page_Element_Name="";
 			try {
 					log.info(" ******************************* incremented value of b one *********************  : " +b);
@@ -1689,7 +1690,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		}
 
 		
-		
+		int g =0;
 		public List<String> verify_My_Orders_Links_Resizeable_Account_Tab(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			SoftAssert softAssert = new SoftAssert();
@@ -1709,24 +1710,24 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 			String Actual_My_Orders_Expected_Element_Text = "";
-			int r =0;
+			
 				try {
-					log.info(" ******************************* incremented value of r one *********************  : " +r);
-					log.info(" ******************** Verifying *************************" + testdata[r][0]);
-					ParentElementLocator = testdata[r][1];
-					Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
-					ChildElementLocator = testdata[r][3];
-					Expected_Page_URL = testdata[r][4];
-					Expected_Page_Element_Name = testdata[r][5];
-					Expected_Page_Element_Title = testdata[r][6];
-					My_Orders_Expected_Element_Text_Locator = testdata[r][8];
-					Expected_My_Orders_Expected_Element_Text = testdata[r][9];
+					log.info(" ******************************* incremented value of g one *********************  : " +g);
+					log.info(" ******************** Verifying *************************" + testdata[g][0]);
+					ParentElementLocator = testdata[g][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[g][2];
+					ChildElementLocator = testdata[g][3];
+					Expected_Page_URL = testdata[g][4];
+					Expected_Page_Element_Name = testdata[g][5];
+					Expected_Page_Element_Title = testdata[g][6];
+					My_Orders_Expected_Element_Text_Locator = testdata[g][8];
+					Expected_My_Orders_Expected_Element_Text = testdata[g][9];
 					
 					//Safari_Path_ChildElementLocator = testdata[r][8];
 					log.info("Parent Locator is ..." + ParentElementLocator);
 					
 					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+						webPage.hoverOnElement(By.cssSelector(testdata[g][0]));
 					}
 					log.info("********** Before Execution ******************");
 					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
@@ -1813,8 +1814,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
 				}
-				r++;
-				log.info(" ******************************* incremented value of r second *********************  : " +r);
+				g++;
+				log.info(" ******************************* incremented value of g second *********************  : " +g);
 			if (brokenLinks.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
 			}
@@ -1824,7 +1825,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 		
 	
-		
+		int h = 0;
 		public List<String> verify_My_Wishlist_Links_Resizeable_Account_Tab(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
@@ -1893,57 +1894,57 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = "";
 			String Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = "";
 			String Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text = "";
-			int r = 0;
+			
 			
 				try {
-					log.info(" ******************************* incremented value of r one *********************  : " +r);
-					log.info(" ******************** Verifying *************************" + testdata[r][0]);
-					ParentElementLocator = testdata[r][1];
-					Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
-					ChildElementLocator = testdata[r][3];
-					Expected_Page_URL = testdata[r][4];
-					Expected_Page_Element_Name = testdata[r][5];
-					Expected_Page_Element_Title = testdata[r][6];
-					Actual_My_Wishlist_Product_Details_And_Comment_Element_Text_Locator = testdata[r][8];
-					Expected_My_Wishlist_Product_Details_And_Comment_Element_Text = testdata[r][9];
-					Actual_My_Wishlist_Add_to_Cart_Element_Text_Locator = testdata[r][10];
-					Expected_My_Wishlist_Add_to_Cart_Element_Text = testdata[r][11];
-					Actual_My_Wishlist_Mango_Dining_Element_Text_Locator = testdata[r][12];
-					Expected_My_Wishlist_Mango_Dining_Element_Text = testdata[r][13];
-					Actual_My_Wishlist_Mango_Dining_Price_Element_Text_Locator = testdata[r][14];
-					Expected_My_Wishlist_Mango_Dining_Price_Element_Text = testdata[r][15];
-					Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text_Locator = testdata[r][16];
-					Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text = testdata[r][17];
-					Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text_Locator = testdata[r][18];
-					Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text = testdata[r][19];
-					Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text_Locator = testdata[r][20];
-					Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text = testdata[r][21];
-					Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text_Locator = testdata[r][22];
-					Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text = testdata[r][23];
-					Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text_Locator  = testdata[r][24];
-					Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = testdata[r][25];
-					Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text_Locator = testdata[r][26];
-					Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text = testdata[r][27];
-					Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text_Locator = testdata[r][28];
-					Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text = testdata[r][29];
-					Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text_Locator = testdata[r][30];
-					Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text = testdata[r][31];
-					Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text_Locator = testdata[r][32];
-					Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text = testdata[r][33];
-					Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text_Locator = testdata[r][34];
-					Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text = testdata[r][35];
-					Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text_Locator = testdata[r][36];
-					Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = testdata[r][37];
-					Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text_Locator = testdata[r][38];
-					Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = testdata[r][39];
-					Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text_Locator = testdata[r][40];
-					Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text = testdata[r][41];
+					log.info(" ******************************* incremented value of h one *********************  : " +h);
+					log.info(" ******************** Verifying *************************" + testdata[h][0]);
+					ParentElementLocator = testdata[h][1];
+					Account_DashBoard_Mobile_Drop_Down_Link = testdata[h][2];
+					ChildElementLocator = testdata[h][3];
+					Expected_Page_URL = testdata[h][4];
+					Expected_Page_Element_Name = testdata[h][5];
+					Expected_Page_Element_Title = testdata[h][6];
+					Actual_My_Wishlist_Product_Details_And_Comment_Element_Text_Locator = testdata[h][8];
+					Expected_My_Wishlist_Product_Details_And_Comment_Element_Text = testdata[h][9];
+					Actual_My_Wishlist_Add_to_Cart_Element_Text_Locator = testdata[h][10];
+					Expected_My_Wishlist_Add_to_Cart_Element_Text = testdata[h][11];
+					Actual_My_Wishlist_Mango_Dining_Element_Text_Locator = testdata[h][12];
+					Expected_My_Wishlist_Mango_Dining_Element_Text = testdata[h][13];
+					Actual_My_Wishlist_Mango_Dining_Price_Element_Text_Locator = testdata[h][14];
+					Expected_My_Wishlist_Mango_Dining_Price_Element_Text = testdata[h][15];
+					Actual_My_Wishlist_Mango_Dining_Regular_Price_Element_Text_Locator = testdata[h][16];
+					Expected_My_Wishlist_Mango_Dining_Regular_Price_Element_Text = testdata[h][17];
+					Actual_My_Wishlist_Mango_Dining_Special_Price_Element_Text_Locator = testdata[h][18];
+					Expected_My_Wishlist_Mango_Dining_Special_Price_Element_Text = testdata[h][19];
+					Actual_My_Wishlist_Mango_Dining_wishliststyle_Element_Text_Locator = testdata[h][20];
+					Expected_My_Wishlist_Mango_Dining_wishliststyle_Element_Text = testdata[h][21];
+					Actual_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text_Locator = testdata[h][22];
+					Expected_My_Wishlist_Mango_Dining_Click_Here_For_Details_Element_Text = testdata[h][23];
+					Actual_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text_Locator  = testdata[h][24];
+					Expected_My_Wishlist_Mango_Dining_Availability_In_Stock_Element_Text = testdata[h][25];
+					Actual_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text_Locator = testdata[h][26];
+					Expected_My_Wishlist_Mango_Dining_Availability_In_Store_Element_Text = testdata[h][27];
+					Actual_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text_Locator = testdata[h][28];
+					Expected_My_Wishlist_Mango_Dining_Add_To_Cart_Alt_Quantity_Element_Text = testdata[h][29];
+					Actual_My_Wishlist_Mango_Dining_Text_Area_Element_Text_Locator = testdata[h][30];
+					Expected_My_Wishlist_Mango_Dining_Text_Area_Element_Text = testdata[h][31];
+					Actual_My_Wishlist_Mango_Dining_Edit_Hyperlink_Element_Text_Locator = testdata[h][32];
+					Expected_My_Wishlist_Mango_Dining_Edit_Hyper_Link_Element_Text = testdata[h][33];
+					Actual_My_Wishlist_Mango_Dining_Remove_Hyperlink_Element_Text_Locator = testdata[h][34];
+					Expected_My_Wishlist_Mango_Dining_Remove_Hyper_Link_Element_Text = testdata[h][35];
+					Actual_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text_Locator = testdata[h][36];
+					Expected_My_Wishlist_Mango_Dining_UPDATE_WISHLIST_BUTTON_Element_Text = testdata[h][37];
+					Actual_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text_Locator = testdata[h][38];
+					Expected_My_Wishlist_Mango_Dining_SHARE_WISHLIST_BUTTON_Element_Text = testdata[h][39];
+					Actual_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text_Locator = testdata[h][40];
+					Expected_My_Wishlist_Mango_Dining_GO_BACK_HYPERLINK_Element_Text = testdata[h][41];
 					
-					//Safari_Path_ChildElementLocator = testdata[r][8];
+					//Safari_Path_ChildElementLocator = testdata[h][8];
 					log.info("Parent Locator is ..." + ParentElementLocator);
 					
 					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+						webPage.hoverOnElement(By.cssSelector(testdata[h][0]));
 					}
 					log.info("********** Before Execution ******************");
 					commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
@@ -2141,8 +2142,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
 				}
-				r++;
-				log.info(" ******************************* incremented value of r second *********************  : " +r);
+				h++;
+				log.info(" ******************************* incremented value of r second *********************  : " +h);
 			if (brokenLinks.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
 			}
@@ -2151,8 +2152,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		}
 
 		
-		
-		static int c = 0;
+		int c = 0;
 		public List<String> verify_My_Wish_List_Page_Links_Mobile(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			SoftAssert softAssert = new SoftAssert();
@@ -2175,6 +2175,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 			String Actual_My_Wish_List_Page_Expected_Element_Text = "";
+			
 			try {
 					log.info(" ******************************* incremented value of c one *********************  : " +c);
 					log.info(" ******************** Verifying *************************" + testdata[c][0]);
@@ -2301,11 +2302,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		}
 		
 		
-		
-		
-		
-		
-		static int d = 0;
+		int d = 0;
 		public List<String> verify_My_Wish_List_Page_Links_Web(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			SoftAssert softAssert = new SoftAssert();
@@ -2326,6 +2323,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 			String Actual_My_Wish_List_Page_Expected_Element_Text = "";
+			
 			try {
 					log.info(" ******************************* incremented value of c one *********************  : " +d);
 					log.info(" ******************** Verifying *************************" + testdata[d][0]);
@@ -2473,7 +2471,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			
 		}
 
-		
+		int k =0;
 		public List<String> verify_Register_Link_Redirection_From_Home_Page(String[][] testdata) {
 			List<String> brokenLinks = new ArrayList<String>();
 			JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
@@ -2494,24 +2492,24 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Actual_Page_Title="";
 			String Actual_Page_Element_Name="";
 			String Actual_Create_An_Account_Expected_Element_Text = "";
-			int r =0;
+			
 				try {
-					log.info(" ******************************* incremented value of r one *********************  : " +r);
-					log.info(" ******************** Verifying *************************" + testdata[r][0]);
-					ParentElementLocator = testdata[r][1];
-					//Account_DashBoard_Mobile_Drop_Down_Link = testdata[r][2];
-					ChildElementLocator = testdata[r][4];
-					Expected_Page_URL = testdata[r][5];
-					Expected_Page_Element_Name = testdata[r][6];
-					Expected_Page_Element_Title = testdata[r][7];
-					Create_An_Account_Expected_Element_Text_Locator = testdata[r][9];
-					Expected_Create_An_Account_Expected_Element_Text = testdata[r][10];
+					log.info(" ******************************* incremented value of k one *********************  : " +k);
+					log.info(" ******************** Verifying *************************" + testdata[k][0]);
+					ParentElementLocator = testdata[k][1];
+					//Account_DashBoard_Mobile_Drop_Down_Link = testdata[k][2];
+					ChildElementLocator = testdata[k][4];
+					Expected_Page_URL = testdata[k][5];
+					Expected_Page_Element_Name = testdata[k][6];
+					Expected_Page_Element_Title = testdata[k][7];
+					Create_An_Account_Expected_Element_Text_Locator = testdata[k][9];
+					Expected_Create_An_Account_Expected_Element_Text = testdata[k][10];
 					
-					//Safari_Path_ChildElementLocator = testdata[r][8];
+					//Safari_Path_ChildElementLocator = testdata[k][8];
 					log.info("Parent Locator is ..." + ParentElementLocator);
 					
 					if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-						webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+						webPage.hoverOnElement(By.cssSelector(testdata[k][0]));
 					}
 					log.info("********** Before Execution ******************");
 					//commonMethods.clickElementbyXpath(webPage, Account_DashBoard_Mobile_Drop_Down_Link, softAssert);
@@ -2597,8 +2595,8 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 					log.info("getLocalizedMessage :"); 
 					e.printStackTrace();
 				}
-				r++;
-				log.info(" ******************************* incremented value of r second *********************  : " +r);
+				k++;
+				log.info(" ******************************* incremented value of k second *********************  : " +k);
 			if (brokenLinks.size() > 0) {
 				Assert.fail("Link " + Arrays.deepToString(brokenLinks.toArray()) + " are not working as expected");
 			}
@@ -2656,13 +2654,13 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	public void verifyContent(String[][] testdata) {
 		List <String> content = new ArrayList<String>();
 		
-		for (int r = 0; r < testdata.length; r++) {
+		for (int l = 0; l < testdata.length; l++) {
 			try {
-				String ActualElementName =commonMethods.getTextbyXpath(webPage, testdata[r][0], null);
-				String ExpectedElementName = testdata[r][1];
+				String ActualElementName =commonMethods.getTextbyXpath(webPage, testdata[l][0], null);
+				String ExpectedElementName = testdata[l][1];
 				Assert.assertEquals(ActualElementName, ExpectedElementName, "content does not Match");
 			} catch (Throwable e) {
-				content.add(testdata[r][1] + " " + e.getLocalizedMessage());
+				content.add(testdata[l][1] + " " + e.getLocalizedMessage());
 			
 			}
 		}
@@ -2781,18 +2779,18 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		String actualUrl = null;
 		String ActualElementName = null;
 
-		for (int r = 0; r < testdata.length; r++) {
+		for (int m = 0;m < testdata.length; m++) {
 			try {
-				log.info("Verifying " + testdata[r][0]);
-				ParentElementLocator = testdata[r][1];
-				ChildElementLocator = testdata[r][2];
-				ExpectedURL = testdata[r][3];
-				ExpectedElementName = testdata[r][4];
-				ElementTitle = testdata[r][5];
+				log.info("Verifying " + testdata[m][0]);
+				ParentElementLocator = testdata[m][1];
+				ChildElementLocator = testdata[m][2];
+				ExpectedURL = testdata[m][3];
+				ExpectedElementName = testdata[m][4];
+				ElementTitle = testdata[m][5];
 				log.info("Parent Locator is ..." + ParentElementLocator);
 				
 				if (!(ParentElementLocator.equalsIgnoreCase("NA"))) {
-					webPage.hoverOnElement(By.cssSelector(testdata[r][0]));
+					webPage.hoverOnElement(By.cssSelector(testdata[m][0]));
 
 				}
 				ActualElementName = webPage.findObjectByCss(ChildElementLocator).getText();
@@ -2866,21 +2864,21 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		List<String> brokenItems = new ArrayList<String>();
 		log.info("verification of Mandatory field validation message started");
 
-		for (int r = 0; r < testdata.length; r++) {
+		for (int n = 0; n < testdata.length; n++) {
 
-			String FNLocator = testdata[r][1];
-			String FNInput = testdata[r][2];
-			String FNErrLocator = testdata[r][3];
-			String LNLocator = testdata[r][4];
-			String LNInput = testdata[r][5];
-			String LNErrLocator = testdata[r][6];
-			String EmailLocator = testdata[r][7];
-			String EmailInput = testdata[r][8];
-			String EmailErrLocator = testdata[r][9];
-			String ExpectedValMsg = testdata[r][10];
-			String ButtonLocator = testdata[r][11];
+			String FNLocator = testdata[n][1];
+			String FNInput = testdata[n][2];
+			String FNErrLocator = testdata[n][3];
+			String LNLocator = testdata[n][4];
+			String LNInput = testdata[n][5];
+			String LNErrLocator = testdata[n][6];
+			String EmailLocator = testdata[n][7];
+			String EmailInput = testdata[n][8];
+			String EmailErrLocator = testdata[n][9];
+			String ExpectedValMsg = testdata[n][10];
+			String ButtonLocator = testdata[n][11];
 			boolean runflag = true;
-			if (r == 2) {
+			if (n == 2) {
 				runflag = false;
 
 			}
@@ -2929,20 +2927,20 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		List<String> brokenItems = new ArrayList<String>();
 		webPage.findObjectByxPath(inputdata[0][0]).click();
 
-		for (int r = 0; r < inputdata.length; r++) {
+		for (int o = 0; o < inputdata.length; o++) {
 
-			String CurrPwdLocator = inputdata[r][1];
-			String CurrPwdinput = inputdata[r][2];
-			String CurrPwdErrMsgLocator = inputdata[r][3];
-			String NewPwdLocator = inputdata[r][4];
-			String NewPwdinput = inputdata[r][5];
-			String NewPwdErrMsgLocator = inputdata[r][6];
-			String ConfPwdLocator = inputdata[r][7];
-			String ConfPwdinput = inputdata[r][8];
-			String ConfPwdErrMsgLocator = inputdata[r][9];
-			String ExpectedValMsg = inputdata[r][10];
-			String ButtonLocator = inputdata[r][11];
-			String NameofTestCase = inputdata[r][12];
+			String CurrPwdLocator = inputdata[o][1];
+			String CurrPwdinput = inputdata[o][2];
+			String CurrPwdErrMsgLocator = inputdata[o][3];
+			String NewPwdLocator = inputdata[o][4];
+			String NewPwdinput = inputdata[o][5];
+			String NewPwdErrMsgLocator = inputdata[o][6];
+			String ConfPwdLocator = inputdata[o][7];
+			String ConfPwdinput = inputdata[o][8];
+			String ConfPwdErrMsgLocator = inputdata[o][9];
+			String ExpectedValMsg = inputdata[o][10];
+			String ButtonLocator = inputdata[o][11];
+			String NameofTestCase = inputdata[o][12];
 			try {
 				if (CurrPwdinput.equalsIgnoreCase("NA") && NewPwdinput.equalsIgnoreCase("NA")
 						&& ConfPwdinput.equalsIgnoreCase("NA")) {
@@ -3003,31 +3001,31 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	public void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries (String[][] inputdata) throws PageException {
 		SoftAssert softAssert = new SoftAssert();
-		for (int r = 0; r < inputdata.length; r++) {
+		for (int q = 0; q < inputdata.length; q++) {
 
-			String First_Name_Locator = inputdata[r][4];
-			String Last_Name_Locator = inputdata[r][5];
-			String Company_Name_Locator = inputdata[r][6];
-			String Telephone_Number_Locator = inputdata[r][7];
-			String Fax_Number_Locator = inputdata[r][8];
-			String Street_Address_1_Locator = inputdata[r][9];
-			String Street_Address_2_Locator = inputdata[r][10];
-			String City_Name_Locator = inputdata[r][11];
-			String Zip_Postal_Code_Locator = inputdata[r][12];
-			String State_Province_Dropdown_Locator = inputdata[r][13];
-			String Country_Dropdown_Locator = inputdata[r][14];
-			String First_Name_Input = inputdata[r][15];
-			String Last_Name_Input = inputdata[r][16];
-			String Company_Name_Input = inputdata[r][17];			
-			String Telephone_Number_Input = inputdata[r][18];			
-			String Fax_Number_Input = inputdata[r][19];
-			String Street_Address_1_Input = inputdata[r][20];
-			String Street_Address_2_Input = inputdata[r][21];
-			String City_Name_Input = inputdata[r][22];
-			String Zip_Postal_Code_Input = inputdata[r][23];
-			String State_Province_Dropdown_Input = inputdata[r][24];
-			String Country_Drop_Down_Input = inputdata[r][25];
-			String Save_Button_Locator = inputdata[r][26];
+			String First_Name_Locator = inputdata[q][4];
+			String Last_Name_Locator = inputdata[q][5];
+			String Company_Name_Locator = inputdata[q][6];
+			String Telephone_Number_Locator = inputdata[q][7];
+			String Fax_Number_Locator = inputdata[q][8];
+			String Street_Address_1_Locator = inputdata[q][9];
+			String Street_Address_2_Locator = inputdata[q][10];
+			String City_Name_Locator = inputdata[q][11];
+			String Zip_Postal_Code_Locator = inputdata[q][12];
+			String State_Province_Dropdown_Locator = inputdata[q][13];
+			String Country_Dropdown_Locator = inputdata[q][14];
+			String First_Name_Input = inputdata[q][15];
+			String Last_Name_Input = inputdata[q][16];
+			String Company_Name_Input = inputdata[q][17];			
+			String Telephone_Number_Input = inputdata[q][18];			
+			String Fax_Number_Input = inputdata[q][19];
+			String Street_Address_1_Input = inputdata[q][20];
+			String Street_Address_2_Input = inputdata[q][21];
+			String City_Name_Input = inputdata[q][22];
+			String Zip_Postal_Code_Input = inputdata[q][23];
+			String State_Province_Dropdown_Input = inputdata[q][24];
+			String Country_Drop_Down_Input = inputdata[q][25];
+			String Save_Button_Locator = inputdata[q][26];
 			
 
 			
@@ -3112,18 +3110,18 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		/*try {*/
 			
 			
-		for (int r = 0; r < testdata.length; r++) {
-		String FNLocator = testdata[r][2];
-		String FNInput = testdata[r][3];
-		String FNErrLocator = testdata[r][4];
-		String LNLocator = testdata[r][5];
-		String LNInput = testdata[r][6];
-		String LNErrLocator = testdata[r][7];
-		String EmailLocator = testdata[r][8];
-		String EmailInput = testdata[r][9];
-		String Email_Error_Msg_Locator = testdata[r][10];
-		String ExpectedValMsg = testdata[r][11];
-		String ButtonLocator = testdata[r][13];
+		for (int rs = 0; rs < testdata.length; rs++) {
+		String FNLocator = testdata[rs][2];
+		String FNInput = testdata[rs][3];
+		String FNErrLocator = testdata[rs][4];
+		String LNLocator = testdata[rs][5];
+		String LNInput = testdata[rs][6];
+		String LNErrLocator = testdata[rs][7];
+		String EmailLocator = testdata[rs][8];
+		String EmailInput = testdata[rs][9];
+		String Email_Error_Msg_Locator = testdata[rs][10];
+		String ExpectedValMsg = testdata[rs][11];
+		String ButtonLocator = testdata[rs][13];
 
 		
 		
@@ -3307,20 +3305,20 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	public void verify_Account_DashBoard_Login_Again (String[][] testdata) throws PageException {
 		SoftAssert softAssert = new SoftAssert();
-		for (int r = 0; r < testdata.length; r++) {
-			String FNLocator = testdata[r][1];
-			String FNInput = testdata[r][2];
-			String FNErrLocator = testdata[r][3];
-			String LNLocator = testdata[r][4];
-			String LNInput = testdata[r][5];
-			String LNErrLocator = testdata[r][6];
-			String EmailLocator = testdata[r][7];
-			String EmailInput = testdata[r][8];
-			String EmailErrLocator = testdata[r][9];
-			String ExpectedValMsg = testdata[r][10];
-			String ButtonLocator = testdata[r][11];
+		for (int st = 0; st < testdata.length; st++) {
+			String FNLocator = testdata[st][1];
+			String FNInput = testdata[st][2];
+			String FNErrLocator = testdata[st][3];
+			String LNLocator = testdata[st][4];
+			String LNInput = testdata[st][5];
+			String LNErrLocator = testdata[st][6];
+			String EmailLocator = testdata[st][7];
+			String EmailInput = testdata[st][8];
+			String EmailErrLocator = testdata[st][9];
+			String ExpectedValMsg = testdata[st][10];
+			String ButtonLocator = testdata[st][11];
 			boolean runflag = true;
-			if (r == 2) {
+			if (st == 2) {
 				runflag = false;
 
 			}
@@ -3365,23 +3363,23 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 			String Invalid_Correct_Value_Password_Error_Message_Locator_Account_Information_Page = "";
 			String Valid_Correct_Password_Notification_Message_Locator_Account_Information_Page = "";
 			SoftAssert softAssert = new SoftAssert();
-			for (int r = 0; r < inputdata.length; r++) 
+			for (int uv = 0; uv < inputdata.length; uv++) 
 			{
 				log.info("*********************************************** ::::Inside_verify_Account_Information_Tab_Change_Password_Functionality_Method ::::::" );
 			
 
-				String CurrPwdLocator = inputdata[r][1];
-				String CurrPwdinput = inputdata[r][2];
-				String CurrPwdErrMsgLocator = inputdata[r][3];
-				String NewPwdLocator = inputdata[r][4];
-				String NewPwdinput = inputdata[r][5];
-				String NewPwdErrMsgLocator = inputdata[r][6];
-				String ConfPwdLocator = inputdata[r][7];
-				String ConfPwdinput = inputdata[r][8];
-				String ConfPwdErrMsgLocator = inputdata[r][9];
-				String ExpectedValMsg = inputdata[r][10];
-				String ButtonLocator = inputdata[r][11];
-				String NameofTestCase = inputdata[r][12];
+				String CurrPwdLocator = inputdata[uv][1];
+				String CurrPwdinput = inputdata[uv][2];
+				String CurrPwdErrMsgLocator = inputdata[uv][3];
+				String NewPwdLocator = inputdata[uv][4];
+				String NewPwdinput = inputdata[uv][5];
+				String NewPwdErrMsgLocator = inputdata[uv][6];
+				String ConfPwdLocator = inputdata[uv][7];
+				String ConfPwdinput = inputdata[uv][8];
+				String ConfPwdErrMsgLocator = inputdata[uv][9];
+				String ExpectedValMsg = inputdata[uv][10];
+				String ButtonLocator = inputdata[uv][11];
+				String NameofTestCase = inputdata[uv][12];
 				String Change_Password_Locator = inputdata[0][0];
 				
 				JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
@@ -3634,17 +3632,17 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 	public void LoginfuncInvalidInput(String[][] testdata) {
 
-		for (int r = 0; r < testdata.length; r++) {
+		for (int uy = 0; uy < testdata.length; uy++) {
 
-			String EmailAddlocator = testdata[r][0];
-			String EmailErrlocator = testdata[r][1];
-			String EmailAddInput = testdata[r][2];
-			String ExpErrMsgEmail = testdata[r][3];
-			String Pwdlocator = testdata[r][4];
-			String PwdErrlocator = testdata[r][5];
-			String PwdInput = testdata[r][6];
-			String ExpErrMsgPwd = testdata[r][7];
-			String LoginButtLocator = testdata[r][8];
+			String EmailAddlocator = testdata[uy][0];
+			String EmailErrlocator = testdata[uy][1];
+			String EmailAddInput = testdata[uy][2];
+			String ExpErrMsgEmail = testdata[uy][3];
+			String Pwdlocator = testdata[uy][4];
+			String PwdErrlocator = testdata[uy][5];
+			String PwdInput = testdata[uy][6];
+			String ExpErrMsgPwd = testdata[uy][7];
+			String LoginButtLocator = testdata[uy][8];
 			try {
 				
 			/*	log.info(" EmailAddInput : " +EmailAddInput);
@@ -3788,13 +3786,13 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 		webPage.findObjectByxPath(ForgotPwdlink).click();
 		
 
-		for (int r = 0; r < testingdata.length; r++) {
+		for (int ab = 0; ab < testingdata.length; ab++) {
 		
-		String EmailAddlocator = testingdata[r][0];
-		String EmailAddInput = testingdata[r][1];
-		String EmailAddError = testingdata[r][2];
-		String SubmitButt = testingdata[r][3];
-		String ExpErrMsg = testingdata[r][4];
+		String EmailAddlocator = testingdata[ab][0];
+		String EmailAddInput = testingdata[ab][1];
+		String EmailAddError = testingdata[ab][2];
+		String SubmitButt = testingdata[ab][3];
+		String ExpErrMsg = testingdata[ab][4];
 		
 		
 
@@ -3845,20 +3843,20 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 
 	public void verify_Account_Information_Tab_Change_Password_Functionality_Validation(String[][] inputdata) throws PageException {
 		// TODO Auto-generated method stub
-		for (int r = 0; r < inputdata.length; r++) {
+		for (int pq = 0; pq < inputdata.length; pq++) {
 
-			String CurrPwdLocator = inputdata[r][1];
-			String CurrPwdinput = inputdata[r][2];
-			String CurrPwdErrMsgLocator = inputdata[r][3];
-			String NewPwdLocator = inputdata[r][4];
-			String NewPwdinput = inputdata[r][5];
-			String NewPwdErrMsgLocator = inputdata[r][6];
-			String ConfPwdLocator = inputdata[r][7];
-			String ConfPwdinput = inputdata[r][8];
-			String ConfPwdErrMsgLocator = inputdata[r][9];
-			String ExpectedValMsg = inputdata[r][10];
-			String ButtonLocator = inputdata[r][11];
-			String NameofTestCase = inputdata[r][12];
+			String CurrPwdLocator = inputdata[pq][1];
+			String CurrPwdinput = inputdata[pq][2];
+			String CurrPwdErrMsgLocator = inputdata[pq][3];
+			String NewPwdLocator = inputdata[pq][4];
+			String NewPwdinput = inputdata[pq][5];
+			String NewPwdErrMsgLocator = inputdata[pq][6];
+			String ConfPwdLocator = inputdata[pq][7];
+			String ConfPwdinput = inputdata[pq][8];
+			String ConfPwdErrMsgLocator = inputdata[pq][9];
+			String ExpectedValMsg = inputdata[pq][10];
+			String ButtonLocator = inputdata[pq][11];
+			String NameofTestCase = inputdata[pq][12];
 		JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
 		jse.executeScript("scroll(0, 250);");
 		webPage.findObjectByxPath(CurrPwdLocator).click();

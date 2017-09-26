@@ -606,7 +606,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Account_Login_Page_Forgot_Password_Page_Link = testdata[0][6];
 			log.info("Parent Locator is ..." + ParentElementLocator);
 			webPage.getDriver().navigate().to(Account_Login_Page_Forgot_Password_Page_Link);
-			webPage.getDriver().navigate().refresh();
+			//webPage.getDriver().navigate().refresh();
 			webPage.getCurrentUrl();// For Safari
 			commonMethods.clickElementbyCss(webPage, Forgot_Password_Link, softAssert);
 			String Actual_Forgot_Password_Page_Go_Back_Link_Element_Name = commonMethods.getTextbyCss(webPage,Go_Back_Link, softAssert);
@@ -705,7 +705,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String[][] test_data = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage","verifyLinksOnAccountInformationSec");
 		String Navigate_To_Account_Information_Tab_Form_URL = test_data[0][6];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		webPage.getDriver().navigate().refresh();
+		//webPage.getDriver().navigate().refresh();
 		webPage.getCurrentUrl();// For Safari
 		for (int r = 0; r < test_data.length; r++) {
 			String Page_Expected_URL = test_data[r][3];
@@ -713,9 +713,10 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 			String Page_Expected_Title = test_data[r][4];
 			try {
 				List<String> Page_URL_Title_Data = ConnsSignInPage.verify_Links_Account_Tab(test_data);
-				softAssert.assertEquals(Page_URL_Title_Data.get(1), Page_Expected_Title,"Account Information DashBoard Tab verification failed For Page Elements.         Expected_Page_Title     :  " + Page_Expected_Title         +  "   Actual_Page_Element : " + Page_URL_Title_Data.get(1));
-				softAssert.assertTrue(Page_URL_Title_Data.get(2).contains(Page_Expected_URL),"  Account Information DashBoard Tab verification failed For Page URL .      Expected_Page_URL       :  " + Page_Expected_URL           +  "   Actual_Page_URL: " + Page_URL_Title_Data.get(2));
-				softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,	"  Account Information DashBoard Tab verification failed For Page Title . Expected_Page_Element   :  " + Page_Expected_Element_Name  +  "   Actual_Page_Title : " + Page_URL_Title_Data.get(0));
+				softAssert.assertEquals(Page_URL_Title_Data.get(0), Page_Expected_Element_Name,	"Account Information DashBoard Tab verification failed For Expected_Page_Element.Expected_Page_Element   :  " + Page_Expected_Element_Name  +  "   Actual_Page_Title : " + Page_URL_Title_Data.get(0));
+				softAssert.assertEquals(Page_URL_Title_Data.get(1), Page_Expected_Title,		"Account Information DashBoard Tab verification failed For Expected_Page_Title.  Expected_Page_Title     :  " + Page_Expected_Title         +  "   Actual_Page_Element : " + Page_URL_Title_Data.get(1));
+				softAssert.assertTrue(Page_URL_Title_Data.get(2).contains(Page_Expected_URL),   "Account Information DashBoard Tab verification failed For Expected_Page_URL  .  Expected_Page_URL       :  " + Page_Expected_URL           +  "   Actual_Page_URL: " + Page_URL_Title_Data.get(2));
+				
 				softAssert.assertAll();
 				
 			} catch (Throwable e) {
@@ -1263,6 +1264,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Newsletters_Page_Title = inputdata[0][3];
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().refresh();
 		webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
@@ -1291,7 +1293,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Newsletters_Edit_Link_Locator = inputdata[0][1];
 		String Newsletters_Page_Go_Back_Link = inputdata[0][4];
 		String News_Letters_Subscription_CheckBox = inputdata[0][5];
-		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().refresh();
 		webPage.getCurrentUrl();// For Safari
 		try {
 			Thread.sleep(5000);
@@ -1330,7 +1333,8 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Expected_Account_Information_Page_URL = inputdata[0][6];
 		String Expected_Account_Information_Page_Title = inputdata[0][7];
 		//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
-		//webPage.getCurrentUrl();// For Safari
+		webPage.getDriver().navigate().refresh();
+		webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
 			String Actual_Newsletters_Page_URL = commonMethods.getPageUrl(webPage, softAssert);
@@ -1374,6 +1378,7 @@ public class Conns_Account_And_SignIn_Page extends BaseTest {
 		String Wait_On_Element = inputdata[0][11];
 		String Navigate_To_Newsletters_Subscription_Form_CheckBox_Save_Button_URL = inputdata[0][13];
 		webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+		webPage.getDriver().navigate().refresh();
 		//webPage.getCurrentUrl();// For Safari
 		try {
 			commonMethods.clickElementbyXpath(webPage, Newsletters_Edit_Link_Locator, softAssert);
