@@ -136,6 +136,8 @@ public class Conns_YesLease_Page extends BaseTest {
 				log.info("testing verifyPageContent Completed------>");
 			}
 			log.info("Ending verify_Page_Content");
+		} else {
+			Assert.fail("Declined state could not be generated");
 		}
 		softAssert.assertAll();
 	}
@@ -158,6 +160,8 @@ public class Conns_YesLease_Page extends BaseTest {
 								"Validation for " + linkData[i][0] + " :");
 					}
 				}
+			} else {
+				Assert.fail("Declined state could not be generated");
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
