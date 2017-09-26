@@ -47,8 +47,8 @@ public class Conns_YesLease_Page extends BaseTest {
 	String DataFilePath;
 	protected String testType, browserName;
 	String currentTestBedName;
-	static Log log = LogUtil.getLog(Conns_Account_And_SignIn_Page.class);
-	Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
+	static Log log = LogUtil.getLog(Conns_YesLease_Page.class);
+	//Logger logger = Logger.getLogger(YesLeasePage.class.getName());
 	private String url, testEnv;
 	protected WebPage webPage;
 	private ConnsMainPage mainPage;
