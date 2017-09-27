@@ -179,6 +179,8 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[1][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[2][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, mobileMenuData[3][2], softAssert);
+			log.info("Loading french door page on mobile");
+			Thread.sleep(5000);
 		} catch (Exception e) {
 			softAssert.fail("Failed to click on French Door menu in mobile.");
 		}

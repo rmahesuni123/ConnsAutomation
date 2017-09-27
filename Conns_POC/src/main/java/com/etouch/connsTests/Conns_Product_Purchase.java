@@ -326,9 +326,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			productNameOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[0][1], softAssert);
 			productShippingDetailsOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[1][1], softAssert);
 			productUnitPriceIncart = commonMethods.getTextbyXpath(webPage, cartPageData[2][1], softAssert);
-			softAssert.assertTrue(productNameOnCartPage.contains(actualProductTextDetails.get(1)),"Expected product name in cart page: "+productNameOnCartPage+" product name on product page: "+actualProductTextDetails.get(1));
-			softAssert.assertTrue(productShippingDetailsOnCartPage.contains(actualProductTextDetails.get(2)),"Expected shipping details in cart page: "+productNameOnCartPage+" details on product page: "+actualProductTextDetails.get(1));
-			softAssert.assertTrue(productUnitPriceIncart.contains(actualProductTextDetails.get(3)),"Expected product unit price in cart page: "+productNameOnCartPage+" price on product page: "+actualProductTextDetails.get(1));
+			softAssert.assertTrue(productNameOnCartPage.contains(actualProductTextDetails.get(1)),"Expected product name in cart page: "+productNameOnCartPage+" Actual product name on product page: "+actualProductTextDetails.get(1));
+			softAssert.assertTrue(productShippingDetailsOnCartPage.contains(actualProductTextDetails.get(2)),"Expected shipping details in cart page: "+productNameOnCartPage+" Actual details on product page: "+actualProductTextDetails.get(1));
+			softAssert.assertTrue(productUnitPriceIncart.contains(actualProductTextDetails.get(3)),"Expected product unit price in cart page: "+productNameOnCartPage+" Actual price on product page: "+actualProductTextDetails.get(1));
 			
 			log.info("Updating quantity of product in cart page and verifying Subtotal amount");
 			productUnitPriceIncart = productUnitPriceIncart.replaceAll(" ", "").replaceAll("[.$]", "").replaceAll(",", "");
@@ -405,7 +405,12 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertTrue(actualGetCreditHref_2.contains(cartPageData[12][2]),"Expected Get Credit(2) Href value: "+cartPageData[12][2]+" Actual Get Credit(2) Href_1 value: "+actualGetCreditHref_2);
 			
 			log.info("Verifying functionality for Continue Shopping link");
-			actualUrlForContinueShopping = commonMethods.clickAndGetPageURL(webPage, cartPageData[13][1], cartPageData[13][0], softAssert, cartPageData[14][1]);
+			if(testType.equalsIgnoreCase("Web")){
+				actualUrlForContinueShopping = commonMethods.clickAndGetPageURL(webPage, cartPageData[13][1], cartPageData[13][0], softAssert, cartPageData[14][1]);	
+			}else{
+				actualUrlForContinueShopping = commonMethods.clickAndGetPageURL(webPage, cartPageData[22][1], cartPageData[22][0], softAssert, cartPageData[14][1]);	
+			}
+			
 			softAssert.assertTrue(actualUrlForContinueShopping.contains(cartPageData[13][2]),"Expected Continue shopping link: "+cartPageData[13][2]+" Actual Continue shopping link: "+actualUrlForContinueShopping);
 						
 			softAssert.assertAll();
@@ -486,20 +491,24 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			
 			log.info("Verifying invalid input for Billing Information e-mail field");
-			commonMethods.sendKeysbyXpath(webPage, checkoutPageData[5][1], checkoutPageData[5][2], softAssert);
-			WebElement billingEmailfield = commonMethods.getWebElementbyXpath(webPage, checkoutPageData[5][1], softAssert);
-			billingEmailfield.sendKeys(Keys.TAB);
-			emailIdFieldErrorMsg= commonMethods.getTextbyXpath(webPage, checkoutPageData[7][1], softAssert);
-			softAssert.assertTrue(emailIdFieldErrorMsg.contains(checkoutPageData[7][2]),"Expected billing info e-mail field message: "+checkoutPageData[7][2]+" Actual billing info e-mail field message: "+emailIdFieldErrorMsg);
-			billingEmailfield.clear();
+			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhoneNative")||browserName.equalsIgnoreCase("iPadNative"))){
+				commonMethods.sendKeysbyXpath(webPage, checkoutPageData[5][1], checkoutPageData[5][2], softAssert);
+				WebElement billingEmailfield = commonMethods.getWebElementbyXpath(webPage, checkoutPageData[5][1], softAssert);
+				billingEmailfield.sendKeys(Keys.TAB);
+				emailIdFieldErrorMsg= commonMethods.getTextbyXpath(webPage, checkoutPageData[7][1], softAssert);
+				softAssert.assertTrue(emailIdFieldErrorMsg.contains(checkoutPageData[7][2]),"Expected billing info e-mail field message: "+checkoutPageData[7][2]+" Actual billing info e-mail field message: "+emailIdFieldErrorMsg);
+				billingEmailfield.clear();
+			}
 			
 			log.info("Verifying invalid input for Billing Information zipcode field");
-			commonMethods.sendKeysbyXpath(webPage, checkoutPageData[6][1], checkoutPageData[6][2], softAssert);
-			WebElement billingZipcodefield = commonMethods.getWebElementbyXpath(webPage, checkoutPageData[6][1], softAssert);
-			billingZipcodefield.sendKeys(Keys.TAB);
-			zipcodeIdFieldErrorMsg= commonMethods.getTextbyXpath(webPage, checkoutPageData[8][1], softAssert);
-			softAssert.assertTrue(zipcodeIdFieldErrorMsg.contains(checkoutPageData[8][2]),"Expected billing info zipcode field message: "+checkoutPageData[8][2]+" Actual billing info zipcode field message: "+zipcodeIdFieldErrorMsg);
-			billingZipcodefield.clear();
+			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhoneNative")||browserName.equalsIgnoreCase("iPadNative"))){
+				commonMethods.sendKeysbyXpath(webPage, checkoutPageData[6][1], checkoutPageData[6][2], softAssert);
+				WebElement billingZipcodefield = commonMethods.getWebElementbyXpath(webPage, checkoutPageData[6][1], softAssert);
+				billingZipcodefield.sendKeys(Keys.TAB);
+				zipcodeIdFieldErrorMsg= commonMethods.getTextbyXpath(webPage, checkoutPageData[8][1], softAssert);
+				softAssert.assertTrue(zipcodeIdFieldErrorMsg.contains(checkoutPageData[8][2]),"Expected billing info zipcode field message: "+checkoutPageData[8][2]+" Actual billing info zipcode field message: "+zipcodeIdFieldErrorMsg);
+				billingZipcodefield.clear();
+			}
 			
 			log.info("Entering valid input for Billing Information fields");
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -523,7 +532,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertTrue(actualPaymentInfoSectionText.contains(checkoutPageData[11][2]),"Expected payment info section text: "+checkoutPageData[11][2]+" Actual payment info text: "+actualPaymentInfoSectionText);
 			
 			log.info("Verifying alert box after not slecting payment method");
-			if(!browserName.equalsIgnoreCase("Safari")||!testType.equalsIgnoreCase("iPhoneNative")||!testType.equalsIgnoreCase("iPadNative")){
+			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhoneNative")||browserName.equalsIgnoreCase("iPadNative"))){
 				try{
 					CommonMethods.waitForGivenTime(5);
 				commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
@@ -613,7 +622,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			
 			log.info("Selecting Payment Information as Paypal");
-			commonMethods.clickElementbyXpath(webPage, checkoutPageData[14][1], softAssert);
+			try{
+				commonMethods.clickElementbyXpath(webPage, checkoutPageData[14][1], softAssert);
+			}catch(Exception e){
+				log.info("Waiting for more time as paypal option is not yet displayed");
+				CommonMethods.waitForGivenTime(8);
+				commonMethods.clickElementbyXpath(webPage, checkoutPageData[14][1], softAssert);
+			}
+			
 			
 			log.info("Clicking on Payment Info continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
@@ -675,7 +691,14 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			
 			log.info("Selecting payment method as cash on delivery and proceeding");
-			commonMethods.clickElementbyXpath(webPage, checkoutPageData[15][1], softAssert);
+			try{
+				commonMethods.clickElementbyXpath(webPage, checkoutPageData[15][1], softAssert);
+			}catch(Exception e){
+				log.info("Waiting for more time as cash on delivery option not loaded");
+				CommonMethods.waitForGivenTime(8);
+				commonMethods.clickElementbyXpath(webPage, checkoutPageData[15][1], softAssert);
+			}
+			
 			
 			log.info("Clicking on Payment Info continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
