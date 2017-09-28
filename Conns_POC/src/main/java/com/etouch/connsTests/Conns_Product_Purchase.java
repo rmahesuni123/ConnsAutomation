@@ -886,7 +886,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			while(removeItemButtons.size()!=0){
 				removeItemButtons.get(0).click();
 				try{
-					removeItemButtons = commonMethods.findElementsByXpath(webPage, cartPageData[6][1], softAssert);	
+					removeItemButtons = webPage.getDriver().findElements(By.xpath(cartPageData[6][1]));	
 				}catch(Exception e){
 					log.info("No more items pending in cart");
 					break;
