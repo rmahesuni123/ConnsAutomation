@@ -344,7 +344,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			int actualSubtotalAmount = Integer.parseInt(productSubTotalPriceIncart);
 			int productQuantity = Integer.parseInt(cartPageData[3][2]);
 			int expectedSubtotalAmount= productUnitPriceIncartInt*productQuantity;
-			if(!browserName.equalsIgnoreCase("Firefox")){
+			if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
 				softAssert.assertEquals(expectedSubtotalAmount,actualSubtotalAmount ,"Expected sub-total amount: "+expectedSubtotalAmount+" Actual sub-total amount: "+actualSubtotalAmount);	
 			}			
 			log.info("Removing product from cart and verifying empty shopping cart message");
@@ -397,11 +397,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			actualCouponCodeErrorMessage = commonMethods.getTextbyXpath(webPage, cartPageData[10][1], softAssert).replaceAll(" ", "");
 			expectedCouponCodeErrorMessage = cartPageData[10][2].replaceAll(" ", "");
-			if(!browserName.equalsIgnoreCase("IE")){
+			if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
 				softAssert.assertTrue(actualCouponCodeErrorMessage.contains(expectedCouponCodeErrorMessage),"Coupon code error messages are not matching::" + " Expected:"+ expectedCouponCodeErrorMessage + " Actual: " + actualCouponCodeErrorMessage);	
 			}
-			
-			
 			log.info("Verifying functionality for Get Credit buttons");
 			actualGetCreditHref_1 = commonMethods.getAttributebyXpath(webPage, cartPageData[11][1], "onclick", softAssert);
 			actualGetCreditHref_2 = commonMethods.getAttributebyXpath(webPage, cartPageData[12][1], "onclick", softAssert);
@@ -793,12 +791,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verifying Get a Quote functionality for valid input");
 			commonMethods.sendKeysbyXpath(webPage, cartPageData[17][1], cartPageData[18][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, cartPageData[18][1], softAssert);
-			if(browserName.equalsIgnoreCase("IE")){
-				commonMethods.clickElementbyXpath(webPage, cartPageData[18][1], softAssert);	
+			if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
+				CommonMethods.waitForWebElement(By.xpath(cartPageData[20][1]), webPage);
+				getQuoteActualValid = commonMethods.getTextbyXpath(webPage, cartPageData[20][1], softAssert);
+				softAssert.assertTrue(getQuoteActualValid.contains(cartPageData[20][2]),"Expected getQuote valid output: "+cartPageData[20][2]+" Actual getQuote valid output: "+getQuoteActualValid);	
 			}
-			CommonMethods.waitForWebElement(By.xpath(cartPageData[20][1]), webPage);
-			getQuoteActualValid = commonMethods.getTextbyXpath(webPage, cartPageData[20][1], softAssert);
-			softAssert.assertTrue(getQuoteActualValid.contains(cartPageData[20][2]),"Expected getQuote valid output: "+cartPageData[20][2]+" Actual getQuote valid output: "+getQuoteActualValid);
 			softAssert.assertAll();
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Get_Quote_Functionality");
@@ -885,9 +882,15 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[44][1], softAssert);
 			
 			List<WebElement> removeItemButtons = commonMethods.findElementsByXpath(webPage, cartPageData[6][1], softAssert);
+			log.info("Number of items present in cart: "+removeItemButtons.size());
 			while(removeItemButtons.size()!=0){
 				removeItemButtons.get(0).click();
-				removeItemButtons = commonMethods.findElementsByXpath(webPage, cartPageData[6][1], softAssert);
+				try{
+					removeItemButtons = commonMethods.findElementsByXpath(webPage, cartPageData[6][1], softAssert);	
+				}catch(Exception e){
+					log.info("No more items pending in cart");
+					break;
+				}
 			}
 			softAssert.assertAll();
 		} catch (Exception e) {
