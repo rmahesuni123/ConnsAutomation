@@ -705,6 +705,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			 * actualUrl + " not same as " + linkData[0][2]); }
 			 */
 			for (int i = 1; i < linkData.length; i++) {
+				if ((i>3) && (testBedName.equalsIgnoreCase("Safari"))) {}
+				else{
 				log.info("Started Iteration" + i);
 				commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 				CommonMethods.waitForGivenTime(2);
@@ -713,6 +715,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 				commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
 				CommonMethods.waitForGivenTime(2);
+				}
 			}
 			log.info("testing verify_AccountDashboard_After_SignIn_with_ExistingUser completed------>");
 			softAssert.assertAll();
