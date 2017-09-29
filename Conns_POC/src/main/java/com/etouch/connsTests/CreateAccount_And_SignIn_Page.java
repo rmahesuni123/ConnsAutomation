@@ -263,7 +263,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		log.info("******Started verify_NewsLetters ********");
 		SoftAssert softAssert = new SoftAssert();
 		if (userLoggedIn == true) {
-			
 			try {
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 				if (!actualUrl.equals(commonData[8][1])) {
@@ -450,7 +449,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			softAssert.assertTrue(shippingAddress.contains(testdata[1][8]), "Verification failed for Name: ");
 			softAssert.assertAll();
 			// For Sign Out
-			commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[6][1], softAssert);
+			if (testType.equalsIgnoreCase("Mobile")) {
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
+			} else {
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[6][1], softAssert);
+			}
 			CommonMethods.waitForGivenTime(10);
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
@@ -464,9 +467,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		log.info("******Started verify_ForgotPassword_Functionality********");
 		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(signInURL);
-		if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
-			commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
-			CommonMethods.waitForGivenTime(10);
+		if (testType.equalsIgnoreCase("Web")) {
+			if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
+				commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
+				CommonMethods.waitForGivenTime(10);
+			}
+		} else {
+			if (commonMethods.verifyElementisPresent(webPage, commonData[10][1], softAssert)) {
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
+			}
 		}
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
