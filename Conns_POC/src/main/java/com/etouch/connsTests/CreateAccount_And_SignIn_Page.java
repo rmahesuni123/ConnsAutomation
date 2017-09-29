@@ -632,7 +632,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
 		log.info("******Started verify_AccountDashboard_After_SignIn_with_ExistingUser ********");
 		SoftAssert softAssert = new SoftAssert();
-		if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+		/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 			if (commonMethods.verifyElementisPresent(webPage, commonData[10][1], softAssert)) {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
 			} else {
