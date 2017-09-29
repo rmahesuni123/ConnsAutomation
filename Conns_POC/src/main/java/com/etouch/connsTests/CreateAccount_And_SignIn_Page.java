@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -37,6 +38,20 @@ import com.etouch.taf.webui.selenium.WebPage;
 @Test(groups = "CreateAccount_And_SignIn_Page")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
 public class CreateAccount_And_SignIn_Page extends BaseTest {
+	private String testBedName;
+	Path path;
+	String DataFilePath;
+	protected String testType, browserName;
+	String currentTestBedName;
+	static Log log = LogUtil.getLog(CreateAccount_And_SignIn_Page.class);
+	private String url, testEnv;
+	protected WebPage webPage;
+	private ConnsMainPage mainPage;
+//	protected static LinkedHashMap<String, String> commonData;
+	protected static CommonMethods commonMethods;
+	private String  registerUrl, signInURL, forgetPasswordPageURL;
+	String[][] commonData;
+	/*extends BaseTest {
 	Path path;
 	String testBedName;
 	String DataFilePath;
@@ -45,9 +60,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	static Log log = LogUtil.getLog(CreateAccount_And_SignIn_Page.class);
 	private String url, testEnv, registerUrl, signInURL, forgetPasswordPageURL;
 	protected WebPage webPage;
-	private ConnsMainPage mainPage;
-	String[][] commonData;
-	protected static CommonMethods commonMethods;
+	private ConnsMainPage mainPage;*/
+	//String[][] commonData;
+	//protected static CommonMethods commonMethods;
 	boolean userLoggedIn = false;
 	String[][] YesLeaseData;
 	CreateAccountAndSignInPage CreateAccountAndSignInPage;
