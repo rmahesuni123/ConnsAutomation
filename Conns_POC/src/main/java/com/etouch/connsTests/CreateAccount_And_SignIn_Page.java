@@ -363,10 +363,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				// testData[i][1], softAssert);
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 				softAssert.assertEquals(actualUrl, testdata[i][2], "Page URL:");
-				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][3], softAssert),
-						testdata[i][4], "Verification failed for content: " + testdata[i][0]);
-				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert),
-						testdata[i][6], "Verification failed for content: " + testdata[i][0]);
+				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][3], softAssert).toLowerCase(),
+						testdata[i][4].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
+				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert).toLowerCase(),
+						testdata[i][6].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
