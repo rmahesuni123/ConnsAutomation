@@ -22,6 +22,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import com.etouch.common.CommonMethods;
 import com.etouch.common.CommonPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
@@ -34,6 +35,8 @@ import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
+
+
 public class ConnsHomePage extends CommonPage {
 	/**
 	 *
@@ -45,12 +48,12 @@ public class ConnsHomePage extends CommonPage {
 	static Log log = LogUtil.getLog(ConnsHomePage.class);
 	String testType;
 	String testBedName;
-
+	CommonMethods commonMethods = new CommonMethods();
+	
 	public ConnsHomePage(String sbPageUrl, WebPage webPage) {
 		super(sbPageUrl, webPage);
 		CommonUtil.sop("webDriver in eTouchWebSite Page : " + webPage.getDriver());
 		loadPage();
-		webPage.getDriver().manage().window().maximize();
 	}
 
 	public void verifyBrokenImage() {
@@ -181,8 +184,9 @@ public class ConnsHomePage extends CommonPage {
 
 	public List<String> verifyYourCartOnMobile(String[][] test, String testType)
 			throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
 		List<String> actualValueList = new ArrayList<String>();
-		webPage.waitForWebElement(By.xpath(test[0][0]));
+		//webPage.waitForWebElement(By.xpath(test[0][0]));
 		try {
 			log.info("Clicking on Main Menu on Mobile");
 			webPage.findObjectByxPath(test[0][0]).click();
@@ -196,17 +200,15 @@ public class ConnsHomePage extends CommonPage {
 			String ExpectedProduct = webPage.findObjectByxPath(test[0][11]).getText();
 			actualValueList.add(ExpectedProduct);
 			log.info("Clicking Add to Cart button");
-			webPage.findObjectByxPath(test[0][4]).click();
+			webPage.scrollDown(1);
+			Thread.sleep(5000);
+			commonMethods.Click_On_Element_JS(webPage, test[0][4], softAssert);
+			Thread.sleep(5000);
 			log.info("Adding Zip code");
 			webPage.findObjectByxPath(test[0][5]).clear();
 			webPage.findObjectByxPath(test[0][5]).sendKeys(test[0][6]);
 			log.info("Clicking Update button");
 			webPage.findObjectByxPath(test[0][7]).click();
-			/*
-			 * if (webPage.findObjectByxPath(test[0][12]).isElementVisible()) {
-			 * log.info("Clicking location selection radio button");
-			 * webPage.findObjectByxPath(test[0][12]).click(); }
-			 */
 			Thread.sleep(4000);
 			log.info("Clicking Add to Cart 1 button");
 			webPage.findObjectByxPath(test[0][8]).click();
@@ -223,7 +225,6 @@ public class ConnsHomePage extends CommonPage {
 			actualValueList.add(ExpectedProduct1);
 		} catch (Exception e) {
 			SoftAssertor.addVerificationFailure(e.getMessage());
-			log.error("verifyPageTitle failed");
 			log.error(e.getMessage());
 		}
 		return actualValueList;

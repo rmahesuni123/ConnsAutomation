@@ -59,7 +59,7 @@ public class Conns_Home_Page extends BaseTest {
 	ConnsStoreLocatorPage connsStoreLocatorPage;
 	String storeLocatorURL = "";
 	String[][] commonData;
-	private ConnsHomePage ConnsHomePage;
+   ConnsHomePage ConnsHomePage;
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -71,21 +71,21 @@ public class Conns_Home_Page extends BaseTest {
 			connsStoreLocatorPage = new ConnsStoreLocatorPage();
 			commonMethods = new CommonMethods();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
-			System.out.println("Test Type is : " + testType);
+			log.info("Test Type is : " + testType);
 			try {
 				testEnv = System.getenv().get("Environment");
-				System.out.println("testEnv is : " + testEnv);
+				log.info("testEnv is : " + testEnv);
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
-				System.out.println("DataFilePath After is : " + DataFilePath);
+				log.info("DataFilePath After is : " + DataFilePath);
 				commonData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "storeLocatorCommonElements");
 				storeLocatorURL = commonData[0][0];
 				platform = testBed.getPlatform().getName().toUpperCase();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				synchronized (this) {
 					webPage = new WebPage(context);
-					ConnsHomePage = new ConnsHomePage(url, webPage);
 					mainPage = new ConnsMainPage(url, webPage);
+					ConnsHomePage = new ConnsHomePage(url, webPage);
 				}
 			} catch (Exception e) {
 				log.info("errr is " + e);
@@ -146,7 +146,7 @@ public class Conns_Home_Page extends BaseTest {
 					.intValue();
 			log.info("height value calculated is :" + height);
 			Dimension dimension = new Dimension(width, height);
-			System.out.println("Dimensions" + dimension);
+			log.info("Dimensions" + dimension);
 			// Dimension[width=600,height=792]
 			if (testType.equalsIgnoreCase("Web")) {
 				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) {
@@ -323,7 +323,7 @@ public class Conns_Home_Page extends BaseTest {
 	 */
 	@Test(priority = 3, enabled = true, description = "Verify_Broken_Images")
 	public void Verify_Broken_Images() throws ClientProtocolException, IOException {
-		ConnsHomePage.verifyBrokenImage1();
+		commonMethods.verifyBrokenImage(webPage);
 	}
 
 	/**
@@ -339,12 +339,12 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksAboveHeader");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
+					log.info("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
+					log.info("Inside the 2nd if. Value of I : " + i);
 					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
 					/*
 					 * ActualURL =
@@ -384,23 +384,12 @@ public class Conns_Home_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		// webPage.getDriver().get(url);
 		try {
-			if (testType.equalsIgnoreCase("Web")) {
-				String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYourCart");
-				List<String> actualValues = ConnsHomePage.verifyYourCart(testData, testType);
-				softAssert.assertEquals(actualValues.get(0), actualValues.get(1));
-				log.info("1st Asset pass");
-				softAssert.assertTrue(actualValues.get(2).contains(testData[0][11]), " failed " + "Actual URL is  :"
-						+ actualValues.get(2) + " " + "Expected URL is  :" + testData[0][11]);
-				log.info("2nd Asset pass");
-			}
-			if (testType.equalsIgnoreCase("Mobile")) {
-				String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
-						"verifyYourCartOnMobile");
-				List<String> actualValues = ConnsHomePage.verifyYourCartOnMobile(testData, testType);
-				log.info("actualValues.get(0) : " + actualValues.get(0));
-				log.info("actualValues.get(1) : " + actualValues.get(1));
-				softAssert.assertEquals(actualValues.get(0), actualValues.get(1));
-			}
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYourCart");
+			String cartText = commonMethods.getTextbyXpath(webPage, testData[0][0], softAssert);
+			softAssert.assertTrue(cartText.contains(testData[0][1]));
+			commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
+			commonMethods.waitForGivenTime(2, softAssert);
+			commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
 			webPage.getDriver().get(url);
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -423,7 +412,7 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksInHeader");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile")) {
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][3], softAssert);
+					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][1],testData[i][0], softAssert);
 				} else {
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
@@ -477,8 +466,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][4], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][5], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][7], testData[i][3],
-							testData[i][8], softAssert);
+					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][7], testData[i][3], softAssert);
 					softAssert.assertTrue(ActualURL.toLowerCase().contains(testData[i][2].toLowerCase()),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
@@ -519,7 +507,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][5], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
 					Thread.sleep(3000);
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][7], softAssert);
+					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][7],testData[i][3], softAssert);
 					softAssert.assertTrue(ActualURL.toLowerCase().contains(testData[i][2].toLowerCase()),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
@@ -565,7 +553,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
 					Thread.sleep(3000);
 					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][7], softAssert);
-					// System.out.println("ActualURL.contains(testData[i][4]) :
+					// log.info("ActualURL.contains(testData[i][4]) :
 					// " + ActualURL.contains(testData[i][4]));
 					softAssert.assertTrue(ActualURL.toLowerCase().contains(testData[i][2].toLowerCase()),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -574,7 +562,7 @@ public class Conns_Home_Page extends BaseTest {
 				/*
 				 * if (testType.equalsIgnoreCase("Mobile") &&
 				 * !((testData[i][4].equalsIgnoreCase("NA")))) {
-				 * System.out.println("Valur of i : " + i);
+				 * log.info("Valur of i : " + i);
 				 * commonMethods.clickElementbyXpath(webPage, testData[i][4],
 				 * softAssert); commonMethods.clickElementbyXpath(webPage,
 				 * testData[i][5], softAssert);
@@ -666,12 +654,11 @@ public class Conns_Home_Page extends BaseTest {
 									+ "Expected URL is  :" + testData[i][2]);
 					webPage.getDriver().get(url);
 				}
-				if (testType.equalsIgnoreCase("Mobile") && !((testData[i][4].equalsIgnoreCase("NA")))) {
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][4].equalsIgnoreCase("NA")))) {
 					commonMethods.clickElementbyXpath(webPage, testData[i][4], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][5], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testData[i][6], softAssert);
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][7], testData[i][3],
-							testData[i][8], softAssert);
+					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][7], testData[i][3], softAssert);
 					softAssert.assertTrue(ActualURL.toLowerCase().contains(testData[i][2].toLowerCase()),
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
@@ -697,28 +684,9 @@ public class Conns_Home_Page extends BaseTest {
 		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYesMeBanner");
-			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
-					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
-					Thread.sleep(1000);
-				}
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
-					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
-				}
-				if (testType.equalsIgnoreCase("Web")) {
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
-							testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
-				}
-				webPage.getDriver().get(url);
-			}
+			ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[0][1], testData[0][0], softAssert);
+			softAssert.assertTrue(ActualURL.contains(testData[0][4]),"Expected url: "+testData[0][4]+" Actual url: "+ActualURL);	
+			webPage.getDriver().get(url);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_ApplyNow_LinkRedirection_In_YesMoney_Banner");
@@ -740,18 +708,6 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyNextDayDeliveryBanner");
 			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
-					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
-					Thread.sleep(1000);
-				}
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
-					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
-				}
 				if (testType.equalsIgnoreCase("Web")) {
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
@@ -794,12 +750,12 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyTopCategorySection");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
+					log.info("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
+					log.info("Inside the 2nd if. Value of I : " + i);
 					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -844,12 +800,12 @@ public class Conns_Home_Page extends BaseTest {
 					"verifyBuildYourOwnFinancialFutureBanner");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
+					log.info("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
+					log.info("Inside the 2nd if. Value of I : " + i);
 					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -899,12 +855,12 @@ public class Conns_Home_Page extends BaseTest {
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile")) {
 					if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-						System.out.println("Inside the first if. Value of I : " + i);
+						log.info("Inside the first if. Value of I : " + i);
 						commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 						Thread.sleep(1000);
 					}
 					if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-						System.out.println("Inside the 2nd if. Value of I : " + i);
+						log.info("Inside the 2nd if. Value of I : " + i);
 						ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
 						softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 								"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -953,12 +909,12 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifySixReasonsBanner");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
+					log.info("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
+					log.info("Inside the 2nd if. Value of I : " + i);
 					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -1006,12 +962,12 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyPromotionsBanner");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
+					log.info("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
+					log.info("Inside the 2nd if. Value of I : " + i);
 					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -1058,13 +1014,14 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFollowUsSection");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
+					log.info("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					log.info("Inside the 2nd if. Value of I : " + i);
+					webPage.scrollBottom();
+					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][2],testData[i][0], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
@@ -1103,28 +1060,13 @@ public class Conns_Home_Page extends BaseTest {
 		// webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyBBBRatingBanner");
-			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
-					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
-					Thread.sleep(1000);
-				}
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
-					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
-				}
-				if (testType.equalsIgnoreCase("Web")) {
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
-							testData[i][5], softAssert);
-					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
-							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
-									+ "Expected URL is  :" + testData[i][4]);
-				}
-				webPage.getDriver().get(url);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollBottom();
 			}
+			ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[0][1], testData[0][0], softAssert);
+			softAssert.assertTrue(ActualURL.contains(testData[0][4]),"Expected url: "+testData[0][4]+" Actual url: "+ActualURL);
+			
+			webPage.getDriver().get(url);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner");
@@ -1147,13 +1089,15 @@ public class Conns_Home_Page extends BaseTest {
 					"verifyFooterAboutConnsLinks");
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
+					log.info("Inside the first if. Value of I : " + i);
+					webPage.scrollBottom();
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					webPage.scrollBottom();
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					log.info("Inside the 2nd if. Value of I : " + i);
+					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][2], testData[i][0],softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
@@ -1189,16 +1133,20 @@ public class Conns_Home_Page extends BaseTest {
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyFooterCustomerServiceSectionLinks");
+			commonMethods.waitForPageLoad(webPage, softAssert);
 			for (int i = 0; i < testData.length; i++) {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the first if. Value of I : " + i);
+					webPage.scrollBottom();
+					log.info("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
+					webPage.scrollBottom();
+					log.info("Outside the first if. Value of I : " + i);
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
-					System.out.println("Inside the 2nd if. Value of I : " + i);
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
-					// System.out.println("ActualURL.contains(testData[i][4]) :
+					log.info("Inside the 2nd if. Value of I : " + i);
+					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][2],testData[i][0] , softAssert);
+					// log.info("ActualURL.contains(testData[i][4]) :
 					// " + ActualURL.contains(testData[i][4]));
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -1215,6 +1163,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			log.info("In CAtch");
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinkRedirection_Under_Footer_Customer_Service_Section");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1289,7 +1238,7 @@ public class Conns_Home_Page extends BaseTest {
 				RotationCountWeb = Integer.parseInt(test[i][9]);
 				SaveBigMenuOptionIdentifierMobile = test[i][10];
 				JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
-				System.out.println(" " + SaveBigMenuOptionIdentifier + " " + CarouselLeft + " " + CarouselRight + " "
+				log.info(" " + SaveBigMenuOptionIdentifier + " " + CarouselLeft + " " + CarouselRight + " "
 						+ ElementPosition1 + " " + ElementPosition2 + " " + ClickForDetails + " " + PopUp);
 				String textAtPosition1 = null;
 				String textAtPosition2 = null;
@@ -1298,32 +1247,32 @@ public class Conns_Home_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Mobile")) {
 					Thread.sleep(3000);
 					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifierMobile).getWebElement();
-					System.out.println("$$$$ Parent : " + element.getText());
+					log.info("$$$$ Parent : " + element.getText());
 					executor.executeScript("arguments[0].click();", element);
 					Thread.sleep(3000);
 					webPage.findObjectByxPath(CarouselLeft).click();
 					Thread.sleep(3000);
 					log.info("Clicked on element1");
 					textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
-					System.out.println("Expected Left: " + textAtPosition1);
+					log.info("Expected Left: " + textAtPosition1);
 					for (int j = 0; j < RotationCountWeb; j++) {
 						webPage.findObjectByxPath(CarouselLeft).click();
 						Thread.sleep(1000);
 					}
 					textAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
-					System.out.println("Actual Left : " + textAtPosition2);
+					log.info("Actual Left : " + textAtPosition2);
 					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
 							" failed " + textAtPosition1 + " " + textAtPosition2);
 					webPage.findObjectByxPath(CarouselRight).click();
 					Thread.sleep(3000);
 					log.info("Clicked on element2");
 					textAtPosition11 = webPage.findObjectByxPath(ElementPosition2).getText();
-					System.out.println("Expected Right: " + textAtPosition11);
+					log.info("Expected Right: " + textAtPosition11);
 					for (int k = 0; k < RotationCountWeb; k++) {
 						webPage.findObjectByxPath(CarouselRight).click();
 					}
 					textAtPosition12 = webPage.findObjectByxPath(ElementPosition2).getText();
-					System.out.println("Actual Right: " + textAtPosition12);
+					log.info("Actual Right: " + textAtPosition12);
 					SoftAssertor.assertEquals(textAtPosition11, textAtPosition12,
 							" failed " + textAtPosition11 + " " + textAtPosition12);
 				} else {
@@ -1335,32 +1284,32 @@ public class Conns_Home_Page extends BaseTest {
 					}
 					Thread.sleep(3000);
 					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).getWebElement();
-					System.out.println("$$$$ Parent : " + element.getText());
+					log.info("$$$$ Parent : " + element.getText());
 					executor.executeScript("arguments[0].click();", element);
 					Thread.sleep(3000);
 					webPage.findObjectByxPath(CarouselLeft).click();
 					Thread.sleep(3000);
 					log.info("Clicked on element1");
 					textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
-					System.out.println("Expected Left: " + textAtPosition1);
+					log.info("Expected Left: " + textAtPosition1);
 					for (int j = 0; j < RotationCountWeb; j++) {
 						webPage.findObjectByxPath(CarouselLeft).click();
 						Thread.sleep(1000);
 					}
 					textAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
-					System.out.println("Actual Left : " + textAtPosition2);
+					log.info("Actual Left : " + textAtPosition2);
 					SoftAssertor.assertEquals(textAtPosition1, textAtPosition2,
 							" failed " + textAtPosition1 + " " + textAtPosition2);
 					webPage.findObjectByxPath(CarouselRight).click();
 					Thread.sleep(3000);
 					log.info("Clicked on element2");
 					textAtPosition11 = webPage.findObjectByxPath(ElementPosition2).getText();
-					System.out.println("Expected Right: " + textAtPosition11);
+					log.info("Expected Right: " + textAtPosition11);
 					for (int k = 0; k < RotationCountWeb; k++) {
 						webPage.findObjectByxPath(CarouselRight).click();
 					}
 					textAtPosition12 = webPage.findObjectByxPath(ElementPosition2).getText();
-					System.out.println("Actual Right: " + textAtPosition12);
+					log.info("Actual Right: " + textAtPosition12);
 					SoftAssertor.assertEquals(textAtPosition11, textAtPosition12,
 							" failed " + textAtPosition11 + " " + textAtPosition12);
 				}
