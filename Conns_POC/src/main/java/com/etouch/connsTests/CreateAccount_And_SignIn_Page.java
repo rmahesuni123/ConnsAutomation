@@ -391,17 +391,23 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 
 	@Test(priority = 310, enabled = true)
 	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException {
+		log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"Verify_MyOrders_MyWishList_PayYourBills");
+		//	String currentUrl = commonMethods.getPageUrl(webPage, softAssert);
+		//	if (!currentUrl.equals(commonData[8][1])) {
+				webPage.getDriver().get(commonData[8][1]);
+		//	}
+			log.info("Started iteration------>");
+			// new code
+		//	webPage.getDriver().navigate().refresh();
 			for (int i = 0; i < 3; i++) {
-				String currentUrl = commonMethods.getPageUrl(webPage, softAssert);
-				if (!currentUrl.equals(commonData[8][1])) {
-					webPage.getDriver().get(commonData[8][1]);
-				}
-				// new code
+				log.info("Started iteration"+i);
 				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+					log.info("Inside if");
+					
 					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 				} else {
@@ -416,8 +422,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						testdata[i][4].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert).toLowerCase(),
 						testdata[i][6].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
+				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+				commonMethods.clickElementbyXpath(webPage, testdata[i][9], softAssert);
+				}
 			}
 			softAssert.assertAll();
+			log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
 			softAssert.assertAll();
@@ -431,10 +441,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		if (userLoggedIn == true) {
 			try {
-				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-				if (!actualUrl.equals(commonData[8][1])) {
-					webPage.getDriver().get(commonData[8][1]);
-				}
+			//	String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+			//	if (!actualUrl.equals(commonData[8][1])) {
+				//	webPage.getDriver().get(commonData[8][1]);
+			//	}
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
 				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
