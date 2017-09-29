@@ -92,6 +92,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			SoftAssertor.addVerificationFailure(e.getMessage());
 		}
 	}
+
 	@Test(priority = 300, enabled = true)
 	public void verify_Font_And_Size_Login_Page() {
 		SoftAssert softAssert = new SoftAssert();
@@ -140,6 +141,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+
 	@Test(priority = 301, enabled = true)
 	public void Verify_Broken_Links_On_SignIn_Page() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
@@ -213,12 +215,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+
 	@Test(priority = 304, enabled = true)
 	public void verify_Forgot_Password_Functionality() throws InterruptedException {
 		log.info("******Started verify_ForgotPassword_Functionality********");
 		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(signInURL);
-	
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_Forgot_Password_Functionality");
@@ -257,7 +259,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	
 	@Test(priority = 305, enabled = true)
 	public void verify_Register_Link_Redirection_And_PageTitle() {
 		log.info("************ Stated verify_Register_Link_Redirection_And_PageTitle*******************");
@@ -396,18 +397,18 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"Verify_MyOrders_MyWishList_PayYourBills");
-		//	String currentUrl = commonMethods.getPageUrl(webPage, softAssert);
-		//	if (!currentUrl.equals(commonData[8][1])) {
-				webPage.getDriver().get(commonData[8][1]);
-		//	}
+			// String currentUrl = commonMethods.getPageUrl(webPage,
+			// softAssert);
+			// if (!currentUrl.equals(commonData[8][1])) {
+			webPage.getDriver().get(commonData[8][1]);
+			// }
 			log.info("Started iteration------>");
 			// new code
-		//	webPage.getDriver().navigate().refresh();
+			// webPage.getDriver().navigate().refresh();
 			for (int i = 0; i < 3; i++) {
-				log.info("Started iteration"+i);
-				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+				log.info("Started iteration" + i);
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					log.info("Inside if");
-					
 					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 				} else {
@@ -422,8 +423,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						testdata[i][4].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert).toLowerCase(),
 						testdata[i][6].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
-				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
-				commonMethods.clickElementbyXpath(webPage, testdata[i][9], softAssert);
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+					if (!(i == 2)) {
+						commonMethods.clickElementbyXpath(webPage, testdata[i][9], softAssert);
+					}
 				}
 			}
 			softAssert.assertAll();
@@ -441,13 +444,14 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		if (userLoggedIn == true) {
 			try {
-			//	String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-			//	if (!actualUrl.equals(commonData[8][1])) {
-				//	webPage.getDriver().get(commonData[8][1]);
-			//	}
+				// String actualUrl = commonMethods.getPageUrl(webPage,
+				// softAssert);
+				// if (!actualUrl.equals(commonData[8][1])) {
+				 webPage.getDriver().get(commonData[8][1]);
+				// }
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
-				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][8], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				} else {
@@ -479,13 +483,13 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		if (userLoggedIn == true) {
 			try {
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-				if (!actualUrl.equals(commonData[8][1])) {
+				//if (!actualUrl.equals(commonData[8][1])) {
 					webPage.getDriver().get(commonData[8][1]);
-				}
+				//}
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
-				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);
 				} else {
@@ -547,25 +551,22 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	
-
 	@Test(priority = 313, enabled = true)
 	public void Verify_Address_Book() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-			if (!actualUrl.equals(commonData[8][1])) {
+		//	if (!actualUrl.equals(commonData[8][1])) {
 				webPage.getDriver().get(commonData[8][1]);
-			}
+	//		}
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			// new code
-			if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][14], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][15], softAssert);
 			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			}
-			
 			commonMethods.clearTextBox(webPage, testdata[0][2], softAssert);
 			commonMethods.clearTextBox(webPage, testdata[0][3], softAssert);
 			for (int i = 2; i < 10; i++) {
@@ -604,32 +605,31 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	
-//|| testBedName.equalsIgnoreCase("edge")
+	// || testBedName.equalsIgnoreCase("edge")
 	@Test(priority = 314, enabled = true)
 	public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
 		log.info("******Started verify_AccountDashboard_After_SignIn_with_ExistingUser ********");
 		SoftAssert softAssert = new SoftAssert();
-		if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+		if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 			if (commonMethods.verifyElementisPresent(webPage, commonData[10][1], softAssert)) {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
-			}else{
+			} else {
 				if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
-				commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
-				CommonMethods.waitForGivenTime(10);
-			}
+					commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
+					CommonMethods.waitForGivenTime(10);
 				}
 			}
-		/*if (testType.equalsIgnoreCase("Web")) {
-			if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
-				commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
-				CommonMethods.waitForGivenTime(10);
-			}
-		} else {
-			if (commonMethods.verifyElementisPresent(webPage, commonData[10][1], softAssert)) {
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
-			}
-		}*/
+		}
+		/*
+		 * if (testType.equalsIgnoreCase("Web")) { if
+		 * (!commonMethods.verifyElementisPresent(webPage, commonData[4][1],
+		 * softAssert)) { commonMethods.clickElementbyXpath(webPage,
+		 * commonData[6][1], softAssert); CommonMethods.waitForGivenTime(10); }
+		 * } else { if (commonMethods.verifyElementisPresent(webPage,
+		 * commonData[10][1], softAssert)) {
+		 * commonMethods.clickElementbyXpath_usingJavaScript(webPage,
+		 * commonData[9][1], softAssert); } }
+		 */
 		webPage.getDriver().get(signInURL);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -639,23 +639,27 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			}
 			commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
-		//	CommonMethods.waitForWebElement(By.xpath(testdata[3][1]), webPage);
-		//	String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[3][1], softAssert);
-		//	softAssert.assertTrue(actualMessage.equalsIgnoreCase(testdata[3][2]), "SuccessFul user Login:");
-			
-			//Dashboard Verification
-			webPage.getDriver().get( commonData[8][1]);
+			// CommonMethods.waitForWebElement(By.xpath(testdata[3][1]),
+			// webPage);
+			// String actualMessage = commonMethods.getTextbyXpath(webPage,
+			// testdata[3][1], softAssert);
+			// softAssert.assertTrue(actualMessage.equalsIgnoreCase(testdata[3][2]),
+			// "SuccessFul user Login:");
+			// Dashboard Verification
+			webPage.getDriver().get(commonData[8][1]);
 			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_Account_Dashboard");
-		/*	if (testType.equalsIgnoreCase("Web")) {
-				commonMethods.clickElementbyXpath(webPage, linkData[0][1], softAssert);
-				CommonMethods.waitForGivenTime(2);
-				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-				softAssert.assertTrue(actualUrl.contains(linkData[0][2]), "Page URL navigation failed for :"
-						+ linkData[0][0] + " URL:" + actualUrl + " not same as " + linkData[0][2]);
-			}*/
+			/*
+			 * if (testType.equalsIgnoreCase("Web")) {
+			 * commonMethods.clickElementbyXpath(webPage, linkData[0][1],
+			 * softAssert); CommonMethods.waitForGivenTime(2); String actualUrl
+			 * = commonMethods.getPageUrl(webPage, softAssert);
+			 * softAssert.assertTrue(actualUrl.contains(linkData[0][2]),
+			 * "Page URL navigation failed for :" + linkData[0][0] + " URL:" +
+			 * actualUrl + " not same as " + linkData[0][2]); }
+			 */
 			for (int i = 1; i < linkData.length; i++) {
-				log.info("Started Iteration"+i);
+				log.info("Started Iteration" + i);
 				commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 				CommonMethods.waitForGivenTime(2);
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
@@ -672,5 +676,4 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	
 }
