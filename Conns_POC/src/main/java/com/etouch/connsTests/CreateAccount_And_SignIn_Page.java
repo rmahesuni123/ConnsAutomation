@@ -522,6 +522,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Thread.sleep(3000);
 				// commonMethods.clickElementbyXpath(webPage, testdata[0][9],
 				// softAssert);
+				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
 				for (int i = 3; i < 9; i++) {
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][i], softAssert),
 							testdata[1][1], "Error Message: failed for: " + testdata[1][i]);
