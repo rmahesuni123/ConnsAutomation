@@ -13,7 +13,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -447,7 +446,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				// String actualUrl = commonMethods.getPageUrl(webPage,
 				// softAssert);
 				// if (!actualUrl.equals(commonData[8][1])) {
-				 webPage.getDriver().get(commonData[8][1]);
+				webPage.getDriver().get(commonData[8][1]);
 				// }
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
@@ -483,9 +482,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		if (userLoggedIn == true) {
 			try {
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-				//if (!actualUrl.equals(commonData[8][1])) {
-					webPage.getDriver().get(commonData[8][1]);
-				//}
+				// if (!actualUrl.equals(commonData[8][1])) {
+				webPage.getDriver().get(commonData[8][1]);
+				// }
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
@@ -506,7 +505,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				Thread.sleep(3000);
-			//	commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
+				// commonMethods.clickElementbyXpath(webPage, testdata[0][9],
+				// softAssert);
 				for (int i = 3; i < 9; i++) {
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][i], softAssert),
 							testdata[1][1], "Error Message: failed for: " + testdata[1][i]);
@@ -562,9 +562,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-		//	if (!actualUrl.equals(commonData[8][1])) {
-				webPage.getDriver().get(commonData[8][1]);
-	//		}
+			// if (!actualUrl.equals(commonData[8][1])) {
+			webPage.getDriver().get(commonData[8][1]);
+			// }
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			// new code
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
