@@ -12,6 +12,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -263,7 +264,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		log.info("******Started verify_NewsLetters ********");
 		SoftAssert softAssert = new SoftAssert();
 		if (userLoggedIn == true) {
-			webPage.getDriver().navigate().refresh();
+			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// For Safari
+			//webPage.getDriver().navigate().refresh();
 			try {
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
