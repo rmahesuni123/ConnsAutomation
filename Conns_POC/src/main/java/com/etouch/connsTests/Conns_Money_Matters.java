@@ -260,9 +260,9 @@ public class Conns_Money_Matters extends BaseTest {
 			if (testType.equalsIgnoreCase("Web")) 
 			{				
 				commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);			
-				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
-				commonMethods.verifyBrokenLinks(webPage);
+				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);				
 			}
+			commonMethods.verifyBrokenLinks(webPage);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
