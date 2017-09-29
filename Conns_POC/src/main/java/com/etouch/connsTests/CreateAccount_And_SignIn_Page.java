@@ -245,7 +245,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
 					CommonMethods.waitForGivenTime(2);
-
 				}
 				log.info("testing verify_Account_Dashboard completed------>");
 				softAssert.assertAll();
@@ -264,10 +263,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		log.info("******Started verify_NewsLetters ********");
 		SoftAssert softAssert = new SoftAssert();
 		if (userLoggedIn == true) {
-			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
-			js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// For Safari
-			//webPage.getDriver().navigate().refresh();
+			
 			try {
+				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+				if (!actualUrl.equals(commonData[8][1])) {
+					webPage.getDriver().get(commonData[8][1]);
+				}
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
 				if (testType.equalsIgnoreCase("Mobile")) {
@@ -276,8 +277,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
-
-				//CommonMethods.waitForGivenTime(5);
+				// CommonMethods.waitForGivenTime(5);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
 				String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][4], softAssert);
@@ -302,6 +302,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		if (userLoggedIn == true) {
 			try {
+				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+				if (!actualUrl.equals(commonData[8][1])) {
+					webPage.getDriver().get(commonData[8][1]);
+				}
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
@@ -314,7 +318,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				// End
 				// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
 				// testdata[0][1], softAssert);
-
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				CommonMethods.waitForGivenTime(5);
 				// Validate with blank data
@@ -375,6 +378,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"Verify_MyOrders_MyWishList_PayYourBills");
 			for (int i = 0; i < 3; i++) {
+				String currentUrl = commonMethods.getPageUrl(webPage, softAssert);
+				if (!currentUrl.equals(commonData[8][1])) {
+					webPage.getDriver().get(commonData[8][1]);
+				}
 				// new code
 				if (testType.equalsIgnoreCase("Mobile")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
@@ -385,7 +392,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				// End
 				// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
 				// testData[i][1], softAssert);
-
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 				softAssert.assertEquals(actualUrl, testdata[i][2], "Page URL:");
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][3], softAssert),
@@ -405,6 +411,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void Verify_Address_Book() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try {
+			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+			if (!actualUrl.equals(commonData[8][1])) {
+				webPage.getDriver().get(commonData[8][1]);
+			}
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			// new code
 			if (testType.equalsIgnoreCase("Mobile")) {
