@@ -520,8 +520,14 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				Thread.sleep(3000);
-				// commonMethods.clickElementbyXpath(webPage, testdata[0][9],
-				// softAssert);
+				if (testType.equalsIgnoreCase("Mobile")) {
+				 commonMethods.clickElementbyXpath(webPage, testdata[0][9],
+				 softAssert);
+				}
+				if (testBedName.equalsIgnoreCase("Safari")) {
+					 commonMethods.clickElementbyXpath(webPage, testdata[0][12],
+					 softAssert);
+				}
 				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
 				for (int i = 3; i < 9; i++) {
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][i], softAssert),
