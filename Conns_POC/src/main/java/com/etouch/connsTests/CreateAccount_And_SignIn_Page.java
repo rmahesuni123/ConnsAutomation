@@ -532,6 +532,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			softAssert.assertAll();
 			// For Sign Out
 			if (testType.equalsIgnoreCase("Mobile")) {
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[11][1], softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
 			} else {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[6][1], softAssert);
