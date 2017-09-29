@@ -570,7 +570,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			}
 			commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
-			CommonMethods.waitForWebElement(By.xpath(testdata[3][1]), webPage);
+		//	CommonMethods.waitForWebElement(By.xpath(testdata[3][1]), webPage);
 		//	String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[3][1], softAssert);
 		//	softAssert.assertTrue(actualMessage.equalsIgnoreCase(testdata[3][2]), "SuccessFul user Login:");
 			
