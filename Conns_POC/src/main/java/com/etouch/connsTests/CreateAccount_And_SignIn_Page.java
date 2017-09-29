@@ -413,7 +413,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		log.info("******Started verify_ForgotPassword_Functionality********");
 		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(signInURL);
-		if (commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
+		if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
 			commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[6][1], softAssert);
 			CommonMethods.waitForGivenTime(10);
 		}
