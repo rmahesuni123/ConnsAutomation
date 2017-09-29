@@ -570,10 +570,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(testdata[3][1]), webPage);
-			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[3][1], softAssert);
-			softAssert.assertTrue(actualMessage.equalsIgnoreCase(testdata[3][2]), "SuccessFul user Login:");
+		//	String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[3][1], softAssert);
+		//	softAssert.assertTrue(actualMessage.equalsIgnoreCase(testdata[3][2]), "SuccessFul user Login:");
 			
 			//Dashboard Verification
+			webPage.getDriver().get( commonData[8][1]);
 			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_Account_Dashboard");
 		/*	if (testType.equalsIgnoreCase("Web")) {
