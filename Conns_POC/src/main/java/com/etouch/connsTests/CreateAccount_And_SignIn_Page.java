@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.http.HttpResponse;
@@ -89,6 +90,54 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		} catch (Exception e) {
 			CommonUtil.sop("errr is for" + testBedName + " -----------" + e);
 			SoftAssertor.addVerificationFailure(e.getMessage());
+		}
+	}
+	@Test(priority = 300, enabled = true)
+	public void verify_Font_And_Size_Login_Page() {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"Verify_Font_And_Size_Login_Page");
+			for (int i = 0; i < ExpectedFontValues.length; i++) {
+				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
+						softAssert);
+				if (testType.equalsIgnoreCase("Mobile")) {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][5]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size  : " + ExpectedFontValues[i][5] + " Actual Font Size  : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][6]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font color : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(
+							actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "")
+									.contains((ExpectedFontValues[i][4]).toLowerCase()),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
+				} else {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size  : " + ExpectedFontValues[i][2] + " Actual Font Size   : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][3]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font family : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(
+							actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "")
+									.contains((ExpectedFontValues[i][4]).toLowerCase()),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
+				}
+			}
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size_Login_Page");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 	@Test(priority = 301, enabled = true)
@@ -613,4 +662,5 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+	
 }
