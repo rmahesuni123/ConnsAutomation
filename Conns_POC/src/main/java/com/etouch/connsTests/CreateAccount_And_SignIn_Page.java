@@ -85,36 +85,154 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
 			}
-			CommonMethods.navigateToPage(webPage, registerUrl);
+			CommonMethods.navigateToPage(webPage, signInURL);
 		} catch (Exception e) {
 			CommonUtil.sop("errr is for" + testBedName + " -----------" + e);
 			SoftAssertor.addVerificationFailure(e.getMessage());
 		}
 	}
-
 	@Test(priority = 301, enabled = true)
-	public void verify_Page_Title_For_Register_Link() {
-		log.info("************ Stated verify_Page_Title_For_Register_Link*******************");
+	public void Verify_Broken_Links_On_SignIn_Page() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
+		webPage.getDriver().get(signInURL);
 		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-					"verifyRegisterPageTitle");
-			String actualPageUrl = commonMethods.getPageUrl(webPage, softAssert);
-			softAssert.assertTrue(actualPageUrl.contains(testdata[0][0]),
-					"Page url verification failed. Expected url : " + testdata[0][0] + "Actual url   :   "
-							+ actualPageUrl);
-			String actualPageTitle = commonMethods.getPageTitle(webPage, softAssert);
-			softAssert.assertEquals(actualPageTitle, testdata[0][1], "Page title verification failed. Expected title : "
-					+ testdata[0][1] + "Actual title :   " + actualPageTitle);
+			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"verifyLinksRedirection");
+			for (int i = 0; i < linkData.length; i++) {
+				{
+					ITafElement link = webPage.findObjectByxPath(linkData[i][1]);
+					log.info("iteration " + i + " : " + link.getAttribute("href"));
+					HttpClient client = HttpClientBuilder.create().build();
+					HttpGet request = new HttpGet(link.getAttribute("href"));
+					HttpResponse response = client.execute(request);
+					log.info("Status code for iteration " + i + " : " + response.getStatusLine().getStatusCode());
+					softAssert.assertEquals(response.getStatusLine().getStatusCode(), 200,
+							"Validation for " + linkData[i][0] + " :");
+				}
+			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Page_Title_For_Register_Link");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
 	@Test(priority = 302, enabled = true)
+	public void verify_SignInErrorMessage_with_Blank_Input() throws InterruptedException {
+		log.info("******Started verification of Sign In functionality with blank input data ********");
+		SoftAssert softAssert = new SoftAssert();
+		webPage.getDriver().get(signInURL);
+		try {
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"verify_SignIn_with_Blank_Input");
+			commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+			for (int i = 1; i < 3; i++) {
+				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
+						testdata[i][1], testdata[i][2]);
+			}
+			log.info("testing verify_SignInErrorMessage_with_Blank_Input completed------>");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "verify_SignInErrorMessage_with_Blank_Input");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 303, enabled = true)
+	public void verify_SignInErrorMessage_with_Invalid_Input() throws InterruptedException {
+		log.info("******Started verify_SignInErrorMessage_with_Invalid_Input ********");
+		SoftAssert softAssert = new SoftAssert();
+		webPage.getDriver().get(signInURL);
+		try {
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"verify_SignIn_With_Invalid_Input");
+			for (int i = 0; i < 2; i++) {
+				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
+			}
+			commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
+			for (int i = 3; i < 5; i++) {
+				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
+						testdata[i][1], testdata[i][2]);
+			}
+			log.info("testing verify_SignInErrorMessage_with_Invalid_Input completed------>");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "verify_SignInErrorMessage_with_Invalid_Input");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	@Test(priority = 304, enabled = true)
+	public void verify_Forgot_Password_Functionality() throws InterruptedException {
+		log.info("******Started verify_ForgotPassword_Functionality********");
+		SoftAssert softAssert = new SoftAssert();
+		webPage.getDriver().get(signInURL);
+	
+		try {
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"verify_Forgot_Password_Functionality");
+			commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+			softAssert.assertEquals(actualUrl, testdata[0][2], "ForgotPassword  Page URL:");
+			// Submit with Blank
+			String ForgotpasswordSubmitXpath = testdata[0][3];
+			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
+			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][3], softAssert), testdata[1][4],
+					"Submit with blank email:");
+			// Submit with invalid mail
+			commonMethods.sendKeysbyXpath(webPage, testdata[2][1], testdata[2][2], softAssert);
+			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
+			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[2][3], softAssert), testdata[2][4],
+					"Submit with invalid email");
+			// Verifying Goback Link
+			commonMethods.clickElementbyXpath(webPage, testdata[3][1], softAssert);
+			softAssert.assertEquals(commonMethods.getPageUrl(webPage, softAssert), signInURL,
+					"SignIn Page URL using GoBack Link:");
+			webPage.getDriver().get(forgetPasswordPageURL);
+			Thread.sleep(7000);
+			// Submit with valid email ID
+			commonMethods.sendKeysbyXpath(webPage, testdata[4][1], testdata[4][2], softAssert);
+			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
+			String successMessage = commonMethods.getTextbyXpath(webPage, testdata[4][3], softAssert);
+			softAssert.assertTrue(successMessage.contains(testdata[4][4]),
+					"Submit with valid email for Forgot Password: Actual:" + successMessage + " Should Contain: "
+							+ testdata[4][4]);
+			log.info("testing verify_Forgot_Password_Functionality completed------>");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "verify_Forgot_Password_Functionality");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	
+	@Test(priority = 305, enabled = true)
+	public void verify_Register_Link_Redirection_And_PageTitle() {
+		log.info("************ Stated verify_Register_Link_Redirection_And_PageTitle*******************");
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"verifyRegisterPageTitle");
+			commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+			String actualPageUrl = commonMethods.getPageUrl(webPage, softAssert);
+			softAssert.assertTrue(actualPageUrl.contains(testdata[0][2]),
+					"Page url verification failed. Expected url : " + testdata[0][2] + "Actual url   :   "
+							+ actualPageUrl);
+			String actualPageTitle = commonMethods.getPageTitle(webPage, softAssert);
+			softAssert.assertEquals(actualPageTitle, testdata[0][3], "Page title verification failed. Expected title : "
+					+ testdata[0][1] + "Actual title :   " + actualPageTitle);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "verify_Register_Link_Redirection_And_PageTitle");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 306, enabled = true)
 	public void verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer() throws InterruptedException {
 		log.info(
 				"******Started verification of verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_CustomerRegister functionality with Invalid input data ********");
@@ -143,7 +261,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 303, enabled = true)
+	@Test(priority = 307, enabled = true)
 	public void verify_Create_New_Customer_with_Blank_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with blank input data ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -165,7 +283,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 304, enabled = true)
+	@Test(priority = 308, enabled = true)
 	public void verify_Create_New_Customer_with_Invalid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with Invalid input data ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -191,7 +309,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 305, enabled = true)
+	@Test(priority = 309, enabled = true)
 	public void verify_Create_New_Customer_with_Valid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with VInvalid input data ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -222,43 +340,43 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 306, enabled = true)
-	public void verify_Account_Dashboard() throws InterruptedException {
-		log.info("******Started verify_Account_Dashboard ********");
+	@Test(priority = 310, enabled = true)
+	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
-		if (userLoggedIn == true) {
-			try {
-				String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-						"verify_Account_Dashboard");
-				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.clickElementbyXpath(webPage, linkData[0][1], softAssert);
-					CommonMethods.waitForGivenTime(2);
-					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-					softAssert.assertTrue(actualUrl.contains(linkData[0][2]), "Page URL navigation failed for :"
-							+ linkData[0][0] + " URL:" + actualUrl + " not same as " + linkData[0][2]);
+		try {
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"Verify_MyOrders_MyWishList_PayYourBills");
+			for (int i = 0; i < 3; i++) {
+				String currentUrl = commonMethods.getPageUrl(webPage, softAssert);
+				if (!currentUrl.equals(commonData[8][1])) {
+					webPage.getDriver().get(commonData[8][1]);
 				}
-				for (int i = 1; i < linkData.length; i++) {
-					commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
-					CommonMethods.waitForGivenTime(2);
-					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-					softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
-							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
-					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
-					CommonMethods.waitForGivenTime(2);
+				// new code
+				if (testType.equalsIgnoreCase("Mobile")) {
+					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
+					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
+				} else {
+					commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
 				}
-				log.info("testing verify_Account_Dashboard completed------>");
-				softAssert.assertAll();
-			} catch (Throwable e) {
-				mainPage.getScreenShotForFailure(webPage, "verify_Account_Dashboard");
-				softAssert.assertAll();
-				Assert.fail(e.getLocalizedMessage());
+				// End
+				// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
+				// testData[i][1], softAssert);
+				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+				softAssert.assertEquals(actualUrl, testdata[i][2], "Page URL:");
+				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][3], softAssert),
+						testdata[i][4], "Verification failed for content: " + testdata[i][0]);
+				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert),
+						testdata[i][6], "Verification failed for content: " + testdata[i][0]);
 			}
-		} else {
-			Assert.fail("Declined state could not be generated");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 
-	@Test(priority = 307, enabled = false)
+	@Test(priority = 311, enabled = true)
 	public void verify_NewsLetters() throws InterruptedException {
 		log.info("******Started verify_NewsLetters ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -295,7 +413,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 308, enabled = true)
+	@Test(priority = 312, enabled = true)
 	public void verify_Account_Information() throws InterruptedException {
 		log.info("******Started verify_Account_Information ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -370,43 +488,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 309, enabled = true)
-	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-					"Verify_MyOrders_MyWishList_PayYourBills");
-			for (int i = 0; i < 3; i++) {
-				String currentUrl = commonMethods.getPageUrl(webPage, softAssert);
-				if (!currentUrl.equals(commonData[8][1])) {
-					webPage.getDriver().get(commonData[8][1]);
-				}
-				// new code
-				if (testType.equalsIgnoreCase("Mobile")) {
-					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
-					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
-				} else {
-					commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
-				}
-				// End
-				// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
-				// testData[i][1], softAssert);
-				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-				softAssert.assertEquals(actualUrl, testdata[i][2], "Page URL:");
-				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][3], softAssert),
-						testdata[i][4], "Verification failed for content: " + testdata[i][0]);
-				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert),
-						testdata[i][6], "Verification failed for content: " + testdata[i][0]);
-			}
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
+	
 
-	@Test(priority = 310, enabled = true)
+	@Test(priority = 313, enabled = true)
 	public void Verify_Address_Book() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -462,11 +546,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 311, enabled = true)
-	public void verify_Forgot_Password_Functionality() throws InterruptedException {
-		log.info("******Started verify_ForgotPassword_Functionality********");
+	
+
+	@Test(priority = 314, enabled = true)
+	public void verify_SignIn_with_Valid_Input() throws InterruptedException {
+		log.info("******Started verification of SignIn functionality with Valid input data ********");
 		SoftAssert softAssert = new SoftAssert();
-		webPage.getDriver().get(signInURL);
 		if (testType.equalsIgnoreCase("Web")) {
 			if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
 				commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
@@ -477,121 +562,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
 			}
 		}
-		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-					"verify_Forgot_Password_Functionality");
-			commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
-			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-			softAssert.assertEquals(actualUrl, testdata[0][2], "ForgotPassword  Page URL:");
-			// Submit with Blank
-			String ForgotpasswordSubmitXpath = testdata[0][3];
-			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
-			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][3], softAssert), testdata[1][4],
-					"Submit with blank email:");
-			// Submit with invalid mail
-			commonMethods.sendKeysbyXpath(webPage, testdata[2][1], testdata[2][2], softAssert);
-			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
-			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[2][3], softAssert), testdata[2][4],
-					"Submit with invalid email");
-			// Verifying Goback Link
-			commonMethods.clickElementbyXpath(webPage, testdata[3][1], softAssert);
-			softAssert.assertEquals(commonMethods.getPageUrl(webPage, softAssert), signInURL,
-					"SignIn Page URL using GoBack Link:");
-			webPage.getDriver().get(forgetPasswordPageURL);
-			Thread.sleep(7000);
-			// Submit with valid email ID
-			commonMethods.sendKeysbyXpath(webPage, testdata[4][1], testdata[4][2], softAssert);
-			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
-			String successMessage = commonMethods.getTextbyXpath(webPage, testdata[4][3], softAssert);
-			softAssert.assertTrue(successMessage.contains(testdata[4][4]),
-					"Submit with valid email for Forgot Password: Actual:" + successMessage + " Should Contain: "
-							+ testdata[4][4]);
-			log.info("testing verify_Forgot_Password_Functionality completed------>");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_Forgot_Password_Functionality");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 312, enabled = true)
-	public void Verify_Broken_Links_On_SignIn_Page() throws ClientProtocolException, IOException {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-					"verifyLinksRedirection");
-			for (int i = 0; i < linkData.length; i++) {
-				{
-					ITafElement link = webPage.findObjectByxPath(linkData[i][1]);
-					log.info("iteration " + i + " : " + link.getAttribute("href"));
-					HttpClient client = HttpClientBuilder.create().build();
-					HttpGet request = new HttpGet(link.getAttribute("href"));
-					HttpResponse response = client.execute(request);
-					log.info("Status code for iteration " + i + " : " + response.getStatusLine().getStatusCode());
-					softAssert.assertEquals(response.getStatusLine().getStatusCode(), 200,
-							"Validation for " + linkData[i][0] + " :");
-				}
-			}
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 313, enabled = true)
-	public void verify_SignInErrorMessage_with_Blank_Input() throws InterruptedException {
-		log.info("******Started verification of Sign In functionality with blank input data ********");
-		SoftAssert softAssert = new SoftAssert();
-		webPage.getDriver().get(signInURL);
-		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-					"verify_SignIn_with_Blank_Input");
-			commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
-			for (int i = 1; i < 3; i++) {
-				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
-						testdata[i][1], testdata[i][2]);
-			}
-			log.info("testing verify_SignInErrorMessage_with_Blank_Input completed------>");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_SignInErrorMessage_with_Blank_Input");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 314, enabled = true)
-	public void verify_SignInErrorMessage_with_Invalid_Input() throws InterruptedException {
-		log.info("******Started verify_SignInErrorMessage_with_Invalid_Input ********");
-		SoftAssert softAssert = new SoftAssert();
-		webPage.getDriver().get(signInURL);
-		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-					"verify_SignIn_With_Invalid_Input");
-			for (int i = 0; i < 2; i++) {
-				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
-			}
-			commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			for (int i = 3; i < 5; i++) {
-				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
-						testdata[i][1], testdata[i][2]);
-			}
-			log.info("testing verify_SignInErrorMessage_with_Invalid_Input completed------>");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_SignInErrorMessage_with_Invalid_Input");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 315, enabled = true)
-	public void verify_SignIn_with_Valid_Input() throws InterruptedException {
-		log.info("******Started verification of SignIn functionality with Valid input data ********");
-		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(signInURL);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -603,16 +573,48 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(testdata[3][1]), webPage);
 			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[3][1], softAssert);
-			softAssert.assertEquals(actualMessage, testdata[3][2], "SuccessFul user Login:");
-			// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
-			// testdata[4][1],softAssert);
-			// CommonMethods.waitForGivenTime(10);
+			softAssert.assertTrue(actualMessage.equalsIgnoreCase(testdata[3][2]), "SuccessFul user Login:");
 			log.info("testing verify_SignIn_with_Valid_Input completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "verify_SignIn_with_Valid_Input");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	@Test(priority = 315, enabled = true)
+	public void verify_Account_Dashboard() throws InterruptedException {
+		log.info("******Started verify_Account_Dashboard ********");
+		SoftAssert softAssert = new SoftAssert();
+		if (userLoggedIn == true) {
+			try {
+				String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+						"verify_Account_Dashboard");
+				if (testType.equalsIgnoreCase("Web")) {
+					commonMethods.clickElementbyXpath(webPage, linkData[0][1], softAssert);
+					CommonMethods.waitForGivenTime(2);
+					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+					softAssert.assertTrue(actualUrl.contains(linkData[0][2]), "Page URL navigation failed for :"
+							+ linkData[0][0] + " URL:" + actualUrl + " not same as " + linkData[0][2]);
+				}
+				for (int i = 1; i < linkData.length; i++) {
+					commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
+					CommonMethods.waitForGivenTime(2);
+					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+					softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
+							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
+					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+					CommonMethods.waitForGivenTime(2);
+				}
+				log.info("testing verify_Account_Dashboard completed------>");
+				softAssert.assertAll();
+			} catch (Throwable e) {
+				mainPage.getScreenShotForFailure(webPage, "verify_Account_Dashboard");
+				softAssert.assertAll();
+				Assert.fail(e.getLocalizedMessage());
+			}
+		} else {
+			Assert.fail("Declined state could not be generated");
 		}
 	}
 }
