@@ -500,15 +500,19 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				// testdata[0][1], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				CommonMethods.waitForGivenTime(5);
+				log.info("Validation for Blank Data Starte----->");
 				// Validate with blank data
 				for (int i = 3; i < 6; i++) {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
-				commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
+				Thread.sleep(3000);
+			//	commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				for (int i = 3; i < 9; i++) {
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][i], softAssert),
 							testdata[1][1], "Error Message: failed for: " + testdata[1][i]);
 				}
+				log.info("Validation for Blank Data Completed----->");
+				log.info("Validation for Invalid Data Started----->");
 				// Validate with invalid data
 				for (int i = 3; i < 9; i++) {
 					commonMethods.sendKeysbyXpath(webPage, testdata[0][i], testdata[2][i], softAssert);
@@ -520,6 +524,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						testdata[4][7], "Error Message: failed for: " + testdata[3][7]);
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[3][8], softAssert),
 						testdata[4][8], "Error Message: failed for: " + testdata[3][8]);
+				log.info("Validation for Invalid Data Completed----->");
+				log.info("Validation for Valid Data Started----->");
 				// With Valid Data
 				for (int i = 3; i < 9; i++) {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
