@@ -229,16 +229,22 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			try {
 				String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Dashboard");
-				for (int i = 0; i < linkData.length; i++) {
+				if (testType.equalsIgnoreCase("Web")) {
+					commonMethods.clickElementbyXpath(webPage, linkData[0][1], softAssert);
+					CommonMethods.waitForGivenTime(2);
+					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+					softAssert.assertTrue(actualUrl.contains(linkData[0][2]), "Page URL navigation failed for :"
+							+ linkData[0][0] + " URL:" + actualUrl + " not same as " + linkData[0][2]);
+				}
+				for (int i = 1; i < linkData.length; i++) {
 					commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 					CommonMethods.waitForGivenTime(2);
 					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 					softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
-					if (i > 0) {
-						commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
-						CommonMethods.waitForGivenTime(2);
-					}
+					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+					CommonMethods.waitForGivenTime(2);
+
 				}
 				log.info("testing verify_Account_Dashboard completed------>");
 				softAssert.assertAll();
@@ -260,7 +266,13 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			try {
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
-				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+				if (testType.equalsIgnoreCase("Mobile")) {
+					commonMethods.clickElementbyXpath(webPage, testdata[0][8], softAssert);
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, testdata[0][9], softAssert);
+				} else {
+					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+				}
+
 				CommonMethods.waitForGivenTime(5);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
@@ -288,11 +300,17 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			try {
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, testdata[0][1], softAssert);
-				/*
-				 * commonMethods.clickElementbyXpath(webPage, testdata[0][1],
-				 * softAssert);
-				 */
+				// new code
+				if (testType.equalsIgnoreCase("Mobile")) {
+					commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, testdata[0][11], softAssert);
+				} else {
+					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+				}
+				// End
+				// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
+				// testdata[0][1], softAssert);
+
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				CommonMethods.waitForGivenTime(5);
 				// Validate with blank data
@@ -350,16 +368,26 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"Verify_MyOrders_MyWishList_PayYourBills");
 			for (int i = 0; i < 3; i++) {
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, testData[i][1], softAssert);
+				// new code
+				if (testType.equalsIgnoreCase("Mobile")) {
+					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, testdata[i][8], softAssert);
+				} else {
+					commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
+				}
+				// End
+				// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
+				// testData[i][1], softAssert);
+
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-				softAssert.assertEquals(actualUrl, testData[i][2], "Page URL:");
-				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[i][3], softAssert),
-						testData[i][4], "Verification failed for content: " + testData[i][0]);
-				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[i][5], softAssert),
-						testData[i][6], "Verification failed for content: " + testData[i][0]);
+				softAssert.assertEquals(actualUrl, testdata[i][2], "Page URL:");
+				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][3], softAssert),
+						testdata[i][4], "Verification failed for content: " + testdata[i][0]);
+				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert),
+						testdata[i][6], "Verification failed for content: " + testdata[i][0]);
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -374,7 +402,16 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
-			commonMethods.clickElementbyXpath_usingJavaScript(webPage, testdata[0][1], softAssert);
+			// new code
+			if (testType.equalsIgnoreCase("Mobile")) {
+				commonMethods.clickElementbyXpath(webPage, testdata[0][14], softAssert);
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, testdata[0][15], softAssert);
+			} else {
+				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+			}
+			// End
+			// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
+			// testdata[0][1], softAssert);
 			commonMethods.clearTextBox(webPage, testdata[0][2], softAssert);
 			commonMethods.clearTextBox(webPage, testdata[0][3], softAssert);
 			for (int i = 2; i < 10; i++) {
