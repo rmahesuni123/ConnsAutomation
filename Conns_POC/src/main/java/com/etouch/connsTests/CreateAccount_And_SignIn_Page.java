@@ -352,7 +352,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					webPage.getDriver().get(commonData[8][1]);
 				}
 				// new code
-				if (testType.equalsIgnoreCase("Mobile")) {
+				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 				} else {
@@ -388,7 +388,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
-				if (testType.equalsIgnoreCase("Mobile")) {
+				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][8], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				} else {
@@ -426,7 +426,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
-				if (testType.equalsIgnoreCase("Mobile")) {
+				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);
 				} else {
@@ -500,7 +500,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			}
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			// new code
-			if (testType.equalsIgnoreCase("Mobile")) {
+			if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][14], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][15], softAssert);
 			} else {
@@ -546,12 +546,22 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	}
 
 	
-
+//|| testBedName.equalsIgnoreCase("edge")
 	@Test(priority = 314, enabled = true)
 	public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
 		log.info("******Started verify_AccountDashboard_After_SignIn_with_ExistingUser ********");
 		SoftAssert softAssert = new SoftAssert();
-		if (testType.equalsIgnoreCase("Web")) {
+		if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+			if (commonMethods.verifyElementisPresent(webPage, commonData[10][1], softAssert)) {
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
+			}else{
+				if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
+				commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
+				CommonMethods.waitForGivenTime(10);
+			}
+				}
+			}
+		/*if (testType.equalsIgnoreCase("Web")) {
 			if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
 				commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
 				CommonMethods.waitForGivenTime(10);
@@ -560,7 +570,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			if (commonMethods.verifyElementisPresent(webPage, commonData[10][1], softAssert)) {
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
 			}
-		}
+		}*/
 		webPage.getDriver().get(signInURL);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
