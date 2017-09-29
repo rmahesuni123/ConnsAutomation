@@ -506,9 +506,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			}
-			// End
-			// commonMethods.clickElementbyXpath_usingJavaScript(webPage,
-			// testdata[0][1], softAssert);
+			
 			commonMethods.clearTextBox(webPage, testdata[0][2], softAssert);
 			commonMethods.clearTextBox(webPage, testdata[0][3], softAssert);
 			for (int i = 2; i < 10; i++) {
@@ -549,8 +547,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	
 
 	@Test(priority = 314, enabled = true)
-	public void verify_SignIn_with_Valid_Input() throws InterruptedException {
-		log.info("******Started verification of SignIn functionality with Valid input data ********");
+	public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
+		log.info("******Started verify_AccountDashboard_After_SignIn_with_ExistingUser ********");
 		SoftAssert softAssert = new SoftAssert();
 		if (testType.equalsIgnoreCase("Web")) {
 			if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
@@ -574,47 +572,33 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			CommonMethods.waitForWebElement(By.xpath(testdata[3][1]), webPage);
 			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[3][1], softAssert);
 			softAssert.assertTrue(actualMessage.equalsIgnoreCase(testdata[3][2]), "SuccessFul user Login:");
-			log.info("testing verify_SignIn_with_Valid_Input completed------>");
+			
+			//Dashboard Verification
+			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"verify_Account_Dashboard");
+		/*	if (testType.equalsIgnoreCase("Web")) {
+				commonMethods.clickElementbyXpath(webPage, linkData[0][1], softAssert);
+				CommonMethods.waitForGivenTime(2);
+				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+				softAssert.assertTrue(actualUrl.contains(linkData[0][2]), "Page URL navigation failed for :"
+						+ linkData[0][0] + " URL:" + actualUrl + " not same as " + linkData[0][2]);
+			}*/
+			for (int i = 1; i < linkData.length; i++) {
+				log.info("Started Iteration"+i);
+				commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
+				CommonMethods.waitForGivenTime(2);
+				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+				softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
+						+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
+				commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+				CommonMethods.waitForGivenTime(2);
+			}
+			log.info("testing verify_AccountDashboard_After_SignIn_with_ExistingUser completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "verify_SignIn_with_Valid_Input");
+			mainPage.getScreenShotForFailure(webPage, "verify_AccountDashboard_After_SignIn_with_ExistingUser");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-	@Test(priority = 315, enabled = true)
-	public void verify_Account_Dashboard() throws InterruptedException {
-		log.info("******Started verify_Account_Dashboard ********");
-		SoftAssert softAssert = new SoftAssert();
-		if (userLoggedIn == true) {
-			try {
-				String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-						"verify_Account_Dashboard");
-				if (testType.equalsIgnoreCase("Web")) {
-					commonMethods.clickElementbyXpath(webPage, linkData[0][1], softAssert);
-					CommonMethods.waitForGivenTime(2);
-					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-					softAssert.assertTrue(actualUrl.contains(linkData[0][2]), "Page URL navigation failed for :"
-							+ linkData[0][0] + " URL:" + actualUrl + " not same as " + linkData[0][2]);
-				}
-				for (int i = 1; i < linkData.length; i++) {
-					commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
-					CommonMethods.waitForGivenTime(2);
-					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
-					softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
-							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
-					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
-					CommonMethods.waitForGivenTime(2);
-				}
-				log.info("testing verify_Account_Dashboard completed------>");
-				softAssert.assertAll();
-			} catch (Throwable e) {
-				mainPage.getScreenShotForFailure(webPage, "verify_Account_Dashboard");
-				softAssert.assertAll();
-				Assert.fail(e.getLocalizedMessage());
-			}
-		} else {
-			Assert.fail("Declined state could not be generated");
 		}
 	}
 }
