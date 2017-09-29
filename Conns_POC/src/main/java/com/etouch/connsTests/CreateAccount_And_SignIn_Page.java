@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -520,16 +519,16 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				Thread.sleep(3000);
-				if (testType.equalsIgnoreCase("Mobile")) {
+			/*	if (testType.equalsIgnoreCase("Mobile")) {
 				 commonMethods.clickElementbyXpath(webPage, testdata[0][9],
 				 softAssert);
 				}
 				if (testBedName.equalsIgnoreCase("Safari")) {
 					 commonMethods.clickElementbyXpath(webPage, testdata[0][12],
 					 softAssert);
-				}
+				}*/
 				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
-				for (int i = 3; i < 9; i++) {
+				for (int i = 3; i < 6; i++) {
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][i], softAssert),
 							testdata[1][1], "Error Message: failed for: " + testdata[1][i]);
 				}
@@ -560,7 +559,18 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						commonMethods.sendKeysbyXpath(webPage, testdata[0][i], testdata[5][i], softAssert);
 					}
 				}
-				commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
+				/*
+				 * commonMethods.clickElementbyXpath(webPage, testdata[0][9],
+				 * softAssert); if (testType.equalsIgnoreCase("Mobile")) {
+				 * commonMethods.clickElementbyXpath(webPage, testdata[0][9],
+				 * softAssert); }
+				 */
+					if (testBedName.equalsIgnoreCase("Safari")) {
+						 commonMethods.clickElementbyXpath(webPage, testdata[0][12],
+						 softAssert);
+					}
+					else{ commonMethods.clickElementbyXpath(webPage, testdata[0][9],
+							 softAssert);}
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[5][1], softAssert),
 						testdata[5][2], "Verification failed for: " + testdata[5][1]);
 				softAssert.assertTrue(
