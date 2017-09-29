@@ -527,7 +527,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					 commonMethods.clickElementbyXpath(webPage, testdata[0][12],
 					 softAssert);
 				}*/
-				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
+			//	webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
+				if (testBedName.equalsIgnoreCase("Safari")) {
+					 commonMethods.clickElementbyXpath(webPage, testdata[0][12],
+					 softAssert);
+				}
+				else { commonMethods.clickElementbyXpath(webPage, testdata[0][9],
+						 softAssert);
+				}
+				
 				for (int i = 3; i < 6; i++) {
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][i], softAssert),
 							testdata[1][1], "Error Message: failed for: " + testdata[1][i]);
