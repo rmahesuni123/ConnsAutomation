@@ -373,10 +373,10 @@ public class Conns_Home_Page extends BaseTest {
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYourCart");
 			String cartText = commonMethods.getTextbyXpath(webPage, testData[0][0], softAssert);
-			softAssert.assertTrue(cartText.contains(testData[0][1]));
-			commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
-			commonMethods.waitForGivenTime(2, softAssert);
-			commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
+			softAssert.assertTrue(cartText.contains(testData[0][1]),cartText+"does not contain"+testData[0][1]);
+		//	commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
+		//	commonMethods.waitForGivenTime(2, softAssert);
+		//	commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Your_Cart_Functionality");
