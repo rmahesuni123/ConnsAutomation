@@ -115,13 +115,14 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 		if (ActualUrl.contains(expectedUrl)) {
 			log.info("Redirection for link " + linkName + " is successful");
-			String browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId()))
+			/*String browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId()))
 					.getBrowser().getName();
-			if (browserName.contains("safari") || browserName.contains("iphone") || browserName.contains("ipad")) {
+			if (browserName.equalsIgnoreCase("safari") || browserName.equalsIgnoreCase("iphone") || browserName.equalsIgnoreCase("ipad")) {
 				navigateToCreditAppPage(softAssert);
 			} else {
 				webPageMap.get(Thread.currentThread().getId()).getBackToUrl();
-			}
+			}*/
+			navigateToCreditAppPage(softAssert);
 		} else {
 			throw new Exception("Redirection for link " + linkName
 					+ " failed. Actual URL does not contain Expected partial URL : Expected = " + expectedUrl
