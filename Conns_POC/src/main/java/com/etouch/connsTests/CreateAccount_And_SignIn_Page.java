@@ -103,27 +103,47 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		try {
 			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 					"Verify_Web_Font_And_Size_Login_Page");
-			String [] [] Mobile_ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
-					"Verify_Mobile_Font_And_Size_Login_Page");
+			/*String [] [] Mobile_ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"Verify_Mobile_Font_And_Size_Login_Page");*/
 			for (int i = 0; i < ExpectedFontValues.length; i++) {
 				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
 						softAssert);
-				if ((testType.equalsIgnoreCase("Mobile") && (testBedName.equalsIgnoreCase("edge")))) {
-					softAssert.assertTrue(actualCssValues.get(0).contains(Mobile_ExpectedFontValues[i][5]),
-							"CSS value verification failed for link " + Mobile_ExpectedFontValues[i][0]
-									+ "Expected font Size  : " + Mobile_ExpectedFontValues[i][5] + " Actual Font Size  : "
+				if ((testType.equalsIgnoreCase("Mobile"))) {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][5]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size  : " + ExpectedFontValues[i][5] + " Actual Font Size  : "
 									+ actualCssValues.get(0));
-					softAssert.assertTrue(actualCssValues.get(1).contains(Mobile_ExpectedFontValues[i][6]),
-							"CSS value verification failed for link " + Mobile_ExpectedFontValues[i][0]
-									+ "Expected font color : " + Mobile_ExpectedFontValues[i][6] + " Actual font color : "
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][6]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font color : "
 									+ actualCssValues.get(1));
 					softAssert.assertTrue(
 							actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "")
-									.contains((Mobile_ExpectedFontValues[i][4]).toLowerCase()),
-							"CSS value verification failed for link " + Mobile_ExpectedFontValues[i][0]
-									+ "Expected font family : " + Mobile_ExpectedFontValues[i][4] + " Actual font family : "
+									.contains((ExpectedFontValues[i][4]).toLowerCase()),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
 									+ actualCssValues.get(2));
-				} else {
+				}
+				
+				if ((testBedName.equalsIgnoreCase("edge"))) {
+					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][7]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font Size  : " + ExpectedFontValues[i][7] + " Actual Font Size  : "
+									+ actualCssValues.get(0));
+					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][8]),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font color : " + ExpectedFontValues[i][8] + " Actual font color : "
+									+ actualCssValues.get(1));
+					softAssert.assertTrue(
+							actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "")
+									.contains((ExpectedFontValues[i][4]).toLowerCase()),
+							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									+ actualCssValues.get(2));
+				} 
+				
+				
+				else {
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font Size  : " + ExpectedFontValues[i][2] + " Actual Font Size   : "
