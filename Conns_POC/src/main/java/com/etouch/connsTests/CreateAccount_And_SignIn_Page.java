@@ -15,6 +15,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
@@ -98,12 +101,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void verify_Font_And_Size_Login_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
-					"Verify_Font_And_Size_Login_Page");
+			String[][] ExpectedFontValues;
+			ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"Verify_Web_Font_And_Size_Login_Page");
+			ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"Verify_Mobile_Font_And_Size_Login_Page");
 			for (int i = 0; i < ExpectedFontValues.length; i++) {
 				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
 						softAssert);
-				if (testType.equalsIgnoreCase("Mobile")) {
+				if ((testType.equalsIgnoreCase("Mobile") && (testBedName.equalsIgnoreCase("edge")))) {
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][5]),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font Size  : " + ExpectedFontValues[i][5] + " Actual Font Size  : "
@@ -655,27 +661,38 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				 */
 				for (int i = 1; i < linkData.length; i++) {
 					if ((i==5) || (i==6)){
+						log.info("Started Iteration" + i);
+						((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
 						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 						CommonMethods.waitForGivenTime(2);
 						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 						/*commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
-						commonMethods.clickElementbyXpath(webPage, linkData[4][3], softAssert);	*/		
+						commonMethods.clickElementbyXpath(webPage, linkData[4][3], softAssert);	*/	
+						if ((testBedName.equalsIgnoreCase("InternetExplorer")) || (testBedName.equalsIgnoreCase("Firefox")) || (testBedName.equalsIgnoreCase("Chrome"))) {
+							log.info("Started Iteration" + i);
+							log.info("Navigate Back for " + testBedName.toString());
+							webPage.getDriver().navigate().back();
+							webPage.getDriver().navigate().back();
+						}
+						else{
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 						CommonMethods.waitForGivenTime(2);
+						}
 					}
 					else{
 					log.info("Started Iteration" + i);
+					((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
 					commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 					CommonMethods.waitForGivenTime(2);
 					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 					softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
-					webPage.getDriver().navigate().refresh();
-					//CommonMethods.waitForGivenTime(2);
+					CommonMethods.waitForGivenTime(2);
+					//webPage.getDriver().navigate().refresh();
 					}
 					
 				}
@@ -687,6 +704,17 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Assert.fail(e.getLocalizedMessage());
 			}
 		}
+		
+		
+		void waitForLoad(WebDriver driver) {
+			ExpectedCondition<Boolean> pageLoadCondition = new  ExpectedCondition<Boolean>() {
+			        public Boolean apply(WebDriver driver) {
+			            return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+			        }
+			    };
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(pageLoadCondition);
+			}
 
 }
 	
