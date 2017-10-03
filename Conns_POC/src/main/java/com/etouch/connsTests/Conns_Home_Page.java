@@ -326,16 +326,73 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_Broken_Images() throws ClientProtocolException, IOException {
 		commonMethods.verifyBrokenImage(webPage);
 	}
-
 	/**
-	 * Test Case - 004 - verify Links Above Header Conns Home Page
+	 * Test Case - 04 - verify Footer We Accpet Conns Home Page
 	 * 
 	 */
-	@Test(priority = 4, enabled = true, description = "Verify_LinksRedirection_Of_Above_Header_Section")
+	@Test(priority = 4, enabled = true, description = "Verify_Element_Visibility_Under_We_Accept_Section")
+	public void Verify_Element_Visibility_Under_We_Accept_Section() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFooterWeAccpet");
+			boolean statusOfWeAccept = commonMethods.verifyElementisPresent(webPage, testData[0][0], softAssert);
+			softAssert.assertTrue(statusOfWeAccept, "We accept images are not present on the page");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Element_Visibility_Under_We_Accept_Section");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * Test Case - 05 - verify Footer Copyright Conns Home Page
+	 * 
+	 */
+	@Test(priority = 5, enabled = true, description = "Verify_Content_Under_Footer_Copyright_Section")
+	public void Verify_Content_Under_Footer_Copyright_Section() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFooterCopyright");
+			String homeplusText1 = commonMethods.getTextbyXpath(webPage, testData[0][0], softAssert);
+			softAssert.assertEquals(homeplusText1, testData[0][1]);
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Content_Under_Footer_Copyright_Section");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	/**
+	 * Test Case - 006 - verify Your Cart functionality by adding product in
+	 * cart Conns Home Page
+	 * 
+	 */
+	@Test(priority = 6, enabled = true, description = "Verify_Your_Cart_Functionality")
+	public void Verify_Your_Cart_Functionality() {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYourCart");
+			String cartText = commonMethods.getTextbyXpath(webPage, testData[0][0], softAssert);
+			softAssert.assertTrue(cartText.contains(testData[0][1]));
+			commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
+			commonMethods.waitForGivenTime(2, softAssert);
+			commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_Your_Cart_Functionality");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	/**
+	 * Test Case - 007 - verify Links Above Header Conns Home Page
+	 * 
+	 */
+	@Test(priority = 7, enabled = true, description = "Verify_LinksRedirection_Of_Above_Header_Section")
 	public void Verify_LinksRedirection_Of_Above_Header_Section() {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		 webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksAboveHeader");
 			for (int i = 0; i < testData.length; i++) {
@@ -347,12 +404,6 @@ public class Conns_Home_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
 					log.info("Inside the 2nd if. Value of I : " + i);
 					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
-					/*
-					 * ActualURL =
-					 * ConnsHomePage.clickAndGetPageURLUsingJS(webPage,
-					 * testData[i][2], testData[i][0], testData[i][5],
-					 * softAssert);
-					 */
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
@@ -375,39 +426,16 @@ public class Conns_Home_Page extends BaseTest {
 		}
 	}
 
-	/**
-	 * Test Case - 005 - verify Your Cart functionality by adding product in
-	 * cart Conns Home Page
-	 * 
-	 */
-	@Test(priority = 5, enabled = true, description = "Verify_Your_Cart_Functionality")
-	public void Verify_Your_Cart_Functionality() {
-		SoftAssert softAssert = new SoftAssert();
-		// webPage.getDriver().get(url);
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYourCart");
-			String cartText = commonMethods.getTextbyXpath(webPage, testData[0][0], softAssert);
-			softAssert.assertTrue(cartText.contains(testData[0][1]));
-			commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
-			commonMethods.waitForGivenTime(2, softAssert);
-			commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
-			webPage.getDriver().get(url);
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Your_Cart_Functionality");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
+	
 
 	/**
-	 * Test Case - 006 - verify links In Header Conns Home Page
+	 * Test Case - 008 - verify links In Header Conns Home Page
 	 * 
 	 */
-	@Test(priority = 6, enabled = true, description = "Verify_Links_In_Header_Section")
+	@Test(priority = 8, enabled = true, description = "Verify_Links_In_Header_Section")
 	public void Verify_Links_In_Header_Section() {
 		SoftAssert softAssert = new SoftAssert();
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
 		String ActualURL = "";
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksInHeader");
@@ -433,16 +461,16 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 007 - verify links under Furniture & Mattresses main menu
+	 * Test Case - 009 - verify links under Furniture & Mattresses main menu
 	 * Conns Home Page
 	 * 
 	 */
-	@Test(priority = 7, enabled = true, description = "Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu")
+	@Test(priority = 9, enabled = true, description = "Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu")
 	public void Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		 webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyLinksForFurnitureAndMattresses");
@@ -483,13 +511,14 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 008 - verify links under Appliances main menu Conns Home Page
+	 * Test Case - 010 - verify links under Appliances main menu Conns Home Page
 	 * 
 	 */
-	@Test(priority = 8, enabled = true, description = "Verify_LinksRedirection_Under_Appliances_Menu")
+	@Test(priority = 10, enabled = true, description = "Verify_LinksRedirection_Under_Appliances_Menu")
 	public void Verify_LinksRedirection_Under_Appliances_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
+		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForAppliance");
 			for (int i = 0; i < testData.length; i++) {
@@ -524,11 +553,11 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 009 - verify links under TV, Audio & Electronics main menu
+	 * Test Case - 011 - verify links under TV, Audio & Electronics main menu
 	 * Conns Home Page
 	 * 
 	 */
-	@Test(priority = 9, enabled = true, description = "Verify_LinksRedirection_Under_TV_Audio_And_Electronics_Menu")
+	@Test(priority = 11, enabled = true, description = "Verify_LinksRedirection_Under_TV_Audio_And_Electronics_Menu")
 	public void Verify_LinksRedirection_Under_TV_Audio_And_Electronics_Menu()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
@@ -560,23 +589,6 @@ public class Conns_Home_Page extends BaseTest {
 							"Link Name  :" + testData[i][3] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][2]);
 				}
-				/*
-				 * if (testType.equalsIgnoreCase("Mobile") &&
-				 * !((testData[i][4].equalsIgnoreCase("NA")))) {
-				 * log.info("Valur of i : " + i);
-				 * commonMethods.clickElementbyXpath(webPage, testData[i][4],
-				 * softAssert); commonMethods.clickElementbyXpath(webPage,
-				 * testData[i][5], softAssert);
-				 * commonMethods.clickElementbyXpath(webPage, testData[i][6],
-				 * softAssert);
-				 * 
-				 * ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage,
-				 * testData[i][7], testData[i][3], testData[i][8], softAssert);
-				 * softAssert.assertTrue(ActualURL.contains(testData[i][2]),
-				 * "Link Name  :" + testData[i][3] + " : failed " +
-				 * "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" +
-				 * testData[i][2]); webPage.getDriver().get(url); }
-				 */
 				webPage.getDriver().get(url);
 			}
 			softAssert.assertAll();
@@ -588,11 +600,11 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 010 - verify links under Computer Accessories main menu Conns
+	 * Test Case - 012 - verify links under Computer Accessories main menu Conns
 	 * Home Page
 	 * 
 	 */
-	@Test(priority = 10, enabled = true, description = "Verify_LinksRedirection_Under_ComputerAccessories_Menu")
+	@Test(priority = 12, enabled = true, description = "Verify_LinksRedirection_Under_ComputerAccessories_Menu")
 	public void Verify_LinksRedirection_Under_ComputerAccessories_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
@@ -632,11 +644,11 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 011 - verify links under Financing and Promotions main menu
+	 * Test Case - 013 - verify links under Financing and Promotions main menu
 	 * Conns Home Page
 	 * 
 	 */
-	@Test(priority = 11, enabled = true, description = "Verify_LinksRedirection_Under_FinancingPromotions_Menu")
+	@Test(priority = 13, enabled = true, description = "Verify_LinksRedirection_Under_FinancingPromotions_Menu")
 	public void Verify_LinksRedirection_Under_FinancingPromotions_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
@@ -675,10 +687,10 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 012 - verify Yes Banner Conns Home Page
+	 * Test Case - 014 - verify Yes Banner Conns Home Page
 	 * 
 	 */
-	@Test(priority = 12, enabled = true, description = "Verify_ApplyNow_LinkRedirection_In_YesMoney_Banner")
+	@Test(priority = 14, enabled = true, description = "Verify_ApplyNow_LinkRedirection_In_YesMoney_Banner")
 	public void Verify_ApplyNow_LinkRedirection_In_YesMoney_Banner() {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
@@ -686,8 +698,7 @@ public class Conns_Home_Page extends BaseTest {
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYesMeBanner");
 			ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[0][1], testData[0][0], softAssert);
-			softAssert.assertTrue(ActualURL.contains(testData[0][4]),"Expected url: "+testData[0][4]+" Actual url: "+ActualURL);	
-			webPage.getDriver().get(url);
+			softAssert.assertTrue(ActualURL.contains(testData[0][4]),"Expected url: "+testData[0][4]+" Actual url: "+ActualURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_ApplyNow_LinkRedirection_In_YesMoney_Banner");
@@ -697,14 +708,14 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 013 - verify NextDay Banner Conns Home Page
+	 * Test Case - 015 - verify NextDay Banner Conns Home Page
 	 * 
 	 */
-	@Test(priority = 13, enabled = true, description = "Verify_MoreInfo_LinkRedirection_In_NextDayDeleivery_Banner")
+	@Test(priority = 15, enabled = true, description = "Verify_MoreInfo_LinkRedirection_In_NextDayDeleivery_Banner")
 	public void Verify_MoreInfo_LinkRedirection_In_NextDayDeleivery_Banner() {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyNextDayDeliveryBanner");
@@ -727,10 +738,10 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 014 - verify Save Big With Conns section Conns Home Page
+	 * Test Case - 016 - verify Save Big With Conns section Conns Home Page
 	 * 
 	 */
-	@Test(priority = 14, enabled = true, description = "Verify_Details_Under_Save_Big_With_Conns_Latest_Deals")
+	@Test(priority = 16, enabled = true, description = "Verify_Details_Under_Save_Big_With_Conns_Latest_Deals")
 	public void Verify_Details_Under_Save_Big_With_Conns_Latest_Deals() throws PageException, InterruptedException {
 		webPage.getDriver().get(url);
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifySaveBigWithConns");
@@ -739,14 +750,14 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 015 - verify Top Category links Conns Home Page
+	 * Test Case - 017 - verify Top Category links Conns Home Page
 	 * 
 	 */
-	@Test(priority = 15, enabled = true, description = "Verify_Top_Categories_LinksRedirection")
+	@Test(priority = 17, enabled = true, description = "Verify_Top_Categories_LinksRedirection")
 	public void Verify_Top_Categories_LinksRedirection() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyTopCategorySection");
 			for (int i = 0; i < testData.length; i++) {
@@ -785,16 +796,16 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 016 - verify Build Your Own Financial Future Banner Conns
+	 * Test Case - 018 - verify Build Your Own Financial Future Banner Conns
 	 * Home Page
 	 * 
 	 */
-	@Test(priority = 16, enabled = true, description = "Verify_Top_Categories_LinksRedirection")
+	@Test(priority = 18, enabled = true, description = "Verify_Top_Categories_LinksRedirection")
 	public void Verify_LearnMore_LinkRedirection_Under_Build_Your_Own_Financial_Future_Banner()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+	  webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyBuildYourOwnFinancialFutureBanner");
@@ -841,15 +852,15 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 017 - verify Help Children Banner Conns Home Page
+	 * Test Case - 019 - verify Help Children Banner Conns Home Page
 	 * 
 	 */
-	@Test(priority = 17, enabled = true, description = "Verify_LearnMore_LinkRedirection_Under_Helping_Children_Thrive_Banner")
+	@Test(priority = 19, enabled = true, description = "Verify_LearnMore_LinkRedirection_Under_Helping_Children_Thrive_Banner")
 	public void Verify_LearnMore_LinkRedirection_Under_Helping_Children_Thrive_Banner()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyHelpChildrenBanner");
 			for (int i = 0; i < testData.length; i++) {
@@ -896,15 +907,15 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 018 - verify Six Reasons Banner Conns Home Page
+	 * Test Case - 020 - verify Six Reasons Banner Conns Home Page
 	 * 
 	 */
-	@Test(priority = 18, enabled = true, description = "Verify_LearnMore_LinkRedirection_Under_SixReasons_ToShop_Banner")
+	@Test(priority = 20, enabled = true, description = "Verify_LearnMore_LinkRedirection_Under_SixReasons_ToShop_Banner")
 	public void Verify_LearnMore_LinkRedirection_Under_SixReasons_ToShop_Banner()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifySixReasonsBanner");
 			for (int i = 0; i < testData.length; i++) {
@@ -950,14 +961,14 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 019 - verify Promotions Banner Conns Home Page
+	 * Test Case - 021 - verify Promotions Banner Conns Home Page
 	 * 
 	 */
-	@Test(priority = 19, enabled = true, description = "Verify_LearnMore_LinkRedirection_Under_Promotions_Banner")
+	@Test(priority = 21, enabled = true, description = "Verify_LearnMore_LinkRedirection_Under_Promotions_Banner")
 	public void Verify_LearnMore_LinkRedirection_Under_Promotions_Banner() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		 webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyPromotionsBanner");
 			for (int i = 0; i < testData.length; i++) {
@@ -1002,14 +1013,14 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 020 - verify Follow Us Section Conns Home Page
+	 * Test Case - 022 - verify Follow Us Section Conns Home Page
 	 * 
 	 */
-	@Test(priority = 20, enabled = true, description = "Verify_LinkRedirection_Under_Follow_Us_Section")
+	@Test(priority = 22, enabled = true, description = "Verify_LinkRedirection_Under_Follow_Us_Section")
 	public void Verify_LinkRedirection_Under_Follow_Us_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		 webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFollowUsSection");
 			for (int i = 0; i < testData.length; i++) {
@@ -1050,14 +1061,14 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 021 - verify BBBRating Banner Conns Home Page
+	 * Test Case - 023 - verify BBBRating Banner Conns Home Page
 	 * 
 	 */
-	@Test(priority = 21, enabled = true, description = "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner")
+	@Test(priority = 23, enabled = true, description = "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner")
 	public void Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		 webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyBBBRatingBanner");
 			if(testType.equalsIgnoreCase("Mobile")){
@@ -1065,8 +1076,6 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[0][1], testData[0][0], softAssert);
 			softAssert.assertTrue(ActualURL.contains(testData[0][4]),"Expected url: "+testData[0][4]+" Actual url: "+ActualURL);
-			
-			webPage.getDriver().get(url);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner");
@@ -1076,14 +1085,14 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 022 - verify links under About Conns footer Conns Home Page
+	 * Test Case - 024 - verify links under About Conns footer Conns Home Page
 	 * 
 	 */
-	@Test(priority = 22, enabled = true, description = "Verify_LinkRedirection_Under_Footer_About_Conns_Section")
+	@Test(priority = 24, enabled = true, description = "Verify_LinkRedirection_Under_Footer_About_Conns_Section")
 	public void Verify_LinkRedirection_Under_Footer_About_Conns_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyFooterAboutConnsLinks");
@@ -1097,7 +1106,7 @@ public class Conns_Home_Page extends BaseTest {
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
 					log.info("Inside the 2nd if. Value of I : " + i);
-					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][2], testData[i][0],softAssert);
+					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][2], testData[i][0], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
@@ -1120,16 +1129,16 @@ public class Conns_Home_Page extends BaseTest {
 	}
 
 	/**
-	 * Test Case - 023 - verify links under Customer Service footer Conns Home
+	 * Test Case - 025 - verify links under Customer Service footer Conns Home
 	 * Page
 	 * 
 	 */
-	@Test(priority = 23, enabled = true, description = "Verify_LinkRedirection_Under_Footer_Customer_Service_Section")
+	@Test(priority = 25, enabled = true, description = "Verify_LinkRedirection_Under_Footer_Customer_Service_Section")
 	public void Verify_LinkRedirection_Under_Footer_Customer_Service_Section()
 			throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
-		// webPage.getDriver().get(url);
+		 webPage.getDriver().get(url);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyFooterCustomerServiceSectionLinks");
@@ -1170,44 +1179,7 @@ public class Conns_Home_Page extends BaseTest {
 		}
 	}
 
-	/**
-	 * Test Case - 024 - verify Footer We Accpet Conns Home Page
-	 * 
-	 */
-	@Test(priority = 24, enabled = true, description = "Verify_Element_Visibility_Under_We_Accept_Section")
-	public void Verify_Element_Visibility_Under_We_Accept_Section() throws PageException, InterruptedException {
-		SoftAssert softAssert = new SoftAssert();
-		// webPage.getDriver().get(url);
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFooterWeAccpet");
-			boolean statusOfWeAccept = commonMethods.verifyElementisPresent(webPage, testData[0][0], softAssert);
-			softAssert.assertTrue(statusOfWeAccept, "We accept images are not present on the page");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Element_Visibility_Under_We_Accept_Section");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * Test Case - 025 - verify Footer Copyright Conns Home Page
-	 * 
-	 */
-	@Test(priority = 25, enabled = true, description = "Verify_Content_Under_Footer_Copyright_Section")
-	public void Verify_Content_Under_Footer_Copyright_Section() throws PageException, InterruptedException {
-		SoftAssert softAssert = new SoftAssert();
-		// webPage.getDriver().get(url);
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFooterCopyright");
-			String homeplusText1 = commonMethods.getTextbyXpath(webPage, testData[0][0], softAssert);
-			softAssert.assertEquals(homeplusText1, testData[0][1]);
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_Content_Under_Footer_Copyright_Section");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
+	
 
 	public void verifySaveBigWithConnsSection(String[][] test) throws PageException {
 		SoftAssert softAssert = new SoftAssert();
