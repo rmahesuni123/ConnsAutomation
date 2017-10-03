@@ -679,24 +679,35 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				 * actualUrl + " not same as " + linkData[0][2]); }
 				 */
 				for (int i = 1; i < linkData.length; i++) {
-					if ((i==5) || (i==6)){
+					if ((i==5)){
 						log.info("Started Iteration" + i);
-						//webPage.getDriver().navigate().refresh();
 						((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
 						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 						CommonMethods.waitForGivenTime(3);
 						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
-						//webPage.getDriver().get(DashboardURL);
-						/*commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
-						commonMethods.clickElementbyXpath(webPage, linkData[4][3], softAssert);	*/	
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 						log.info("Navigate Back for " + testBedName.toString());
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 						log.info("Navigate Back for " + testBedName.toString());
 						CommonMethods.waitForGivenTime(3);
-						
+					}
+					
+					if ((i==6)){
+						log.info("Started Iteration" + i);
+						((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
+						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
+						CommonMethods.waitForGivenTime(3);
+						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
+								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
+						log.info("Navigate Back for " + testBedName.toString());
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
+						log.info("Navigate Back for " + testBedName.toString());
+						CommonMethods.waitForGivenTime(3);
+					}
 						/*if ((testBedName.equalsIgnoreCase("InternetExplorer")) || (testBedName.equalsIgnoreCase("Firefox"))
 						   || (testBedName.equalsIgnoreCase("Chrome"))) {
 							log.info("Started Iteration" + i);
@@ -712,7 +723,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 						CommonMethods.waitForGivenTime(2);
 						}*/
-					}
+					
 					else{
 					log.info("Started Iteration" + i);
 					/*((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
