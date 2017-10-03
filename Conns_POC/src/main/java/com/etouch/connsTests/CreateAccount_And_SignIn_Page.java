@@ -51,7 +51,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	String[][] commonData;
 	boolean userLoggedIn = false;
 	String[][] YesLeaseData;
-	CreateAccountAndSignInPage CreateAccountAndSignInPage;
+	CreateAccountAndSignInPage createAccountAndSignInPage;
 
 	/*** Prepare before class @throws Exception the exception */
 	@BeforeClass(alwaysRun = true)
@@ -79,7 +79,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
-					CreateAccountAndSignInPage = new CreateAccountAndSignInPage(url, webPage);
+					createAccountAndSignInPage = new CreateAccountAndSignInPage(url, webPage);
 					log.info(mainPage);
 				}
 			} catch (Exception e) {
@@ -468,7 +468,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		if (userLoggedIn == true) {
 			try {
-				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 				webPage.getDriver().get(commonData[8][1]);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
@@ -550,7 +549,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void Verify_Address_Book() throws ClientProtocolException, IOException {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			webPage.getDriver().get(commonData[8][1]);
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			// new code
