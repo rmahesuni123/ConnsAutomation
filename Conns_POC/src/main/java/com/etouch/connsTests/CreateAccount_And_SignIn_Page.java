@@ -157,17 +157,17 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				
 				else {
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+							"CSS value verification failed for link " + ExpectedFontValues[i][2]
 									+ "Expected font Size  : " + ExpectedFontValues[i][2] + " Actual Font Size   : "
 									+ actualCssValues.get(0));
 					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][3]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+							"CSS value verification failed for link " + ExpectedFontValues[i][3]
 									+ "Expected font color : " + ExpectedFontValues[i][3] + " Actual font color : "
 									+ actualCssValues.get(1));
 					softAssert.assertTrue(
 							actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "")
 									.contains((ExpectedFontValues[i][4]).toLowerCase()),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
+							"CSS value verification failed for link " + ExpectedFontValues[i][4]
 									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
 									+ actualCssValues.get(2));
 				}
