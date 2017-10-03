@@ -102,7 +102,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
-					"Verify_Web_Font_And_Size_Login_Page");
+					"Verify_Font_And_Size_Login_Page");
 			/*String [] [] Mobile_ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 					"Verify_Mobile_Font_And_Size_Login_Page");*/
 			for (int i = 0; i < ExpectedFontValues.length; i++) {
