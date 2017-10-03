@@ -87,11 +87,13 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					log.info(mainPage);
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
 			}
 			CommonMethods.navigateToPage(webPage, signInURL);
 		} catch (Exception e) {
+			e.printStackTrace();
 			CommonUtil.sop("errr is for" + testBedName + " -----------" + e);
 			SoftAssertor.addVerificationFailure(e.getMessage());
 		}
@@ -125,7 +127,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 									+ actualCssValues.get(2));
 				}
 				
-				if ((testBedName.equalsIgnoreCase("edge"))) {
+				if ((testBedName.equalsIgnoreCase("edge"))|| (testBedName.equalsIgnoreCase("IPadNative")) ) {
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][7]),
 							"CSS value verification failed for link " + ExpectedFontValues[i][0]
 									+ "Expected font Size  : " + ExpectedFontValues[i][7] + " Actual Font Size  : "
@@ -162,6 +164,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size_Login_Page");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -189,6 +192,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -211,6 +215,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			log.info("testing verify_SignInErrorMessage_with_Blank_Input completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_SignInErrorMessage_with_Blank_Input");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -236,6 +241,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			log.info("testing verify_SignInErrorMessage_with_Invalid_Input completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_SignInErrorMessage_with_Invalid_Input");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -279,6 +285,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			log.info("testing verify_Forgot_Password_Functionality completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Forgot_Password_Functionality");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -302,6 +309,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					+ testdata[0][1] + "Actual title :   " + actualPageTitle);
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Register_Link_Redirection_And_PageTitle");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -330,6 +338,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			log.info("testing verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage,
 					"verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer");
 			softAssert.assertAll();
@@ -353,6 +362,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Page_Title_For_Register_Link");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -379,6 +389,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Create_New_Customer_with_Invalid_Input");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -410,6 +421,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Create_New_Customer_with_Valid_Input");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -449,6 +461,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			softAssert.assertAll();
 			log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -479,6 +492,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				log.info("testing verify_NewsLetters completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
+				e.printStackTrace();
 				mainPage.getScreenShotForFailure(webPage, "verify_NewsLetters");
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
@@ -553,15 +567,21 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				}
+				CommonMethods.waitForGivenTime(10);
+				log.info("testing verify_Account_Information completed------> : " +webPage.getCurrentUrl());
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[5][1], softAssert),
 						testdata[5][2], "Verification failed for: " + testdata[5][1]);
 				softAssert.assertTrue(
 						commonMethods.getTextbyXpath(webPage, testdata[5][9], softAssert).contains(newEmailID),
 						"Verification failed for Contact Information: Xpath" + testdata[5][9] + "Does not contain "
 								+ testdata[5][5]);
+				
+				
+				
 				log.info("testing verify_Account_Information completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
+				e.printStackTrace();
 				mainPage.getScreenShotForFailure(webPage, "verify_Account_Information");
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
@@ -616,6 +636,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			}
 			CommonMethods.waitForGivenTime(10);
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -730,6 +751,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				log.info("testing verify_AccountDashboard_After_SignIn_with_ExistingUser completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
+				e.printStackTrace();
 				mainPage.getScreenShotForFailure(webPage, "verify_AccountDashboard_After_SignIn_with_ExistingUser");
 				softAssert.assertAll();
 				Assert.fail(e.getLocalizedMessage());
