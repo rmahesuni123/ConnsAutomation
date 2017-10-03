@@ -111,6 +111,7 @@ public class Conns_Home_Page extends BaseTest {
 	public void Verify_HomePage_Title() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
+			commonMethods.waitForPageLoad(webPage, softAssert);
 			// webPage.getDriver().get("http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "Verifytitle");
 			String ExpectedTitle = test[0][1];
