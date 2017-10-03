@@ -486,9 +486,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
 				String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][4], softAssert);
-				softAssert.assertEquals(actualMessage, testdata[0][5], "Newsletter Updation Message:");
+				softAssert.assertTrue(actualMessage.contains(testdata[0][5]), "Newsletter Updation Message:");
 				actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][6], softAssert);
-				softAssert.assertEquals(actualMessage, testdata[0][7], "Newsletter subscription Message:");
+				softAssert.assertTrue(actualMessage.contains(testdata[0][7]), "Newsletter subscription Message:");
 				log.info("testing verify_NewsLetters completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
