@@ -510,9 +510,19 @@ public class Conns_Credit_App_Page extends BaseTest {
 			LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = CommonMethods
 					.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
 			Thread.sleep(5000);
-			creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
-					verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
-					verifyErrorMessageForRefCodeData.get("RefCodeAccpetMessage"));
+			if(testType.equalsIgnoreCase("mobile"))
+			{
+				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
+						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
+						verifyErrorMessageForRefCodeData.get("RefCodeError"));
+				log.info("Reference not accepted as valid code. As test is running on Mobile device");
+			}
+			else{
+				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
+						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
+						verifyErrorMessageForRefCodeData.get("RefCodeAccpetMessage"));
+			}
+			
 			log.info("testing verify_Reference_Code_With_Valid_Required_Field_Data completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -615,7 +625,20 @@ public class Conns_Credit_App_Page extends BaseTest {
 					"verifyCreditAppSubmitWithRefField");
 			creditAppPage.navigateToCreditAppPage(softAssert);
 			creditAppPage.fillForm(softAssert, testData);
+			if(testType.equalsIgnoreCase("mobile"))
+			{
+				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
+				commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+				LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = CommonMethods
+						.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
+				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
+						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
+						verifyErrorMessageForRefCodeData.get("RefCodeError"));
+				log.info("Reference not accepted as valid code. As test is running on Mobile device");
+			}
+			else{
 			creditAppPage.submitCreditApp(softAssert);
+			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Credit_App_Submit_With_RefField");
