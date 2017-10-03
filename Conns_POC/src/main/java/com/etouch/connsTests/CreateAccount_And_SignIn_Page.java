@@ -51,7 +51,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	protected WebPage webPage;
 	private ConnsMainPage mainPage;
 	protected static CommonMethods commonMethods;
-	private String registerUrl, signInURL, forgetPasswordPageURL;
+	private String registerUrl, signInURL, forgetPasswordPageURL,DashboardURL;
 	String[][] commonData;
 	boolean userLoggedIn = false;
 	String[][] YesLeaseData;
@@ -101,28 +101,27 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void verify_Font_And_Size_Login_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] ExpectedFontValues;
-			ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 					"Verify_Web_Font_And_Size_Login_Page");
-			ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+			String [] [] Mobile_ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 					"Verify_Mobile_Font_And_Size_Login_Page");
 			for (int i = 0; i < ExpectedFontValues.length; i++) {
 				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
 						softAssert);
 				if ((testType.equalsIgnoreCase("Mobile") && (testBedName.equalsIgnoreCase("edge")))) {
-					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][5]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font Size  : " + ExpectedFontValues[i][5] + " Actual Font Size  : "
+					softAssert.assertTrue(actualCssValues.get(0).contains(Mobile_ExpectedFontValues[i][5]),
+							"CSS value verification failed for link " + Mobile_ExpectedFontValues[i][0]
+									+ "Expected font Size  : " + Mobile_ExpectedFontValues[i][5] + " Actual Font Size  : "
 									+ actualCssValues.get(0));
-					softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValues[i][6]),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font color : " + ExpectedFontValues[i][6] + " Actual font color : "
+					softAssert.assertTrue(actualCssValues.get(1).contains(Mobile_ExpectedFontValues[i][6]),
+							"CSS value verification failed for link " + Mobile_ExpectedFontValues[i][0]
+									+ "Expected font color : " + Mobile_ExpectedFontValues[i][6] + " Actual font color : "
 									+ actualCssValues.get(1));
 					softAssert.assertTrue(
 							actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "")
-									.contains((ExpectedFontValues[i][4]).toLowerCase()),
-							"CSS value verification failed for link " + ExpectedFontValues[i][0]
-									+ "Expected font family : " + ExpectedFontValues[i][4] + " Actual font family : "
+									.contains((Mobile_ExpectedFontValues[i][4]).toLowerCase()),
+							"CSS value verification failed for link " + Mobile_ExpectedFontValues[i][0]
+									+ "Expected font family : " + Mobile_ExpectedFontValues[i][4] + " Actual font family : "
 									+ actualCssValues.get(2));
 				} else {
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][2]),
@@ -662,35 +661,47 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				for (int i = 1; i < linkData.length; i++) {
 					if ((i==5) || (i==6)){
 						log.info("Started Iteration" + i);
+						//webPage.getDriver().navigate().refresh();
 						((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
 						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 						CommonMethods.waitForGivenTime(2);
 						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
+						//webPage.getDriver().get(DashboardURL);
 						/*commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
 						commonMethods.clickElementbyXpath(webPage, linkData[4][3], softAssert);	*/	
-						if ((testBedName.equalsIgnoreCase("InternetExplorer")) || (testBedName.equalsIgnoreCase("Firefox")) || (testBedName.equalsIgnoreCase("Chrome"))) {
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
+						CommonMethods.waitForGivenTime(2);
+						
+						/*if ((testBedName.equalsIgnoreCase("InternetExplorer")) || (testBedName.equalsIgnoreCase("Firefox"))
+						   || (testBedName.equalsIgnoreCase("Chrome"))) {
 							log.info("Started Iteration" + i);
 							log.info("Navigate Back for " + testBedName.toString());
 							webPage.getDriver().navigate().back();
+							CommonMethods.waitForGivenTime(2);
+							log.info("Navigate Back for " + testBedName.toString());
 							webPage.getDriver().navigate().back();
 						}
+
 						else{
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 						CommonMethods.waitForGivenTime(2);
-						}
+						}*/
 					}
 					else{
 					log.info("Started Iteration" + i);
-					((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
+					/*((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
+					webPage.getDriver().navigate().refresh();*/
 					commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 					CommonMethods.waitForGivenTime(2);
 					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 					softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+					//webPage.getDriver().get(DashboardURL);
 					CommonMethods.waitForGivenTime(2);
 					//webPage.getDriver().navigate().refresh();
 					}
