@@ -82,12 +82,12 @@ public class Conns_Home_Page extends BaseTest {
 				storeLocatorURL = commonData[0][0];
 				platform = testBed.getPlatform().getName().toUpperCase();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
-			//	testBedName.equalsIgnoreCase("Safari")
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
 					ConnsHomePage = new ConnsHomePage(url, webPage);
 				}
+				Thread.sleep(5000);
 			} catch (Exception e) {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
