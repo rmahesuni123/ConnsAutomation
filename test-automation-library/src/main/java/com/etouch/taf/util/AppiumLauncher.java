@@ -147,7 +147,7 @@ public class AppiumLauncher {
 		capabilities.setCapability("deviceName", "HT45FWM07753");
 
 		AppiumDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4733/wd/hub"), capabilities);
-		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 		Thread.sleep(3000);
 
 		driver.get("http://www.amajon.com");
@@ -164,7 +164,7 @@ public class AppiumLauncher {
 		capabilities.setCapability("bundleId", "com.example.apple-samplecode.Recipes");
 
 		AppiumDriver driver = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 		Thread.sleep(3000);
 	}
 	
