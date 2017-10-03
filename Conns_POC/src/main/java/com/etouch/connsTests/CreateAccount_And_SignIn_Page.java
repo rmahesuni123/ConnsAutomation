@@ -111,7 +111,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValues[i][1],
 						softAssert);
 				if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge"))  {
-					log.info(("Edge IPad TestBedName : " +testBedName.toString()));
+					log.info(("Edge TestBedName : " +testBedName.toString()));
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][7]),
 							"CSS value verification failed for font size " + ExpectedFontValues[i][7]
 									+ "Expected font Size  : " + ExpectedFontValues[i][7] + " Actual Font Size  : "
@@ -137,7 +137,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 									+ actualCssValues.get(2));
 				}
 				else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")){
-					log.info(("Edge IPad TestBedName : " +testBedName.toString()));
+					log.info(("IPadNative TestBedName : " +testBedName.toString()));
 					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValues[i][7]),
 							"CSS value verification failed for font size " + ExpectedFontValues[i][7]
 									+ "Expected font Size  : " + ExpectedFontValues[i][7] + " Actual Font Size  : "
