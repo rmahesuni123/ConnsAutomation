@@ -526,7 +526,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				Thread.sleep(3000);
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+					webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
+				}else {
 				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
+				}
 				for (int i = 3; i < 6; i++) {
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][i], softAssert),
 							testdata[1][1], "Error Message: failed for: " + testdata[1][i]);
