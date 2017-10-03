@@ -13,6 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -595,8 +596,104 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+	
+	
+	
+	// || testBedName.equalsIgnoreCase("edge")
+		@Test(priority = 314, enabled = true)
+		public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
+			log.info("******Started verify_AccountDashboard_After_SignIn_with_ExistingUser ********");
+			SoftAssert softAssert = new SoftAssert();
+			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+				if (commonMethods.verifyElementisPresent(webPage, commonData[10][1], softAssert)) {
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, commonData[9][1], softAssert);
+				} else {
+					if (!commonMethods.verifyElementisPresent(webPage, commonData[4][1], softAssert)) {
+						commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
+						CommonMethods.waitForGivenTime(10);
+					}
+				}
+			}
+			/*
+			 * if (testType.equalsIgnoreCase("Web")) { if
+			 * (!commonMethods.verifyElementisPresent(webPage, commonData[4][1],
+			 * softAssert)) { commonMethods.clickElementbyXpath(webPage,
+			 * commonData[6][1], softAssert); CommonMethods.waitForGivenTime(10); }
+			 * } else { if (commonMethods.verifyElementisPresent(webPage,
+			 * commonData[10][1], softAssert)) {
+			 * commonMethods.clickElementbyXpath_usingJavaScript(webPage,
+			 * commonData[9][1], softAssert); } }
+			 */
+			webPage.getDriver().get(signInURL);
+			try {
+				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+						"verify_SignIn_With_Valid_Input");
+				for (int i = 0; i < 2; i++) {
+					commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
+				}
+				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
+				CommonMethods.waitForGivenTime(5);
+				// CommonMethods.waitForWebElement(By.xpath(testdata[3][1]),
+				// webPage);
+				// String actualMessage = commonMethods.getTextbyXpath(webPage,
+				// testdata[3][1], softAssert);
+				// softAssert.assertTrue(actualMessage.equalsIgnoreCase(testdata[3][2]),
+				// "SuccessFul user Login:");
+				// Dashboard Verification
+				webPage.getDriver().get(commonData[8][1]);
+				String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+						"verify_Account_Dashboard");
+				/*
+				 * if (testType.equalsIgnoreCase("Web")) {
+				 * commonMethods.clickElementbyXpath(webPage, linkData[0][1],
+				 * softAssert); CommonMethods.waitForGivenTime(2); String actualUrl
+				 * = commonMethods.getPageUrl(webPage, softAssert);
+				 * softAssert.assertTrue(actualUrl.contains(linkData[0][2]),
+				 * "Page URL navigation failed for :" + linkData[0][0] + " URL:" +
+				 * actualUrl + " not same as " + linkData[0][2]); }
+				 */
+				for (int i = 1; i < linkData.length; i++) {
+					if ((i==5) || (i==6)){
+						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
+						CommonMethods.waitForGivenTime(2);
+						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
+								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
+						/*commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+						commonMethods.clickElementbyXpath(webPage, linkData[4][3], softAssert);	*/		
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
+						CommonMethods.waitForGivenTime(2);
+					}
+					else{
+					log.info("Started Iteration" + i);
+					commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
+					CommonMethods.waitForGivenTime(2);
+					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+					softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
+							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
+					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+					webPage.getDriver().navigate().refresh();
+					//CommonMethods.waitForGivenTime(2);
+					}
+					
+				}
+				log.info("testing verify_AccountDashboard_After_SignIn_with_ExistingUser completed------>");
+				softAssert.assertAll();
+			} catch (Throwable e) {
+				mainPage.getScreenShotForFailure(webPage, "verify_AccountDashboard_After_SignIn_with_ExistingUser");
+				softAssert.assertAll();
+				Assert.fail(e.getLocalizedMessage());
+			}
+		}
 
-	@Test(priority = 314, enabled = true)
+}
+	
+	
+	
+
+	/*@Test(priority = 314, enabled = true)
 	public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
 		log.info("******Started verify_AccountDashboard_After_SignIn_with_ExistingUser ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -632,6 +729,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "verify_AccountDashboard_After_SignIn_with_ExistingUser");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
+		
 		}
-	}
-}
+		
+		}
+	}*/
+	
+
