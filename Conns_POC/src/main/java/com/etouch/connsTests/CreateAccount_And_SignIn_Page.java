@@ -560,7 +560,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}
 				Thread.sleep(3000);
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+					log.info("Validation for Blank Data Keys.Enter Started----->");
 					webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
+					log.info("Validation for Blank Data Keys.Enter Completed----->");
 				}else {
 				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
 				}
@@ -589,7 +591,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				log.info("Validation for Valid Data Started----->");
 				// With Valid Data
 				for (int i = 3; i < 9; i++) {
-					webPage.getDriver().navigate().refresh();
+					//webPage.getDriver().navigate().refresh();
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				String newEmailID = "New" + CreateAccountAndSignInPage.CreateNewEmailID();
