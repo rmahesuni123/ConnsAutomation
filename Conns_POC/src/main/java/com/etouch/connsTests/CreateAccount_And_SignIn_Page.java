@@ -17,6 +17,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -539,6 +540,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void verify_Account_Information() throws InterruptedException {
 		log.info("******Started verify_Account_Information ********");
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		if (userLoggedIn == true) {
 			try {
 				webPage.getDriver().get(commonData[8][1]);
@@ -576,11 +578,25 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				for (int i = 3; i < 9; i++) {
 					commonMethods.sendKeysbyXpath(webPage, testdata[0][i], testdata[2][i], softAssert);
 				}
-				if (testBedName.equalsIgnoreCase("Safari")) {
+				log.info("<------------Saving Account Information Form With Invalid Inputs----->");
+				//js.executeScript("scroll(0, 250);");
+				//commonMethods.clickElementbyXpath(webPage, testdata[0][12], softAssert);
+				
+				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
+				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
+				executor.executeScript("arguments[0].click();", element);
+				
+				//commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
+				log.info("<------------Account Information Form Saved With Invalid Inputs----->");
+				
+				/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+					log.info("<------------Saving Account Information Form With Invalid Inputs----->");
+					js.executeScript("scroll(0, 250);");
 					commonMethods.clickElementbyXpath(webPage, testdata[0][12], softAssert);
+					log.info("<------------Account Information Form Saved With Invalid Inputs----->");
 				} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
-				}
+				}*/
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[3][5], softAssert),
 						testdata[4][5], "Error Message: failed for: " + testdata[3][5]);
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[3][7], softAssert),
