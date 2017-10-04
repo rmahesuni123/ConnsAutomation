@@ -792,7 +792,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					
 					
 					if ((testBedName.equalsIgnoreCase("edge")) ){
-						log.info("Only Edge Execution Starts " + testBedName.toString());
+						log.info("Only Edge Browser Execution Starts " + testBedName.toString());
 						if ((i==5) || ((i==6))){
 							log.info("Started Iteration" + i);
 							//((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
