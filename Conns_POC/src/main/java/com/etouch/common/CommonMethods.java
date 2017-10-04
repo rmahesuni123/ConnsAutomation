@@ -71,7 +71,7 @@ public class CommonMethods {
 			log.info("Verifying if element is present by locator - "+locator);
 			isElementPresent = webPage.findObjectByxPath(locator).isDisplayed();
 		}catch(Throwable e){
-			softAssert.fail("Element not visible using locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
+			log.info("Element not visible using locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return isElementPresent;
 	}
@@ -258,6 +258,14 @@ public class CommonMethods {
 			cssValue = webPage.findObjectByxPath(locator).getCssValue(cssName);
 			if(cssName.equalsIgnoreCase("color")||cssName.equalsIgnoreCase("background-color")){
 				cssValue=Color.fromString(cssValue).asHex();
+			}
+			if(cssName.equalsIgnoreCase("font-weight")){
+				if(cssValue.equalsIgnoreCase("700")){
+					cssValue = "bold";
+				}
+				if(cssValue.equalsIgnoreCase("400")){
+					cssValue = "normal";
+				}
 			}
 			log.info("Actual CSS value: "+cssValue);
 		} catch (PageException e) {

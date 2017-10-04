@@ -521,13 +521,21 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 						try{
 							log.info("Overlay box open by default, closing it to mark pick-up checkbox");
 							commonMethods.clickElementbyXpath(webPage, commonData[4][1], softAssert);
-							
+							Thread.sleep(2000);
 						}catch(Exception e){
-							log.info("Clicking Add to Cart button not required as Overlay box is already open");
+							log.info("Unable to close overlay box");
 						}
 					}
-					log.info("Opening overlay box");
+					log.info("Clicking on pickup checkbox");
 					commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
+					boolean isPickupChecked = webPage.getDriver().findElement(By.xpath(commonData[6][1])).isSelected();
+					log.info("isPickupChecked"+isPickupChecked);
+					while(!isPickupChecked){
+						log.info("Re-clicking on pickup checkbox");
+						commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
+						log.info("isPickupChecked"+isPickupChecked);
+					}
+					log.info("Opening overlay box");
 					commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
 					Thread.sleep(3000);
 					isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
