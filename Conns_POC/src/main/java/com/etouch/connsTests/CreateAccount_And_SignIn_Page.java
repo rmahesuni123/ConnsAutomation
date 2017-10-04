@@ -118,7 +118,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	        log.info("height value calculated is :" +height);
 	        Dimension dimension  = new Dimension(width, height);			
 	        System.out.println("Dimensions" + dimension);        
-	        if (testType.equalsIgnoreCase("Web")) 
+	        if (!(testType.equalsIgnoreCase("Web")) && testBedName.equalsIgnoreCase("edge"))
 			{	log.info("********************TestType for Web started execution***************   : " + testType.toString());
 				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) 
 				{
