@@ -81,6 +81,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				registerUrl = commonData[1][1];
 				signInURL = commonData[2][1];
 				forgetPasswordPageURL = commonData[3][1];
+				DashboardURL=commonData[8][1];
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
@@ -803,7 +804,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 									+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 							//webPage.getDriver().navigate().back();
 							//webPage.getDriver().get(DashboardURL);
-							webPage.getDriver().navigate().to(DashboardURL);
+							commonMethods.navigateToPage(webPage,DashboardURL, softAssert);	
+							//webPage.getDriver().navigate().to(DashboardURL);
 							CommonMethods.waitForGivenTime(3);
 							//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 							log.info("Navigate Back for " + testBedName.toString());
