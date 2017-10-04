@@ -592,12 +592,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					
 					commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);
-					
-				} else {
+					} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
-				
-				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
+				WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
+				js.executeScript("arguments[0].click();", element_3);
+				//commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				
 				/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
@@ -607,8 +607,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				}*/
-				CommonMethods.waitForGivenTime(5);
-				log.info("Validation for Blank Data Starte----->");
+				CommonMethods.waitForGivenTime(1);
+				log.info("Validation for Blank Data Starts----->");
 				// Validate with blank data
 				for (int i = 3; i < 6; i++) {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
@@ -616,7 +616,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Thread.sleep(3000);
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					log.info("Validation for Blank Data Keys.Enter Started----->");
-					webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
+					//webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
 					/*WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
 					js.executeScript("arguments[0].click();", element);*/
 					log.info("Validation for Blank Data Keys.Enter Completed----->");
