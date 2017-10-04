@@ -709,11 +709,14 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					log.info("Validation for Valid Data Input Completed----->  ");
 				}else {*/
 
-				if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testBedName.equalsIgnoreCase("Safari")) {
+				if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {
 					 //js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 					commonMethods.navigateToPage(webPage,DashboardURL, softAssert);	
 					 log.info("testing verify_Account_Information completed------>");
 				 }
+				else if (testBedName.equalsIgnoreCase("edge")) {
+					js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+				}
 				 else{
 				
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[5][1], softAssert),
