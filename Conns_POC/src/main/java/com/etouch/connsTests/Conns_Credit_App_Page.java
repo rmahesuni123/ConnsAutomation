@@ -153,7 +153,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 			int s;
 			if (testType.equalsIgnoreCase("Web")) {
 				s = 3;
-			} else {
+			}
+			else if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().contains("iPad"))
+			{
+				s=4;
+			}
+			else {
 				s = 2;
 			}
 			for (int r = 0; r < test.length; r++) {
