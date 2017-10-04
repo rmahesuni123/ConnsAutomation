@@ -1065,7 +1065,7 @@ public class Conns_Home_Page extends BaseTest {
 	 * Test Case - 023 - verify BBBRating Banner Conns Home Page
 	 * 
 	 */
-	@Test(priority = 23, enabled = true, description = "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner")
+	@Test(priority = 23, enabled = false, description = "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner")
 	public void Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
