@@ -632,43 +632,37 @@ public class CommonMethods {
 		int imageCount = 0;
 		List<Integer> brokenImageNumber = new ArrayList<Integer>();
 		List<String> brokenImageSrc = new ArrayList<String>();
-		for (WebElement image : imagesList) 		
-		{
-			try {
-				imageCount++;				
-				log.info("Verifying image number : " + imageCount);
-				HttpClient client = HttpClientBuilder.create().build();
-				HttpGet request = new HttpGet(image.getAttribute("src"));
-
-				HttpResponse response = client.execute(request);
-				//log.info("src : " + image.getAttribute("src"));
-				//log.info("response.getStatusLine().getStatusCode() : " + response.getStatusLine().getStatusCode());
-				if (response.getStatusLine().getStatusCode() == 200||response.getStatusLine().getStatusCode() == 451) {
-					log.info("Image number " + imageCount + " is as expected "
-							+ response.getStatusLine().getStatusCode());
-				} else {
+		for (WebElement image : imagesList) {
+			if (!image.getAttribute("src").contains("http://bat.bing.com/")) {
+				try {
+					imageCount++;
+					log.info("Verifying image number : " + imageCount);
+					HttpClient client = HttpClientBuilder.create().build();
+					HttpGet request = new HttpGet(image.getAttribute("src"));
+					HttpResponse response = client.execute(request);
+					if (response.getStatusLine().getStatusCode() == 200
+							|| response.getStatusLine().getStatusCode() == 451) {
+						log.info("Image number " + imageCount + " is as expected "
+								+ response.getStatusLine().getStatusCode());
+					} else {
+						brokenImageNumber.add(imageCount);
+						brokenImageSrc.add(image.getAttribute("src"));
+						log.info("Image number " + imageCount + " is not as expected "
+								+ response.getStatusLine().getStatusCode());
+						log.info("Broken Image source is : " + image.getAttribute("src"));
+					}
+				} catch (Exception e) {
+					log.info("Image number ....." + imageCount + " is not as expected ");
 					brokenImageNumber.add(imageCount);
 					brokenImageSrc.add(image.getAttribute("src"));
-					log.info("Image number " + imageCount + " is not as expected "
-							+ response.getStatusLine().getStatusCode());
-					log.info("Broken Image source is : " + image.getAttribute("src"));
-
+					log.info("imageCount  : " + imageCount + " : " + brokenImageSrc);
 				}
-			} catch (Exception e) {
-				log.info("Image number ....." + imageCount + " is not as expected ");
-				brokenImageNumber.add(imageCount);
-				brokenImageSrc.add(image.getAttribute("src"));
-				log.info("imageCount  : " + imageCount + " : " + brokenImageSrc);			
 			}
-
 		}
 		if (brokenImageNumber.size() > 0) {
-
 			Assert.fail("Broken Image number : " + Arrays.deepToString(brokenImageNumber.toArray())
-			+ "\nImage source of the Broken image : " + Arrays.deepToString(brokenImageSrc.toArray()));
-
+					+ "\nImage source of the Broken image : " + Arrays.deepToString(brokenImageSrc.toArray()));
 		}
-
 	}
 	
 	/**
