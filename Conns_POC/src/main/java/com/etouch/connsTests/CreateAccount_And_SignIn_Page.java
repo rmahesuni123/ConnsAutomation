@@ -812,7 +812,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						}else {
 						
 						log.info("Started Iteration" + i);
-						((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
+						//((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
 						/*webPage.getDriver().navigate().refresh();*/
 						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 						CommonMethods.waitForGivenTime(5);
