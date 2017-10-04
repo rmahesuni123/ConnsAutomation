@@ -204,7 +204,7 @@ public class Conns_Home_Page extends BaseTest {
 											+ ". Expected font Size: " + ExpectedFontValuesTab[i][2]
 											+ " Actual Font Size: " + actualCssValues.get(0));
 						}
-						if (!ExpectedFontValuesTab[i][3].equalsIgnoreCase("NA")) {
+						/*if (!ExpectedFontValuesTab[i][3].equalsIgnoreCase("NA")) {
 							softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValuesTab[i][3]),
 									"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]
 											+ ". Expected font color: " + ExpectedFontValuesTab[i][3]
@@ -249,7 +249,7 @@ public class Conns_Home_Page extends BaseTest {
 									"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]
 											+ ". Expected Text Transform: " + ExpectedFontValuesTab[i][8]
 											+ " Actual Text Transform: " + actualCssValues.get(6));
-						}
+						}*/
 					}
 				} else {
 					for (int i = 0; i < ExpectedFontValuesMobile.length; i++) {
