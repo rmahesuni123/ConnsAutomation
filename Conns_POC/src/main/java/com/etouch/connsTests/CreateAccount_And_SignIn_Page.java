@@ -492,6 +492,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 				} else {
+					log.info("Inside else");
 					commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
 				}
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
