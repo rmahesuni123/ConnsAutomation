@@ -588,6 +588,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				log.info("Validation for Valid Data Started----->");
 				// With Valid Data
 				for (int i = 3; i < 9; i++) {
+					webPage.getDriver().navigate().refresh();
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				String newEmailID = "New" + CreateAccountAndSignInPage.CreateNewEmailID();
@@ -776,7 +777,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						}*/
 					
 					if ((testBedName.equalsIgnoreCase("InternetExplorer")) || (testBedName.equalsIgnoreCase("Firefox"))
-					   || (testBedName.equalsIgnoreCase("Chrome")) || (testBedName.equalsIgnoreCase("edge"))) {
+					   || (testBedName.equalsIgnoreCase("Chrome"))) {
 					log.info("Started Iteration" + i);
 					((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
 					/*webPage.getDriver().navigate().refresh();*/
@@ -789,6 +790,39 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					CommonMethods.waitForGivenTime(5);
 					}
 					
+					
+					if ((testBedName.equalsIgnoreCase("edge")) ){
+						log.info("Only Edge Execution Starts " + testBedName.toString());
+						if ((i==5) || ((i==6))){
+							log.info("Started Iteration" + i);
+							//((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
+							commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
+							CommonMethods.waitForGivenTime(3);
+							String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+							softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
+									+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
+							log.info("Navigate Back for " + testBedName.toString());
+							js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
+							log.info("Navigate Back for " + testBedName.toString());
+							CommonMethods.waitForGivenTime(3);
+						}else {
+						
+						log.info("Started Iteration" + i);
+						((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
+						/*webPage.getDriver().navigate().refresh();*/
+						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
+						CommonMethods.waitForGivenTime(5);
+						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
+								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
+						commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+						CommonMethods.waitForGivenTime(5);
+						}
+							 
+					
+					
+				}
 				}
 				log.info("testing verify_AccountDashboard_After_SignIn_with_ExistingUser completed------>");
 				softAssert.assertAll();
