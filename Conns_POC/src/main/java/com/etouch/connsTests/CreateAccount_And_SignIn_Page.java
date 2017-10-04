@@ -801,11 +801,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 							softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 									+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
-							webPage.getDriver().navigate().back();
+							//webPage.getDriver().navigate().back();
+							webPage.getDriver().get(DashboardURL);
 							CommonMethods.waitForGivenTime(3);
 							//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 							log.info("Navigate Back for " + testBedName.toString());
-							webPage.getDriver().navigate().back();
+							//webPage.getDriver().navigate().back();
 							//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 							log.info("Navigate Back for " + testBedName.toString());
 							CommonMethods.waitForGivenTime(3);
