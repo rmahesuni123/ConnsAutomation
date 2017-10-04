@@ -577,30 +577,36 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		if (userLoggedIn == true) {
 			try {
+				log.info("*****************verify_Account_Information*****************");
 				webPage.getDriver().get(commonData[8][1]);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
-					/*commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
-					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);*/
-					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
+					
+					log.info("*****************verify_Account_Information For TESTBED ***************** :" +testBedName.toString() + " verify_Account_Information For MOBILE"+testType.toString());
+					/*WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
 					js.executeScript("arguments[0].click();", element_1);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][11]));					
-					js.executeScript("arguments[0].click();", element_2);
+					js.executeScript("arguments[0].click();", element_2);*/
+					
+					commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
+					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);
 					
 				} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
 				
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
+				
+				/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
 					js.executeScript("arguments[0].click();", element_3);
 					
 				}
 				else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
-				}
+				}*/
 				CommonMethods.waitForGivenTime(5);
 				log.info("Validation for Blank Data Starte----->");
 				// Validate with blank data
