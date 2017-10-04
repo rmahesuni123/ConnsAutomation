@@ -802,6 +802,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 									+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 							webPage.getDriver().navigate().back();
+							CommonMethods.waitForGivenTime(3);
 							//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 							log.info("Navigate Back for " + testBedName.toString());
 							webPage.getDriver().navigate().back();
