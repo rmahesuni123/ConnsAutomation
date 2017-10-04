@@ -128,19 +128,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
 			}	*/			
 			
-			if (testType.equalsIgnoreCase("Web")) 
-			{
-				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) 
-				{
-					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesWeb[i][0]);
-					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],softAssert);
-
-					if(!ExpectedFontValuesWeb[i][2].equalsIgnoreCase("NA")){
-						log.info("expected : " + ExpectedFontValuesWeb[i][2]);
-						log.info("actual   : " + actualCssValues.get(0));
-						log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]));
-						softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesWeb[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
-					}
+			
 					/*if(!ExpectedFontValuesWeb[i][3].equalsIgnoreCase("NA")){
 						log.info("expected : " + ExpectedFontValuesWeb[i][3]);
 						log.info("actual   : " + actualCssValues.get(1));
@@ -176,11 +164,28 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						log.info("match status : " + actualCssValues.get(6).contains(ExpectedFontValuesWeb[i][8]));							
 						softAssert.assertTrue(actualCssValues.get(6).contains(ExpectedFontValuesWeb[i][8]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected Text Transform: " + ExpectedFontValuesWeb[i][8] + ", Actual Text Transform: "+ actualCssValues.get(6) + "\n");	
 					}*/
+				//}
+			//}
+	        
+	        if (testType.equalsIgnoreCase("Web")) 
+			{	log.info("********************TestType for Web started execution***************   : " + testType.toString());
+				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) 
+				{
+					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesWeb[i][0]);
+					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],softAssert);
+
+					if(!ExpectedFontValuesWeb[i][2].equalsIgnoreCase("NA")){
+						log.info("expected : " + ExpectedFontValuesWeb[i][2]);
+						log.info("actual   : " + actualCssValues.get(0));
+						log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]));
+						softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesWeb[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
+					}
 				}
 			}
 			
-			else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")  ||  (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge"))) 
-			{
+	        else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")) 
+			{ log.info("********************TestType for IPAD_NATIVE started execution***************   : " + testType.toString());
+			log.info("********************TestBedName for IPAD_NATIVE started execution***************   : " + testBedName.toString());
 				if(width>599||width<800)
 				//if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().contains("Tab"))
 				//if(deviceName.contains("Tab"))
@@ -198,10 +203,31 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					}
 				}
 			}
-			
-			
-			else
-			{
+	        
+	        else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge"))
+	        {	 log.info("********************TestType for Edge started execution***************   : " + testType.toString());
+			log.info("********************TestBedName for Edge started execution***************   : " + testBedName.toString());
+				if(width>599||width<800)
+				//if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().contains("Tab"))
+				//if(deviceName.contains("Tab"))
+				{				
+					for (int i = 0; i < ExpectedFontValuesTab.length; i++) 
+					{
+						System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesTab[i][0]);
+						List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesTab[i][1],softAssert);
+						if(!ExpectedFontValuesTab[i][2].equalsIgnoreCase("NA")){
+							log.info("expected : " + ExpectedFontValuesTab[i][2]);
+							log.info("actual   : " + actualCssValues.get(0));
+							log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]));
+							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesTab[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesTab[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
+						}
+					}
+				}
+			}
+			 else {
+				 log.info("********************TestType for All_Mobile started execution***************   : " + testType.toString());
+					log.info("********************TestBedName for All_Mobile started execution***************   : " + testBedName.toString());
+				 
 				for (int i = 0; i < ExpectedFontValuesMobile.length; i++) 
 				{
 					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesMobile[i][0]);
