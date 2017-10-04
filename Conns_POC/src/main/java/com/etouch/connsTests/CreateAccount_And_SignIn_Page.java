@@ -595,9 +595,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
-				WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
-				js.executeScript("arguments[0].click();", element_3);
-				//commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
+				
+				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				
 				/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
@@ -610,7 +609,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				CommonMethods.waitForGivenTime(1);
 				log.info("Validation for Blank Data Starts----->");
 				// Validate with blank data
-				for (int i = 3; i < 6; i++) {
+				for (int i = 3; i < 8; i++) {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				Thread.sleep(3000);
