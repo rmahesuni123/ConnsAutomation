@@ -109,8 +109,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeWeb");
 			String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeTab");
 			String[][] ExpectedFontValuesMobile = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeMobile");
-			String[][] ExpectedFontValues = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
-					"Verify_Font_And_Size_Login_Page");
 			//commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
 			
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
@@ -120,53 +118,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	        log.info("height value calculated is :" +height);
 	        Dimension dimension  = new Dimension(width, height);			
 	        System.out.println("Dimensions" + dimension);        
-	        
-	        //Dimension[width=600,height=792]			
-			
-			/*if (testType.equalsIgnoreCase("Web")) 
-			{			
-				commonMethods.waitForWebElement(By.xpath(moneyMattersCommonElement_Web), webPage);
-			}	*/			
-			
-			
-					/*if(!ExpectedFontValuesWeb[i][3].equalsIgnoreCase("NA")){
-						log.info("expected : " + ExpectedFontValuesWeb[i][3]);
-						log.info("actual   : " + actualCssValues.get(1));
-						log.info("match status : " + actualCssValues.get(1).contains(ExpectedFontValuesWeb[i][3]));						
-						softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValuesWeb[i][3]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected font Color: " + ExpectedFontValuesWeb[i][3] + ", Actual Font Color: "+ actualCssValues.get(1) + "\n");													
-					}if(!ExpectedFontValuesWeb[i][4].equalsIgnoreCase("NA")){
-						log.info("expected : " + ExpectedFontValuesWeb[i][4]);
-						log.info("actual   : " + actualCssValues.get(2));
-						log.info("match status : " + actualCssValues.get(2).contains(ExpectedFontValuesWeb[i][4]));							
-						softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValuesWeb[i][4]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected Font Family: " + ExpectedFontValuesWeb[i][4] + ", Actual Font Family: "+ actualCssValues.get(2) + "\n");													
-					}
-					if(!ExpectedFontValuesWeb[i][5].equalsIgnoreCase("NA")){
-						log.info("expected : " + ExpectedFontValuesWeb[i][5]);
-						log.info("actual   : " + actualCssValues.get(3));
-						log.info("match status : " + actualCssValues.get(3).contains(ExpectedFontValuesWeb[i][5]));							
-						softAssert.assertTrue(actualCssValues.get(3).contains(ExpectedFontValuesWeb[i][5]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected Font Weight: " + ExpectedFontValuesWeb[i][5] + ", Actual Font Weight: "+ actualCssValues.get(3) + "\n");	
-					}
-					if(!ExpectedFontValuesWeb[i][6].equalsIgnoreCase("NA")){
-						log.info("expected : " + ExpectedFontValuesWeb[i][6]);
-						log.info("actual   : " + actualCssValues.get(4));
-						log.info("match status : " + actualCssValues.get(4).contains(ExpectedFontValuesWeb[i][6]));							
-						softAssert.assertTrue(actualCssValues.get(4).contains(ExpectedFontValuesWeb[i][6]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected Background Color: " + ExpectedFontValuesWeb[i][6] + ", Actual Background Color: "+ actualCssValues.get(4) + "\n");	
-					}
-					if(!ExpectedFontValuesWeb[i][7].equalsIgnoreCase("NA")){
-						log.info("expected : " + ExpectedFontValuesWeb[i][7]);
-						log.info("actual   : " + actualCssValues.get(5));
-						log.info("match status : " + actualCssValues.get(5).contains(ExpectedFontValuesWeb[i][7]));							
-						softAssert.assertTrue(actualCssValues.get(5).contains(ExpectedFontValuesWeb[i][7]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected Test Align: " + ExpectedFontValuesWeb[i][7] + ", Actual Test Allign: "+ actualCssValues.get(5) + "\n");	
-					}
-					if(!ExpectedFontValuesWeb[i][8].equalsIgnoreCase("NA")){
-						log.info("expected : " + ExpectedFontValuesWeb[i][8]);
-						log.info("actual   : " + actualCssValues.get(6));
-						log.info("match status : " + actualCssValues.get(6).contains(ExpectedFontValuesWeb[i][8]));							
-						softAssert.assertTrue(actualCssValues.get(6).contains(ExpectedFontValuesWeb[i][8]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected Text Transform: " + ExpectedFontValuesWeb[i][8] + ", Actual Text Transform: "+ actualCssValues.get(6) + "\n");	
-					}*/
-				//}
-			//}
-	        
 	        if (testType.equalsIgnoreCase("Web")) 
 			{	log.info("********************TestType for Web started execution***************   : " + testType.toString());
 				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) 
@@ -240,111 +191,6 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					}
 				}
 			}
-						/*if(!ExpectedFontValuesTab[i][3].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesTab[i][3]);
-							log.info("actual   : " + actualCssValues.get(1));
-							log.info("match status : " + actualCssValues.get(1).contains(ExpectedFontValuesTab[i][3]));						
-							softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValuesTab[i][3]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ExpectedFontValuesTab[i][0]+ "\""+"\nExpected Font Color: " + ExpectedFontValuesTab[i][3] + ", Actual Font Color: "+ actualCssValues.get(1) + "\n");													
-						}if(!ExpectedFontValuesTab[i][4].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesTab[i][4]);
-							log.info("actual   : " + actualCssValues.get(2));
-							log.info("match status : " + actualCssValues.get(2).contains(ExpectedFontValuesTab[i][4]));							
-							softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValuesTab[i][4]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ExpectedFontValuesTab[i][0]+ "\""+"\nExpected Font Family: " + ExpectedFontValuesTab[i][4] + ", Actual Font Family: "+ actualCssValues.get(2) + "\n");													
-						}
-						if(!ExpectedFontValuesTab[i][5].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesTab[i][5]);
-							log.info("actual   : " + actualCssValues.get(3));
-							log.info("match status : " + actualCssValues.get(3).contains(ExpectedFontValuesTab[i][5]));							
-							softAssert.assertTrue(actualCssValues.get(3).contains(ExpectedFontValuesTab[i][5]),"Iteration : " + i +  " --  CSS value verification failed for " +"\""+ ExpectedFontValuesTab[i][0]+ "\""+ "\nExpected Font Weight: " + ExpectedFontValuesTab[i][5] + ", Actual Font Weight: "+ actualCssValues.get(3) + "\n");	
-						}
-						if(!ExpectedFontValuesTab[i][6].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesTab[i][6]);
-							log.info("actual   : " + actualCssValues.get(4));
-							log.info("match status : " + actualCssValues.get(4).contains(ExpectedFontValuesTab[i][6]));							
-							softAssert.assertTrue(actualCssValues.get(4).contains(ExpectedFontValuesTab[i][6]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ExpectedFontValuesTab[i][0]+ "\""+ "\nExpected Background Color: " + ExpectedFontValuesTab[i][6] + ", Actual Background Color: "+ actualCssValues.get(4) + "\n");	
-						}
-						if(!ExpectedFontValuesTab[i][7].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesTab[i][7]);
-							log.info("actual   : " + actualCssValues.get(5));
-							log.info("match status : " + actualCssValues.get(5).contains(ExpectedFontValuesTab[i][7]));							
-							softAssert.assertTrue(actualCssValues.get(5).contains(ExpectedFontValuesTab[i][7]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesTab[i][0]+ "\""+ "\nExpected Test Allign: " + ExpectedFontValuesTab[i][7] + ", Actual Test Allign: "+ actualCssValues.get(5) + "\n");	
-						}
-						if(!ExpectedFontValuesTab[i][8].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesTab[i][8]);
-							log.info("actual   : " + actualCssValues.get(6));
-							log.info("match status : " + actualCssValues.get(6).contains(ExpectedFontValuesTab[i][8]));							
-							softAssert.assertTrue(actualCssValues.get(6).contains(ExpectedFontValuesTab[i][8]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesTab[i][0]+ "\""+ "\nExpected Text Transform: " + ExpectedFontValuesTab[i][8] + ", Actual Text Transform: "+ actualCssValues.get(6) + "\n");	
-						}*/
-					//}
-			//	}
-		         /*else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge")) 
-				{
-					for (int i = 0; i < ExpectedFontValuesTab.length; i++) 
-					{
-						System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesTab[i][0]);
-						List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesTab[i][1],softAssert);
-						if(!ExpectedFontValuesTab[i][2].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesTab[i][2]);
-							log.info("actual   : " + actualCssValues.get(0));
-							log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]));
-							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesMobile[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
-						}*/
-					/*	if(!ExpectedFontValuesMobile[i][3].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesMobile[i][3]);
-							log.info("actual   : " + actualCssValues.get(1));
-							log.info("match status : " + actualCssValues.get(1).contains(ExpectedFontValuesMobile[i][3]));						
-							softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValuesMobile[i][3]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected Font Color: " + ExpectedFontValuesMobile[i][3] + ", Actual Font Color: "+ actualCssValues.get(1) + "\n");													
-						}if(!ExpectedFontValuesMobile[i][4].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesMobile[i][4]);
-							log.info("actual   : " + actualCssValues.get(2));
-							log.info("match status : " + actualCssValues.get(2).contains(ExpectedFontValuesMobile[i][4]));							
-							softAssert.assertTrue(actualCssValues.get(2).contains(ExpectedFontValuesMobile[i][4]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected Font Family: " + ExpectedFontValuesMobile[i][4] + ", Actual Font Family: "+ actualCssValues.get(2) + "\n");													
-						}
-						if(!ExpectedFontValuesMobile[i][5].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesMobile[i][5]);
-							log.info("actual   : " + actualCssValues.get(3));
-							log.info("match status : " + actualCssValues.get(3).contains(ExpectedFontValuesMobile[i][5]));							
-							softAssert.assertTrue(actualCssValues.get(3).contains(ExpectedFontValuesMobile[i][5]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected Font Weight: " + ExpectedFontValuesMobile[i][5] + ", Actual Font Weight: "+ actualCssValues.get(3) + "\n");	
-						}
-						if(!ExpectedFontValuesMobile[i][6].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesMobile[i][6]);
-							log.info("actual   : " + actualCssValues.get(4));
-							log.info("match status : " + actualCssValues.get(4).contains(ExpectedFontValuesMobile[i][6]));							
-							softAssert.assertTrue(actualCssValues.get(4).contains(ExpectedFontValuesMobile[i][6]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected Background Color: " + ExpectedFontValuesMobile[i][6] + ", Actual Background Color: "+ actualCssValues.get(4) + "\n");	
-						}
-						if(!ExpectedFontValuesMobile[i][7].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesMobile[i][7]);
-							log.info("actual   : " + actualCssValues.get(5));
-							log.info("match status : " + actualCssValues.get(5).contains(ExpectedFontValuesMobile[i][7]));							
-							softAssert.assertTrue(actualCssValues.get(5).contains(ExpectedFontValuesMobile[i][7]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected Test Allign: " + ExpectedFontValuesMobile[i][7] + ", Actual Test Allign: "+ actualCssValues.get(5) + "\n");	
-						}
-						if(!ExpectedFontValuesMobile[i][8].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesMobile[i][8]);
-							log.info("actual   : " + actualCssValues.get(6));
-							log.info("match status : " + actualCssValues.get(6).contains(ExpectedFontValuesMobile[i][8]));							
-							softAssert.assertTrue(actualCssValues.get(6).contains(ExpectedFontValuesMobile[i][8]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected Text Transform: " + ExpectedFontValuesMobile[i][8] + ", Actual Text Transform: "+ actualCssValues.get(6) + "\n");	
-						}*/
-					//}					
-				//}
-				
-				/*else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")) 
-				{
-					for (int i = 0; i < ExpectedFontValuesMobile.length; i++) 
-					{
-						System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesMobile[i][0]);
-						List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesMobile[i][1],softAssert);
-						if(!ExpectedFontValuesMobile[i][2].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesMobile[i][2]);
-							log.info("actual   : " + actualCssValues.get(0));
-							log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]));
-							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesMobile[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
-						}
-			}	
-				}*/
-			
-			
-		//} 
-			
 			softAssert.assertAll();
 
 		}catch (Throwable e) {
