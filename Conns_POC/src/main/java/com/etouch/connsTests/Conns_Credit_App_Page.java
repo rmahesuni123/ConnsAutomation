@@ -150,7 +150,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			String pageHeadingClass = null;
 			String fontAttribute = null;
 			String expectedValue = null;
-			int s;
+			int s; 
 			if (testType.equalsIgnoreCase("Web")) {
 				s = 3;
 			}
