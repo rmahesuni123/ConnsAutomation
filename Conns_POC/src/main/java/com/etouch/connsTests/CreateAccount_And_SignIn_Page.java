@@ -286,6 +286,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void verify_Forgot_Password_Functionality() throws InterruptedException {
 		log.info("******Started verify_ForgotPassword_Functionality********");
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(signInURL);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -312,11 +313,17 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			// Submit with valid email ID
 			commonMethods.sendKeysbyXpath(webPage, testdata[4][1], testdata[4][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
+			 if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative")) {
+				 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+				 log.info("testing verify_Forgot_Password_Functionality completed------>");
+			 }
+			 else{
 			String successMessage = commonMethods.getTextbyXpath(webPage, testdata[4][3], softAssert);
 			softAssert.assertTrue(successMessage.contains(testdata[4][4]),
 					"Submit with valid email for Forgot Password: Actual:" + successMessage + " Should Contain: "
 							+ testdata[4][4]);
 			log.info("testing verify_Forgot_Password_Functionality completed------>");
+			 }
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -434,6 +441,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void verify_Create_New_Customer_with_Valid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with VInvalid input data ********");
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(registerUrl);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -449,8 +457,14 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(testdata[6][1]), webPage);
+			 if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative")) {
+				 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+				 log.info("testing verify_Forgot_Password_Functionality completed------>");
+			 }
+			 else{
 			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
 			softAssert.assertEquals(actualMessage, testdata[6][2], "SuccessFul user creation Message:");
+			 }
 			userLoggedIn = true;
 			log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
 			softAssert.assertAll();
