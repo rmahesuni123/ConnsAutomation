@@ -616,7 +616,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Thread.sleep(3000);
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					log.info("Validation for Blank Data Keys.Enter Started----->");
-					for (int i = 3; i < 7; i++) {
+					for (int i = 3; i < 8; i++) {
 						/*WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][i]));					
 						js.executeScript("arguments[0].click();", element_4);*/
 						
@@ -629,11 +629,14 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}else {
 				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
 				}
-				for (int i = 3; i < 7; i++) {
+				for (int i = 3; i < 8; i++) {
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][i], softAssert),
 							testdata[1][1], "Error Message: failed for: " + testdata[1][i]);
 				}
 				log.info("Validation for Blank Data Completed----->");
+				
+				
+				
 				log.info("Validation for Invalid Data Started----->");
 				// Validate with invalid data
 				for (int i = 3; i < 9; i++) {
