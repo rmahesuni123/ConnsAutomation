@@ -134,7 +134,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}
 			}
 			
-	        else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")) 
+	        else if (!(testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative"))) 
 			{ log.info("********************TestType for IPAD_NATIVE started execution***************   : " + testType.toString());
 			log.info("********************TestBedName for IPAD_NATIVE started execution***************   : " + testBedName.toString());
 				if(width>599||width<800)
@@ -155,7 +155,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}
 			}
 	        
-	        else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge"))
+	        else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")) )
 	        {	 log.info("********************TestType for Edge started execution***************   : " + testType.toString());
 			log.info("********************TestBedName for Edge started execution***************   : " + testBedName.toString());
 				if(width>599||width<800)
