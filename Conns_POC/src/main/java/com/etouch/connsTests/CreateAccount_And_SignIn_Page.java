@@ -616,9 +616,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Thread.sleep(3000);
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					log.info("Validation for Blank Data Keys.Enter Started----->");
-					//webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
-					WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
-					js.executeScript("arguments[0].click();", element);
+					webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
+					/*WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
+					js.executeScript("arguments[0].click();", element);*/
 					log.info("Validation for Blank Data Keys.Enter Completed----->");
 				}else {
 				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
