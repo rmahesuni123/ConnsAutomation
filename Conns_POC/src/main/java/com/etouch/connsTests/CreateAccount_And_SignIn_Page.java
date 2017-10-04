@@ -179,7 +179,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}
 			}
 			
-			else if (testType.equalsIgnoreCase("Mobile")) 
+			else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")  ||  (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge"))) 
 			{
 				if(width>599||width<800)
 				//if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getName().contains("Tab"))
@@ -195,6 +195,25 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]));
 							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesTab[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesTab[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
 						}
+					}
+				}
+			}
+			
+			
+			else
+			{
+				for (int i = 0; i < ExpectedFontValuesMobile.length; i++) 
+				{
+					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesMobile[i][0]);
+					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesMobile[i][1],softAssert);
+					if(!ExpectedFontValuesMobile[i][2].equalsIgnoreCase("NA")){
+						log.info("expected : " + ExpectedFontValuesMobile[i][2]);
+						log.info("actual   : " + actualCssValues.get(0));
+						log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]));
+						softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesMobile[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
+					}
+				}
+			}
 						/*if(!ExpectedFontValuesTab[i][3].equalsIgnoreCase("NA")){
 							log.info("expected : " + ExpectedFontValuesTab[i][3]);
 							log.info("actual   : " + actualCssValues.get(1));
@@ -230,19 +249,20 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							log.info("match status : " + actualCssValues.get(6).contains(ExpectedFontValuesTab[i][8]));							
 							softAssert.assertTrue(actualCssValues.get(6).contains(ExpectedFontValuesTab[i][8]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesTab[i][0]+ "\""+ "\nExpected Text Transform: " + ExpectedFontValuesTab[i][8] + ", Actual Text Transform: "+ actualCssValues.get(6) + "\n");	
 						}*/
-					}
-				}else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge")) 
+					//}
+			//	}
+		         /*else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge")) 
 				{
-					for (int i = 0; i < ExpectedFontValuesMobile.length; i++) 
+					for (int i = 0; i < ExpectedFontValuesTab.length; i++) 
 					{
-						System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesMobile[i][0]);
-						List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesMobile[i][1],softAssert);
-						if(!ExpectedFontValuesMobile[i][2].equalsIgnoreCase("NA")){
-							log.info("expected : " + ExpectedFontValuesMobile[i][2]);
+						System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesTab[i][0]);
+						List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesTab[i][1],softAssert);
+						if(!ExpectedFontValuesTab[i][2].equalsIgnoreCase("NA")){
+							log.info("expected : " + ExpectedFontValuesTab[i][2]);
 							log.info("actual   : " + actualCssValues.get(0));
-							log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]));
-							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesMobile[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
-						}
+							log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]));
+							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesMobile[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
+						}*/
 					/*	if(!ExpectedFontValuesMobile[i][3].equalsIgnoreCase("NA")){
 							log.info("expected : " + ExpectedFontValuesMobile[i][3]);
 							log.info("actual   : " + actualCssValues.get(1));
@@ -278,10 +298,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							log.info("match status : " + actualCssValues.get(6).contains(ExpectedFontValuesMobile[i][8]));							
 							softAssert.assertTrue(actualCssValues.get(6).contains(ExpectedFontValuesMobile[i][8]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected Text Transform: " + ExpectedFontValuesMobile[i][8] + ", Actual Text Transform: "+ actualCssValues.get(6) + "\n");	
 						}*/
-					}					
-				}
+					//}					
+				//}
 				
-				else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")) 
+				/*else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")) 
 				{
 					for (int i = 0; i < ExpectedFontValuesMobile.length; i++) 
 					{
@@ -294,11 +314,13 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesMobile[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
 						}
 			}	
-				}
+				}*/
+			
+			
+		//} 
 			
 			softAssert.assertAll();
 
-		} 
 		}catch (Throwable e) {
 			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Font_And_Size_Login_Page");
