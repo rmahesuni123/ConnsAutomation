@@ -81,6 +81,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				registerUrl = commonData[1][1];
 				signInURL = commonData[2][1];
 				forgetPasswordPageURL = commonData[3][1];
+				DashboardURL=commonData[8][1];
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
@@ -776,11 +777,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						CommonMethods.waitForGivenTime(2);
 						}*/
 					
-					if ((testBedName.equalsIgnoreCase("InternetExplorer")) || (testBedName.equalsIgnoreCase("Firefox"))
+					/*if ((testBedName.equalsIgnoreCase("InternetExplorer")) || (testBedName.equalsIgnoreCase("Firefox"))
 					   || (testBedName.equalsIgnoreCase("Chrome"))) {
 					log.info("Started Iteration" + i);
 					((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
-					/*webPage.getDriver().navigate().refresh();*/
+					webPage.getDriver().navigate().refresh();
 					commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
 					CommonMethods.waitForGivenTime(5);
 					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
@@ -788,10 +789,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 					commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
 					CommonMethods.waitForGivenTime(5);
-					}
+					}*/
 					
 					
-					if ((testBedName.equalsIgnoreCase("edge")) ){
+					if ((testBedName.equalsIgnoreCase("edge")) || (testBedName.equalsIgnoreCase("Safari")) ||(testType.equalsIgnoreCase("Mobile")) ){
 						log.info("Only Edge Browser Execution Starts " + testBedName.toString());
 						if ((i==5) || ((i==6))){
 							log.info("Started Iteration" + i);
@@ -802,7 +803,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 							softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 									+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 							//webPage.getDriver().navigate().back();
-							webPage.getDriver().get(DashboardURL);
+							//webPage.getDriver().get(DashboardURL);
+							commonMethods.navigateToPage(webPage,DashboardURL, softAssert);	
+							//webPage.getDriver().navigate().to(DashboardURL);
 							CommonMethods.waitForGivenTime(3);
 							//js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 							log.info("Navigate Back for " + testBedName.toString());
