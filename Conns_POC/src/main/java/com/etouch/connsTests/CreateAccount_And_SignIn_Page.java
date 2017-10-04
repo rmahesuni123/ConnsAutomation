@@ -582,12 +582,25 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						"verify_Account_Information");
 				// new code
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
-					commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
-					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);
+					/*commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
+					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);*/
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
+					js.executeScript("arguments[0].click();", element_1);
+					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][11]));					
+					js.executeScript("arguments[0].click();", element_2);
+					
 				} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
+				
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
+					js.executeScript("arguments[0].click();", element_3);
+					
+				}
+				else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
+				}
 				CommonMethods.waitForGivenTime(5);
 				log.info("Validation for Blank Data Starte----->");
 				// Validate with blank data
@@ -617,8 +630,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				//commonMethods.clickElementbyXpath(webPage, testdata[0][12], softAssert);
 				
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				executor.executeScript("arguments[0].click();", element);
+				
+				js.executeScript("arguments[0].click();", element);
 				
 				//commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				log.info("<------------Account Information Form Saved With Invalid Inputs----->");
@@ -660,7 +673,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
 					/*JavascriptExecutor executor_1 = (JavascriptExecutor)webPage.getDriver();*/
-					executor.executeScript("arguments[0].click();", element_1);
+					js.executeScript("arguments[0].click();", element_1);
 				}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				CommonMethods.waitForGivenTime(5);
