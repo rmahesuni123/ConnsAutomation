@@ -627,16 +627,20 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				for (int i = 3; i < 9; i++) {
 					if (i == 5) {
 						commonMethods.sendKeysbyXpath(webPage, testdata[0][i], newEmailID, softAssert);
+						CommonMethods.waitForGivenTime(5);
 					} else {
 						commonMethods.sendKeysbyXpath(webPage, testdata[0][i], testdata[5][i], softAssert);
+						CommonMethods.waitForGivenTime(5);
 					}
 				}
 				if (testBedName.equalsIgnoreCase("Safari")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][12], softAssert);
+					CommonMethods.waitForGivenTime(5);
 				} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
+					CommonMethods.waitForGivenTime(5);
 				}
-				CommonMethods.waitForGivenTime(10);
+				CommonMethods.waitForGivenTime(5);
 				log.info("testing verify_Account_Information completed------> : " +webPage.getCurrentUrl());
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[5][1], softAssert),
 						testdata[5][2], "Verification failed for: " + testdata[5][1]);
@@ -769,7 +773,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				 * actualUrl + " not same as " + linkData[0][2]); }
 				 */
 				for (int i = 1; i < linkData.length; i++) {
-					if ((i==5) || ((i==6))){
+					if ((testBedName.equalsIgnoreCase("Safari")) || (testBedName.equalsIgnoreCase("edge"))) {
+					for(i=5;i<7;i++){
+					//if ((i==5) || ((i==6))){
 						log.info("Started Iteration" + i);
 						//((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
 						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
@@ -782,6 +788,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 2000)");// Used
 						log.info("Navigate Back for " + testBedName.toString());
 						CommonMethods.waitForGivenTime(3);
+					}
 					}
 					
 					
