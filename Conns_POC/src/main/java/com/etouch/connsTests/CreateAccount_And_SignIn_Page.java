@@ -340,7 +340,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	}
 
 	@Test(priority = 305, enabled = true)
-	public void verify_Register_Link_Redirection_And_PageTitle() {
+	public void verify_Register_Link_Redirection_And_PageTitle() throws InterruptedException {
+		CommonMethods.waitForGivenTime(5);
 		log.info("************ Stated verify_Register_Link_Redirection_And_PageTitle*******************");
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -397,6 +398,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void verify_Create_New_Customer_with_Blank_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with blank input data ********");
 		SoftAssert softAssert = new SoftAssert();
+		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterErrorMessageWithBlankInput");
@@ -420,6 +422,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	public void verify_Create_New_Customer_with_Invalid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with Invalid input data ********");
 		SoftAssert softAssert = new SoftAssert();
+		CommonMethods.waitForGivenTime(5);
 		webPage.getDriver().get(registerUrl);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -453,6 +456,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 309, enabled = true)
 	public void verify_Create_New_Customer_with_Valid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with VInvalid input data ********");
+		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(registerUrl);
@@ -493,9 +497,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 310, enabled = true)
 	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
-		CommonMethods.waitForGivenTime(3);
+		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();		
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		if (userLoggedIn == true) {
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"Verify_MyOrders_MyWishList_PayYourBills");
@@ -544,6 +549,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "Verify_MyOrders_MyWishList_PayYourBills");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
+		}
 		}
 	}
 
@@ -790,7 +796,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	}
 
 	@Test(priority = 313, enabled = true)
-	public void Verify_Address_Book() throws ClientProtocolException, IOException {
+	public void Verify_Address_Book() throws ClientProtocolException, IOException, InterruptedException {
+		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
@@ -864,6 +871,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		@Test(priority = 314, enabled = true)
 		public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
 			log.info("******Started verify_AccountDashboard_After_SignIn_with_ExistingUser ********");
+			CommonMethods.waitForGivenTime(5);
 			SoftAssert softAssert = new SoftAssert();
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
