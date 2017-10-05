@@ -469,7 +469,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			}
 			commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
-			CommonMethods.waitForWebElement(By.xpath(testdata[6][1]), webPage);
+			//CommonMethods.waitForWebElement(By.xpath(testdata[6][1]), webPage);
 			// if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("iPhoneNative")) {
 			if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative"))) {		 
 				 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
