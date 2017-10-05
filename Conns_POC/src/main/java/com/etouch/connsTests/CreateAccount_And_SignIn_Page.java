@@ -506,7 +506,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					log.info("Inside if");
 					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
-				} else {
+				} 
+				
+				else if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("iPhoneNative")) {
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));					
+					js.executeScript("arguments[0].click();", element_1);
+					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));					
+					js.executeScript("arguments[0].click();", element_2);
+				}
+				else {
 					log.info("Inside else");
 					commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
 				}
