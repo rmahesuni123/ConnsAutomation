@@ -509,12 +509,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 				} 
 				
-				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
-					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));					
-					js.executeScript("arguments[0].click();", element_1);
-					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));					
-					js.executeScript("arguments[0].click();", element_2);
-				}
+				
 				else {
 					log.info("Inside else");
 					commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
@@ -535,8 +530,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					if (!(i == 2)) {
 						// commonMethods.clickElementbyXpath(webPage,
 						// testdata[i][9], softAssert);
-						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][9]));
-						js.executeScript("arguments[0].click();", element_1);
+						/*WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][9]));
+						js.executeScript("arguments[0].click();", element_1);*/
+						js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 						log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
 					}
 				}
@@ -567,12 +563,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				} 
 				
-				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+				/*else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][8]));					
 					js.executeScript("arguments[0].click();", element_1);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
 					js.executeScript("arguments[0].click();", element_2);
-				}
+				}*/
 				
 				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
@@ -605,7 +601,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 312, enabled = true)
 	public void verify_Account_Information() throws InterruptedException {
 		log.info("******Started verify_Account_Information ********");
-		CommonMethods.waitForGivenTime(3);
+		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		if (userLoggedIn == true) {
@@ -627,7 +623,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);
 					} 
 				
-				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+				/*else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 					log.info("Inside Else If for iPhoneNative DropDown Selection Box");
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
 					js.executeScript("arguments[0].click();", element_1);
@@ -635,7 +631,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][11]));					
 					js.executeScript("arguments[0].click();", element_2);
 					log.info("Inside Else If for iPhoneNative DropDown Selection Box Option Clicked");
-				}
+				}*/
 				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
@@ -806,12 +802,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][15], softAssert);
 			} 
 			
-			else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+			/*else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 				WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][14]));					
 				js.executeScript("arguments[0].click();", element_1);
 				WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][15]));					
 				js.executeScript("arguments[0].click();", element_2);
-			}
+			}*/
 			else {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			}
