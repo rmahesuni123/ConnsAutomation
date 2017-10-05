@@ -563,7 +563,16 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][8], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
-				} else {
+				} 
+				
+				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][8]));					
+					js.executeScript("arguments[0].click();", element_1);
+					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
+					js.executeScript("arguments[0].click();", element_2);
+				}
+				
+				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
@@ -571,7 +580,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				 if ( testType.equalsIgnoreCase("Mobile")) {
 					 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 					 log.info("testing verify_Forgot_Password_Functionality completed------>");
-				 }else {
+				 }
+				else {
 				String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][4], softAssert);
 				softAssert.assertTrue(actualMessage.contains(testdata[0][5]), "Newsletter Updation Message:");
 				actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][6], softAssert);
@@ -612,7 +622,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					
 					commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);
-					} else {
+					} 
+				
+				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
+					js.executeScript("arguments[0].click();", element_1);
+					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][11]));					
+					js.executeScript("arguments[0].click();", element_2);
+				}
+				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
 				
@@ -777,10 +795,18 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			webPage.getDriver().get(commonData[8][1]);
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			// new code
-			if (testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testBedName.equalsIgnoreCase("edge")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][14], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][15], softAssert);
-			} else {
+			} 
+			
+			else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+				WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][14]));					
+				js.executeScript("arguments[0].click();", element_1);
+				WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][15]));					
+				js.executeScript("arguments[0].click();", element_2);
+			}
+			else {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			}
 			commonMethods.clearTextBox(webPage, testdata[0][2], softAssert);
