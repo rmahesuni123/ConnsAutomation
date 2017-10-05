@@ -157,7 +157,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}
 			}*/
 	        
-	        else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPadNative")) )
+	        else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative")) )
 	        {	 log.info("********************TestType for Edge started execution***************   : " + testType.toString());
 			log.info("********************TestBedName for Edge started execution***************   : " + testBedName.toString());
 				if(width>599||width<800)
@@ -177,7 +177,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					}
 				}
 			}
-			 else if (testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative")) {
+			 else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))) {
 				 log.info("********************TestType for All_Mobile started execution***************   : " + testType.toString());
 					log.info("********************TestBedName for All_Mobile started execution***************   : " + testBedName.toString());
 				 
@@ -470,7 +470,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(testdata[6][1]), webPage);
-			 if ( testType.equalsIgnoreCase("Mobile")) {
+			// if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("iPhoneNative")) {
+			if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative"))) {		 
 				 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 				 log.info("testing verify_Forgot_Password_Functionality completed------>");
 			 }
@@ -627,16 +628,24 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					log.info("Validation for Blank Data Keys.Enter Started----->");
 					for (int i = 3; i < 7; i++) {
-						/*WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][i]));					
-						js.executeScript("arguments[0].click();", element_4);*/
+						WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][i]));					
+						js.executeScript("arguments[0].click();", element_4);
+						//commonMethods.clickElementbyXpath(webPage, testdata[0][i], softAssert);
 						
-						commonMethods.clickElementbyXpath(webPage, testdata[0][i], softAssert);
 					}
 					//webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
 					/*WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
 					js.executeScript("arguments[0].click();", element);*/
 					log.info("Validation for Blank Data Keys.Enter Completed----->");
-				}else {
+				}
+				/*else if (testBedName.equalsIgnoreCase("edge")){
+					log.info("Validation for Blank Data Keys.Enter Started----->");
+					for (int i = 3; i < 7; i++) {
+					commonMethods.clickElementbyXpath(webPage, testdata[0][i], softAssert);
+					}
+				}*/
+				
+				else {
 				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
 				}
 				for (int i = 3; i < 6; i++) {
@@ -760,7 +769,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			webPage.getDriver().get(commonData[8][1]);
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			// new code
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+			if (testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testBedName.equalsIgnoreCase("edge")) {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][14], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][15], softAssert);
 			} else {
