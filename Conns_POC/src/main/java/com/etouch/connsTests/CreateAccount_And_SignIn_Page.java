@@ -577,7 +577,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
-				 if ( testType.equalsIgnoreCase("Mobile")) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 					 log.info("testing verify_Forgot_Password_Functionality completed------>");
 				 }
