@@ -508,7 +508,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 				} 
 				
-				else if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("iPhoneNative")) {
+				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));					
 					js.executeScript("arguments[0].click();", element_1);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));					
@@ -536,7 +536,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						// testdata[i][9], softAssert);
 						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][9]));
 						js.executeScript("arguments[0].click();", element_1);
-						log.info("testing verify_Forgot_Password_Functionality completed------>");
+						log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
 					}
 				}
 			}
