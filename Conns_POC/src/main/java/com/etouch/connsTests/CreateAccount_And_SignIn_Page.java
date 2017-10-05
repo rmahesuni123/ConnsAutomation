@@ -625,10 +625,13 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					} 
 				
 				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+					log.info("Inside Else If for iPhoneNative DropDown Selection Box");
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
 					js.executeScript("arguments[0].click();", element_1);
+					log.info("Inside Else If for iPhoneNative DropDown Selection Box Clicked");
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][11]));					
 					js.executeScript("arguments[0].click();", element_2);
+					log.info("Inside Else If for iPhoneNative DropDown Selection Box Option Clicked");
 				}
 				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
