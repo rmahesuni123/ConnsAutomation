@@ -491,9 +491,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	}
 
 	@Test(priority = 310, enabled = true)
-	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException {
+	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
-		SoftAssert softAssert = new SoftAssert();
+		CommonMethods.waitForGivenTime(3);
+		SoftAssert softAssert = new SoftAssert();		
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -553,6 +554,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 311, enabled = true)
 	public void verify_NewsLetters() throws InterruptedException {
 		log.info("******Started verify_NewsLetters ********");
+		CommonMethods.waitForGivenTime(3);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		if (userLoggedIn == true) {
@@ -603,6 +605,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 312, enabled = true)
 	public void verify_Account_Information() throws InterruptedException {
 		log.info("******Started verify_Account_Information ********");
+		CommonMethods.waitForGivenTime(3);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		if (userLoggedIn == true) {
