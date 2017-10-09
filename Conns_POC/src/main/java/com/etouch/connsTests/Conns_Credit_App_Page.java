@@ -288,8 +288,11 @@ public class Conns_Credit_App_Page extends BaseTest {
 		log.info("testing verifyMandatoryFieldValidationWithoutData started------>");
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
+			 creditAppPage.navigateToCreditAppPage(softAssert);
+			 creditAppPage.scrollToElement(commonData.get("SubmitButton"), softAssert);
+			 webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
+			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
+			 
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyMandatoryFieldValidationWithoutData");
 			for (int i = 0; i < test.length; i++) {
@@ -461,6 +464,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 						testData[j][2]);
 				String[][] MonthlyIncomeErrorMessage = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 						testData[j][2] + "DataSet");
+				creditAppPage.scrollToElement(commonData.get("SubmitButton"),softAssert);
 				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
 				for (int k = 0; k < MonthlyIncomeErrorMessage.length; k++) {
 					creditAppPage.verifyErrorMessageByXpath(softAssert, MonthlyIncomeErrorMessage[k][0],
@@ -505,7 +509,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	public void verify_Reference_Code_With_Valid_Required_Field_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.navigateToCreditAppPage(softAssert);
 			log.info("testing verify_Reference_Code_With_Valid_Required_Field_Data started------>");
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyMessageForRefCodeWithValidData");
@@ -632,8 +636,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.fillForm(softAssert, testData);
 			if(testType.equalsIgnoreCase("mobile"))
 			{
-				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
-				commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+				//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
+				//commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 				LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = CommonMethods
 						.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
 				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
@@ -641,9 +645,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 						verifyErrorMessageForRefCodeData.get("RefCodeError"));
 				log.info("Reference not accepted as valid code. As test is running on Mobile device");
 			}
-			else{
 			creditAppPage.submitCreditApp(softAssert);
-			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Credit_App_Submit_With_RefField");

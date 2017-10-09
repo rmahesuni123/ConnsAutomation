@@ -317,6 +317,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @throws Exception
 	 */
 	public void submitCreditApp(SoftAssert softAssert) throws Exception {
+		scrollToElement(commonData.get("SubmitButton"),softAssert);
 		commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
 		commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 		String actualUrl = commonMethods.getPageUrl(webPageMap.get(Thread.currentThread().getId()), softAssert);
@@ -337,6 +338,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @throws Exception
 	 */
 	public void submitCreditAppAndVerifyStatus(SoftAssert softAssert, String expectedStatus) throws Exception {
+		scrollToElement(commonData.get("SubmitButton"),softAssert);
 		commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
 		 Thread.sleep(5000);
 		System.out.println("Url isd : " + commonMethods.getPageUrl(webPageMap.get(Thread.currentThread().getId()), softAssert));
@@ -394,7 +396,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public void verifyErrorMessageByXpath(SoftAssert softAssert, String errorMessageFieldName, String locator,
 			String expectedErrorMessage) throws PageException {
-		log.info("Verifiyikng error message for : " + errorMessageFieldName + " : Expected Message : "
+		log.info("Verifying error message for : " + errorMessageFieldName + " : Expected Message : "
 				+ expectedErrorMessage);
 		commonMethods.waitForWebElement(By.xpath(locator), webPageMap.get(Thread.currentThread().getId()));
 		String actualErrorMessage = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
@@ -601,6 +603,9 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 				if (!((String) js.executeScript("return arguments[0].getValue()", textField) == null)) {
 					js.executeScript("arguments[0].value='';", textField);
 					js.executeScript("arguments[0].value='" + newValue + "';", textField);
+					if(((String) js.executeScript("return arguments[0].getValue()", textField) == null)) {
+						commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, newValue, softAssert);
+					}
 					return true;
 				}
 			} else {
@@ -670,6 +675,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public void selectRadioButtonByXpath(SoftAssert softAssert, String FieldName, String locator) {
 		if (commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert).isEnabled()) {
+			scrollToElement(locator,softAssert);
 			log.info("Selecting Radio button : \"" + FieldName + "\"");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
 		} else {
@@ -686,8 +692,10 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param FieldName
 	 * @param locator
 	 */
+	
 	public void selectCheckBoxByXpath(SoftAssert softAssert, String FieldName, String locator) {
 		if (commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert).isEnabled()) {
+			scrollToElement(locator,softAssert);
 			log.info("Selecting CheckBox : \"" + FieldName + "\"");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
 		} else {
@@ -707,7 +715,11 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	public void selectButtonByXpath(SoftAssert softAssert, String FieldName, String locator) {
 		if (commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert).isEnabled()) {
 			log.info("Clicking on Button : \"" + FieldName + "\"");
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+			
+			JavascriptExecutor jse = (JavascriptExecutor)webPageMap.get(Thread.currentThread().getId()).getDriver();
+
+			jse.executeScript("arguments[0].click()", commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert)); 
 		} else {
 			log.info("Button is Disabled");
 			softAssert.fail(" Button Field " + FieldName + " is disabled ");
@@ -1042,6 +1054,17 @@ public String getExpectedDate(String value) throws Exception {
 	String futureDate_4thmonth = dateFormat.format(cal.getTime());
 	System.out.println("futureDate_4thmonth: " + futureDate_4thmonth);
 	return futureDate_4thmonth;
+}
+
+public void scrollToElement(String xpath,SoftAssert softAssert) {
+	org.openqa.selenium.WebElement elementToScroll = commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), xpath, softAssert);
+	((JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver()).executeScript("arguments[0].scrollIntoView();", elementToScroll);
+	try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 }
 
