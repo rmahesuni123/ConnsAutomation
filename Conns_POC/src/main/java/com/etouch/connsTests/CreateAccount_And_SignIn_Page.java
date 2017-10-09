@@ -925,7 +925,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator,
 					softAssert);
 			webPage.getCurrentUrl();// For Safari
-			WebElement Address_Book_Additional_Address_Entries_Delete_Address_Locator = webPage.getDriver().findElement(
+			/*WebElement Address_Book_Additional_Address_Entries_Delete_Address_Locator = webPage.getDriver().findElement(
 					By.xpath(Account_Information_Address_Book_Additional_Address_Entries_Delete_Address_Locator));
 			log.info("Address_Book_Additional_Address_Entries_Delete_Address_Locator is displayed : ");
 			if ((Address_Book_Additional_Address_Entries_Delete_Address_Locator).isDisplayed()) {
@@ -938,11 +938,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
 						softAssert);
 			} else {
-				log.info(
+			*/	log.info(
 						"************************ Add New Address if Delete Address Link is not visible*****************");
 				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
 						softAssert);
-			}
+		//	}
 			CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
 			String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			log.info(
