@@ -157,7 +157,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				}
 			}*/
 	        
-	        else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative")) )
+	        else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") ||   testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative"))
 	        {	 log.info("********************TestType for Edge started execution***************   : " + testType.toString());
 			log.info("********************TestBedName for Edge started execution***************   : " + testBedName.toString());
 				if(width>599||width<800)
@@ -177,7 +177,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					}
 				}
 			}
-			 else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))) {
+			 else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))  ) {
 				 log.info("********************TestType for All_Mobile started execution***************   : " + testType.toString());
 					log.info("********************TestBedName for All_Mobile started execution***************   : " + testBedName.toString());
 				 
@@ -206,9 +206,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		
 
 	@Test(priority = 301, enabled = true)
-	public void Verify_Broken_Links_On_SignIn_Page() throws ClientProtocolException, IOException {
+	public void Verify_Broken_Links_On_SignIn_Page() throws ClientProtocolException, IOException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(signInURL);
+		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyLinksRedirection");
@@ -238,6 +239,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		log.info("******Started verification of Sign In functionality with blank input data ********");
 		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(signInURL);
+		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_SignIn_with_Blank_Input");
@@ -261,6 +263,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		log.info("******Started verify_SignInErrorMessage_with_Invalid_Input ********");
 		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(signInURL);
+		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_SignIn_With_Invalid_Input");
@@ -294,6 +297,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(signInURL);
+		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_Forgot_Password_Functionality");
@@ -315,7 +319,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			softAssert.assertEquals(commonMethods.getPageUrl(webPage, softAssert), signInURL,
 					"SignIn Page URL using GoBack Link:");
 			webPage.getDriver().get(forgetPasswordPageURL);
-			Thread.sleep(3000);
+			CommonMethods.waitForGivenTime(5);
 			// Submit with valid email ID
 			commonMethods.sendKeysbyXpath(webPage, testdata[4][1], testdata[4][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
@@ -341,9 +345,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 
 	@Test(priority = 305, enabled = true)
 	public void verify_Register_Link_Redirection_And_PageTitle() throws InterruptedException {
-		CommonMethods.waitForGivenTime(5);
 		log.info("************ Stated verify_Register_Link_Redirection_And_PageTitle*******************");
 		SoftAssert softAssert = new SoftAssert();
+		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterPageTitle");
@@ -369,6 +373,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		log.info(
 				"******Started verification of verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_CustomerRegister functionality with Invalid input data ********");
 		SoftAssert softAssert = new SoftAssert();
+		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyToolTipForCreateCustomer");
@@ -397,13 +402,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 307, enabled = true)
 	public void verify_Create_New_Customer_with_Blank_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with blank input data ********");
+		CommonMethods.waitForGivenTime(10);
 		SoftAssert softAssert = new SoftAssert();
-		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterErrorMessageWithBlankInput");
 			commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+			CommonMethods.waitForGivenTime(5);
 			for (int i = 1; i < 5; i++) {
+				CommonMethods.waitForGivenTime(1);
 				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
 						testdata[i][1], testdata[i][2]);
 			}
@@ -421,8 +428,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 308, enabled = true)
 	public void verify_Create_New_Customer_with_Invalid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with Invalid input data ********");
-		SoftAssert softAssert = new SoftAssert();
 		CommonMethods.waitForGivenTime(5);
+		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(registerUrl);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -439,9 +446,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			}
 			for (int i = 6; i < 9; i++) {
+				CommonMethods.waitForGivenTime(1);
 				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
 						testdata[i][1], testdata[i][2]);
 			}
+			CommonMethods.waitForGivenTime(5);
 			log.info(
 					"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
 			softAssert.assertAll();
@@ -455,19 +464,28 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 
 	@Test(priority = 309, enabled = true)
 	public void verify_Create_New_Customer_with_Valid_Input() throws InterruptedException {
-		log.info("******Started verification of Register functionality with VInvalid input data ********");
-		CommonMethods.waitForGivenTime(5);
-		SoftAssert softAssert = new SoftAssert();
+		log.info("******Started verification of Register functionality with Valid input data ********");
+		/*SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(registerUrl);
+		CommonMethods.waitForGivenTime(5);*/
+		CommonMethods.waitForGivenTime(10);
+		  SoftAssert softAssert = new SoftAssert();
+		  JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		  log.info("******Started verification of Register functionality with Valid input data ********");
+		  commonMethods.navigateToPage(webPage,registerUrl, softAssert); 
+		  //webPage.getDriver().get(registerUrl);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterUserWithValidInput");
 			for (int i = 0; i < 5; i++) {
+				//commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 				if (i == 2) {
+					CommonMethods.waitForGivenTime(10);
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1],
 							CreateAccountAndSignInPage.CreateNewEmailID(), softAssert);
 				} else {
+					CommonMethods.waitForGivenTime(10);
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 				}
 			}
@@ -475,7 +493,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			CommonMethods.waitForGivenTime(5);
 			//CommonMethods.waitForWebElement(By.xpath(testdata[6][1]), webPage);
 			// if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("iPhoneNative")) {
-			if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative"))) {		 
+			if (testType.equalsIgnoreCase("Mobile")) {		 
 				 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 				 log.info("testing verify_Forgot_Password_Functionality completed------>");
 			 }
@@ -483,6 +501,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
 			softAssert.assertEquals(actualMessage, testdata[6][2], "SuccessFul user creation Message:");
 			 }
+			CommonMethods.waitForGivenTime(10);
 			userLoggedIn = true;
 			log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
 			softAssert.assertAll();
@@ -497,14 +516,17 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 310, enabled = true)
 	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
-		CommonMethods.waitForGivenTime(5);
-		SoftAssert softAssert = new SoftAssert();		
+		CommonMethods.waitForGivenTime(15);
+		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		CommonMethods.waitForGivenTime(5);
 		if (userLoggedIn == true) {
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"Verify_MyOrders_MyWishList_PayYourBills");
-			webPage.getDriver().get(commonData[8][1]);
+			//webPage.getDriver().get(commonData[8][1]);
+			commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+			CommonMethods.waitForGivenTime(15);
 			log.info("Started iteration------>");
 			for (int i = 0; i < 3; i++) {
 				log.info("Started iteration" + i);
@@ -513,8 +535,14 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 				} 
-				
-				
+				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") ) {
+				//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+					log.info("Inside else if : " +testBedName.toString());
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));					
+					js.executeScript("arguments[0].click();", element_1);
+					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));					
+					js.executeScript("arguments[0].click();", element_2);
+				}
 				else {
 					log.info("Inside else");
 					commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
@@ -536,9 +564,13 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						// commonMethods.clickElementbyXpath(webPage,
 						// testdata[i][9], softAssert);
 						/*WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][9]));
-						js.executeScript("arguments[0].click();", element_1);*/
-						js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+						js.executeScript("arguments[0].click();", element_1);
+						log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");*/
+					
+						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 4000)");// Used
+						//commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
 						log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
+						 
 					}
 				}
 			}
@@ -556,35 +588,50 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 311, enabled = true)
 	public void verify_NewsLetters() throws InterruptedException {
 		log.info("******Started verify_NewsLetters ********");
-		CommonMethods.waitForGivenTime(3);
+		CommonMethods.waitForGivenTime(10);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		if (userLoggedIn == true) {
 			try {
-				webPage.getDriver().get(commonData[8][1]);
+				//webPage.getDriver().get(commonData[8][1]);
+				commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+				CommonMethods.waitForGivenTime(15);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][8], softAssert);
+					CommonMethods.waitForGivenTime(10);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				} 
 				
-				/*else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
+					//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][8]));					
 					js.executeScript("arguments[0].click();", element_1);
+					CommonMethods.waitForGivenTime(10);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
 					js.executeScript("arguments[0].click();", element_2);
-				}*/
+				}
 				
 				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
-					 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") ) {
+					 //js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+					 commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
 					 log.info("testing verify_Forgot_Password_Functionality completed------>");
 				 }
+				
+				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
+				//else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")){
+					commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+					//webPage.getDriver().navigate().refresh();
+					//js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+					 log.info("testing verify_Forgot_Password_Functionality completed------>");
+					
+				}
 				else {
 				String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][4], softAssert);
 				softAssert.assertTrue(actualMessage.contains(testdata[0][5]), "Newsletter Updation Message:");
@@ -607,13 +654,16 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 	@Test(priority = 312, enabled = true)
 	public void verify_Account_Information() throws InterruptedException {
 		log.info("******Started verify_Account_Information ********");
-		CommonMethods.waitForGivenTime(5);
+		CommonMethods.waitForGivenTime(10);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		//userLoggedIn=true;
 		if (userLoggedIn == true) {
 			try {
 				log.info("*****************verify_Account_Information*****************");
-				webPage.getDriver().get(commonData[8][1]);
+				//webPage.getDriver().get(commonData[8][1]);
+				commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+				CommonMethods.waitForGivenTime(10);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
@@ -629,15 +679,17 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][11], softAssert);
 					} 
 				
-				/*else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
 					log.info("Inside Else If for iPhoneNative DropDown Selection Box");
+					Thread.sleep(5000);
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
 					js.executeScript("arguments[0].click();", element_1);
 					log.info("Inside Else If for iPhoneNative DropDown Selection Box Clicked");
+					CommonMethods.waitForGivenTime(10);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][11]));					
 					js.executeScript("arguments[0].click();", element_2);
 					log.info("Inside Else If for iPhoneNative DropDown Selection Box Option Clicked");
-				}*/
+				}
 				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
@@ -652,7 +704,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				}*/
-				CommonMethods.waitForGivenTime(1);
+				CommonMethods.waitForGivenTime(15);
 				log.info("Validation for Blank Data Starts----->");
 				// Validate with blank data
 				for (int i = 3; i < 6; i++) {
@@ -797,24 +849,42 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 
 	@Test(priority = 313, enabled = true)
 	public void Verify_Address_Book() throws ClientProtocolException, IOException, InterruptedException {
-		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		CommonMethods.waitForGivenTime(15);
 		try {
 			webPage.getDriver().get(commonData[8][1]);
+			CommonMethods.waitForGivenTime(10);
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
+			
+			log.info("verification of Mandatory field validation message started");
+			String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
+					"Account_Information_Address_Book_Additional_Address_Valid_Input");
+			String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
+			String Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator = inputdata[0][1];
+			String Account_Information_Address_Book_Additional_Address_Entries_Delete_Address_Locator = inputdata[0][2];
+			String Account_Information_Address_Book_Add_New_Address_Locator = inputdata[0][3];
+			String Expected_Additonal_Address_Successfully_Saved_Locator = inputdata[0][27];
+			String Expected_Additonal_Address_Successfully_Saved_Message = inputdata[0][28];
+			String Expected_Address_Book_Page_URL = inputdata[0][29];
+			String Expected_Address_Book_Page_Title = inputdata[0][30];
+			//webPage.getDriver().navigate().to(Navigate_To_Account_Information_Tab_Form_URL);
+			// webPage.getCurrentUrl();// For Safari
+			
+			
+			
 			// new code
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][14], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][15], softAssert);
 			} 
-			
-			/*else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+			else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")  ) {
+			//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 				WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][14]));					
 				js.executeScript("arguments[0].click();", element_1);
 				WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][15]));					
 				js.executeScript("arguments[0].click();", element_2);
-			}*/
+			}
 			else {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			}
@@ -848,6 +918,51 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					"Verification failed for Name: ");
 			softAssert.assertTrue(shippingAddress.contains(testdata[1][6]), "Verification failed for Name: ");
 			softAssert.assertTrue(shippingAddress.contains(testdata[1][8]), "Verification failed for Name: ");
+			
+/********************************************************* Additional Address Entries **********************************************************************************************************************************************/
+			webPage.getDriver().get(DashboardURL);
+			CommonMethods.waitForGivenTime(15);
+			commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator,
+					softAssert);
+			webPage.getCurrentUrl();// For Safari
+			WebElement Address_Book_Additional_Address_Entries_Delete_Address_Locator = webPage.getDriver().findElement(
+					By.xpath(Account_Information_Address_Book_Additional_Address_Entries_Delete_Address_Locator));
+			log.info("Address_Book_Additional_Address_Entries_Delete_Address_Locator is displayed : ");
+			if ((Address_Book_Additional_Address_Entries_Delete_Address_Locator).isDisplayed()) {
+				log.info("Inside IF loop");
+				((JavascriptExecutor) webPage.getDriver()).executeScript("confirm = function(message){return true;};");
+				Thread.sleep(5000);
+				commonMethods.clickElementbyXpath(webPage,
+						Account_Information_Address_Book_Additional_Address_Entries_Delete_Address_Locator, softAssert);
+				log.info("Added for modal dialog in safari");
+				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
+						softAssert);
+			} else {
+				log.info(
+						"************************ Add New Address if Delete Address Link is not visible*****************");
+				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
+						softAssert);
+			}
+			CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
+			String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
+			log.info(
+					" **************************** Assert contains url*******************************************************************************************************************************************************");
+			softAssert.assertTrue(actualAddressBookPageURL.contains(Expected_Address_Book_Page_URL),
+					"Page url verification failed. Expected_Address_Book_Page_URL : " + Expected_Address_Book_Page_URL
+							+ "actualAddressBookPageURL : " + actualAddressBookPageURL);
+							
+							String actualAddressBookPageTitle = commonMethods.getPageTitle(webPage, softAssert);
+			softAssert.assertEquals(actualAddressBookPageTitle, Expected_Address_Book_Page_Title,
+					"Page title verification failed. Expected title : " + Expected_Address_Book_Page_Title
+							+ "Actual Title : " + actualAddressBookPageTitle);
+			String ActualElementName = commonMethods.getTextbyXpath(webPage,
+					Expected_Additonal_Address_Successfully_Saved_Locator, softAssert);
+			softAssert.assertEquals(ActualElementName, Expected_Additonal_Address_Successfully_Saved_Message,
+					"Page Content verification failed. Expected Page Content Expected Element Name : "
+							+ Expected_Additonal_Address_Successfully_Saved_Message
+							+ "Actual Page Content Actual Element Name : " + ActualElementName);
+
+			/************************************************************************************************************************************************************************/
 			softAssert.assertAll();
 			// For Sign Out
 			if (testType.equalsIgnoreCase("Mobile")) {
@@ -865,13 +980,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		}
 	}
 	
-	
-	
-	// || testBedName.equalsIgnoreCase("edge")
+
 		@Test(priority = 314, enabled = true)
 		public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
 			log.info("******Started verify_AccountDashboard_After_SignIn_with_ExistingUser ********");
-			CommonMethods.waitForGivenTime(5);
+			CommonMethods.waitForGivenTime(10);
 			SoftAssert softAssert = new SoftAssert();
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {

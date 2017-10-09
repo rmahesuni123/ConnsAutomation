@@ -65,7 +65,7 @@ public abstract class CommonPage {
 	protected String pageUrl;
 
 	/** The web page. */
-	protected WebPage webPage;
+	protected static WebPage webPage;
 	protected MobileView mobileView;
 
 	/** The err message. */

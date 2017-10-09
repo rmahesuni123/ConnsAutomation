@@ -18,6 +18,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
@@ -76,8 +77,95 @@ public class CreateAccountAndSignInPage extends CommonPage {
 		//Assert.assertEquals(actualTooltipTxt, tooltipTxt);
 		return tooltipTxt;
 }
-	public static String CreateNewEmailID()
-	 {
+	
+	
+	
+	
+	public static void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries (String[][] inputdata) throws PageException {
+		SoftAssert softAssert = new SoftAssert();
+		for (int q = 0; q < inputdata.length; q++) {
+
+			String First_Name_Locator = inputdata[q][4];
+			String Last_Name_Locator = inputdata[q][5];
+			String Company_Name_Locator = inputdata[q][6];
+			String Telephone_Number_Locator = inputdata[q][7];
+			String Fax_Number_Locator = inputdata[q][8];
+			String Street_Address_1_Locator = inputdata[q][9];
+			String Street_Address_2_Locator = inputdata[q][10];
+			String City_Name_Locator = inputdata[q][11];
+			String Zip_Postal_Code_Locator = inputdata[q][12];
+			String State_Province_Dropdown_Locator = inputdata[q][13];
+			String Country_Dropdown_Locator = inputdata[q][14];
+			String First_Name_Input = inputdata[q][15];
+			String Last_Name_Input = inputdata[q][16];
+			String Company_Name_Input = inputdata[q][17];			
+			String Telephone_Number_Input = inputdata[q][18];			
+			String Fax_Number_Input = inputdata[q][19];
+			String Street_Address_1_Input = inputdata[q][20];
+			String Street_Address_2_Input = inputdata[q][21];
+			String City_Name_Input = inputdata[q][22];
+			String Zip_Postal_Code_Input = inputdata[q][23];
+			String State_Province_Dropdown_Input = inputdata[q][24];
+			String Country_Drop_Down_Input = inputdata[q][25];
+			String Save_Button_Locator = inputdata[q][26];
+			
+
+			
+			commonMethods.clickElementbyXpath(webPage, First_Name_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, First_Name_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, First_Name_Locator, First_Name_Input, softAssert);
+			
+			commonMethods.clickElementbyXpath(webPage, Last_Name_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, Last_Name_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, Last_Name_Locator, Last_Name_Input, softAssert);
+			
+			commonMethods.clickElementbyXpath(webPage, Company_Name_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, Company_Name_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, Company_Name_Locator, Company_Name_Input, softAssert);
+			
+			commonMethods.clickElementbyXpath(webPage, Telephone_Number_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, Telephone_Number_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, Telephone_Number_Locator, Telephone_Number_Input, softAssert);
+			
+			commonMethods.clickElementbyXpath(webPage, Fax_Number_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, Fax_Number_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, Fax_Number_Locator, Fax_Number_Input, softAssert);
+			
+			commonMethods.clickElementbyXpath(webPage, Street_Address_1_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, Street_Address_1_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, Street_Address_1_Locator, Street_Address_1_Input, softAssert);
+			
+			commonMethods.clickElementbyXpath(webPage, Street_Address_2_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, Street_Address_2_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, Street_Address_2_Locator, Street_Address_2_Input, softAssert);
+			
+			commonMethods.clickElementbyXpath(webPage, City_Name_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, City_Name_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, City_Name_Locator, City_Name_Input, softAssert);
+			
+			commonMethods.clickElementbyXpath(webPage, Zip_Postal_Code_Locator, softAssert);
+			commonMethods.clearElementbyXpath(webPage, Zip_Postal_Code_Locator, softAssert);
+			commonMethods.sendKeysbyXpath(webPage, Zip_Postal_Code_Locator, Zip_Postal_Code_Input, softAssert);
+			
+			Select State_Provice_Drop_Down = new Select(webPage.getDriver().findElement(By.xpath(State_Province_Dropdown_Locator)));
+			State_Provice_Drop_Down.selectByVisibleText(State_Province_Dropdown_Input);
+			
+			Select Country_Drop_Down = new Select(webPage.getDriver().findElement(By.xpath(Country_Dropdown_Locator)));
+			Country_Drop_Down.selectByVisibleText(Country_Drop_Down_Input);
+			
+			
+			commonMethods.clickElementbyXpath(webPage, Save_Button_Locator, softAssert);
+
+
+
+		}
+	}
+	
+	
+	
+	
+	public static String CreateNewEmailID() throws InterruptedException
+	 {	CommonMethods.waitForGivenTime(15);
 		return getID()+"@gmail.com"; 
 	 }
 	
