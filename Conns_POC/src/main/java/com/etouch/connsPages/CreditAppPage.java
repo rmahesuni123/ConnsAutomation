@@ -675,9 +675,13 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 */
 	public void selectRadioButtonByXpath(SoftAssert softAssert, String FieldName, String locator) {
 		if (commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert).isEnabled()) {
-			scrollToElement(locator,softAssert);
+			/*if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId())).getDevice().getName().toLowerCase().contains("nexus"))
+			scrollToElement(locator,softAssert);*/
 			log.info("Selecting Radio button : \"" + FieldName + "\"");
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+			JavascriptExecutor jse = (JavascriptExecutor)webPageMap.get(Thread.currentThread().getId()).getDriver();
+
+			jse.executeScript("arguments[0].click()", commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert));
 		} else {
 			log.info("RadioButton is Disabled");
 			softAssert.fail(" RadioButton Field " + FieldName + " is disabled ");
@@ -695,9 +699,13 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	
 	public void selectCheckBoxByXpath(SoftAssert softAssert, String FieldName, String locator) {
 		if (commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert).isEnabled()) {
-			scrollToElement(locator,softAssert);
+			/*if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId())).getDevice().getName().toLowerCase().contains("nexus"))
+			scrollToElement(locator,softAssert);*/
 			log.info("Selecting CheckBox : \"" + FieldName + "\"");
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+			JavascriptExecutor jse = (JavascriptExecutor)webPageMap.get(Thread.currentThread().getId()).getDriver();
+
+			jse.executeScript("arguments[0].click()", commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert));
 		} else {
 			log.info("CheckBox is Disabled");
 			softAssert.fail(" CheckBox Field " + FieldName + " is disabled ");
@@ -1057,6 +1065,7 @@ public String getExpectedDate(String value) throws Exception {
 }
 
 public void scrollToElement(String xpath,SoftAssert softAssert) {
+	log.info("Scrolling to element");
 	org.openqa.selenium.WebElement elementToScroll = commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), xpath, softAssert);
 	((JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver()).executeScript("arguments[0].scrollIntoView();", elementToScroll);
 	try {
