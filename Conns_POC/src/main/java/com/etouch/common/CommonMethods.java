@@ -990,4 +990,13 @@ public class CommonMethods {
 		}
 		return elementList;
 	}
+	
+	public void sendKeysbyXpath(WebPage webPage, String locator, String text){
+		try{
+			log.info("Entering keys "+text+" ");
+			webPage.findObjectByxPath(locator).sendKeys(text);
+		}catch(Exception e){
+			Assert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
 }

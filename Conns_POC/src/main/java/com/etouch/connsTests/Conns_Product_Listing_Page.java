@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -16,6 +19,7 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
@@ -49,6 +53,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	String DataFilePath;
 	String testType;
 	String testEnv;
+	protected static CommonMethods commonMethods;
+	String[][] commonData;
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException,
@@ -71,6 +77,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						.replace("Env", testEnv);
 				log.info("DataFilePath After is : " + DataFilePath);
 				platform = testBed.getPlatform().getName().toUpperCase();
+				/*commonData = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage",
+						"ProductListingPageCommonElements");*/
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig()
 						.getURL();
 				synchronized (this) {
@@ -89,6 +97,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 	@Test(priority = 701, enabled = true)
 	public void Verify_For_Pagination_And_Product_Details() {
+		//SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath,
 					"ProductListingPage",
@@ -184,7 +193,81 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						"expectedContent: " + contentData[i][1]
 								+ "  Failed to Match Actual:" + actualContent);
 			}
+			
+			/************************************* Verify Product Review ***************************************/
+			String [] [] Review_Data;			
+			
+			Review_Data = ExcelUtil.readExcelData(DataFilePath,
+					"ProductListingPage", "Verify_Product_Review");
+			System.out.println("Review_Data[25][0] :" +Review_Data[25][0]);
+			//webPage.getDriver().navigate().refresh();
+			CommonMethods.navigateToPage(webPage, Review_Data[25][0]);
+			
+			Thread.sleep(5000);
+			webPage.findObjectByxPath(Review_Data[0][0]).click();
+			
+			if ((CommonMethods.verifyElementisPresent(webPage, Review_Data[1][0]))) {	
+				if (testType.equalsIgnoreCase("Web")) {
+			webPage.findObjectByxPath(Review_Data[2][0]).click();
+			CommonMethods.waitForGivenTime(1);
+
+				}else {
+					webPage.findObjectByxPath(Review_Data[1][0]).click();
+					webPage.findObjectByxPath(Review_Data[2][0]).click();
+					CommonMethods.waitForGivenTime(2);
+				}
+				for(int i = 3;i<14;i++)
+				{
+					
+					String actualContent = webPage.findObjectByxPath(Review_Data[i][0]).getText();
+					//String actualContent = commonMethods.getTextbyXpath(webPage,Review_Data[i][0], softAssert);
+					log.info("Actual:  " + actualContent + " "
+							+ "  Expected: " + Review_Data[i][1]);
+					Assert.assertTrue(actualContent.contains(Review_Data[i][1]),
+							"expectedContent: " + Review_Data[i][1] + "  Failed to Match Actual:" + actualContent);
+				}
+				webPage.findObjectByxPath(Review_Data[14][0]).click();
+			   //commonMethods.clickElementbyXpath(webPage, Review_Data[0][14], softAssert);
+				for(int i = 15;i<19;i++)
+				{	log.info("Review_Data[i][0]  : "  + Review_Data[i][0]);
+				    log.info("Review_Data[i][1]  : "  + Review_Data[i][1]);
+				
+					webPage.findObjectByxPath(Review_Data[i][0]).sendKeys(Review_Data[i][1]);
+					//commonMethods.sendKeysbyXpath(webPage, Review_Data[i][0], Review_Data[i][1]);
+				}
+				webPage.findObjectByxPath(Review_Data[19][0]).click();
+				//commonMethods.clickElementbyXpath(webPage, Review_Data[0][18], softAssert);
+				for(int i = 20;i<24;i++)
+				{
+					/*String actualContent = commonMethods.getTextbyXpath(webPage, 
+							Review_Data[i][0], softAssert);*/
+					if(i==22){
+					    Date date = new Date();
+					    String DATE_FORMAT = "MM/dd/yyyy";
+					    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+					    String System_Date = simpleDateFormat.format(date);
+					    System.out.println("Today is : " + System_Date);
+						String Actual_Date = webPage.findObjectByxPath(Review_Data[22][0]).getText();
+						Assert.assertTrue(Actual_Date.contains(System_Date),
+								"expectedContent: " + System_Date + "  Failed to Match Actual:" + Actual_Date);
+						
+					} else{
+					String actualContent = webPage.findObjectByxPath(Review_Data[i][0]).getText();
+					log.info("Actual:  " + actualContent + " "
+							+ "  Expected: " + Review_Data[i][1]);
+					Assert.assertTrue(actualContent.contains(Review_Data[i][1]),
+							"expectedContent: " + Review_Data[i][1] + "  Failed to Match Actual:" + actualContent);
+				}
+				}
+				
+				//section/span/div/div[5]/div[1]/div/div[2]/h3
+				/*if (CommonMethods.verifyElementisPresent(webPage, test[0][3])) {
+					webPage.findObjectByxPath(test[0][11]).click();
+				}*/
+			}			
+			
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage,
 					"Verify_For_Pagination_And_Product_Details");
 			SoftAssertor.addVerificationFailure(e.getMessage());
