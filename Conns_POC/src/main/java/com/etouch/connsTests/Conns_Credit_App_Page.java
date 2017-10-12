@@ -7,15 +7,22 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
@@ -836,4 +843,62 @@ public class Conns_Credit_App_Page extends BaseTest {
 			softAssert.assertAll();
 		}
 	}
+	
+	
+	
+	
+	
+	/***********************************************************************************/
+	
+	
+	/*@Test(priority = 1029, enabled = true, description = "Verify DropDown List")
+	  public void verify_Suffix_DropDown_List() {
+		//HashMap<String, Object> params
+		LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+				"verifyEmailIsNotEditable");
+		commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), test[0][2], softAssert);
+		
+			WebElement element = webPageMap.get(Thread.currentThread().getId()),findElement(By.id((String) testData.get("Enter ID")));
+			Select ss = new Select(element);
+			String s = (String) testData.get("comma separated values");
+			String[] listString = s.split(",");
+			List<String> list = new ArrayList<String>();
+			for (String str : listString) {
+				list.add(str.trim());
+			}
+			Collections.sort(list);
+			Map<String, List<String>> values = new HashMap<String, List<String>>();
+			values.put("items", list);
+			List<String> actualOptions = new ArrayList<String>();
+			for (WebElement option : ss.getOptions()) {
+				System.out.println("Dropdown options are: " + option.getText());
+				actualOptions.add(option.getText());
+
+			}
+			Collections.sort(actualOptions);
+
+			Assert.assertEquals(list, actualOptions);
+
+		}
+	*/
+	
+	
+	@Test(priority = 1029, enabled = true, description = "Verify DropDown List")
+	  public void verify_Suffix_DropDown_List() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			log.info("testing verifyYearsThereDropDownValues started------>");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifySuffixDropDownValues");
+			String[][] SuffixDropDownValues = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"SuffixDropDownValues");
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.verifyDropDownValuesById(softAssert, test[0][0], test[0][1], SuffixDropDownValues);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Suffix_DropDown_List");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
 }
