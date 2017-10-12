@@ -825,7 +825,78 @@ public class Conns_Credit_App_Page extends BaseTest {
 			// creditAppPage.fillForm(softAssert, testData);
 			// creditAppPage.verifyFieldValues(testData, softAssert);
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DuplicatePage");
-			softAssert.assertAll();
+			
+			
+			/************************************************Asim Code ***************************************/
+			String [] [] Review_Data;			
+			Review_Data = ExcelUtil.readExcelData(DataFilePath,
+					"CreditApp", "Verify_Product_Review");
+			//System.out.println("Review_Data[25][0] :" +Review_Data[25][0]);
+			//webPage.getDriver().navigate().refresh();
+			//CommonMethods.navigateToPage(webPage, Review_Data[25][0]);
+			
+			Thread.sleep(5000);
+			/*webPage.findObjectByxPath(Review_Data[0][0]).click();
+			
+			if ((CommonMethods.verifyElementisPresent(webPage, Review_Data[1][0]))) {	
+				if (testType.equalsIgnoreCase("Web")) {
+			webPage.findObjectByxPath(Review_Data[2][0]).click();
+			CommonMethods.waitForGivenTime(1);
+
+				}else {
+					webPage.findObjectByxPath(Review_Data[1][0]).click();
+					webPage.findObjectByxPath(Review_Data[2][0]).click();
+					CommonMethods.waitForGivenTime(2);
+				}*/
+				for(int i = 1;i<12;i++)
+				{
+					
+					String actualContent = webPage.findObjectByxPath(Review_Data[i][0]).getText();
+					//String actualContent = commonMethods.getTextbyXpath(webPage,Review_Data[i][0], softAssert);
+					log.info("Actual:  " + actualContent + " "
+							+ "  Expected: " + Review_Data[i][1]);
+					Assert.assertTrue(actualContent.contains(Review_Data[i][1]),
+							"expectedContent: " + Review_Data[i][1] + "  Failed to Match Actual:" + actualContent);
+				}
+				webPage.findObjectByxPath(Review_Data[12][0]).click();
+			   //commonMethods.clickElementbyXpath(webPage, Review_Data[0][14], softAssert);
+				for(int i = 13;i<17;i++)
+				{	log.info("Review_Data[i][0]  : "  + Review_Data[i][0]);
+				    log.info("Review_Data[i][1]  : "  + Review_Data[i][1]);
+				
+					webPage.findObjectByxPath(Review_Data[i][0]).sendKeys(Review_Data[i][1]);
+					//commonMethods.sendKeysbyXpath(webPage, Review_Data[i][0], Review_Data[i][1]);
+				}
+				webPage.findObjectByxPath(Review_Data[17][0]).click();
+				//commonMethods.clickElementbyXpath(webPage, Review_Data[0][18], softAssert);
+				for(int i = 18;i<22;i++)
+				{
+					/*String actualContent = commonMethods.getTextbyXpath(webPage, 
+							Review_Data[i][0], softAssert);*/
+					if(i==20){
+					    Date date = new Date();
+					    String DATE_FORMAT = "MM/dd/yyyy";
+					    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+					    String System_Date = simpleDateFormat.format(date);
+					    System.out.println("Today is : " + System_Date);
+						String Actual_Date = webPage.findObjectByxPath(Review_Data[20][0]).getText();
+						Assert.assertTrue(Actual_Date.contains(System_Date),
+								"expectedContent: " + System_Date + "  Failed to Match Actual:" + Actual_Date);
+						
+					} else{
+					String actualContent = webPage.findObjectByxPath(Review_Data[i][0]).getText();
+					log.info("Actual:  " + actualContent + " "
+							+ "  Expected: " + Review_Data[i][1]);
+					Assert.assertTrue(actualContent.contains(Review_Data[i][1]),
+							"expectedContent: " + Review_Data[i][1] + "  Failed to Match Actual:" + actualContent);
+				}
+				}
+				/******************************************************************************************/
+			
+				softAssert.assertAll();
+			//}
+			
+			
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_For_Registered_User_Status_Duplicate");
 			softAssert.assertAll();
