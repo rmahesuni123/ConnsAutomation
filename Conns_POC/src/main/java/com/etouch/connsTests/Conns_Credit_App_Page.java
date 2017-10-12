@@ -750,20 +750,24 @@ public class Conns_Credit_App_Page extends BaseTest {
 			// creditAppPage.navigateToCreditAppPage(softAssert);
 			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 					"verifyEmailIsNotEditable");
+		
 			if (!creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData.get("EmailIdentifier"), softAssert)) {
 				log.info("TextBox EmailAddress is Not Displayed");
 				softAssert.fail("TextBox EmailAddress is Not Displayed");
-			} else {
-				SoftAssert softAssert1 = new SoftAssert();
+			} 
+	
+			
+				else {
 				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("EmailIdentifier"), testData.get("EmailData"),
-						softAssert1);
+						softAssert);
 				String value = creditAppPage.getTextBoxValueByJs("EmailAdress", testData.get("EmailIdentifier"),
 						softAssert);
-				log.info("textField Value is : " + value);
+			log.info("textField Value is : " + value);
 				log.info("Updated value is : " + testData.get("EmailData"));
 				if (value.equals(testData.get("EmailData"))) {
 					softAssert.fail("Email Field is editable for Registered user , Able to set new value to " + value);
 				}
+			//}
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -883,7 +887,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	*/
 	
 	
-	@Test(priority = 1029, enabled = true, description = "Verify DropDown List")
+	@Test(priority = 1029, enabled = true, description = "Verify Suffix DropDown List")
 	  public void verify_Suffix_DropDown_List() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -899,6 +903,31 @@ public class Conns_Credit_App_Page extends BaseTest {
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
+	}
+	
+	@Test(priority = 1030, enabled = true, description = "verify EmailID Count")
+	  public void verify_EmailID_Count() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		LinkedHashMap<String, String> inputdata = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+				"verifyEmailIdCount");	
+	 if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("EmailIdentifier"), softAssert)) {
+		log.info("Email ID Count Starts : " );
+		/********************************************************************************************************************************/
+		int EmailId_Length = inputdata.get("EmailData").length();
+		log.info("Email ID Count Starts 1: " + EmailId_Length);
+		if (EmailId_Length >= 50) {
+			log.info("Email ID Count Starts 2: " + EmailId_Length);			
+			commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()),
+					inputdata.get("EmailIdentifier"), inputdata.get("EmailData"), softAssert);			
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
+			creditAppPage.verifyErrorMessageByXpath(softAssert, "EmailIDErrorMessageText", inputdata.get("EmailIDErrorMessageLocator"),
+					inputdata.get("EmailIDErrorMessageText"));
+			log.info("testing verify_EmailID_Count completed------>");
+
+		} 
+		/*********************************************************************************************************************/
+	}
+	
 	}
 
 }
