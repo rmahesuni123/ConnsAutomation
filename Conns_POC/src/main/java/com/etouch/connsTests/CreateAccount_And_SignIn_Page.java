@@ -531,20 +531,20 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			for (int i = 0; i < 3; i++) {
 				log.info("Started iteration" + i);
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
-					log.info("Inside if");
+					log.info("Inside if Mobile & edge");
 					commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 				} 
 				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") ) {
 				//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
-					log.info("Inside else if : " +testBedName.toString());
+					log.info("Inside else if iPhoneNative : " +testBedName.toString());
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));					
 					js.executeScript("arguments[0].click();", element_1);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));					
 					js.executeScript("arguments[0].click();", element_2);
 				}
 				else {
-					log.info("Inside else");
+					log.info("Inside else Web");
 					commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
 				}
 				String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
@@ -558,21 +558,21 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						commonMethods.clickElementbyXpath(webPage, testdata[i][9], softAssert);
 					}
 				}*/
-				
-				if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
-					if (!(i == 2)) {
+			/***************************Commented for Edge Execution ********************/	
+				/*if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
+					if  (!(i == 2)) {
 						// commonMethods.clickElementbyXpath(webPage,
 						// testdata[i][9], softAssert);
-						/*WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][9]));
+						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][9]));
 						js.executeScript("arguments[0].click();", element_1);
-						log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");*/
+						log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
 					
 						js.executeScript("javascript: setTimeout(\"history.go(-1)\", 4000)");// Used
 						//commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
 						log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
 						 
 					}
-				}
+				}*/
 			}
 			softAssert.assertAll();
 			log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
