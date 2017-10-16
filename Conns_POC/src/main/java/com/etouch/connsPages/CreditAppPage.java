@@ -899,6 +899,8 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 	}
 
+
+	
 	/**
 	 * Verifies if element is present using xPath
 	 * 
@@ -1075,5 +1077,21 @@ public void scrollToElement(String xpath,SoftAssert softAssert) {
 		e.printStackTrace();
 	}
 }
+
+
+public void verifyContentByXpath(SoftAssert softAssert, String MessageFieldName, String locator,
+			String expectedMessage) throws PageException {
+	
+		log.info("Verifying Content message for : " + MessageFieldName + " : Expected Message : "
+				+ expectedMessage);
+		commonMethods.waitForWebElement(By.xpath(locator), webPageMap.get(Thread.currentThread().getId()));
+		String actualMessage = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+		softAssert.assertTrue(expectedMessage.equals(actualMessage), "Failed to verify error field :"
+				+ MessageFieldName + " : Expected : " + expectedMessage + " Actual : " + actualMessage);
+	}
+	
+	
+
+
 }
 

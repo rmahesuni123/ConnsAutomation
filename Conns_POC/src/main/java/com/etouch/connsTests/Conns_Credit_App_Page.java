@@ -837,8 +837,29 @@ public class Conns_Credit_App_Page extends BaseTest {
 			
 			Thread.sleep(5000);
 			/*webPage.findObjectByxPath(Review_Data[0][0]).click();
+			 * 
+			 *  String existingWindow = null;
+    String newWindow = null;
+    existingWindow = webPage.getDriver().getWindowHandle();
+    Set<String> windows = webPage.getDriver().getWindowHandles();
+    if (windows.size() >= 2) {
+     windows.remove(existingWindow);
+     newWindow = windows.iterator().next();
+     log.info("Existing window id is" + existingWindow);
+     log.info("New window id is" + newWindow);
+     webPage.getDriver().switchTo().window(newWindow);
+     Thread.sleep(3000);
+     Actual_Page_URL = webPage.getCurrentUrl();
+     Actual_Page_Title = webPage.getPageTitle();
+     Page_URL_Title_Element_Data.add(Actual_Page_URL);     
+     Page_URL_Title_Element_Data.add(Actual_Page_Title);
+     Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
+     
+     webPage.getDriver().close();
+     webPage.getDriver().switchTo().window(existingWindow);
+			 */
 			
-			if ((CommonMethods.verifyElementisPresent(webPage, Review_Data[1][0]))) {	
+			/*if ((CommonMethods.verifyElementisPresent(webPage, Review_Data[1][0]))) {	
 				if (testType.equalsIgnoreCase("Web")) {
 			webPage.findObjectByxPath(Review_Data[2][0]).click();
 			CommonMethods.waitForGivenTime(1);
@@ -999,6 +1020,29 @@ public class Conns_Credit_App_Page extends BaseTest {
 		/*********************************************************************************************************************/
 	}
 	
+	}
+	
+	/**********************************/
+	@Test(priority = 1031, enabled = true, description = "verify EmailID Count")
+	  public void verify_Important_Notes_Link() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		creditAppPage.navigateToCreditAppPage(softAssert);
+	/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+				"verifyImportantNotesLink");*/		
+		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+				"verifyImportantNotesLink");
+		CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), testData[0][1]);
+		creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
+		
+					if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
+					{
+						softAssert.assertTrue(commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert).contains(testData[1][2]));
+						commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1], softAssert);
+						for (int i=3;i<10;i++)
+						{
+						creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
+						}
+					}
 	}
 
 }
