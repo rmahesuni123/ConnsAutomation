@@ -1042,6 +1042,10 @@ public class Conns_Credit_App_Page extends BaseTest {
 						{
 						creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
 						}
+						
+						log.info("Clicking on element using Css - "+testData[10][1]);
+						commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[10][1], softAssert);
+						log.info("Clicking on element using Css - "+testData[10][1]);
 					}
 	}
 
