@@ -553,16 +553,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						testdata[i][4].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
 				softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert).toLowerCase(),
 						testdata[i][6].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
-				/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					if (!(i == 2)) {
 						commonMethods.clickElementbyXpath(webPage, testdata[i][9], softAssert);
 					}
-				}*/
+				}
 			/***************************Commented for Edge Execution ********************/	
 				/*if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("edge")) {
 					if  (!(i == 2)) {
-						// commonMethods.clickElementbyXpath(webPage,
-						// testdata[i][9], softAssert);
+						// commonMethods.clickElementbyXpath(webPage, testdata[i][9], softAssert);
 						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][9]));
 						js.executeScript("arguments[0].click();", element_1);
 						log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
@@ -573,6 +572,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						 
 					}
 				}*/
+			/***************************Commented for Edge Execution ********************/	
 			}
 			softAssert.assertAll();
 			log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
