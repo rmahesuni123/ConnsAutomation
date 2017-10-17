@@ -53,7 +53,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	private String testBedName;
 	TestBed testBed;
 	Path path;
-	String DataFilePath;
+	protected static String DataFilePath;
 	protected String testType, browserName;
 	String currentTestBedName;
 	static Log log = LogUtil.getLog(Conns_Account_And_SignIn_Page.class);
@@ -813,109 +813,29 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1027, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1027/*, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields"*/, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Successful_Submit_For_Registered_User_Status_Duplicate() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			// creditAppPage.loginFromCreditApp(softAssert);
-			// creditAppPage.navigateToCreditAppPage(softAssert);
+			 creditAppPage.navigateToCreditAppPage(softAssert);
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifySuccessfulSubmitForRegisteredUser");
-			// creditAppPage.fillForm(softAssert, testData);
-			// creditAppPage.verifyFieldValues(testData, softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			//creditAppPage.verifyFieldValues(testData, softAssert);
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DuplicatePage");
-			
-			
-			/************************************************Asim Code ***************************************/
-			String [] [] Review_Data;			
-			Review_Data = ExcelUtil.readExcelData(DataFilePath,
-					"CreditApp", "Verify_Product_Review");
-			//System.out.println("Review_Data[25][0] :" +Review_Data[25][0]);
-			//webPage.getDriver().navigate().refresh();
-			//CommonMethods.navigateToPage(webPage, Review_Data[25][0]);
+			/*String[][] reviewData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"ReviewData");*/
 			
 			Thread.sleep(5000);
-			/*webPage.findObjectByxPath(Review_Data[0][0]).click();
-			 * 
-			 *  String existingWindow = null;
-    String newWindow = null;
-    existingWindow = webPage.getDriver().getWindowHandle();
-    Set<String> windows = webPage.getDriver().getWindowHandles();
-    if (windows.size() >= 2) {
-     windows.remove(existingWindow);
-     newWindow = windows.iterator().next();
-     log.info("Existing window id is" + existingWindow);
-     log.info("New window id is" + newWindow);
-     webPage.getDriver().switchTo().window(newWindow);
-     Thread.sleep(3000);
-     Actual_Page_URL = webPage.getCurrentUrl();
-     Actual_Page_Title = webPage.getPageTitle();
-     Page_URL_Title_Element_Data.add(Actual_Page_URL);     
-     Page_URL_Title_Element_Data.add(Actual_Page_Title);
-     Page_URL_Title_Element_Data.add(Actual_Page_Element_Name);
-     
-     webPage.getDriver().close();
-     webPage.getDriver().switchTo().window(existingWindow);
-			 */
+			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			
-			/*if ((CommonMethods.verifyElementisPresent(webPage, Review_Data[1][0]))) {	
-				if (testType.equalsIgnoreCase("Web")) {
-			webPage.findObjectByxPath(Review_Data[2][0]).click();
-			CommonMethods.waitForGivenTime(1);
-
-				}else {
-					webPage.findObjectByxPath(Review_Data[1][0]).click();
-					webPage.findObjectByxPath(Review_Data[2][0]).click();
-					CommonMethods.waitForGivenTime(2);
-				}*/
-				for(int i = 1;i<12;i++)
-				{
-					
-					String actualContent = webPage.findObjectByxPath(Review_Data[i][0]).getText();
-					//String actualContent = commonMethods.getTextbyXpath(webPage,Review_Data[i][0], softAssert);
-					log.info("Actual:  " + actualContent + " "
-							+ "  Expected: " + Review_Data[i][1]);
-					Assert.assertTrue(actualContent.contains(Review_Data[i][1]),
-							"expectedContent: " + Review_Data[i][1] + "  Failed to Match Actual:" + actualContent);
-				}
-				webPage.findObjectByxPath(Review_Data[12][0]).click();
-			   //commonMethods.clickElementbyXpath(webPage, Review_Data[0][14], softAssert);
-				for(int i = 13;i<17;i++)
-				{	log.info("Review_Data[i][0]  : "  + Review_Data[i][0]);
-				    log.info("Review_Data[i][1]  : "  + Review_Data[i][1]);
-				
-					webPage.findObjectByxPath(Review_Data[i][0]).sendKeys(Review_Data[i][1]);
-					//commonMethods.sendKeysbyXpath(webPage, Review_Data[i][0], Review_Data[i][1]);
-				}
-				webPage.findObjectByxPath(Review_Data[17][0]).click();
-				//commonMethods.clickElementbyXpath(webPage, Review_Data[0][18], softAssert);
-				for(int i = 18;i<22;i++)
-				{
-					/*String actualContent = commonMethods.getTextbyXpath(webPage, 
-							Review_Data[i][0], softAssert);*/
-					if(i==20){
-					    Date date = new Date();
-					    String DATE_FORMAT = "MM/dd/yyyy";
-					    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
-					    String System_Date = simpleDateFormat.format(date);
-					    System.out.println("Today is : " + System_Date);
-						String Actual_Date = webPage.findObjectByxPath(Review_Data[20][0]).getText();
-						Assert.assertTrue(Actual_Date.contains(System_Date),
-								"expectedContent: " + System_Date + "  Failed to Match Actual:" + Actual_Date);
-						
-					} else{
-					String actualContent = webPage.findObjectByxPath(Review_Data[i][0]).getText();
-					log.info("Actual:  " + actualContent + " "
-							+ "  Expected: " + Review_Data[i][1]);
-					Assert.assertTrue(actualContent.contains(Review_Data[i][1]),
-							"expectedContent: " + Review_Data[i][1] + "  Failed to Match Actual:" + actualContent);
-				}
-				}
-				/******************************************************************************************/
-			
+			webPage.switchWindow("Conns");
+			creditAppPage.submitReview(softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReview"), true);
+			Thread.sleep(5000);
+			webPage.closeToggleWindow();
 				softAssert.assertAll();
-			//}
 			
 			
 		} catch (Throwable e) {
@@ -924,7 +844,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	@Test(priority = 1028, enabled = true, description = "Verify Page Title")
+	
+	@Test(priority = 1028, enabled = false, description = "Verify Page Title")
 	public void verify_Important_Notice_Text() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -940,45 +861,6 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 	
-	
-	
-	
-	
-	/***********************************************************************************/
-	
-	
-	/*@Test(priority = 1029, enabled = true, description = "Verify DropDown List")
-	  public void verify_Suffix_DropDown_List() {
-		//HashMap<String, Object> params
-		LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
-				"verifyEmailIsNotEditable");
-		commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), test[0][2], softAssert);
-		
-			WebElement element = webPageMap.get(Thread.currentThread().getId()),findElement(By.id((String) testData.get("Enter ID")));
-			Select ss = new Select(element);
-			String s = (String) testData.get("comma separated values");
-			String[] listString = s.split(",");
-			List<String> list = new ArrayList<String>();
-			for (String str : listString) {
-				list.add(str.trim());
-			}
-			Collections.sort(list);
-			Map<String, List<String>> values = new HashMap<String, List<String>>();
-			values.put("items", list);
-			List<String> actualOptions = new ArrayList<String>();
-			for (WebElement option : ss.getOptions()) {
-				System.out.println("Dropdown options are: " + option.getText());
-				actualOptions.add(option.getText());
-
-			}
-			Collections.sort(actualOptions);
-
-			Assert.assertEquals(list, actualOptions);
-
-		}
-	*/
-	
-	
 	@Test(priority = 1029, enabled = true, description = "Verify Suffix DropDown List")
 	  public void verify_Suffix_DropDown_List() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
@@ -987,7 +869,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifySuffixDropDownValues");
 			String[][] SuffixDropDownValues = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"SuffixDropDownValues");
-			// creditAppPage.navigateToCreditAppPage(softAssert);
+			 creditAppPage.navigateToCreditAppPage(softAssert);
 			creditAppPage.verifyDropDownValuesById(softAssert, test[0][0], test[0][1], SuffixDropDownValues);
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -1022,7 +904,6 @@ public class Conns_Credit_App_Page extends BaseTest {
 	
 	}
 	
-	/**********************************/
 	@Test(priority = 1031, enabled = true, description = "verify EmailID Count")
 	  public void verify_Important_Notes_Link() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
