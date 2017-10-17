@@ -15,6 +15,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
@@ -1120,7 +1121,7 @@ public void verifyLabelsErrorColor(SoftAssert softAssert, String[][] labelsError
 	}	
 }
 
-public void submitReview(SoftAssert softAssert, String[][] labelsTextData, boolean validateAllFields) throws PageException, InterruptedException
+public void submitReview(SoftAssert softAssert, String[][] labelsTextData, boolean validateAllFields) throws Exception
 {
 	if(validateAllFields)
 	{
@@ -1136,10 +1137,21 @@ public void submitReview(SoftAssert softAssert, String[][] labelsTextData, boole
 		Thread.sleep(5000);
 		commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 		 verifyLabels(softAssert,ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewThankYouPageData"));
+		 verifyDate(softAssert);
 		Thread.sleep(5000);
 	}
 
+public void verifyDate(SoftAssert softAssert) throws Exception {
+	   Date date = new Date();
+	    String DATE_FORMAT = "MM/dd/yyyy";
+	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+	    String System_Date = simpleDateFormat.format(date);
+	    System.out.println("Today is : " + System_Date);
+		String Actual_Date = webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(commonData.get("ReviewPageDateXpath")).getText();
+		softAssert.assertTrue(Actual_Date.contains(System_Date),
+				"expectedContent: " + System_Date + "  Failed to Match Actual:" + Actual_Date);
 
+}
 public void fillFormWithOutJS(SoftAssert softAssert, String[][] FieldData) {
 	int dataLength = FieldData.length;
 	String testType = TestBedManagerConfiguration.INSTANCE.getTestTypes()[0];
