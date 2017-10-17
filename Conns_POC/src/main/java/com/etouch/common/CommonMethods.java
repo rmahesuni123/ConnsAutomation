@@ -1,7 +1,9 @@
 package com.etouch.common;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +26,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
@@ -999,4 +1002,213 @@ public class CommonMethods {
 			Assert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
+	
+
+public void verifyLabels(WebPage webPage, SoftAssert softAssert, String[][] labelsData) throws PageException
+{
+	for(int i = 0;i<labelsData.length;i++)
+	{
+		//label verification
+		String actualContent = webPage.findObjectByxPath(labelsData[i][0]).getText();
+		//String actualContent = commonMethods.getTextbyXpath(webPage,Review_Data[i][0], softAssert);
+		log.info("Actual:  " + actualContent + " "
+				+ "  Expected: " + labelsData[i][1]);
+		softAssert.assertTrue(actualContent.contains(labelsData[i][1]),
+				"Expected Content: " + labelsData[i][1] + "  Failed to Match Actual: " + actualContent);
+	}	
+}
+
+public void verifyLabelsErrorColor(WebPage webPage, SoftAssert softAssert, String[][] labelsErrorColorCodeData) throws PageException
+{
+	webPage.findObjectByxPath(".//*[@class='pr-footer']/div[@type='submit']").click();
+	//String expectedColorCode = "#d00";
+	String expectedColorCode ="rgba(221, 0, 0, 1)";
+	for(int i = 0;i<labelsErrorColorCodeData.length;i++)
+	{
+		String actualColorCode = webPage.findObjectByxPath(labelsErrorColorCodeData[i][0]).getCssValue("color");
+		log.info("Actual Error Color Code:  " + actualColorCode + " "
+				+ "  Expected Code: " +expectedColorCode);
+		softAssert.assertTrue(actualColorCode.equals(expectedColorCode),
+				"Expected Color Code: " + expectedColorCode + "  Failed to Match Actual: " + actualColorCode);
+	}	
+}
+
+
+
+/*public void verifyDate(SoftAssert softAssert) throws Exception {
+	   Date date = new Date();
+	    String DATE_FORMAT = "MM/dd/yyyy";
+	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+	    String System_Date = simpleDateFormat.format(date);
+	    System.out.println("Today is : " + System_Date);
+		String Actual_Date = webPage.findObjectByxPath(commonData.get("ReviewPageDateXpath")).getText();
+		softAssert.assertTrue(Actual_Date.contains(System_Date),
+				"expectedContent: " + System_Date + "  Failed to Match Actual:" + Actual_Date);
+
+}*/
+public void fillFormWithOutJS(WebPage webPage, SoftAssert softAssert, String[][] FieldData) {
+	int dataLength = FieldData.length;
+	String testType = TestBedManagerConfiguration.INSTANCE.getTestTypes()[0];
+	for (int i = 0; i < dataLength; i++) {
+		try {
+			switch (FieldData[i][1]) {
+			case "textField":
+				if (testType.equalsIgnoreCase("Mobile")
+						&& FieldData[i][2].equalsIgnoreCase(".//*[@id='applicant:middle-initial']"))
+					break;
+				verifyTextFieldIsEditableByXpathWithOutJS(webPage, softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
+				break;
+			case "dropDown":
+				verifyDropDownFieldIsEditableByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
+				break;
+			case "radio":
+				selectRadioButtonByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
+				break;
+			case "checkBox":
+				selectCheckBoxByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
+				break;
+			case "button":
+				selectButtonByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
+				break;
+			default:
+				softAssert.fail("Invalid Data in datasheet. FieldType is not set as expected. Current value is : "
+						+ FieldData[i][1]);
+			}
+		
+		} catch (Throwable e) {
+			softAssert.fail("Failed to set value in " + FieldData[i][1] + "  \"" + FieldData[i][0] + "\" Due to :"
+					+ e.getLocalizedMessage());
+		}
+	}
+}
+
+public boolean verifyTextFieldIsEditableByXpathWithOutJS(WebPage webPage, SoftAssert softAssert, String FieldName, String locator,
+		String newValue) {
+	if (!verifyElementisPresent(webPage, locator, softAssert)) {
+		log.info("TextBox \"" + FieldName + "\" is Not Displayed");
+		softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
+		return false;
+	} else {
+		if (newValue == "" || newValue == null) {
+			log.info("Value was passed as blank for textField " + FieldName);
+			return true;
+		}
+		if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+			sendKeysbyXpath(webPage, locator, newValue, softAssert);
+		} else {
+			softAssert.fail("TextBox \"" + FieldName + "\" is Disabled ");
+		}
+	}
+	return false;
+}
+	
+/**
+ * Verifies if dropdown Value is editable using xPath
+ * 
+ * @author sjadhav
+ * @param softAssert
+ * @param FieldName
+ * @param locator
+ * @param newValue
+ */
+public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator,
+		String newValue) {
+	if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+		log.info("DropDown is enabled");
+		log.info("Setting DropDown Value to : " + newValue);
+		selectValueFromDropDownByXpath(webPage,softAssert, FieldName, locator, newValue);
+	} else {
+		log.info("DropDown is Disabled");
+		softAssert.fail(" DropDown Field " + FieldName + " is disabled ");
+	}
+}
+	
+
+	/**
+	 * Select Check Radio Button using xpath
+	 * 
+	 * @author sjadhav
+	 * @param softAssert
+	 * @param FieldName
+	 * @param locator
+	 */
+	public void selectRadioButtonByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) {
+		if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+			/*if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId())).getDevice().getName().toLowerCase().contains("nexus"))
+			scrollToElement(locator,softAssert);*/
+			log.info("Selecting Radio button : \"" + FieldName + "\"");
+			//commonMethods.clickElementbyXpath(webPage, locator, softAssert);
+			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
+
+			jse.executeScript("arguments[0].click()", getWebElementbyXpath(webPage, locator, softAssert));
+		} else {
+			log.info("RadioButton is Disabled");
+			softAssert.fail(" RadioButton Field " + FieldName + " is disabled ");
+		}
+	}
+
+	/**
+	 * Select Check Box using xpath
+	 * 
+	 * @author sjadhav
+	 * @param softAssert
+	 * @param FieldName
+	 * @param locator
+	 */
+	
+	public void selectCheckBoxByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) {
+		if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+			/*if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId())).getDevice().getName().toLowerCase().contains("nexus"))
+			scrollToElement(locator,softAssert);*/
+			log.info("Selecting CheckBox : \"" + FieldName + "\"");
+			//commonMethods.clickElementbyXpath(webPage, locator, softAssert);
+			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
+
+			jse.executeScript("arguments[0].click()", getWebElementbyXpath(webPage, locator, softAssert));
+		} else {
+			log.info("CheckBox is Disabled");
+			softAssert.fail(" CheckBox Field " + FieldName + " is disabled ");
+		}
+	}
+
+	/**
+	 * Select Button using xpath
+	 * 
+	 * @author sjadhav
+	 * @param softAssert
+	 * @param FieldName
+	 * @param locator
+	 */
+	public void selectButtonByXpath(WebPage webPage, SoftAssert softAssert, String FieldName, String locator) {
+		if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+			log.info("Clicking on Button : \"" + FieldName + "\"");
+			//commonMethods.clickElementbyXpath(webPage, locator, softAssert);
+			
+			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
+
+			jse.executeScript("arguments[0].click()", getWebElementbyXpath(webPage, locator, softAssert)); 
+		} else {
+			log.info("Button is Disabled");
+			softAssert.fail(" Button Field " + FieldName + " is disabled ");
+		}
+	}	
+	/**
+	 * Select value from drop down menu using xpath
+	 * 
+	 * @author sjadhav
+	 * @param softAssert
+	 * @param FieldName
+	 * @param locator
+	 * @param newValue
+	 */
+	public void selectValueFromDropDownByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator,
+			String newValue) {
+		log.info("Setting DropDown \"" + FieldName + "\" Value to : " + newValue);
+		Select select = new Select(getWebElementbyXpath(webPage, locator, softAssert));
+		select.selectByVisibleText(newValue.trim());
+		String actual = select.getFirstSelectedOption().getText().trim();
+		softAssert.assertTrue(actual.equals(newValue),
+				"Failed to Update Drop Down Value, New Value : " + newValue + " Existing Value : " + actual);
+	}	
+	
 }

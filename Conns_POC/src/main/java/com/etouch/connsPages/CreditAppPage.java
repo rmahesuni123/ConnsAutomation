@@ -61,7 +61,19 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		}
 		
 	}
-
+	
+	public void navigateToYesMoneyLandingPage(SoftAssert softAssert) throws Exception {
+			webPageMap.get(Thread.currentThread().getId()).navigateToUrl(url);
+			// log.info("Navigating to Home Page");
+			log.info("Navigating to Yes Money Landing Page");
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("YesMoneyGetCreditTodayApplyNowLink"),
+					softAssert);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			
+		
+	}
+	
+	
 	/**
 	 * Navigates user to conns Home Page
 	 * 
@@ -1091,138 +1103,30 @@ public void verifyContentByXpath(SoftAssert softAssert, String MessageFieldName,
 		softAssert.assertTrue(expectedMessage.equals(actualMessage), "Failed to verify error field :"
 				+ MessageFieldName + " : Expected : " + expectedMessage + " Actual : " + actualMessage);
 	}
-	
-public void verifyLabels(SoftAssert softAssert, String[][] labelsData) throws PageException
-{
-	for(int i = 0;i<labelsData.length;i++)
-	{
-		//label verification
-		String actualContent = webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(labelsData[i][0]).getText();
-		//String actualContent = commonMethods.getTextbyXpath(webPage,Review_Data[i][0], softAssert);
-		log.info("Actual:  " + actualContent + " "
-				+ "  Expected: " + labelsData[i][1]);
-		softAssert.assertTrue(actualContent.contains(labelsData[i][1]),
-				"Expected Content: " + labelsData[i][1] + "  Failed to Match Actual: " + actualContent);
-	}	
-}
 
-public void verifyLabelsErrorColor(SoftAssert softAssert, String[][] labelsErrorColorCodeData) throws PageException
-{
-	webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(".//*[@class='pr-footer']/div[@type='submit']").click();
-	//String expectedColorCode = "#d00";
-	String expectedColorCode ="rgba(221, 0, 0, 1)";
-	for(int i = 0;i<labelsErrorColorCodeData.length;i++)
-	{
-		String actualColorCode = webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(labelsErrorColorCodeData[i][0]).getCssValue("color");
-		log.info("Actual Error Color Code:  " + actualColorCode + " "
-				+ "  Expected Code: " +expectedColorCode);
-		softAssert.assertTrue(actualColorCode.equals(expectedColorCode),
-				"Expected Color Code: " + expectedColorCode + "  Failed to Match Actual: " + actualColorCode);
-	}	
-}
 
-public void submitReview(SoftAssert softAssert, String[][] labelsTextData, boolean validateAllFields) throws Exception
+public void submitReview(WebPage webPage,SoftAssert softAssert, String[][] labelsTextData, boolean validateAllFields) throws Exception
 {
 	if(validateAllFields)
 	{
 		
 		//String[][] reviewLabelsData =ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewLabelsData");
-		 verifyLabels(softAssert,ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewLabelsData"));
+		commonMethods.verifyLabels(webPage, softAssert,ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewLabelsData"));
 		 Thread.sleep(3000);
-		 verifyLabelsErrorColor(softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewDataLabelsErrorColor"));
+		 commonMethods.verifyLabelsErrorColor(webPage, softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewDataLabelsErrorColor"));
 		 webPageMap.get(Thread.currentThread().getId()).navigateToUrl( webPageMap.get(Thread.currentThread().getId()).getCurrentUrl());
 		 Thread.sleep(5000); 
 	}
-		fillFormWithOutJS(softAssert, labelsTextData);
+		commonMethods.fillFormWithOutJS(webPage, softAssert, labelsTextData);
 		Thread.sleep(5000);
-		commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
-		 verifyLabels(softAssert,ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewThankYouPageData"));
-		 verifyDate(softAssert);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		commonMethods.verifyLabels(webPage,softAssert,ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewThankYouPageData"));
+		//commonMethods.verifyDate(webPage,softAssert);
 		Thread.sleep(5000);
 	}
 
-public void verifyDate(SoftAssert softAssert) throws Exception {
-	   Date date = new Date();
-	    String DATE_FORMAT = "MM/dd/yyyy";
-	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
-	    String System_Date = simpleDateFormat.format(date);
-	    System.out.println("Today is : " + System_Date);
-		String Actual_Date = webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(commonData.get("ReviewPageDateXpath")).getText();
-		softAssert.assertTrue(Actual_Date.contains(System_Date),
-				"expectedContent: " + System_Date + "  Failed to Match Actual:" + Actual_Date);
 
-}
-public void fillFormWithOutJS(SoftAssert softAssert, String[][] FieldData) {
-	int dataLength = FieldData.length;
-	String testType = TestBedManagerConfiguration.INSTANCE.getTestTypes()[0];
-	for (int i = 0; i < dataLength; i++) {
-		try {
-			switch (FieldData[i][1]) {
-			case "textField":
-				if (testType.equalsIgnoreCase("Mobile")
-						&& FieldData[i][2].equalsIgnoreCase(".//*[@id='applicant:middle-initial']"))
-					break;
-				verifyTextFieldIsEditableByXpathWithOutJS(softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
-				break;
-			case "dropDown":
-				verifyDropDownFieldIsEditableByXpath(softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
-				break;
-			case "radio":
-				selectRadioButtonByXpath(softAssert, FieldData[i][0], FieldData[i][2]);
-				break;
-			case "checkBox":
-				selectCheckBoxByXpath(softAssert, FieldData[i][0], FieldData[i][2]);
-				break;
-			case "button":
-				selectButtonByXpath(softAssert, FieldData[i][0], FieldData[i][2]);
-				break;
-			default:
-				softAssert.fail("Invalid Data in datasheet. FieldType is not set as expected. Current value is : "
-						+ FieldData[i][1]);
-			}
-			/*
-			 * if(FieldData[i][1].equalsIgnoreCase("textField")) {
-			 * //verifyTextFieldIsEditableByXpath(softAssert,
-			 * FieldData[i][0], FieldData[i][2], FieldData[i][3]);
-			 * commonMethods.sendKeysByXpath(webPageMap.get(Thread.currentThread().getId()), FieldData[i][2],
-			 * FieldData[i][3], softAssert); } else
-			 * if(FieldData[i][1].equalsIgnoreCase("dropDown")) {
-			 * //verifyDropDownFieldIsEditableByXpath(softAssert,
-			 * FieldData[i][0], FieldData[i][2], FieldData[i][3]);
-			 * selectValueFromDropDownByXpath(softAssert, FieldData[i][0],
-			 * FieldData[i][2], FieldData[i][3]); } else
-			 * if(FieldData[i][1].equalsIgnoreCase("radio")) {
-			 * selectRadioButtonByXpath(softAssert, FieldData[i][0],
-			 * FieldData[i][2]); } else{ softAssert.fail(
-			 * "Invalid Data in datasheet. FieldType is not set as expected. Current value is : "
-			 * +FieldData[i][1]); }
-			 */
-		} catch (Throwable e) {
-			softAssert.fail("Failed to set value in " + FieldData[i][1] + "  \"" + FieldData[i][0] + "\" Due to :"
-					+ e.getLocalizedMessage());
-		}
-	}
-}
 
-public boolean verifyTextFieldIsEditableByXpathWithOutJS(SoftAssert softAssert, String FieldName, String locator,
-		String newValue) {
-	if (!verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert)) {
-		log.info("TextBox \"" + FieldName + "\" is Not Displayed");
-		softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
-		return false;
-	} else {
-		if (newValue == "" || newValue == null) {
-			log.info("Value was passed as blank for textField " + FieldName);
-			return true;
-		}
-		if (commonMethods.getWebElementbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert).isEnabled()) {
-			commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, newValue, softAssert);
-		} else {
-			softAssert.fail("TextBox \"" + FieldName + "\" is Disabled ");
-		}
-	}
-	return false;
-}
 
 
 }

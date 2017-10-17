@@ -1,5 +1,5 @@
 #Note: When the changes are made for this devConfig.yml, Please remember to copy changes to testConfig.yml as well
-testTypes: [Mobile]
+testTypes: [Web]
 
 ## Execution flow for TestBeds / Test Suites / Test Cases
 kdConfig:
@@ -99,25 +99,16 @@ tfsConfig:
  workspaceName: tfsWorkspace9
  maxReconections: 3
 
-#testngConfig:
- #suiteListener: com.etouch.conns.listener.SuiteListener
- #testListener: com.etouch.conns.listener.TestListener
- #testngClass:
- #reporter: com.etouch.report.TestNGReporter
- #parallelMode: tests
- #groupName:
- 
 testngConfig:
  suiteListener: com.etouch.conns.listener.TestNGCustomReportListener
  testListener: com.etouch.conns.listener.TestListener
  testngClass:
  reporter: com.etouch.report.TestNGReporter
  parallelMode: tests
- groupName: 
+ groupName:
 
 webConfig:
- #hub: https://nalinikadam1:6jzexgnzhrz6sr5clbkz@hub-cloud.browserstack.com/wd/hub
- #hub: https://rajesh721:jykr2hewe4uuc2uvxyzp@hub-cloud.browserstack.com/wd/hub
+ #hub: https://nalinikadam1:6jzexgNzHRz6SR5CLBKz@hub-cloud.browserstack.com/wd/hub
  hub: localhost
  port: 4001
  URL: http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/uat/
@@ -126,22 +117,22 @@ webConfig:
  #testEnv: remote
  testEnv: local
  testngClass:
+ - className: com.etouch.connsTests.Conns_Credit_App_Page
+   methodList: [verify_Successful_Submit_For_Registered_User_Status_Duplicate]
  #- className: com.etouch.connsTests.Conns_Home_Page
-  # methodList: []
- - className: com.etouch.connsTests.CreateAccount_And_SignIn_Page
-   methodList: [verify_AccountDashboard_After_SignIn_with_ExistingUser]
- currentTestBeds: [Firefox]
+  # methodList: [Verify_Payment_Info_ConnsCredit]  
+ currentTestBeds: [Chrome]
 #currentTestBeds: [Firefox,InternetExplorer,Chrome,Safari,edge]
  testBeds:
  #FireFox TestBed
  - testBedName: Firefox
    browser:
     name: fireFox
-    version: 30.0
+    version: 53
     driverLocation:
    platform:
-    name: Windows
-    version: 7
+    name: Windows																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					z
+    version: 10
     
  #IE11 TestBed
  - testBedName: InternetExplorer
@@ -151,15 +142,15 @@ webConfig:
     driverLocation: ..\\test-automation-library\\resources\\IEDriverServer.exe
    platform:
     name: Windows
-    version: 7
+    version: 11
     
  #Chrome TestBed
  - testBedName: Chrome
    browser:
-    version: 61.0
+    name: Chrome
+    version: 56.0
     driverLocation: ..\\test-automation-library\\resources\\chromedriver.exe
    platform:
-    name: Chrome
     name: Windows
     version: 10
 
@@ -167,62 +158,58 @@ webConfig:
  - testBedName: Safari
    browser:
     name: Safari
-    version: 10.1
+    version: 9.1
     driverLocation:
    platform:
     name: OS X
     version: El Capitan
-    
+
 #Edge TestBed
  - testBedName: edge
    browser:
     name: Edge
-    version: 14.0
+    version: 15.0
     driverLocation: ..\\test-automation-library\\resources\\MicrosoftWebDriver.exe
    platform:
     name: Windows
-    version: 10    
-
-
+    version: 10
+    
 mobileConfig:
- #hub: https://rajesh721:jykr2hewe4uuc2uvxyzp@hub-cloud.browserstack.com/wd/hub
- #hub: https://rajesh721:jykr2hewe4uuc2uvxyzp@hub-cloud.browserstack.com/wd/hub
+ #hub: https://nalinikadam1:6jzexgNzHRz6SR5CLBKz@hub-cloud.browserstack.com/wd/hub
  hub: localhost
- #hub: https://nalinikadam1:6jzexgnzhrz6sr5clbkz@hub-cloud.browserstack.com/wd/hub
  port: 4001
  tool: Appium
- #testEnv: browserstack
- testEnv: local
  #testEnv: remote
+ testEnv: local
  testngClass:
- - className: com.etouch.connsTests.CreateAccount_And_SignIn_Page
+ - className: com.etouch.connsTests.Conns_Credit_App_Page
    methodList: []
  #- className: com.etouch.connsTests.CreateAccount_And_SignIn_Page
- #  methodList: []
+  # methodList: []
  currentTestBeds: [AndroidNative]
- #currentTestBeds: [iPhoneNative,iPadNative,Android1, Android,AndroidNative,AndroidHybrid]
+ #currentTestBeds: [AndroidNative,AndroidMotoG,iPhoneNative,iPadNative,Android1, Android]
  
 
  appiumConfig:
-  nodePath: F:/Appium/node.exe
-  appiumJSPath: F:/Appium/node_modules/appium/bin/appium.js
-
+  nodePath: C:/Program Files/nodejs/node.exe
+  appiumJSPath: C:/Users/sjadhav/AppData/Local/Programs/appium-desktop/resources/app/node_modules/appium/build/lib/main.js
 
  testBeds:
  #ios TestBeds
  - testBedName: AndroidNative
    port: 4753
    device:
-    name: Google Nexus 6
+    name: Nexus
     type: device
-    udid: 0a63d36b 
+    #udid: ce12160c8418570504
+    udid: 0a63d36b
    browser:
     name: chrome
     version: 52.0.2743.98
     driverLocation: /Users/eTouch
    platform:
     name: ANDROID
-    version: 6.0
+    version: 5.1
    app:
     appPath:
     appPackage: com.android.chrome
@@ -282,12 +269,12 @@ mobileConfig:
     appActivity: com.google.android.apps.chrome.Main
  
  #ios TestBeds
- - testBedName: AndroidNative2
-   port: 4783
+ - testBedName: Android12
+   port: 4733
    device:
     name: Google Nexus 7
     type: device
-    udid: 0a062e22
+    udid: ce12160c8418570504
    browser:
     name: Chrome
     version: 52.0.2743.98
@@ -299,25 +286,6 @@ mobileConfig:
     appPath:
     appPackage: com.android.chrome
     appActivity: com.google.android.apps.chrome.Main
-
- #ios TestBeds
- - testBedName: AndroidNative1
-   port: 4783
-   device:
-    name: Galaxy S5
-    type: device
-    udid: 320817cf646a5131
-   browser:
-    name: Chrome
-    version: 52.0.2743.98
-    driverLocation: /Users/eTouch
-   platform:
-    name: ANDROID
-    version: 6.0.1
-   app:
-    appPath:
-    appPackage: com.android.chrome
-    appActivity: com.google.android.apps.chrome.Main    
 
  #ios TestBeds
  - testBedName: Android1
@@ -339,12 +307,12 @@ mobileConfig:
     appActivity: com.google.android.apps.chrome.Main
 
  #ios TestBeds
- - testBedName: AndroidNative12
+ - testBedName: AndroidHybrid
    port: 4753
    device:
-    name: Samsung
+    name: Karbonn
     type: device
-    udid: 320817cf646a5131
+    udid: LS1437839535
    browser:
     name: chrome
     version: 52.0.2743.98
@@ -356,3 +324,5 @@ mobileConfig:
     appPath:
     appPackage: com.android.chrome
     appActivity: com.google.android.apps.chrome.Main
+
+

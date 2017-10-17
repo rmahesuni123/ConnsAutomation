@@ -58,7 +58,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 	String currentTestBedName;
 	static Log log = LogUtil.getLog(Conns_Account_And_SignIn_Page.class);
 	//Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
-	private String url, testEnv;
+	private String testEnv;
+	protected static String url;
 	WebPage webPage;
 	private ConnsMainPage mainPage;
 	protected static LinkedHashMap<String, String> commonData;
@@ -79,6 +80,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			testBedNames.put(Thread.currentThread().getId(), testBedName);
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+			
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			commonMethods = new CommonMethods();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName()
@@ -87,6 +89,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("Test Type is : " + testType);
 			try {
 				platform = testBed.getPlatform().getName().toUpperCase();
+				System.out.println(" platform : "+platform);
 				testEnv = System.getenv().get("Environment");
 				log.info("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
@@ -832,7 +835,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			
 			webPage.switchWindow("Conns");
-			creditAppPage.submitReview(softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReview"), true);
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReview"), true);
 			Thread.sleep(5000);
 			webPage.closeToggleWindow();
 				softAssert.assertAll();
@@ -928,6 +931,29 @@ public class Conns_Credit_App_Page extends BaseTest {
 						commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[10][1], softAssert);
 						log.info("Clicking on element using Css - "+testData[10][1]);
 					}
+	}
+	
+	@Test(priority = 1027/*, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields"*/, enabled = true, description = "verify Successful Submit For Registered User")
+	public void verifyPowerReviewInYesMoneyLandingPage() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			 creditAppPage.navigateToYesMoneyLandingPage(softAssert);
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifySuccessfulSubmitForRegisteredUser");
+			Thread.sleep(5000);
+			webPage.findObjectByxPath(".//*[@id='PWRSummaryContainer']//div[@class='pr-rating-stars']").click();
+			Thread.sleep(5000);
+			webPage.findObjectByxPath(".//*[@class='pr-snippet-write-review-link']").click();
+			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
+			Thread.sleep(5000);
+			
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verifyPowerReviewInYesMoneyLandingPage");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
 	}
 
 }
