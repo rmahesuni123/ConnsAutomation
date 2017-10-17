@@ -620,13 +620,13 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") ) {
 					 //js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
-					 commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+					// commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
 					 log.info("testing verify_Forgot_Password_Functionality completed------>");
 				 }
 				
 				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
 				//else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")){
-					commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+					//commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
 					//webPage.getDriver().navigate().refresh();
 					//js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 					 log.info("testing verify_Forgot_Password_Functionality completed------>");
