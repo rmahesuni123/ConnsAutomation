@@ -1035,17 +1035,18 @@ public void verifyLabelsErrorColor(WebPage webPage, SoftAssert softAssert, Strin
 
 
 
-/*public void verifyDate(SoftAssert softAssert) throws Exception {
+public void verifyDate(WebPage webPage, SoftAssert softAssert, String dateXpath) throws Exception {
 	   Date date = new Date();
 	    String DATE_FORMAT = "MM/dd/yyyy";
 	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
 	    String System_Date = simpleDateFormat.format(date);
 	    System.out.println("Today is : " + System_Date);
-		String Actual_Date = webPage.findObjectByxPath(commonData.get("ReviewPageDateXpath")).getText();
+		String Actual_Date = webPage.findObjectByxPath(dateXpath).getText();
 		softAssert.assertTrue(Actual_Date.contains(System_Date),
 				"expectedContent: " + System_Date + "  Failed to Match Actual:" + Actual_Date);
 
-}*/
+}
+
 public void fillFormWithOutJS(WebPage webPage, SoftAssert softAssert, String[][] FieldData) {
 	int dataLength = FieldData.length;
 	String testType = TestBedManagerConfiguration.INSTANCE.getTestTypes()[0];

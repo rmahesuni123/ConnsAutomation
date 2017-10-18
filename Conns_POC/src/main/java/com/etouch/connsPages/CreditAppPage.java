@@ -1114,7 +1114,7 @@ public void submitReview(WebPage webPage,SoftAssert softAssert, String[][] label
 		commonMethods.verifyLabels(webPage, softAssert,ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewLabelsData"));
 		 Thread.sleep(3000);
 		 commonMethods.verifyLabelsErrorColor(webPage, softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewDataLabelsErrorColor"));
-		 webPageMap.get(Thread.currentThread().getId()).navigateToUrl( webPageMap.get(Thread.currentThread().getId()).getCurrentUrl());
+		// webPageMap.get(Thread.currentThread().getId()).navigateToUrl( webPageMap.get(Thread.currentThread().getId()).getCurrentUrl());
 		 Thread.sleep(5000); 
 	}
 		commonMethods.fillFormWithOutJS(webPage, softAssert, labelsTextData);

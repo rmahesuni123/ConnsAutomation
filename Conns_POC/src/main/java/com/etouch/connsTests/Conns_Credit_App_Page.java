@@ -835,7 +835,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			
 			webPage.switchWindow("Conns");
-			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReview"), true);
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), true);
 			Thread.sleep(5000);
 			webPage.closeToggleWindow();
 				softAssert.assertAll();

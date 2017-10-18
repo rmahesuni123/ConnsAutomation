@@ -53,9 +53,10 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	String DataFilePath;
 	String testType;
 	String testEnv;
-	protected static CommonMethods commonMethods;
+	protected static CommonMethods commonMethods = new CommonMethods();
 	String[][] commonData;
-
+	static String[][] Review_Data= null;	
+	
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException,
 			FileNotFoundException, IOException {
@@ -94,10 +95,12 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			SoftAssertor.addVerificationFailure(e.getMessage());
 		}
 	}
+	
+	
 
 	@Test(priority = 701, enabled = true)
 	public void Verify_For_Pagination_And_Product_Details() {
-		//SoftAssert softAssert = new SoftAssert();
+		SoftAssert softAssert = new SoftAssert();
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath,
 					"ProductListingPage",
@@ -195,15 +198,14 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			}
 			
 			/************************************* Verify Product Review ***************************************/
-			String [] [] Review_Data;			
+					
 			
-			Review_Data = ExcelUtil.readExcelData(DataFilePath,
-					"ProductListingPage", "Verify_Product_Review");
+			Review_Data = ExcelUtil.readExcelData(DataFilePath,"ProductListingPage", "Verify_Product_Review");
 			System.out.println("Review_Data[25][0] :" +Review_Data[25][0]);
 			//webPage.getDriver().navigate().refresh();
 			CommonMethods.navigateToPage(webPage, Review_Data[25][0]);
 			
-			Thread.sleep(5000);
+			//Thread.sleep(5000);
 			webPage.findObjectByxPath(Review_Data[0][0]).click();
 			
 			if ((CommonMethods.verifyElementisPresent(webPage, Review_Data[1][0]))) {	
@@ -216,7 +218,10 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					webPage.findObjectByxPath(Review_Data[2][0]).click();
 					CommonMethods.waitForGivenTime(2);
 				}
-				for(int i = 3;i<14;i++)
+				Thread.sleep(2000);
+				submitReview(webPage,softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), false);
+				
+				/*for(int i = 3;i<14;i++)
 				{
 					
 					String actualContent = webPage.findObjectByxPath(Review_Data[i][0]).getText();
@@ -239,8 +244,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				//commonMethods.clickElementbyXpath(webPage, Review_Data[0][18], softAssert);
 				for(int i = 20;i<24;i++)
 				{
-					/*String actualContent = commonMethods.getTextbyXpath(webPage, 
-							Review_Data[i][0], softAssert);*/
+					String actualContent = commonMethods.getTextbyXpath(webPage, 
+							Review_Data[i][0], softAssert);
 					if(i==22){
 					    Date date = new Date();
 					    String DATE_FORMAT = "MM/dd/yyyy";
@@ -261,7 +266,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				}
 				
 				//section/span/div/div[5]/div[1]/div/div[2]/h3
-				/*if (CommonMethods.verifyElementisPresent(webPage, test[0][3])) {
+				if (CommonMethods.verifyElementisPresent(webPage, test[0][3])) {
 					webPage.findObjectByxPath(test[0][11]).click();
 				}*/
 			}			
@@ -280,6 +285,26 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				SoftAssertor.displayErrors();
 		}
 	}
+	
+	public void submitReview(WebPage webPage,SoftAssert softAssert, String[][] labelsTextData, boolean validateAllFields) throws Exception
+	{
+		if(validateAllFields)
+		{
+			
+			//String[][] reviewLabelsData =ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewLabelsData");
+			commonMethods.verifyLabels(webPage, softAssert,ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","reviewLabelsData"));
+			 Thread.sleep(3000);
+			 commonMethods.verifyLabelsErrorColor(webPage, softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","reviewDataLabelsErrorColor"));
+			 //webPage.navigateToUrl( webPage.getCurrentUrl());
+			 Thread.sleep(5000); 
+		}
+			commonMethods.fillFormWithOutJS(webPage, softAssert, labelsTextData);
+			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			commonMethods.verifyLabels(webPage,softAssert,ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","reviewThankYouPageData"));
+			commonMethods.verifyDate(webPage,softAssert,Review_Data[22][0]);
+			Thread.sleep(5000);
+		}
 
 	@Test(priority = 702, enabled = true)
 	public void Verify_Upto_5_Products_Compared() throws InterruptedException {
