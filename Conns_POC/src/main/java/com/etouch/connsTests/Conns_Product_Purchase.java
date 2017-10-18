@@ -63,11 +63,9 @@ public class Conns_Product_Purchase extends BaseTest {
 	JavascriptExecutor executor;
 	String[][] frenchDoor;
 	String[][] checkoutGuest;
-	String[][] checkoutRegister;
 	String[][] addToCart;
 	String[][] submitBillingInfo;
 	String[][] proceedToCheckout;
-	String[][] checkoutFlowCommonLocators;
 	String[][] inStockAvialableProduct;
 	String[][] cartPageData;
 	String[][] pickupOnlyAvialableProduct;
@@ -111,10 +109,8 @@ public class Conns_Product_Purchase extends BaseTest {
 				inStockpickupAvialableProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
 				
 				checkoutGuest = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Checkout_Guest");
-				checkoutRegister = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Checkout_Register");
 				submitBillingInfo = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Submit_Billing_Information");
 				proceedToCheckout = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Proceed_To_Checkout_Button");
-				checkoutFlowCommonLocators = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Checkout_Flow_Common_Locators");
 				mobileMenuData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Mobile_Menu_Details");
 				commonData=ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Common_Data");
 				PageUrlData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Page_URL");
@@ -201,7 +197,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			if (testType.equalsIgnoreCase("Web")) {
 				//***Uncomment below when running this test individually***
 				//connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				//***Uncomment below when running this test individually***
 				//connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
@@ -253,7 +249,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -308,7 +304,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -373,7 +369,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -448,7 +444,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -582,7 +578,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -648,7 +644,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -722,7 +718,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -758,7 +754,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -805,7 +801,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -892,6 +888,8 @@ public class Conns_Product_Purchase extends BaseTest {
 	
 	/*This method will cover below scenarios
 	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for invalid billing address
+	 * - Verify ConnsHomePlus card number field for maximum digits accepted
+	 * - Verify ConnsHomePlus card number field for special characters
 	 */
 	@Test(priority = 912, enabled = true, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_CheckoutMethod")
 	public void Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_CheckoutMethod() {
@@ -900,12 +898,14 @@ public class Conns_Product_Purchase extends BaseTest {
 		String invalidCardNumberActualErrorMessage = "";
 		String invalidCardNumberExpectedErrorMessage = "";
 		String validCardNumberMessage = "";
+		int intCardFieldValueLength = 0;
+		String stringCardFieldValueLength = "";
 		
 		try {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -921,7 +921,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollUp(1);
 			}
-			
 			log.info("Clicking on Pickup location address radio button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);
 			
@@ -931,7 +930,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollUp(1);
 			}
-			
 			log.info("Selecting Payment Information as ConnsHomePlusCard_or_SynchronyHomeCreditCard");
 			try{
 				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
@@ -940,6 +938,20 @@ public class Conns_Product_Purchase extends BaseTest {
 				CommonMethods.waitForGivenTime(8);
 				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
 			}
+			log.info("Verifying maximum length for Conn's HomePlus card number field");
+			WebElement cardNumberField = commonMethods.getWebElementbyXpath(webPage, connsHomePlusCard_data[1][1], softAssert);
+			cardNumberField.sendKeys(connsHomePlusCard_data[3][2]);
+			intCardFieldValueLength = cardNumberField.getAttribute("value").length();
+			stringCardFieldValueLength = Integer.toString(intCardFieldValueLength);
+			softAssert.assertEquals(stringCardFieldValueLength, connsHomePlusCard_data[3][3],"Maximum digit length verification failed. Expected: "+connsHomePlusCard_data[3][3]+" Actual: "+stringCardFieldValueLength);
+			
+			log.info("Verifying special char. verification for Conn's HomePlus card number field");
+			cardNumberField.clear();
+			cardNumberField.sendKeys(connsHomePlusCard_data[4][2]);
+			intCardFieldValueLength = cardNumberField.getAttribute("value").length();
+			stringCardFieldValueLength = Integer.toString(intCardFieldValueLength);
+			softAssert.assertEquals(stringCardFieldValueLength, connsHomePlusCard_data[4][3],"Special character verification failed. Expected: "+connsHomePlusCard_data[4][3]+" Actual: "+stringCardFieldValueLength);
+			cardNumberField.clear();
 			
 			log.info("Entering invalid card number for ConnsHomePlusCard_or_SynchronyHomeCreditCard");
 			commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_data[1][1], connsHomePlusCard_data[1][2], softAssert);
@@ -964,7 +976,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			softAssert.assertAll();
 		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_PayPal_Checkout");
+			mainPage.getScreenShotForFailure(webPage, "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_CheckoutMethod");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -978,15 +990,13 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
 		String[][] connsHomePlusCard_validBilling_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlus_Valid_1_Billing_Information");
-		String invalidCardNumberActualErrorMessage = "";
-		String invalidCardNumberExpectedErrorMessage = "";
 		String validCardNumberMessage = "";
 		
 		try {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
@@ -995,24 +1005,20 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, connsHomePlusCard_validBilling_data, softAssert);
-			
 			log.info("Clicking on billing information section continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollUp(1);
 			}
-			
 			log.info("Clicking on Pickup location address radio button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);
-			
 			log.info("Clicking on Pickup Location continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[9][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollUp(1);
 			}
-			
 			log.info("Selecting Payment Information as ConnsHomePlusCard_or_SynchronyHomeCreditCard");
 			try{
 				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
@@ -1021,10 +1027,8 @@ public class Conns_Product_Purchase extends BaseTest {
 				CommonMethods.waitForGivenTime(8);
 				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
 			}
-			
-			log.info("Entering valid Conns homeplus card number");
-			commonMethods.clearTextBoxByXpath(webPage, connsHomePlusCard_data[1][1], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_data[1][1], connsHomePlusCard_data[0][2], softAssert);
+			connsProductPurchasePage.proceedBySelectingConnsHomePlusPaymentMethod(webPage, connsHomePlusCard_validBilling_data, softAssert);
+			log.info("Clicking on continue button for Payment Information");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			CommonMethods.waitForGivenTime(10);
 			
@@ -1035,7 +1039,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			softAssert.assertAll();
 		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_PayPal_Checkout");
+			mainPage.getScreenShotForFailure(webPage, "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}

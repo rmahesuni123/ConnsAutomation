@@ -613,4 +613,10 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			log.error(e.getMessage());
 		}
 	}
+	
+	public void proceedBySelectingConnsHomePlusPaymentMethod(WebPage webPage, String[][] connsHomePlusCard_Billing_data,SoftAssert softAssert){
+		log.info("Entering Conns homeplus card number");
+		commonMethods.clearTextBoxByXpath(webPage, connsHomePlusCard_Billing_data[8][1], softAssert);
+		commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_Billing_data[8][1], connsHomePlusCard_Billing_data[8][3], softAssert);
+	}
 }
