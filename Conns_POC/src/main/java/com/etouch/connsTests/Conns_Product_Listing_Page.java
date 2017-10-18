@@ -202,10 +202,15 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			
 			Review_Data = ExcelUtil.readExcelData(DataFilePath,"ProductListingPage", "Verify_Product_Review");
 			System.out.println("Review_Data[25][0] :" +Review_Data[25][0]);
-			//webPage.getDriver().navigate().refresh();
+			//
 			CommonMethods.navigateToPage(webPage, Review_Data[25][0]);
+			webPage.getDriver().navigate().refresh();
 			
-			//Thread.sleep(5000);
+			Thread.sleep(5000);
+			if (CommonMethods.verifyElementisPresent(webPage, test[0][11])) {
+				webPage.findObjectByxPath(test[0][11]).click();
+			}
+			log.info("test[0][11] clicked :  " );
 			webPage.findObjectByxPath(Review_Data[0][0]).click();
 			
 			if ((CommonMethods.verifyElementisPresent(webPage, Review_Data[1][0]))) {	
@@ -218,8 +223,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					webPage.findObjectByxPath(Review_Data[2][0]).click();
 					CommonMethods.waitForGivenTime(2);
 				}
-				Thread.sleep(2000);
-				submitReview(webPage,softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), false);
+				Thread.sleep(5000);
+				submitReview(webPage,softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), true);
 				
 				/*for(int i = 3;i<14;i++)
 				{
@@ -269,7 +274,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				if (CommonMethods.verifyElementisPresent(webPage, test[0][3])) {
 					webPage.findObjectByxPath(test[0][11]).click();
 				}*/
-			}			
+			
+			}
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -290,7 +296,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	{
 		if(validateAllFields)
 		{
-			
+			log.info("validateAllFields : " +validateAllFields);
 			//String[][] reviewLabelsData =ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewLabelsData");
 			commonMethods.verifyLabels(webPage, softAssert,ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","reviewLabelsData"));
 			 Thread.sleep(3000);
