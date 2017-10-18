@@ -889,4 +889,155 @@ public class Conns_Product_Purchase extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+	
+	/*This method will cover below scenarios
+	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for invalid billing address
+	 */
+	@Test(priority = 912, enabled = true, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_CheckoutMethod")
+	public void Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_CheckoutMethod() {
+		SoftAssert softAssert = new SoftAssert();
+		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
+		String invalidCardNumberActualErrorMessage = "";
+		String invalidCardNumberExpectedErrorMessage = "";
+		String validCardNumberMessage = "";
+		
+		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+			} else {
+				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+			}
+			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
+			
+			log.info("Clicking on billing information section continue button");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
+			CommonMethods.waitForGivenTime(5);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollUp(1);
+			}
+			
+			log.info("Clicking on Pickup location address radio button");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);
+			
+			log.info("Clicking on Pickup Location continue button");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[9][1], softAssert);
+			CommonMethods.waitForGivenTime(8);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollUp(1);
+			}
+			
+			log.info("Selecting Payment Information as ConnsHomePlusCard_or_SynchronyHomeCreditCard");
+			try{
+				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
+			}catch(Exception e){
+				log.info("Waiting for more time as ConnsHomePlusCard_or_SynchronyHomeCreditCard option is not yet displayed");
+				CommonMethods.waitForGivenTime(8);
+				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
+			}
+			
+			log.info("Entering invalid card number for ConnsHomePlusCard_or_SynchronyHomeCreditCard");
+			commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_data[1][1], connsHomePlusCard_data[1][2], softAssert);
+			
+			log.info("Verifying error message for invalid card number");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
+			CommonMethods.waitForGivenTime(3);
+			invalidCardNumberActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[2][1], softAssert);
+			invalidCardNumberExpectedErrorMessage = connsHomePlusCard_data[2][2];
+			softAssert.assertTrue(invalidCardNumberActualErrorMessage.contains(invalidCardNumberExpectedErrorMessage),"Expected error message: "+invalidCardNumberExpectedErrorMessage+" Actual error message: "+invalidCardNumberActualErrorMessage);
+			
+			log.info("Verifying result message for valid card number");
+			commonMethods.clearTextBoxByXpath(webPage, connsHomePlusCard_data[1][1], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_data[1][1], connsHomePlusCard_data[0][2], softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
+			CommonMethods.waitForGivenTime(10);
+			
+			Alert alert = webPage.getDriver().switchTo().alert();
+			validCardNumberMessage = alert.getText();
+			log.info("Valid card alert message: "+validCardNumberMessage);
+			alert.dismiss();
+			
+			softAssert.assertAll();
+		} catch (Exception e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_PayPal_Checkout");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	/*This method will cover below scenarios
+	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for valid billing address
+	 */
+	@Test(priority = 913, enabled = true, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod")
+	public void Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod() {
+		SoftAssert softAssert = new SoftAssert();
+		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
+		String[][] connsHomePlusCard_validBilling_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlus_Valid_1_Billing_Information");
+		String invalidCardNumberActualErrorMessage = "";
+		String invalidCardNumberExpectedErrorMessage = "";
+		String validCardNumberMessage = "";
+		
+		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
+				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, checkoutFlowCommonLocators[17][1], "28", softAssert);
+			} else {
+				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+			}
+			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
+			connsProductPurchasePage.Submit_Billing_Information(webPage, connsHomePlusCard_validBilling_data, softAssert);
+			
+			log.info("Clicking on billing information section continue button");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
+			CommonMethods.waitForGivenTime(5);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollUp(1);
+			}
+			
+			log.info("Clicking on Pickup location address radio button");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);
+			
+			log.info("Clicking on Pickup Location continue button");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[9][1], softAssert);
+			CommonMethods.waitForGivenTime(8);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollUp(1);
+			}
+			
+			log.info("Selecting Payment Information as ConnsHomePlusCard_or_SynchronyHomeCreditCard");
+			try{
+				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
+			}catch(Exception e){
+				log.info("Waiting for more time as ConnsHomePlusCard_or_SynchronyHomeCreditCard option is not yet displayed");
+				CommonMethods.waitForGivenTime(8);
+				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
+			}
+			
+			log.info("Entering valid Conns homeplus card number");
+			commonMethods.clearTextBoxByXpath(webPage, connsHomePlusCard_data[1][1], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_data[1][1], connsHomePlusCard_data[0][2], softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
+			CommonMethods.waitForGivenTime(10);
+			
+			Alert alert = webPage.getDriver().switchTo().alert();
+			validCardNumberMessage = alert.getText();
+			log.info("Valid card alert message: "+validCardNumberMessage);
+			alert.dismiss();
+			
+			softAssert.assertAll();
+		} catch (Exception e) {
+			mainPage.getScreenShotForFailure(webPage, "Verify_PayPal_Checkout");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 }
