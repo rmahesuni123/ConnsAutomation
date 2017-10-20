@@ -1121,7 +1121,7 @@ public void submitReview(WebPage webPage,SoftAssert softAssert, String[][] label
 		Thread.sleep(5000);
 		commonMethods.waitForPageLoad(webPage, softAssert);
 		commonMethods.verifyLabels(webPage,softAssert,ExcelUtil.readExcelData(DataFilePath, "CreditApp","reviewThankYouPageData"));
-		//commonMethods.verifyDate(webPage,softAssert);
+		commonMethods.verifyDate(webPage,softAssert, commonData.get("ReviewPageDate"));
 		Thread.sleep(5000);
 	}
 
