@@ -924,7 +924,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
 			Thread.sleep(2000);
 		}
-		else if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
+		 if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
 				log.info("Inside IPhone & IPad executions " + browserName.toString());
 				WebElement element = webPage.getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
 				log.info("Web Element Found" + element.toString());
