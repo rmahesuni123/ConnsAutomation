@@ -909,40 +909,43 @@ public class Conns_Credit_App_Page extends BaseTest {
 		int EmailId_Length = inputdata.get("EmailData").length();
 		log.info("Email ID Count Starts 1: " + EmailId_Length);
 		if (EmailId_Length >= 50) {
-
-				softAssert.fail("Input Email Character is greater than 50. Email ID Character Count Fail : "
+			log.info("Email ID Count Asserts Fail : " + EmailId_Length);	
+				Assert.fail("Input Email Character is greater than 50. Email ID Character Count Fail : "
 						+ inputdata.get("EmailData").length());
 			log.info("Email ID Count Starts 2: " + EmailId_Length);	
-		} else if (EmailId_Length < 50){
-		//	commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()),
-			//		inputdata.get("EmailIdentifier"), inputdata.get("EmailData"), softAssert);	
-			webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
-			
-			WebElement Email_ID_Input = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
-			log.info("Email ID Input Text Starts 3: " +Email_ID_Input.getAttribute("value"));	
-			log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input.getAttribute("value").length());
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
-			Thread.sleep(2000);
+		} 
+
+		else if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
+			log.info("Inside IPhone & IPad executions " + browserName.toString());
+			WebElement element = webPage.getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
+			log.info("Web Element Found" + element.toString());
+			js.executeScript("arguments[0].click();", element);
+			log.info("Web Element Clicked" + inputdata.get("LastNameLocator").toString());
+			webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
 		}
-		 if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
-				log.info("Inside IPhone & IPad executions " + browserName.toString());
-				WebElement element = webPage.getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
-				log.info("Web Element Found" + element.toString());
-				js.executeScript("arguments[0].click();", element);
-				log.info("Web Element Clicked" + inputdata.get("LastNameLocator").toString());
-				webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
-			}
-			else{
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
-			creditAppPage.verifyErrorMessageByXpath(softAssert, "EmailIDErrorMessageText", inputdata.get("EmailIDErrorMessageLocator"),
+			else  {
+				webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
+				
+				WebElement Email_ID_Input = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
+				log.info("Email ID Input Text Starts 3: " +Email_ID_Input.getAttribute("value"));	
+				log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input.getAttribute("value").length());
+				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
+				Thread.sleep(2000);
+				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
+				creditAppPage.verifyErrorMessageByXpath(softAssert, "EmailIDErrorMessageText", inputdata.get("EmailIDErrorMessageLocator"),
 					inputdata.get("EmailIDErrorMessageText"));
 			}
+	 
+		
 			
-			log.info("testing verify_EmailID_Count completed------>");
+		
+	 }log.info("testing verify_EmailID_Count completed------>");
 
-		} 
+	 
+	
 		/*********************************************************************************************************************/
 	}
+
 	
 	
 	
