@@ -673,4 +673,46 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+	
+	@Test(enabled = true, priority = 109, description = "Verify Power Review Section on Store Page")
+	public void Verify_Power_Review_Section() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try{
+			String[][] verifyValidRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyPowerReview");
+			System.out.println("verifyValidRegionSearchData"+verifyValidRegionSearchData.length);
+			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
+			System.out.println("1111111111");
+			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
+			System.out.println("2222222222");
+			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
+			System.out.println("3333333333");
+			commonMethods.clearTextBox(webPage, verifyValidRegionSearchData[1][0], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, verifyValidRegionSearchData[1][0], verifyValidRegionSearchData[0][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[2][0], softAssert);
+			commonMethods.waitForGivenTime(5, softAssert);
+			//CommonMethods.waitForWebElement(By.xpath(verifyValidRegionSearchData[3][0]), webPage);
+			String regionPageActualData = commonMethods.getTextbyXpath(webPage, verifyValidRegionSearchData[3][0], softAssert);
+			softAssert.assertTrue(regionPageActualData.contains(verifyValidRegionSearchData[1][1]),
+					"Text verification failed. Expected Text : " + verifyValidRegionSearchData[1][1] + " Actual Text : "
+							+ regionPageActualData);
+			System.out.println("verifyValidRegionSearchData[4][0] "+verifyValidRegionSearchData[4][0]);
+			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[4][0], softAssert);
+			
+			commonMethods.clickElementById(webPage, "pr-category-snippets-119", softAssert);
+			Thread.sleep(1000);
+			String[][] reviewElements = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
+					"verifyPowerReviewElements");
+			for(int i=0;i<reviewElements.length;i++)
+			{
+				System.out.println("Verifying if element is present :"+reviewElements[i][0]);
+				softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, reviewElements[i][1], softAssert),"Element not present "+reviewElements[i][0]+" locator - " + reviewElements[i][1]);
+			}
+			
+			softAssert.assertAll();
+		}catch(Throwable e){
+			mainPage.getScreenShotForFailure(webPage, "Verify_Power_Review_Section");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 }
