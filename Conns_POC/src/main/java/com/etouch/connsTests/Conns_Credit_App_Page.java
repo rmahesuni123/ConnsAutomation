@@ -20,6 +20,7 @@ import java.util.Random;
 import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -898,6 +899,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	@Test(priority = 1030, enabled = true, description = "verify EmailID Count")
 	  public void verify_EmailID_Count() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		creditAppPage.navigateToCreditAppPage(softAssert);
 		LinkedHashMap<String, String> inputdata = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 				"verifyEmailIdCount");	
@@ -909,11 +911,27 @@ public class Conns_Credit_App_Page extends BaseTest {
 		if (EmailId_Length >= 50) {
 			log.info("Email ID Count Starts 2: " + EmailId_Length);			
 			commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()),
-					inputdata.get("EmailIdentifier"), inputdata.get("EmailData"), softAssert);			
+					inputdata.get("EmailIdentifier"), inputdata.get("EmailData"), softAssert);	
+			WebElement Email_ID_Input = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
+			log.info("Email ID Input Text Starts 3: " +Email_ID_Input.getAttribute("value"));	
+			log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input.getText().length());
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
 			Thread.sleep(2000);
+			
+			if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
+				log.info("Inside IPhone & IPad executions " + browserName.toString());
+				WebElement element = webPage.getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
+				log.info("Web Element Found" + element.toString());
+				js.executeScript("arguments[0].click();", element);
+				log.info("Web Element Clicked" + inputdata.get("LastNameLocator").toString());
+				webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
+			}
+			else{
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
 			creditAppPage.verifyErrorMessageByXpath(softAssert, "EmailIDErrorMessageText", inputdata.get("EmailIDErrorMessageLocator"),
 					inputdata.get("EmailIDErrorMessageText"));
+			}
+			
 			log.info("testing verify_EmailID_Count completed------>");
 
 		} 
