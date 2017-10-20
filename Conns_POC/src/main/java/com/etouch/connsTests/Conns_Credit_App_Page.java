@@ -354,7 +354,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1008, enabled = true, description = "Verify Field Auto Populates")
+	@Test(priority = 1008, enabled = true, description = "Verify City and State Field Auto Populates")
 	public void verify_City_State_Fields_Auto_Populates() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -460,7 +460,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1012, enabled = true, description = "verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields")
+	@Test(priority = 1012, enabled = true, description = "verify Mandatory Field Validation Without Data Main Source of Income Fields")
 	public void verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -491,7 +491,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1013, enabled = true, description = "verify_Error_Message_for_Reference_Code_Field")
+	@Test(priority = 1013, enabled = true, description = "verify Error Message for Reference Code Field")
 	public void verify_Error_Message_for_Reference_Code_Field() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -515,7 +515,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1014, enabled = true, description = "verify_Reference_Code_With_Valid_Required_Field_Data")
+	@Test(priority = 1014, enabled = true, description = "verify Reference Code With Valid Required Field Data")
 	public void verify_Reference_Code_With_Valid_Required_Field_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -563,6 +563,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.fillForm(softAssert, testData);
 			// creditAppPage.verifyFieldValues(testData, softAssert);
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithDownPaymentPage");
+			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			
+			webPage.switchWindow("Conns");
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_Status_Approved_With_DP");
@@ -587,6 +593,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.navigateToCreditAppPage(softAssert);
 			creditAppPage.fillForm(softAssert, testData);
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithoutDownPaymentPage");
+			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			
+			webPage.switchWindow("Conns");
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
 			// Thread.sleep(10000);
 			softAssert.assertAll();
 			log.info(
@@ -608,6 +620,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.navigateToCreditAppPage(softAssert);
 			creditAppPage.fillForm(softAssert, testData);
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "WaitPage");
+			
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
@@ -617,7 +630,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1018, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1018, enabled = true, description = "verify Successful Submit With Main Source Of Income As Social Security Statu Out Of State")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Social_Security_Status_Out_Of_State()
 			throws Exception {
 		SoftAssert softAssert = new SoftAssert();
@@ -636,7 +649,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1019, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1019, enabled = true, description = "verify Successful Submit With RefField")
 	public void verify_Credit_App_Submit_With_RefField() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -682,7 +695,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1021, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1021, enabled = true, description = "verify Successful Submit With Main Source Of Income As Spous And Partner")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -705,7 +718,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1022, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1022, enabled = true, description = "verify Fields Are AutoPopulated For Registered User")
 	public void verify_Fields_Are_AutoPopulated_For_Registered_User() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -723,7 +736,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1023, dependsOnMethods = "verify_Fields_Are_AutoPopulated_For_Registered_User", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1023, dependsOnMethods = "verify_Fields_Are_AutoPopulated_For_Registered_User", enabled = true, description = "verify First Name And Last Name Field Are Editable")
 	public void verify_First_Name_And_Last_Name_Field_Are_Editable() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -746,7 +759,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1024, dependsOnMethods = "verify_First_Name_And_Last_Name_Field_Are_Editable", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1024, dependsOnMethods = "verify_First_Name_And_Last_Name_Field_Are_Editable", enabled = true, description = "verify Email Is Not Editable For Registered User")
 	public void verify_Email_Is_Not_Editable() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -780,7 +793,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1025, dependsOnMethods = "verify_Email_Is_Not_Editable", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1025, dependsOnMethods = "verify_Email_Is_Not_Editable", enabled = true, description = "verify Sign In Link Is Not Displayed For Registered User")
 	public void verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -795,7 +808,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1026, dependsOnMethods = "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User", enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1026, dependsOnMethods = "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User", enabled = true, description = "verify Registered User Is Able To Fill Mandatory Fields")
 	public void verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -816,7 +829,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1027/*, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields"*/, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1027/*, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields"*/, enabled = true, description = "verify Successful Submit For Registered User Status Duplicate")
 	public void verify_Successful_Submit_For_Registered_User_Status_Duplicate() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -848,7 +861,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 1028, enabled = false, description = "Verify Page Title")
+	@Test(priority = 1028, enabled = false, description = "verify Important Notice Text")
 	public void verify_Important_Notice_Text() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -885,6 +898,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	@Test(priority = 1030, enabled = true, description = "verify EmailID Count")
 	  public void verify_EmailID_Count() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
+		creditAppPage.navigateToCreditAppPage(softAssert);
 		LinkedHashMap<String, String> inputdata = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 				"verifyEmailIdCount");	
 	 if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("EmailIdentifier"), softAssert)) {
@@ -897,6 +911,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()),
 					inputdata.get("EmailIdentifier"), inputdata.get("EmailData"), softAssert);			
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
+			Thread.sleep(2000);
 			creditAppPage.verifyErrorMessageByXpath(softAssert, "EmailIDErrorMessageText", inputdata.get("EmailIDErrorMessageLocator"),
 					inputdata.get("EmailIDErrorMessageText"));
 			log.info("testing verify_EmailID_Count completed------>");
@@ -907,7 +922,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	
 	}
 	
-	@Test(priority = 1031, enabled = true, description = "verify EmailID Count")
+	@Test(priority = 1031, enabled = true, description = "verify Important Notes Link")
 	  public void verify_Important_Notes_Link() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		creditAppPage.navigateToCreditAppPage(softAssert);
@@ -933,7 +948,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 					}
 	}
 	
-	@Test(priority = 1027/*, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields"*/, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1027, enabled = true, description = "verify Power Review In Yes Money Landing Page")
 	public void verifyPowerReviewInYesMoneyLandingPage() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
