@@ -865,12 +865,18 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			List<WebElement> removeItemButtons = commonMethods.findElementsByXpath(webPage, cartPageData[6][1], softAssert);
 			log.info("Number of items present in cart: "+removeItemButtons.size());
+			int counter =0;
 			while(removeItemButtons.size()>0){
 				removeItemButtons.get(0).click();
 				commonMethods.waitForGivenTime(10, softAssert);
 				commonMethods.waitForPageLoad(webPage, softAssert);
 				try{
 					removeItemButtons = webPage.getDriver().findElements(By.xpath(cartPageData[6][1]));	
+					log.info("Number of items present in cart: "+removeItemButtons.size());
+					counter++;
+					if(counter>5){
+						break;
+					}
 				}catch(Exception e){
 					log.info("No more items pending in cart");
 					break;
@@ -889,7 +895,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify ConnsHomePlus card number field for maximum digits accepted
 	 * - Verify ConnsHomePlus card number field for special characters
 	 */
-	@Test(priority = 912, enabled = false, description = "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation")
+	@Test(priority = 912, enabled = true, description = "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation")
 	public void Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -999,7 +1005,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	/*This method will cover below scenarios
 	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for valid billing address
 	 */
-	@Test(priority = 913, enabled = false, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod")
+	@Test(priority = 913, enabled = true, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod")
 	public void Verify_ConnsHomePlusCard_ValidFlow_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
