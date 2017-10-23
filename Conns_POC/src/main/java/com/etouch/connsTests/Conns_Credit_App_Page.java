@@ -919,7 +919,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("Email ID Count Starts 2: " + EmailId_Length);	
 		} 
 
-		else if ((EmailId_Length <= 50) && browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
+		/*else if ((EmailId_Length <= 50) && browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
 			log.info("Inside IPhone & IPad executions " + browserName.toString());
 			WebElement element = webPage.getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
 			log.info("Web Element Found" + element.toString());
@@ -931,14 +931,14 @@ public class Conns_Credit_App_Page extends BaseTest {
 				//webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
 				
 				WebElement Email_ID_Input_Data = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
-				/*log.info("Email ID Input Text Starts 3: " +Email_ID_Input_Data.getAttribute("value"));	
-				log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input_Data.getAttribute("value").length());*/
+				log.info("Email ID Input Text Starts 3: " +Email_ID_Input_Data.getAttribute("value"));	
+				log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input_Data.getAttribute("value").length());
 				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
 				Thread.sleep(2000);
 				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
 				creditAppPage.verifyErrorMessageByXpath(softAssert, "EmailIDErrorMessageText", inputdata.get("EmailIDErrorMessageLocator"),
 					inputdata.get("EmailIDErrorMessageText"));
-			}
+			}*/
 	 
 		
 			
