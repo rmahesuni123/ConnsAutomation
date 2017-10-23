@@ -906,8 +906,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("EmailIdentifier"), softAssert)) {
 		log.info("Email ID Count Starts : " );
 		/********************************************************************************************************************************/
+		webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
+		WebElement Email_ID_Input = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
 		int EmailId_Length = inputdata.get("EmailData").length();
 		log.info("Email ID Count Starts 1: " + EmailId_Length);
+		log.info("Email ID Input Text Starts 3: " +Email_ID_Input.getAttribute("value"));	
+		log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input.getAttribute("value").length());		
 		if (EmailId_Length >= 50) {
 			log.info("Email ID Count Asserts Fail : " + EmailId_Length);	
 				Assert.fail("Input Email Character is greater than 50. Email ID Character Count Fail : "
@@ -915,7 +919,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			log.info("Email ID Count Starts 2: " + EmailId_Length);	
 		} 
 
-		else if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
+		else if ((EmailId_Length < 50) && browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
 			log.info("Inside IPhone & IPad executions " + browserName.toString());
 			WebElement element = webPage.getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
 			log.info("Web Element Found" + element.toString());
@@ -924,11 +928,11 @@ public class Conns_Credit_App_Page extends BaseTest {
 			webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
 		}
 			else  {
-				webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
+				//webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
 				
-				WebElement Email_ID_Input = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
-				log.info("Email ID Input Text Starts 3: " +Email_ID_Input.getAttribute("value"));	
-				log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input.getAttribute("value").length());
+				WebElement Email_ID_Input_Data = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
+				/*log.info("Email ID Input Text Starts 3: " +Email_ID_Input_Data.getAttribute("value"));	
+				log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input_Data.getAttribute("value").length());*/
 				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
 				Thread.sleep(2000);
 				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
