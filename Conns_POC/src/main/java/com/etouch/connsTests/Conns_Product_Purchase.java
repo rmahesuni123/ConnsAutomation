@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
@@ -891,13 +889,17 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify ConnsHomePlus card number field for maximum digits accepted
 	 * - Verify ConnsHomePlus card number field for special characters
 	 */
-	@Test(priority = 912, enabled = true, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_CheckoutMethod")
-	public void Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_CheckoutMethod() {
+	@Test(priority = 912, enabled = false, description = "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation")
+	public void Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
+		String[][] connsHomePlusCard_OrderReview_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","OrderReviewSection_Data"); 
 		String invalidCardNumberActualErrorMessage = "";
 		String invalidCardNumberExpectedErrorMessage = "";
-		String validCardNumberMessage = "";
+		String insufficientFundExpectedErrorMessage = "";
+		String insufficientFundActualErrorMessage = "";
+		String invalidAddressValidCardActualMessage = "";
+		String invalidAddressValidCardExpectedMessage = "";
 		int intCardFieldValueLength = 0;
 		String stringCardFieldValueLength = "";
 		
@@ -954,29 +956,41 @@ public class Conns_Product_Purchase extends BaseTest {
 			cardNumberField.clear();
 			
 			log.info("Entering invalid card number for ConnsHomePlusCard_or_SynchronyHomeCreditCard");
-			commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_data[1][1], connsHomePlusCard_data[1][2], softAssert);
+			cardNumberField.sendKeys(connsHomePlusCard_data[1][2]);
 			
 			log.info("Verifying error message for invalid card number");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
-			CommonMethods.waitForGivenTime(3);
+			CommonMethods.waitForGivenTime(8);
 			invalidCardNumberActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[2][1], softAssert);
 			invalidCardNumberExpectedErrorMessage = connsHomePlusCard_data[2][2];
 			softAssert.assertTrue(invalidCardNumberActualErrorMessage.contains(invalidCardNumberExpectedErrorMessage),"Expected error message: "+invalidCardNumberExpectedErrorMessage+" Actual error message: "+invalidCardNumberActualErrorMessage);
 			
-			log.info("Verifying result message for valid card number");
-			commonMethods.clearTextBoxByXpath(webPage, connsHomePlusCard_data[1][1], softAssert);
-			commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_data[1][1], connsHomePlusCard_data[0][2], softAssert);
+			log.info("Verifying result message for insufficent funds in card");
+			cardNumberField.clear();
+			cardNumberField.sendKeys(connsHomePlusCard_data[0][2]);
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
-			CommonMethods.waitForGivenTime(10);
+			CommonMethods.waitForGivenTime(8);
+			insufficientFundActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[3][1], softAssert);
+			insufficientFundExpectedErrorMessage = connsHomePlusCard_data[2][2];
+			softAssert.assertTrue(insufficientFundActualErrorMessage.contains(insufficientFundExpectedErrorMessage), "Insufficient funds error message does not match. Expected: "+insufficientFundExpectedErrorMessage+" Actual: "+insufficientFundActualErrorMessage);
 			
+			log.info("Verifying invalid address and valid card number combination");
+			cardNumberField = commonMethods.getWebElementbyXpath(webPage, connsHomePlusCard_data[1][1], softAssert);
+			cardNumberField.clear();
+			cardNumberField.sendKeys(connsHomePlusCard_data[5][2]);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
+			CommonMethods.waitForGivenTime(5);
+			connsProductPurchasePage.hhregInputInOrderReviewSection(webPage, connsHomePlusCard_OrderReview_data, softAssert);
 			Alert alert = webPage.getDriver().switchTo().alert();
-			validCardNumberMessage = alert.getText();
-			log.info("Valid card alert message: "+validCardNumberMessage);
+			invalidAddressValidCardActualMessage = alert.getText();
+			invalidAddressValidCardExpectedMessage =  connsHomePlusCard_data[5][3];
+			log.info("Valid card alert message: "+invalidAddressValidCardActualMessage);
 			alert.dismiss();
+			softAssert.assertTrue(invalidAddressValidCardActualMessage.contains(invalidAddressValidCardExpectedMessage),"Error message not as expected for Invalid address and valid card number combination. Expected: "+invalidAddressValidCardExpectedMessage+" Actual: "+invalidAddressValidCardActualMessage);
 			
 			softAssert.assertAll();
 		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_CheckoutMethod");
+			mainPage.getScreenShotForFailure(webPage, "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -985,12 +999,14 @@ public class Conns_Product_Purchase extends BaseTest {
 	/*This method will cover below scenarios
 	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for valid billing address
 	 */
-	@Test(priority = 913, enabled = true, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod")
-	public void Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod() {
+	@Test(priority = 913, enabled = false, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod")
+	public void Verify_ConnsHomePlusCard_ValidFlow_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
-		String[][] connsHomePlusCard_validBilling_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlus_Valid_1_Billing_Information");
-		String validCardNumberMessage = "";
+		String[][] connsHomePlusCard_validBilling_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlus_Valid_3_Billing_Information");
+		String[][] connsHomePlusCard_OrderReview_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","OrderReviewSection_Data");
+		String placeOrderActualSuccessMessage = "";
+		String placeOrderExpectedSuccessMessage = "";
 		
 		try {
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
@@ -1027,19 +1043,22 @@ public class Conns_Product_Purchase extends BaseTest {
 				CommonMethods.waitForGivenTime(8);
 				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
 			}
+			
 			connsProductPurchasePage.proceedBySelectingConnsHomePlusPaymentMethod(webPage, connsHomePlusCard_validBilling_data, softAssert);
+			
 			log.info("Clicking on continue button for Payment Information");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			CommonMethods.waitForGivenTime(10);
+			connsProductPurchasePage.hhregInputInOrderReviewSection(webPage, connsHomePlusCard_OrderReview_data, softAssert);
 			
-			Alert alert = webPage.getDriver().switchTo().alert();
-			validCardNumberMessage = alert.getText();
-			log.info("Valid card alert message: "+validCardNumberMessage);
-			alert.dismiss();
+			log.info("Verifying place order success message");
+			placeOrderActualSuccessMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[6][1], softAssert);
+			placeOrderExpectedSuccessMessage = connsHomePlusCard_data[6][3];
+			softAssert.assertTrue(placeOrderActualSuccessMessage.contains(placeOrderExpectedSuccessMessage),"Place order success message verification failed. Expected: "+placeOrderExpectedSuccessMessage+" Actual: "+placeOrderActualSuccessMessage);
 			
 			softAssert.assertAll();
 		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod");
+			mainPage.getScreenShotForFailure(webPage, "Verify_ConnsHomePlusCard_ValidFlow_Validation");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
