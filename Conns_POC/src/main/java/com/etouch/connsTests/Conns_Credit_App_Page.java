@@ -912,14 +912,14 @@ public class Conns_Credit_App_Page extends BaseTest {
 		log.info("Email ID Count Starts 1: " + EmailId_Length);
 		log.info("Email ID Input Text Starts 3: " +Email_ID_Input.getAttribute("value"));	
 		log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input.getAttribute("value").length());		
-		if (EmailId_Length >= 50) {
+		if (Email_ID_Input.getAttribute("value").length() > 50) {
 			log.info("Email ID Count Asserts Fail : " + EmailId_Length);	
 				Assert.fail("Input Email Character is greater than 50. Email ID Character Count Fail : "
 						+ inputdata.get("EmailData").length());
 			log.info("Email ID Count Starts 2: " + EmailId_Length);	
 		} 
 
-		else if ((EmailId_Length < 50) && browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
+		else if ((EmailId_Length <= 50) && browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
 			log.info("Inside IPhone & IPad executions " + browserName.toString());
 			WebElement element = webPage.getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
 			log.info("Web Element Found" + element.toString());
@@ -962,7 +962,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 				"verifyImportantNotesLink");
 		CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), testData[0][1]);
-		creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
+		//creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
 		
 					if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
 					{
