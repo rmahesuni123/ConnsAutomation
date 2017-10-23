@@ -619,4 +619,14 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		commonMethods.clearTextBoxByXpath(webPage, connsHomePlusCard_Billing_data[8][1], softAssert);
 		commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_Billing_data[8][1], connsHomePlusCard_Billing_data[8][3], softAssert);
 	}
+	
+	public void hhregInputInOrderReviewSection(WebPage webPage, String[][] connsHomePlusCard_OrderReviewData,SoftAssert softAssert) throws InterruptedException{
+		log.info("Entering hhreg inputs in order review section");
+		commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_OrderReviewData[0][1], connsHomePlusCard_OrderReviewData[0][2], softAssert);
+		commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_OrderReviewData[2][1], connsHomePlusCard_OrderReviewData[2][2], softAssert);
+		commonMethods.selectDropdownByValue(webPage, connsHomePlusCard_OrderReviewData[3][1], connsHomePlusCard_OrderReviewData[3][2], softAssert);
+		commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_OrderReviewData[4][1], softAssert);
+		commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_OrderReviewData[5][1], softAssert);
+		Thread.sleep(5000);
+	}
 }
