@@ -430,7 +430,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						testdata[i][1], testdata[i][2]);
 			}
 			log.info(
-					"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
+					"testing verify_Create_New_Customer_with_Blank_Input completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -504,13 +504,16 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 				}
 			}
+			 if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") ) {
 			
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 			JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
-			
-			/*commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);*/
+			 }
+			 else {
+			commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			CommonMethods.waitForGivenTime(1);
+			 }
 			//CommonMethods.waitForWebElement(By.xpath(testdata[6][1]), webPage);
 			// if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("iPhoneNative")) {
 			if (testType.equalsIgnoreCase("Mobile")) {		 
@@ -521,7 +524,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
 			softAssert.assertEquals(actualMessage, testdata[6][2], "SuccessFul user creation Message:");
 			 }
-			CommonMethods.waitForGivenTime(1);
+			CommonMethods.waitForGivenTime(2);
 			userLoggedIn = true;
 			log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
 			softAssert.assertAll();

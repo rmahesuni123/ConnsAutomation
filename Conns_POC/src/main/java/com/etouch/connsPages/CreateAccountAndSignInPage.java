@@ -165,7 +165,7 @@ public class CreateAccountAndSignInPage extends CommonPage {
 	
 	
 	public static String CreateNewEmailID() throws InterruptedException
-	 {	CommonMethods.waitForGivenTime(15);
+	 {	CommonMethods.waitForGivenTime(3);
 		return getID()+"@gmail.com"; 
 	 }
 	
