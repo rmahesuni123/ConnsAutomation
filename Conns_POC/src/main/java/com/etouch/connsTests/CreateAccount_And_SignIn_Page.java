@@ -484,7 +484,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(registerUrl);
 		CommonMethods.waitForGivenTime(5);*/
-		CommonMethods.waitForGivenTime(1);
+		CommonMethods.waitForGivenTime(3);
 		  SoftAssert softAssert = new SoftAssert();
 		  JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		  log.info("******Started verification of Register functionality with Valid input data ********");
@@ -496,21 +496,23 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			for (int i = 0; i < 5; i++) {
 				//commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 				if (i == 2) {
-					CommonMethods.waitForGivenTime(1);
+					CommonMethods.waitForGivenTime(2);
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1],
 							CreateAccountAndSignInPage.CreateNewEmailID(), softAssert);
 				} else {
-					CommonMethods.waitForGivenTime(1);
+					CommonMethods.waitForGivenTime(2);
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 				}
 			}
 			 if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") ) {
+				 log.info("testing verify_Create_New_Customer_with_Valid_Input_Submit_Button_Clicked ------>");
 			
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 			JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
 			 }
 			 else {
+			log.info("testing verify_Create_New_Customer_with_Valid_Input_Submit_Button_Clicked ------>");
 			commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			CommonMethods.waitForGivenTime(1);
 			 }
@@ -518,7 +520,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			// if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("iPhoneNative")) {
 			if (testType.equalsIgnoreCase("Mobile")) {		 
 				 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
-				 log.info("testing verify_Forgot_Password_Functionality completed------>");
+				 log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
 			 }
 			 else{
 			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
