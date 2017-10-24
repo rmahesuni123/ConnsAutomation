@@ -504,8 +504,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 				}
 			}
+			log.info("testing verify_Create_New_Customer_with_Valid_Input_Submit_Button_Starts ------>");
+			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
+			JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
+			executor.executeScript("arguments[0].click();", element);
+			log.info("testing verify_Create_New_Customer_with_Valid_Input_Submit_Button_Clicked ------>");
+			
+			
 			//&& testBedName.equalsIgnoreCase("iPhoneNative") 
-			 if ( testType.equalsIgnoreCase("Mobile") ) {
+			/* if ( testType.equalsIgnoreCase("Mobile") ) {
 			log.info("testing verify_Create_New_Customer_with_Valid_Input_Submit_Button_Starts ------>");			
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 			JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
@@ -517,7 +524,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			CommonMethods.waitForGivenTime(1);
 			log.info("testing verify_Create_New_Customer_with_Valid_Input_Submit_Button_Clicked ------>");
-			 }
+			 }*/
 			//CommonMethods.waitForWebElement(By.xpath(testdata[6][1]), webPage);
 			// if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("iPhoneNative")) {
 			if (testType.equalsIgnoreCase("Mobile")) {	
