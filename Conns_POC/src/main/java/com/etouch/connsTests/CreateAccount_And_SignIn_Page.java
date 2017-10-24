@@ -43,7 +43,7 @@ import com.etouch.taf.webui.selenium.WebPage;
 
 @Test(groups = "CreateAccount_And_SignIn_Page")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
-public class CreateAccount_And_SignIn_Page extends BaseTest {
+public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	private String testBedName;
 	Path path;
 	String DataFilePath;
