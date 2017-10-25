@@ -981,10 +981,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertEquals(stringCardFieldValueLength, connsHomePlusCard_data[4][3],"Special character verification failed. Expected: "+connsHomePlusCard_data[4][3]+" Actual: "+stringCardFieldValueLength);
 			cardNumberField.clear();
 			
-			log.info("Entering invalid card number for ConnsHomePlusCard_or_SynchronyHomeCreditCard");
-			cardNumberField.sendKeys(connsHomePlusCard_data[1][2]);
-			
 			log.info("Verifying error message for invalid card number");
+			cardNumberField.sendKeys(connsHomePlusCard_data[1][2]);
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
 			invalidCardNumberActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[2][1], softAssert);
@@ -1008,11 +1006,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
 			connsProductPurchasePage.hhregInputInOrderReviewSection(webPage, connsHomePlusCard_OrderReview_data, softAssert);
-			Alert alert = webPage.getDriver().switchTo().alert();
-			invalidAddressValidCardActualMessage = alert.getText();
+			
+			invalidAddressValidCardActualMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[5][1], softAssert);
 			invalidAddressValidCardExpectedMessage =  connsHomePlusCard_data[5][3];
-			log.info("Valid card alert message: "+invalidAddressValidCardActualMessage);
-			alert.dismiss();
 			softAssert.assertTrue(invalidAddressValidCardActualMessage.contains(invalidAddressValidCardExpectedMessage),"Error message not as expected for Invalid address and valid card number combination. Expected: "+invalidAddressValidCardExpectedMessage+" Actual: "+invalidAddressValidCardActualMessage);
 			
 			softAssert.assertAll();
@@ -1149,7 +1145,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			CommonMethods.waitForGivenTime(10);
 			connsProductPurchasePage.hhregInputInOrderReviewSection(webPage, connsHomePlusCard_OrderReview_data, softAssert);
-			
 			log.info("Verifying invalid zip error message");
 			invalidZipActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_invalidZip_data[9][1], softAssert);
 			invalidZipExpectedErrorMessage = connsHomePlusCard_invalidZip_data[9][4];
