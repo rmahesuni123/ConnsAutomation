@@ -486,7 +486,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1],
 							CreateAccountAndSignInPage.CreateNewEmailID(), softAssert);
 				} else {
-					CommonMethods.waitForGivenTime(10);
+					CommonMethods.waitForGivenTime(5);
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 				}
 			}
@@ -517,7 +517,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	@Test(priority = 310, enabled = true)
 	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
-		CommonMethods.waitForGivenTime(15);
+		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		CommonMethods.waitForGivenTime(5);
@@ -596,7 +596,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			try {
 				//webPage.getDriver().get(commonData[8][1]);
 				commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
-				CommonMethods.waitForGivenTime(15);
+				CommonMethods.waitForGivenTime(5);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
@@ -664,7 +664,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				log.info("*****************verify_Account_Information*****************");
 				//webPage.getDriver().get(commonData[8][1]);
 				commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
-				CommonMethods.waitForGivenTime(10);
+				CommonMethods.waitForGivenTime(5);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
