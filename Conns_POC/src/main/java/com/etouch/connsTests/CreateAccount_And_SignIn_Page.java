@@ -599,13 +599,13 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				CommonMethods.waitForGivenTime(5);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+			/*	if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][8], softAssert);
 					CommonMethods.waitForGivenTime(10);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
-				} 
+				} */
 
-				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
+				 if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
 					//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][8]));					
 					js.executeScript("arguments[0].click();", element_1);
