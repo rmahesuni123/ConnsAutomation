@@ -612,6 +612,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					CommonMethods.waitForGivenTime(10);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
 					js.executeScript("arguments[0].click();", element_2);
+					log.info("***** NewsLetters Subscription Clicked ******** : " +element_2);
 				}
 
 				else {
