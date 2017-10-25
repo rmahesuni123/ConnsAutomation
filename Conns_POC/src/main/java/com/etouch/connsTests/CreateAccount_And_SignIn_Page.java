@@ -619,15 +619,16 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 				commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") ) {
+				/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") ) {
 					 //js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 					 commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
 					 log.info("testing verify_Forgot_Password_Functionality completed------>");
-				 }
+				 }*/
 				
-				else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
+				if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") || testBedName.equalsIgnoreCase("edge") ) {
 				//else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")){
-					commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+					//commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+					webPage.getDriver().navigate().to(DashboardURL);
 					//webPage.getDriver().navigate().refresh();
 					//js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 					 log.info("testing verify_Forgot_Password_Functionality completed------>");
@@ -637,7 +638,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][4], softAssert);
 				softAssert.assertTrue(actualMessage.contains(testdata[0][5]), "Newsletter Updation Message:");
 				actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][6], softAssert);
-				softAssert.assertTrue(actualMessage.contains(testdata[0][7]), "Newsletter subscription Message:");
+				softAssert.assertTrue(actualMessage.contains(testdata[0][7]),   "Newsletter subscription Message:");
 				 }
 				log.info("testing verify_NewsLetters completed------>");
 				softAssert.assertAll();
@@ -718,7 +719,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 						WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][i]));					
 						js.executeScript("arguments[0].click();", element_4);
 						//commonMethods.clickElementbyXpath(webPage, testdata[0][i], softAssert);
-						
+						CommonMethods.waitForGivenTime(2);
 					}
 					//webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
 					/*WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
@@ -733,6 +734,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}*/
 				
 				else {
+					CommonMethods.waitForGivenTime(2);
 				webPage.findObjectByxPath(testdata[0][8]).sendKeys(Keys.TAB);
 				}
 				for (int i = 3; i < 6; i++) {
@@ -750,11 +752,12 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 				log.info("<------------Saving Account Information Form With Invalid Inputs----->");
 				//js.executeScript("scroll(0, 250);");
-				//commonMethods.clickElementbyXpath(webPage, testdata[0][12], softAssert);
+				commonMethods.clickElementbyXpath(webPage, testdata[0][12], softAssert);
 				
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
+				/*WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
 				
-				js.executeScript("arguments[0].click();", element);
+				js.executeScript("arguments[0].click();", element);*/
+				CommonMethods.waitForGivenTime(5);
 				
 				//commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 				log.info("<------------Account Information Form Saved With Invalid Inputs----->");
