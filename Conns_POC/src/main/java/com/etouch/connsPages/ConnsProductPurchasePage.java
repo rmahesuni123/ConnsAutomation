@@ -385,7 +385,9 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+							}
 						}
 					}
 				}
@@ -474,7 +476,9 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+							}
 						}
 					}
 				}
@@ -578,7 +582,9 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						} else {
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+							if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+							}
 						}
 					}
 				}

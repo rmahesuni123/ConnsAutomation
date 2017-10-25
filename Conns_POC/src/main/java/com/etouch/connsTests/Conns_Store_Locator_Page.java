@@ -179,6 +179,13 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] TexasSubLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyTexasSubLinks");
+			
+			commonMethods.navigateToPage(webPage,storeLocatorURL, softAssert);
+			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollDown(1);
+				Thread.sleep(1000);
+			}
 			commonMethods.clickElementbyXpath(webPage, commonData[8][1], softAssert);
 			List<WebElement> texasSublinkList = commonMethods.findElementsByXpath(webPage,commonData[7][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, texasSublinkList);
@@ -475,6 +482,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollBottom();
+			}
 			String actualLinkText = commonMethods.getTextbyXpath(webPage, verifyViewAllLinkData[0][0], softAssert);
 			softAssert.assertTrue(actualLinkText.contains(verifyViewAllLinkData[0][1]), "Text verification failed. Expected text : " + verifyViewAllLinkData[0][1] + " Actual text : " + actualLinkText);
 			List<String> actualCssValues= commonMethods.getFontProperties(webPage, verifyViewAllLinkData[0][0], softAssert);
@@ -503,6 +513,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollBottom();
+			}
 			commonMethods.clickElementbyXpath(webPage, verifyViewAllLinkData[0][0], softAssert);
 			List<WebElement> allStorelinkList = commonMethods.findElementsByXpath(webPage,commonData[9][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, allStorelinkList);
@@ -524,6 +537,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 				connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 				CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
+				if(testType.equalsIgnoreCase("Mobile")){
+					webPage.scrollDown(1);
+				}
 				commonMethods.clickElementbyXpath(webPage, verifyStorePageData[i][1],softAssert);
 				CommonMethods.waitForWebElement(By.xpath(commonData[2][1]), webPage);
 				String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyStorePageData[i][3], verifyStorePageData[i][0]+" -"+verifyStorePageData[i][2], softAssert,commonData[5][1]);
@@ -597,6 +613,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
+			if(testType.equalsIgnoreCase("Mobile")){
+				webPage.scrollBottom();
+			}
 			commonMethods.clickElementbyXpath(webPage, verifyAllStoreLocatorPageTextData[0][0],softAssert);
 			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(actualUrl.contains(verifyAllStoreLocatorPageTextData[2][1]),"URL verification failed. Expected - "+verifyAllStoreLocatorPageTextData[2][1]+"Actual - "+actualUrl);
@@ -674,18 +693,15 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	@Test(enabled = true, priority = 109, description = "Verify Power Review Section on Store Page")
+	@Test(enabled = true, priority = 120, description = "Verify Power Review Section on Store Page")
 	public void Verify_Power_Review_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try{
 			String[][] verifyValidRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyPowerReview");
 			System.out.println("verifyValidRegionSearchData"+verifyValidRegionSearchData.length);
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
-			System.out.println("1111111111");
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
-			System.out.println("2222222222");
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
-			System.out.println("3333333333");
 			commonMethods.clearTextBox(webPage, verifyValidRegionSearchData[1][0], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, verifyValidRegionSearchData[1][0], verifyValidRegionSearchData[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[2][0], softAssert);
@@ -697,8 +713,8 @@ public class Conns_Store_Locator_Page extends BaseTest {
 							+ regionPageActualData);
 			System.out.println("verifyValidRegionSearchData[4][0] "+verifyValidRegionSearchData[4][0]);
 			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[4][0], softAssert);
-			
-			commonMethods.clickElementById(webPage, "pr-category-snippets-119", softAssert);
+			Thread.sleep(5000);
+			commonMethods.clickElementbyXpath(webPage, "(.//*[@id='pr-category-snippets-119']/section/section[1]/div)[1]/div[1]", softAssert);
 			Thread.sleep(1000);
 			String[][] reviewElements = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
 					"verifyPowerReviewElements");

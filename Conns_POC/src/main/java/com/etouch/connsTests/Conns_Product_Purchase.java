@@ -51,7 +51,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	private ConnsMainPage mainPage;
 	ConnsProductPurchasePage connsProductPurchasePage;	private ConnsHomePage ConnsHomePage;
 	CommonMethods commonMethods;
-	String testBedName;
+	static protected String testBedName;
 	TestBed testBed;
 	Path path;
 	String DataFilePath;
@@ -250,7 +250,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.Open_OverlayBox_ForDataGiven(webPage,pickupOnlyOverlayBox, softAssert);
 			
@@ -305,7 +307,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			List<String> actualProductTextDetails = connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
 			
@@ -370,7 +374,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			
 			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
@@ -379,7 +385,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
 			commonMethods.sendKeysbyXpath(webPage, cartPageData[8][1], cartPageData[8][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, cartPageData[9][1], softAssert);
-			if(browserName.equalsIgnoreCase("Safari")||testType.equalsIgnoreCase("iPhoneNative")||testType.equalsIgnoreCase("iPadNative")){
+			if(browserName.equalsIgnoreCase("Safari")||testBedName.equalsIgnoreCase("iPhoneNative")||testBedName.equalsIgnoreCase("iPadNative")){
 				commonMethods.waitForGivenTime(10, softAssert);
 			}
 			actualCouponCodeErrorMessage = commonMethods.getTextbyXpath(webPage, cartPageData[10][1], softAssert).replaceAll(" ", "");
@@ -445,7 +451,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
 			productPriceOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[5][1], softAssert);
@@ -579,7 +587,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -645,7 +655,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.addInstockPickupProductForAvailableLocation(webPage, inStockpickupAvialableProduct,softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -719,7 +731,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -755,7 +769,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
 			log.info("Verifying Get a Quote functionality for invalid input");
@@ -802,7 +818,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -916,7 +934,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -1021,7 +1041,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
 				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
+				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
+				}
 			}
 			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
