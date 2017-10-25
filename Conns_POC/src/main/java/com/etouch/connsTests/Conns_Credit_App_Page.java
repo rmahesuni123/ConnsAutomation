@@ -954,29 +954,35 @@ public class Conns_Credit_App_Page extends BaseTest {
 	
 	
 	@Test(priority = 1031, enabled = true, description = "verify Important Notes Link")
-	  public void verify_Important_Notes_Link() throws Exception {
+	public void verify_Important_Notes_Link() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		creditAppPage.navigateToCreditAppPage(softAssert);
-	/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 				"verifyImportantNotesLink");*/		
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 				"verifyImportantNotesLink");
 		CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), testData[0][1]);
 		//creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
-		
-					if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
-					{
-						softAssert.assertTrue(commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert).contains(testData[1][2]));
-						commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1], softAssert);
-						for (int i=3;i<10;i++)
-						{
-						creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
-						}
-						
-						log.info("Clicking on element using Css - "+testData[10][1]);
-						commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[10][1], softAssert);
-						log.info("Clicking on element using Css - "+testData[10][1]);
-					}
+
+		if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
+		{
+			softAssert.assertTrue(commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert).contains(testData[1][2]));
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1], softAssert);
+			log.info("Element Clicked - "+testData[2][1].toString());
+			for (int i=3;i<10;i++)
+			{
+				creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
+			}
+
+			Thread.sleep(3000);
+			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[10][1], softAssert);
+			WebElement element = webPage.getDriver().findElement(By.xpath(testData[10][1]));
+			log.info("Web Element Found" + element.toString());
+			js.executeScript("arguments[0].click();", element);
+			log.info("Web Element Clicked" + testData[10][1].toString());
+
+		}
 	}
 	
 	@Test(priority = 1027, enabled = true, description = "verify Power Review In Yes Money Landing Page")
