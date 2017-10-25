@@ -645,45 +645,23 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 		String errorMessage = null;
 
-
-
 		try {
-
 			log.info("Adding Pickup Only product to cart");
-
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,commonData[1][1], softAssert);
-
 			WebElement product;
-
 			boolean isOverlayDisplayed= false;
-
 			boolean run = false;
-
 			String url = webPage.getCurrentUrl();
-
 			for (int i = 1; i <= listOfProducts.size(); i++) {
-
-
-
 				product = webPage.getDriver().findElement(By.xpath(commonData[0][1] + i + "]"));//*[@class="promotions-box"]/p[1]
-
 				if(productType.equalsIgnoreCase("promotional"))
-
 				{
-
 					log.info("Searching for Promotional product");
-
 					run = false;
-
 					log.info("Searching product "+i+" for text "+pickupOnlyProduct[0][3]+" & "+pickupOnlyProduct[0][2]+" & "+pickupOnlyProduct[13][2]+" & "+pickupOnlyProduct[14][2]);
-
 					if ((product.getText().toUpperCase().contains(pickupOnlyProduct[0][3]))&&
-
 							(product.getText().toUpperCase().contains(pickupOnlyProduct[0][2])))
-
 					{
-
-
 
 						if((product.getText().toUpperCase().contains(pickupOnlyProduct[13][2]))||
 

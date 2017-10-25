@@ -1172,6 +1172,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		 String[][] connsHomePlusCard_validBilling_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlus_Valid_1_Billing_Information");
 		 String validCardNumberMessage = "";
 		 String[][] promotionalPickupOnlyAvialableProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","PromotionalAgreement"); 
+		 String[][] connsHomePlusCard_OrderReview_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","OrderReviewSection_Data"); 
 		 try {
 			 commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			 if (testType.equalsIgnoreCase("Web")) {
@@ -1211,11 +1212,13 @@ public class Conns_Product_Purchase extends BaseTest {
 			 log.info("Clicking on continue button for Payment Information");
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			 CommonMethods.waitForGivenTime(10);
-
-			 Alert alert = webPage.getDriver().switchTo().alert();
-			 validCardNumberMessage = alert.getText();
-			 log.info("Valid card alert message: "+validCardNumberMessage);
-			 alert.dismiss();
+			 
+			 softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, "//*[id='mCSB_1_container']", softAssert).contains(promotionalPickupOnlyAvialableProduct[15][2]),"Unable to verify promotional text in Order review section");
+			 
+			 connsProductPurchasePage.hhregInputInOrderReviewSection(webPage, connsHomePlusCard_OrderReview_data, softAssert);
+				
+				log.info("Verifying place order success message");
+				softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, "//*[id='mCSB_1_container']", softAssert).contains(promotionalPickupOnlyAvialableProduct[15][2]),"Unable to verify promotional text on Success page");
 
 			 softAssert.assertAll();
 		 } catch (Exception e) {
@@ -1235,6 +1238,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		 String[][] connsHomePlusCard_validBilling_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlus_Valid_1_Billing_Information");
 		 String validCardNumberMessage = "";
 		 String[][] promotionalPickupOnlyAvialableProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","PromotionalAgreement"); 
+		 String[][] connsHomePlusCard_OrderReview_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","OrderReviewSection_Data"); 
 		 try {
 			 commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			 if (testType.equalsIgnoreCase("Web")) {
@@ -1274,11 +1278,18 @@ public class Conns_Product_Purchase extends BaseTest {
 			 log.info("Clicking on continue button for Payment Information");
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			 CommonMethods.waitForGivenTime(10);
+			 
+			 softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, "//*[id='mCSB_1_container']", softAssert).contains(promotionalPickupOnlyAvialableProduct[15][2]),"Unable to verify promotional text in Order review section");
+			 
+			 connsProductPurchasePage.hhregInputInOrderReviewSection(webPage, connsHomePlusCard_OrderReview_data, softAssert);
+				
+				log.info("Verifying place order success message");
+				softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, "//*[id='mCSB_1_container']", softAssert).contains(promotionalPickupOnlyAvialableProduct[15][2]),"Unable to verify promotional text on Success page");
 
-			 Alert alert = webPage.getDriver().switchTo().alert();
+			 /*Alert alert = webPage.getDriver().switchTo().alert();
 			 validCardNumberMessage = alert.getText();
 			 log.info("Valid card alert message: "+validCardNumberMessage);
-			 alert.dismiss();
+			 alert.dismiss();*/
 
 			 softAssert.assertAll();
 		 } catch (Exception e) {
