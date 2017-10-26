@@ -958,7 +958,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					 softAssert);
 			 //	}
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
-			 webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
+			// webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
 			 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			 log.info(
 					 " **************************** Assert contains url*******************************************************************************************************************************************************");
@@ -970,12 +970,12 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			 softAssert.assertEquals(actualAddressBookPageTitle, Expected_Address_Book_Page_Title,
 					 "Page title verification failed. Expected title : " + Expected_Address_Book_Page_Title
 					 + "Actual Title : " + actualAddressBookPageTitle);
-			 /*String ActualElementName = commonMethods.getTextbyXpath(webPage,
+			 String ActualElementName = commonMethods.getTextbyXpath(webPage,
 					 Expected_Additonal_Address_Successfully_Saved_Locator, softAssert);
 			 softAssert.assertEquals(ActualElementName, Expected_Additonal_Address_Successfully_Saved_Message,
 					 "Page Content verification failed. Expected Page Content Expected Element Name : "
 							 + Expected_Additonal_Address_Successfully_Saved_Message
-							 + "Actual Page Content Actual Element Name : " + ActualElementName);*/
+							 + "Actual Page Content Actual Element Name : " + ActualElementName);
 
 			 /************************************************************************************************************************************************************************/
 			 softAssert.assertAll();

@@ -81,10 +81,11 @@ public class CreateAccountAndSignInPage extends CommonPage {
 	
 	
 	
-	public static void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries (String[][] inputdata) throws PageException {
+	public static void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries (String[][] inputdata) throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		for (int q = 0; q < inputdata.length; q++) {
+			Thread.sleep(1000);
 
 			String First_Name_Locator = inputdata[q][4];
 			String Last_Name_Locator = inputdata[q][5];
