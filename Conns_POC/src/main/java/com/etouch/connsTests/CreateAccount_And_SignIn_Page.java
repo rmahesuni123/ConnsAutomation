@@ -1,6 +1,7 @@
 package com.etouch.connsTests;
 
 
+import java.awt.AWTException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,6 +24,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -103,6 +105,13 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		}
 	}
 
+	
+	@AfterTest
+	 public void releaseResources() throws IOException, AWTException {
+	  webPage.getDriver().quit();
+	 }
+	
+	
 	@Test(priority = 300, enabled = true)
 
 	public void verify_Font_And_Size_Login_Page() 
