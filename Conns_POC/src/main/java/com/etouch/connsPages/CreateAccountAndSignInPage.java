@@ -156,8 +156,10 @@ public class CreateAccountAndSignInPage extends CommonPage {
 			
 			
 			/*commonMethods.clickElementbyXpath(webPage, Save_Button_Locator, softAssert);*/
+			log.info("Save_Button_Locator Will be Click" );
 			WebElement element_1 = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));					
 			js.executeScript("arguments[0].click();", element_1);
+			log.info("Save_Button_Locator Clicked : "  + element_1);
 
 
 
