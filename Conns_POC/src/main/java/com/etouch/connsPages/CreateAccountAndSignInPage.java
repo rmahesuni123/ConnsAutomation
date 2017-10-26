@@ -83,6 +83,7 @@ public class CreateAccountAndSignInPage extends CommonPage {
 	
 	public static void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries (String[][] inputdata) throws PageException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		for (int q = 0; q < inputdata.length; q++) {
 
 			String First_Name_Locator = inputdata[q][4];
@@ -154,7 +155,9 @@ public class CreateAccountAndSignInPage extends CommonPage {
 			Country_Drop_Down.selectByVisibleText(Country_Drop_Down_Input);
 			
 			
-			commonMethods.clickElementbyXpath(webPage, Save_Button_Locator, softAssert);
+			/*commonMethods.clickElementbyXpath(webPage, Save_Button_Locator, softAssert);*/
+			WebElement element_1 = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));					
+			js.executeScript("arguments[0].click();", element_1);
 
 
 
