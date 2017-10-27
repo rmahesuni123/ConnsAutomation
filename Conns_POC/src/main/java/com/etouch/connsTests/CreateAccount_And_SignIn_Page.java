@@ -817,6 +817,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				for (int i = 3; i < 9; i++) {
 					//webPage.getDriver().navigate().refresh();
 					CommonMethods.waitForGivenTime(2);
+					js.executeScript("scroll(0, 250);");
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				String newEmailID = "New" + CreateAccountAndSignInPage.CreateNewEmailID();
