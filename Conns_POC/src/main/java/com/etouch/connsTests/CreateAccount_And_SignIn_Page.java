@@ -926,11 +926,11 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 
 			// new code
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][14], softAssert);
 				commonMethods.clickElementbyXpath(webPage, testdata[0][15], softAssert);
-			} 
-			else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")  ) {
+			} */
+			if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")  ) {
 				//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 				WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][14]));					
 				js.executeScript("arguments[0].click();", element_1);
@@ -972,7 +972,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			softAssert.assertTrue(shippingAddress.contains(testdata[1][8]), "Verification failed for Name: ");
 
 			/********************************************************* Additional Address Entries **********************************************************************************************************************************************/
-			webPage.getDriver().get(DashboardURL);
+			//webPage.getDriver().get(DashboardURL);
 			CommonMethods.waitForGivenTime(15);
 			commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator,
 					softAssert);
@@ -997,6 +997,12 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			 //	}
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
 			// webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
+			 
+			/* if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+				 log.info(
+						 " **************************** Additional Address Functionality Completed Successfully *******************************************************************************************************************************************************");
+				}else{*/
+			 
 			 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			 log.info(
 					 " **************************** Assert contains url*******************************************************************************************************************************************************");
@@ -1014,7 +1020,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					 "Page Content verification failed. Expected Page Content Expected Element Name : "
 							 + Expected_Additonal_Address_Successfully_Saved_Message
 							 + "Actual Page Content Actual Element Name : " + ActualElementName);
-
+				//}
 			 /************************************************************************************************************************************************************************/
 			 softAssert.assertAll();
 			 // For Sign Out
