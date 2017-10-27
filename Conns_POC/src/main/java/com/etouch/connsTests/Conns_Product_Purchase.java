@@ -986,7 +986,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
 			invalidCardNumberActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[2][1], softAssert);
-			invalidCardNumberExpectedErrorMessage = connsHomePlusCard_data[2][2];
+			invalidCardNumberExpectedErrorMessage = connsHomePlusCard_data[1][3];
 			softAssert.assertTrue(invalidCardNumberActualErrorMessage.contains(invalidCardNumberExpectedErrorMessage),"Expected error message: "+invalidCardNumberExpectedErrorMessage+" Actual error message: "+invalidCardNumberActualErrorMessage);
 			
 			log.info("Verifying result message for insufficent funds in card");
@@ -996,9 +996,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
 			insufficientFundActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[3][1], softAssert);
-			insufficientFundExpectedErrorMessage = connsHomePlusCard_data[2][2];
+			insufficientFundExpectedErrorMessage = connsHomePlusCard_data[0][3];
 			softAssert.assertTrue(insufficientFundActualErrorMessage.contains(insufficientFundExpectedErrorMessage), "Insufficient funds error message does not match. Expected: "+insufficientFundExpectedErrorMessage+" Actual: "+insufficientFundActualErrorMessage);
-		*/	
+*/
 			log.info("Verifying invalid address and valid card number combination");
 			cardNumberField = commonMethods.getWebElementbyXpath(webPage, connsHomePlusCard_data[1][1], softAssert);
 			cardNumberField.clear();
@@ -1014,76 +1014,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertAll();
 		} catch (Exception e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-	
-	/*This method will cover below scenarios
-	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for valid billing address
-	 */
-	@Test(priority = 913, enabled = true, description = "Verify_ConnsHomePlusCard_or_SynchronyHomeCreditCard_ValidAddress_CheckoutMethod")
-	public void Verify_ConnsHomePlusCard_ValidFlow_Validation() {
-		SoftAssert softAssert = new SoftAssert();
-		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
-		String[][] connsHomePlusCard_validBilling_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlus_Valid_2_Billing_Information");
-		String[][] connsHomePlusCard_OrderReview_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","OrderReviewSection_Data");
-		String placeOrderActualSuccessMessage = "";
-		String placeOrderExpectedSuccessMessage = "";
-		
-		try {
-			commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
-			} else {
-				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
-					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
-				}
-			}
-			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
-			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
-			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
-			connsProductPurchasePage.Submit_Billing_Information(webPage, connsHomePlusCard_validBilling_data, softAssert);
-			log.info("Clicking on billing information section continue button");
-			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
-			CommonMethods.waitForGivenTime(5);
-			if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}
-			log.info("Clicking on Pickup location address radio button");
-			commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);
-			log.info("Clicking on Pickup Location continue button");
-			commonMethods.clickElementbyXpath(webPage, checkoutPageData[9][1], softAssert);
-			CommonMethods.waitForGivenTime(8);
-			if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}
-			log.info("Selecting Payment Information as ConnsHomePlusCard_or_SynchronyHomeCreditCard");
-			try{
-				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
-			}catch(Exception e){
-				log.info("Waiting for more time as ConnsHomePlusCard_or_SynchronyHomeCreditCard option is not yet displayed");
-				CommonMethods.waitForGivenTime(8);
-				commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_data[0][1], softAssert);
-			}
-			
-			connsProductPurchasePage.proceedBySelectingConnsHomePlusPaymentMethod(webPage, connsHomePlusCard_validBilling_data, softAssert);
-			
-			log.info("Clicking on continue button for Payment Information");
-			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
-			CommonMethods.waitForGivenTime(10);
-			connsProductPurchasePage.hhregInputInOrderReviewSection(webPage, connsHomePlusCard_OrderReview_data, softAssert);
-			
-			log.info("Verifying place order success message");
-			placeOrderActualSuccessMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[6][1], softAssert);
-			placeOrderExpectedSuccessMessage = connsHomePlusCard_data[6][3];
-			softAssert.assertTrue(placeOrderActualSuccessMessage.contains(placeOrderExpectedSuccessMessage),"Place order success message verification failed. Expected: "+placeOrderExpectedSuccessMessage+" Actual: "+placeOrderActualSuccessMessage);
-			
-			softAssert.assertAll();
-		} catch (Exception e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_ConnsHomePlusCard_ValidFlow_Validation");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -1159,9 +1089,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	}
 	
 	
-	
-	
-	
+
 	/* This method will cover below scenarios
 	  * - Verify aggrement text disdayed in Review section for Non-Promotional Product
 	  */
@@ -1298,32 +1226,4 @@ public class Conns_Product_Purchase extends BaseTest {
 			 Assert.fail(e.getLocalizedMessage());
 		 }
 	 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

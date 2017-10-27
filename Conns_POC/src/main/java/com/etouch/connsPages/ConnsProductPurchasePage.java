@@ -190,6 +190,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	public void checkoutSendKeysbyXpath(WebPage webPage, String locator, String text, SoftAssert softAssert){
 		try{
 			log.info("Entering keys "+text+" ");
+			webPage.findObjectByxPath(locator).clear();
 			webPage.findObjectByxPath(locator).sendKeys(text);
 		}catch(Exception e){
 			softAssert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
@@ -642,9 +643,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
      */
 	public void addPickupOnlyAndPromotionalProductForAvailableLocation(WebPage webPage, String[][] pickupOnlyProduct,SoftAssert softAssert,String productType){
-
 		String errorMessage = null;
-
 		try {
 			log.info("Adding Pickup Only product to cart");
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,commonData[1][1], softAssert);
@@ -662,292 +661,196 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 					if ((product.getText().toUpperCase().contains(pickupOnlyProduct[0][3]))&&
 							(product.getText().toUpperCase().contains(pickupOnlyProduct[0][2])))
 					{
-
 						if((product.getText().toUpperCase().contains(pickupOnlyProduct[13][2]))||
-
 								(product.getText().toUpperCase().contains(pickupOnlyProduct[14][2])))
-
 						{
-
 							run = true;
-
 							log.info("Found product number "+i+" with text "+pickupOnlyProduct[0][3]+" & "+pickupOnlyProduct[0][2]
-
 									+" & "+pickupOnlyProduct[13][2]+" or "+pickupOnlyProduct[14][2]);
-
 							log.info("Clicking on product:::" + i);
-
 							commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",softAssert);
-
 							isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
-
 							if(!isOverlayDisplayed){
-
 								try{
-
 									commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
-
 								}catch(Exception e){
-
 									log.info("Clicking Add to Cart button not required as Overlay box is already open");
-
 								}
-
 							}
-
 						}
-
 					}
-
 				}
-
 				else if(productType.equalsIgnoreCase("nonpromotional")){
-
 					log.info("Searching for Non-Promotional product");
-
 					run = false;
-
 					log.info("Searching Non-Promotional product "+i+" for text "+pickupOnlyProduct[0][3]+" & "+pickupOnlyProduct[0][2]);
-
 					if ((product.getText().toUpperCase().contains(pickupOnlyProduct[0][3]))&& (product.getText().toUpperCase().contains(pickupOnlyProduct[0][2]))
-
 							) {
-
 						if((!(product.getText().toUpperCase().contains(pickupOnlyProduct[13][2])))&&
-
 								(!(product.getText().toUpperCase().contains(pickupOnlyProduct[14][2]))))
-
 						{
-
 							run = true;
-
 							log.info("Found product number "+i+" with text "+pickupOnlyProduct[0][3]);
-
 							log.info("Clicking on product:::" + i);
-
 							commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",softAssert);
-
 							isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
-
 							if(!isOverlayDisplayed){
-
 								try{
-
 									commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
-
 								}catch(Exception e){
-
 									log.info("Clicking Add to Cart button not required as Overlay box is already open");
-
 								}
-
 							}
-
 						}
-
 					}
-
-
-
 				}
-
-
-
 				else{
-
 					run = false;
-
 					if ((product.getText().toUpperCase().contains(pickupOnlyProduct[0][3]))&& (product.getText().toUpperCase().contains(pickupOnlyProduct[0][2]))) {
-
 						log.info("Found product number "+i+" with text "+pickupOnlyProduct[0][3]);
-
 						log.info("Clicking on product:::" + i);
-
 						commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",softAssert);
-
 						run = true;
-
 						isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
-
 						if(!isOverlayDisplayed){
-
 							try{
-
 								commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
-
 							}catch(Exception e){
-
 								log.info("Clicking Add to Cart button not required as Overlay box is already open");
 							}
-
 						}
-
 					}
-
-
-
 				}
-
-
-
 				if(run)
-
 				{
-
 					isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
-
 					log.info("isOverlayDisplayed:" + isOverlayDisplayed);
-
-
-
 					//Enter zipcode
-
 					commonMethods.clearElementbyXpath(webPage, pickupOnlyProduct[5][1], softAssert);
-
 					CommonMethods.waitForWebElement(By.xpath(pickupOnlyProduct[5][1]), webPage);
-
 					commonMethods.sendKeysbyXpath(webPage, pickupOnlyProduct[5][1], pickupOnlyProduct[5][3],softAssert);
-
 					Thread.sleep(2000);
-
-
-
 					try{
-
 						CommonMethods.waitForWebElement(By.xpath(pickupOnlyProduct[6][1]), webPage);
-
 					}catch(Exception e){
-
 						e.getLocalizedMessage();
-
 					}
-
 					//click update button
-
 					commonMethods.clickElementbyXpath(webPage, pickupOnlyProduct[6][1], softAssert);
-
 					Thread.sleep(10000);
-
 					// verifying if error message is displayed
-
 					boolean isPresent = webPage.getDriver().findElements(By.xpath(pickupOnlyProduct[8][1])).size() > 0;
-
 					if (!isPresent) {
-
 						log.info("Product found with given delivery location");
-
 						commonMethods.clickElementbyXpath(webPage, pickupOnlyProduct[7][1], softAssert);
-
 						log.info("Clicked on Add To Cart button in Overlay Box");
-
 						Thread.sleep(5000);
-
 						if (isAlertPresent())
-
 						{
-
 							log.info("Alert present after clicking on Add to Cart button, this can be because of slow network");
-
 							Alert alert = webPage.getDriver().switchTo().alert();
-
 							alert.accept();
-
 							Thread.sleep(7000);
-
 							commonMethods.clickElementbyXpath(webPage, pickupOnlyProduct[7][1], softAssert);
-
 						}
-
 						if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
-
 							log.info("Cart is Empty message displayed after clicking on Add to Cart button. Test will not be able to complete successfully because of this.");
-
 							boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
-
 							log.info("isShoppingCartEmpty:" + isShoppingCartEmpty);
-
 							Assert.assertFalse(isShoppingCartEmpty,
-
 									"Cart is Empty message shown even after adding valid product. Test cannot be completed as product did not get added to cart.");
-
 							break;
-
 						}
-
 						log.info("Clicked on Add To Cart button for Pickup Only product successfully");
-
 						break;
-
 					} else {
-
 						errorMessage = commonMethods.getTextbyXpath(webPage, pickupOnlyProduct[8][1], softAssert);
-
 						log.info(errorMessage);
-
 						log.info("Delivery for product not available for given location, trying next Pickup Only product");
-
 						// closing zipcode box
-
 						webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
-
 						Thread.sleep(3000);
-
-
-
 						if (testType.equalsIgnoreCase("Web")) {
-
 							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-
 							//chnge items displayed per page to 28
-
 							//    numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
-
 						} else {
-
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-
 							//      commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
-
 						}
-
 					}
-
 				}
-
 				else{
-
 					if (testType.equalsIgnoreCase("Web")) {
-
 						if(!url.equals(webPage.getCurrentUrl()))
-
 						{
-
 							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-
 							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 						}
-
 						//chnge items displayed per page to 28
 						//   
-
 					} else {
-
 						if(!url.equals(webPage.getCurrentUrl()))
-
 						{
 							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
 						}
-
 					}
 				}
-
 			}
-
 		} catch (Throwable e) {
 			log.error("Method addPickupOnlyProductForAvailableLocation failed");
 			Assert.fail(e.getLocalizedMessage());
 			softAssert.assertAll();
+		}
+	}
+	
+	/*
+	 * - This method will add product given product to cart. Please make sure product that is passed has available delivery
+	 */
+	
+	public void addGivenProductToCart(WebPage webPage, String productUrl, String[][] addProductData,SoftAssert softAssert){
+		try {
+			log.info("Adding given product to cart");
+			commonMethods.navigateToPage(webPage, productUrl, softAssert);
+
+			log.info("Clicking on Add To Cart button on product page");
+			commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
+			commonMethods.clearElementbyXpath(webPage, addProductData[5][1], softAssert);
+			CommonMethods.waitForWebElement(By.xpath(addProductData[5][1]), webPage);
+			commonMethods.sendKeysbyXpath(webPage, addProductData[5][1], addProductData[5][3],softAssert);
+			Thread.sleep(2000);
+			
+			try{
+				CommonMethods.waitForWebElement(By.xpath(addProductData[6][1]), webPage);
+			}catch(Exception e){
+				e.getLocalizedMessage();
+			}
+			commonMethods.clickElementbyXpath(webPage, addProductData[6][1], softAssert);
+			Thread.sleep(5000);
+			boolean isPresent = webPage.getDriver().findElements(By.xpath(addProductData[8][1])).size() > 0;
+			
+			if (!isPresent) {
+				log.info("Product found with given delivery location");
+				log.info("Clicking on Add To Cart button in Overlay Box");
+				commonMethods.clickElementbyXpath(webPage, addProductData[7][1], softAssert);
+				Thread.sleep(8000);
+				if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
+					log.info("Cart is Empty message displayed after clicking on Add to Cart button. Test will not be able to complete successfully because of this.");
+					boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+					log.info("isShoppingCartEmpty:" + isShoppingCartEmpty);
+					Assert.assertFalse(isShoppingCartEmpty,
+							"Cart is Empty message shown even after adding valid product. Test cannot be completed as product did not get added to cart.");
+				}
+				log.info("Clicked on Add To Cart button for Instock product successfully");
+			}else{
+				log.info("Product not available for given zipcode");
+			}
+
+		} catch (Throwable e) {
+			log.error("Method addInstockProductForAvailableLocation failed");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 }
