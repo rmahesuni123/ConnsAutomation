@@ -839,7 +839,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					js.executeScript("arguments[0].click();", element_1);
 					log.info("Save Button Clicked -----> : " );
 					
-					commonMethods.navigateToPage(webPage,DashboardURL, softAssert);	
+					//commonMethods.navigateToPage(webPage,DashboardURL, softAssert);	
 					log.info("testing verify_Account_Information completed------>");
 				}else{
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
