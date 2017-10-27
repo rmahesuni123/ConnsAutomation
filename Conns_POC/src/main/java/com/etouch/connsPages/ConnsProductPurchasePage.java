@@ -634,7 +634,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		commonMethods.selectDropdownByValue(webPage, connsHomePlusCard_OrderReviewData[3][1], connsHomePlusCard_OrderReviewData[3][2], softAssert);
 		commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_OrderReviewData[4][1], softAssert);
 		commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_OrderReviewData[5][1], softAssert);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 	}
 	
 	/*
