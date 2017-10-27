@@ -972,7 +972,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			softAssert.assertTrue(shippingAddress.contains(testdata[1][8]), "Verification failed for Name: ");
 
 			/********************************************************* Additional Address Entries **********************************************************************************************************************************************/
-			//webPage.getDriver().get(DashboardURL);
+			webPage.getDriver().get(DashboardURL);
 			CommonMethods.waitForGivenTime(15);
 			commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator,
 					softAssert);
