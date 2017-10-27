@@ -631,8 +631,9 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][3]));					
 					js.executeScript("arguments[0].click();", element_4);
 					log.info("***** ******************** NewsLetters Subscription Clicked ******** : ");
+					/*webPage.getDriver().navigate().refresh();
 					webPage.getDriver().navigate().to(DashboardURL);
-				 }
+*/				 }
 
 				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
@@ -742,6 +743,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				log.info("Validation for Blank Data Starts----->");
 				// Validate with blank data
 				for (int i = 3; i < 6; i++) {
+					CommonMethods.waitForGivenTime(2);
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				Thread.sleep(3000);
@@ -814,6 +816,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				// With Valid Data
 				for (int i = 3; i < 9; i++) {
 					//webPage.getDriver().navigate().refresh();
+					CommonMethods.waitForGivenTime(2);
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				String newEmailID = "New" + CreateAccountAndSignInPage.CreateNewEmailID();
