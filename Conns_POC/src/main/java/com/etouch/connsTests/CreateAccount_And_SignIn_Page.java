@@ -616,19 +616,21 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 				 if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
 					//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
-					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][8]));					
+					 log.info("***** NewsLetters Subscription Inside If ******** : " );
+					 WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][8]));					
 					js.executeScript("arguments[0].click();", element_1);
+					log.info("***** NewsLetters Subscription Clicked ******** : " +element_1);
 					CommonMethods.waitForGivenTime(10);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
 					js.executeScript("arguments[0].click();", element_2);
-					log.info("***** NewsLetters Subscription Clicked ******** : " +element_2);
+					log.info("***** ******************Clicking NewsLetters Subscription  ******** : " );
 
 					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
 					js.executeScript("arguments[0].click();", element_3);
 					CommonMethods.waitForGivenTime(10);
 					WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][3]));					
 					js.executeScript("arguments[0].click();", element_4);
-					log.info("***** NewsLetters Subscription Clicked ******** : " +element_4);
+					log.info("***** ******************** NewsLetters Subscription Clicked ******** : ");
 					webPage.getDriver().navigate().to(DashboardURL);
 				 }
 
@@ -827,12 +829,12 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				//Click Save Button
 
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-					log.info("Save Button Clicked -----> : " + testdata[0][12]);
-					log.info("Click Save Button -----> : " + testdata[0][12]);
+					log.info("Save Button Info -----> : " + testdata[0][12]);
+					log.info("Clicking Save Button -----> : " + testdata[0][12]);
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
 					/*JavascriptExecutor executor_1 = (JavascriptExecutor)webPage.getDriver();*/
 					js.executeScript("arguments[0].click();", element_1);
-					log.info("Save Button Clicked -----> : " + testdata[0][12]);
+					log.info("Save Button Clicked -----> : " );
 					
 					commonMethods.navigateToPage(webPage,DashboardURL, softAssert);	
 					log.info("testing verify_Account_Information completed------>");
