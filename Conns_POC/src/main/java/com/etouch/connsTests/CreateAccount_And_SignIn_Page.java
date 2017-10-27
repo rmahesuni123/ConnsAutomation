@@ -996,7 +996,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					 softAssert);
 			 //	}
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
-			// webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
+			 webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
 			 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 			 log.info(
 					 " **************************** Assert contains url*******************************************************************************************************************************************************");
