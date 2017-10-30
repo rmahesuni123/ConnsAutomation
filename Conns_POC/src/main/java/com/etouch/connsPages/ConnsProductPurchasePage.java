@@ -853,4 +853,14 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+	
+	public void deleteCookies()
+	{
+		try{
+			webPage.getDriver().manage().deleteAllCookies();
+			log.info("browser history cleared");
+		}catch(Exception e){
+			log.info("Unable to delete cookies for current browser.");
+		}
+	}
 }
