@@ -329,7 +329,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.clearElementbyXpath(webPage, cartPageData[3][1], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, cartPageData[3][1], cartPageData[3][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, cartPageData[4][1], softAssert);
-			if(browserName.equalsIgnoreCase("Safari")||testType.equalsIgnoreCase("iPhoneNative")||testType.equalsIgnoreCase("iPadNative")){
+			if(browserName.equalsIgnoreCase("Safari")||testType.equalsIgnoreCase("iPhone")||testType.equalsIgnoreCase("iPad")){
 				commonMethods.waitForGivenTime(10, softAssert);
 			}
 			productSubTotalPriceIncart = commonMethods.getTextbyXpath(webPage, cartPageData[5][1], softAssert);
@@ -391,7 +391,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
 			commonMethods.sendKeysbyXpath(webPage, cartPageData[8][1], cartPageData[8][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, cartPageData[9][1], softAssert);
-			if(browserName.equalsIgnoreCase("Safari")||testBedName.equalsIgnoreCase("iPhoneNative")||testBedName.equalsIgnoreCase("iPadNative")){
+			if(browserName.equalsIgnoreCase("Safari")||testBedName.equalsIgnoreCase("iPhone")||testBedName.equalsIgnoreCase("iPad")){
 				commonMethods.waitForGivenTime(10, softAssert);
 			}
 			actualCouponCodeErrorMessage = commonMethods.getTextbyXpath(webPage, cartPageData[10][1], softAssert).replaceAll(" ", "");
@@ -493,7 +493,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			
 			log.info("Verifying invalid input for Billing Information e-mail field");
-			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhoneNative")||browserName.equalsIgnoreCase("iPadNative"))){
+			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhone")||browserName.equalsIgnoreCase("iPad"))){
 				commonMethods.sendKeysbyXpath(webPage, checkoutPageData[5][1], checkoutPageData[5][2], softAssert);
 				WebElement billingEmailfield = commonMethods.getWebElementbyXpath(webPage, checkoutPageData[5][1], softAssert);
 				billingEmailfield.sendKeys(Keys.TAB);
@@ -503,7 +503,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			
 			log.info("Verifying invalid input for Billing Information zipcode field");
-			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhoneNative")||browserName.equalsIgnoreCase("iPadNative"))){
+			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhone")||browserName.equalsIgnoreCase("iPad"))){
 				commonMethods.sendKeysbyXpath(webPage, checkoutPageData[6][1], checkoutPageData[6][2], softAssert);
 				WebElement billingZipcodefield = commonMethods.getWebElementbyXpath(webPage, checkoutPageData[6][1], softAssert);
 				billingZipcodefield.sendKeys(Keys.TAB);
@@ -522,7 +522,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			}
 			log.info("Clicking on Pickup location address radio button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);
-			log.info("Clicking on continue for Pickup Location");
+			log.info("Clicking on continue for Pickup Location");	
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[9][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
 			if(testType.equalsIgnoreCase("Mobile")){
@@ -534,7 +534,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertTrue(actualPaymentInfoSectionText.contains(checkoutPageData[11][2]),"Expected payment info section text: "+checkoutPageData[11][2]+" Actual payment info text: "+actualPaymentInfoSectionText);
 			
 			log.info("Verifying alert box after not slecting payment method");
-			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhoneNative")||browserName.equalsIgnoreCase("iPadNative"))){
+			if(!(browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhone")||browserName.equalsIgnoreCase("iPad"))){
 				try{
 					CommonMethods.waitForGivenTime(5);
 				commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
@@ -671,7 +671,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				}
 			}
 			connsProductPurchasePage.addInstockPickupProductForAvailableLocation(webPage, inStockpickupAvialableProduct,softAssert);*/
-			connsProductPurchasePage.addGivenProductToCart(webPage, pickupOnlyAvialableProduct[14][3], instockProductAddToCartData, softAssert);
+			connsProductPurchasePage.addGivenProductToCart(webPage, pickupOnlyAvialableProduct[14][3], pickupOnlyAvialableProduct, softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
