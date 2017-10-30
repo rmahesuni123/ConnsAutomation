@@ -671,7 +671,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				}
 			}
 			connsProductPurchasePage.addInstockPickupProductForAvailableLocation(webPage, inStockpickupAvialableProduct,softAssert);*/
-			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[13][3], instockProductAddToCartData, softAssert);
+			connsProductPurchasePage.addGivenProductToCart(webPage, pickupOnlyAvialableProduct[14][3], instockProductAddToCartData, softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
