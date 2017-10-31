@@ -998,37 +998,38 @@ public class Conns_Product_Purchase extends BaseTest {
 			cardNumberField.sendKeys(Keys.TAB);
 			cardNumberField.sendKeys(connsHomePlusCard_data[1][2]);
 			cardNumberField.sendKeys(Keys.TAB);
-			//commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
-			CommonMethods.waitForGivenTime(2);
+			if(testType.equalsIgnoreCase("Web")&&(browserName.equalsIgnoreCase("Safari"))){
+				commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);	
+			}
+			CommonMethods.waitForGivenTime(5);
 			invalidCardNumberActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[2][1], softAssert);
 			invalidCardNumberExpectedErrorMessage = connsHomePlusCard_data[1][3];
-			log.info("E Text: "+invalidCardNumberExpectedErrorMessage);
-			log.info("A Text: "+invalidCardNumberActualErrorMessage);
 			softAssert.assertTrue(invalidCardNumberActualErrorMessage.contains(invalidCardNumberExpectedErrorMessage),"Expected error message: "+invalidCardNumberExpectedErrorMessage+" Actual error message: "+invalidCardNumberActualErrorMessage);
 	
 			
 			log.info("Verifying maximum length for Conn's HomePlus card number field");
 			cardNumberField = commonMethods.getWebElementbyXpath(webPage, connsHomePlusCard_data[1][1], softAssert);
+			cardNumberField.clear();
 			cardNumberField.sendKeys(connsHomePlusCard_data[3][2]);
-			CommonMethods.waitForGivenTime(2);
+			CommonMethods.waitForGivenTime(5);
 			intCardFieldValueLength = cardNumberField.getAttribute("value").length();
 			stringCardFieldValueLength = Integer.toString(intCardFieldValueLength);
-			log.info("E Text: "+connsHomePlusCard_data[3][3]);
-			log.info("A Text: "+stringCardFieldValueLength);
-			softAssert.assertEquals(stringCardFieldValueLength, connsHomePlusCard_data[3][3],"Maximum digit length verification failed. Expected: "+connsHomePlusCard_data[3][3]+" Actual: "+stringCardFieldValueLength);
+			if(!(testType.equalsIgnoreCase("Web")&&(browserName.equalsIgnoreCase("Safari")))){
+				softAssert.assertEquals(stringCardFieldValueLength, connsHomePlusCard_data[3][3],"Maximum digit length verification failed. Expected: "+connsHomePlusCard_data[3][3]+" Actual: "+stringCardFieldValueLength);		
+			}
 			
 			log.info("Verifying special char. verification for Conn's HomePlus card number field");
 			cardNumberField.clear();
 			cardNumberField.sendKeys(Keys.TAB);
 			CommonMethods.waitForGivenTime(2);
 			cardNumberField.sendKeys(connsHomePlusCard_data[4][2]);
-			//commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
+			if(testType.equalsIgnoreCase("Web")&&(browserName.equalsIgnoreCase("Safari"))){
+				commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);	
+			}
 			cardNumberField.sendKeys(Keys.TAB);
-			CommonMethods.waitForGivenTime(2);
+			CommonMethods.waitForGivenTime(5);
 			specialCharActualErrorMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[2][1], softAssert);
 			specialCharExpectedErrorMessage = connsHomePlusCard_data[1][3];
-			log.info("E Text: "+specialCharExpectedErrorMessage);
-			log.info("A Text: "+specialCharActualErrorMessage);
 			softAssert.assertTrue(specialCharActualErrorMessage.contains(specialCharExpectedErrorMessage),"Expected spcl. char error message: "+specialCharExpectedErrorMessage+" Actual spcl. char error message: "+specialCharActualErrorMessage);
 			
 					
@@ -1055,8 +1056,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			
 			invalidAddressValidCardActualMessage = commonMethods.getTextbyXpath(webPage, connsHomePlusCard_data[5][1], softAssert);
 			invalidAddressValidCardExpectedMessage =  connsHomePlusCard_data[5][3];
-			log.info("E Text: "+invalidAddressValidCardExpectedMessage);
-			log.info("A Text: "+invalidAddressValidCardActualMessage);
 			softAssert.assertTrue(invalidAddressValidCardActualMessage.contains(invalidAddressValidCardExpectedMessage),"Error message not as expected for Invalid address and valid card number combination. Expected: "+invalidAddressValidCardExpectedMessage+" Actual: "+invalidAddressValidCardActualMessage);
 			/*}
 			else{
