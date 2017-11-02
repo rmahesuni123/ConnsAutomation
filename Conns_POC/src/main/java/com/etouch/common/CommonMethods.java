@@ -1212,4 +1212,15 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 				"Failed to Update Drop Down Value, New Value : " + newValue + " Existing Value : " + actual);
 	}	
 	
+	public String getTextFromHiddenElement(WebPage webPage,SoftAssert softAssert,String locator)
+	{
+		String text = null;
+		 JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+			text = (String) executor.executeScript("return arguments[0].innerHTML", getWebElementbyXpath(webPage, ".//*[@id='mCSB_1_container']/p[6]", softAssert));
+			System.out.println("111111111111111111 "+text);
+			return text;
+		
+		
+	}
+	
 }

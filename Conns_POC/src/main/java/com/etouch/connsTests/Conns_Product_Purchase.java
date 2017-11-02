@@ -149,7 +149,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	/*This method will cover below scenarios
 	 * - Verify page title for products under Appliances menu option. For eg- French door refrigertaor
 	 */
-	@Test(priority = 901, enabled = false, description = "Verify_Page_Title")
+	@Test(priority = 901, enabled = true, description = "Verify_Page_Title")
 	public void Verify_Page_Title() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualTitle = null;
@@ -180,7 +180,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify overlay box is opening after clicking on Add to cart button, with Enter Location text field, Update, Add To Cart & Cancel buttons.
 	 * - Validate Enter Location field with blank, invalid and valid inputs. Verify messages displayed for each type of input.[valid input coverd seperately]
 	 */
-	@Test(priority = 902, enabled = false, description = "Verify_In-Stock_Product_Overlay_Box")
+	@Test(priority = 902, enabled = true, description = "Verify_In-Stock_Product_Overlay_Box")
 	public void Verify_OverlayBox_InStock_Product() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualValueBlankInput = null;
@@ -236,7 +236,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify overlay box is opening after clicking on Add to cart button, with Enter Location text field, Update, Add To Cart & Cancel buttons.
 	 * - Validate Enter Location field with blank, invalid and valid inputs. Verify messages displayed for each type of input.[valid input coverd seperately]
 	 */
-	@Test(priority = 903, enabled = false, description = "Verify_Pickup_Only_Product_Overlay_Box")
+	@Test(priority = 903, enabled = true, description = "Verify_Pickup_Only_Product_Overlay_Box")
 	public void Verify_OverlayBox_PickupOnly_Product() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualValueBlankInput = null;
@@ -291,7 +291,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - For product with status 'In-Stock' update quantity and verify that price gets updated accordingly.
 	 * - Verify 'Shopping Cart is Empty' message by removing all items from cart.
 	 */
-	@Test(priority = 904, enabled = false, description = "Verify_Product_Functionality_In_Cart")
+	@Test(priority = 904, enabled = true, description = "Verify_Product_Functionality_In_Cart")
 	public void Verify_Instock_Product_Add_To_Cart() {
 		SoftAssert softAssert = new SoftAssert();
 		String instockProductVaildDeliveryMessage = null;
@@ -359,7 +359,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify 'Get Credit' functionality from checkout cart page.
 	 * - Verifying functionality for Continue Shopping link [Not in Scenario list]
 	 */
-	@Test(priority = 905, enabled = false, description = "Verify_Apply_Code_and_Get_Credit_Functionality")
+	@Test(priority = 905, enabled = true, description = "Verify_Apply_Code_and_Get_Credit_Functionality")
 	public void Verify_Pickup_Only_Product_Add_To_Cart() {
 		SoftAssert softAssert = new SoftAssert();
 		String actualCouponCodeErrorMessage = "";
@@ -430,7 +430,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verified heading of each section of cart page [not in scenario list]
 	 * - Verified billing information for valid and invalid input [not in scenario list]
 	 */
-	@Test(priority = 906, enabled = false, description = "Verify_Proceed_To_Checkout_with_Conn's_Credit_Checkout")
+	@Test(priority = 906, enabled = true, description = "Verify_Proceed_To_Checkout_with_Conn's_Credit_Checkout")
 	public void Verify_Proceed_To_Checkout_Page() {
 		SoftAssert softAssert = new SoftAssert();
 		String checkoutPageActualUrl = "";
@@ -583,7 +583,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify Billing Information section for different payment options
 	 * - Verify different Payment methods under Payment Information section.
 	 */
-	@Test(priority = 907, enabled = false, description = "Verify_Billing_Information_Section_with_Paypal_Checkout")
+	@Test(priority = 907, enabled = true, description = "Verify_Billing_Information_Section_with_Paypal_Checkout")
 	public void Verify_PayPal_Checkout() {
 		SoftAssert softAssert = new SoftAssert();
 		String connsPayPalActualUrl = "";
@@ -652,7 +652,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify different Payment methods under Payment Information section.
 	 * - Validate functionality of 'Place Order' button by verifying success message and order id. [Covered for Conn's Credit]
 	 */
-	@Test(priority = 908, enabled = false, description = "Verify_In-Stock_Pickup_Product_Functionality")
+	@Test(priority = 908, enabled = true, description = "Verify_In-Stock_Pickup_Product_Functionality")
 	public void Verify_InStockPickup_Product_Functionality() {
 		SoftAssert softAssert = new SoftAssert();
 		String successFlowExpectedMessage = "";
@@ -730,7 +730,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify 'forget password' functionality.
 	 */
 	
-	@Test(priority = 909, enabled = false, description = "Verify_Forgot_Password_Link_Functionality")
+	@Test(priority = 909, enabled = true, description = "Verify_Forgot_Password_Link_Functionality")
 	public void Verify_Password_Link_Functionality() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
@@ -771,7 +771,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify Shipping Method section for the product added to cart.
 	 */
 	
-	@Test(priority = 910, enabled = false, description = "Verify_Get_Quote_and_Shipping_Methods_Functionality")
+	@Test(priority = 910, enabled = true, description = "Verify_Get_Quote_and_Shipping_Methods_Functionality")
 	public void Verify_Get_Quote_Functionality() {
 		SoftAssert softAssert = new SoftAssert();
 		
@@ -822,7 +822,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify Shipping Method section for the product added to cart.
 	 */
 	
-	@Test(priority = 911, enabled = false, description = "Verify_Login_and_Ship_To_Different_Address_Functionality")
+	@Test(priority = 911, enabled = true, description = "Verify_Login_and_Ship_To_Different_Address_Functionality")
 	public void Verify_Ship_To_Different_Address__Functionality() {
 		SoftAssert softAssert = new SoftAssert();
 		String shippingInfoFirstName ="";
@@ -1217,7 +1217,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			 
 				log.info("Verifying place order success message");
 				softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, checkoutPageData[46][1], softAssert).contains(promotionalPickupOnlyAvialableProduct[15][4]),
-						"Unable to verify promotional text in Order review section Expected : "+promotionalPickupOnlyAvialableProduct[15][4]
+						"Unable to verify promotional text on Success Page Expected : "+promotionalPickupOnlyAvialableProduct[15][4]
 								 +" Actual : "+commonMethods.getTextbyXpath(webPage, checkoutPageData[46][1], softAssert));
 				/* }
 					else{
@@ -1291,9 +1291,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
 			 CommonMethods.waitForGivenTime(10);
 			 
-			 
-			 softAssert.assertTrue(webPage.getDriver().getPageSource().contains(promotionalPickupOnlyAvialableProduct[16][4].trim())
-					 ,"Failed to Match Promotional text in Order Review Section");
+			 String NonPromotionalText = commonMethods.getTextFromHiddenElement(webPage, softAssert, ".//*[@id='mCSB_1_container']/p[6]");
+			 softAssert.assertTrue(NonPromotionalText.contains(promotionalPickupOnlyAvialableProduct[16][4])
+					 ,"Failed to Match Non-Promotional text in Order Review Section. Expected : "+promotionalPickupOnlyAvialableProduct[16][4]+" Actual : "+NonPromotionalText);
 			 /*softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, checkoutPageData[45][1], softAssert)
 					 .contains(promotionalPickupOnlyAvialableProduct[15][4]),
 					 "Unable to verify promotional text in Order review section Expected : "+promotionalPickupOnlyAvialableProduct[15][4]
@@ -1301,14 +1301,16 @@ public class Conns_Product_Purchase extends BaseTest {
 			 
 			 /*if(!commonMethods.verifyElementisPresent(webPage,".//*[@id='advice-validate-ajax-hhreggpayment_check_no']", softAssert))
 				{*/
+			 
 			 connsProductPurchasePage.hhregInputInOrderReviewSection(webPage, connsHomePlusCard_OrderReview_data, softAssert);
-			
+			 CommonMethods.waitForGivenTime(10);
 			 softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, checkoutPageData[42][1], softAssert).equals(checkoutPageData[42][2]));
 			 
 				log.info("Verifying place order success message");
-				softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, checkoutPageData[46][1], softAssert).contains(promotionalPickupOnlyAvialableProduct[15][4]),
-						"Unable to verify promotional text in Order review section Expected : "+promotionalPickupOnlyAvialableProduct[16][4]
-								 +" Actual : "+commonMethods.getTextbyXpath(webPage, checkoutPageData[46][1], softAssert));
+				String Actual = commonMethods.getTextbyXpath(webPage, checkoutPageData[46][1], softAssert);
+				softAssert.assertEquals(Actual,promotionalPickupOnlyAvialableProduct[16][4],
+						"Unable to verify promotional text on Success Page Expected : "+promotionalPickupOnlyAvialableProduct[16][4]
+								 +" Actual : "+Actual);
 
 				/*}
 			else{
