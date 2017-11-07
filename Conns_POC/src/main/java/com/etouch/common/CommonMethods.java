@@ -1222,5 +1222,20 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 		
 		
 	}
+	public void selectCheckBox(WebPage webPage, String locator, SoftAssert softAssert) {
+		WebElement element = webPage.getDriver().findElement(By.xpath(locator));
+		
+		if(!element.isSelected())
+		{	
+			element.click();
+			System.out.println("Clicking on Radio Button");
+		}
+		else{
+			System.out.println("Radio Button is already selected");
+		}
+		
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

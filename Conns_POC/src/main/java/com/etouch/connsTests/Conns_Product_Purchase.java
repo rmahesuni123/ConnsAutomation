@@ -192,7 +192,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			//***Uncomment below when running this test individually***
 			//commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			
-			if (testType.equalsIgnoreCase("Web")) {
+			/*if (testType.equalsIgnoreCase("Web")) {
 				//***Uncomment below when running this test individually***
 				//connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
@@ -200,8 +200,11 @@ public class Conns_Product_Purchase extends BaseTest {
 				//***Uncomment below when running this test individually***
 				//connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);
-			}
-			connsProductPurchasePage.Open_OverlayBox_ForDataGiven(webPage,inStockOverlayBox, softAssert);
+			}*/
+			commonMethods.navigateToPage(webPage, inStockpickupAvialableProduct[13][3], softAssert);
+			Thread.sleep(2000);
+			connsProductPurchasePage.openOverlayBox(webPage, softAssert);
+			//connsProductPurchasePage.Open_OverlayBox_ForDataGiven(webPage,inStockOverlayBox, softAssert);
 			
 			log.info("Verifying if Overlay box is open for In-Stock Product");
 			Assert.assertTrue(webPage.findObjectByxPath(inStockOverlayBox[0][1]).isDisplayed(),"Over Lay Box is not displayed on clicking ADD to Cart Button" + "\n ");
@@ -245,7 +248,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		try {
 			String[][] pickupOnlyOverlayBox = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","PickupOnly__Overlay_Box");
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			if (testType.equalsIgnoreCase("Web")) {
+			/*if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
 			} else {
@@ -253,8 +256,10 @@ public class Conns_Product_Purchase extends BaseTest {
 				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
 					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
 				}
-			}
-			connsProductPurchasePage.Open_OverlayBox_ForDataGiven(webPage,pickupOnlyOverlayBox, softAssert);
+			}*/
+			commonMethods.navigateToPage(webPage, pickupOnlyAvialableProduct[14][3], softAssert);
+			connsProductPurchasePage.openOverlayBox(webPage, softAssert);
+			//connsProductPurchasePage.Open_OverlayBox_ForDataGiven(webPage,pickupOnlyOverlayBox, softAssert);
 			
 			log.info("Verifying if Overlay box is open for Pickup Only Product");
 			Assert.assertTrue(webPage.findObjectByxPath(pickupOnlyOverlayBox[0][1]).isDisplayed(),"Over Lay Box is not displayed on clicking ADD to Cart Button" + "\n ");
@@ -300,28 +305,24 @@ public class Conns_Product_Purchase extends BaseTest {
 		String productUnitPriceIncart = null;
 		String productSubTotalPriceIncart = null;
 		String actualShoppingCartEmptyMessage = null;
+		String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
 		try {
-			commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
-			} else {
-				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
-					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
-				}
-			}
-			List<String> actualProductTextDetails = connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
+			/*commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			connsProductPurchasePage.navigateToProductListingPage(webpage, productListingPageLink, softAssert);
+			*/
+			//old method to add product to cart and get product details for later verification
+			//	List<String> actualProductTextDetails = connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
 			
+			List<String> actualProductTextDetails = connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[13][3], instockProductAddToCartData, softAssert,true);
 			log.info("Verifying product details such as product name, product unit price and product shipping areas on cart page");
-			instockProductVaildDeliveryMessage = actualProductTextDetails.get(0);
+			instockProductVaildDeliveryMessage = actualProductTextDetails.get(3);
 			softAssert.assertTrue(instockProductVaildDeliveryMessage.contains(inStockAvialableProduct[9][4]),"Expected product available for delivery message: "+inStockAvialableProduct[9][4]+" Actual product available for delivery message: "+instockProductVaildDeliveryMessage);
 			productNameOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[0][1], softAssert);
 			productShippingDetailsOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[1][1], softAssert);
 			productUnitPriceIncart = commonMethods.getTextbyXpath(webPage, cartPageData[2][1], softAssert);
-			softAssert.assertTrue(productNameOnCartPage.contains(actualProductTextDetails.get(1)),"Expected product name in cart page: "+productNameOnCartPage+" Actual product name on product page: "+actualProductTextDetails.get(1));
-			softAssert.assertTrue(productShippingDetailsOnCartPage.contains(actualProductTextDetails.get(2)),"Expected shipping details in cart page: "+productNameOnCartPage+" Actual details on product page: "+actualProductTextDetails.get(1));
-			softAssert.assertTrue(productUnitPriceIncart.contains(actualProductTextDetails.get(3)),"Expected product unit price in cart page: "+productNameOnCartPage+" Actual price on product page: "+actualProductTextDetails.get(1));
+			softAssert.assertTrue(productNameOnCartPage.contains(actualProductTextDetails.get(0)),"Expected product name in cart page: "+productNameOnCartPage+" Actual product name on product page: "+actualProductTextDetails.get(1));
+			softAssert.assertTrue(productShippingDetailsOnCartPage.contains(actualProductTextDetails.get(1)),"Expected shipping details in cart page: "+productNameOnCartPage+" Actual details on product page: "+actualProductTextDetails.get(1));
+			softAssert.assertTrue(productUnitPriceIncart.contains(actualProductTextDetails.get(2)),"Expected product unit price in cart page: "+productNameOnCartPage+" Actual price on product page: "+actualProductTextDetails.get(1));
 			
 			log.info("Updating quantity of product in cart page and verifying Subtotal amount");
 			productUnitPriceIncart = productUnitPriceIncart.replaceAll(" ", "").replaceAll("[.$]", "").replaceAll(",", "");
@@ -370,21 +371,13 @@ public class Conns_Product_Purchase extends BaseTest {
 		String[][] pickUpOnlyProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_PickupOnly_Product");
 		
 		try {
-			/*commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
-			} else {
-				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
-					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
-				}
-			}*/
+			//commonMethods.navigateToPage(webPage, testUrl, softAssert);
+		//	connsProductPurchasePage.navigateToProductListingPage(webPage, frenchDoor[1][1], softAssert);
 			//commonMethods.navigateToPage(webPage, "", softAssert);
 			
 			connsProductPurchasePage.deleteCookies();
 			
-			connsProductPurchasePage.addGivenProductToCart(webPage, pickUpOnlyProductAddToCartData[14][3], pickUpOnlyProductAddToCartData, softAssert);
+			connsProductPurchasePage.addGivenProductToCart(webPage, pickUpOnlyProductAddToCartData[14][3], pickUpOnlyProductAddToCartData, softAssert,false);
 		//	connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
 			
 			log.info("Verifying Discount coupoun code for invalid input");
@@ -422,6 +415,9 @@ public class Conns_Product_Purchase extends BaseTest {
 		}
 	}
 	
+	
+	
+
 	/*This method will cover below scenarios
 	 * - Verify proceed to checkout functionality.
 	 * - Verify Billing Information section for different payment options [Covered for Conn's Credit]
@@ -464,7 +460,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
 			*/
 			connsProductPurchasePage.deleteCookies();
-			connsProductPurchasePage.addGivenProductToCart(webPage,pickUpOnlyProductAddToCartData[14][3], pickUpOnlyProductAddToCartData, softAssert);
+			connsProductPurchasePage.addGivenProductToCart(webPage,pickUpOnlyProductAddToCartData[14][3], pickUpOnlyProductAddToCartData, softAssert,false);
 			productPriceOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[5][1], softAssert);
 			productQuantityOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[15][1], softAssert);
 			productNameOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[0][1], softAssert);
@@ -590,7 +586,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String connsPayPalExpectedUrl = "";
 		
 		try {
-			connsProductPurchasePage.deleteCookies();
+			/*connsProductPurchasePage.deleteCookies();
 			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
@@ -600,8 +596,13 @@ public class Conns_Product_Purchase extends BaseTest {
 				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
 					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
 				}
-			}
-			connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
+			}*/
+			/*commonMethods.navigateToPage(webPage, pickupOnlyAvialableProduct[14][3], softAssert);
+			connsProductPurchasePage.openOverlayBox(webPage, softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[7][1], softAssert);*/
+			
+			connsProductPurchasePage.addGivenProductToCart(webPage,pickupOnlyAvialableProduct[14][3], pickupOnlyAvialableProduct, softAssert,false);
+			//connsProductPurchasePage.addPickupOnlyProductForAvailableLocation(webPage, pickupOnlyAvialableProduct,softAssert);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -671,7 +672,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				}
 			}
 			connsProductPurchasePage.addInstockPickupProductForAvailableLocation(webPage, inStockpickupAvialableProduct,softAssert);*/
-			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[13][3], instockProductAddToCartData, softAssert);
+			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[13][3], instockProductAddToCartData, softAssert,false);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -750,7 +751,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
 			*/
 			connsProductPurchasePage.deleteCookies();
-			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert);
+			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert,false);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(checkoutPageData[22][1]), webPage);
 			log.info("Verifying Forgot your password link");
@@ -792,7 +793,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
 			*/
 			connsProductPurchasePage.deleteCookies();
-			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert);
+			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert,false);
 			log.info("Verifying Get a Quote functionality for invalid input");
 			commonMethods.sendKeysbyXpath(webPage, cartPageData[17][1], cartPageData[17][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, cartPageData[18][1], softAssert);
@@ -845,7 +846,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
 			*/
 			connsProductPurchasePage.deleteCookies();
-			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert);
+			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert,false);
 			
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			
@@ -937,7 +938,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify ConnsHomePlus card number field for maximum digits accepted
 	 * - Verify ConnsHomePlus card number field for special characters
 	 */
-	@Test(priority = 912, enabled = true, description = "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation")
+	@Test(priority = 912, enabled = false, description = "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation")
 	public void Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -952,10 +953,9 @@ public class Conns_Product_Purchase extends BaseTest {
 		String invalidAddressValidCardExpectedMessage = "";
 		int intCardFieldValueLength = 0;
 		String stringCardFieldValueLength = "";
-		
 		try {
 			connsProductPurchasePage.deleteCookies();
-			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			/*commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				//connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 			} else {
@@ -963,8 +963,8 @@ public class Conns_Product_Purchase extends BaseTest {
 				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
 					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
 				}
-			}
-			connsProductPurchasePage.addGivenProductToCart(webPage, inStockAvialableProduct[13][3], inStockAvialableProduct, softAssert);
+			}*/
+			connsProductPurchasePage.addGivenProductToCart(webPage, inStockAvialableProduct[13][3], inStockAvialableProduct, softAssert,false);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo, softAssert);
@@ -975,7 +975,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollUp(1);
 			}
-			
+			commonMethods.selectCheckBox(webPage, checkoutPageData[45][1], softAssert);
 			log.info("Clicking on Shipping method continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[29][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
@@ -1072,7 +1072,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	/*This method will cover below scenarios
 	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for Invalid ZipCode
 	 */
-	@Test(priority = 913, enabled = true, description = "Verify_ConnsHomePlusCard_InValid_ZipCode_Validation")
+	@Test(priority = 913, enabled = false, description = "Verify_ConnsHomePlusCard_InValid_ZipCode_Validation")
 	public void Verify_ConnsHomePlusCard_InValid_ZipCode_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1083,7 +1083,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		
 		try {
 			connsProductPurchasePage.deleteCookies();
-			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			/*commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
 				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
 				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
@@ -1092,8 +1092,8 @@ public class Conns_Product_Purchase extends BaseTest {
 				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
 					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
 				}
-			}
-			connsProductPurchasePage.addGivenProductToCart(webPage, inStockAvialableProduct[13][3], inStockAvialableProduct, softAssert);
+			}*/
+			connsProductPurchasePage.addGivenProductToCart(webPage, inStockAvialableProduct[13][3], inStockAvialableProduct, softAssert,false);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			connsProductPurchasePage.Submit_Billing_Information(webPage, connsHomePlusCard_invalidZip_data, softAssert);
@@ -1104,7 +1104,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollUp(1);
 			}
-			
+			commonMethods.selectCheckBox(webPage, checkoutPageData[45][1], softAssert);
 			log.info("Clicking on Shipping method continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[29][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
@@ -1148,7 +1148,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 /* This method will cover below scenarios
 	  * - Verify aggrement text disdayed in Review section for Non-Promotional Product
 	  */
-	 @Test(priority = 914, enabled = true, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
+	 @Test(priority = 914, enabled = false, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
 	 public void Verify_Agreement_Text_For_Promotional_Product() {
 		 SoftAssert softAssert = new SoftAssert();
 		 String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1170,7 +1170,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			 connsProductPurchasePage.addPickupOnlyAndPromotionalProductForAvailableLocation(webPage, promotionalPickupOnlyAvialableProduct,softAssert,"promotional");
 			 */
 			 
-			 connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[13][3], instockProductAddToCartData, softAssert);
+			 connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[13][3], instockProductAddToCartData, softAssert,false);
 			 connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			 connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			 connsProductPurchasePage.Submit_Billing_Information(webPage, connsHomePlusCard_validBilling_data, softAssert);
@@ -1182,6 +1182,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			 }
 			/* log.info("Clicking on Pickup location address radio button");
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);*/
+			 commonMethods.selectCheckBox(webPage, checkoutPageData[45][1], softAssert);
 			 log.info("Clicking on In Store Product continue button");
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[29][1], softAssert);
 			 CommonMethods.waitForGivenTime(8);
@@ -1239,7 +1240,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	/* This method will cover below scenarios
 	  * - Verify aggrement text disdayed in Review section for Non-Promotional Product
 	  */
-	 @Test(priority = 915, enabled = true, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
+	 @Test(priority = 915, enabled = false, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
 	 public void Verify_Agreement_Text_For_Non_Promotional_Product() {
 		 SoftAssert softAssert = new SoftAssert();
 		 String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1260,7 +1261,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			 connsProductPurchasePage.addPickupOnlyAndPromotionalProductForAvailableLocation(webPage, promotionalPickupOnlyAvialableProduct,softAssert,"promotional");
 			 */
 			 connsProductPurchasePage.deleteCookies();
-			 connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[15][3], instockProductAddToCartData, softAssert);
+			 connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[15][3], instockProductAddToCartData, softAssert,false);
 			 connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			 connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			 connsProductPurchasePage.Submit_Billing_Information(webPage, connsHomePlusCard_validBilling_data, softAssert);
@@ -1272,6 +1273,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			 }
 			/* log.info("Clicking on Pickup location address radio button");
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);*/
+			 commonMethods.selectCheckBox(webPage, checkoutPageData[45][1], softAssert);
 			 log.info("Clicking on In Store Product continue button");
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[29][1], softAssert);
 			 CommonMethods.waitForGivenTime(8);
@@ -1332,7 +1334,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 /* This method will cover below scenarios
 	  * - Verify error message in order review section when special characters are used in address field
 	  */
-	 @Test(priority = 916, enabled = true, description = "Verify error message in order review section when special characters are used in address field")
+	 @Test(priority = 916, enabled = false, description = "Verify error message in order review section when special characters are used in address field")
 	 public void Verify_Special_Character_Error_In_Address_HHGregg() {
 		 SoftAssert softAssert = new SoftAssert();
 		 String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1353,7 +1355,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			 connsProductPurchasePage.addPickupOnlyAndPromotionalProductForAvailableLocation(webPage, promotionalPickupOnlyAvialableProduct,softAssert,"promotional");
 			 */
 			 connsProductPurchasePage.deleteCookies();
-			 connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert);
+			 connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert,false);
 			 connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
 			 connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
 			 connsProductPurchasePage.Submit_Billing_Information(webPage, connsHomePlusCard_validBilling_data, softAssert);
@@ -1365,6 +1367,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			 }
 			/* log.info("Clicking on Pickup location address radio button");
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);*/
+			 commonMethods.selectCheckBox(webPage, checkoutPageData[45][1], softAssert);
 			 log.info("Clicking on In Store Product continue button");
 			 commonMethods.clickElementbyXpath(webPage, checkoutPageData[29][1], softAssert);
 			 CommonMethods.waitForGivenTime(8);
