@@ -1,5 +1,7 @@
 package com.etouch.common;
 
+import java.awt.Dimension;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +12,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -31,6 +34,8 @@ import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.webui.selenium.WebPage;
+
+import io.appium.java_client.android.AndroidDriver;
 
 public class CommonMethods {
 
@@ -1237,5 +1242,60 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 		// TODO Auto-generated method stub
 		
 	}
+	public int verifyUrlStatusCode(String url) throws ClientProtocolException, IOException
+	{
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet request = new HttpGet(url);
+		HttpResponse response = client.execute(request);
+		int statusCode = response.getStatusLine().getStatusCode();
+		return statusCode;
+	}
 	
+	/**
+	  * Method to scroll up the screen for android device
+	  */
+	 public void screenScrollUp(WebPage webPage) {
+	  try {
+		  AndroidDriver driver = (AndroidDriver) webPage.getDriver();
+	   org.openqa.selenium.Dimension windowSize = driver.manage().window().getSize();
+	   
+	   driver.swipe((int) ((windowSize.width)*0.50), (int) ((windowSize.height)*0.85),
+			   (int) ((windowSize.width)*0.50), (int) ((windowSize.height)*0.30), 1000);
+	   log.info("Completed scrolling up the screen ");
+	   // isElementInvisible(commonElements.get("RefreshLoadingIcon"));
+	  } catch (Exception e) {
+	   log.error("Failed to scroll up the device screen due to :::" + e.getMessage());
+	   e.printStackTrace();
+	  }
+	 }
+	 
+	 /**
+		 * Scrolls down the Page.
+		 */
+		public void scrollDown(WebPage webPage,int count) {
+			JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();
+			for (int i = 0; i < count; i++)
+				jse.executeScript("window.scrollBy(0,-240)", "");
+		}
+		
+		public void scrollUp(WebPage webPage,int count) {
+			JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();
+			for (int i = 0; i < count; i++)
+				jse.executeScript("window.scrollBy(0,240)", "");
+		}
+		
+		/**
+		 * Method to delete cookies form web browser
+		 * @param webPage
+		 */
+		
+		public void deleteCookies(WebPage webPage)
+		{
+			try{
+				webPage.getDriver().manage().deleteAllCookies();
+				log.info("browser history cleared");
+			}catch(Throwable e){
+				log.info("Unable to delete cookies for current browser.");
+			}
+		}
 }
