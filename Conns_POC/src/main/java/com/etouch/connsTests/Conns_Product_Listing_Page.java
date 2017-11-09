@@ -98,9 +98,11 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	
 	
 
+	@SuppressWarnings("unchecked")
 	@Test(priority = 701, enabled = true)
 	public void Verify_For_Pagination_And_Product_Details() {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath,
 					"ProductListingPage",
@@ -152,7 +154,12 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						nextPagination.equalsIgnoreCase(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
-				webPage.findObjectByxPath(mobileData[0][0]).click();
+			  //	webPage.findObjectByxPath(mobileData[0][0]).click();
+				
+				
+				WebElement element_1 = webPage.getDriver().findElement(By.xpath(mobileData[0][0]));					
+				js.executeScript("arguments[0].click();", element_1);
+				
 				CommonMethods.waitForGivenTime(5);
 
 				String backPagination = webPage.findObjectByxPath(
@@ -161,7 +168,10 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						backPagination.equalsIgnoreCase(mobileData[0][3]),
 						"backPagination: Expected:" + mobileData[0][3]
 								+ " Actual: " + backPagination);
-				webPage.findObjectByxPath(mobileData[0][2]).click();
+				//webPage.findObjectByxPath(mobileData[0][2]).click();
+				
+				
+				
 				CommonMethods.waitForGivenTime(5);
 
 				// Verifying Next button is displayed
@@ -174,7 +184,11 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			}
 			// webPage.findObjectByxPath(test[0][6]).click();
 			// Click on any Product
-			webPage.findObjectByxPath(test[0][10]).click();
+			//webPage.findObjectByxPath(test[0][10]).click();
+			
+			WebElement element_1 = webPage.getDriver().findElement(By.xpath(test[0][10]));					
+			js.executeScript("arguments[0].click();", element_1);
+			
 			if (CommonMethods.verifyElementisPresent(webPage, test[0][11])) {
 				webPage.findObjectByxPath(test[0][11]).click();
 			}
@@ -189,10 +203,11 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			for (int i = 0; i < contentData.length; i++) {
 				String actualContent = webPage.findObjectByxPath(
 						contentData[i][0]).getText();
+			
 				log.info("Actual:  " + actualContent + "   Expected: "
 						+ contentData[i][1]);
 				SoftAssertor.assertTrue(
-						actualContent.contains(contentData[i][1]),
+						 actualContent.contains(contentData[i][1]),
 						"expectedContent: " + contentData[i][1]
 								+ "  Failed to Match Actual:" + actualContent);
 			}
@@ -220,7 +235,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 				}else {
 					webPage.findObjectByxPath(Review_Data[1][0]).click();
-					webPage.findObjectByxPath(Review_Data[2][0]).click();
+					WebElement element = webPage.getDriver().findElement(By.xpath(Review_Data[2][0]));					
+					js.executeScript("arguments[0].click();", element);
+					//webPage.findObjectByxPath(Review_Data[2][0]).click();
 					CommonMethods.waitForGivenTime(2);
 				}
 				Thread.sleep(5000);
