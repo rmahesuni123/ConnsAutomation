@@ -148,7 +148,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// webPage.findObjectByxPath(test[0][4]).getText();
 				// Assert.assertEquals(nextPagination, test[0][5],
 				// "nextPagination: ");
-			} else if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari"))
+			} else 
+				//if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari"))
 				 {
 				CommonMethods.waitForGivenTime(5);
 				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath,
