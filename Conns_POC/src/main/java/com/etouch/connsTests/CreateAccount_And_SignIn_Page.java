@@ -988,8 +988,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][10]));
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				executor.executeScript("arguments[0].click();", element);
+				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
 			}

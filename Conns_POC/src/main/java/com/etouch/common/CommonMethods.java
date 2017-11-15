@@ -33,6 +33,7 @@ import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
+import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -215,6 +216,43 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
+	
+	
+	
+	
+	/**
+	 * @author Name - Asim Singh
+	 * The method used to click on child element using xpath
+	 * Return type us void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public void clickWithChildElementby_UsingJavaScriptXpath(WebPage webPage,String parentlocator, String locator, String linkName, SoftAssert softAssert){
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		try{
+			if(!parentlocator.equalsIgnoreCase("NA")){
+				log.info("Clicking on parent locator : "+parentlocator);
+				
+				try {
+					log.info("Clicking on element using xpath - "+parentlocator);
+					WebElement element=webPage.getDriver().findElement(By.xpath(parentlocator));					
+					js.executeScript("arguments[0].click();", element);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+					softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
+				}
+			}				
+			log.info("Clicking on link : "+linkName);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
+			js.executeScript("arguments[0].click();", element);			
+		}catch(Throwable e){
+			e.printStackTrace();
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
+	
+	
 	
 	/**
 	 * @author Name - Deepak Bhambri

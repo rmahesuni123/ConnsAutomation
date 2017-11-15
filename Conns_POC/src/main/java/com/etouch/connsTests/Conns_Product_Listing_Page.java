@@ -108,8 +108,14 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					"ProductListingPage",
 					"Verify_For_Pagination_And_Product_Details");
 			CommonMethods.navigateToPage(webPage, url);
-			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
-					test[0][0]);
+			/*ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
+					test[0][0]);*/
+			
+			/*****Asim : old code for Click_On_French_Door_Link commented & instead using javascript for clicking operation******/
+			
+			WebElement element3 = webPage.getDriver().findElement(By.xpath(test[0][0]));					
+			js.executeScript("arguments[0].click();", element3);
+			
 			log.info("Clicked on French Door");
 			// Pagination using index number
 			if (testType.equalsIgnoreCase("Web")) {
@@ -142,7 +148,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// webPage.findObjectByxPath(test[0][4]).getText();
 				// Assert.assertEquals(nextPagination, test[0][5],
 				// "nextPagination: ");
-			} else {
+			} else if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari"))
+				 {
 				CommonMethods.waitForGivenTime(5);
 				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath,
 						"ProductListingPage",
@@ -331,14 +338,19 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 	@Test(priority = 702, enabled = true)
 	public void Verify_Upto_5_Products_Compared() throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
 				CommonMethods.navigateToPage(webPage, url);
 				String[][] test = ExcelUtil
 						.readExcelData(DataFilePath, "ProductListingPage",
 								"Verify_Upto_5_Products_Compared");
-				ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
-						test[0][1]);
+				/*ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
+						test[0][1]);*/
+				/*****Asim : old code for Click_On_French_Door_Link commented & instead using javascript for clicking operation******/
+							
+				WebElement element3 = webPage.getDriver().findElement(By.xpath(test[0][1]));					
+				js.executeScript("arguments[0].click();", element3);
 				log.info("Clicked on French Door");
 				List<ITafElement> compareList = webPage
 						.findObjectsByXpath(test[0][2]);
@@ -352,8 +364,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						if (testBedName.contains("iPadNative")
 								|| testBedName.contains("iPhoneNative")
 								|| testBedName.equalsIgnoreCase("Safari")) {
-							JavascriptExecutor js = (JavascriptExecutor)
-									 webPage.getDriver();
+
 									 js.executeScript("window.alert = function(){ return true;}");
 						compareList.get(i).click();
 						CommonMethods.waitForGivenTime(2);
@@ -398,13 +409,20 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	@Test(priority = 703, enabled = true)
 	public void Verify_Number_Of_Product_Displayed_From_Product_Listing_Page()
 			throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		try {
 			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath,
 					"ProductListingPage",
 					"Number_Of_Product_Displayed_From_Product_Listing_Page");
-			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
-					test[0][0]);
+			/*ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
+					test[0][0]);*/
+			
+			/*****Asim : old code for Click_On_French_Door_Link commented & instead using javascript for clicking operation******/
+			
+			WebElement element3 = webPage.getDriver().findElement(By.xpath(test[0][0]));					
+			js.executeScript("arguments[0].click();", element3);
+			
 			log.info("Clicked on French Door");
 			String str2[] = test[0][3].split(",");
 			if (testType.equalsIgnoreCase("Web")) {
@@ -466,13 +484,19 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	@Test(priority = 704, enabled = true)
 	public void Verify_Sorting_By_Product_Name_From_Product_Listing_Page()
 			throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		try {
 			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath,
 					"ProductListingPage",
 					"Sorting_By_Product_Name_From_Product_Listing_Page");
-			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
-					test[0][0]);
+			/*ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
+					test[0][0]);*/
+	       /*****Asim : old code for Click_On_French_Door_Link commented & instead using javascript for clicking operation******/
+			
+			WebElement element3 = webPage.getDriver().findElement(By.xpath(test[0][0]));					
+			js.executeScript("arguments[0].click();", element3);
+			
 			log.info("Clicked on French Door");
 			Select s;
 			if (testType.equalsIgnoreCase("Web")||(testBedName.contains("iPadNative"))) {
@@ -524,13 +548,18 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	@Test(priority = 705, enabled = true)
 	public void Verify_Sorting_By_Product_Price_From_Product_Listing_Page()
 			throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		try {
 			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath,
 					"ProductListingPage",
 					"Sorting_By_Product_Price_From_Product_Listing_Page");
-			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
-					test[0][0]);
+			/*ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
+					test[0][0]);*/
+			/*****Asim : old code for Click_On_French_Door_Link commented & instead using javascript for clicking operation******/
+			
+			WebElement element3 = webPage.getDriver().findElement(By.xpath(test[0][0]));					
+			js.executeScript("arguments[0].click();", element3);
 			log.info("Clicked on French Door");
 			Select s;
 			if (testType.equalsIgnoreCase("Web")||(testBedName.contains("iPadNative"))) {

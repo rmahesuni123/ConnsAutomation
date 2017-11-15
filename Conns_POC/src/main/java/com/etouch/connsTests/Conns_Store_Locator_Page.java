@@ -117,6 +117,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertEquals(ExpectedTitle, webPage.getPageTitle(),"Page Title verification failed. Expected title - " + ExpectedTitle + " Actual title - "+ webPage.getPageTitle());
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_StoreLocator_PageTitle");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -141,6 +142,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertTrue(homeplusText2.contains(test[1][2]),"Text verification failed. Expected text : " + test[1][2] + " Actual text : " + homeplusText2);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_HomePlus_Component");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -168,6 +170,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_ChoseYourRegion_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -177,16 +180,20 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(priority = 104, enabled = true, description = "Verify_Texas_SubLinks")
 	public void Verify_Texas_SubLinks() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
-			String[][] TexasSubLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyTexasSubLinks");
-			
+			String[][] TexasSubLinksData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyTexasSubLinks");			
 			commonMethods.navigateToPage(webPage,storeLocatorURL, softAssert);
 			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollDown(1);
-				Thread.sleep(1000);
-			}
-			commonMethods.clickElementbyXpath(webPage, commonData[8][1], softAssert);
+				Thread.sleep(1000);				
+			}					
+			//commonMethods.clickElementbyXpath(webPage, commonData[8][1], softAssert);			
+			/** Asim Code : commented old code for clicking and using Javascript for clicking as old clicking method is not responding for the page****/	
+			
+			WebElement element_1 = webPage.getDriver().findElement(By.xpath(commonData[8][1]));					
+			js.executeScript("arguments[0].click();", element_1);		
 			List<WebElement> texasSublinkList = commonMethods.findElementsByXpath(webPage,commonData[7][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, texasSublinkList);
 			for (int i = 0; i < TexasSubLinksData.length; i++) {
@@ -204,6 +211,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Texas_SubLinks");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -224,6 +232,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 		softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Order_of_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -246,6 +255,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				softAssert.assertAll();
 			}
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_RegionMap_ToolTip");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -255,6 +265,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(enabled = true, priority = 107, description = "Verify_FindStore_AlertBox")
 	public void Verify_FindStore_AlertBox() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
 			String[][] verifyFindStoreAlertBoxData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
 					"verifyFindStoreAlertBox");
@@ -262,12 +273,20 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
 			commonMethods.clearTextBox(webPage, verifyFindStoreAlertBoxData[0][0], softAssert);
-			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")){
-				JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")){				
 				js.executeScript("window.alert = function(){ return true;}");
-				commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
+				//commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
+				
+				/** Asim Code : commented old code for clicking and using Javascript for clicking as old clicking method is not responding for the page****/					
+				WebElement element_1 = webPage.getDriver().findElement(By.xpath(verifyFindStoreAlertBoxData[1][0]));					
+				js.executeScript("arguments[0].click();", element_1);					
 			}else{
-				commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
+				/*commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);*/
+				
+				/** Asim Code : commented old code for clicking and using Javascript for clicking as old clicking method is not responding for the page****/
+				WebElement element_1 = webPage.getDriver().findElement(By.xpath(verifyFindStoreAlertBoxData[1][0]));					
+				js.executeScript("arguments[0].click();", element_1);
+				
 				Alert alert = webPage.getDriver().switchTo().alert();
 				String alertActualText = alert.getText();
 				log.info("Alert box text: "+alertActualText);
@@ -276,6 +295,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			}	
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_AlertBox");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -305,6 +325,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertEquals(errorMsgActualText, verifyFindStoreInvalidData[1][1],"Expected Text : " + verifyFindStoreInvalidData[1][1] + " Actual Text : " + errorMsgActualText);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_for_InvalidData");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -332,6 +353,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_for_ValidData");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -358,6 +380,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 							+ regionPageActualData);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -400,6 +423,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertTrue(intSearch125MilesActualData>=108 && intSearch125MilesActualData<=112,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyZipCodeRadiusSearchData[5][1]+" Actual distance: "+intSearch125MilesActualData);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_Zipcode_and_Radius");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -425,6 +449,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 							+ cityPageActualData);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -468,6 +493,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertTrue(intSearch125MilesActualData>=100 && intSearch125MilesActualData<=102,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyCityRadiusSearchData[5][1]+" Actual distance: "+intSearch125MilesActualData);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_FindStore_with_CityName_and_Radius");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -483,7 +509,10 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			connsStoreLocatorPage.closeLocationPopup(webPage, softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
 			if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollBottom();
+				//webPage.scrollBottom();
+				//webPage.scrollDown(3);
+				((JavascriptExecutor)webPage.getDriver()).executeScript("window.scrollBy(0,500)");
+				
 			}
 			String actualLinkText = commonMethods.getTextbyXpath(webPage, verifyViewAllLinkData[0][0], softAssert);
 			softAssert.assertTrue(actualLinkText.contains(verifyViewAllLinkData[0][1]), "Text verification failed. Expected text : " + verifyViewAllLinkData[0][1] + " Actual text : " + actualLinkText);
@@ -499,6 +528,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertTrue(actualUrl.contains(verifyViewAllLinkData[4][1]),"URL verification failed for link : '" + verifyViewAllLinkData[0][1] + "'. Expected URL - "+ verifyViewAllLinkData[4][1] + " Actual URL - " + actualUrl);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_View_All_Link");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -508,6 +538,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(enabled = true, priority = 115, description = "Verify_All_Store_Locator_Links")
 	public void Verify_All_Store_Locator_Links() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
 			String[][] verifyViewAllLinkData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyViewAllLink");
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
@@ -516,11 +547,16 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollBottom();
 			}
-			commonMethods.clickElementbyXpath(webPage, verifyViewAllLinkData[0][0], softAssert);
+			/*commonMethods.clickElementbyXpath(webPage, verifyViewAllLinkData[0][0], softAssert);*/
+			
+			/** Asim Code : commented old code for clicking and using Javascript for clicking as old clicking method is not responding for the page****/			
+			WebElement element_1 = webPage.getDriver().findElement(By.xpath(verifyViewAllLinkData[0][0]));					
+			js.executeScript("arguments[0].click();", element_1);	
 			List<WebElement> allStorelinkList = commonMethods.findElementsByXpath(webPage,commonData[9][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, allStorelinkList);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_All_Store_Locator_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -530,6 +566,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(enabled = true, priority = 116, description = "Verify_Visit_Store_Page_Link")
 	public void Verify_Visit_Store_Page_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
 			String[][] verifyStorePageData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyVisitStorePageLink");
 			String storeText="";
@@ -540,7 +577,11 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				if(testType.equalsIgnoreCase("Mobile")){
 					webPage.scrollDown(1);
 				}
-				commonMethods.clickElementbyXpath(webPage, verifyStorePageData[i][1],softAssert);
+				//commonMethods.clickElementbyXpath(webPage, verifyStorePageData[i][1],softAssert);
+				
+				/** Asim Code : commented old code for clicking and using Javascript for clicking as old clicking method is not responding for the page****/					
+				WebElement element_1 = webPage.getDriver().findElement(By.xpath(verifyStorePageData[i][1]));					
+				js.executeScript("arguments[0].click();", element_1);	
 				CommonMethods.waitForWebElement(By.xpath(commonData[2][1]), webPage);
 				String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyStorePageData[i][3], verifyStorePageData[i][0]+" -"+verifyStorePageData[i][2], softAssert,commonData[5][1]);
 				softAssert.assertTrue(actualUrl.contains(verifyStorePageData[i][4]),"Expected - "+verifyStorePageData[i][4]+"Actual - "+actualUrl);
@@ -559,6 +600,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Visit_Store_Page_Link");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -599,6 +641,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertTrue(search100MilesActualColor.contains(verifyStoreDistanceInMilesData[6][1]),"CSS value verification failed for " + search100MilesActualData + ". Expected value: "+ verifyStoreDistanceInMilesData[6][1] + ", Actual value: " + search100MilesActualColor);			
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Store_Distance_In_Miles");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -608,6 +651,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(enabled = true, priority = 118, description = "Verify_All_Store_Locator_Page_Text")
 	public void Verify_All_Store_Locator_Page_Text() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
 			String[][] verifyAllStoreLocatorPageTextData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllStoreLocatorPageText");
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
@@ -616,7 +660,11 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollBottom();
 			}
-			commonMethods.clickElementbyXpath(webPage, verifyAllStoreLocatorPageTextData[0][0],softAssert);
+			//commonMethods.clickElementbyXpath(webPage, verifyAllStoreLocatorPageTextData[0][0],softAssert);
+			
+			/** Asim Code : commented old code for clicking and using Javascript for clicking as old clicking method is not responding for the page****/			
+			WebElement element_1 = webPage.getDriver().findElement(By.xpath(verifyAllStoreLocatorPageTextData[0][0]));					
+			js.executeScript("arguments[0].click();", element_1);	
 			String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(actualUrl.contains(verifyAllStoreLocatorPageTextData[2][1]),"URL verification failed. Expected - "+verifyAllStoreLocatorPageTextData[2][1]+"Actual - "+actualUrl);
 			CommonMethods.waitForWebElement(By.xpath(verifyAllStoreLocatorPageTextData[1][0]), webPage);
@@ -624,6 +672,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertEquals(allStoreLocatorPageText, verifyAllStoreLocatorPageTextData[1][1],"Text verification failed. Expected text: " + verifyAllStoreLocatorPageTextData[1][1] + " Actual text: " + allStoreLocatorPageText);
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_All_Store_Locator_Page_Text");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -646,32 +695,55 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				}catch(Exception e){
 					e.getLocalizedMessage();
 				}
+				
+				
+				/******old code **********/
+				/*if(testType.equalsIgnoreCase("Mobile")){
+					webPage.scrollDown(1);
+				}*/
+				
 				if(testType.equalsIgnoreCase("Mobile")){
-					webPage.scrollTop();
+					if(i <= 8){
+						webPage.scrollDown(1);
+				}else {
+						webPage.scrollDown(2);
 				}
-				commonMethods.clickWithChildElementbyXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],allRegionDescriptiondata[i][0], softAssert);
+					
+				}
+				//commonMethods.clickWithChildElementbyXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],allRegionDescriptiondata[i][0], softAssert);
+				/****old code commented above *********/
+				commonMethods.clickWithChildElementby_UsingJavaScriptXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],allRegionDescriptiondata[i][0], softAssert);
+
 				try{
 					CommonMethods.waitForWebElement(By.xpath(allRegionDescriptiondata[i][5]), webPage);	
+					
 				}catch(Exception e){
+					e.printStackTrace();
 					e.getLocalizedMessage();
 				}
+				
 				String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3], softAssert);
-				softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
+			    softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
 						"Store locator description text verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
+				
 				String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);
+				
 				softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
 						"Bread Crumbs verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][8] + " Actual text : " + breadCrumbsActualText);
 				String actual_hrefYesmoneyLink = commonMethods.getAttributebyXpath(webPage, allRegionDescriptiondata[i][5],"href", softAssert);
+				
 				softAssert.assertEquals(actual_hrefYesmoneyLink, allRegionDescriptiondata[i][6],
 						"href value verification failed for link : '" + allRegionDescriptiondata[i][0] + "'. Expected href value for Yesmoney link: "
 								+ allRegionDescriptiondata[i][6] + " Actual href value for Yesmoney link: " + actual_hrefYesmoneyLink);
+			
 				for (int j = 0; j < keyData.length; j++) {
 					String subkey = keyData[j][0];
 					try{
 						CommonMethods.waitForWebElement(By.xpath(commonData[2][1]), webPage);	
 					}catch(Exception e){
+						e.printStackTrace();
 						e.getLocalizedMessage();
 					}
 					if(!browserName.equalsIgnoreCase("edge")){
@@ -687,6 +759,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		}catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_AllRegion_PageDescription");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -696,6 +769,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(enabled = true, priority = 120, description = "Verify Power Review Section on Store Page")
 	public void Verify_Power_Review_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
 			String[][] verifyValidRegionSearchData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyPowerReview");
 			System.out.println("verifyValidRegionSearchData"+verifyValidRegionSearchData.length);
@@ -711,21 +785,42 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertTrue(regionPageActualData.contains(verifyValidRegionSearchData[1][1]),
 					"Text verification failed. Expected Text : " + verifyValidRegionSearchData[1][1] + " Actual Text : "
 							+ regionPageActualData);
-			System.out.println("verifyValidRegionSearchData[4][0] "+verifyValidRegionSearchData[4][0]);
-			commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[4][0], softAssert);
-			Thread.sleep(5000);
-			commonMethods.clickElementbyXpath(webPage, "(.//*[@id='pr-category-snippets-119']/section/section[1]/div)[1]/div[1]", softAssert);
-			Thread.sleep(1000);
+			System.out.println(" *************************verifyValidRegionSearchData[4][0]********************************** :  "+verifyValidRegionSearchData[4][0]);			
+			
+			
+			 /***commenting below mentioned functionality as it is no longer available across UAT,RWD and Prod environment ****/
+			// Asim Code : commented old code for clicking and using Javascript for clicking as old clicking method is not responding for the page****/			
+
+			//commonMethods.clickElementbyXpath(webPage, verifyValidRegionSearchData[4][0], softAssert);
+			//commonMethods.clickElementbyXpath(webPage, "(.//*[@id='pr-category-snippets-119']/section/section[1]/div)[1]/div[1]", softAssert);
+					
+			/** Asim Code : commented old code xpath got changed and for clicking instead of selenium library methods,used Javascript for clicking as old clicking method is not responding for the page****/			
+			WebElement element_1 = webPage.getDriver().findElement(By.xpath(verifyValidRegionSearchData[4][0]));					
+			js.executeScript("arguments[0].click();", element_1);
+			Thread.sleep(30000);	
+			
+			/*WebElement element_2 = webPage.getDriver().findElement(By.xpath(".//*[@id='pr-category-snippets-123']//section[contains(@class,'pr-category-snippet__rating')])[1]"));	
+			CommonMethods.waitForWebElement(By.xpath(verifyValidRegionSearchData[3][0]), webPage);
+			js.executeScript("arguments[0].click();", element_2);	
+			Thread.sleep(1000);*/
+			
+			//executing this query will scroll until that element is not appeared on page.
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			 WebElement element = webPage.getDriver().findElement(By.xpath(" .//*[@id='StoreLocatorStore']/div[2]/div[2]/div[1]/h2"));			 
+			js.executeScript("arguments[0].scrollIntoView(true);",element);
 			String[][] reviewElements = ExcelUtil.readExcelData(DataFilePath, "StoreLocator",
 					"verifyPowerReviewElements");
 			for(int i=0;i<reviewElements.length;i++)
 			{
-				System.out.println("Verifying if element is present :"+reviewElements[i][0]);
+				System.out.println("****************************************Verifying if element is present :*****************************************"+reviewElements[i][0]);
 				softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, reviewElements[i][1], softAssert),"Element not present "+reviewElements[i][0]+" locator - " + reviewElements[i][1]);
 			}
 			
 			softAssert.assertAll();
-		}catch(Throwable e){
+		}
+		
+		catch(Throwable e){
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Power_Review_Section");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
