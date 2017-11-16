@@ -188,8 +188,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// webPage.findObjectByxPath(test[0][4]).getText();
 				// Assert.assertEquals(nextPagination, test[0][5],
 				// "nextPagination: ");
-			} else 
-				//if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari"))
+			} else if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
 				 {
 				CommonMethods.waitForGivenTime(5);
 				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath,
@@ -198,7 +197,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// Pagination using Next and Back
 				String nextPagination = webPage.findObjectByxPath(
 						mobileData[0][0]).getText();
-				Assert.assertTrue(
+				SoftAssertor
+				.assertEquals(
 						nextPagination.equalsIgnoreCase(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
@@ -212,7 +212,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 				String backPagination = webPage.findObjectByxPath(
 						mobileData[0][2]).getText();
-				Assert.assertTrue(
+				SoftAssertor
+				.assertEquals(
 						backPagination.equalsIgnoreCase(mobileData[0][3]),
 						"backPagination: Expected:" + mobileData[0][3]
 								+ " Actual: " + backPagination);
@@ -225,7 +226,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// Verifying Next button is displayed
 				nextPagination = webPage.findObjectByxPath(mobileData[0][0])
 						.getText();
-				Assert.assertTrue(
+				SoftAssertor
+				.assertEquals(
 						nextPagination.equalsIgnoreCase(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
