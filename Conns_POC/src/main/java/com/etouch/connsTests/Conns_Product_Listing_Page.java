@@ -127,7 +127,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						"Pagination Number: ");
 				log.info("Expected Pagination Number : "+test[0][3]);
 				//webPage.findObjectByxPath(test[0][2]).click();
-				WebElement element_4 = webPage.getDriver().findElement(By.xpath(test[0][3]));					
+				WebElement element_4 = webPage.getDriver().findElement(By.xpath(test[0][2]));					
 				js.executeScript("arguments[0].click();", element_4);
 				log.info("Clicking Operation Performed For Xpath  "+test[0][2]);
 				CommonMethods.waitForGivenTime(2);
