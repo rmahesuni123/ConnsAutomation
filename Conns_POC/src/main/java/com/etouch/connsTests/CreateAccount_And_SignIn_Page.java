@@ -1011,7 +1011,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			CommonMethods.waitForGivenTime(15);
 			//commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator,softAssert);
 			
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
 				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
 				executor.executeScript("arguments[0].click();", element);
@@ -1107,7 +1107,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		}
 			 
 			 
-			 if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {	
+			 if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {	
 				 
 				 WebElement element_1 = webPage.getDriver().findElement(By.xpath(commonData[11][1]));					
 				js.executeScript("arguments[0].click();", element_1);
