@@ -140,7 +140,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				
 				SoftAssertor
 				.assertEquals(
-						paginationNumber.equalsIgnoreCase(test[0][9]),
+						paginationNumber.contains(test[0][9]),
 						"NextPagination: Expected:" +test[0][9]
 								+ " Actual: " + paginationNumber);
 				
@@ -158,7 +158,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						
 				SoftAssertor
 				.assertEquals(
-						nextPagination.equalsIgnoreCase(test[0][5]),
+						nextPagination.contains(test[0][5]),
 						"NextPagination  : Expected:" +test[0][5]
 								+ " Actual: " +nextPagination);
 				log.info("Expected NextPagination Text   is :   "+test[0][5]);
@@ -176,7 +176,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				log.info("Actual Back Pagination Text Retreived is  :   "+backPagination);				
 				SoftAssertor
 				.assertEquals(
-						backPagination.equalsIgnoreCase(test[0][6]),
+						backPagination.contains(test[0][6]),
 						"backPagination: Expected:" +test[0][7]
 								+ " Actual: " +backPagination);
 				
@@ -200,7 +200,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						mobileData[0][0]).getText();
 				SoftAssertor
 				.assertEquals(
-						nextPagination.equalsIgnoreCase(mobileData[0][1]),
+						nextPagination.contains(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
 			  //	webPage.findObjectByxPath(mobileData[0][0]).click();
@@ -215,7 +215,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						mobileData[0][2]).getText();
 				SoftAssertor
 				.assertEquals(
-						backPagination.equalsIgnoreCase(mobileData[0][3]),
+						backPagination.contains(mobileData[0][3]),
 						"backPagination: Expected:" + mobileData[0][3]
 								+ " Actual: " + backPagination);
 				//webPage.findObjectByxPath(mobileData[0][2]).click();
@@ -229,7 +229,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						.getText();
 				SoftAssertor
 				.assertEquals(
-						nextPagination.equalsIgnoreCase(mobileData[0][1]),
+						nextPagination.contains(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
 			}
