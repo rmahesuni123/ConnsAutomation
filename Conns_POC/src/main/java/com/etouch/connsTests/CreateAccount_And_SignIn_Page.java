@@ -1116,7 +1116,9 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				js.executeScript("arguments[0].click();", element_2);
 			}
 			else {
-				commonMethods.clickElementbyXpath(webPage, testdata[6][1], softAssert);
+				WebElement element_3 = webPage.getDriver().findElement(By.xpath(commonData[6][1]));					
+				js.executeScript("arguments[0].click();", element_3);
+				//commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
 			}
 		}
 		catch (Throwable e) {
