@@ -141,7 +141,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				SoftAssertor
 				.assertEquals(
 						paginationNumber.equalsIgnoreCase(test[0][9]),
-						"NextPagination: Expected:" + test[0][9]
+						"NextPagination: Expected:" +test[0][9]
 								+ " Actual: " + paginationNumber);
 				
 				log.info("Expected Pagination Number Text  is :   "+paginationNumber);
@@ -159,8 +159,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				SoftAssertor
 				.assertEquals(
 						nextPagination.equalsIgnoreCase(test[0][5]),
-						"NextPagination: Expected:" + test[0][5]
-								+ " Actual: " + nextPagination);
+						"NextPagination  : Expected:" +test[0][5]
+								+ " Actual: " +nextPagination);
 				log.info("Expected NextPagination Text   is :   "+test[0][5]);
 				//Assert.assertEquals(nextPagination, test[0][5],	"nextPagination : ");
 				//webPage.findObjectByxPath(test[0][4]).click();
@@ -177,9 +177,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				SoftAssertor
 				.assertEquals(
 						backPagination.equalsIgnoreCase(test[0][6]),
-						"NextPagination: Expected:" + test[0][7]
-								+ " Actual: " + nextPagination);
-				log.info("Expected NextPagination Text   is :   "+test[0][7]);
+						"backPagination: Expected:" +test[0][7]
+								+ " Actual: " +backPagination);
+				
 				
 				//Assert.assertEquals(backPagination, test[0][7],	"backPagination : ");
 				log.info("Expected Back Pagination Text  is  :   "+test[0][7]);
@@ -190,6 +190,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// "nextPagination: ");
 			} else if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
 				 {
+				log.info("testBedName for Edge Execution  :   "+testBedName.toString());	
 				CommonMethods.waitForGivenTime(5);
 				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath,
 						"ProductListingPage",
