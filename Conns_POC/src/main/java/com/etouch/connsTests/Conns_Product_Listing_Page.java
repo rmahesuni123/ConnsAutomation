@@ -182,7 +182,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// Pagination using Next and Back
 				String nextPagination = webPage.findObjectByxPath(
 						mobileData[0][0]).getText();
-				Assert.assertTrue(
+				Assert.assertEquals(
 						nextPagination.equalsIgnoreCase(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
@@ -196,7 +196,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 				String backPagination = webPage.findObjectByxPath(
 						mobileData[0][2]).getText();
-				SoftAssertor.assertEquals(
+				Assert.assertEquals(
 						backPagination.equalsIgnoreCase(mobileData[0][3]),
 						"backPagination: Expected:" + mobileData[0][3]
 								+ " Actual: " + backPagination);
@@ -238,7 +238,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			
 				log.info("Actual:  " + actualContent + "   Expected: "
 						+ contentData[i][1]);
-				SoftAssertor.assertTrue(
+				Assert.assertEquals(
 						 actualContent.contains(contentData[i][1]),
 						"expectedContent: " + contentData[i][1]
 								+ "  Failed to Match Actual:" + actualContent);
