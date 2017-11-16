@@ -88,7 +88,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 					.toLowerCase();
 			
 			log.info("Test Type is : " + testType);
-			try {
+			//try {
 				platform = testBed.getPlatform().getName().toUpperCase();
 				System.out.println(" platform : "+platform);
 				testEnv = System.getenv().get("Environment");
@@ -111,10 +111,10 @@ public class Conns_Credit_App_Page extends BaseTest {
 					webPageMap.get(Thread.currentThread().getId()).getDriver().manage().window().maximize();
 				}
 				CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), url);
-			} catch (Exception e) {
+			/*} catch (Exception e) {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
-			}
+			}*/
 		} catch (Exception e) {
 			CommonUtil.sop("errr is for" + testBedName + " -----------" + e);
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -127,17 +127,53 @@ public class Conns_Credit_App_Page extends BaseTest {
 
 	/**
 	 * Test Case 001 - Verify Navigation to Yes Money Credit Application Page
-	 * and Verify Page title
+	 * Verify Page title
 	 * 
 	 * @throws Exception
 	 * 
 	 */
 	@Test(priority = 1001, enabled = true, description = "Verify Page Title")
-	public void verify_Page_Title() throws Exception {
+	public void verify_Page_Title_And_Important_Notice() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			
+			//verify Page title
 			creditAppPage.navigateToCreditAppPage(softAssert);
+			
+			//Verify Important Notice
+			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+					"verifyImportantNotesLink");*/		
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyImportantNotesLink");
+			//creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
+
+			//verify Important notice link is present
+			if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
+			{
+				//verify link text
+				String linkText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert);
+				softAssert.assertTrue(linkText.contains(testData[1][2]),
+						"Failed to verify Important Notice Link Text. Expected "+testData[1][2]+" Actual : "+linkText);
+				//Click on link
+				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1], softAssert);
+				log.info("Element Clicked - "+testData[2][1].toString());
+				
+				//Verify text for each paragraph in Important Notice
+				for (int i=3;i<10;i++)
+				{
+					creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
+				}
+				Thread.sleep(3000);
+				
+				//Close popUp box
+				WebElement element = webPage.getDriver().findElement(By.xpath(testData[10][1]));
+				log.info("Web Element Found" + element.toString());
+				js.executeScript("arguments[0].click();", element);
+				log.info("Web Element Clicked" + testData[10][1].toString());
+			}
+			softAssert.assertAll();
+			
+			
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Page_Title");
 			softAssert.assertAll();
@@ -276,593 +312,39 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1005, enabled = true, description = "verify form is rendered with blank fields")
-	public void verify_Form_Is_Displayed_With_Blank_Field() throws Exception {
-		// try{
-		log.info("testing verifyLinkNavigation started------>");
+	@Test(priority = 1005, enabled = true, description = "verify Important Notes Link")
+	public void verify_Important_Notes_Link() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
-		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyFormIsRenderedWithBlankFields");
-			creditAppPage.verifyTextFieldValue(test, softAssert);
-			log.info("testing verify_Form_Is_Displayed_With_Blank_Field completed------>");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Form_Is_Displayed_With_Blank_Field");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
+		creditAppPage.navigateToCreditAppPage(softAssert);
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+				"verifyImportantNotesLink");*/		
+		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+				"verifyImportantNotesLink");
+		CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), testData[0][1]);
+		//creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
 
-	@Test(priority = 1006, enabled = true, description = "verify Mandatory Field Validation WithoutData")
-	public void verify_Mandatory_Field_Validation_Without_Data() throws Exception {
-		log.info("testing verifyMandatoryFieldValidationWithoutData started------>");
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			 creditAppPage.navigateToCreditAppPage(softAssert);
-			 creditAppPage.scrollToElement(commonData.get("SubmitButton"), softAssert);
-			 webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
-			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
-			 
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyMandatoryFieldValidationWithoutData");
-			for (int i = 0; i < test.length; i++) {
-				creditAppPage.verifyErrorMessageByXpath(softAssert, test[i][0], test[i][1], test[i][2]);
+		if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
+		{
+			softAssert.assertTrue(commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert).contains(testData[1][2]));
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1], softAssert);
+			log.info("Element Clicked - "+testData[2][1].toString());
+			for (int i=3;i<10;i++)
+			{
+				creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
 			}
-			log.info("testing verify_Mandatory_Field_Validation_Without_Data completed------>");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Mandatory_Field_Validation_Without_Data");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
 
-	/**
-	 * Test Case 007 - Verify field validation Error Message for fields with
-	 * invalid data : Email,city,ZipCode,Cell Phone,Home phone,Alternate
-	 * Phone,Monthly Mortage Rent,Monthly Income,Other income
-	 * 
-	 * @throws Exception
-	 */
-	@Test(priority = 1007, enabled = true, description = "verify Error Msg With Blank Data")
-	public void verify_Field_Validation_Error_Message_With_InValid_Data() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyFieldValidationErrorMessageWithInValidData");
-			if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")) {
-				creditAppPage.verifyErrorMessageForIos(softAssert, test);
-			} else {
-				for (int r = 0; r < test.length; r++) {
-					creditAppPage.verifyErrorMessageWithInvalidDataById(softAssert, test[r][0], test[r][1], test[r][2],
-							test[r][3], test[r][4]);
-				}
-			}
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "Verify_Texas_SubLinks");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * Test Case 008 - Verify City and State Auto populates after entering valid
-	 * Zip Code
-	 * 
-	 * @throws Exception
-	 */
-	@Test(priority = 1008, enabled = true, description = "Verify City and State Field Auto Populates")
-	public void verify_City_State_Fields_Auto_Populates() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyFieldAutoPopulates");
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			commonMethods.clearTextBoxById(webPageMap.get(Thread.currentThread().getId()), test[0][0], softAssert);
-			commonMethods.sendKeysById(webPageMap.get(Thread.currentThread().getId()), test[0][0], test[0][1], softAssert);
-			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), test[0][2], softAssert);
-			softAssert.assertEquals(test[0][3], commonMethods.getTextbyId(webPageMap.get(Thread.currentThread().getId()), test[0][2], softAssert));
-			softAssert.assertEquals(test[0][5],
-					creditAppPage.getSelectedValueFromDropDownID(softAssert, test[0][0], test[0][4]));
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Field_Validation_Error_Message_With_InValid_Data");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * Test Case 009 - Verify Verify Years There Drop Down Values
-	 * 
-	 * @throws Exception
-	 */
-	@Test(priority = 1009, enabled = true, description = "verify Years There Drop Down Values")
-	public void verify_Years_There_DropDown_Values() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			log.info("testing verifyYearsThereDropDownValues started------>");
-			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyYearsThereDropDownValues");
-			String[][] yearsThereDropDownValues = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"yearsThereDropDownValues");
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.verifyDropDownValuesById(softAssert, test[0][0], test[0][1], yearsThereDropDownValues);
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Years_There_DropDown_Values");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * Test Case 010 - verify City And State Fields Are Editable
-	 * 
-	 * @throws Exception
-	 */
-	@Test(priority = 1010, enabled = true, description = "verify City And State Fields Are Editable")
-	public void verify_City_And_State_Field_Are_Editable() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
-			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
-					"verifyCityAndStateFieldAreEditable");
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			commonMethods.clearTextBoxById(webPageMap.get(Thread.currentThread().getId()), testData.get("ZipcodeID"), softAssert);
-			commonMethods.sendKeysById(webPageMap.get(Thread.currentThread().getId()), testData.get("ZipcodeID"), testData.get("ZipcodeValue"), softAssert);
-			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), testData.get("CityID"), softAssert);
-			creditAppPage.verifyTextFieldIsEditableByID(softAssert, "City", testData.get("CityID"),
-					testData.get("CityValue"));
-			creditAppPage.verifyDropDownFieldIsEditableById(softAssert, "State", testData.get("StateID"),
-					testData.get("StateValue"));
-			log.info("testing verify_City_And_State_Field_Are_Editable completed------>");
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_City_And_State_Field_Are_Editable");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * Test Case 011 - verify Main Source Of Income Field
-	 * 
-	 * @throws Exception
-	 */
-	@Test(priority = 1011, enabled = true, description = "verify Main Source Of Income Field")
-	public void verify_Main_Source_Of_Income_Field() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyMainSourceOfIncomeField");
-			for (int i = 0; i < testData.length; i++) {
-				creditAppPage.verifyDropDownFieldIsEditableByXpath(softAssert, testData[0][0], testData[0][1],
-						testData[i][2]);
-			}
-			for (int j = 0; j < testData.length; j++) {
-				creditAppPage.selectValueFromDropDownByXpath(softAssert, testData[0][0], testData[0][1],
-						testData[j][2]);
-				String[][] MonthlyIncomeTestData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-						testData[j][2] + "Data");
-				creditAppPage.fillForm(softAssert, MonthlyIncomeTestData);
-				// creditAppPage.sendTextToTextFieldsById(softAssert,
-				// MonthlyIncomeTestData);
-				// creditAppPage.navigateToCreditAppPage(softAssert);
-				Thread.sleep(3000);
-			}
-			log.info("testing verify_Main_Source_Of_Income_Field completed------>");
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Main_Source_Of_Income_Field");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1012, enabled = true, description = "verify Mandatory Field Validation Without Data Main Source of Income Fields")
-	public void verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			log.info(
-					"testing verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields started------>");
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyMainSourceOfIncomeFieldErrorMessage");
-			for (int j = 0; j < testData.length; j++) {
-				creditAppPage.selectValueFromDropDownByXpath(softAssert, testData[0][0], testData[0][1],
-						testData[j][2]);
-				String[][] MonthlyIncomeErrorMessage = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-						testData[j][2] + "DataSet");
-				creditAppPage.scrollToElement(commonData.get("SubmitButton"),softAssert);
-				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
-				for (int k = 0; k < MonthlyIncomeErrorMessage.length; k++) {
-					creditAppPage.verifyErrorMessageByXpath(softAssert, MonthlyIncomeErrorMessage[k][0],
-							MonthlyIncomeErrorMessage[k][1], MonthlyIncomeErrorMessage[k][2]);
-				}
-				// creditAppPage.navigateToCreditAppPage(softAssert);
-			}
-			log.info(
-					"testing verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields completed------>");
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Main_Source_Of_Income_Field");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1013, enabled = true, description = "verify Error Message for Reference Code Field")
-	public void verify_Error_Message_for_Reference_Code_Field() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			log.info("testing verify_Error_Message_for_Reference_Code_Field started------>");
-			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
-					"verifyErrorMessageForRefCode");
-			commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("RefCodeXpath"), testData.get("RefCodeValue"),
-					softAssert);
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("RefCodeSubmitXpath"), softAssert);
-			CommonMethods.waitForWebElement(By.xpath(testData.get("RefCodeErrorXpath")), webPageMap.get(Thread.currentThread().getId()));
 			Thread.sleep(3000);
-			creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError", testData.get("RefCodeErrorXpath"),
-					testData.get("RefCodeError"));
-			log.info("testing verify_Error_Message_for_Reference_Code_Field completed------>");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Error_Message_for_Reference_Code_Field");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
+			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[10][1], softAssert);
+			WebElement element = webPage.getDriver().findElement(By.xpath(testData[10][1]));
+			log.info("Web Element Found" + element.toString());
+			js.executeScript("arguments[0].click();", element);
+			log.info("Web Element Clicked" + testData[10][1].toString());
+
 		}
 	}
 
-	@Test(priority = 1014, enabled = true, description = "verify Reference Code With Valid Required Field Data")
-	public void verify_Reference_Code_With_Valid_Required_Field_Data() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			log.info("testing verify_Reference_Code_With_Valid_Required_Field_Data started------>");
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyMessageForRefCodeWithValidData");
-			creditAppPage.fillForm(softAssert, testData);
-			// Data is used from above testcase
-			// verify_Error_Message_for_Reference_Code_Field
-			LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = CommonMethods
-					.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
-			Thread.sleep(5000);
-			if(testType.equalsIgnoreCase("mobile"))
-			{
-				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
-						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
-						verifyErrorMessageForRefCodeData.get("RefCodeError"));
-				log.info("Reference not accepted as valid code. As test is running on Mobile device");
-			}
-			else{
-				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
-						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
-						verifyErrorMessageForRefCodeData.get("RefCodeAccpetMessage"));
-			}
-			
-			log.info("testing verify_Reference_Code_With_Valid_Required_Field_Data completed------>");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Reference_Code_With_Valid_Required_Field_Data");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1015, enabled = true, description = "verify Successful Submit For Registered User")
-	public void verify_Successful_Submit_Status_Approved_With_DP() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			// creditAppPage.loginFromCreditApp(softAssert);
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifySuccessfulStatusApprovedWithDP");
-			creditAppPage.fillForm(softAssert, testData);
-			// creditAppPage.verifyFieldValues(testData, softAssert);
-			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithDownPaymentPage");
-			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
-			Thread.sleep(5000);
-			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
-			
-			webPage.switchWindow("Conns");
-			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_Status_Approved_With_DP");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * Test Case - 008 Verify user is successfully able to submit from after
-	 * entering valid data in all mandatory fields
-	 * 
-	 * @throws Exception
-	 */
-	@Test(priority = 1016, enabled = true, description = "verify Error Msg With Blank Data")
-	public void verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP() throws Exception {
-		log.info("testing verifyValidUserSuccessfulSubmitForNewUser started------>");
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyValidUserSuccessfulSubmitForNewUser");
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.fillForm(softAssert, testData);
-			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithoutDownPaymentPage");
-			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
-			Thread.sleep(5000);
-			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
-			
-			webPage.switchWindow("Conns");
-			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
-			// Thread.sleep(10000);
-			softAssert.assertAll();
-			log.info(
-					"testing flow verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP Completed");
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
-					"verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1017, enabled = true, description = "verify Successful Submit For Registered User")
-	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Employed_Status_Wait() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyCreditAppSubmitWithMainSourceOfIncomeAsEmployed");
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.fillForm(softAssert, testData);
-			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "WaitPage");
-			
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
-					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Employed_Status_Wait");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1018, enabled = true, description = "verify Successful Submit With Main Source Of Income As Social Security Statu Out Of State")
-	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Social_Security_Status_Out_Of_State()
-			throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyCreditAppSubmitWithMainSourceOfIncomeAsSocialSecurity");
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.fillForm(softAssert, testData);
-			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "OutOfStatePage");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
-					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Social_Security_Status_Out_Of_State");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1019, enabled = true, description = "verify Successful Submit With RefField")
-	public void verify_Credit_App_Submit_With_RefField() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyCreditAppSubmitWithRefField");
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.fillForm(softAssert, testData);
-			if(testType.equalsIgnoreCase("mobile"))
-			{
-				//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
-				//commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
-				LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = CommonMethods
-						.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
-				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
-						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
-						verifyErrorMessageForRefCodeData.get("RefCodeError"));
-				log.info("Reference not accepted as valid code. As test is running on Mobile device");
-			}
-			creditAppPage.submitCreditApp(softAssert);
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Credit_App_Submit_With_RefField");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1020, enabled = true, description = "verify Successful Submit For With Main source of Income as Disability Income")
-	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Disability_Income() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyCreditAppSubmitWithMainSourceOfIncomeAsDisabilityIncome");
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.fillForm(softAssert, testData);
-			creditAppPage.submitCreditApp(softAssert);
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
-					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Disability_Income");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1021, enabled = true, description = "verify Successful Submit With Main Source Of Income As Spous And Partner")
-	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyCreditAppSubmitWithMainSourceOfIncomeAsSpousAndPartner");
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.fillForm(softAssert, testData);
-			creditAppPage.submitCreditApp(softAssert);
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
-					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * logins from creditApp page and verifies if data is auto populated
-	 * 
-	 * @throws Exception
-	 */
-	@Test(priority = 1022, enabled = true, description = "verify Fields Are AutoPopulated For Registered User")
-	public void verify_Fields_Are_AutoPopulated_For_Registered_User() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.loginFromCreditApp(softAssert);
-			creditAppPage.navigateToCreditAppPage(softAssert);
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyFieldsAutoPopulatedForRegisteredUser");
-			creditAppPage.verifyFieldValues(testData, softAssert);
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Fields_Are_AutoPopulated_For_Registered_User");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1023, dependsOnMethods = "verify_Fields_Are_AutoPopulated_For_Registered_User", enabled = true, description = "verify First Name And Last Name Field Are Editable")
-	public void verify_First_Name_And_Last_Name_Field_Are_Editable() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
-					"verifyFirstNameAndLastNameFieldAreEditable");
-			if (!creditAppPage.verifyTextFieldIsEditableByXpath(softAssert, "FirstName",
-					testData.get("FirstNameIdentifier"), testData.get("FirstNameData")))
-				softAssert.fail("TextBox \"FirstName\" is Not editable. Unable to set new value as : "
-						+ testData.get("FirstNameData"));
-			if (!creditAppPage.verifyTextFieldIsEditableByXpath(softAssert, "LastName",
-					testData.get("LastNameIdentifier"), testData.get("LastNameData")))
-				softAssert.fail("TextBox \"FirstName\" is Not editable. Unable to set new value as : "
-						+ testData.get("FirstNameData"));
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_First_Name_And_Last_Name_Field_Are_Editable");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1024, dependsOnMethods = "verify_First_Name_And_Last_Name_Field_Are_Editable", enabled = true, description = "verify Email Is Not Editable For Registered User")
-	public void verify_Email_Is_Not_Editable() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
-					"verifyEmailIsNotEditable");
-		
-			if (!creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData.get("EmailIdentifier"), softAssert)) {
-				log.info("TextBox EmailAddress is Not Displayed");
-				softAssert.fail("TextBox EmailAddress is Not Displayed");
-			} 
-	
-			
-				else {
-				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("EmailIdentifier"), testData.get("EmailData"),
-						softAssert);
-				String value = creditAppPage.getTextBoxValueByJs("EmailAdress", testData.get("EmailIdentifier"),
-						softAssert);
-			log.info("textField Value is : " + value);
-				log.info("Updated value is : " + testData.get("EmailData"));
-				if (value.equals(testData.get("EmailData"))) {
-					softAssert.fail("Email Field is editable for Registered user , Able to set new value to " + value);
-				}
-			//}
-			}
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Email_Is_Not_Editable");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1025, dependsOnMethods = "verify_Email_Is_Not_Editable", enabled = true, description = "verify Sign In Link Is Not Displayed For Registered User")
-	public void verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SignInNowLink"), softAssert))
-				softAssert.fail("Sign In Now Link is Displayed For Registered User");
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	@Test(priority = 1026, dependsOnMethods = "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User", enabled = true, description = "verify Registered User Is Able To Fill Mandatory Fields")
-	public void verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifyRegisteredUserIsAbleToFillMandatoryFields");
-			// creditAppPage.navigateToCreditAppPage(softAssert);
-			creditAppPage.fillForm(softAssert, testData);
-			softAssert.assertAll();
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-
-	/**
-	 * logins from creditApp page and verifies if data is auto populated
-	 * 
-	 * @throws Exception
-	 */
-	@Test(priority = 1027/*, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields"*/, enabled = true, description = "verify Successful Submit For Registered User Status Duplicate")
-	public void verify_Successful_Submit_For_Registered_User_Status_Duplicate() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		try {
-			 creditAppPage.navigateToCreditAppPage(softAssert);
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifySuccessfulSubmitForRegisteredUser");
-			creditAppPage.fillForm(softAssert, testData);
-			//creditAppPage.verifyFieldValues(testData, softAssert);
-			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DuplicatePage");
-			/*String[][] reviewData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"ReviewData");*/
-			
-			Thread.sleep(5000);
-			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
-			Thread.sleep(5000);
-			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
-			
-			webPage.switchWindow("Conns");
-			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), true);
-			Thread.sleep(5000);
-			webPage.closeToggleWindow();
-				softAssert.assertAll();
-			
-			
-		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_For_Registered_User_Status_Duplicate");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}
-	
-	@Test(priority = 1028, enabled = false, description = "verify Important Notice Text")
+	@Test(priority = 1006, enabled = true, description = "verify Important Notice Text")
 	public void verify_Important_Notice_Text() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -878,7 +360,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 1029, enabled = true, description = "Verify Suffix DropDown List")
+	@Test(priority = 1007, enabled = true, description = "Verify Suffix DropDown List")
 	  public void verify_Suffix_DropDown_List() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -896,7 +378,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 1030, enabled = true, description = "verify EmailID Count")
+	@Test(priority = 1008, enabled = true, description = "verify EmailID Count")
 	  public void verify_EmailID_Count() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
@@ -949,44 +431,287 @@ public class Conns_Credit_App_Page extends BaseTest {
 	
 		/*********************************************************************************************************************/
 	}
-
 	
-	
-	
-	@Test(priority = 1031, enabled = true, description = "verify Important Notes Link")
-	public void verify_Important_Notes_Link() throws Exception {
+	@Test(priority = 1009, enabled = true, description = "verify form is rendered with blank fields")
+	public void verify_Form_Is_Displayed_With_Blank_Field() throws Exception {
+		// try{
+		log.info("testing verifyLinkNavigation started------>");
 		SoftAssert softAssert = new SoftAssert();
-		creditAppPage.navigateToCreditAppPage(softAssert);
-		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
-		/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
-				"verifyImportantNotesLink");*/		
-		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-				"verifyImportantNotesLink");
-		CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), testData[0][1]);
-		//creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
+		try {
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyFormIsRenderedWithBlankFields");
+			creditAppPage.verifyTextFieldValue(test, softAssert);
+			log.info("testing verify_Form_Is_Displayed_With_Blank_Field completed------>");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Form_Is_Displayed_With_Blank_Field");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 
-		if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
-		{
-			softAssert.assertTrue(commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert).contains(testData[1][2]));
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1], softAssert);
-			log.info("Element Clicked - "+testData[2][1].toString());
-			for (int i=3;i<10;i++)
-			{
-				creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
+	@Test(priority = 1010, enabled = true, description = "verify Mandatory Field Validation WithoutData")
+	public void verify_Mandatory_Field_Validation_Without_Data() throws Exception {
+		log.info("testing verifyMandatoryFieldValidationWithoutData started------>");
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			 creditAppPage.navigateToCreditAppPage(softAssert);
+			 creditAppPage.scrollToElement(commonData.get("SubmitButton"), softAssert);
+			 webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
+			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
+			 
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyMandatoryFieldValidationWithoutData");
+			for (int i = 0; i < test.length; i++) {
+				creditAppPage.verifyErrorMessageByXpath(softAssert, test[i][0], test[i][1], test[i][2]);
 			}
+			log.info("testing verify_Mandatory_Field_Validation_Without_Data completed------>");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Mandatory_Field_Validation_Without_Data");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 
+	/**
+	 * Test Case 007 - Verify field validation Error Message for fields with
+	 * invalid data : Email,city,ZipCode,Cell Phone,Home phone,Alternate
+	 * Phone,Monthly Mortage Rent,Monthly Income,Other income
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1011, enabled = true, description = "verify Error Msg With Blank Data")
+	public void verify_Field_Validation_Error_Message_With_InValid_Data() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyFieldValidationErrorMessageWithInValidData");
+			if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")) {
+				creditAppPage.verifyErrorMessageForIos(softAssert, test);
+			} else {
+				for (int r = 0; r < test.length; r++) {
+					creditAppPage.verifyErrorMessageWithInvalidDataById(softAssert, test[r][0], test[r][1], test[r][2],
+							test[r][3], test[r][4]);
+				}
+			}
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "Verify_Texas_SubLinks");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * Test Case 008 - Verify City and State Auto populates after entering valid
+	 * Zip Code
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1012, enabled = true, description = "Verify City and State Field Auto Populates")
+	public void verify_City_State_Fields_Auto_Populates() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyFieldAutoPopulates");
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			commonMethods.clearTextBoxById(webPageMap.get(Thread.currentThread().getId()), test[0][0], softAssert);
+			commonMethods.sendKeysById(webPageMap.get(Thread.currentThread().getId()), test[0][0], test[0][1], softAssert);
+			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), test[0][2], softAssert);
+			softAssert.assertEquals(test[0][3], commonMethods.getTextbyId(webPageMap.get(Thread.currentThread().getId()), test[0][2], softAssert));
+			softAssert.assertEquals(test[0][5],
+					creditAppPage.getSelectedValueFromDropDownID(softAssert, test[0][0], test[0][4]));
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Field_Validation_Error_Message_With_InValid_Data");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * Test Case 009 - Verify Verify Years There Drop Down Values
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1013, enabled = true, description = "verify Years There Drop Down Values")
+	public void verify_Years_There_DropDown_Values() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			log.info("testing verifyYearsThereDropDownValues started------>");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyYearsThereDropDownValues");
+			String[][] yearsThereDropDownValues = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"yearsThereDropDownValues");
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.verifyDropDownValuesById(softAssert, test[0][0], test[0][1], yearsThereDropDownValues);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Years_There_DropDown_Values");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * Test Case 010 - verify City And State Fields Are Editable
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1014, enabled = true, description = "verify City And State Fields Are Editable")
+	public void verify_City_And_State_Field_Are_Editable() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
+			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+					"verifyCityAndStateFieldAreEditable");
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			commonMethods.clearTextBoxById(webPageMap.get(Thread.currentThread().getId()), testData.get("ZipcodeID"), softAssert);
+			commonMethods.sendKeysById(webPageMap.get(Thread.currentThread().getId()), testData.get("ZipcodeID"), testData.get("ZipcodeValue"), softAssert);
+			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), testData.get("CityID"), softAssert);
+			creditAppPage.verifyTextFieldIsEditableByID(softAssert, "City", testData.get("CityID"),
+					testData.get("CityValue"));
+			creditAppPage.verifyDropDownFieldIsEditableById(softAssert, "State", testData.get("StateID"),
+					testData.get("StateValue"));
+			log.info("testing verify_City_And_State_Field_Are_Editable completed------>");
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_City_And_State_Field_Are_Editable");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * Test Case 011 - verify Main Source Of Income Field
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1015, enabled = true, description = "verify Main Source Of Income Field")
+	public void verify_Main_Source_Of_Income_Field() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			 creditAppPage.navigateToCreditAppPage(softAssert);
+			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp", "verifyMainSourceOfIncomeField");
+			for (int i = 0; i < testData.length; i++) {
+				creditAppPage.verifyDropDownFieldIsEditableByXpath(softAssert, testData[0][0], testData[0][1],
+						testData[i][2]);
+			}
+			for (int j = 0; j < testData.length; j++) {
+				creditAppPage.selectValueFromDropDownByXpath(softAssert, testData[0][0], testData[0][1],
+						testData[j][2]);
+				String[][] MonthlyIncomeTestData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+						testData[j][2] + "Data");
+				creditAppPage.fillForm(softAssert, MonthlyIncomeTestData);
+				// creditAppPage.sendTextToTextFieldsById(softAssert,
+				// MonthlyIncomeTestData);
+				// creditAppPage.navigateToCreditAppPage(softAssert);
+				Thread.sleep(3000);
+				
+			}
+			softAssert.assertAll();
+			log.info("testing verify_Main_Source_Of_Income_Field completed------>");
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Main_Source_Of_Income_Field");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1016, enabled = true, description = "verify Mandatory Field Validation Without Data Main Source of Income Fields")
+	public void verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			log.info(
+					"testing verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields started------>");
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyMainSourceOfIncomeFieldErrorMessage");
+			for (int j = 0; j < testData.length; j++) {
+				creditAppPage.selectValueFromDropDownByXpath(softAssert, testData[0][0], testData[0][1],
+						testData[j][2]);
+				String[][] MonthlyIncomeErrorMessage = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+						testData[j][2] + "DataSet");
+				creditAppPage.scrollToElement(commonData.get("SubmitButton"),softAssert);
+				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
+				for (int k = 0; k < MonthlyIncomeErrorMessage.length; k++) {
+					creditAppPage.verifyErrorMessageByXpath(softAssert, MonthlyIncomeErrorMessage[k][0],
+							MonthlyIncomeErrorMessage[k][1], MonthlyIncomeErrorMessage[k][2]);
+				}
+				// creditAppPage.navigateToCreditAppPage(softAssert);
+			}
+			log.info(
+					"testing verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields completed------>");
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Main_Source_Of_Income_Field");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1017, enabled = true, description = "verify Error Message for Reference Code Field")
+	public void verify_Error_Message_for_Reference_Code_Field() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			log.info("testing verify_Error_Message_for_Reference_Code_Field started------>");
+			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+					"verifyErrorMessageForRefCode");
+			commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("RefCodeXpath"), testData.get("RefCodeValue"),
+					softAssert);
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("RefCodeSubmitXpath"), softAssert);
+			CommonMethods.waitForWebElement(By.xpath(testData.get("RefCodeErrorXpath")), webPageMap.get(Thread.currentThread().getId()));
 			Thread.sleep(3000);
-			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[10][1], softAssert);
-			WebElement element = webPage.getDriver().findElement(By.xpath(testData[10][1]));
-			log.info("Web Element Found" + element.toString());
-			js.executeScript("arguments[0].click();", element);
-			log.info("Web Element Clicked" + testData[10][1].toString());
+			creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError", testData.get("RefCodeErrorXpath"),
+					testData.get("RefCodeError"));
+			log.info("testing verify_Error_Message_for_Reference_Code_Field completed------>");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Error_Message_for_Reference_Code_Field");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 
+	@Test(priority = 1018, enabled = true, description = "verify Reference Code With Valid Required Field Data")
+	public void verify_Reference_Code_With_Valid_Required_Field_Data() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			log.info("testing verify_Reference_Code_With_Valid_Required_Field_Data started------>");
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyMessageForRefCodeWithValidData");
+			creditAppPage.fillForm(softAssert, testData);
+			// Data is used from above testcase
+			// verify_Error_Message_for_Reference_Code_Field
+			LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = CommonMethods
+					.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
+			Thread.sleep(5000);
+			if(testType.equalsIgnoreCase("mobile"))
+			{
+				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
+						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
+						verifyErrorMessageForRefCodeData.get("RefCodeError"));
+				log.info("Reference not accepted as valid code. As test is running on Mobile device");
+			}
+			else{
+				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
+						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
+						verifyErrorMessageForRefCodeData.get("RefCodeAccpetMessage"));
+			}
+			
+			log.info("testing verify_Reference_Code_With_Valid_Required_Field_Data completed------>");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Reference_Code_With_Valid_Required_Field_Data");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 	
-	@Test(priority = 1027, enabled = true, description = "verify Power Review In Yes Money Landing Page")
-	public void verifyPowerReviewInYesMoneyLandingPage() throws Exception {
+	@Test(priority = 1019, enabled = true, description = "verify Power Review In Yes Money Landing Page")
+	public void verify_Power_Review_In_Yes_Money_Landing_Page() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			 creditAppPage.navigateToYesMoneyLandingPage(softAssert);
@@ -1007,5 +732,321 @@ public class Conns_Credit_App_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+
+	@Test(priority = 1020, enabled = true, description = "verify Successful Submit For Registered User")
+	public void verify_Successful_Submit_Status_Approved_With_DP() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			// creditAppPage.loginFromCreditApp(softAssert);
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifySuccessfulStatusApprovedWithDP");
+			creditAppPage.fillForm(softAssert, testData);
+			// creditAppPage.verifyFieldValues(testData, softAssert);
+			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithDownPaymentPage");
+			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			
+			webPage.switchWindow("Conns");
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
+			webPage.closeToggleWindow();
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_Status_Approved_With_DP");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * Test Case - 008 Verify user is successfully able to submit from after
+	 * entering valid data in all mandatory fields
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1021, enabled = true, description = "verify Error Msg With Blank Data")
+	public void verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP() throws Exception {
+		log.info("testing verifyValidUserSuccessfulSubmitForNewUser started------>");
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyValidUserSuccessfulSubmitForNewUser");
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithoutDownPaymentPage");
+			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			
+			webPage.switchWindow("Conns");
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
+			webPage.closeToggleWindow();
+			// Thread.sleep(10000);
+			softAssert.assertAll();
+			log.info(
+					"testing flow verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP Completed");
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
+					"verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1022, enabled = true, description = "verify Successful Submit For Registered User")
+	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Employed_Status_Wait() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyCreditAppSubmitWithMainSourceOfIncomeAsEmployed");
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "WaitPage");
+			
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
+					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Employed_Status_Wait");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1023, enabled = true, description = "verify Successful Submit With Main Source Of Income As Social Security Statu Out Of State")
+	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Social_Security_Status_Out_Of_State()
+			throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyCreditAppSubmitWithMainSourceOfIncomeAsSocialSecurity");
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "OutOfStatePage");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
+					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Social_Security_Status_Out_Of_State");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1024, enabled = true, description = "verify Successful Submit With RefField")
+	public void verify_Credit_App_Submit_With_RefField() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyCreditAppSubmitWithRefField");
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			if(testType.equalsIgnoreCase("mobile"))
+			{
+				//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
+				//commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+				LinkedHashMap<String, String> verifyErrorMessageForRefCodeData = CommonMethods
+						.getDataInHashMap(DataFilePath, "CreditApp", "verifyErrorMessageForRefCode");
+				creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError",
+						verifyErrorMessageForRefCodeData.get("RefCodeErrorXpath"),
+						verifyErrorMessageForRefCodeData.get("RefCodeError"));
+				log.info("Reference not accepted as valid code. As test is running on Mobile device");
+			}
+			creditAppPage.submitCreditApp(softAssert);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Credit_App_Submit_With_RefField");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1025, enabled = true, description = "verify Successful Submit For With Main source of Income as Disability Income")
+	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Disability_Income() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyCreditAppSubmitWithMainSourceOfIncomeAsDisabilityIncome");
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			creditAppPage.submitCreditApp(softAssert);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
+					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Disability_Income");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1026, enabled = true, description = "verify Successful Submit With Main Source Of Income As Spous And Partner")
+	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyCreditAppSubmitWithMainSourceOfIncomeAsSpousAndPartner");
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			creditAppPage.submitCreditApp(softAssert);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
+					"verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * logins from creditApp page and verifies if data is auto populated
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1027, enabled = true, description = "verify Fields Are AutoPopulated For Registered User")
+	public void verify_Fields_Are_AutoPopulated_For_Registered_User() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.loginFromCreditApp(softAssert);
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyFieldsAutoPopulatedForRegisteredUser");
+			creditAppPage.verifyFieldValues(testData, softAssert);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Fields_Are_AutoPopulated_For_Registered_User");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1028, dependsOnMethods = "verify_Fields_Are_AutoPopulated_For_Registered_User", enabled = true, description = "verify First Name And Last Name Field Are Editable")
+	public void verify_First_Name_And_Last_Name_Field_Are_Editable() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+					"verifyFirstNameAndLastNameFieldAreEditable");
+			if (!creditAppPage.verifyTextFieldIsEditableByXpath(softAssert, "FirstName",
+					testData.get("FirstNameIdentifier"), testData.get("FirstNameData")))
+				softAssert.fail("TextBox \"FirstName\" is Not editable. Unable to set new value as : "
+						+ testData.get("FirstNameData"));
+			if (!creditAppPage.verifyTextFieldIsEditableByXpath(softAssert, "LastName",
+					testData.get("LastNameIdentifier"), testData.get("LastNameData")))
+				softAssert.fail("TextBox \"FirstName\" is Not editable. Unable to set new value as : "
+						+ testData.get("FirstNameData"));
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_First_Name_And_Last_Name_Field_Are_Editable");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1029, dependsOnMethods = "verify_First_Name_And_Last_Name_Field_Are_Editable", enabled = true, description = "verify Email Is Not Editable For Registered User")
+	public void verify_Email_Is_Not_Editable() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+					"verifyEmailIsNotEditable");
+		
+			if (!creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData.get("EmailIdentifier"), softAssert)) {
+				log.info("TextBox EmailAddress is Not Displayed");
+				softAssert.fail("TextBox EmailAddress is Not Displayed");
+			} 
+	
+			
+				else {
+				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("EmailIdentifier"), testData.get("EmailData"),
+						softAssert);
+				String value = creditAppPage.getTextBoxValueByJs("EmailAdress", testData.get("EmailIdentifier"),
+						softAssert);
+			log.info("textField Value is : " + value);
+				log.info("Updated value is : " + testData.get("EmailData"));
+				if (value.equals(testData.get("EmailData"))) {
+					softAssert.fail("Email Field is editable for Registered user , Able to set new value to " + value);
+				}
+			//}
+			}
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Email_Is_Not_Editable");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1030, dependsOnMethods = "verify_Email_Is_Not_Editable", enabled = true, description = "verify Sign In Link Is Not Displayed For Registered User")
+	public void verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SignInNowLink"), softAssert))
+				softAssert.fail("Sign In Now Link is Displayed For Registered User");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	@Test(priority = 1031, dependsOnMethods = "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User", enabled = true, description = "verify Registered User Is Able To Fill Mandatory Fields")
+	public void verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifyRegisteredUserIsAbleToFillMandatoryFields");
+			// creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * logins from creditApp page and verifies if data is auto populated
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1032/*, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields"*/, enabled = true, description = "verify Successful Submit For Registered User Status Duplicate")
+	public void verify_Successful_Submit_For_Registered_User_Status_Duplicate() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			 creditAppPage.navigateToCreditAppPage(softAssert);
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifySuccessfulSubmitForRegisteredUser");
+			creditAppPage.fillForm(softAssert, testData);
+			//creditAppPage.verifyFieldValues(testData, softAssert);
+			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DuplicatePage");
+			/*String[][] reviewData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"ReviewData");*/
+			
+			Thread.sleep(5000);
+			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			
+			webPage.switchWindow("Conns");
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), true);
+			webPage.closeToggleWindow();
+			Thread.sleep(5000);
+			webPage.closeToggleWindow();
+				softAssert.assertAll();
+			
+			
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_For_Registered_User_Status_Duplicate");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+
+
 
 }
