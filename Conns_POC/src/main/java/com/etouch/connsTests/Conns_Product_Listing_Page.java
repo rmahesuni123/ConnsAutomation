@@ -123,8 +123,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String paginationNumber = webPage.findObjectByxPath(test[0][2])
 						.getText();
 				log.info("paginationNumber is  : " + paginationNumber);
-				Assert.assertEquals(paginationNumber, test[0][3],
+				SoftAssertor.assertEquals(paginationNumber, test[0][3],
 						"Pagination Number: ");
+				log.info("Pagination Number : "+test[0][3]);
 				webPage.findObjectByxPath(test[0][2]).click();
 				CommonMethods.waitForGivenTime(2);
 				paginationNumber = webPage.findObjectByxPath(test[0][8])
@@ -174,7 +175,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 				String backPagination = webPage.findObjectByxPath(
 						mobileData[0][2]).getText();
-				Assert.assertTrue(
+				SoftAssertor.assertEquals(
 						backPagination.equalsIgnoreCase(mobileData[0][3]),
 						"backPagination: Expected:" + mobileData[0][3]
 								+ " Actual: " + backPagination);
