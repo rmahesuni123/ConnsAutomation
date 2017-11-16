@@ -357,6 +357,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	public void verify_Register_Link_Redirection_And_PageTitle() throws InterruptedException {
 		log.info("************ Stated verify_Register_Link_Redirection_And_PageTitle*******************");
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -392,6 +393,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		log.info(
 				"******Started verification of verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_CustomerRegister functionality with Invalid input data ********");
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -406,8 +408,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				executor.executeScript("arguments[0].click();", element);
+				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
 			}
@@ -432,14 +433,14 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		log.info("******Started verification of Register functionality with blank input data ********");
 		CommonMethods.waitForGivenTime(10);
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterErrorMessageWithBlankInput");
 			//commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][1]));
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				executor.executeScript("arguments[0].click();", element);
+				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			}
@@ -465,6 +466,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		log.info("******Started verification of Register functionality with Invalid input data ********");
 		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(registerUrl);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -475,8 +477,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			//commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				executor.executeScript("arguments[0].click();", element);
+				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			}
@@ -527,8 +528,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			//commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				executor.executeScript("arguments[0].click();", element);
+				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			}
