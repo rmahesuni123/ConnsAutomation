@@ -183,7 +183,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				log.info("Actual Back Pagination Text Retreived is  :   ");				
 				SoftAssertor
 				.assertTrue(
-						backPagination.contains(test[0][6]),
+						backPagination.contains(test[0][7]),
 						"backPagination: Expected:" +test[0][7]
 								+ " Actual: " +backPagination);
 				
