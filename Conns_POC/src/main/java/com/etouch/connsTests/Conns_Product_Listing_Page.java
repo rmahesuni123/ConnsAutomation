@@ -176,10 +176,10 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				
 				CommonMethods.waitForGivenTime(2);
 				log.info("***************************Back Pagination Operation Starts*********************** :   ");
-				/*String backPagination = webPage.findObjectByxPath(test[0][6]).getText();*/
+				String backPagination = webPage.findObjectByxPath(test[0][6]).getText();
 				
-				WebElement element_8 = webPage.getDriver().findElement(By.xpath(test[0][6]));
-				String backPagination = element_8.getText();
+				/*WebElement element_8 = webPage.getDriver().findElement(By.xpath(test[0][6]));
+				String backPagination = element_8.getText();*/
 				log.info("Actual Back Pagination Text Retreived is  :   ");				
 				SoftAssertor
 				.assertTrue(
