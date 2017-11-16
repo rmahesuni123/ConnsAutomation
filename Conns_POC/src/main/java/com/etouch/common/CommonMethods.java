@@ -1336,4 +1336,32 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 				log.info("Unable to delete cookies for current browser.");
 			}
 		}
+		
+		/**
+		 * to verify http status code of a link(200,451) and href value
+		 * @param webPage
+		 * @param linkName
+		 * @param xpath
+		 * @param expectedHref
+		 * @param softAssert
+		 * @throws ClientProtocolException
+		 * @throws IOException
+		 */
+		public void verifyLinkStatusCodeAndHrefValue(WebPage webPage,String linkName,String xpath,String expectedHref, SoftAssert softAssert) throws ClientProtocolException, IOException
+		{
+			WebElement element = getWebElementbyXpath(webPage, xpath, softAssert);
+			String elementUrl=element.getAttribute("href");
+			
+			log.info(linkName+" Actual : "+elementUrl+" Expected : "+expectedHref);
+			softAssert.assertTrue(elementUrl.contains(expectedHref),"Expected Url : "+expectedHref+" Actual : "+elementUrl);
+			
+			log.info("Verifying Status Code for Link : " + linkName+" Url : "+elementUrl);
+			int statusCode = verifyUrlStatusCode(element.getAttribute("href"));
+			if (statusCode == 200) {
+				log.info("Status code for Link : "+linkName+ " is "+statusCode);
+			}
+			else{
+				softAssert.fail("Status Code for link "+ linkName + "With Url :" + expectedHref +" is "+statusCode);
+			}
+		}
 }
