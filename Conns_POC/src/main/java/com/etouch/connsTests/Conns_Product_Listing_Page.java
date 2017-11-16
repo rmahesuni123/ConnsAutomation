@@ -123,7 +123,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String paginationNumber = webPage.findObjectByxPath(test[0][2])
 						.getText();
 				log.info("paginationNumber is  : " + paginationNumber);
-				SoftAssertor.assertEquals(paginationNumber, test[0][3],
+				Assert.assertEquals(paginationNumber, test[0][3],
 						"Pagination Number: ");
 				log.info("Expected Pagination Number : "+test[0][3]);
 				//webPage.findObjectByxPath(test[0][2]).click();
@@ -149,7 +149,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String nextPagination = webPage.findObjectByxPath(test[0][4])
 						.getText();
 				log.info("Actual NextPagination Text Retrieved  is :   "+paginationNumber);
-				SoftAssertor.assertEquals(nextPagination, test[0][5],
+				Assert.assertEquals(nextPagination, test[0][5],
 						"nextPagination: ");
 				log.info("Expected NextPagination Text   is :   "+test[0][5]);
 				
@@ -164,7 +164,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String backPagination = webPage.findObjectByxPath(test[0][6])
 						.getText();
 				log.info("Actual Back Pagination Text Retreived is  :   "+backPagination);
-				SoftAssertor.assertEquals(backPagination, test[0][7],
+				Assert.assertEquals(backPagination, test[0][7],
 						"backPagination: ");
 				log.info("Expected Back Pagination Text  is  :   "+test[0][7]);
 				// Checking again Next is displayed or not
