@@ -143,7 +143,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				
 				Assert
 				.assertTrue(
-						paginationNumber.contains(test[0][8]),
+						paginationNumber.contains(test[0][9]),
 						"NextPagination: Expected:" +test[0][9]
 								+ " Actual: " + paginationNumber);
 				
@@ -161,7 +161,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String nextPagination = element_7.getText();
 				log.info("Actual NextPagination Text Retrieved  is :   ");
 						
-				SoftAssertor
+				Assert
 				.assertTrue(
 						nextPagination.contains(test[0][5]),
 						"NextPagination  : Expected:" +test[0][5]
