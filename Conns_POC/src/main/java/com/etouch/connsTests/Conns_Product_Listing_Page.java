@@ -119,8 +119,10 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			log.info("Clicked on French Door");
 			// Pagination using index number
 			if (testType.equalsIgnoreCase("Web")) {
+				log.info("Inside testType Web : ");
 				String paginationNumber = webPage.findObjectByxPath(test[0][2])
 						.getText();
+				log.info("paginationNumber is  : " + paginationNumber);
 				Assert.assertEquals(paginationNumber, test[0][3],
 						"Pagination Number: ");
 				webPage.findObjectByxPath(test[0][2]).click();
