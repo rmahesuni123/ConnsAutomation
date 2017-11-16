@@ -174,13 +174,13 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				js.executeScript("arguments[0].click();", element_7);
 				log.info(" NextPagination Clicked    :   "+test[0][4]);*/
 				
-				CommonMethods.waitForGivenTime(2);
+				CommonMethods.waitForGivenTime(4);
 				log.info("***************************Back Pagination Operation Starts*********************** :   ");
 				//String backPagination = webPage.findObjectByxPath(test[0][6]).getText();
-				String backPagination = webPage.getDriver().findElement(By.xpath(test[0][6])).getText();
+				//String backPagination = webPage.getDriver().findElement(By.xpath(test[0][6])).getText();
 				
-				/*WebElement element_8 = webPage.getDriver().findElement(By.xpath(test[0][6]));
-				String backPagination = element_8.getText();*/
+				WebElement element_8 = webPage.getDriver().findElement(By.xpath(test[0][6]));
+				String backPagination = element_8.getText();
 				log.info("Actual Back Pagination Text Retreived is  :   " +backPagination);				
 				SoftAssertor
 				.assertTrue(
@@ -196,7 +196,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// webPage.findObjectByxPath(test[0][4]).getText();
 				// Assert.assertEquals(nextPagination, test[0][5],
 				// "nextPagination: ");
-			} else if (testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge"))
+			} 
+			
+			if (testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge"))
 				 {
 				log.info("testBedName for Edge Execution  :   ");	
 				CommonMethods.waitForGivenTime(5);
