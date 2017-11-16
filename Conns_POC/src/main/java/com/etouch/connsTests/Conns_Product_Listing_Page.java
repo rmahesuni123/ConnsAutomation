@@ -198,8 +198,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// "nextPagination: ");
 			} else {
 			
-			//if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
-			//	 {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
+				 {
 				log.info("testBedName for Edge Execution  :   ");	
 				CommonMethods.waitForGivenTime(5);
 				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath,
@@ -242,7 +242,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						nextPagination.contains(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
-			//}
+			}
 			}
 			// webPage.findObjectByxPath(test[0][6]).click();
 			// Click on any Product
