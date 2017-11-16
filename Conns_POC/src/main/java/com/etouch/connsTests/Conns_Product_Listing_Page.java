@@ -153,7 +153,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 				// Pagination using Next and Back
 				log.info("*******************Next  Pagination Number Operation Starts :  ***************88 ");
-				String nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
+				//String nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
+				WebElement element_6 = webPage.getDriver().findElement(By.xpath(test[0][4]));
+				String nextPagination = element_6.getText();
 				log.info("Actual NextPagination Text Retrieved  is :   "+paginationNumber);
 						
 				SoftAssertor
@@ -165,14 +167,16 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				//Assert.assertEquals(nextPagination, test[0][5],	"nextPagination : ");
 				//webPage.findObjectByxPath(test[0][4]).click();
 				
-				WebElement element_6 = webPage.getDriver().findElement(By.xpath(test[0][4]));					
-				js.executeScript("arguments[0].click();", element_6);
-				log.info(" NextPagination Clicked    :   "+test[0][4]);
+				/*WebElement element_7 = webPage.getDriver().findElement(By.xpath(test[0][4]));					
+				js.executeScript("arguments[0].click();", element_7);
+				log.info(" NextPagination Clicked    :   "+test[0][4]);*/
 				
 				CommonMethods.waitForGivenTime(2);
 				log.info("***************************Back Pagination Operation Starts*********************** :   "+test[0][5]);
-				String backPagination = webPage.findObjectByxPath(test[0][6])
-						.getText();
+				/*String backPagination = webPage.findObjectByxPath(test[0][6]).getText();*/
+				
+				WebElement element_7 = webPage.getDriver().findElement(By.xpath(test[0][6]));
+				String backPagination = element_7.getText();
 				log.info("Actual Back Pagination Text Retreived is  :   "+backPagination);				
 				SoftAssertor
 				.assertEquals(
