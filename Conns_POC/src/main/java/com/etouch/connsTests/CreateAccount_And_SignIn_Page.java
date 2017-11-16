@@ -1068,6 +1068,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				 js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
 				 webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
 				 log.info("Save_Button_Locator Clicked : "   );
+				 CommonMethods.waitForGivenTime(5);
 
 				 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 				 log.info( " **************************** Assert contains url*******************************************************************************************************************************************************");
