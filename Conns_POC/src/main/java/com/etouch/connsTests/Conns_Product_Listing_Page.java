@@ -139,7 +139,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 						"Pagination Number: ");*/
 				
 				SoftAssertor
-				.assertEquals(
+				.assertTrue(
 						paginationNumber.contains(test[0][9]),
 						"NextPagination: Expected:" +test[0][9]
 								+ " Actual: " + paginationNumber);
@@ -159,7 +159,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				log.info("Actual NextPagination Text Retrieved  is :   "+paginationNumber);
 						
 				SoftAssertor
-				.assertEquals(
+				.assertTrue(
 						nextPagination.contains(test[0][5]),
 						"NextPagination  : Expected:" +test[0][5]
 								+ " Actual: " +nextPagination);
@@ -179,7 +179,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String backPagination = element_7.getText();
 				log.info("Actual Back Pagination Text Retreived is  :   "+backPagination);				
 				SoftAssertor
-				.assertEquals(
+				.assertTrue(
 						backPagination.contains(test[0][6]),
 						"backPagination: Expected:" +test[0][7]
 								+ " Actual: " +backPagination);
@@ -203,7 +203,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String nextPagination = webPage.findObjectByxPath(
 						mobileData[0][0]).getText();
 				SoftAssertor
-				.assertEquals(
+				.assertTrue(
 						nextPagination.contains(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
@@ -218,7 +218,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				String backPagination = webPage.findObjectByxPath(
 						mobileData[0][2]).getText();
 				SoftAssertor
-				.assertEquals(
+				.assertTrue(
 						backPagination.contains(mobileData[0][3]),
 						"backPagination: Expected:" + mobileData[0][3]
 								+ " Actual: " + backPagination);
@@ -232,7 +232,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				nextPagination = webPage.findObjectByxPath(mobileData[0][0])
 						.getText();
 				SoftAssertor
-				.assertEquals(
+				.assertTrue(
 						nextPagination.contains(mobileData[0][1]),
 						"NextPagination: Expected:" + mobileData[0][1]
 								+ " Actual: " + nextPagination);
