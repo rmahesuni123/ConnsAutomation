@@ -140,7 +140,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				
 				SoftAssertor
 				.assertTrue(
-						paginationNumber.contains(test[0][9]),
+						paginationNumber.contains(test[0][8]),
 						"NextPagination: Expected:" +test[0][9]
 								+ " Actual: " + paginationNumber);
 				
