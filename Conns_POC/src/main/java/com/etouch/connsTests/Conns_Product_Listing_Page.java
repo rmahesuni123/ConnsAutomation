@@ -135,7 +135,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				paginationNumber = webPage.findObjectByxPath(test[0][8])
 						.getText();
 				log.info("Pagination Number Text Retreived is :   "+paginationNumber);
-				SoftAssertor.assertEquals(paginationNumber, test[0][9],
+				Assert.assertEquals(paginationNumber, test[0][9],
 						"Pagination Number: ");
 				log.info("Expected Pagination Number Text  is :   "+paginationNumber);
 				//webPage.findObjectByxPath(test[0][8]).click();
@@ -146,26 +146,23 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 				// Pagination using Next and Back
 				log.info("*******************Next  Pagination Number Operation Starts :  ***************88 ");
-				String nextPagination = webPage.findObjectByxPath(test[0][4])
-						.getText();
+				String nextPagination = webPage.findObjectByxPath(test[0][4]).getText();
 				log.info("Actual NextPagination Text Retrieved  is :   "+paginationNumber);
-				Assert.assertEquals(nextPagination, test[0][5],
-						"nextPagination: ");
+				Assert.assertEquals(nextPagination, test[0][5],	"nextPagination : ");
 				log.info("Expected NextPagination Text   is :   "+test[0][5]);
 				
 				//webPage.findObjectByxPath(test[0][4]).click();
 				
 				WebElement element_6 = webPage.getDriver().findElement(By.xpath(test[0][4]));					
 				js.executeScript("arguments[0].click();", element_6);
-				log.info(" NextPagination Clicked    :   "+test[0][6]);
+				log.info(" NextPagination Clicked    :   "+test[0][4]);
 				
 				CommonMethods.waitForGivenTime(2);
-				log.info("***************************8Back Pagination Operation Starts*********************** :   "+test[0][5]);
+				log.info("***************************Back Pagination Operation Starts*********************** :   "+test[0][5]);
 				String backPagination = webPage.findObjectByxPath(test[0][6])
 						.getText();
 				log.info("Actual Back Pagination Text Retreived is  :   "+backPagination);
-				Assert.assertEquals(backPagination, test[0][7],
-						"backPagination: ");
+				Assert.assertEquals(backPagination, test[0][7],	"backPagination : ");
 				log.info("Expected Back Pagination Text  is  :   "+test[0][7]);
 				// Checking again Next is displayed or not
 				// nextPagination =
