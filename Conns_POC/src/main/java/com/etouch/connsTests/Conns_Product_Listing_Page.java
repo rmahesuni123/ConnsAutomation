@@ -497,7 +497,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			String str2[] = test[0][3].split(",");
 			
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
-			 {
+			 {     log.info("Mobile or Edge :  " +testType + " "+testBedName);
 					for (int i = 0; i < str2.length; i++) {
 						ConnsProductPurchasePage.Click_On_Element_JS(webPage,
 								test[0][7 + i]);
@@ -515,8 +515,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					}
 				}
 			
-			 else {
-				 if (testType.equalsIgnoreCase("Web")) {
+			 else if (testType.equalsIgnoreCase("Web")) {
 			 
 				CommonMethods.waitForGivenTime(5);
 				Select s = new Select(webPage.getDriver().findElement(
@@ -543,7 +542,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 							By.xpath((test[0][2]))));
 				}
 			}
-		} 
+		
 		}catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage,
 					"Verify_Number_Of_Product_Displayed_From_Product_Listing_Page");
