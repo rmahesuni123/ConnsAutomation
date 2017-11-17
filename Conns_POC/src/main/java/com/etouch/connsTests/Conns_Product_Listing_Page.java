@@ -257,14 +257,26 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			if (CommonMethods.verifyElementisPresent(webPage, test[0][11])) {
 				webPage.findObjectByxPath(test[0][11]).click();
 			}
-			String[][] contentData;
-			if (testType.equalsIgnoreCase("Web")) {
+			String[][] contentData = null;
+			/*if (testType.equalsIgnoreCase("Web")) {
 				contentData = ExcelUtil.readExcelData(DataFilePath,
 						"ProductListingPage", "verifyProductDetails");
 			} else {
 				contentData = ExcelUtil.readExcelData(DataFilePath,
 						"ProductListingPage", "verifyProductDetailsForMobile");
+			}*/
+			
+			
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")){
+				contentData = ExcelUtil.readExcelData(DataFilePath,
+						"ProductListingPage", "verifyProductDetailsForMobile");
 			}
+			else if (testType.equalsIgnoreCase("Web")) {
+				contentData = ExcelUtil.readExcelData(DataFilePath,
+						"ProductListingPage", "verifyProductDetails");
+			}
+			
+			
 			for (int i = 0; i < contentData.length; i++) {
 				String actualContent = webPage.findObjectByxPath(
 						contentData[i][0]).getText();
