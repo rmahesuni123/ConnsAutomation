@@ -272,7 +272,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				log.info("Actual:  " + actualContent + "   Expected: "
 						+ contentData[i][1]);
 				Assert.assertTrue(
-						 actualContent.contains(contentData[i][1]),
+						 actualContent.equalsIgnoreCase(contentData[i][1]),
 						"expectedContent: " + contentData[i][1]
 								+ "  Failed to Match Actual:" + actualContent);
 			}
