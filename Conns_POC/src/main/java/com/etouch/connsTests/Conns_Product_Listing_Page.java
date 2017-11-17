@@ -118,7 +118,54 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			
 			log.info("Clicked on French Door");
 			// Pagination using index number
-			if (!(testType.equalsIgnoreCase("Mobile")) || (testBedName.equalsIgnoreCase("edge")) ) {
+			//if (!(testType.equalsIgnoreCase("Mobile")) || (testBedName.equalsIgnoreCase("edge")) ) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
+			 {
+			log.info("testBedName for Edge Execution  :   ");	
+			CommonMethods.waitForGivenTime(5);
+			String[][] mobileData = ExcelUtil.readExcelData(DataFilePath,
+					"ProductListingPage",
+					"Verify_For_Pagination_And_Product_Details_For_Mobile");
+			// Pagination using Next and Back
+			String nextPagination = webPage.findObjectByxPath(
+					mobileData[0][0]).getText();
+			SoftAssertor
+			.assertTrue(
+					nextPagination.contains(mobileData[0][1]),
+					"NextPagination: Expected:" + mobileData[0][1]
+							+ " Actual: " + nextPagination);
+		  //	webPage.findObjectByxPath(mobileData[0][0]).click();
+			
+			
+			WebElement element_1 = webPage.getDriver().findElement(By.xpath(mobileData[0][0]));					
+			js.executeScript("arguments[0].click();", element_1);
+			
+			CommonMethods.waitForGivenTime(5);
+
+			String backPagination = webPage.findObjectByxPath(
+					mobileData[0][2]).getText();
+			SoftAssertor
+			.assertTrue(
+					backPagination.contains(mobileData[0][3]),
+					"backPagination: Expected:" + mobileData[0][3]
+							+ " Actual: " + backPagination);
+			//webPage.findObjectByxPath(mobileData[0][2]).click();
+			
+			
+			
+			CommonMethods.waitForGivenTime(5);
+
+			// Verifying Next button is displayed
+			nextPagination = webPage.findObjectByxPath(mobileData[0][0])
+					.getText();
+			SoftAssertor
+			.assertTrue(
+					nextPagination.contains(mobileData[0][1]),
+					"NextPagination: Expected:" + mobileData[0][1]
+							+ " Actual: " + nextPagination);
+		} else{
+			
+			if (testType.equalsIgnoreCase("Web")){
 				log.info("Inside testType Web : ");
 				/*String paginationNumber = webPage.findObjectByxPath(test[0][2])
 						.getText();*/
@@ -196,53 +243,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				// webPage.findObjectByxPath(test[0][4]).getText();
 				// Assert.assertEquals(nextPagination, test[0][5],
 				// "nextPagination: ");
-			} else {
+			} 
 			
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
-				 {
-				log.info("testBedName for Edge Execution  :   ");	
-				CommonMethods.waitForGivenTime(5);
-				String[][] mobileData = ExcelUtil.readExcelData(DataFilePath,
-						"ProductListingPage",
-						"Verify_For_Pagination_And_Product_Details_For_Mobile");
-				// Pagination using Next and Back
-				String nextPagination = webPage.findObjectByxPath(
-						mobileData[0][0]).getText();
-				SoftAssertor
-				.assertTrue(
-						nextPagination.contains(mobileData[0][1]),
-						"NextPagination: Expected:" + mobileData[0][1]
-								+ " Actual: " + nextPagination);
-			  //	webPage.findObjectByxPath(mobileData[0][0]).click();
-				
-				
-				WebElement element_1 = webPage.getDriver().findElement(By.xpath(mobileData[0][0]));					
-				js.executeScript("arguments[0].click();", element_1);
-				
-				CommonMethods.waitForGivenTime(5);
-
-				String backPagination = webPage.findObjectByxPath(
-						mobileData[0][2]).getText();
-				SoftAssertor
-				.assertTrue(
-						backPagination.contains(mobileData[0][3]),
-						"backPagination: Expected:" + mobileData[0][3]
-								+ " Actual: " + backPagination);
-				//webPage.findObjectByxPath(mobileData[0][2]).click();
-				
-				
-				
-				CommonMethods.waitForGivenTime(5);
-
-				// Verifying Next button is displayed
-				nextPagination = webPage.findObjectByxPath(mobileData[0][0])
-						.getText();
-				SoftAssertor
-				.assertTrue(
-						nextPagination.contains(mobileData[0][1]),
-						"NextPagination: Expected:" + mobileData[0][1]
-								+ " Actual: " + nextPagination);
-			}
+			
 			}
 			// webPage.findObjectByxPath(test[0][6]).click();
 			// Click on any Product
