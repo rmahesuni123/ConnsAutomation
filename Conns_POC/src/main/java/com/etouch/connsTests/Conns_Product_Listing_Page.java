@@ -118,7 +118,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			
 			log.info("Clicked on French Door");
 			// Pagination using index number
-			//if (!(testType.equalsIgnoreCase("Mobile")) || (testBedName.equalsIgnoreCase("edge")) ) {
+					
+			//Old code modified : if else condition modified 
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
 			 {
 			log.info("testBedName for Edge Execution  :   ");	
@@ -495,7 +496,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			
 			log.info("Clicked on French Door");
 			String str2[] = test[0][3].split(",");
-			
+			//Old code modified : if else condition modified 
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
 			 {     log.info("Mobile or Edge :  " +testType + " "+testBedName);
 					for (int i = 0; i < str2.length; i++) {
