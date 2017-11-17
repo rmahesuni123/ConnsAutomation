@@ -495,7 +495,29 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			
 			log.info("Clicked on French Door");
 			String str2[] = test[0][3].split(",");
-			if (testType.equalsIgnoreCase("Web")) {
+			
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
+			 {
+					for (int i = 0; i < str2.length; i++) {
+						ConnsProductPurchasePage.Click_On_Element_JS(webPage,
+								test[0][7 + i]);
+						CommonMethods.waitForGivenTime(5);
+						List<WebElement> list = webPage.getDriver().findElements(
+								By.xpath(test[0][9]));
+						log.info("list.size():: " + list.size());
+						log.info("Integer.parseInt(str2[i]):: "
+								+ Integer.parseInt(str2[i]));
+						SoftAssertor.assertEquals(
+								list.size() <= Integer.parseInt(str2[i]), true,
+								"Number of element is not as expected---->Actual Size: "
+										+ list.size() + " Should be less than: "
+										+ Integer.parseInt(str2[i]));
+					}
+				}
+			
+			 else {
+				 if (testType.equalsIgnoreCase("Web")) {
+			 
 				CommonMethods.waitForGivenTime(5);
 				Select s = new Select(webPage.getDriver().findElement(
 						By.xpath((test[0][2]))));
@@ -520,24 +542,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					s = new Select(webPage.getDriver().findElement(
 							By.xpath((test[0][2]))));
 				}
-			} else {
-				for (int i = 0; i < str2.length; i++) {
-					ConnsProductPurchasePage.Click_On_Element_JS(webPage,
-							test[0][7 + i]);
-					CommonMethods.waitForGivenTime(5);
-					List<WebElement> list = webPage.getDriver().findElements(
-							By.xpath(test[0][9]));
-					log.info("list.size():: " + list.size());
-					log.info("Integer.parseInt(str2[i]):: "
-							+ Integer.parseInt(str2[i]));
-					SoftAssertor.assertEquals(
-							list.size() <= Integer.parseInt(str2[i]), true,
-							"Number of element is not as expected---->Actual Size: "
-									+ list.size() + " Should be less than: "
-									+ Integer.parseInt(str2[i]));
-				}
 			}
-		} catch (Throwable e) {
+		} 
+		}catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage,
 					"Verify_Number_Of_Product_Displayed_From_Product_Listing_Page");
 			SoftAssertor.addVerificationFailure(e.getMessage());
