@@ -716,9 +716,11 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				}
 				//commonMethods.clickWithChildElementbyXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],allRegionDescriptiondata[i][0], softAssert);
 				/****old code commented above *********/
+				
 				commonMethods.clickWithChildElementby_UsingJavaScriptXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],allRegionDescriptiondata[i][0], softAssert);
 
 				try{
+					Thread.sleep(3000);
 					CommonMethods.waitForWebElement(By.xpath(allRegionDescriptiondata[i][5]), webPage);	
 					
 				}catch(Exception e){
@@ -726,7 +728,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					e.getLocalizedMessage();
 				}
 				
-				Thread.sleep(4000);
+				Thread.sleep(3000);
 				
 				String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3], softAssert);
 			    softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
