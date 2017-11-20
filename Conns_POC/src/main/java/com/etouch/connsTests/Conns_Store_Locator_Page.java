@@ -735,6 +735,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 						"Store locator description text verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
 			    if(!browserName.equalsIgnoreCase("InternetExplorer")){
+			    	log.info("***************************BrowserName : ************************" +browserName.toString());
 				String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);				
 				softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
 						"Bread Crumbs verification failed. Expected text : "
