@@ -230,7 +230,7 @@ public class CommonMethods {
 	public void clickWithChildElementby_UsingJavaScriptXpath(WebPage webPage,String parentlocator, String locator, String linkName, SoftAssert softAssert){
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
-			Thread.sleep(3000);
+			//Thread.sleep(3000);
 			if(!parentlocator.equalsIgnoreCase("NA")){
 				log.info("Clicking on parent locator : "+parentlocator);
 				
