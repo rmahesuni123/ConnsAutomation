@@ -161,7 +161,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			List<WebElement> linkList = commonMethods.findElementsByXpath(webPage,commonData[6][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, linkList);
 			for (int i = 0; i < regionLinksData.length; i++) {
-				if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari"))) {
+				if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari")) && (!browserName.equalsIgnoreCase("InternetExplorer"))) {
 					if(!regionLinksData[i][3].equalsIgnoreCase("NA")){
 						commonMethods.hoverOnelementbyXpath(webPage, regionLinksData[i][1], softAssert);
 						String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, regionLinksData[i][1], "color", softAssert);
@@ -726,7 +726,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					e.getLocalizedMessage();
 				}
 				
-				Thread.sleep(1000);
+				Thread.sleep(4000);
 				
 				String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3], softAssert);
 			    softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
