@@ -737,9 +737,10 @@ public class Conns_Store_Locator_Page extends BaseTest {
 								+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
 			   // if(!browserName.equalsIgnoreCase("InternetExplorer")){
 			    	log.info("***************************BrowserName : ************************" +browserName.toString());
+			    	log.info("***************************(allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
 			    	
-			    	//(js.executeScript("return arguments[0].innerHTML", element)
-			    			String breadCrumbsActualText = (String) js.executeScript("return arguments[0].innerHTML;", webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7])));
+			   	Thread.sleep(3000);
+			    String breadCrumbsActualText = (String) js.executeScript("return arguments[0].innerHTML;", webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7])));
 				//String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);				
 				softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
 						"Bread Crumbs verification failed. Expected text : "
