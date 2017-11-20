@@ -277,7 +277,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			connsStoreLocatorPage.closeLocationPopup(webPage,softAssert);
 			CommonMethods.waitForWebElement(By.xpath(commonData[1][1]), webPage);
 			commonMethods.clearTextBox(webPage, verifyFindStoreAlertBoxData[0][0], softAssert);
-			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")){				
+			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")||testBedName.equalsIgnoreCase("InternetExplorer")){				
 				js.executeScript("window.alert = function(){ return true;}");
 				//commonMethods.clickElementbyXpath(webPage, verifyFindStoreAlertBoxData[1][0], softAssert);
 				
