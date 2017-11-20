@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -60,6 +61,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	ConnsStoreLocatorPage connsStoreLocatorPage;
 	String storeLocatorURL="";
 	String[][] commonData;
+	protected static LinkedHashMap<Long, WebPage> webPageMap = new LinkedHashMap<Long, WebPage>();
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -85,6 +87,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
+					webPageMap.put(Thread.currentThread().getId(), webPage);
 				}
 			} catch (Exception e) {
 				log.info("errr is " + e);
@@ -97,10 +100,11 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 
-	@AfterTest
+	@AfterTest(alwaysRun = true)
 	public void releaseResources() throws IOException, AWTException {
 		// SpecializedScreenRecorder.stopVideoRecording();
-		webPage.getDriver().quit();
+		//webPage.getDriver().quit();
+		webPageMap.get(Thread.currentThread().getId()).getDriver().quit();
 	}
 
 
