@@ -115,15 +115,15 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	@Test(priority = 300, enabled = true)
 
 	public void verify_Font_And_Size_Login_Page() 
-	{		
-		SoftAssert softAssert = new SoftAssert();
+	{	SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeWeb");
 			String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeTab");
 			String[][] ExpectedFontValuesMobile = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeMobile");
 			//commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
 
-			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			
 			int width = ((Long) js.executeScript("return window.innerWidth || document.body.clientWidth")).intValue() ;
 			log.info("width value calculated is :" +width);
 			int height = ((Long) js.executeScript("return window.innerHeight || document.body.clientHeight")).intValue() ;
