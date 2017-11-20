@@ -740,7 +740,15 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			    	log.info("***************************(allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
 			    	
 			   	Thread.sleep(3000);
-			   	String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);		
+			   	//String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);	
+			   	log.info("***************************Finding Element (allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
+		    	WebElement element_1 = webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7]));	
+			   	log.info("***************************(allRegionDescriptiondata[i][7]) Element Found : ************************" +(allRegionDescriptiondata[i][7]).toString());
+		    	
+			   	String breadCrumbsActualText = (String) ((JavascriptExecutor) webPage.getDriver()).executeScript("arguments[0].innerHTML;", element_1).toString();	
+				//String theTextIWant = ((JavascriptExecutor) driver).executeScript("return arguments[0].innerHTML;",driver.findElement(By.xpath("//span[@itemprop='telephone']")));
+
+			   	
 			    softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
 						"Bread Crumbs verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][8] + " Actual text : " + breadCrumbsActualText);
