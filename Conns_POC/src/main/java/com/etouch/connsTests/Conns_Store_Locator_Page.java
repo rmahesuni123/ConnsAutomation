@@ -726,6 +726,8 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					e.getLocalizedMessage();
 				}
 				
+				Thread.sleep(1000);
+				
 				String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3], softAssert);
 			    softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
 						"Store locator description text verification failed. Expected text : "
