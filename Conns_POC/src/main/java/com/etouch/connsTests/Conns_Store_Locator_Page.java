@@ -734,7 +734,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			    softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
 						"Store locator description text verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
-				
+				Thread.sleep(3000);
 				String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);
 				
 				softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
