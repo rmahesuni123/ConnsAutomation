@@ -740,7 +740,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			    	log.info("***************************(allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
 			    	
 			   	Thread.sleep(3000);
-			    String breadCrumbsActualText = (String) js.executeScript("return arguments[0].innerHTML;", webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7])).toString());
+			    String breadCrumbsActualText = (String) js.executeScript("return arguments[0].text", webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7])));
 				//String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);				
 			    //String breadCrumbsActualText = js.executeScript("return arguments[0].text", webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7])));
 			    softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
