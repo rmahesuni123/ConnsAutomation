@@ -805,6 +805,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			Thread.sleep(1000);*/
 			
 			//executing this query will scroll until that element is not appeared on page.
+			Thread.sleep(1000);
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			 WebElement element = webPage.getDriver().findElement(By.xpath(" .//*[@id='StoreLocatorStore']/div[2]/div[2]/div[1]/h2"));			 
 			js.executeScript("arguments[0].scrollIntoView(true);",element);
