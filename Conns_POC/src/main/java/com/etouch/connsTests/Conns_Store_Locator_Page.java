@@ -686,6 +686,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(priority = 119, enabled = true, description = "Verify_AllRegion_PageDescription")
 	public void Verify_AllRegion_PageDescription() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
 			String[][] allRegionDescriptiondata = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyAllRegionPageDescription");
 			String key = "";
@@ -734,13 +735,16 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			    softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
 						"Store locator description text verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
-			    if(!browserName.equalsIgnoreCase("InternetExplorer")){
+			   // if(!browserName.equalsIgnoreCase("InternetExplorer")){
 			    	log.info("***************************BrowserName : ************************" +browserName.toString());
-				String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);				
+			    	
+			    	//(js.executeScript("return arguments[0].innerHTML", element)
+			    			String breadCrumbsActualText = (String) js.executeScript("return arguments[0].innerHTML;", webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7])));
+				//String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);				
 				softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
 						"Bread Crumbs verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][8] + " Actual text : " + breadCrumbsActualText);
-			    }
+			  //  }
 				String actual_hrefYesmoneyLink = commonMethods.getAttributebyXpath(webPage, allRegionDescriptiondata[i][5],"href", softAssert);
 				
 				softAssert.assertEquals(actual_hrefYesmoneyLink, allRegionDescriptiondata[i][6],
