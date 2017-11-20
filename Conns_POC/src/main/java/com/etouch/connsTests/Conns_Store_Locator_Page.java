@@ -317,7 +317,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			commonMethods.clearTextBox(webPage, verifyFindStoreInvalidData[1][0], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, verifyFindStoreInvalidData[1][0], verifyFindStoreInvalidData[0][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, verifyFindStoreInvalidData[2][0], softAssert);
-			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")){
+			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")||testBedName.equalsIgnoreCase("InternetExplorer")){
 				commonMethods.waitForGivenTime(7, softAssert);
 			}
 			CommonMethods.waitForWebElement(By.xpath(verifyFindStoreInvalidData[3][0]), webPage);
