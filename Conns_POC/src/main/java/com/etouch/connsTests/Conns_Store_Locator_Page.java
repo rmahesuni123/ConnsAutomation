@@ -735,24 +735,25 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			    softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
 						"Store locator description text verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
-			   // if(!browserName.equalsIgnoreCase("InternetExplorer")){
+			   if(!browserName.equalsIgnoreCase("IE")){
 			    	log.info("***************************BrowserName : ************************" +browserName.toString());
 			    	log.info("***************************(allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
 			    	
 			   	Thread.sleep(3000);
-			   	//String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);	
+			   		
 			   	log.info("***************************Finding Element (allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
-		    	WebElement element_1 = webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7]));	
+			   	String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);
+			   	//WebElement element_1 = webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7]));	
 			   	log.info("***************************(allRegionDescriptiondata[i][7]) Element Found : ************************" +(allRegionDescriptiondata[i][7]).toString());
 		    	
-			   	String breadCrumbsActualText = (String) ((JavascriptExecutor) webPage.getDriver()).executeScript("arguments[0].innerHTML;", element_1).toString();	
+			   	//String breadCrumbsActualText = (String) ((JavascriptExecutor) webPage.getDriver()).executeScript("arguments[0].innerHTML;", element_1).toString();	
 				//String theTextIWant = ((JavascriptExecutor) driver).executeScript("return arguments[0].innerHTML;",driver.findElement(By.xpath("//span[@itemprop='telephone']")));
 
 			   	
 			    softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
 						"Bread Crumbs verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][8] + " Actual text : " + breadCrumbsActualText);
-			  //  }
+			    }
 				String actual_hrefYesmoneyLink = commonMethods.getAttributebyXpath(webPage, allRegionDescriptiondata[i][5],"href", softAssert);
 				
 				softAssert.assertEquals(actual_hrefYesmoneyLink, allRegionDescriptiondata[i][6],
