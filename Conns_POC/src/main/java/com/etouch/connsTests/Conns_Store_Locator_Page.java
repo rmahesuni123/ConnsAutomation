@@ -745,8 +745,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			   //	Thread.sleep(3000);
 			   		
 			   	log.info("***************************Finding Element (allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
-			   	String breadCrumbsActualText = commonMethods.getTextbyJS(webPage, allRegionDescriptiondata[i][7], softAssert);
-			   	
+			   //	String breadCrumbsActualText = commonMethods.getTextbyJS(webPage, allRegionDescriptiondata[i][7], softAssert);
+			  // 	String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);
+			   	String breadCrumbsActualText = commonMethods.getTextbyCss(webPage, allRegionDescriptiondata[i][7], softAssert);
 			   	//WebElement element_1 = webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7]));	
 			   	log.info("***************************(allRegionDescriptiondata[i][7]) Element Found : ************************" +(allRegionDescriptiondata[i][7]).toString());
 		    	
