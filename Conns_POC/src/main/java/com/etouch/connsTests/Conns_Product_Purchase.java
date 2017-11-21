@@ -938,7 +938,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 * - Verify ConnsHomePlus card number field for maximum digits accepted
 	 * - Verify ConnsHomePlus card number field for special characters
 	 */
-	@Test(priority = 912, enabled = false, description = "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation")
+	@Test(priority = 912, enabled = true, description = "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation")
 	public void Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1072,7 +1072,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	/*This method will cover below scenarios
 	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for Invalid ZipCode
 	 */
-	@Test(priority = 913, enabled = false, description = "Verify_ConnsHomePlusCard_InValid_ZipCode_Validation")
+	@Test(priority = 913, enabled = true, description = "Verify_ConnsHomePlusCard_InValid_ZipCode_Validation")
 	public void Verify_ConnsHomePlusCard_InValid_ZipCode_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1148,7 +1148,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 /* This method will cover below scenarios
 	  * - Verify aggrement text disdayed in Review section for Non-Promotional Product
 	  */
-	 @Test(priority = 914, enabled = false, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
+	 @Test(priority = 914, enabled = true, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
 	 public void Verify_Agreement_Text_For_Promotional_Product() {
 		 SoftAssert softAssert = new SoftAssert();
 		 String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1240,7 +1240,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	/* This method will cover below scenarios
 	  * - Verify aggrement text disdayed in Review section for Non-Promotional Product
 	  */
-	 @Test(priority = 915, enabled = false, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
+	 @Test(priority = 915, enabled = true, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
 	 public void Verify_Agreement_Text_For_Non_Promotional_Product() {
 		 SoftAssert softAssert = new SoftAssert();
 		 String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1334,7 +1334,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	 /* This method will cover below scenarios
 	  * - Verify error message in order review section when special characters are used in address field
 	  */
-	 @Test(priority = 916, enabled = false, description = "Verify error message in order review section when special characters are used in address field")
+	 @Test(priority = 916, enabled = true, description = "Verify error message in order review section when special characters are used in address field")
 	 public void Verify_Special_Character_Error_In_Address_HHGregg() {
 		 SoftAssert softAssert = new SoftAssert();
 		 String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
