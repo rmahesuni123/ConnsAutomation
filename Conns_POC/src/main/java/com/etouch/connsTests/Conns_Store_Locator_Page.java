@@ -721,7 +721,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				commonMethods.clickWithChildElementby_UsingJavaScriptXpath(webPage, allRegionDescriptiondata[i][1], allRegionDescriptiondata[i][2],allRegionDescriptiondata[i][0], softAssert);
 
 				try{
-					//Thread.sleep(3000);
+					Thread.sleep(3000);
 					CommonMethods.waitForWebElement(By.xpath(allRegionDescriptiondata[i][5]), webPage);	
 					
 				}catch(Exception e){
@@ -729,36 +729,25 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					e.getLocalizedMessage();
 				}
 				
-				//Thread.sleep(3000);
+				Thread.sleep(3000);
 				
 				String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3], softAssert);
 			    softAssert.assertTrue(storeDescriptionText.contains(allRegionDescriptiondata[i][4]),
 						"Store locator description text verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][4] + " Actual text : " + storeDescriptionText);
-			  /* if(browserName.equalsIgnoreCase("IE")){ 
-				   log.info("***************************BrowserName : ************************" +browserName.toString());
-			    	log.info("***************************(allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
-			   }else{
-			    	log.info("***************************BrowserName : ************************" +browserName.toString());
-			    	log.info("***************************(allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
-			    	*/
-			   //	Thread.sleep(3000);
-			   		
+	
 			   	log.info("***************************Finding Element (allRegionDescriptiondata[i][7]) : ************************" +(allRegionDescriptiondata[i][7]).toString());
-			   //	String breadCrumbsActualText = commonMethods.getTextbyJS(webPage, allRegionDescriptiondata[i][7], softAssert);
-			  // 	String breadCrumbsActualText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][7], softAssert);
+			  
+				//String breadCrumbsActualText = commonMethods.getTextbyXPathCss(webPage, allRegionDescriptiondata[i][7], softAssert);
+				/****Commented previous code , not for working IE hence used CCS selector ******/
 			   	String breadCrumbsActualText = commonMethods.getTextbyCss(webPage, allRegionDescriptiondata[i][7], softAssert);
-			   	//WebElement element_1 = webPage.getDriver().findElement(By.xpath(allRegionDescriptiondata[i][7]));	
+			   
 			   	log.info("***************************(allRegionDescriptiondata[i][7]) Element Found : ************************" +(allRegionDescriptiondata[i][7]).toString());
-		    	
-			   	//String breadCrumbsActualText = (String) ((JavascriptExecutor) webPage.getDriver()).executeScript("arguments[0].innerHTML;", element_1).toString();	
-				//String theTextIWant = ((JavascriptExecutor) driver).executeScript("return arguments[0].innerHTML;",driver.findElement(By.xpath("//span[@itemprop='telephone']")));
 
-			   	
 			    softAssert.assertTrue(breadCrumbsActualText.contains(allRegionDescriptiondata[i][8]),
 						"Bread Crumbs verification failed. Expected text : "
 								+ allRegionDescriptiondata[i][8] + " Actual text : " + breadCrumbsActualText);
-			 //   }
+
 				String actual_hrefYesmoneyLink = commonMethods.getAttributebyXpath(webPage, allRegionDescriptiondata[i][5],"href", softAssert);
 				
 				softAssert.assertEquals(actual_hrefYesmoneyLink, allRegionDescriptiondata[i][6],
