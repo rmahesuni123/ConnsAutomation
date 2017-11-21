@@ -512,6 +512,13 @@ public class CommonMethods {
 		return actualText;
 	}
 	
+	public String getTextbyJS(WebPage webPage, String locator, SoftAssert softAssert) throws PageException{
+		String actualText = "";
+		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+		String script = "return   document.evaluate('locator').getText();";
+	    actualText = ((JavascriptExecutor) webPage.getDriver()).executeScript(script).toString();
+	return actualText;
+}
 	/**
 	 * @author Name - Asim Singh
 	 * The method used get attribute using css
