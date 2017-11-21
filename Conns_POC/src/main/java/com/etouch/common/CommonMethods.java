@@ -515,8 +515,11 @@ public class CommonMethods {
 	public String getTextbyJS(WebPage webPage, String locator, SoftAssert softAssert) throws PageException{
 		String actualText = "";
 		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-		String script = "return   document.evaluate('locator').getText();";
-	    actualText = ((JavascriptExecutor) webPage.getDriver()).executeScript(script).toString();
+		/*String script = "return   document.evaluate('locator').getText();";
+	    actualText = ((JavascriptExecutor) webPage.getDriver()).executeScript(script).toString();*/
+	    
+	    WebElement element = webPage.getDriver().findElement(By.xpath(locator));
+	    js.executeScript("return arguments[0].getText()", element);
 	return actualText;
 }
 	/**
