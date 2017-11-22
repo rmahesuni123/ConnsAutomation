@@ -507,6 +507,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(enabled = true, priority = 114, description = "Verify_View_All_Link")
 	public void Verify_View_All_Link() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
 			String[][] verifyViewAllLinkData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyViewAllLink");
 			commonMethods.navigateToPage(webPage, storeLocatorURL, softAssert);
@@ -515,7 +516,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")){
 				//webPage.scrollBottom();
 				//webPage.scrollDown(3);
-				((JavascriptExecutor)webPage.getDriver()).executeScript("window.scrollBy(0,500)");
+				js.executeScript("window.scrollBy(0,500)");
 				
 			}
 			String actualLinkText = commonMethods.getTextbyXpath(webPage, verifyViewAllLinkData[0][0], softAssert);
@@ -523,6 +524,12 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			List<String> actualCssValues= commonMethods.getFontProperties(webPage, verifyViewAllLinkData[0][0], softAssert);
 			if(testType.equalsIgnoreCase("Web")){
 				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[1][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
+			}
+			
+			else if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
+				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[6][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[5][1] + " Actual Value : " + actualCssValues.get(0));
+			
+				
 			}else{
 				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[5][1]), "CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[5][1] + " Actual Value : " + actualCssValues.get(0));
 			}
