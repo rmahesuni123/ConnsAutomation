@@ -551,7 +551,24 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				softAssert.assertTrue(actualCssValues.get(1).contains(verifyViewAllLinkData[2][1]),"CSS value verification failed for color " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[2][1] + " Actual Value : " + actualCssValues.get(1));
 			   }
 			
-			softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
+			
+			
+			/********************************************************************************************************************************************************/
+			if(testType.equalsIgnoreCase("Web")){
+				log.info("Test Type Name CSS value verification failed for link *********************Inside Web : " + testType.toString());
+				softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
+			}
+			
+			else if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
+				log.info("Test Type Name CSS value verification failed for link: " + testType.toString() + "****************^^^^^^^^^^^^^^******************" +  browserName.toString());
+				softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
+				
+			}else{
+				log.info("Test Type CSS value verification failed for link  ******* Inside Mobile Device ****************: " + testType.toString());
+				softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
+			}
+			
+			//softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
 			String actualUrl = commonMethods.clickAndGetPageURL(webPage, verifyViewAllLinkData[0][0], verifyViewAllLinkData[0][1], softAssert,commonData[2][1]);
 			softAssert.assertTrue(actualUrl.contains(verifyViewAllLinkData[4][1]),"URL verification failed for link : '" + verifyViewAllLinkData[0][1] + "'. Expected URL - "+ verifyViewAllLinkData[4][1] + " Actual URL - " + actualUrl);
 			softAssert.assertAll();
