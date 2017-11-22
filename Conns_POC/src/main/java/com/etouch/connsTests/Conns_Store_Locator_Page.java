@@ -527,7 +527,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[1][1]), "CSS value verification failed for font size " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
 			}
 			
-			else if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
+			if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
 				log.info("Test Type Name Font Size Verification : " + testType.toString() + "****************^^^^^^^^^^^^^^******************" +  browserName.toString());
 				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[6][1]), "CSS value verification failed for font size " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[6][1] + " Actual Value : " + actualCssValues.get(0));
 			
@@ -559,7 +559,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
 			}
 			
-			else if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
+			 if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
 				log.info("Test Type Name CSS value verification failed for link: " + testType.toString() + "****************^^^^^^^^^^^^^^******************" +  browserName.toString());
 				softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
 				
