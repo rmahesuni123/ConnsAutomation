@@ -61,7 +61,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	//Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
 	private String testEnv;
 	protected static String url;
-	WebPage webPage;
+	
 	private ConnsMainPage mainPage;
 	protected static LinkedHashMap<String, String> commonData;
 	CommonMethods commonMethods;
@@ -77,6 +77,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
 		try {
+			WebPage webPage;
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			testBedNames.put(Thread.currentThread().getId(), testBedName);
 			CommonUtil.sop("Test bed Name is " + testBedName);
@@ -106,6 +107,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 					mainPage = new ConnsMainPage(url, webPageMap.get(Thread.currentThread().getId()));
 					log.info(mainPage);
 				}
+				
 				if (testType.equalsIgnoreCase("Web")) {
 					log.info("Maximize Window in case of Desktop Browsers Only : ");
 					webPageMap.get(Thread.currentThread().getId()).getDriver().manage().window().maximize();
@@ -140,7 +142,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.navigateToCreditAppPage(softAssert);
 			
 			//Verify Important Notice
-			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+			JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
 			/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 					"verifyImportantNotesLink");*/		
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
@@ -166,7 +168,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 				Thread.sleep(3000);
 				
 				//Close popUp box
-				WebElement element = webPage.getDriver().findElement(By.xpath(testData[10][1]));
+				WebElement element = webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(testData[10][1]));
 				log.info("Web Element Found" + element.toString());
 				js.executeScript("arguments[0].click();", element);
 				log.info("Web Element Clicked" + testData[10][1].toString());
@@ -316,7 +318,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	public void verify_Important_Notes_Link() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		creditAppPage.navigateToCreditAppPage(softAssert);
-		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
 		/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 				"verifyImportantNotesLink");*/		
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
@@ -336,7 +338,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 
 			Thread.sleep(3000);
 			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[10][1], softAssert);
-			WebElement element = webPage.getDriver().findElement(By.xpath(testData[10][1]));
+			WebElement element = webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(testData[10][1]));
 			log.info("Web Element Found" + element.toString());
 			js.executeScript("arguments[0].click();", element);
 			log.info("Web Element Clicked" + testData[10][1].toString());
@@ -381,15 +383,15 @@ public class Conns_Credit_App_Page extends BaseTest {
 	@Test(priority = 1008, enabled = true, description = "verify EmailID Count")
 	  public void verify_EmailID_Count() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
 		creditAppPage.navigateToCreditAppPage(softAssert);
 		LinkedHashMap<String, String> inputdata = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 				"verifyEmailIdCount");	
 	 if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("EmailIdentifier"), softAssert)) {
 		log.info("Email ID Count Starts : " );
 		/********************************************************************************************************************************/
-		webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
-		WebElement Email_ID_Input = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
+		webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
+		WebElement Email_ID_Input = webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
 		int EmailId_Length = inputdata.get("EmailData").length();
 		log.info("Email ID Count Starts 1: " + EmailId_Length);
 		log.info("Email ID Input Text Starts 3: " +Email_ID_Input.getAttribute("value"));	
@@ -403,16 +405,16 @@ public class Conns_Credit_App_Page extends BaseTest {
 
 		/*else if ((EmailId_Length <= 50) && browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
 			log.info("Inside IPhone & IPad executions " + browserName.toString());
-			WebElement element = webPage.getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
+			WebElement element = webPageMap.get(Thread.currentThread().getId())getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
 			log.info("Web Element Found" + element.toString());
 			js.executeScript("arguments[0].click();", element);
 			log.info("Web Element Clicked" + inputdata.get("LastNameLocator").toString());
 			webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
 		}
 			else  {
-				//webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
+				//webPageMap.get(Thread.currentThread().getId())getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
 				
-				WebElement Email_ID_Input_Data = webPage.getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
+				WebElement Email_ID_Input_Data = webPageMap.get(Thread.currentThread().getId())getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
 				log.info("Email ID Input Text Starts 3: " +Email_ID_Input_Data.getAttribute("value"));	
 				log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input_Data.getAttribute("value").length());
 				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
@@ -718,9 +720,9 @@ public class Conns_Credit_App_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifySuccessfulSubmitForRegisteredUser");
 			Thread.sleep(5000);
-			webPage.findObjectByxPath(".//*[@id='PWRSummaryContainer']//div[@class='pr-rating-stars']").click();
+			webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(".//*[@id='PWRSummaryContainer']//div[@class='pr-rating-stars']").click();
 			Thread.sleep(5000);
-			webPage.findObjectByxPath(".//*[@class='pr-snippet-write-review-link']").click();
+			webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(".//*[@class='pr-snippet-write-review-link']").click();
 			Thread.sleep(5000);
 			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
@@ -745,13 +747,13 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.fillForm(softAssert, testData);
 			// creditAppPage.verifyFieldValues(testData, softAssert);
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithDownPaymentPage");
-			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(".//*[@id='button-write-review']").click();
 			Thread.sleep(5000);
 			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			
-			webPage.switchWindow("Conns");
+			webPageMap.get(Thread.currentThread().getId()).switchWindow("Conns");
 			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
-			webPage.closeToggleWindow();
+			webPageMap.get(Thread.currentThread().getId()).closeToggleWindow();
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_Status_Approved_With_DP");
@@ -776,13 +778,13 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.navigateToCreditAppPage(softAssert);
 			creditAppPage.fillForm(softAssert, testData);
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "ApprovedWithoutDownPaymentPage");
-			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(".//*[@id='button-write-review']").click();
 			Thread.sleep(5000);
 			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			
-			webPage.switchWindow("Conns");
+			webPageMap.get(Thread.currentThread().getId()).switchWindow("Conns");
 			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
-			webPage.closeToggleWindow();
+			webPageMap.get(Thread.currentThread().getId()).closeToggleWindow();
 			// Thread.sleep(10000);
 			softAssert.assertAll();
 			log.info(
@@ -929,11 +931,11 @@ public class Conns_Credit_App_Page extends BaseTest {
 					"verifyFirstNameAndLastNameFieldAreEditable");
 			if (!creditAppPage.verifyTextFieldIsEditableByXpath(softAssert, "FirstName",
 					testData.get("FirstNameIdentifier"), testData.get("FirstNameData")))
-				softAssert.fail("TextBox \"FirstName\" is Not editable. Unable to set new value as : "
+				softAssert.fail("TextBox FirstName is Not editable. Unable to set new value as : "
 						+ testData.get("FirstNameData"));
 			if (!creditAppPage.verifyTextFieldIsEditableByXpath(softAssert, "LastName",
 					testData.get("LastNameIdentifier"), testData.get("LastNameData")))
-				softAssert.fail("TextBox \"FirstName\" is Not editable. Unable to set new value as : "
+				softAssert.fail("TextBox FirstName is Not editable. Unable to set new value as : "
 						+ testData.get("FirstNameData"));
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -1027,15 +1029,15 @@ public class Conns_Credit_App_Page extends BaseTest {
 					"ReviewData");*/
 			
 			Thread.sleep(5000);
-			webPage.findObjectByxPath(".//*[@id='button-write-review']").click();
+			webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(".//*[@id='button-write-review']").click();
 			Thread.sleep(5000);
 			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			
-			webPage.switchWindow("Conns");
+			webPageMap.get(Thread.currentThread().getId()).switchWindow("Conns");
 			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), true);
-			webPage.closeToggleWindow();
+			webPageMap.get(Thread.currentThread().getId()).closeToggleWindow();
 			Thread.sleep(5000);
-			webPage.closeToggleWindow();
+			webPageMap.get(Thread.currentThread().getId()).closeToggleWindow();
 				softAssert.assertAll();
 			
 			
