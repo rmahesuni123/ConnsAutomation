@@ -523,22 +523,22 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			softAssert.assertTrue(actualLinkText.contains(verifyViewAllLinkData[0][1]), "Text verification failed. Expected text : " + verifyViewAllLinkData[0][1] + " Actual text : " + actualLinkText);
 			List<String> actualCssValues= commonMethods.getFontProperties(webPage, verifyViewAllLinkData[0][0], softAssert);
 			if(testType.equalsIgnoreCase("Web")){
-				log.info("Test Type Name Font Size Verification *********************Inside Web : " + testType.toString());
+				log.info("Test Type Name Font Size Verification 1 *********************Inside Web : " + testType.toString());
 				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[1][1]), "CSS value verification failed for font size " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[1][1] + " Actual Value : " + actualCssValues.get(0));
 			}
 			
-			if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
-				log.info("Test Type Name Font Size Verification : " + testType.toString() + "****************^^^^^^^^^^^^^^******************" +  browserName.toString());
+			if( browserName.equalsIgnoreCase("edge")){
+				log.info("Test Type Name Font Size Verification 2 : " + testType.toString() + "****************^^^^^^^^^^^^^^******************" +  browserName.toString());
 				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[6][1]), "CSS value verification failed for font size " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[6][1] + " Actual Value : " + actualCssValues.get(0));
 			
 				
 			}else{
-				log.info("Test Type Name Font Size Verification ******* Inside Mobile Device ****************: " + testType.toString());
+				log.info("Test Type Name Font Size Verification 3 ******* Inside Mobile Device ****************: " + testType.toString());
 				softAssert.assertTrue(actualCssValues.get(0).contains(verifyViewAllLinkData[5][1]), "CSS value verification failed for font size " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[5][1] + " Actual Value : " + actualCssValues.get(0));
 			}
 			
 			if(testType.equalsIgnoreCase("Web")){
-				log.info("Test Type Name Font Color Verification ***************Inside Web : " + testType.toString());
+				log.info("Test Type Name Font Color Verification A ***************Inside Web : " + testType.toString());
 				softAssert.assertTrue(actualCssValues.get(1).contains(verifyViewAllLinkData[2][1]),"CSS value verification failed for color " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[2][1] + " Actual Value : " + actualCssValues.get(1));
 			}
 			/*else if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
@@ -547,7 +547,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				
 			}*/
 			else{
-				log.info("Test Type Name  ******* Inside Mobile Device ****************: " + testType.toString());
+				log.info("Test Type Name  Font Color Verification B ******* Inside Mobile Device ****************: " + testType.toString());
 				softAssert.assertTrue(actualCssValues.get(1).contains(verifyViewAllLinkData[2][1]),"CSS value verification failed for color " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[2][1] + " Actual Value : " + actualCssValues.get(1));
 			   }
 			
@@ -555,16 +555,16 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			
 			/********************************************************************************************************************************************************/
 			if(testType.equalsIgnoreCase("Web")){
-				log.info("Test Type Name CSS value verification failed for link *********************Inside Web : " + testType.toString());
+				log.info("Test Type Name CSS value verification failed for link a : *********************Inside Web : " + testType.toString());
 				softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
 			}
 			
-			 if(testType.equalsIgnoreCase("Web") && browserName.equalsIgnoreCase("edge")){
-				log.info("Test Type Name CSS value verification failed for link: " + testType.toString() + "****************^^^^^^^^^^^^^^******************" +  browserName.toString());
+			 if( browserName.equalsIgnoreCase("edge")){
+				log.info("Test Type Name CSS value verification failed for link b : " + testType.toString() + "****************^^^^^^^^^^^^^^******************" +  browserName.toString());
 				softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
 				
 			}else{
-				log.info("Test Type CSS value verification failed for link  ******* Inside Mobile Device ****************: " + testType.toString());
+				log.info("Test Type CSS value verification failed for link c :  ******* Inside Mobile Device ****************: " + testType.toString());
 				softAssert.assertTrue(actualCssValues.get(2).toLowerCase().replaceAll("'", "").replaceAll("\"", "").contains(verifyViewAllLinkData[3][1]),"CSS value verification failed for link " + verifyViewAllLinkData[0][1] + "Expected Value : "+ verifyViewAllLinkData[3][1] + " Actual Value : " + actualCssValues.get(2));				
 			}
 			
