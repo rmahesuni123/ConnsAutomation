@@ -144,14 +144,14 @@ public class WebPage {
 
 	private void maximizeWindow() {
 		BrowserInfoUtil biUtil = new BrowserInfoUtil(testBedName);
-		if (biUtil.isFF() || biUtil.isIE() || biUtil.isChrome()) {
+		if (biUtil.isFF() || biUtil.isIE() || biUtil.isChrome()|| biUtil.isEdge()) {
 			if (TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName()
 					.equalsIgnoreCase("Mac") && new BrowserInfoUtil(testBedName).isChrome()) {
 				this.resize(1400, 700);
 			}
 
 			else if (new BrowserInfoUtil(testBedName).isFF() || new BrowserInfoUtil(testBedName).isIE()
-					|| new BrowserInfoUtil(testBedName).isChrome() || new BrowserInfoUtil(testBedName).isSafari()) {
+					|| new BrowserInfoUtil(testBedName).isChrome() || new BrowserInfoUtil(testBedName).isSafari()||new BrowserInfoUtil(testBedName).isEdge()) {
 				this.driver.manage().window().maximize();
 			}
 		}

@@ -80,6 +80,15 @@ public class BrowserInfoUtil {
 	public boolean isChrome() {
 		return TestBedType.CHROME.getTestBedName().equalsIgnoreCase(getBrowserName());
 	}
+	
+	/**
+	 * check the current test is running on IE or non-IE browsers.
+	 *
+	 * @return return true if it's a IE browser test, else it will return false
+	 */
+	public boolean isEdge() {
+		return TestBedType.EDGE.getTestBedName().equalsIgnoreCase(getBrowserName());
+	}
 
 	/**
 	 * check the current test is running on Safari or non-Safari browsers.
