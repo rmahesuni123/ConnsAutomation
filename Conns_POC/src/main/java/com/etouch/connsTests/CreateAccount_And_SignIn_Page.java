@@ -495,6 +495,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			}else{
 				//commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 				/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+				CommonMethods.waitForGivenTime(10);
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 				js.executeScript("arguments[0].click();", element);
 			}
@@ -504,6 +505,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
 			}
 			else{
+				CommonMethods.waitForGivenTime(10);
 				String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
 				softAssert.assertEquals(actualMessage, testdata[6][2], "SuccessFul user creation Message:");
 			}
@@ -606,20 +608,26 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			 }
 
 				else {
-					/*commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+					CommonMethods.waitForGivenTime(10);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
-					commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);*/
+					CommonMethods.waitForGivenTime(10);
+					commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
+					CommonMethods.waitForGivenTime(10);
 					
 					//Modified Javascripts Click Method For Web Browser Execution
-					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][1]));					
+					/*WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][1]));					
 					js.executeScript("arguments[0].click();", element_1);
+					CommonMethods.waitForGivenTime(2);
 					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
 					js.executeScript("arguments[0].click();", element_2);
+					CommonMethods.waitForGivenTime(2);
 					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][3]));					
 					js.executeScript("arguments[0].click();", element_3);
-					
+					CommonMethods.waitForGivenTime(3);*/
 					String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][4], softAssert);
 					softAssert.assertTrue(actualMessage.contains(testdata[0][5]), "Newsletter Updation Message:");
+					CommonMethods.waitForGivenTime(10);
 					actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][6], softAssert);
 					softAssert.assertTrue(actualMessage.contains(testdata[0][7]),   "Newsletter subscription Message:");
 				}
@@ -833,10 +841,11 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
 				js.executeScript("arguments[0].click();", element);
 			}else{
-				//commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
+				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
 				/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
-				WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
-				js.executeScript("arguments[0].click();", element);
+				CommonMethods.waitForGivenTime(5);
+				/*WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
+				js.executeScript("arguments[0].click();", element);*/
 			}
 			
 			webPage.getCurrentUrl();// For Safari
@@ -844,9 +853,12 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					 "************************ Add New Address if Delete Address Link is not visible*****************");
 			/* commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
 					 softAssert);*/
+			
 			/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+			 CommonMethods.waitForGivenTime(5);
 			 WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Add_New_Address_Locator));
-				js.executeScript("arguments[0].click();", element);
+			 js.executeScript("arguments[0].click();", element);
+			 CommonMethods.waitForGivenTime(20);
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
 			 log.info(
 					 "************************ Additional Address Functionality Save Button Operation Starts For Devices :  ****************");
@@ -860,15 +872,21 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			 }			 			 
 			 else{
 				 log.info("Finding Save_Button_Locator " );
-				 WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
-				 js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
+				 CommonMethods.waitForGivenTime(10);
+				 commonMethods.clickElementbyXpath(webPage, Save_Button_Locator, softAssert);
+
+				 
+				 /*WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
+				 js.executeScript("arguments[0].click();", Save_Button_Locator_Element);*/
 				 log.info("Save_Button_Locator Clicked : "   );
+				 //CommonMethods.waitForGivenTime(10);
 				  String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 				 log.info( " **************************** Assert contains url*******************************************************************************************************************************************************");
+				 CommonMethods.waitForGivenTime(3);
 				 softAssert.assertTrue(actualAddressBookPageURL.contains(Expected_Address_Book_Page_URL),
 						 "Page url verification failed. Expected_Address_Book_Page_URL : " + Expected_Address_Book_Page_URL
 						 + "actualAddressBookPageURL : " + actualAddressBookPageURL);
-
+				 CommonMethods.waitForGivenTime(3);
 			 String actualAddressBookPageTitle = commonMethods.getPageTitle(webPage, softAssert);
 			 softAssert.assertEquals(actualAddressBookPageTitle, Expected_Address_Book_Page_Title,
 					 "Page title verification failed. Expected title : " + Expected_Address_Book_Page_Title
@@ -894,14 +912,17 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				js.executeScript("arguments[0].click();", element_2);
 			}
 			else {
-				WebElement element_3 = webPage.getDriver().findElement(By.xpath(commonData[6][1]));					
-				js.executeScript("arguments[0].click();", element_3);
+				/*WebElement element_3 = webPage.getDriver().findElement(By.xpath(commonData[6][1]));					
+				js.executeScript("arguments[0].click();", element_3);*/
+				commonMethods.clickElementbyXpath(webPage, Save_Button_Locator, softAssert);
+				CommonMethods.waitForGivenTime(5);
+
 
 			}
 		}
 		catch (Throwable e) {
 			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "Verify_Broken_Links");
+			mainPage.getScreenShotForFailure(webPage, "Verify_Address_Book");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
