@@ -102,12 +102,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				synchronized (this) {
 					creditAppPage = new CreditAppPage();
+					Thread.sleep(3000);
 					webPage = new WebPage(context);
 					webPageMap.put(Thread.currentThread().getId(), webPage);
 					mainPage = new ConnsMainPage(url, webPageMap.get(Thread.currentThread().getId()));
 					log.info(mainPage);
 				}
-				
 				if (testType.equalsIgnoreCase("Web")) {
 					log.info("Maximize Window in case of Desktop Browsers Only : ");
 					webPageMap.get(Thread.currentThread().getId()).getDriver().manage().window().maximize();
@@ -142,40 +142,32 @@ public class Conns_Credit_App_Page extends BaseTest {
 			creditAppPage.navigateToCreditAppPage(softAssert);
 			
 			//Verify Important Notice
-			JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
-			/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
-					"verifyImportantNotesLink");*/		
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyImportantNotesLink");
-			//creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
-
 			//verify Important notice link is present
-			if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
+			if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[0][1], softAssert))
 			{
+				commonMethods.clearElementbyXpath(webPageMap.get(Thread.currentThread().getId()), ".//*[@id='employed:other-income']", softAssert);
 				//verify link text
-				String linkText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert);
-				softAssert.assertTrue(linkText.contains(testData[1][2]),
-						"Failed to verify Important Notice Link Text. Expected "+testData[1][2]+" Actual : "+linkText);
+				String linkText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[0][1], softAssert);
+				softAssert.assertTrue(linkText.contains(testData[0][3]),
+						"Failed to verify Important Notice Link Text. Expected "+testData[0][3]+" Actual : "+linkText);
 				//Click on link
-				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1], softAssert);
-				log.info("Element Clicked - "+testData[2][1].toString());
+				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][2], softAssert);
+				log.info("Element Clicked - "+testData[1][0].toString());
 				
-				//Verify text for each paragraph in Important Notice
-				for (int i=3;i<10;i++)
+				//Verify text for Important Notice and close popUp
+				if(testType.equalsIgnoreCase("web"))
 				{
-					creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
+					creditAppPage.verifyContentByXpath(softAssert,testData[3][0], testData[3][1],	testData[3][3]);
+					commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[4][1], softAssert);
 				}
-				Thread.sleep(3000);
-				
-				//Close popUp box
-				WebElement element = webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(testData[10][1]));
-				log.info("Web Element Found" + element.toString());
-				js.executeScript("arguments[0].click();", element);
-				log.info("Web Element Clicked" + testData[10][1].toString());
+				else{
+					creditAppPage.verifyContentByXpath(softAssert,testData[3][0], testData[3][2],	testData[3][3]);
+					commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[4][2], softAssert);
+				}
 			}
 			softAssert.assertAll();
-			
-			
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Page_Title");
 			softAssert.assertAll();
@@ -314,39 +306,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1005, enabled = true, description = "verify Important Notes Link")
-	public void verify_Important_Notes_Link() throws Exception {
-		SoftAssert softAssert = new SoftAssert();
-		creditAppPage.navigateToCreditAppPage(softAssert);
-		JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
-		/*	LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
-				"verifyImportantNotesLink");*/		
-		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-				"verifyImportantNotesLink");
-		CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), testData[0][1]);
-		//creditAppPage.scrollToElement(commonData.get("ImportantNotices"), softAssert);
-
-		if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
-		{
-			softAssert.assertTrue(commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert).contains(testData[1][2]));
-			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1], softAssert);
-			log.info("Element Clicked - "+testData[2][1].toString());
-			for (int i=3;i<10;i++)
-			{
-				creditAppPage.verifyContentByXpath(softAssert,testData[i][0], testData[i][1],	testData[i][2]);
-			}
-
-			Thread.sleep(3000);
-			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[10][1], softAssert);
-			WebElement element = webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(testData[10][1]));
-			log.info("Web Element Found" + element.toString());
-			js.executeScript("arguments[0].click();", element);
-			log.info("Web Element Clicked" + testData[10][1].toString());
-
-		}
-	}
-
-	@Test(priority = 1006, enabled = true, description = "verify Important Notice Text")
+	@Test(priority = 1005, enabled = true, description = "verify Important Notice Text")
 	public void verify_Important_Notice_Text() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -362,7 +322,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 1007, enabled = true, description = "Verify Suffix DropDown List")
+	@Test(priority = 1006, enabled = true, description = "Verify Suffix DropDown List")
 	  public void verify_Suffix_DropDown_List() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -380,7 +340,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 1008, enabled = true, description = "verify EmailID Count")
+	@Test(priority = 1007, enabled = true, description = "verify EmailID Count")
 	  public void verify_EmailID_Count() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
@@ -402,41 +362,12 @@ public class Conns_Credit_App_Page extends BaseTest {
 						+ inputdata.get("EmailData").length());
 			log.info("Email ID Count Starts 2: " + EmailId_Length);	
 		} 
-
-		/*else if ((EmailId_Length <= 50) && browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari")){
-			log.info("Inside IPhone & IPad executions " + browserName.toString());
-			WebElement element = webPageMap.get(Thread.currentThread().getId())getDriver().findElement(By.xpath(inputdata.get("LastNameLocator")));
-			log.info("Web Element Found" + element.toString());
-			js.executeScript("arguments[0].click();", element);
-			log.info("Web Element Clicked" + inputdata.get("LastNameLocator").toString());
-			webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
-		}
-			else  {
-				//webPageMap.get(Thread.currentThread().getId())getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier"))).sendKeys(inputdata.get("EmailData"));
-				
-				WebElement Email_ID_Input_Data = webPageMap.get(Thread.currentThread().getId())getDriver().findElement(By.xpath(inputdata.get("EmailIdentifier")));
-				log.info("Email ID Input Text Starts 3: " +Email_ID_Input_Data.getAttribute("value"));	
-				log.info("Email ID Input Text Count Starts 4: " +Email_ID_Input_Data.getAttribute("value").length());
-				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
-				Thread.sleep(2000);
-				commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), inputdata.get("LastNameLocator"), softAssert);
-				creditAppPage.verifyErrorMessageByXpath(softAssert, "EmailIDErrorMessageText", inputdata.get("EmailIDErrorMessageLocator"),
-					inputdata.get("EmailIDErrorMessageText"));
-			}*/
-	 
-		
-			
-		
 	 }log.info("testing verify_EmailID_Count completed------>");
-
-	 
-	
 		/*********************************************************************************************************************/
 	}
 	
-	@Test(priority = 1009, enabled = true, description = "verify form is rendered with blank fields")
+	@Test(priority = 1008, enabled = true, description = "verify form is rendered with blank fields")
 	public void verify_Form_Is_Displayed_With_Blank_Field() throws Exception {
-		// try{
 		log.info("testing verifyLinkNavigation started------>");
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -452,7 +383,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1010, enabled = true, description = "verify Mandatory Field Validation WithoutData")
+	@Test(priority = 1009, enabled = true, description = "verify Mandatory Field Validation WithoutData")
 	public void verify_Mandatory_Field_Validation_Without_Data() throws Exception {
 		log.info("testing verifyMandatoryFieldValidationWithoutData started------>");
 		SoftAssert softAssert = new SoftAssert();
@@ -460,7 +391,6 @@ public class Conns_Credit_App_Page extends BaseTest {
 			 creditAppPage.navigateToCreditAppPage(softAssert);
 			 creditAppPage.scrollToElement(commonData.get("SubmitButton"), softAssert);
 			 webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(commonData.get("SubmitButton"))).click();
-			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
 			 
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyMandatoryFieldValidationWithoutData");
@@ -483,7 +413,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1011, enabled = true, description = "verify Error Msg With Blank Data")
+	@Test(priority = 1010, enabled = true, description = "verify Error Msg With Blank Data")
 	public void verify_Field_Validation_Error_Message_With_InValid_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -513,7 +443,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1012, enabled = true, description = "Verify City and State Field Auto Populates")
+	@Test(priority = 1011, enabled = true, description = "Verify City and State Field Auto Populates")
 	public void verify_City_State_Fields_Auto_Populates() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -538,7 +468,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1013, enabled = true, description = "verify Years There Drop Down Values")
+	@Test(priority = 1012, enabled = true, description = "verify Years There Drop Down Values")
 	public void verify_Years_There_DropDown_Values() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -561,7 +491,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1014, enabled = true, description = "verify City And State Fields Are Editable")
+	@Test(priority = 1013, enabled = true, description = "verify City And State Fields Are Editable")
 	public void verify_City_And_State_Field_Are_Editable() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -589,7 +519,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1015, enabled = true, description = "verify Main Source Of Income Field")
+	@Test(priority = 1014, enabled = true, description = "verify Main Source Of Income Field")
 	public void verify_Main_Source_Of_Income_Field() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -621,7 +551,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1016, enabled = true, description = "verify Mandatory Field Validation Without Data Main Source of Income Fields")
+	@Test(priority = 1015, enabled = true, description = "verify Mandatory Field Validation Without Data Main Source of Income Fields")
 	public void verify_Mandatory_Field_Validation_Without_Data_Main_Source_of_Income_Fields() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -652,7 +582,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1017, enabled = true, description = "verify Error Message for Reference Code Field")
+	@Test(priority = 1016, enabled = true, description = "verify Error Message for Reference Code Field")
 	public void verify_Error_Message_for_Reference_Code_Field() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -676,7 +606,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1018, enabled = true, description = "verify Reference Code With Valid Required Field Data")
+	@Test(priority = 1017, enabled = true, description = "verify Reference Code With Valid Required Field Data")
 	public void verify_Reference_Code_With_Valid_Required_Field_Data() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -712,7 +642,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 1019, enabled = true, description = "verify Power Review In Yes Money Landing Page")
+	@Test(priority = 1018, enabled = true, description = "verify Power Review In Yes Money Landing Page")
 	public void verify_Power_Review_In_Yes_Money_Landing_Page() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -735,7 +665,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1020, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1019, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Successful_Submit_Status_Approved_With_DP() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -753,8 +683,10 @@ public class Conns_Credit_App_Page extends BaseTest {
 			
 			webPageMap.get(Thread.currentThread().getId()).switchWindow("Conns");
 			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), false);
+			//webPageMap.get(Thread.currentThread().getId()).getDriver().close();
 			webPageMap.get(Thread.currentThread().getId()).closeToggleWindow();
 			softAssert.assertAll();
+		
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_Status_Approved_With_DP");
 			softAssert.assertAll();
@@ -768,7 +700,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1021, enabled = true, description = "verify Error Msg With Blank Data")
+	@Test(priority = 1020, enabled = true, description = "verify Error Msg With Blank Data")
 	public void verify_Valid_User_Successful_Submit_For_New_User_Status_Approved_Without_DP() throws Exception {
 		log.info("testing verifyValidUserSuccessfulSubmitForNewUser started------>");
 		SoftAssert softAssert = new SoftAssert();
@@ -797,7 +729,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1022, enabled = true, description = "verify Successful Submit For Registered User")
+	@Test(priority = 1021, enabled = true, description = "verify Successful Submit For Registered User")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Employed_Status_Wait() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -816,7 +748,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1023, enabled = true, description = "verify Successful Submit With Main Source Of Income As Social Security Statu Out Of State")
+	@Test(priority = 1022, enabled = true, description = "verify Successful Submit With Main Source Of Income As Social Security Statu Out Of State")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Social_Security_Status_Out_Of_State()
 			throws Exception {
 		SoftAssert softAssert = new SoftAssert();
@@ -835,7 +767,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1024, enabled = true, description = "verify Successful Submit With RefField")
+	@Test(priority = 1023, enabled = true, description = "verify Successful Submit With RefField")
 	public void verify_Credit_App_Submit_With_RefField() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -863,7 +795,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1025, enabled = true, description = "verify Successful Submit For With Main source of Income as Disability Income")
+	@Test(priority = 1024, enabled = true, description = "verify Successful Submit For With Main source of Income as Disability Income")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Disability_Income() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -881,7 +813,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1026, enabled = true, description = "verify Successful Submit With Main Source Of Income As Spous And Partner")
+	@Test(priority = 1025, enabled = true, description = "verify Successful Submit With Main Source Of Income As Spous And Partner")
 	public void verify_Credit_App_Submit_With_Main_Source_Of_Income_As_Spous_And_Partner() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -904,7 +836,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1027, enabled = true, description = "verify Fields Are AutoPopulated For Registered User")
+	@Test(priority = 1026, enabled = true, description = "verify Fields Are AutoPopulated For Registered User")
 	public void verify_Fields_Are_AutoPopulated_For_Registered_User() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -922,7 +854,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1028, dependsOnMethods = "verify_Fields_Are_AutoPopulated_For_Registered_User", enabled = true, description = "verify First Name And Last Name Field Are Editable")
+	@Test(priority = 1027, dependsOnMethods = "verify_Fields_Are_AutoPopulated_For_Registered_User", enabled = true, description = "verify First Name And Last Name Field Are Editable")
 	public void verify_First_Name_And_Last_Name_Field_Are_Editable() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -945,7 +877,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1029, dependsOnMethods = "verify_First_Name_And_Last_Name_Field_Are_Editable", enabled = true, description = "verify Email Is Not Editable For Registered User")
+	@Test(priority = 1028, dependsOnMethods = "verify_First_Name_And_Last_Name_Field_Are_Editable", enabled = true, description = "verify Email Is Not Editable For Registered User")
 	public void verify_Email_Is_Not_Editable() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -979,7 +911,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1030, dependsOnMethods = "verify_Email_Is_Not_Editable", enabled = true, description = "verify Sign In Link Is Not Displayed For Registered User")
+	@Test(priority = 1029, dependsOnMethods = "verify_Email_Is_Not_Editable", enabled = true, description = "verify Sign In Link Is Not Displayed For Registered User")
 	public void verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -994,7 +926,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		}
 	}
 
-	@Test(priority = 1031, dependsOnMethods = "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User", enabled = true, description = "verify Registered User Is Able To Fill Mandatory Fields")
+	@Test(priority = 1030, dependsOnMethods = "verify_Sign_In_Link_Is_Not_Displayed_For_Registered_User", enabled = true, description = "verify Registered User Is Able To Fill Mandatory Fields")
 	public void verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1015,7 +947,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(priority = 1032/*, dependsOnMethods = "verify_Registered_User_Is_Able_To_Fill_Mandatory_Fields"*/, enabled = true, description = "verify Successful Submit For Registered User Status Duplicate")
+	@Test(priority = 1031, enabled = true, description = "verify Successful Submit For Registered User Status Duplicate")
 	public void verify_Successful_Submit_For_Registered_User_Status_Duplicate() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -1023,28 +955,19 @@ public class Conns_Credit_App_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifySuccessfulSubmitForRegisteredUser");
 			creditAppPage.fillForm(softAssert, testData);
-			//creditAppPage.verifyFieldValues(testData, softAssert);
 			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "DuplicatePage");
-			/*String[][] reviewData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"ReviewData");*/
-			
-			Thread.sleep(5000);
+			//Click on write a review
 			webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(".//*[@id='button-write-review']").click();
-			Thread.sleep(5000);
-			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
-			
+			 commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			//switch to review window
 			webPageMap.get(Thread.currentThread().getId()).switchWindow("Conns");
-			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), true);
+			creditAppPage.submitReview(webPageMap.get(Thread.currentThread().getId()),softAssert, ExcelUtil.readExcelData(DataFilePath, "CreditApp","submitReviewYesMoneyLanding"), true);
 			webPageMap.get(Thread.currentThread().getId()).closeToggleWindow();
-			Thread.sleep(5000);
-			webPageMap.get(Thread.currentThread().getId()).closeToggleWindow();
-				softAssert.assertAll();
-			
-			
+			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Successful_Submit_For_Registered_User_Status_Duplicate");
 			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
+			Assert.fail(e.getLocalizedMessage()); 
 		}
 	}
 	
