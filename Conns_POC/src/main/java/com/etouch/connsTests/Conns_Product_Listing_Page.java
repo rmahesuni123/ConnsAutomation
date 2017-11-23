@@ -132,7 +132,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					mobileData[0][0]).getText();
 			SoftAssertor
 			.assertTrue(
-					nextPagination.contains(mobileData[0][1]),
+					nextPagination.equalsIgnoreCase(mobileData[0][1]),
 					"NextPagination: Expected:" + mobileData[0][1]
 							+ " Actual: " + nextPagination);
 		  //	webPage.findObjectByxPath(mobileData[0][0]).click();
@@ -147,7 +147,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					mobileData[0][2]).getText();
 			SoftAssertor
 			.assertTrue(
-					backPagination.contains(mobileData[0][3]),
+					backPagination.equalsIgnoreCase(mobileData[0][3]),
 					"backPagination: Expected:" + mobileData[0][3]
 							+ " Actual: " + backPagination);
 			//webPage.findObjectByxPath(mobileData[0][2]).click();
@@ -161,7 +161,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 					.getText();
 			SoftAssertor
 			.assertTrue(
-					nextPagination.contains(mobileData[0][1]),
+					nextPagination.equalsIgnoreCase(mobileData[0][1]),
 					"NextPagination: Expected:" + mobileData[0][1]
 							+ " Actual: " + nextPagination);
 		} else{
