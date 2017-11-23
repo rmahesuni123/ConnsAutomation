@@ -127,7 +127,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			log.info("height value calculated is :" +height);
 			Dimension dimension  = new Dimension(width, height);			
 			System.out.println("Dimensions" + dimension);        
-			if ((testType.equalsIgnoreCase("Web")))
+			if (!(testType.equalsIgnoreCase("Web")) && testBedName.equalsIgnoreCase("edge"))
 			{	log.info("********************TestType for Web started execution***************   : " + testType.toString());
 			for (int i = 0; i < ExpectedFontValuesWeb.length; i++) 
 			{
@@ -142,8 +142,8 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 			}
 			}
-			//testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") ||
-			else if (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative"))
+			//
+			else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative"))
 			{	 log.info("********************TestType for Mobile started execution***************   : " + testType.toString());
 			log.info("********************TestBedName for iPadNative started execution***************   : " + testBedName.toString());
 			if(width>599||width<800)
@@ -161,7 +161,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 			}
 			}
-			else if (testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))  ) {
+			else if (testType.equalsIgnoreCase("Mobile")  || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))  ) {
 				log.info("********************TestType for All_Mobile started execution***************   : " + testType.toString());
 				log.info("********************TestBedName for All_Mobile started execution***************   : " + testBedName.toString());
 
@@ -547,7 +547,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 							testdata[i][4].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert).toLowerCase(),
 							testdata[i][6].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
-					if (testType.equalsIgnoreCase("Mobile") ) {
+					if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 						if (!(i == 2)) {
 							commonMethods.clickElementbyXpath(webPage, testdata[i][9], softAssert);
 						}
