@@ -252,7 +252,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			for (int i = 0; i < 2; i++) {
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
-			if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
@@ -333,7 +333,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterPageTitle");
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
@@ -371,7 +371,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				softAssert.assertEquals(toolTipText, testdata[i][2],
 						"Tool Tip Text verification failed for :" + testdata[i][0]);
 			}
-			if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") ||  testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
@@ -402,7 +402,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterErrorMessageWithBlankInput");
-			if (testType.equalsIgnoreCase("Mobile")|| testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
@@ -438,7 +438,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			for (int i = 0; i < 5; i++) {
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
@@ -482,7 +482,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 				}
 			}
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
@@ -715,7 +715,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					}
 				}
 				//Click Save Button
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 					log.info("Save Button Info -----> : " + testdata[0][12]);
 					log.info("Clicking Save Button -----> : " + testdata[0][12]);
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
@@ -784,7 +784,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 			}
 
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][10]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
@@ -821,7 +821,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
 			 log.info(
 					 "************************ Additional Address Functionality Save Button Operation Starts For Devices :  ****************");
-			 if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {
+			 if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 			 log.info( "************************* Additional Address Functionality Save Button will be clicked  ******************");
 				log.info("Finding Save_Button_Locator " );
 				WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
@@ -892,7 +892,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			for (int i = 0; i < 2; i++) {
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") || testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
 				js.executeScript("arguments[0].click();", element);
 			}else{
@@ -903,7 +903,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_Account_Dashboard");
 			for (int i = 1; i < linkData.length; i++) {
-				if ( (testBedName.equalsIgnoreCase("Safari")) ||(testType.equalsIgnoreCase("Mobile")) ){
+				if ( (testBedName.equalsIgnoreCase("Safari")) || testBedName.equalsIgnoreCase("Edge") || (testType.equalsIgnoreCase("Mobile")) ){
 					log.info("Only Safari Browser Execution Starts " + testBedName.toString());
 					if ((i==5) || ((i==6))){
 						log.info("Started Iteration : " + i);
@@ -925,7 +925,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
-						if (testType.equalsIgnoreCase("Mobile") ||  testBedName.equalsIgnoreCase("Safari")) {
+						if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Edge") ||  testBedName.equalsIgnoreCase("Safari")) {
 							WebElement element = webPage.getDriver().findElement(By.xpath(linkData[i][3]));							
 							js.executeScript("arguments[0].click();", element);
 						}else{
