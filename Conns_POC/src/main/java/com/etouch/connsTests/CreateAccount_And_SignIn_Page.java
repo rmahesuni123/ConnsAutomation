@@ -161,7 +161,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 			}
 			}
-			else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))  ) {
+			else if (testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))  ) {
 				log.info("********************TestType for All_Mobile started execution***************   : " + testType.toString());
 				log.info("********************TestBedName for All_Mobile started execution***************   : " + testBedName.toString());
 
@@ -526,7 +526,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				log.info("Started iteration------>");
 				for (int i = 0; i < 3; i++) {
 					log.info("Started iteration" + i);
-					if (testType.equalsIgnoreCase("Mobile")) {
+					if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 						commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 						commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 					} 
@@ -634,7 +634,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
-				 if ( testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
+				 if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
 				log.info("Inside Else If for iPhoneNative DropDown Selection Box");
 					Thread.sleep(5000);
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
@@ -659,7 +659,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				Thread.sleep(3000);
-				if (testType.equalsIgnoreCase("Mobile")) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					log.info("Validation for Blank Data Keys.Enter Started----->");
 					for (int i = 3; i < 7; i++) {
 						WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][i]));					
