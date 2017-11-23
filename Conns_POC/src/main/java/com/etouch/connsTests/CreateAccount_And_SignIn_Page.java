@@ -597,9 +597,18 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			 }
 
 				else {
-					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+					/*commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 					commonMethods.clickElementbyXpath(webPage, testdata[0][2], softAssert);
-					commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);
+					commonMethods.clickElementbyXpath(webPage, testdata[0][3], softAssert);*/
+					
+					//Modified Javascripts Click Method For Web Browser Execution
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][1]));					
+					js.executeScript("arguments[0].click();", element_1);
+					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
+					js.executeScript("arguments[0].click();", element_2);
+					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][3]));					
+					js.executeScript("arguments[0].click();", element_3);
+					
 					String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][4], softAssert);
 					softAssert.assertTrue(actualMessage.contains(testdata[0][5]), "Newsletter Updation Message:");
 					actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][6], softAssert);
