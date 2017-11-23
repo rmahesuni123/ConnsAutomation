@@ -407,7 +407,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
-				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+				//commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+				/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][1]));
+				js.executeScript("arguments[0].click();", element);
 			}
 			CommonMethods.waitForGivenTime(5);
 			for (int i = 1; i < 5; i++) {
@@ -443,7 +446,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
-				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
+				//commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
+				/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
+				js.executeScript("arguments[0].click();", element);
 			}
 			for (int i = 6; i < 9; i++) {
 				CommonMethods.waitForGivenTime(1);
@@ -487,7 +493,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
-				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
+				//commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
+				/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
+				js.executeScript("arguments[0].click();", element);
 			}
 			CommonMethods.waitForGivenTime(5);
 			if (testType.equalsIgnoreCase("Mobile")) {		 
@@ -824,14 +833,20 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
 				js.executeScript("arguments[0].click();", element);
 			}else{
-				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
+				//commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
+				/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+				WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
+				js.executeScript("arguments[0].click();", element);
 			}
 			
 			webPage.getCurrentUrl();// For Safari
 			log.info(
 					 "************************ Add New Address if Delete Address Link is not visible*****************");
-			 commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
-					 softAssert);
+			/* commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
+					 softAssert);*/
+			/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+			 WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Add_New_Address_Locator));
+				js.executeScript("arguments[0].click();", element);
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
 			 log.info(
 					 "************************ Additional Address Functionality Save Button Operation Starts For Devices :  ****************");
@@ -910,7 +925,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
 				js.executeScript("arguments[0].click();", element);
 			}else{
-				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
+			//	commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
+			/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
+				js.executeScript("arguments[0].click();", element);
 			}
 			CommonMethods.waitForGivenTime(5);
 			webPage.getDriver().get(commonData[8][1]);
@@ -943,7 +961,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 							WebElement element = webPage.getDriver().findElement(By.xpath(linkData[i][3]));							
 							js.executeScript("arguments[0].click();", element);
 						}else{
-							commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+							//commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
+							/***Commented Clicking method and used Javascripts click methood for Browsers Execution for verify_Create_New_Customer_with_Invalid_Input****/
+							WebElement element = webPage.getDriver().findElement(By.xpath(linkData[i][3]));							
+							js.executeScript("arguments[0].click();", element);
 						}						
 						CommonMethods.waitForGivenTime(5);
 					}
