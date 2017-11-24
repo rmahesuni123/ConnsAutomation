@@ -113,59 +113,62 @@ public class CreateAccountAndSignInPage extends CommonPage {
 			String Expected_Address_Book_Page_URL = inputdata[0][29];
 			
 try {
+			
 	
-			commonMethods.clickElementbyXpath(webPage, First_Name_Locator, softAssert);
-			/*WebElement First_Name_Locator_Element = webPage.getDriver().findElement(By.xpath(First_Name_Locator));			
-			js.executeScript("arguments[0].click();", First_Name_Locator_Element);*/
+	
+			
+			//commonMethods.clickElementbyXpath(webPage, First_Name_Locator, softAssert);
+			WebElement First_Name_Locator_Element = webPage.getDriver().findElement(By.xpath(First_Name_Locator));			
+			js.executeScript("arguments[0].click();", First_Name_Locator_Element);
 			commonMethods.clearElementbyXpath(webPage, First_Name_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, First_Name_Locator, First_Name_Input, softAssert);
 			
-			commonMethods.clickElementbyXpath(webPage, Last_Name_Locator, softAssert);
-			/*WebElement Last_Name_Locator_Element = webPage.getDriver().findElement(By.xpath(Last_Name_Locator));
-			js.executeScript("arguments[0].click();", Last_Name_Locator_Element);	*/		
+			//commonMethods.clickElementbyXpath(webPage, Last_Name_Locator, softAssert);
+			WebElement Last_Name_Locator_Element = webPage.getDriver().findElement(By.xpath(Last_Name_Locator));
+			js.executeScript("arguments[0].click();", Last_Name_Locator_Element);			
 			commonMethods.clearElementbyXpath(webPage, Last_Name_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Last_Name_Locator, Last_Name_Input, softAssert);
 			
-			commonMethods.clickElementbyXpath(webPage, Company_Name_Locator, softAssert);
-			/*WebElement Company_Name_Locator_Element = webPage.getDriver().findElement(By.xpath(Company_Name_Locator));			
-			js.executeScript("arguments[0].click();", Company_Name_Locator_Element);*/
+			//commonMethods.clickElementbyXpath(webPage, Company_Name_Locator, softAssert);
+			WebElement Company_Name_Locator_Element = webPage.getDriver().findElement(By.xpath(Company_Name_Locator));			
+			js.executeScript("arguments[0].click();", Company_Name_Locator_Element);
 			commonMethods.clearElementbyXpath(webPage, Company_Name_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Company_Name_Locator, Company_Name_Input, softAssert);
 			
-			commonMethods.clickElementbyXpath(webPage, Telephone_Number_Locator, softAssert);
-			/*WebElement Telephone_Number_Locator_Element = webPage.getDriver().findElement(By.xpath(Telephone_Number_Locator));			
-			js.executeScript("arguments[0].click();", Telephone_Number_Locator_Element);*/
+			//commonMethods.clickElementbyXpath(webPage, Telephone_Number_Locator, softAssert);
+			WebElement Telephone_Number_Locator_Element = webPage.getDriver().findElement(By.xpath(Telephone_Number_Locator));			
+			js.executeScript("arguments[0].click();", Telephone_Number_Locator_Element);
 			commonMethods.clearElementbyXpath(webPage, Telephone_Number_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Telephone_Number_Locator, Telephone_Number_Input, softAssert);
 			
-			commonMethods.clickElementbyXpath(webPage, Fax_Number_Locator, softAssert);
-			/*WebElement Fax_Number_Locator_Element = webPage.getDriver().findElement(By.xpath(Fax_Number_Locator));			
-			js.executeScript("arguments[0].click();", Fax_Number_Locator_Element);*/
+			//commonMethods.clickElementbyXpath(webPage, Fax_Number_Locator, softAssert);
+			WebElement Fax_Number_Locator_Element = webPage.getDriver().findElement(By.xpath(Fax_Number_Locator));			
+			js.executeScript("arguments[0].click();", Fax_Number_Locator_Element);
 			commonMethods.clearElementbyXpath(webPage, Fax_Number_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Fax_Number_Locator, Fax_Number_Input, softAssert);
 			
-			commonMethods.clickElementbyXpath(webPage, Street_Address_1_Locator, softAssert);
-			/*WebElement Street_Address_1_Locator_Element = webPage.getDriver().findElement(By.xpath(Street_Address_1_Locator));
-			js.executeScript("arguments[0].click();", Street_Address_1_Locator_Element);*/
+			//commonMethods.clickElementbyXpath(webPage, Street_Address_1_Locator, softAssert);
+			WebElement Street_Address_1_Locator_Element = webPage.getDriver().findElement(By.xpath(Street_Address_1_Locator));
+			js.executeScript("arguments[0].click();", Street_Address_1_Locator_Element);
 			commonMethods.clearElementbyXpath(webPage, Street_Address_1_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Street_Address_1_Locator, Street_Address_1_Input, softAssert);
 			
-			commonMethods.clickElementbyXpath(webPage, Street_Address_2_Locator, softAssert);
-			/*WebElement Street_Address_2_Locator_Element = webPage.getDriver().findElement(By.xpath(Street_Address_2_Locator));
-			js.executeScript("arguments[0].click();", Street_Address_2_Locator_Element);*/
+			//commonMethods.clickElementbyXpath(webPage, Street_Address_2_Locator, softAssert);
+			WebElement Street_Address_2_Locator_Element = webPage.getDriver().findElement(By.xpath(Street_Address_2_Locator));
+			js.executeScript("arguments[0].click();", Street_Address_2_Locator_Element);
 			commonMethods.clearElementbyXpath(webPage, Street_Address_2_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Street_Address_2_Locator, Street_Address_2_Input, softAssert);
 			
-			commonMethods.clickElementbyXpath(webPage, City_Name_Locator, softAssert);
-			/*WebElement City_Name_Locator_Element = webPage.getDriver().findElement(By.xpath(City_Name_Locator));
-			js.executeScript("arguments[0].click();", City_Name_Locator_Element);*/
+			//commonMethods.clickElementbyXpath(webPage, City_Name_Locator, softAssert);
+			WebElement City_Name_Locator_Element = webPage.getDriver().findElement(By.xpath(City_Name_Locator));
+			js.executeScript("arguments[0].click();", City_Name_Locator_Element);
 			commonMethods.clearElementbyXpath(webPage, City_Name_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, City_Name_Locator, City_Name_Input, softAssert);
 			
 			log.info("Zip_Postal_Code_Locator Will be Clicked" );
-			commonMethods.clickElementbyXpath(webPage, Zip_Postal_Code_Locator, softAssert);
-			/*WebElement Zip_Postal_Code_Locator_Element = webPage.getDriver().findElement(By.xpath(Zip_Postal_Code_Locator));			
-			js.executeScript("arguments[0].click();", Zip_Postal_Code_Locator_Element);*/
+			//commonMethods.clickElementbyXpath(webPage, Zip_Postal_Code_Locator, softAssert);
+			WebElement Zip_Postal_Code_Locator_Element = webPage.getDriver().findElement(By.xpath(Zip_Postal_Code_Locator));			
+			js.executeScript("arguments[0].click();", Zip_Postal_Code_Locator_Element);
 			commonMethods.clearElementbyXpath(webPage, Zip_Postal_Code_Locator, softAssert);
 			commonMethods.sendKeysbyXpath(webPage, Zip_Postal_Code_Locator, Zip_Postal_Code_Input, softAssert);
 			log.info("Zip_Postal_Code_Input Entered" );
