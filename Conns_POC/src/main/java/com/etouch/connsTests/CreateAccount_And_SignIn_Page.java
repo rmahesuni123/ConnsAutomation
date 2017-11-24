@@ -870,7 +870,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
 				log.info("Save_Button_Locator Clicked : "   );
 				log.info(" **************************** Additional Address Functionality Completed Successfully *******************************************************************************************************************************************************");
-					
+				webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);	
 			 }
 			 else{
 				 log.info("Finding Save_Button_Locator " );
@@ -880,6 +880,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 				 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 				 log.info( " **************************** Assert contains url*******************************************************************************************************************************************************");
+				 webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
 				 softAssert.assertTrue(actualAddressBookPageURL.contains(Expected_Address_Book_Page_URL),
 						 "Page url verification failed. Expected_Address_Book_Page_URL : " + Expected_Address_Book_Page_URL
 						 + "actualAddressBookPageURL : " + actualAddressBookPageURL);
@@ -889,12 +890,12 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					 "Page title verification failed. Expected title : " + Expected_Address_Book_Page_Title
 					 + "Actual Title : " + actualAddressBookPageTitle);
 			// if (!(testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("InternetExplorer")||  testBedName.equalsIgnoreCase("Firefox")||testBedName.equalsIgnoreCase("Safari"))) {
-			 String ActualElementName = commonMethods.getTextbyXpath(webPage,
+			/* String ActualElementName = commonMethods.getTextbyXpath(webPage,
 					 Expected_Additonal_Address_Successfully_Saved_Locator, softAssert);
 			 softAssert.assertEquals(ActualElementName, Expected_Additonal_Address_Successfully_Saved_Message,
 					 "Page Content verification failed. Expected Page Content Expected Element Name : "
 							 + Expected_Additonal_Address_Successfully_Saved_Message
-							 + "Actual Page Content Actual Element Name : " + ActualElementName);
+							 + "Actual Page Content Actual Element Name : " + ActualElementName);*/
 			//	}
 			 /************************************************************************************************************************************************************************/
 			 softAssert.assertAll();
