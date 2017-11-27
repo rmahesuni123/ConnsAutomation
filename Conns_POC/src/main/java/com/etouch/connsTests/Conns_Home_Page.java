@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -60,6 +61,7 @@ public class Conns_Home_Page extends BaseTest {
 	String storeLocatorURL = "";
 	String[][] commonData;
 	ConnsHomePage ConnsHomePage;
+	protected static LinkedHashMap<Long, WebPage> webPageMap = new LinkedHashMap<Long, WebPage>();
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -86,6 +88,7 @@ public class Conns_Home_Page extends BaseTest {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
 					ConnsHomePage = new ConnsHomePage(url, webPage);
+					webPageMap.put(Thread.currentThread().getId(), webPage);
 				}
 				Thread.sleep(5000);
 			} catch (Exception e) {
@@ -98,9 +101,17 @@ public class Conns_Home_Page extends BaseTest {
 		}
 	}
 
-	@AfterTest
+	/*@AfterTest
 	public void releaseResources() throws IOException, AWTException {
 		webPage.getDriver().quit();
+	}*/
+	
+	
+	@AfterTest(alwaysRun = true)
+	public void releaseResources() throws IOException, AWTException {
+		// SpecializedScreenRecorder.stopVideoRecording();
+		//webPage.getDriver().quit();
+		webPageMap.get(Thread.currentThread().getId()).getDriver().quit();
 	}
 
 	/**
@@ -120,6 +131,7 @@ public class Conns_Home_Page extends BaseTest {
 							+ webPage.getPageTitle());
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_HomePage_Title");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -312,6 +324,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			// mainPage.getScreenShotForFailure(webPage,
 			// "Verify_Font_And_Size");
 			softAssert.assertAll();
@@ -334,12 +347,16 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 4, enabled = true, description = "Verify_Element_Visibility_Under_We_Accept_Section")
 	public void Verify_Element_Visibility_Under_We_Accept_Section() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFooterWeAccpet");
-			boolean statusOfWeAccept = commonMethods.verifyElementisPresent(webPage, testData[0][0], softAssert);
-			softAssert.assertTrue(statusOfWeAccept, "We accept images are not present on the page");
+			//boolean statusOfWeAccept = commonMethods.verifyElementisPresent(webPage, testData[0][0], softAssert);
+			/***commented above code to use isElementPresentCheckUsingJavaScriptExecutor***/	
+			boolean statusOfWeAccept = commonMethods.isElementPresentCheckUsingJavaScriptExecutor(webPage, testData[0][0], softAssert);
+			softAssert.assertSame(statusOfWeAccept, true);
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Element_Visibility_Under_We_Accept_Section");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -358,6 +375,7 @@ public class Conns_Home_Page extends BaseTest {
 			String homeplusText1 = commonMethods.getTextbyXpath(webPage, testData[0][0], softAssert);
 			softAssert.assertEquals(homeplusText1, testData[0][1]);
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Content_Under_Footer_Copyright_Section");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -366,11 +384,13 @@ public class Conns_Home_Page extends BaseTest {
 	/**
 	 * Test Case - 006 - verify Your Cart functionality by adding product in
 	 * cart Conns Home Page
+	 * @throws InterruptedException 
 	 * 
 	 */
 	@Test(priority = 6, enabled = true, description = "Verify Your Cart Functionality")
-	public void Verify_Your_Cart_Functionality() {
+	public void Verify_Your_Cart_Functionality() throws InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		Thread.sleep(2000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYourCart");
 			String cartText = commonMethods.getTextbyXpath(webPage, testData[0][0], softAssert);
@@ -380,6 +400,7 @@ public class Conns_Home_Page extends BaseTest {
 			//	commonMethods.clickElementbyXpath(webPage, testData[0][0], softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Your_Cart_Functionality");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -422,6 +443,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -450,6 +472,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Links_In_Header_Section");
 			// mainPage.getScreenShotForFailure(webPage,
 			// "Verify_LinksRedirection_Of_Above_Header_Section");
@@ -518,7 +541,8 @@ public class Conns_Home_Page extends BaseTest {
 			} 
 			softAssert.assertAll();
 		}catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_Appliances_Menu");
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -530,6 +554,7 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 10, enabled = true, description = "Verify LinksRedirection Under Appliances Menu")
 	public void Verify_LinksRedirection_Under_Appliances_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		//String thirdParentXpath =  null;
 		webPage.getDriver().get(url);
 		try {
@@ -540,7 +565,11 @@ public class Conns_Home_Page extends BaseTest {
 			if (testType.equalsIgnoreCase("Web")) {
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
+					Thread.sleep(2000);
 					commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
+					/*WebElement element_2 = webPage.getDriver().findElement(By.xpath(commonData[0][0]));					
+					js.executeScript("arguments[0].click();", element_2);*/
+					Thread.sleep(4000);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
@@ -584,6 +613,7 @@ public class Conns_Home_Page extends BaseTest {
 			} 
 			softAssert.assertAll();
 		}catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_Appliances_Menu");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -605,7 +635,7 @@ public class Conns_Home_Page extends BaseTest {
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForTvAudioElectronics");
 			String elementXpath=null;
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 
 			if (testType.equalsIgnoreCase("Web")) {
 				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
@@ -654,6 +684,7 @@ public class Conns_Home_Page extends BaseTest {
 			} 
 			softAssert.assertAll();
 		}catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_TV_Audio_And_Electronics_Menu");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -678,9 +709,11 @@ public class Conns_Home_Page extends BaseTest {
 			Thread.sleep(2000);
 
 			if (testType.equalsIgnoreCase("Web")) {
+				Thread.sleep(4000);
 				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
+					Thread.sleep(2000);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][3], testData[i][1], testData[i][2], softAssert);
 				}
 			}
@@ -724,6 +757,7 @@ public class Conns_Home_Page extends BaseTest {
 			} 
 			softAssert.assertAll();
 		}catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_ComputerAccessories_Menu");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -792,6 +826,7 @@ public class Conns_Home_Page extends BaseTest {
 			} 
 			softAssert.assertAll();
 		}catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_FinancingPromotions_Menu");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -833,6 +868,7 @@ public class Conns_Home_Page extends BaseTest {
 			softAssert.assertAll();
 
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_HomePage_Banner_Links");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -886,6 +922,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Top_Categories_LinksRedirection");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -934,6 +971,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinkRedirection_Under_Follow_Us_Section");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -958,6 +996,7 @@ public class Conns_Home_Page extends BaseTest {
 			softAssert.assertTrue(ActualURL.contains(testData[0][4]),"Expected url: "+testData[0][4]+" Actual url: "+ActualURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_LearnMore_LinkRedirection_For_BBB_Rating_Banner");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1002,6 +1041,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinkRedirection_Under_Footer_About_Conns_Section");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
@@ -1044,6 +1084,9 @@ public class Conns_Home_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Web")) {
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
+					commonMethods.waitForPageLoad(webPage, softAssert);
+					Thread.sleep(10000);
+					log.info("Expected URL  : " + testData[i][4]);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
@@ -1052,6 +1095,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			log.info("In CAtch");
 			mainPage.getScreenShotForFailure(webPage, "Verify_LinkRedirection_Under_Footer_Customer_Service_Section");
 			softAssert.assertAll();
@@ -1167,6 +1211,7 @@ public class Conns_Home_Page extends BaseTest {
 				}
 				softAssert.assertAll();
 			} catch (Throwable e) {
+				e.printStackTrace();
 				errors.add(e.getLocalizedMessage());
 				log.error(e.getMessage());
 			}

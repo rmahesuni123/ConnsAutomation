@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -93,6 +94,41 @@ public class CommonMethods {
 		}
 		return isElementPresent;
 	}
+	
+	
+	
+	
+	
+	/**
+	 * @author Name - Asim Singh
+	 * The method used to verify if element is present by javascript
+	 * Returns boolean value
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	
+
+	
+	public boolean isElementPresentCheckUsingJavaScriptExecutor(WebPage webPage, String locator, SoftAssert softAssert){
+        JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
+        try {
+            Object obj = js.executeScript("return typeof(arguments[0]) != 'undefined' && arguments[0] != null;",
+            		locator);
+            if (obj.toString().contains("true")) {
+                System.out.println("isElementPresentCheckUsingJavaScriptExecutor: SUCCESS");
+                return true;
+            } else {
+                System.out.println("isElementPresentCheckUsingJavaScriptExecutor: FAIL");
+            }
+
+        } catch (NoSuchElementException e) {
+            System.out.println("isElementPresentCheckUsingJavaScriptExecutor: FAIL");
+        }
+        return false;
+    }
+	
+	
+	
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click on link using x-path and return page url
