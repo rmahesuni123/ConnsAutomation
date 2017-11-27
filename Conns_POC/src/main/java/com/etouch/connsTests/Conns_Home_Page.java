@@ -580,7 +580,7 @@ public class Conns_Home_Page extends BaseTest {
 					log.info("Iteration under test : " + i);
 					Thread.sleep(2000);
 					commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
-					/***********************Using Javascript for clicking instead of hovering for Verify_LinksRedirection_Under_Appliances_Menu********************/
+					/************************Using Javascript for clicking instead of hovering for Verify_LinksRedirection_Under_Appliances_Menu********************/
 					/*WebElement element_2 = webPage.getDriver().findElement(By.xpath(commonData[0][0]));					
 					js.executeScript("arguments[0].click();", element_2);*/
 					Thread.sleep(4000);
