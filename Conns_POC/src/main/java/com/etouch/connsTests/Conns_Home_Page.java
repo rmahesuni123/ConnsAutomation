@@ -504,7 +504,7 @@ public class Conns_Home_Page extends BaseTest {
 			//if (testType.equalsIgnoreCase("Web")) {
 			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
-				  log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				  log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
@@ -513,7 +513,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 		//	if (testType.equalsIgnoreCase("Mobile")) {
 			  if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
-				  log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+				  log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
 				  for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -575,7 +575,7 @@ public class Conns_Home_Page extends BaseTest {
 			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 
-				  log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				  log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					Thread.sleep(2000);
@@ -588,7 +588,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 		//	if (testType.equalsIgnoreCase("Mobile")) {
 		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
-			   log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+			   log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
 			   for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -655,7 +655,7 @@ public class Conns_Home_Page extends BaseTest {
 			//if (testType.equalsIgnoreCase("Web")) {
 			// if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 			if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
-				log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+				log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
 				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
@@ -664,7 +664,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			//if (testType.equalsIgnoreCase("Mobile")) {
 		 if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
-			 log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+			 log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
 			 for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -732,7 +732,7 @@ public class Conns_Home_Page extends BaseTest {
 			//   if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 			// if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
-				 log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				 log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				 Thread.sleep(4000);
 				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
@@ -743,7 +743,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 		//	if (testType.equalsIgnoreCase("Mobile")) {
 		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
-			   log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+			   log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 			   for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -810,7 +810,7 @@ public class Conns_Home_Page extends BaseTest {
 			// if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 
-				 log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				 log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				 commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
@@ -819,7 +819,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			//if (testType.equalsIgnoreCase("Mobile")) {
 			   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
-				   log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				   log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				   for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -885,7 +885,7 @@ public class Conns_Home_Page extends BaseTest {
 		//	 if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 
-				 log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				 log.info("Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for(int i= 0;i<testData.length;i++)
 				{   commonMethods.waitForPageLoad(webPage, softAssert);
 				    Thread.sleep(2000);
@@ -903,7 +903,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 		//	else if(testType.equalsIgnoreCase("Mobile"))
 			 else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
-				 log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				 log.info("*********** Mobile TestType is  : " + testType +"************  testBedName **************" +testBedName );
 				 for(int i= 0;i<testData.length;i++){
 					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][3], testData[i][0], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Expected url: "+testData[i][4]+" Actual url: "+ActualURL);
@@ -1025,7 +1025,7 @@ public class Conns_Home_Page extends BaseTest {
 				}
 			//	if (testType.equalsIgnoreCase("Web") && !testBedName.equalsIgnoreCase("edge")) {
 				if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
-					log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+					log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
 					ActualURL =
 							ConnsHomePage.clickAndGetPageURLUsingJS(webPage,
 									testData[i][1], testData[i][0], testData[i][5],
