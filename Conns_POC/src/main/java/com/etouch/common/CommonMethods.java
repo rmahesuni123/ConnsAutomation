@@ -159,10 +159,7 @@ public class CommonMethods {
 					}
 				}
 			}else{
-				Thread.sleep(3000);
 				pageUrl= webPage.getCurrentUrl();
-				Thread.sleep(2000);
-
 			}
 			log.info("Actual URL : "+pageUrl);
 		}catch(Throwable e){
