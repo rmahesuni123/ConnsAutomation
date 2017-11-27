@@ -907,7 +907,7 @@ public class Conns_Home_Page extends BaseTest {
 				//	ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][3], testData[i][0], softAssert);
 				/************Added clickAndGetPageURLByJS inside CommonMethod ************/
 					ActualURL = commonMethods.clickAndGetPageURLByJS(webPage, testData[i][3], testData[i][0], softAssert);
-					commonMethods.navigateToPage(webPage, url, softAssert);
+					//commonMethods.navigateToPage(webPage, url, softAssert);
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(3000);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Expected url: "+testData[i][4]+" Actual url: "+ActualURL);
