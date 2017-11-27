@@ -896,9 +896,9 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(2000);
 				}
-				//commonMethods.navigateToPage(webPage, url, softAssert);
-				commonMethods.waitForPageLoad(webPage, softAssert);
-				Thread.sleep(2000);
+				/*commonMethods.navigateToPage(webPage, url, softAssert);
+				  commonMethods.waitForPageLoad(webPage, softAssert);
+				  Thread.sleep(2000);*/
 			}
 		//	else if(testType.equalsIgnoreCase("Mobile"))
 			 else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
@@ -1098,8 +1098,8 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyFooterAboutConnsLinks");
 			for (int i = 0; i < testData.length; i++) {
-			//	if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge"))) && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+			//	if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge"))) && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
 					log.info("TestType is  : " +testType +"************ testBedName Name **************" +testBedName );
 					log.info("Inside the first if. Value of I : " + i);
 					webPage.scrollBottom();
@@ -1114,8 +1114,9 @@ public class Conns_Home_Page extends BaseTest {
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
 				}
-			//	if (testType.equalsIgnoreCase("Web")) {
-				if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+				if (testType.equalsIgnoreCase("Web")) {
+					/************Reverting back to initial if condition  **************/
+			//	if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 					log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
