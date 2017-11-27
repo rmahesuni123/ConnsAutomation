@@ -1092,6 +1092,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					webPage.scrollBottom();
 					log.info("Outside the first if. Value of I : " + i);
+					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][2].equalsIgnoreCase("NA")))) {
@@ -1102,6 +1103,8 @@ public class Conns_Home_Page extends BaseTest {
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
+					commonMethods.waitForPageLoad(webPage, softAssert);
+					Thread.sleep(1000);
 				}
 				if (testType.equalsIgnoreCase("Web")) {
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
@@ -1112,6 +1115,8 @@ public class Conns_Home_Page extends BaseTest {
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
+					commonMethods.waitForPageLoad(webPage, softAssert);
+					Thread.sleep(1000);
 				}
 				webPage.getDriver().get(url);
 			}
