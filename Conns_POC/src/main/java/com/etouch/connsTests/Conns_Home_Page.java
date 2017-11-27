@@ -861,7 +861,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(2000);
 				}
-				commonMethods.navigateToPage(webPage, url, softAssert);
+				//commonMethods.navigateToPage(webPage, url, softAssert);
 				commonMethods.waitForPageLoad(webPage, softAssert);
 				Thread.sleep(2000);
 			}
