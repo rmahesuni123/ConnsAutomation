@@ -836,16 +836,20 @@ public class Conns_Home_Page extends BaseTest {
 
 	/**
 	 * Test Case - 014 - verify Yes Banner links and descripyion(on web) Conns Home Page
+	 * @throws InterruptedException 
 	 * 
 	 */
 	@Test(priority = 14, enabled = true, description = "Verify HomePage Banner Links")
-	public void Verify_HomePage_Banner_Links() {
+	public void Verify_HomePage_Banner_Links() throws InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
 		webPage.getDriver().get(url);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYesMeBanner");
 			if(testType.equalsIgnoreCase("Web")){
+				
 				for(int i= 0;i<testData.length;i++)
 				{
 
@@ -857,7 +861,7 @@ public class Conns_Home_Page extends BaseTest {
 				}
 			}
 			else if(testType.equalsIgnoreCase("Mobile"))
-			{
+			{ 
 				for(int i= 0;i<testData.length;i++){
 					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][3], testData[i][0], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Expected url: "+testData[i][4]+" Actual url: "+ActualURL);
@@ -877,6 +881,9 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 15, enabled = true, description = "Verify_Details_Under_Save_Big_With_Conns_Latest_Deals")
 	public void Verify_Details_Under_Save_Big_With_Conns_Latest_Deals() throws PageException, InterruptedException {
 		webPage.getDriver().get(url);
+		SoftAssert softAssert = new SoftAssert();
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(2000);		
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifySaveBigWithConns");
 		// ConnsHomePage.verifySaveBigWithConnsSection(testData);
 		verifySaveBigWithConnsSection(testData);
@@ -891,6 +898,8 @@ public class Conns_Home_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
 		webPage.getDriver().get(url);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(2000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyTopCategorySection");
 			for (int i = 0; i < testData.length; i++) {
@@ -938,6 +947,8 @@ public class Conns_Home_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
 		webPage.getDriver().get(url);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyFollowUsSection");
 			for (int i = 0; i < testData.length; i++) {
@@ -987,6 +998,8 @@ public class Conns_Home_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
 		webPage.getDriver().get(url);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyBBBRatingBanner");
 			if(testType.equalsIgnoreCase("Mobile")){
@@ -1012,6 +1025,8 @@ public class Conns_Home_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
 		webPage.getDriver().get(url);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyFooterAboutConnsLinks");
@@ -1059,6 +1074,8 @@ public class Conns_Home_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = null;
 		webPage.getDriver().get(url);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyFooterCustomerServiceSectionLinks");
