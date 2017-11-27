@@ -165,7 +165,7 @@ public class Conns_Home_Page extends BaseTest {
 			Dimension dimension = new Dimension(width, height);
 			log.info("Dimensions" + dimension);
 			// Dimension[width=600,height=792]
-			  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			  if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 
 				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) {
 					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],
@@ -502,7 +502,9 @@ public class Conns_Home_Page extends BaseTest {
 			Thread.sleep(2000);
 
 			//if (testType.equalsIgnoreCase("Web")) {
-			  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+				  log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
@@ -510,8 +512,9 @@ public class Conns_Home_Page extends BaseTest {
 				}
 			}
 		//	if (testType.equalsIgnoreCase("Mobile")) {
-			  if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
-				for (int i = 0; i < testData.length; i++) {
+			  if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+				  log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+				  for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
 						// verify if element was visited in previous iteration, if yes then it will skip navigation steps
@@ -569,7 +572,10 @@ public class Conns_Home_Page extends BaseTest {
 			Thread.sleep(2000);
 
 			//if (testType.equalsIgnoreCase("Web")) {
-			  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+
+				  log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					Thread.sleep(2000);
@@ -581,8 +587,9 @@ public class Conns_Home_Page extends BaseTest {
 				}
 			}
 		//	if (testType.equalsIgnoreCase("Mobile")) {
-		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
-				for (int i = 0; i < testData.length; i++) {
+		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+			   log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+			   for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
 						// verify if element was visited in previous iteration, if yes then it will skip navigation steps
@@ -648,7 +655,8 @@ public class Conns_Home_Page extends BaseTest {
 			//if (testType.equalsIgnoreCase("Web")) {
 			// if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 			if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
-				 commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
+				log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
@@ -656,7 +664,8 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			//if (testType.equalsIgnoreCase("Mobile")) {
 		 if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
-				for (int i = 0; i < testData.length; i++) {
+			 log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
+			 for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
 						// verify if element was visited in previous iteration, if yes then it will skip navigation steps
@@ -721,7 +730,9 @@ public class Conns_Home_Page extends BaseTest {
 
 			//if (testType.equalsIgnoreCase("Web")) {
 			//   if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
-			 if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			// if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+				 log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
 				 Thread.sleep(4000);
 				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
@@ -731,8 +742,9 @@ public class Conns_Home_Page extends BaseTest {
 				}
 			}
 		//	if (testType.equalsIgnoreCase("Mobile")) {
-		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
-				for (int i = 0; i < testData.length; i++) {
+		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+			   log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+			   for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
 						// verify if element was visited in previous iteration, if yes then it will skip navigation steps
@@ -795,7 +807,10 @@ public class Conns_Home_Page extends BaseTest {
 
 			//if (testType.equalsIgnoreCase("Web")) {
 			//   if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
-			 if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			// if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+
+				 log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
 				 commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
@@ -803,8 +818,9 @@ public class Conns_Home_Page extends BaseTest {
 				}
 			}
 			//if (testType.equalsIgnoreCase("Mobile")) {
-			   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
-				for (int i = 0; i < testData.length; i++) {
+			   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+				   log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				   for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
 						// verify if element was visited in previous iteration, if yes then it will skip navigation steps
@@ -866,8 +882,10 @@ public class Conns_Home_Page extends BaseTest {
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYesMeBanner");
 		//	if(testType.equalsIgnoreCase("Web")){
-			 if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
-				
+		//	 if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
+			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+
+				 log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
 				for(int i= 0;i<testData.length;i++)
 				{   commonMethods.waitForPageLoad(webPage, softAssert);
 				    Thread.sleep(2000);
@@ -884,8 +902,9 @@ public class Conns_Home_Page extends BaseTest {
 				Thread.sleep(2000);
 			}
 		//	else if(testType.equalsIgnoreCase("Mobile"))
-			 else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
-				for(int i= 0;i<testData.length;i++){
+			 else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+				 log.info("TestType is  : " +testType +"************ Browser Name **************" +testBedName );
+				 for(int i= 0;i<testData.length;i++){
 					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][3], testData[i][0], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Expected url: "+testData[i][4]+" Actual url: "+ActualURL);
 					commonMethods.navigateToPage(webPage, url, softAssert);
@@ -928,7 +947,9 @@ public class Conns_Home_Page extends BaseTest {
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyTopCategorySection");
 			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+			//	if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge"))) && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
+
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(2000);
 					log.info("Inside the first if. Value of I : " + i);
@@ -991,7 +1012,9 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
-				if (testType.equalsIgnoreCase("Mobile") ||testBedName.equalsIgnoreCase("edge") ) {
+			//	if (testType.equalsIgnoreCase("Mobile") ||testBedName.equalsIgnoreCase("edge") ) {
+				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+					log.info("TestType is  : " +testType +"************ testBedName Name **************" +testBedName );
 					if(!(testData[i][2].equalsIgnoreCase("NA"))){
 						log.info("Inside the 2nd if. Value of I : " + i);
 						webPage.scrollBottom();
@@ -1000,7 +1023,9 @@ public class Conns_Home_Page extends BaseTest {
 								"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 										+ "Expected URL is  :" + testData[i][4]);}
 				}
-				if (testType.equalsIgnoreCase("Web") && !testBedName.equalsIgnoreCase("edge")) {
+			//	if (testType.equalsIgnoreCase("Web") && !testBedName.equalsIgnoreCase("edge")) {
+				if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+					log.info("TestType is  : " +testType +"************ Browser Name **************" +browserName );
 					ActualURL =
 							ConnsHomePage.clickAndGetPageURLUsingJS(webPage,
 									testData[i][1], testData[i][0], testData[i][5],
@@ -1036,7 +1061,10 @@ public class Conns_Home_Page extends BaseTest {
 		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyBBBRatingBanner");
-			if(testType.equalsIgnoreCase("Mobile")){
+		//	if(testType.equalsIgnoreCase("Mobile")){
+			if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+				log.info("TestType is  : " +testType +"************ testBedName Name **************" +testBedName );
+
 				webPage.scrollBottom();
 			}
 			ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[0][1], testData[0][0], softAssert);
@@ -1065,7 +1093,9 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"verifyFooterAboutConnsLinks");
 			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+			//	if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge"))) && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
+					log.info("TestType is  : " +testType +"************ testBedName Name **************" +testBedName );
 					log.info("Inside the first if. Value of I : " + i);
 					webPage.scrollBottom();
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
@@ -1079,7 +1109,9 @@ public class Conns_Home_Page extends BaseTest {
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
 				}
-				if (testType.equalsIgnoreCase("Web")) {
+			//	if (testType.equalsIgnoreCase("Web")) {
+				if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+					log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
@@ -1115,7 +1147,9 @@ public class Conns_Home_Page extends BaseTest {
 					"verifyFooterCustomerServiceSectionLinks");
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			for (int i = 0; i < testData.length; i++) {
-				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+			//	if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge"))) && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
+					log.info("TestType is  : " +testType +"************ testBedName Name **************" +testBedName );
 					webPage.scrollBottom();
 					log.info("Inside the first if. Value of I : " + i);
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
@@ -1135,7 +1169,9 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(1000);
 				}
-				if (testType.equalsIgnoreCase("Web")) {
+				//if (testType.equalsIgnoreCase("Web")) {
+				if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+					log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 					commonMethods.waitForPageLoad(webPage, softAssert);
