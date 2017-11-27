@@ -130,6 +130,46 @@ public class CommonMethods {
 	
 	
 	/**
+	 * @author Name - Asim Singh
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String clickAndGetPageURLByJS(WebPage webPage, String locator, String linkName, SoftAssert softAssert){
+		String pageUrl="";
+		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
+		try{
+			log.info("Clicking on link : "+linkName);
+			String mainWindow = webPage.getDriver().getWindowHandle();
+			//webPage.findObjectByxPath(locator).click();
+			
+			log.info("Clicking on element using xpath - "+locator);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
+			js.executeScript("arguments[0].click();", element);
+			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			if(windowHandlesSet.size()>1){
+				for(String winHandle:windowHandlesSet){
+					webPage.getDriver().switchTo().window(winHandle);
+					if(!winHandle.equalsIgnoreCase(mainWindow)){
+						log.info("More than 1 window open after clicking on link : "+linkName);
+						pageUrl=webPage.getCurrentUrl();
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(mainWindow);
+					}
+				}
+			}else{
+				pageUrl= webPage.getCurrentUrl();
+			}
+			log.info("Actual URL : "+pageUrl);
+		}catch(Throwable e){
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return pageUrl;
+	}
+	
+	
+	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click on link using x-path and return page url
 	 * Return type is String
