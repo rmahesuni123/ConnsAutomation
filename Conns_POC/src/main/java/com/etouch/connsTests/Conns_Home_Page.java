@@ -39,6 +39,7 @@ import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.MobileView;
 import com.etouch.taf.webui.selenium.WebPage;
+import com.gargoylesoftware.htmlunit.javascript.configuration.BrowserName;
 
 @IExcelDataFiles(excelDataFiles = { "ConnsHomePageData=testData" })
 public class Conns_Home_Page extends BaseTest {
@@ -92,10 +93,12 @@ public class Conns_Home_Page extends BaseTest {
 				}
 				Thread.sleep(5000);
 			} catch (Exception e) {
+				e.printStackTrace();
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			CommonUtil.sop("Error is for" + testBedName + " -----------" + e);
 			SoftAssertor.addVerificationFailure(e.getMessage());
 		}
@@ -162,7 +165,7 @@ public class Conns_Home_Page extends BaseTest {
 			Dimension dimension = new Dimension(width, height);
 			log.info("Dimensions" + dimension);
 			// Dimension[width=600,height=792]
-			if (testType.equalsIgnoreCase("Web")) {
+			if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) {
 					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],
 							softAssert);
@@ -204,7 +207,7 @@ public class Conns_Home_Page extends BaseTest {
 					}
 				}
 			}
-			if (testType.equalsIgnoreCase("Mobile")) {
+			if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
 				if (width > 599 || width < 800) {
 					// if(deviceName.contains("Tab")){
 					for (int i = 0; i < ExpectedFontValuesTab.length; i++) {
@@ -497,14 +500,16 @@ public class Conns_Home_Page extends BaseTest {
 			String elementXpath=null;
 			Thread.sleep(2000);
 
-			if (testType.equalsIgnoreCase("Web")) {
+			//if (testType.equalsIgnoreCase("Web")) {
+			  if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-			if (testType.equalsIgnoreCase("Mobile")) {
+		//	if (testType.equalsIgnoreCase("Mobile")) {
+			  if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -562,7 +567,8 @@ public class Conns_Home_Page extends BaseTest {
 			String elementXpath=null;
 			Thread.sleep(2000);
 
-			if (testType.equalsIgnoreCase("Web")) {
+			//if (testType.equalsIgnoreCase("Web")) {
+		   if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					Thread.sleep(2000);
@@ -573,7 +579,8 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-			if (testType.equalsIgnoreCase("Mobile")) {
+		//	if (testType.equalsIgnoreCase("Mobile")) {
+		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -637,14 +644,16 @@ public class Conns_Home_Page extends BaseTest {
 			String elementXpath=null;
 			Thread.sleep(3000);
 
-			if (testType.equalsIgnoreCase("Web")) {
+			//if (testType.equalsIgnoreCase("Web")) {
+			 if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-			if (testType.equalsIgnoreCase("Mobile")) {
+			//if (testType.equalsIgnoreCase("Mobile")) {
+		 if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -708,7 +717,8 @@ public class Conns_Home_Page extends BaseTest {
 			String elementXpath=null;
 			Thread.sleep(2000);
 
-			if (testType.equalsIgnoreCase("Web")) {
+			//if (testType.equalsIgnoreCase("Web")) {
+			   if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 				Thread.sleep(4000);
 				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
@@ -717,7 +727,8 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][3], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-			if (testType.equalsIgnoreCase("Mobile")) {
+		//	if (testType.equalsIgnoreCase("Mobile")) {
+		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -779,14 +790,16 @@ public class Conns_Home_Page extends BaseTest {
 			String elementXpath=null;
 			Thread.sleep(2000);
 
-			if (testType.equalsIgnoreCase("Web")) {
+			//if (testType.equalsIgnoreCase("Web")) {
+			   if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-			if (testType.equalsIgnoreCase("Mobile")) {
+			//if (testType.equalsIgnoreCase("Mobile")) {
+			   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
