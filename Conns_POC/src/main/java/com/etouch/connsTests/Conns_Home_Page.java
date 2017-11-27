@@ -845,7 +845,7 @@ public class Conns_Home_Page extends BaseTest {
 		String ActualURL = null;
 		webPage.getDriver().get(url);
 		commonMethods.waitForPageLoad(webPage, softAssert);
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyYesMeBanner");
 			if(testType.equalsIgnoreCase("Web")){
@@ -858,7 +858,10 @@ public class Conns_Home_Page extends BaseTest {
 					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][1], testData[i][0], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Expected url: "+testData[i][4]+" Actual url: "+ActualURL);
 					commonMethods.navigateToPage(webPage, url, softAssert);
+					commonMethods.waitForPageLoad(webPage, softAssert);
+					Thread.sleep(2000);
 				}
+				
 			}
 			else if(testType.equalsIgnoreCase("Mobile"))
 			{ 
@@ -866,6 +869,8 @@ public class Conns_Home_Page extends BaseTest {
 					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][3], testData[i][0], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Expected url: "+testData[i][4]+" Actual url: "+ActualURL);
 					commonMethods.navigateToPage(webPage, url, softAssert);
+					commonMethods.waitForPageLoad(webPage, softAssert);
+					Thread.sleep(3000);
 				}
 			}
 
