@@ -1187,7 +1187,7 @@ public class Conns_Home_Page extends BaseTest {
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 					commonMethods.waitForPageLoad(webPage, softAssert);
-					Thread.sleep(10000);
+					Thread.sleep(20000);
 					log.info("Expected URL  : " + testData[i][4]);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
