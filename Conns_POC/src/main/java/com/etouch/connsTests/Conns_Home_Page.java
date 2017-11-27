@@ -884,7 +884,6 @@ public class Conns_Home_Page extends BaseTest {
 		//	if(testType.equalsIgnoreCase("Web")){
 		//	 if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
-
 				 log.info("Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for(int i= 0;i<testData.length;i++)
 				{   commonMethods.waitForPageLoad(webPage, softAssert);
