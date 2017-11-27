@@ -905,7 +905,7 @@ public class Conns_Home_Page extends BaseTest {
 				 log.info("*********** Mobile TestType is  : " + testType +"************  testBedName **************" +testBedName );
 				 for(int i= 0;i<testData.length;i++){
 				//	ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][3], testData[i][0], softAssert);
-				/************Added clickAndGetPageURLByJS inside CommonMethod *********/
+				/************Added clickAndGetPageURLByJS inside CommonMethod ************/
 					ActualURL = commonMethods.clickAndGetPageURLByJS(webPage, testData[i][3], testData[i][0], softAssert);
 					commonMethods.navigateToPage(webPage, url, softAssert);
 					commonMethods.waitForPageLoad(webPage, softAssert);
