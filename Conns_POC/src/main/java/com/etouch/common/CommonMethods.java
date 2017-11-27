@@ -163,6 +163,7 @@ public class CommonMethods {
 			}
 			log.info("Actual URL : "+pageUrl);
 		}catch(Throwable e){
+			e.printStackTrace();
 			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 		return pageUrl;

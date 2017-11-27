@@ -891,7 +891,9 @@ public class Conns_Home_Page extends BaseTest {
 					log.info("Actual : "+commonMethods.getTextbyXpath(webPage, testData[i][6], softAssert)+" Expected : "+testData[i][7]);
 					softAssert.assertTrue((commonMethods.getTextbyXpath(webPage, testData[i][6], softAssert).equals(testData[i][7])));
 					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][1], testData[i][0], softAssert);
+					Thread.sleep(2000);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Expected url: "+testData[i][4]+" Actual url: "+ActualURL);
+					Thread.sleep(2000);
 					commonMethods.navigateToPage(webPage, url, softAssert);
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(2000);
@@ -907,13 +909,14 @@ public class Conns_Home_Page extends BaseTest {
 				//	ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][3], testData[i][0], softAssert);
 				/************Added clickAndGetPageURLByJS inside CommonMethod ************/
 					ActualURL = commonMethods.clickAndGetPageURLByJS(webPage, testData[i][3], testData[i][0], softAssert);
+					Thread.sleep(2000);
 					//commonMethods.navigateToPage(webPage, url, softAssert);
-					commonMethods.waitForPageLoad(webPage, softAssert);
-					Thread.sleep(3000);
+					//commonMethods.waitForPageLoad(webPage, softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),"Expected url: "+testData[i][4]+" Actual url: "+ActualURL);
-				//	commonMethods.navigateToPage(webPage, url, softAssert);
+					Thread.sleep(2000);
+					commonMethods.navigateToPage(webPage, url, softAssert);
 					commonMethods.waitForPageLoad(webPage, softAssert);
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 				}
 			}
 
