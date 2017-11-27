@@ -651,20 +651,23 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForTvAudioElectronics");
 			String elementXpath=null;
 			Thread.sleep(3000);
+			/****** using javscript click instead of hoverOnelementbyXpath & reverted  if else conditions for Edge Browser Connection*************/
 
-			//if (testType.equalsIgnoreCase("Web")) {
+			if (testType.equalsIgnoreCase("Web")) {
 			// if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
-			if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
-				log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
-				commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
+			//if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+				log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
+			//	commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
+				/****** using javascript click instead of hoverOnelementbyXpath*************/
+				commonMethods.clickElementbyXpath_usingJavaScript(webPage, testData[0][0], softAssert);	
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-			//if (testType.equalsIgnoreCase("Mobile")) {
-		 if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
-			 log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
+			if (testType.equalsIgnoreCase("Mobile")) {
+		// if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+			 log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 			 for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
@@ -1066,13 +1069,16 @@ public class Conns_Home_Page extends BaseTest {
 		Thread.sleep(3000);
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyBBBRatingBanner");
-		//	if(testType.equalsIgnoreCase("Mobile")){
-			if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+			/*if(testType.equalsIgnoreCase("Mobile")){
+			//if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
 				log.info("TestType is  : " +testType +"************ testBedName Name **************" +testBedName );
 
 				webPage.scrollBottom();
-			}
-			ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[0][1], testData[0][0], softAssert);
+			}*/
+			//ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[0][1], testData[0][0], softAssert);
+			/****************************Using clickAndGetPageURLByJS method and commented above code *************************************************************************/
+			ActualURL = commonMethods.clickAndGetPageURLByJS(webPage, testData[0][1], testData[0][0], softAssert);
+
 			softAssert.assertTrue(ActualURL.contains(testData[0][4]),"Expected url: "+testData[0][4]+" Actual url: "+ActualURL);
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -1153,8 +1159,8 @@ public class Conns_Home_Page extends BaseTest {
 					"verifyFooterCustomerServiceSectionLinks");
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			for (int i = 0; i < testData.length; i++) {
-			//	if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge"))) && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
+				if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
+			//	if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge"))) && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
 					log.info("TestType is  : " +testType +"************ testBedName Name **************" +testBedName );
 					webPage.scrollBottom();
 					log.info("Inside the first if. Value of I : " + i);
@@ -1175,8 +1181,8 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(1000);
 				}
-				//if (testType.equalsIgnoreCase("Web")) {
-				if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+				if (testType.equalsIgnoreCase("Web")) {
+				//if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 					log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
