@@ -501,13 +501,13 @@ public class Conns_Home_Page extends BaseTest {
 			String elementXpath=null;
 			Thread.sleep(2000);
 			commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
-			//if (testType.equalsIgnoreCase("Web")) {
+			if (testType.equalsIgnoreCase("Web")) {
 			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 		//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 			//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (!(testBedName.equalsIgnoreCase("Edge") ))) {	 
-			 if (testType.equalsIgnoreCase("Web") || (!(testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari")))) || (!(testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge") )))) {	
+			// if (testType.equalsIgnoreCase("Web") || (!(testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari")))) || (!(testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge") )))) {	
 
-				 log.info("Chrome IE FF Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
+				 log.info("Chrome IE FF Safari Edge Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					
