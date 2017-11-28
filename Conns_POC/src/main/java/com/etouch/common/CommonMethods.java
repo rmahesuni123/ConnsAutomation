@@ -23,6 +23,7 @@ import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -457,10 +458,14 @@ public class CommonMethods {
 	         js.executeScript(mouseOverScript,parentLocator);*/
 	    	  //MouseOver Logic --- starts ---
 	    	//WebElement element = driver.findElement(By.xpath("//a"));
-	    	WebElement element=webPage.getDriver().findElement(By.xpath(parentLocator));	
+	    	/*WebElement element=webPage.getDriver().findElement(By.xpath(parentLocator));	
            
-            js.executeScript("arguments[0].onmouseover()", element); 
+            js.executeScript("arguments[0].onmouseover()", element); */
         //MouseOver Logic --- ends --- 
+	    	WebElement element = webPage.getDriver().findElement(By.xpath(parentLocator));
+	    	Actions action = new Actions(webPage.getDriver());
+	    	action.moveToElement(element).perform();
+	    	
 	    	Thread.sleep(1000);
 	        
 	    } catch (Exception e) {
