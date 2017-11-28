@@ -516,7 +516,7 @@ public class Conns_Home_Page extends BaseTest {
 			}
 		
 			
-			if (testType.equalsIgnoreCase("Web") && ((testBedName.equalsIgnoreCase("Safari") ))) {
+			/*if (testType.equalsIgnoreCase("Web") && ((testBedName.equalsIgnoreCase("Safari") ))) {
 				  log.info("Safari Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				  commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
 				for (int i = 0; i < testData.length; i++) {
@@ -527,7 +527,7 @@ public class Conns_Home_Page extends BaseTest {
 					Thread.sleep(4000);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
-			}
+			}*/
 			
 		//	if (testType.equalsIgnoreCase("Mobile")) {
 			  if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
