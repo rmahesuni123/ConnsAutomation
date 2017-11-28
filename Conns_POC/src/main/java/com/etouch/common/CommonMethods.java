@@ -492,8 +492,10 @@ public class CommonMethods {
 	}
 	
 	/**
-	 * Mouse overs on the element by its locator <code>by</code>
-	 * 
+	 * @author Name - Asim Singh
+	 * The method used to hover on element using xpath
+	 * Return type is void
+	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @param by
 	 *            a locator e.g. xpath, css, name, id, class name etc
 	 */
@@ -509,35 +511,13 @@ public class CommonMethods {
 	   */
 	 
 	 } catch (AWTException e) {
+		 e.printStackTrace();
+		softAssert.fail("Unable to Hover on element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
 	  log.error("Failed to mouseover on the element '" + locator + "'. " + e);
 	 }
 	}
 	
-	/*public void hover_Parent_Locator_By_JS(WebPage webPage,String element)
-    {
-        boolean result = false;
-        try
-        {
-            String mouseOverScript =
-            		"if(document.createEvent)"
-            		+ "{var evObj = "
-            		+ "document.createEvent('MouseEvents');"
-            		+ "evObj.initEvent('mouseover',true, false);"
-            		+ " arguments[0].dispatchEvent(evObj);"
-            		+ "} "
-            		+ "else if(document.createEventObject){ arguments[0].fireEvent('onmouseover');}  ";
-            JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
-            js.executeScript(mouseOverScript, element);
-            result = true;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            result = false;
-        }
-      //  return result;
-    }
-	*/
+	
 	/**********************************/
 	/**
 	 * @author Name - Deepak Bhambri
