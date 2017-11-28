@@ -453,9 +453,15 @@ public class CommonMethods {
 	{  JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 	    try 
 	     {
-	         String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
-	         js.executeScript(mouseOverScript,parentLocator);
-	         Thread.sleep(1000);
+	        /* String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
+	         js.executeScript(mouseOverScript,parentLocator);*/
+	    	  //MouseOver Logic --- starts ---
+	    	//WebElement element = driver.findElement(By.xpath("//a"));
+	    	WebElement element=webPage.getDriver().findElement(By.xpath(parentLocator));	
+           
+            js.executeScript("arguments[0].onmouseover()", element); 
+        //MouseOver Logic --- ends --- 
+	    	Thread.sleep(1000);
 	        
 	    } catch (Exception e) {
 	    	e.printStackTrace();
