@@ -429,7 +429,44 @@ public class CommonMethods {
 		}
 	}
 
+	/******/
 	
+	public void hover_Parent_Locator_Click_ChildLocator_By_JS(String parentLocator,String childLocator,WebPage webPage)
+	{  JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+	    try 
+	     {
+	         String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
+	         js.executeScript(mouseOverScript,parentLocator);
+	         Thread.sleep(1000);
+	         js.executeScript(mouseOverScript,childLocator);
+	         Thread.sleep(1000);
+	         js.executeScript("arguments[0].click();",childLocator);
+
+
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	        // TODO: handle exception
+	    }
+	}
+
+	public void hover_Parent_Locator_By_JS(WebPage webPage,String parentLocator,SoftAssert softAssert)
+	{  JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+	    try 
+	     {
+	         String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
+	         js.executeScript(mouseOverScript,parentLocator);
+	         Thread.sleep(1000);
+	        
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+			softAssert.fail("Unable to Hover on element using Xpath : "+parentLocator+". Localized Message: "+e.getLocalizedMessage());
+
+	        // TODO: handle exception
+	    }
+	}
+	
+	
+	/**********************************/
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to hover on element using xpath

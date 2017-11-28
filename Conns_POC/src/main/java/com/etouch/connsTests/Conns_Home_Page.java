@@ -571,15 +571,20 @@ public class Conns_Home_Page extends BaseTest {
 			String elementXpath=null;
 			Thread.sleep(2000);
 
-			//if (testType.equalsIgnoreCase("Web")) {
+			if (testType.equalsIgnoreCase("Web")) {
 			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
-			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") ))) {
+			// if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") ))) {
 
-				  log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
+				  log.info("Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					Thread.sleep(3000);
-					commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
+					//commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
+					/************************Using hover_Parent_Locator_By_JS for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************/
+					log.info("#######################Initiating Hovering Task for Safari using Javascript method ###################################");
+					commonMethods.hover_Parent_Locator_By_JS(webPage, testData[0][0], softAssert);
+					log.info("******************Task performed successfuly for Safari Browser******************************");
+
 					/************************Using hoverOnelementbyXpath1 for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************/
 				//	commonMethods.hoverOnelementbyXpath1(webPage, testData[0][0], softAssert);
 
@@ -590,10 +595,10 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-		//	if (testType.equalsIgnoreCase("Mobile")) {
+			if (testType.equalsIgnoreCase("Mobile")) {
 			/***********************making changes for if condition,using Safari as a testBedName for Safari Execution*************/
-		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari")))) {
-			   log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
+		 //  if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari")))) {
+			   log.info("Mobile TestType is  : " +testType +"************ testBedName **************" +testBedName );
 			   for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					if(!(testData[i][4].equalsIgnoreCase("NA"))){
