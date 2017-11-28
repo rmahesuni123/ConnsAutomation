@@ -462,9 +462,21 @@ public class CommonMethods {
            
             js.executeScript("arguments[0].onmouseover()", element); */
         //MouseOver Logic --- ends --- 
-	    	WebElement element = webPage.getDriver().findElement(By.xpath(parentLocator));
+	    	/*WebElement element = webPage.getDriver().findElement(By.xpath(parentLocator));
 	    	Actions action = new Actions(webPage.getDriver());
-	    	action.moveToElement(element).perform();
+	    	action.moveToElement(element).perform();*/
+	    	
+	    	
+	    	String mouseOverScript =
+            		"if(document.createEvent)"
+            		+ "{var evObj = "
+            		+ "document.createEvent('MouseEvents');"
+            		+ "evObj.initEvent('mouseover',true, false);"
+            		+ " arguments[0].dispatchEvent(evObj);"
+            		+ "} "
+            		+ "else if(document.createEventObject){ arguments[0].fireEvent('onmouseover');}  ";
+           
+            js.executeScript(mouseOverScript, parentLocator);
 	    	
 	    	Thread.sleep(1000);
 	        
@@ -477,6 +489,32 @@ public class CommonMethods {
 	}
 	
 	
+	
+	/*public void hover_Parent_Locator_By_JS(WebPage webPage,String element)
+    {
+        boolean result = false;
+        try
+        {
+            String mouseOverScript =
+            		"if(document.createEvent)"
+            		+ "{var evObj = "
+            		+ "document.createEvent('MouseEvents');"
+            		+ "evObj.initEvent('mouseover',true, false);"
+            		+ " arguments[0].dispatchEvent(evObj);"
+            		+ "} "
+            		+ "else if(document.createEventObject){ arguments[0].fireEvent('onmouseover');}  ";
+            JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+            js.executeScript(mouseOverScript, element);
+            result = true;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            result = false;
+        }
+      //  return result;
+    }
+	*/
 	/**********************************/
 	/**
 	 * @author Name - Deepak Bhambri
