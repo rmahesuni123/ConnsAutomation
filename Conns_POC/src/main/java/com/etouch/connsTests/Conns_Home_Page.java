@@ -505,7 +505,7 @@ public class Conns_Home_Page extends BaseTest {
 			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 		//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 			//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (!(testBedName.equalsIgnoreCase("Edge") ))) {	 
-			 if (testType.equalsIgnoreCase("Web") || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))))) {	
+			 if (testType.equalsIgnoreCase("Web") || (!(testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari")))) || (!(testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge") )))) {	
 
 				 log.info("Chrome IE FF Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
