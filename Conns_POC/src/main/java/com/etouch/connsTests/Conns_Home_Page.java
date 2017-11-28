@@ -505,7 +505,7 @@ public class Conns_Home_Page extends BaseTest {
 			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 		//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 				 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (!(testBedName.equalsIgnoreCase("Edge") ))) {	 
-				  log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
+				  log.info("Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
@@ -590,15 +590,16 @@ public class Conns_Home_Page extends BaseTest {
 			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 		//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )){
 			 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (!(testBedName.equalsIgnoreCase("Edge") ))) {
-				  log.info("Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
+				  log.info("Chrome IE FF TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
 					log.info("******************Task performed successfuly for Browser******************************"+testBedName);
-					Thread.sleep(4000);
+					Thread.sleep(2000);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
+				webPage.getDriver().get(url);
 			}
 			 
 			 if (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari"))) 
@@ -613,6 +614,7 @@ public class Conns_Home_Page extends BaseTest {
 					Thread.sleep(4000);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
+				webPage.getDriver().get(url);
 			}
 			 
 			 
@@ -711,6 +713,7 @@ public class Conns_Home_Page extends BaseTest {
 						Thread.sleep(4000);
 						commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 					}
+					webPage.getDriver().get(url);
 				}
 				 
 		//	if (testType.equalsIgnoreCase("Mobile")) {
@@ -809,6 +812,7 @@ public class Conns_Home_Page extends BaseTest {
 							Thread.sleep(2000);
 							commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][3], testData[i][1], testData[i][2], softAssert);
 						}
+						webPage.getDriver().get(url);
 					}
 				 
 				 
@@ -902,7 +906,7 @@ public class Conns_Home_Page extends BaseTest {
 					for (int i = 0; i < testData.length; i++) {
 						log.info("Iteration under test : " + i);
 						commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
-					}			
+					}webPage.getDriver().get(url);			
 					}
 			 
 			
