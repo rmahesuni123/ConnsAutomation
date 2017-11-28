@@ -1,6 +1,9 @@
 package com.etouch.common;
 
+import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Robot;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -488,7 +491,27 @@ public class CommonMethods {
 	    }
 	}
 	
-	
+	/**
+	 * Mouse overs on the element by its locator <code>by</code>
+	 * 
+	 * @param by
+	 *            a locator e.g. xpath, css, name, id, class name etc
+	 */
+	public void mouseOverOnElementUsingRobot(WebPage webPage,String locator,SoftAssert softAssert) {
+	 try {
+	  org.openqa.selenium.Point coordinates = webPage.getDriver().findElement(By.xpath(locator)).getLocation();
+	  Robot robot = new Robot();
+	  robot.mouseMove(coordinates.getX(), coordinates.getY() + 60);
+	  /*
+	   * WebDriver provide document coordinates, where as Robot class is
+	   * based on Screen coordinates, so I have added +60 to compensate
+	   * the browser header. You can even adjust if needed.
+	   */
+	 
+	 } catch (AWTException e) {
+	  log.error("Failed to mouseover on the element '" + locator + "'. " + e);
+	 }
+	}
 	
 	/*public void hover_Parent_Locator_By_JS(WebPage webPage,String element)
     {

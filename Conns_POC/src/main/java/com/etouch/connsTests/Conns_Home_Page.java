@@ -580,9 +580,9 @@ public class Conns_Home_Page extends BaseTest {
 					log.info("Iteration under test : " + i);
 					Thread.sleep(3000);
 					//commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
-					/************************Using hover_Parent_Locator_By_JS for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************/
-					log.info("#######################Initiating Hovering Task for Safari using Javascript method ###################################");
-					commonMethods.hover_Parent_Locator_By_JS(webPage, testData[0][0], softAssert);
+					/************************Using mouseOverOnElementUsingRobot for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************/
+					log.info("#######################Initiating Hovering Task for Safari using Robot Class method ###################################");
+					commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
 					log.info("******************Task performed successfuly for Safari Browser******************************");
 
 					/************************Using hoverOnelementbyXpath1 for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************/
