@@ -781,6 +781,27 @@ public class CommonMethods {
 		}
 	}
 	
+	
+	
+	
+	/**
+	 * @author Name - Asim Singh
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String	
+	 **/
+	public String clickElementbyJSAndGetURL(WebPage webPage, String locator, SoftAssert softAssert) throws InterruptedException{
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));			
+			js.executeScript("arguments[0].click();", element);	
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());		
+			}
+		return webPage.getCurrentUrl();
+	}
+	
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method is used to wait for given time	

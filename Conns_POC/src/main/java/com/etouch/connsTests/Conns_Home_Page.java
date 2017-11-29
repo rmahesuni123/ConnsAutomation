@@ -500,17 +500,9 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForFurnitureAndMattresses");
 			String elementXpath=null;
 			Thread.sleep(2000);
-			//if ( (!(testBedName.equalsIgnoreCase("Safari")) ||   (!(testBedName.equalsIgnoreCase("Edge") )))) {	
-				
-			//commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
 			if (testType.equalsIgnoreCase("Web")) {
-			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
-		//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
-			//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (!(testBedName.equalsIgnoreCase("Edge") ))) {	 
-			 
-			//	log.info("Chrome IE FF   Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				log.info("Chrome IE FF   Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
-			//	commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
+
 				  commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
 
 				log.info("******************Task performed successfuly for Browser******************************"+testBedName);	 
@@ -521,21 +513,6 @@ public class Conns_Home_Page extends BaseTest {
 				}
 			}
 		
-			
-			/*if ( ((testBedName.equalsIgnoreCase("Safari") ))) {
-				  log.info("Safari Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
-				  commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
-				for (int i = 0; i < testData.length; i++) {
-					log.info("Iteration under test : " + i);
-					Thread.sleep(3000);
-					
-					log.info("******************Task performed successfuly for Browser******************************"+testBedName);
-					Thread.sleep(4000);
-					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
-				}
-			}*/
-			
-		//	if (testType.equalsIgnoreCase("Mobile")) {
 			  if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
 				  log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
 				  for (int i = 0; i < testData.length; i++) {
@@ -594,13 +571,7 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForAppliance");
 			String elementXpath=null;
 			Thread.sleep(2000);
-			//commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
-
-			if (testType.equalsIgnoreCase("Web")) {
-			//  if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
-		//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )){
-		//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (!(testBedName.equalsIgnoreCase("Edge") ))) {
-		//	 if (testType.equalsIgnoreCase("Web") || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))))) {	
+				if (testType.equalsIgnoreCase("Web")) {
 				 log.info("Chrome IE FF TestType is  : " +testType +"************ testBedName **************" +testBedName );
 					Thread.sleep(1000);
 					log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
@@ -615,27 +586,9 @@ public class Conns_Home_Page extends BaseTest {
 						log.info("Iteration under test : " + i);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
-				webPage.getDriver().get(url);
-			}
-			 
-			/* if (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari"))) 
-			 {  log.info("Safari Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
-			    log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
-				commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
-				log.info("******************Task performed successfuly for Safari Browser******************************"+testBedName);
 				
-			 	Thread.sleep(1000);
-					*//************************Using mouseOverOnElementUsingRobot for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************//*
-					Thread.sleep(1000);
-					for (int i = 0; i < testData.length; i++) {
-					log.info("Iteration under test : " + i);
-					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
-				}
-				webPage.getDriver().get(url);
-			}*/
-			 
-			 
-		//	if (testType.equalsIgnoreCase("Mobile")) {
+			}
+
 				
 				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {	
 			   log.info("Mobile TestType is  : " +testType +"************ testBedName **************" +testBedName );
@@ -701,43 +654,20 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForTvAudioElectronics");
 			String elementXpath=null;
 			Thread.sleep(3000);
-			/****** using javscript click instead of hoverOnelementbyXpath & reverted  if else conditions for Edge Browser Connection*************/
-			//log.info("Chrome IE FF TestType is  : " +testType +"************ testBedName **************" +testBedName );
-			//commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);
+
 			if (testType.equalsIgnoreCase("Web")) {
-			// if (testType.equalsIgnoreCase("Web") || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))))) {	
-			// if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
-			//if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 				log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				/************************Using mouseOverOnElementUsingRobot for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************/
 				log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
 				commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
 				log.info("******************Task performed successfuly for Safari Browser******************************"+testBedName);
 				Thread.sleep(4000);
-				/****** using javascript click instead of hoverOnelementbyXpath*************/
-				//commonMethods.clickElementbyXpath_usingJavaScript(webPage, testData[0][0], softAssert);	
 				for (int i = 0; i < testData.length; i++) {
 					log.info("Iteration under test : " + i);
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-				 
-				 
-				/* if (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari"))) 
-				 {  log.info("Safari  TestType is  : " +testType +"************ testBedName **************" +testBedName );
-				 	Thread.sleep(3000);
-					*//************************Using mouseOverOnElementUsingRobot for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************//*
-					log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
-					commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
-					log.info("******************Task performed successfuly for Safari Browser******************************"+testBedName);
-					Thread.sleep(4000);
-					for (int i = 0; i < testData.length; i++) {
-						log.info("Iteration under test : " + i);
-						
-						commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
-					}
-					webPage.getDriver().get(url);
-				}*/
+
 				 
 		//	if (testType.equalsIgnoreCase("Mobile")) {
 		 if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
@@ -806,16 +736,8 @@ public class Conns_Home_Page extends BaseTest {
 			Thread.sleep(2000);
 
 			if (testType.equalsIgnoreCase("Web")) {
-			//   if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
-			// if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
-			// if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
-				 
-			//	 if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") ))) {	
-			// if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (!(testBedName.equalsIgnoreCase("Edge") ))) {
-			// if (testType.equalsIgnoreCase("Web") || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))))) {	
-
-				 log.info(" TestType is  : " +testType +"************ testBedName **************" +testBedName );
-				 log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
+					log.info(" TestType is  : " +testType +"************ testBedName **************" +testBedName );
+					log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
 					commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
 					log.info("******************Task performed successfuly for Safari Browser******************************"+testBedName);
 					Thread.sleep(4000);
@@ -826,23 +748,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][3], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-				 
-				/* if (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari"))) 
-				 {  log.info("Safari Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
-					
-						*//************************Using mouseOverOnElementUsingRobot for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************//*
-						log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
-						commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
-						log.info("******************Task performed successfuly for Safari Browser******************************"+testBedName);
-						Thread.sleep(4000);
-						for (int i = 0; i < testData.length; i++) {
-							log.info("Iteration under test : " + i);
-							Thread.sleep(2000);
-							commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][3], testData[i][1], testData[i][2], softAssert);
-						}
-						webPage.getDriver().get(url);
-					}
-				 */
+
 				 
 		//	if (testType.equalsIgnoreCase("Mobile")) {
 		   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
@@ -909,14 +815,12 @@ public class Conns_Home_Page extends BaseTest {
 			Thread.sleep(2000);
 
 			if (testType.equalsIgnoreCase("Web")) {
-			//   if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
+			// if (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Safari")) || (browserName.equalsIgnoreCase("IE") || (browserName.equalsIgnoreCase("InternetExplorer") ))) {
 			// if (testType.equalsIgnoreCase("Web") && (!(browserName.equalsIgnoreCase("Edge") ))) {
 			// if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
-			
 			// if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (!(testBedName.equalsIgnoreCase("Edge") ))) {
 			// if (testType.equalsIgnoreCase("Web") || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Safari") )) || (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))))) {	
-
-				/* log.info("Chrome IE FF TestType is  : " +testType +"************ testBedName **************" +testBedName );
+			/* log.info("Chrome IE FF TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				 commonMethods.hoverOnelementbyXpath(webPage, testData[0][0], softAssert);*/
 				log.info(" TestType is  : " +testType +"************ testBedName **************" +testBedName );
 				log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
@@ -928,23 +832,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
 				}
 			}
-			 
-			
-			 /*if (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Safari"))) 
-			 {  log.info("Safari Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
-				
-					*//************************Using mouseOverOnElementUsingRobot for hovering :  Verify_LinksRedirection_Under_Appliances_Menu********************//*
-					log.info("####################### Initiating Hovering Task for Safari using Robot Class method ###################################");
-					commonMethods.mouseOverOnElementUsingRobot(webPage, testData[0][0], softAssert);
-					log.info("******************Task performed successfuly for Safari Browser******************************"+testBedName);
-					Thread.sleep(4000);
-					for (int i = 0; i < testData.length; i++) {
-						log.info("Iteration under test : " + i);
-						commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
-					}webPage.getDriver().get(url);			
-					}
-			 */
-			
+		
 			 
 			//if (testType.equalsIgnoreCase("Mobile")) {
 			   if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
@@ -1086,7 +974,7 @@ public class Conns_Home_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyTopCategorySection");
 			for (int i = 0; i < testData.length; i++) {
 			//	if (testType.equalsIgnoreCase("Mobile") && (!(testData[i][3].equalsIgnoreCase("NA")))) {
-				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge"))) && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
+				if (testType.equalsIgnoreCase("Mobile")  && (!(testData[i][3].equalsIgnoreCase("NA")))) {	
 
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(2000);
@@ -1098,7 +986,8 @@ public class Conns_Home_Page extends BaseTest {
 					log.info("Inside the 2nd if. Value of I : " + i);
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(2000);
-					ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					//ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
+					ActualURL = commonMethods.clickElementbyJSAndGetURL(webPage, testData[i][2], softAssert);					
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 									+ "Expected URL is  :" + testData[i][4]);
@@ -1367,7 +1256,7 @@ public class Conns_Home_Page extends BaseTest {
 				// RotationCountMobile = Integer.parseInt(test[i][8]);
 				RotationCountWeb = Integer.parseInt(test[i][9]);
 				SaveBigMenuOptionIdentifierMobile = test[i][10];
-				JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+				JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 				log.info(" " + SaveBigMenuOptionIdentifier + " " + CarouselLeft + " " + CarouselRight + " "
 						+ ElementPosition1 + " " + ElementPosition2 + " " + ClickForDetails + " " + PopUp);
 				String textAtPosition1 = null;
@@ -1378,15 +1267,22 @@ public class Conns_Home_Page extends BaseTest {
 					Thread.sleep(3000);
 					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifierMobile).getWebElement();
 					log.info("$$$$ Parent : " + element.getText());
-					executor.executeScript("arguments[0].click();", element);
+					js.executeScript("arguments[0].click();", element);
 					Thread.sleep(3000);
-					webPage.findObjectByxPath(CarouselLeft).click();
+				//	webPage.findObjectByxPath(CarouselLeft).click(); 
+					/*****************using Javascript for clicking operation  *****************************/
+					
+					WebElement element_1=webPage.getDriver().findElement(By.xpath(CarouselLeft));			
+					js.executeScript("arguments[0].click();", element_1);	
 					Thread.sleep(3000);
 					log.info("Clicked on element1");
 					textAtPosition1 = webPage.findObjectByxPath(ElementPosition1).getText();
 					log.info("Expected Left: " + textAtPosition1);
 					for (int j = 0; j < RotationCountWeb; j++) {
-						webPage.findObjectByxPath(CarouselLeft).click();
+						//webPage.findObjectByxPath(CarouselLeft).click();
+						/*****************using Javascript for clicking operation  *****************************/
+						WebElement element_2=webPage.getDriver().findElement(By.xpath(CarouselLeft));			
+						js.executeScript("arguments[0].click();", element_2);	
 						Thread.sleep(1000);
 					}
 					textAtPosition2 = webPage.findObjectByxPath(ElementPosition1).getText();
@@ -1415,7 +1311,7 @@ public class Conns_Home_Page extends BaseTest {
 					Thread.sleep(3000);
 					WebElement element = webPage.findObjectByxPath(SaveBigMenuOptionIdentifier).getWebElement();
 					log.info("$$$$ Parent : " + element.getText());
-					executor.executeScript("arguments[0].click();", element);
+					js.executeScript("arguments[0].click();", element);
 					Thread.sleep(3000);
 					webPage.findObjectByxPath(CarouselLeft).click();
 					Thread.sleep(3000);
