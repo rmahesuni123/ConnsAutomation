@@ -945,6 +945,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			js.executeScript("arguments[0].click();", element);
 			/*************Commented below codes to use Javascript click operation across all environments********************/
 			
+			
 			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
 				js.executeScript("arguments[0].click();", element);
