@@ -385,8 +385,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			//commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				executor.executeScript("arguments[0].click();", element);
+				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
 			}
@@ -826,8 +825,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][10]));
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				executor.executeScript("arguments[0].click();", element);
+				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
 			}
@@ -863,7 +861,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					 softAssert);
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
 			 log.info( "************************ Additional Address Functionality Save Button Operation Starts For Devices :  ****************");
-			 if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+			 /*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 			 log.info( "************************* Additional Address Functionality Save Button will be clicked  ******************");
 				log.info("Finding Save_Button_Locator " );
 				WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
@@ -876,11 +874,15 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				 log.info("Finding Save_Button_Locator " );
 				 WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
 				 js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
-				 log.info("Save_Button_Locator Clicked : "   );
-
+				 log.info("Save_Button_Locator Clicked : "   );*/
+			 	 log.info("Finding Save_Button_Locator " );
+			     WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
+			     js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
+			     log.info("Save_Button_Locator Clicked : "   );
 				 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 				 log.info( " **************************** Assert contains url*******************************************************************************************************************************************************");
 				 webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
+				 commonMethods.waitForPageLoad(webPage, softAssert);
 				 softAssert.assertTrue(actualAddressBookPageURL.contains(Expected_Address_Book_Page_URL),
 						 "Page url verification failed. Expected_Address_Book_Page_URL : " + Expected_Address_Book_Page_URL
 						 + "actualAddressBookPageURL : " + actualAddressBookPageURL);
@@ -896,12 +898,13 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					 "Page Content verification failed. Expected Page Content Expected Element Name : "
 							 + Expected_Additonal_Address_Successfully_Saved_Message
 							 + "Actual Page Content Actual Element Name : " + ActualElementName);*/
-			//	}
+			//	}}
+			 
 			 /************************************************************************************************************************************************************************/
 			 softAssert.assertAll();
 			 // For Sign Out
 			 CommonMethods.waitForGivenTime(10);
-		}
+		
 			 
 			 //|| testBedName.equalsIgnoreCase("edge")
 			 
@@ -933,6 +936,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(signInURL);
+		commonMethods.waitForPageLoad(webPage, softAssert);
 		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
