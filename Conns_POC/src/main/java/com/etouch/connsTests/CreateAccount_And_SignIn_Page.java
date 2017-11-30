@@ -879,9 +879,11 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			     WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
 			     js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
 			     log.info("Save_Button_Locator Clicked : "   );
+			     CommonMethods.waitForGivenTime(5);
+			     commonMethods.waitForPageLoad(webPage, softAssert);
 				 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 				 log.info( " **************************** Assert contains url*******************************************************************************************************************************************************");
-				 webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
+				 /*webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);*/
 				 commonMethods.waitForPageLoad(webPage, softAssert);
 				 softAssert.assertTrue(actualAddressBookPageURL.contains(Expected_Address_Book_Page_URL),
 						 "Page url verification failed. Expected_Address_Book_Page_URL : " + Expected_Address_Book_Page_URL
@@ -906,9 +908,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			 CommonMethods.waitForGivenTime(10);
 		
 			 
-			 //|| testBedName.equalsIgnoreCase("edge")
+			 //|| testBedName.equalsIgnoreCase("edge") 
+			 //|| testBedName.equalsIgnoreCase("Safari")
 			 
-			 if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("Safari")) {					 
+			 if (testType.equalsIgnoreCase("Mobile") ) {					 
 				 WebElement element_1 = webPage.getDriver().findElement(By.xpath(commonData[11][1]));					
 				js.executeScript("arguments[0].click();", element_1);
 				WebElement element_2 = webPage.getDriver().findElement(By.xpath(commonData[9][1]));					
