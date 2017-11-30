@@ -933,20 +933,25 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(signInURL);
+		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_SignIn_With_Valid_Input");
 			for (int i = 0; i < 2; i++) {
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
-
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+			
+			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
+			js.executeScript("arguments[0].click();", element);
+			/*************Commented below codes to use Javascript click operation across all environments********************/
+			
+			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
 				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			}
-			CommonMethods.waitForGivenTime(5);
+			}*/
+			CommonMethods.waitForGivenTime(10);
 			webPage.getDriver().get(commonData[8][1]);
 			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_Account_Dashboard");
@@ -956,16 +961,17 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				if ((testBedName.equalsIgnoreCase("edge")) || (testBedName.equalsIgnoreCase("Safari")) ||(testType.equalsIgnoreCase("Mobile")) ){
 					log.info("Only Edge Browser Execution Starts " + testBedName.toString());
 					if ((i==5) || ((i==6))){
+						CommonMethods.waitForGivenTime(5);
 						log.info("Started Iteration : " + i);
-						((JavascriptExecutor)webPage.getDriver()).executeScript("return document.readyState").equals("complete");
+						 js.executeScript("return document.readyState").equals("complete");
 						 WebElement element_1 = webPage.getDriver().findElement(By.xpath(linkData[i][1]));					
 						 js.executeScript("arguments[0].click();", element_1);
-						CommonMethods.waitForGivenTime(3);
+						CommonMethods.waitForGivenTime(5);
 						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 						commonMethods.navigateToPage(webPage,DashboardURL, softAssert);	
-						CommonMethods.waitForGivenTime(3);
+						CommonMethods.waitForGivenTime(5);
 						log.info("Navigate Back for " + testBedName.toString());
 						CommonMethods.waitForGivenTime(3);
 					}else {
@@ -978,9 +984,8 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 
 						if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-							WebElement element = webPage.getDriver().findElement(By.xpath(linkData[i][3]));
-							JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-							executor.executeScript("arguments[0].click();", element);
+							WebElement element_2 = webPage.getDriver().findElement(By.xpath(linkData[i][3]));
+							js.executeScript("arguments[0].click();", element_2);
 						}else{
 							commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
 						}						
