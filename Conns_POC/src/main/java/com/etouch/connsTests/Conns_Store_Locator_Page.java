@@ -161,7 +161,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			List<WebElement> linkList = commonMethods.findElementsByXpath(webPage,commonData[6][1] , softAssert);
 			commonMethods.verifyBrokenLinksForGivenLinks(webPage, linkList);
 			for (int i = 0; i < regionLinksData.length; i++) {
-				if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari")) && (!browserName.equalsIgnoreCase("InternetExplorer"))) {
+				if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari")) || (!browserName.equalsIgnoreCase("IE") || (!browserName.equalsIgnoreCase("InternetExplorer") ))) {
 					if(!regionLinksData[i][3].equalsIgnoreCase("NA")){
 						commonMethods.hoverOnelementbyXpath(webPage, regionLinksData[i][1], softAssert);
 						String afterLinkHover = commonMethods.getCssvaluebyXpath(webPage, regionLinksData[i][1], "color", softAssert);
