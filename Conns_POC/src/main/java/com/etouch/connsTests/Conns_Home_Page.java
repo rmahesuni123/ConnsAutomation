@@ -44,7 +44,7 @@ import com.gargoylesoftware.htmlunit.javascript.configuration.BrowserName;
 @IExcelDataFiles(excelDataFiles = { "ConnsHomePageData=testData" })
 public class Conns_Home_Page extends BaseTest {
 	static String platform;
-	static Log log = LogUtil.getLog(Conns_Store_Locator_Page.class);
+	static Log log = LogUtil.getLog(Conns_Home_Page.class);
 	static String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	private String url = null;
 	private WebPage webPage;
@@ -104,16 +104,9 @@ public class Conns_Home_Page extends BaseTest {
 		}
 	}
 
-	/*@AfterTest
-	public void releaseResources() throws IOException, AWTException {
-		webPage.getDriver().quit();
-	}*/
-	
 	
 	@AfterTest(alwaysRun = true)
 	public void releaseResources() throws IOException, AWTException {
-		// SpecializedScreenRecorder.stopVideoRecording();
-		//webPage.getDriver().quit();
 		webPageMap.get(Thread.currentThread().getId()).getDriver().quit();
 	}
 
@@ -126,7 +119,6 @@ public class Conns_Home_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			commonMethods.waitForPageLoad(webPage, softAssert);
-			// webPage.getDriver().get("http://connsecommdev-1365538477.us-east-1.elb.amazonaws.com/conns_rwd/");
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "Verifytitle");
 			String ExpectedTitle = test[0][1];
 			softAssert.assertEquals(webPage.getPageTitle(), ExpectedTitle,
@@ -149,24 +141,17 @@ public class Conns_Home_Page extends BaseTest {
 	@Test(priority = 2, enabled = true, description = "Verify_Font_And_Size")
 	public void Verify_Font_And_Size() {
 		SoftAssert softAssert = new SoftAssert();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"VerifyFontandSizeWeb");
 			String[][] ExpectedFontValuesMobile = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
 					"VerifyFontandSizeMobile");
 			String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page",
-					"VerifyFontandSizeTab");
-			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+					"VerifyFontandSizeTab");			
 			int width = ((Long) js.executeScript("return window.innerWidth || document.body.clientWidth")).intValue();
 			log.info("width value calculated is :" + width);
-			int height = ((Long) js.executeScript("return window.innerHeight || document.body.clientHeight"))
-					.intValue();
-			log.info("height value calculated is :" + height);
-			Dimension dimension = new Dimension(width, height);
-			log.info("Dimensions" + dimension);
-			// Dimension[width=600,height=792]
 			  if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
-
 				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) {
 					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],
 							softAssert);
@@ -210,7 +195,6 @@ public class Conns_Home_Page extends BaseTest {
 			}
 			if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (browserName.equalsIgnoreCase("Edge")))) {
 				if (width > 599 || width < 800) {
-					// if(deviceName.contains("Tab")){
 					for (int i = 0; i < ExpectedFontValuesTab.length; i++) {
 						List<String> actualCssValues = commonMethods.getFontProperties(webPage,
 								ExpectedFontValuesTab[i][1], softAssert);
@@ -220,52 +204,6 @@ public class Conns_Home_Page extends BaseTest {
 											+ ". Expected font Size: " + ExpectedFontValuesTab[i][2]
 													+ " Actual Font Size: " + actualCssValues.get(0));
 						}
-						/*if (!ExpectedFontValuesTab[i][3].equalsIgnoreCase("NA")) {
-							softAssert.assertTrue(actualCssValues.get(1).contains(ExpectedFontValuesTab[i][3]),
-									"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]
-											+ ". Expected font color: " + ExpectedFontValuesTab[i][3]
-											+ " Actual font color: " + actualCssValues.get(1));
-						}
-						if (!ExpectedFontValuesTab[i][4].equalsIgnoreCase("NA")) {
-							softAssert.assertTrue(
-									actualCssValues.get(2).toLowerCase()
-											.contains((ExpectedFontValuesTab[i][4]).toLowerCase()),
-									"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]
-											+ ". Expected font family: " + ExpectedFontValuesTab[i][4]
-											+ " Actual font family: " + actualCssValues.get(2));
-						}
-						if (!ExpectedFontValuesTab[i][5].equalsIgnoreCase("NA")) {
-							softAssert.assertTrue(
-									actualCssValues.get(3).toLowerCase()
-											.contains((ExpectedFontValuesTab[i][5]).toLowerCase()),
-									"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]
-											+ ". Expected font weight: " + ExpectedFontValuesTab[i][5]
-											+ " Actual font weight: " + actualCssValues.get(3));
-						}
-						if (!ExpectedFontValuesTab[i][6].equalsIgnoreCase("NA")) {
-							softAssert.assertTrue(
-									actualCssValues.get(4).toLowerCase()
-											.contains((ExpectedFontValuesTab[i][6]).toLowerCase()),
-									"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]
-											+ ". Expected font background color: " + ExpectedFontValuesTab[i][6]
-											+ " Actual font background color: " + actualCssValues.get(4));
-						}
-						if (!ExpectedFontValuesTab[i][7].equalsIgnoreCase("NA")) {
-							softAssert.assertTrue(
-									actualCssValues.get(5).toLowerCase()
-											.contains((ExpectedFontValuesTab[i][7]).toLowerCase()),
-									"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]
-											+ ". Expected Text Align: " + ExpectedFontValuesTab[i][7]
-											+ " Actual Text Align: " + actualCssValues.get(5));
-						}
-						if (!ExpectedFontValuesTab[i][8].equalsIgnoreCase("NA")) {
-							softAssert.assertTrue(
-									actualCssValues.get(6).toLowerCase()
-											.contains((ExpectedFontValuesTab[i][8]).toLowerCase()),
-									"CSS value verification failed for link " + ExpectedFontValuesTab[i][0]
-											+ ". Expected Text Transform: " + ExpectedFontValuesTab[i][8]
-											+ " Actual Text Transform: " + actualCssValues.get(6));
-						}*/
 					}
 				} else {
 					for (int i = 0; i < ExpectedFontValuesMobile.length; i++) {
@@ -431,7 +369,7 @@ public class Conns_Home_Page extends BaseTest {
 					log.info("Inside the 2nd if. Value of I : " + i);
 					//ActualURL = commonMethods.clickElementbyXpathAndGetURL(webPage, testData[i][2], softAssert);
 					/******For iPad execution ,commented above mentioned code and used clickAndGetPageURLUsingJS instead*******/					
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+					ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -440,7 +378,7 @@ public class Conns_Home_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Web")) {
 					// replacing "clickAndGetPageURLUsingJS" method with
 					// "clickAndGetPageURLUsingJS"
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+					ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -470,7 +408,7 @@ public class Conns_Home_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Mobile")) {
 					ActualURL = commonMethods.clickAndGetPageURL(webPage, testData[i][1],testData[i][0], softAssert);
 				} else {
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+					ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 				}
 				softAssert.assertTrue(ActualURL.contains(testData[i][4]), "Link Name  :" + testData[i][0] + " : failed "
@@ -1005,7 +943,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(2000);
 					ActualURL =
-							ConnsHomePage.clickAndGetPageURLUsingJS(webPage,
+							commonMethods.clickAndGetPageURLUsingJS(webPage,
 									testData[i][1], testData[i][0], testData[i][5],
 									softAssert);
 
@@ -1048,7 +986,7 @@ public class Conns_Home_Page extends BaseTest {
 					commonMethods.clickElementbyXpath(webPage, testData[i][3], softAssert);
 					Thread.sleep(1000);
 				}
-			//	if (testType.equalsIgnoreCase("Mobile") ||testBedName.equalsIgnoreCase("edge") ) {
+		
 				if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
 					log.info("TestType is  : " +testType +"************ testBedName Name **************" +testBedName );
 					if(!(testData[i][2].equalsIgnoreCase("NA"))){
@@ -1059,11 +997,11 @@ public class Conns_Home_Page extends BaseTest {
 								"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
 										+ "Expected URL is  :" + testData[i][4]);}
 				}
-			//	if (testType.equalsIgnoreCase("Web") && !testBedName.equalsIgnoreCase("edge")) {
+			
 				if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 					log.info("TestType is  : " +testType +"************ testBedName **************" +browserName );
 					ActualURL =
-							ConnsHomePage.clickAndGetPageURLUsingJS(webPage,
+							commonMethods.clickAndGetPageURLUsingJS(webPage,
 									testData[i][1], testData[i][0], testData[i][5],
 									softAssert);
 
@@ -1152,7 +1090,7 @@ public class Conns_Home_Page extends BaseTest {
 					/************Reverting back to initial if condition  **************/
 			//	if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 					log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+					ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 					softAssert.assertTrue(ActualURL.contains(testData[i][4]),
 							"Link Name  :" + testData[i][0] + " : failed " + "Actual URL is  :" + ActualURL + " "
@@ -1212,7 +1150,7 @@ public class Conns_Home_Page extends BaseTest {
 				if (testType.equalsIgnoreCase("Web")) {
 				//if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
 					log.info("TestType is  : " +testType +"************ testBedName **************" +testBedName );
-					ActualURL = ConnsHomePage.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
+					ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, testData[i][1], testData[i][0],
 							testData[i][5], softAssert);
 					commonMethods.waitForPageLoad(webPage, softAssert);
 					Thread.sleep(20000);

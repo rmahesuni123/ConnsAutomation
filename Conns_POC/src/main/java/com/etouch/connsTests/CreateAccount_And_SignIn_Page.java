@@ -861,29 +861,14 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					 softAssert);
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
 			 log.info( "************************ Additional Address Functionality Save Button Operation Starts For Devices :  ****************");
-			 /*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-			 log.info( "************************* Additional Address Functionality Save Button will be clicked  ******************");
-				log.info("Finding Save_Button_Locator " );
-				WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
-				js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
-				log.info("Save_Button_Locator Clicked : "   );
-				log.info(" **************************** Additional Address Functionality Completed Successfully *******************************************************************************************************************************************************");
-				webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);	
-			 }
-			 else{
-				 log.info("Finding Save_Button_Locator " );
-				 WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
-				 js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
-				 log.info("Save_Button_Locator Clicked : "   );*/
 			 	 log.info("Finding Save_Button_Locator " );
 			     WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
 			     js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
-			     log.info("Save_Button_Locator Clicked : "   );
 			     CommonMethods.waitForGivenTime(5);
 			     commonMethods.waitForPageLoad(webPage, softAssert);
+			     webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
 				 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
 				 log.info( " **************************** Assert contains url*******************************************************************************************************************************************************");
-				 /*webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);*/
 				 commonMethods.waitForPageLoad(webPage, softAssert);
 				 softAssert.assertTrue(actualAddressBookPageURL.contains(Expected_Address_Book_Page_URL),
 						 "Page url verification failed. Expected_Address_Book_Page_URL : " + Expected_Address_Book_Page_URL
@@ -893,24 +878,12 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			 softAssert.assertEquals(actualAddressBookPageTitle, Expected_Address_Book_Page_Title,
 					 "Page title verification failed. Expected title : " + Expected_Address_Book_Page_Title
 					 + "Actual Title : " + actualAddressBookPageTitle);
-			// if (!(testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("InternetExplorer")||  testBedName.equalsIgnoreCase("Firefox")||testBedName.equalsIgnoreCase("Safari"))) {
-			/* String ActualElementName = commonMethods.getTextbyXpath(webPage,
-					 Expected_Additonal_Address_Successfully_Saved_Locator, softAssert);
-			 softAssert.assertEquals(ActualElementName, Expected_Additonal_Address_Successfully_Saved_Message,
-					 "Page Content verification failed. Expected Page Content Expected Element Name : "
-							 + Expected_Additonal_Address_Successfully_Saved_Message
-							 + "Actual Page Content Actual Element Name : " + ActualElementName);*/
-			//	}}
-			 
+					 
 			 /************************************************************************************************************************************************************************/
 			 softAssert.assertAll();
 			 // For Sign Out
 			 CommonMethods.waitForGivenTime(10);
-		
-			 
-			 //|| testBedName.equalsIgnoreCase("edge") 
-			 //|| testBedName.equalsIgnoreCase("Safari")
-			 
+	 
 			 if (testType.equalsIgnoreCase("Mobile") ) {					 
 				 WebElement element_1 = webPage.getDriver().findElement(By.xpath(commonData[11][1]));					
 				js.executeScript("arguments[0].click();", element_1);

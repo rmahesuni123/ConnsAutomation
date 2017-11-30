@@ -28,6 +28,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -174,6 +175,41 @@ public class CommonMethods {
 	}
 	
 	
+	
+	
+	public String clickAndGetPageURLUsingJS(WebPage webPage, String locator, String linkName, String TargetPageLocator,
+			SoftAssert softAssert) throws PageException, InterruptedException {
+		String mainWindow = webPage.getDriver().getWindowHandle();
+		WebElement element = webPage.findObjectByxPath(locator).getWebElement();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		js.executeScript("arguments[0].click();", element);
+		log.info("Clicked on Link : " + linkName);
+		//waitPageToLoad();
+		waitForPageLoad(webPage, softAssert);
+		String pageUrl = "";
+		try {
+			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			if (windowHandlesSet.size() > 1) {
+				for (String winHandle : windowHandlesSet) {
+					webPage.getDriver().switchTo().window(winHandle);
+					if (!winHandle.equalsIgnoreCase(mainWindow)) {
+						log.info("More than 1 window open after clicking on link : " + linkName);
+						pageUrl = webPage.getCurrentUrl();
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(mainWindow);
+					}
+				}
+			} else {
+				pageUrl = webPage.getCurrentUrl();
+			}
+			log.info("Actual URL : " + pageUrl);
+		} catch (Throwable e) {
+			softAssert.fail("Unable to click on link '" + linkName + ". Localized Message: " + e.getLocalizedMessage());
+		}
+		return pageUrl;
+	}
+
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click on link using x-path and return page url
@@ -214,14 +250,7 @@ public class CommonMethods {
 		try{
 			Alert alert=webPage.getDriver().switchTo().alert();
 			alert.accept();
-			/*log.info(webPage.getDriver().getPageSource());
-			if(webPage.getDriver().findElement(By.xpath("//*[@class='modal-footer']//button")).isDisplayed()){
-				JavascriptExecutor executor = (JavascriptExecutor)webPage.getDriver();
-				WebElement abc = webPage.getDriver().findElement(By.xpath("//*[@class='modal-footer']//button"));
-				executor.executeScript("arguments[0].click();", abc);
-				Thread.sleep(2000);
-				log.info("Location pop-up handled");
-			}*/
+			
 		}catch(Exception e){
 			log.info("Location pop-up not present for this browser.");
 		}
@@ -311,7 +340,6 @@ public class CommonMethods {
 	public void clickWithChildElementby_UsingJavaScriptXpath(WebPage webPage,String parentlocator, String locator, String linkName, SoftAssert softAssert){
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try{
-			//Thread.sleep(3000);
 			if(!parentlocator.equalsIgnoreCase("NA")){
 				log.info("Clicking on parent locator : "+parentlocator);
 				
