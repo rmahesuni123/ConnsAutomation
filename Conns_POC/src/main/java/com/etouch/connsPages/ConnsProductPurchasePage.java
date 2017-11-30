@@ -3,10 +3,12 @@ package com.etouch.connsPages;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -18,6 +20,7 @@ import com.etouch.common.TafExecutor;
 import com.etouch.connsTests.Conns_Product_Purchase;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.core.exception.PageException;
+import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.webui.selenium.WebPage;
 
@@ -34,7 +37,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	CommonMethods commonMethods = new CommonMethods();
 	private ConnsHomePage ConnsHomePage;
 	Path path;
-	String DataFilePath;
+//	static String DataFilePath;
 
 
 	public void Click_On_French_Door_Link(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
@@ -56,7 +59,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			softAssert.fail(e.getLocalizedMessage());
 		}
 	}
-	
+
 
 	public static void Click_On_Element_JS(WebPage webPage, String test) {
 		try {
@@ -81,9 +84,9 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		}
 	}
 
-	
 
-	
+
+
 
 	public void Checkout_Guest(WebPage webPage, String[][] checkoutGuest, SoftAssert softAssert) {
 		try {
@@ -119,6 +122,8 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			checkoutSendKeysbyXpath(webPage, test[4][1], test[4][3], softAssert);
 			checkoutSendKeysbyXpath(webPage, test[5][1], test[5][3], softAssert);
 			checkoutSendKeysbyXpath(webPage, test[6][1], test[6][3], softAssert);
+			//dummy click
+			commonMethods.clickElementbyXpath(webPage, test[5][1], softAssert);
 			commonMethods.selectDropdownByValue(webPage, test[7][1], test[7][3], softAssert);
 			Thread.sleep(2000);
 		} catch (Throwable e) {
@@ -197,8 +202,8 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			Assert.fail();
 		}
 	}
-	
-	
+
+
 	public String checkoutgetTextbyXpath(WebPage webPage, String locator, SoftAssert softAssert) throws PageException{
 		String actualText= "";
 		try {
@@ -229,8 +234,8 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			softAssert.fail("Unable to change number of products displayed: "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
-	
+
+
 	public void removeProductsFromCart(WebPage webPage, SoftAssert softAssert) throws InterruptedException{
 		List<WebElement> removeIteList = webPage.getDriver().findElements(By.xpath(commonData[9][1]));
 		if(removeIteList.size()>1){
@@ -243,11 +248,11 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			log.info("More than 1 item not present in cart");
 		}
 	}
-	
+
 	/*
 	 * -This method will open over-laybox for in-stock or pickup only product depending on data passed to the method.
 	 */
-	
+
 	public String Open_OverlayBox_ForDataGiven(WebPage webPage, String[][] openOverlayData,SoftAssert softAssert) {
 		String productText = null;
 		try {
@@ -271,7 +276,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 						}
 					}
 					break;
-					
+
 				}
 			}
 		} catch (Throwable e) {
@@ -280,7 +285,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		}
 		return productText;
 	}
-	
+
 	public void openOverlayBox(WebPage webPage,SoftAssert softAssert)
 	{
 		boolean isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
@@ -291,15 +296,15 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 				log.info("Clicking Add to Cart button not required as Overlay box is already open");
 			}
 		}
-		
+
 	}
-	
-	
-	
+
+
+
 	/*
 	 * -This method will verify elements present on overlay box using assert.
 	 */
-	
+
 	public void verifyOverlayBoxText(WebPage webPage, String[][] overlayData, SoftAssert softAssert){
 		log.info("Verifying text present on Overlay box");
 		try{
@@ -309,20 +314,20 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			actualTextValues.add(commonMethods.getTextbyXpath(webPage, overlayData[6][1], softAssert));
 			actualTextValues.add(commonMethods.getTextbyXpath(webPage, overlayData[7][1], softAssert));
 			actualTextValues.add(commonMethods.getTextbyXpath(webPage, overlayData[8][1], softAssert));
-			
+
 			for(int i=0;i<actualTextValues.size();i++){
 				softAssert.assertTrue(actualTextValues.get(i).contains(overlayData[i+4][2]),"Expected Text: "+overlayData[i+4][2]+" Actual Text: "+actualTextValues.get(i));
 			}
-			
+
 		}catch(Exception e){
 			softAssert.assertAll();
 		}
 	}
-	
+
 	/*
 	 * - This method will add product with status InStock to cart if product delivery is available for given location.
 	 */
-	
+
 	public List<String> addInstockProductForAvailableLocation(WebPage webPage, String[][] inStockProduct,SoftAssert softAssert){
 		String errorMessage = null;
 		//String productText = null;
@@ -414,14 +419,14 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		}
 		return actualTextValues;
 	}
-	
+
 	/*
 	 * - This method will add product with status PickupOnly to cart if product delivery is available for given location.
 	 */
-	
+
 	public void addPickupOnlyProductForAvailableLocation(WebPage webPage, String[][] pickupOnlyProduct,SoftAssert softAssert){
 		String errorMessage = null;
-		
+
 		try {
 			log.info("Adding Pickup Only product to cart");
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,commonData[1][1], softAssert);
@@ -434,7 +439,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 					log.info("Found product number "+i+" with text "+pickupOnlyProduct[0][3]);
 					log.info("Clicking on product:::" + i);
 					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",softAssert);
-					
+
 					boolean isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
 					if(!isOverlayDisplayed){
 						try{
@@ -452,75 +457,75 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 					log.info("Clicking Add to Cart button not required as Overlay box is already open");
 				}
 
-					isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
-					log.info("isOverlayDisplayed:" + isOverlayDisplayed);
+				isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
+				log.info("isOverlayDisplayed:" + isOverlayDisplayed);
 
-					commonMethods.clearElementbyXpath(webPage, pickupOnlyProduct[5][1], softAssert);
-					CommonMethods.waitForWebElement(By.xpath(pickupOnlyProduct[5][1]), webPage);
-					commonMethods.sendKeysbyXpath(webPage, pickupOnlyProduct[5][1], pickupOnlyProduct[5][3],softAssert);
-					Thread.sleep(2000);
-					try{
-						CommonMethods.waitForWebElement(By.xpath(pickupOnlyProduct[6][1]), webPage);
-					}catch(Exception e){
-						e.getLocalizedMessage();
-					}
-					commonMethods.clickElementbyXpath(webPage, pickupOnlyProduct[6][1], softAssert);
-					Thread.sleep(10000);
-					boolean isPresent = webPage.getDriver().findElements(By.xpath(pickupOnlyProduct[8][1])).size() > 0;
-					if (!isPresent) {
-						log.info("Product found with given delivery location");
+				commonMethods.clearElementbyXpath(webPage, pickupOnlyProduct[5][1], softAssert);
+				CommonMethods.waitForWebElement(By.xpath(pickupOnlyProduct[5][1]), webPage);
+				commonMethods.sendKeysbyXpath(webPage, pickupOnlyProduct[5][1], pickupOnlyProduct[5][3],softAssert);
+				Thread.sleep(2000);
+				try{
+					CommonMethods.waitForWebElement(By.xpath(pickupOnlyProduct[6][1]), webPage);
+				}catch(Exception e){
+					e.getLocalizedMessage();
+				}
+				commonMethods.clickElementbyXpath(webPage, pickupOnlyProduct[6][1], softAssert);
+				Thread.sleep(10000);
+				boolean isPresent = webPage.getDriver().findElements(By.xpath(pickupOnlyProduct[8][1])).size() > 0;
+				if (!isPresent) {
+					log.info("Product found with given delivery location");
+					commonMethods.clickElementbyXpath(webPage, pickupOnlyProduct[7][1], softAssert);
+					log.info("Clicked on Add To Cart button in Overlay Box");
+					Thread.sleep(5000);
+					if (isAlertPresent())
+					{
+						log.info("Alert present after clicking on Add to Cart button, this can be because of slow network");
+						Alert alert = webPage.getDriver().switchTo().alert();
+						alert.accept();
+						Thread.sleep(7000);
 						commonMethods.clickElementbyXpath(webPage, pickupOnlyProduct[7][1], softAssert);
-						log.info("Clicked on Add To Cart button in Overlay Box");
-						Thread.sleep(5000);
-						if (isAlertPresent())
-						{
-							log.info("Alert present after clicking on Add to Cart button, this can be because of slow network");
-							Alert alert = webPage.getDriver().switchTo().alert();
-							alert.accept();
-							Thread.sleep(7000);
-							commonMethods.clickElementbyXpath(webPage, pickupOnlyProduct[7][1], softAssert);
-						}
-						if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
-							log.info("Cart is Empty message displayed after clicking on Add to Cart button. Test will not be able to complete successfully because of this.");
-							boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
-							log.info("isShoppingCartEmpty:" + isShoppingCartEmpty);
-							Assert.assertFalse(isShoppingCartEmpty,
-									"Cart is Empty message shown even after adding valid product. Test cannot be completed as product did not get added to cart.");
-						}
-						log.info("Clicked on Add To Cart button for Pickup Only product successfully");
-					} else {
-						errorMessage = commonMethods.getTextbyXpath(webPage, pickupOnlyProduct[8][1], softAssert);
-						log.info(errorMessage);
-						log.info("Delivery for product not available for given location, trying next Pickup Only product");
-						webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
+					}
+					if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
+						log.info("Cart is Empty message displayed after clicking on Add to Cart button. Test will not be able to complete successfully because of this.");
+						boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+						log.info("isShoppingCartEmpty:" + isShoppingCartEmpty);
+						Assert.assertFalse(isShoppingCartEmpty,
+								"Cart is Empty message shown even after adding valid product. Test cannot be completed as product did not get added to cart.");
+					}
+					log.info("Clicked on Add To Cart button for Pickup Only product successfully");
+				} else {
+					errorMessage = commonMethods.getTextbyXpath(webPage, pickupOnlyProduct[8][1], softAssert);
+					log.info(errorMessage);
+					log.info("Delivery for product not available for given location, trying next Pickup Only product");
+					webPage.getDriver().findElement(By.xpath(commonData[4][1])).click();
 
-						if (testType.equalsIgnoreCase("Web")) {
-							Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
-							numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
-						} else {
-							clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-							if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
-								commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
-							}
+					if (testType.equalsIgnoreCase("Web")) {
+						Click_On_French_Door_Link(webPage, commonData[7][1], softAssert);
+						numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
+					} else {
+						clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
+						if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
+							commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
 						}
 					}
+				}
 			}
 		} catch (Throwable e) {
 			log.error("Method addPickupOnlyProductForAvailableLocation failed");
 			Assert.fail(e.getLocalizedMessage());
 			softAssert.assertAll();
-			
+
 		}
 	}
-	
+
 	/*
 	 * - This method will add product with status InStocky to cart if product delivery is available for given location.
 	 * - This method will mark check-box pickup before adding the product to cart
 	 */
-	
+
 	public void addInstockPickupProductForAvailableLocation(WebPage webPage, String[][] inStockProduct,SoftAssert softAssert){
 		String errorMessage = null;
-		
+
 		try {
 			log.info("Adding In-Stock Pickup product to cart");
 			List<WebElement> listOfProducts = commonMethods.getWebElementsbyXpath(webPage,commonData[1][1], softAssert);
@@ -532,7 +537,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 					log.info("Found product number "+i+" with text "+inStockProduct[0][3]);
 					log.info("Clicking on product:::" + i);
 					commonMethods.clickElementbyXpath(webPage, commonData[5][1] + i + "]",softAssert);
-			
+
 					boolean isOverlayDisplayed = commonMethods.verifyElementisPresent(webPage,commonData[4][1], softAssert);
 					if(isOverlayDisplayed){
 						try{
@@ -617,11 +622,11 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-	
+
 	/*
 	 * Below methods are not used in product purchase but used in product search and product listing
 	 */
-	
+
 	public static void page_Is_Shopping_Cart_Empty(WebPage webPage) throws InterruptedException {
 		Thread.sleep(3000);
 		boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
@@ -629,7 +634,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		Assert.assertFalse(isShoppingCartEmpty,
 				"--------- Functionality Failure ::: Actual:Shopping cart is empty  Expected: product should be added to cart-------");
 	}
-	
+
 	public static void Click_On_French_Door_Link(WebPage webPage, String test) {
 		try {
 			//webPage.getDriver().manage().deleteAllCookies();
@@ -641,13 +646,13 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			log.error(e.getMessage());
 		}
 	}
-	
+
 	public void proceedBySelectingConnsHomePlusPaymentMethod(WebPage webPage, String[][] connsHomePlusCard_Billing_data,SoftAssert softAssert){
 		log.info("Entering Conns homeplus card number");
 		commonMethods.clearTextBoxByXpath(webPage, connsHomePlusCard_Billing_data[8][1], softAssert);
 		commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_Billing_data[8][1], connsHomePlusCard_Billing_data[8][3], softAssert);
 	}
-	
+
 	public void hhregInputInOrderReviewSection(WebPage webPage, String[][] connsHomePlusCard_OrderReviewData,SoftAssert softAssert) throws InterruptedException{
 		log.info("Entering hhreg inputs in order review section");
 		commonMethods.sendKeysbyXpath(webPage, connsHomePlusCard_OrderReviewData[0][1], connsHomePlusCard_OrderReviewData[0][2], softAssert);
@@ -657,12 +662,12 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		commonMethods.clickElementbyXpath(webPage, connsHomePlusCard_OrderReviewData[5][1], softAssert);
 		Thread.sleep(15000);
 	}
-	
+
 	/*
 
-     * - This method will add product with status PickupOnly to cart if product delivery is available for given location.
+	 * - This method will add product with status PickupOnly to cart if product delivery is available for given location.
 
-     */
+	 */
 	public void addPickupOnlyAndPromotionalProductForAvailableLocation(WebPage webPage, String[][] pickupOnlyProduct,SoftAssert softAssert,String productType){
 		String errorMessage = null;
 		try {
@@ -825,11 +830,11 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			softAssert.assertAll();
 		}
 	}
-	
+
 	/*
 	 * - This method will add product given product to cart. Please make sure product that is passed has available delivery
 	 */
-	
+
 	public List<String> addGivenProductToCart(WebPage webPage, String productUrl, String[][] addProductData,SoftAssert softAssert, boolean getProductDetails){
 		String errorMessage = null;
 		List<String> actualTextValues= new ArrayList<String>();
@@ -838,7 +843,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		String productShippingAreaText = null;
 		String productPrice = null;
 		try {
-			
+
 			log.info("Adding given product to cart");
 			commonMethods.navigateToPage(webPage, productUrl, softAssert);
 			Thread.sleep(2000);
@@ -847,18 +852,18 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			{
 				commonMethods.clickElementbyXpath(webPage, commonData[4][1], softAssert);
 			}
-			
+
 			if(getProductDetails){	
-				
+
 				productName = commonMethods.getTextbyXpath(webPage, addProductData[10][1], softAssert);
 				productShippingAreaText = commonMethods.getTextbyXpath(webPage, addProductData[11][1], softAssert);
 				productPrice = commonMethods.getTextbyXpath(webPage, addProductData[12][1], softAssert);
-				
+
 				actualTextValues.add(productName);
 				actualTextValues.add(productShippingAreaText);
 				actualTextValues.add(productPrice);
 			}
-			
+
 			//click on add to cart and enter zip code in overlay box
 			log.info("Clicking on Add To Cart button on product page");
 			commonMethods.clickElementbyXpath(webPage, commonData[3][1], softAssert);
@@ -866,7 +871,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			CommonMethods.waitForWebElement(By.xpath(addProductData[5][1]), webPage);
 			commonMethods.sendKeysbyXpath(webPage, addProductData[5][1], addProductData[5][3],softAssert);
 			Thread.sleep(2000);
-			
+
 			try{
 				//wait for update button in overlay box
 				CommonMethods.waitForWebElement(By.xpath(addProductData[6][1]), webPage);
@@ -876,24 +881,18 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			//click update button
 			commonMethods.clickElementbyXpath(webPage, addProductData[6][1], softAssert);
 			Thread.sleep(5000);
-		
+
 			//verify is error message shown for given zip code
 			boolean isPresent = webPage.getDriver().findElements(By.xpath(addProductData[8][1])).size() > 0;
-			
+
 			if (!isPresent) {
 				log.info("Product found with given delivery location");
 				//getting valid message from overlay box for later verification
 				if(getProductDetails){	
-				instockProductAvailableMessage = commonMethods.getTextbyXpath(webPage, addProductData[9][1], softAssert);
-				actualTextValues.add(instockProductAvailableMessage);
+					instockProductAvailableMessage = commonMethods.getTextbyXpath(webPage, addProductData[9][1], softAssert);
+					actualTextValues.add(instockProductAvailableMessage);
 				}
-				/*if(getProductDetails){	
-				instockProductAvailableMessage = commonMethods.getTextbyXpath(webPage, addProductData[9][1], softAssert);
-				actualTextValues.add(instockProductAvailableMessage);
-				actualTextValues.add(productName);
-				actualTextValues.add(productShippingAreaText);
-				actualTextValues.add(productPrice);
-			}*/
+
 				log.info("Clicking on Add To Cart button in Overlay Box");
 				commonMethods.clickElementbyXpath(webPage, addProductData[7][1], softAssert);
 				Thread.sleep(8000);
@@ -917,19 +916,21 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		}
 		return actualTextValues;
 	}
-	
-	public void deleteCookies()
+
+	public boolean deleteCookies()
 	{
 		try{
 			webPage.getDriver().manage().deleteAllCookies();
 			log.info("browser history cleared");
+			return true;
 		}catch(Throwable e){
 			log.info("Unable to delete cookies for current browser.");
+			return false;
 		}
 	}
-	
-public void navigateToProductListingPage(WebPage webpage,String productListingPageLink, SoftAssert softAssert) throws InterruptedException {
-		
+
+	public void navigateToProductListingPage(WebPage webpage,String productListingPageLink, SoftAssert softAssert) throws InterruptedException {
+
 		if (testType.equalsIgnoreCase("Web")) {
 			Click_On_French_Door_Link(webPage, productListingPageLink, softAssert);
 			numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
@@ -939,6 +940,69 @@ public void navigateToProductListingPage(WebPage webpage,String productListingPa
 				commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
 			}
 		}
-	
-}
+
+	}
+
+	/**
+	 * Method ot verify if shipping method option is displayed
+	 * If displayed method will select white gloves option and click on continue button
+	 * If white gloves option is not displayed then it will  directly click on Continue button 
+	 * @param webpage
+	 * @param softAssert
+	 */
+	public void verifyShippingMethodOptionIsDisplayed(WebPage webpage, SoftAssert softAssert) {
+		if(commonMethods.verifyElementisPresent(webpage, commonData[29][1], softAssert))
+		{
+			log.info("Shipping Method Option is displayed");
+			if(commonMethods.verifyElementisPresent(webpage, commonData[39][1], softAssert))
+			{
+				log.info("Selecting White Glover Shipping Method");
+				commonMethods.clickElementbyXpath(webpage, commonData[39][1], softAssert);
+			}
+			log.info("Clicking on Shipping Info Continue Button");
+			commonMethods.clickElementbyXpath(webpage, commonData[29][1], softAssert);
+		}
+
+
+	}
+
+	public void emptyShoppingCart(WebPage webPage, SoftAssert softAssert) throws InterruptedException
+	{
+		try{
+		Thread.sleep(5000);
+		String[][] checkoutPageData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Checkout_Page_Elements");
+		String[][] cartPageData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Cart_Page_Data");
+		log.info("Deleting Cart items from user account");
+		log.info("Clicking on Cart Header");
+		commonMethods.clickElementbyXpath(webPage, checkoutPageData[43][1], softAssert);
+		log.info("Clicking on Shopping Cart Link");
+		commonMethods.clickElementbyXpath(webPage, checkoutPageData[44][1], softAssert);
+		Thread.sleep(3000);
+		if(commonMethods.verifyElementisPresent(webPage, cartPageData[6][1], softAssert))
+		{
+			List<WebElement> removeItemButtons = commonMethods.findElementsByXpath(webPage, cartPageData[6][1], softAssert);
+			log.info("Number of items present in cart: "+removeItemButtons.size());
+			int counter =0;
+			while(removeItemButtons.size()>0){
+				removeItemButtons.get(0).click();
+				commonMethods.waitForGivenTime(10, softAssert);
+				commonMethods.waitForPageLoad(webPage, softAssert);
+				try{
+					removeItemButtons = webPage.getDriver().findElements(By.xpath(cartPageData[6][1]));	
+					log.info("Number of items present in cart: "+removeItemButtons.size());
+					counter++;
+					if(counter>5){
+						break;
+					}
+				}catch(Exception e){
+					log.info("No more items pending in cart");
+					break;
+				}
+			}
+		}else{log.info("Shopping Cart is Empty");}
+		}catch(Throwable t){
+			t.printStackTrace();
+		}
+
+	}
 }

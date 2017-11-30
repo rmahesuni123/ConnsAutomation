@@ -1101,23 +1101,34 @@ public class CommonMethods {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	
-	public boolean waitForPageLoad(WebPage webPage, SoftAssert softAssert) throws InterruptedException
+	public void waitForPageLoad(WebPage webPage, SoftAssert softAssert) throws InterruptedException
 	{
 		WebDriver driver = webPage.getDriver();
 		int count =0;
-		while(!((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete"))
+		Thread.sleep(2000);
+		while(count<30)
 		{
-			Thread.sleep(1000);
-			count++;
-			if(count>20&&((JavascriptExecutor)driver).executeScript("return document.readyState").equals("loading"))
+			try{
+				if(!((JavascriptExecutor)driver).executeScript("return document.readyState").toString().contains("complete"))
+				{
+					log.info("Waiting for Page to Complete loading");
+					Thread.sleep(1000);
+					count++;
+				}
+				else{
+					break;
+				}
+
+			}catch(Exception NullPointerException)
 			{
-			softAssert.fail("Unable to complete page load, Took more than 20 sec to load page");
-			return false;
+				Thread.sleep(1000);
+				count++;
 			}
-			
 		}
-		return true;
+		if(count>=30)
+		{
+			softAssert.fail("Unable to complete page load, Took more than 20 sec to load page");
+		}
 	}
 	
 	/**
@@ -1589,5 +1600,18 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 			else{
 				softAssert.fail("Status Code for link "+ linkName + "With Url :" + expectedHref +" is "+statusCode);
 			}
+		}
+		/**
+		 * Method to sign out from Conns
+		 * @param webPage
+		 * @param softAssert
+		 * @throws InterruptedException
+		 */
+		public void logOutFromConns(WebPage webPage, SoftAssert softAssert) throws InterruptedException {
+			clickElementbyXpath(webPage, "(//*[@id='slide-nav']//a/img)[1]", softAssert);
+			Thread.sleep(2000);
+			clickElementbyXpath(webPage, "//*[@id='account-welcome']", softAssert);
+			Thread.sleep(2000);
+			clickElementbyXpath(webPage, "(//*[@id='account-menu']//a)[4]", softAssert);
 		}
 }
