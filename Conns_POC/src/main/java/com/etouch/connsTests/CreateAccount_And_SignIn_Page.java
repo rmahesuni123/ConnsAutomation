@@ -791,12 +791,8 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			log.info("verification of Mandatory field validation message started");
 			String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
 					"Account_Information_Address_Book_Additional_Address_Valid_Input");
-			String Navigate_To_Account_Information_Tab_Form_URL = inputdata[0][0];
 			String Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator = inputdata[0][1];
-			String Account_Information_Address_Book_Additional_Address_Entries_Delete_Address_Locator = inputdata[0][2];
 			String Account_Information_Address_Book_Add_New_Address_Locator = inputdata[0][3];
-			String Expected_Additonal_Address_Successfully_Saved_Locator = inputdata[0][27];
-			String Expected_Additonal_Address_Successfully_Saved_Message = inputdata[0][28];
 			String Expected_Address_Book_Page_URL = inputdata[0][29];
 			String Expected_Address_Book_Page_Title = inputdata[0][30];
 			String Save_Button_Locator = inputdata[0][26];
@@ -923,15 +919,6 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
 			js.executeScript("arguments[0].click();", element);
-			/*************Commented below codes to use Javascript click operation across all environments********************/
-			
-			
-			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
-				js.executeScript("arguments[0].click();", element);
-			}else{
-				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			}*/
 			CommonMethods.waitForGivenTime(10);
 			webPage.getDriver().get(commonData[8][1]);
 			String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
