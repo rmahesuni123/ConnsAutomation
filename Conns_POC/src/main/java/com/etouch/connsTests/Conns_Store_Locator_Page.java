@@ -111,7 +111,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	@Test(priority = 101, enabled = true, description = "Verify_StoreLocator_PageTitle")
 	public void Verify_StoreLocator_PageTitle() {
 		SoftAssert softAssert = new SoftAssert();
-
 		try{
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "verifyPageTitle");
 			String ExpectedTitle = test[0][1];
@@ -604,6 +603,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				if(browserName.equalsIgnoreCase("edge")){
 					storeText = storeText.replaceAll("(?m) +$", "");
 				}
+			//	softAssert.assertTrue(storeText.contains(verifyStorePageData[i][6]),"Text verification failed. Expected text: " + verifyStorePageData[i][6] + " Actual text: " + storeText);
 				softAssert.assertTrue(storeText.contains(verifyStorePageData[i][6]),"Text verification failed. Expected text: " + verifyStorePageData[i][6] + " Actual text: " + storeText);
 				CommonMethods.waitForWebElement(By.xpath(verifyStorePageData[i][7]), webPage);
 				String customerReviewText = commonMethods.getTextbyXpath(webPage, verifyStorePageData[i][7], softAssert);
@@ -735,7 +735,6 @@ public class Conns_Store_Locator_Page extends BaseTest {
 					e.printStackTrace();
 					e.getLocalizedMessage();
 				}
-				
 				Thread.sleep(3000);
 				
 				String storeDescriptionText = commonMethods.getTextbyXpath(webPage, allRegionDescriptiondata[i][3], softAssert);
