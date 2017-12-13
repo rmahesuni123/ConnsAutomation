@@ -980,6 +980,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * 
 	 * @author sjadhav
 	 * @param softAssert
+	 * @throws InterruptedException 
 	 * @throws Exception
 	 */
 	/*
@@ -990,7 +991,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * commonData.get("SignInMenuLogoutOption"), softAssert);
 	 * navigateToCreditAppPage(softAssert); }
 	 */
-	public void verifyErrorMessageForIos(SoftAssert softAssert, String[][] test) {
+	public void verifyErrorMessageForIos(SoftAssert softAssert, String[][] test) throws InterruptedException {
 		for (int r = 0; r < test.length; r++) {
 			commonMethods.sendKeysById(webPageMap.get(Thread.currentThread().getId()), test[r][1], test[r][2], softAssert);
 			// verifyTextFieldIsEditableByIdJs(softAssert, test[r][0],

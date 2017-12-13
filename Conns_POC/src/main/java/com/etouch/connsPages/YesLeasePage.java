@@ -216,8 +216,9 @@ public class YesLeasePage extends CommonPage {
 	 * @param softAssert
 	 * @param FieldName
 	 * @param locator
+	 * @throws InterruptedException 
 	 */
-	public static void selectRadioButtonByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) {
+	public static void selectRadioButtonByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) throws InterruptedException {
 		if (commonMethods.getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
 			log.info("Selecting Radio button : \"" + FieldName + "\"");
 			commonMethods.clickElementbyXpath(webPage, locator, softAssert);
@@ -234,8 +235,9 @@ public class YesLeasePage extends CommonPage {
 	 * @param softAssert
 	 * @param FieldName
 	 * @param locator
+	 * @throws InterruptedException 
 	 */
-	public static void selectCheckBoxByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) {
+	public static void selectCheckBoxByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) throws InterruptedException {
 		if (commonMethods.getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
 			log.info("Selecting CheckBox : \"" + FieldName + "\"");
 			commonMethods.clickElementbyXpath(webPage, locator, softAssert);
@@ -252,8 +254,9 @@ public class YesLeasePage extends CommonPage {
 	 * @param softAssert
 	 * @param FieldName
 	 * @param locator
+	 * @throws InterruptedException 
 	 */
-	public static void selectButtonByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) {
+	public static void selectButtonByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) throws InterruptedException {
 		if (commonMethods.getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
 			log.info("Clicking on Button : \"" + FieldName + "\"");
 			commonMethods.clickElementbyXpath(webPage, locator, softAssert);

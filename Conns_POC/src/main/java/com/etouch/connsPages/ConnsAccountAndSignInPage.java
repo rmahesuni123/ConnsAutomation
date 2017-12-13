@@ -2999,7 +2999,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	
 	
-	public void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries (String[][] inputdata) throws PageException {
+	public void verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries (String[][] inputdata) throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		for (int q = 0; q < inputdata.length; q++) {
 
@@ -3102,7 +3102,7 @@ public class ConnsAccountAndSignInPage extends CommonPage {
 	
 	
 	
-	public List<String> verify_Account_DashBoard_First_Name_Last_Name_Login (String[][] testdata,SoftAssert softAssert) throws PageException {
+	public List<String> verify_Account_DashBoard_First_Name_Last_Name_Login (String[][] testdata,SoftAssert softAssert) throws PageException, InterruptedException {
 		List<String> brokenLinks = new ArrayList<String>();
 		List<String> information_Saved_Successfully_Message = new ArrayList<String>();
 		String Information_Saved_Successfully_Message_Account_Information_Page="";
