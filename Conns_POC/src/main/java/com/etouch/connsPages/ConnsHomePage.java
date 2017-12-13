@@ -132,7 +132,6 @@ public class ConnsHomePage extends CommonPage {
 	public void portable_Air_Conditioners(WebPage webPage, String portable_Air_Conditioners_Link,SoftAssert softAssert)
 	{
 	try {
-		//commonMethods.Click_On_Element_JS(webPage, portable_Air_Conditioners_Link, softAssert);
 		webPage.scrollToElement(webPage.findObjectByxPath(portable_Air_Conditioners_Link));
 		Thread.sleep(1000);
 	}catch (Exception e )
@@ -194,25 +193,6 @@ public class ConnsHomePage extends CommonPage {
 		e.printStackTrace();
 	}
 	}
-	
-	
-	/*public String Link_Navigation_Verification(WebPage webPage,  String testData[] [], String Redirection_Link_Locator,String linkName,String TargetPageLocator,String URL,SoftAssert softAssert) 
-	{  	String pageURL = "";
-		try {
-		commonMethods.waitForPageLoad(webPage, softAssert);
-		Thread.sleep(2000);
-		for (int i = 0; i < testData.length; i++) {	
-		log.info("Inside the if. Value of I : " + i);
-		pageURL = commonMethods.clickAndGetPageURLUsingJS(webPage, Redirection_Link_Locator,linkName,TargetPageLocator, softAssert);
-		PageNavigation_PageLoad(webPage,  URL, softAssert);
-		Thread.sleep(2000);
-		}
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-		return pageURL;
-	}*/
 	
 	
 	public void verifyBrokenImage(WebPage webPage)

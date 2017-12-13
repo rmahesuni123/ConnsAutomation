@@ -415,8 +415,7 @@ public class Conns_Home_Page extends BaseTest {
 	 * 
 	 */
 	@Test(priority = 9, enabled = true, description = "Verify LinksRedirection Under Furniture And Mattresses Menu")
-	public void Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu()
-			throws PageException, InterruptedException {
+	public void Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(url);	
 		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForFurnitureAndMattresses");
@@ -443,7 +442,6 @@ public class Conns_Home_Page extends BaseTest {
 		    if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
 				ConnsHomePage.LinksRedirection_Under_Option_Menu_Verification_Mobile(webPage, testData,patio_Furniture_Matteress_Link_Locator,patio_Functionality,portable_Air_Conditioners, softAssert);
 			  }
-			
 			softAssert.assertAll();
 		}catch (Throwable e) {
 			e.printStackTrace();

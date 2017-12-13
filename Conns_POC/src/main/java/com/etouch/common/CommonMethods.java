@@ -90,6 +90,10 @@ public class CommonMethods {
 		}
 		return isElementPresent;
 	}
+
+	
+	
+	
 	public static boolean verifyElementisPresent(WebPage webPage, String locator){
 		Boolean isElementPresent=false;
 		try{
@@ -99,9 +103,6 @@ public class CommonMethods {
 		}
 		return isElementPresent;
 	}
-	
-	
-	
 	
 	
 	/**
@@ -255,6 +256,20 @@ public class CommonMethods {
 			log.info("Location pop-up not present for this browser.");
 		}
 	}
+	
+	
+	public String[][] readExcelData(String DataFilePath,String key) throws InterruptedException{
+		Thread.sleep(2000);
+		String [][]keyData = null ;
+		try{
+			keyData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", key + "Region");
+			
+		}catch(Exception e){
+			log.info("Location pop-up not present for this browser.");
+		}
+		return keyData;
+	}
+	
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click on link using x-path and return page url
@@ -362,6 +377,20 @@ public class CommonMethods {
 		}
 	}
 	
+	
+	
+	public  String AlertBoxHandling(WebPage webPage, SoftAssert softAssert){
+		String alertActualText = "";
+	try {		
+	Alert alert = webPage.getDriver().switchTo().alert();
+	alertActualText = alert.getText();
+	log.info("Alert box text: "+alertActualText);
+	alert.accept();
+		}catch(Throwable e){
+			e.printStackTrace();
+		}
+	return  alertActualText;
+	}
 	
 	
 	/**
@@ -1239,6 +1268,7 @@ public class CommonMethods {
 		  return testData;
 		 }
 	
+
 	/**
 	 * @author sjadhav
 	 * The method used to click element using ID 
