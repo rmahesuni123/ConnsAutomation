@@ -267,7 +267,7 @@ public class CommonMethods {
 		try{
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
-			webPage.findObjectByxPath(locator).click();
+			clickElementbyXpath(webPage, locator, softAssert);
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
 			if(windowHandlesSet.size()>1){
 				for(String winHandle:windowHandlesSet){
@@ -296,13 +296,15 @@ public class CommonMethods {
 	 * The method used to click element using xpath 
 	 * Return type is void
 	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws InterruptedException 
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public void clickElementbyXpath(WebPage webPage, String locator, SoftAssert softAssert){
+	public void clickElementbyXpath(WebPage webPage, String locator, SoftAssert softAssert) throws InterruptedException{
 		try {
 			log.info("Clicking on element using xpath - "+locator);
 			webPage.findObjectByxPath(locator).click();
-		} catch (PageException e) {
+		} catch (Throwable e) {
+			e.printStackTrace();
 			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
@@ -752,6 +754,7 @@ public class CommonMethods {
 	
 	public static WebElement waitForWebElement(By by, WebPage webPage) throws PageException{
 		try{
+			log.info("Waiting for web element to be present");
 			WebElement element = null;
 			element = (new WebDriverWait(webPage.getDriver(), 20)).until(ExpectedConditions.presenceOfElementLocated(by));
 			return element;
@@ -1081,13 +1084,15 @@ public class CommonMethods {
 	 * @author Name - Shantanu Kulkarni
 	 * The method is used to click on element with JS	
 	 **/	
-	public String Click_On_Element_JS(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
+	public String Click_On_Element_JS(WebPage webPage, String xpath, SoftAssert softAssert) throws InterruptedException {
 
 		try {
-			WebElement element = webPage.findObjectByxPath(test).getWebElement();
+			//WebElement element = webPage.findObjectByxPath(test).getWebElement();
+			log.info("Clicking on web element by Java Script");
+			WebElement element = getWebElementbyXpath(webPage, xpath, softAssert);
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
-		} catch (PageException e) {
+		} catch (Throwable e) {
 			log.error(e.getMessage());
 			softAssert.fail(e.getLocalizedMessage());
 		}
@@ -1614,4 +1619,17 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 			Thread.sleep(2000);
 			clickElementbyXpath(webPage, "(//*[@id='account-menu']//a)[4]", softAssert);
 		}
+		
+		public void scrollToElement(WebPage webPage, String xpath,SoftAssert softAssert) {
+			log.info("Scrolling to element");
+			org.openqa.selenium.WebElement elementToScroll = getWebElementbyXpath(webPage, xpath, softAssert);
+			((JavascriptExecutor) webPage.getDriver()).executeScript("arguments[0].scrollIntoView();", elementToScroll);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 }
