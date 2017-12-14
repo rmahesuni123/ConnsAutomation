@@ -80,14 +80,22 @@ public class Conns_Home_Page extends BaseTest {
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				log.info("DataFilePath After is : " + DataFilePath);
 				commonData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", "storeLocatorCommonElements");
+				log.info("storeLocatorURL : " + commonData[0][0]);
 				storeLocatorURL = commonData[0][0];
 				platform = testBed.getPlatform().getName().toUpperCase();
+				log.info("platform : " + platform);
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
+				log.info("url : " + url);
 				synchronized (this) {
+					log.info("synchronized : "+context );
 					webPage = new WebPage(context);
+					log.info("webPage : " );
 					mainPage = new ConnsMainPage(url, webPage);
+					log.info("mainPage : " + mainPage);
 					ConnsHomePage = new ConnsHomePage(url, webPage);
+					log.info("ConnsHomePage : " + ConnsHomePage);
 					webPageMap.put(Thread.currentThread().getId(), webPage);
+					log.info("webPageMap : " + webPageMap);
 				}
 				Thread.sleep(5000);
 			} catch (Exception e) {
@@ -640,7 +648,7 @@ public class Conns_Home_Page extends BaseTest {
 			Expected_URL = testData[i][4];
 			link_Name = testData[i][0];
 			log.info("***********  TestType is  : " +"************  testBedName **************"  );
-			ActualURL = ConnsHomePage.Verify_HomePage_Banner_Links(webPage,testData,link_Name,Redirection_Link_Locator,url,softAssert);
+			ActualURL = ConnsHomePage.Verify_HomePage_Banner_Links(webPage,testData,Redirection_Link_Locator,link_Name,url,softAssert);
 			softAssert.assertTrue(ActualURL.contains(Expected_URL),"Expected url: "+Expected_URL+" Actual url: "+ActualURL);
 			}
 		if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {

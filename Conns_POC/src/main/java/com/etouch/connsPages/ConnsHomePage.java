@@ -158,11 +158,11 @@ public class ConnsHomePage extends CommonPage {
 	
 	
 	
-	public String  Verify_HomePage_Banner_Links(WebPage webPage,  String testData[][],String link_Name, String link_Locator,String Navigation_URL,  SoftAssert softAssert) {
+	public String  Verify_HomePage_Banner_Links(WebPage webPage,  String testData[][], String link_Locator,String link_Name,String Navigation_URL,  SoftAssert softAssert) {
 		String pageURL = "";
 		PageNavigation_PageLoad( webPage,  Navigation_URL, softAssert) ;
 		try {
-			pageURL = commonMethods.clickAndGetPageURLByJS(webPage, link_Name, link_Locator, softAssert);			
+			pageURL = commonMethods.clickAndGetPageURLByJS(webPage,link_Locator, link_Name,  softAssert);			
 
 		}catch (Exception e)
 			{
