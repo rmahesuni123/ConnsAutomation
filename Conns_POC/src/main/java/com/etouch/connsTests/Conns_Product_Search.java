@@ -15,6 +15,7 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
@@ -47,6 +48,7 @@ public class Conns_Product_Search extends BaseTest {
 	String DataFilePath;
 	String testType;
 	String testEnv;
+	CommonMethods commonMethods;
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -65,6 +67,7 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("DataFilePath After is : " + DataFilePath);
 				platform = testBed.getPlatform().getName().toUpperCase();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
+				commonMethods = new CommonMethods();
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
@@ -82,6 +85,7 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 401, enabled = true)
 	public void Verify_Search_Functionality_And_Results_Contents() {
 		try {
+			SoftAssert softAssert = new SoftAssert();
 			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchUsingKeyword");
 			String Identifier = test[0][0];
@@ -89,6 +93,7 @@ public class Conns_Product_Search extends BaseTest {
 			webPage.findObjectById(Identifier).clear();
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
 			webPage.findObjectByClass(test[0][2]).click();
+			commonMethods.waitForPageLoad(webPage, softAssert);
 			log.info("Clicked on element " + test[0][2]);
 			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
@@ -96,7 +101,7 @@ public class Conns_Product_Search extends BaseTest {
 			{}
 			else
 			{
-			Assert.assertFalse(productDescription.contains(ProductName.substring(0, 11)),"Product description: " + productDescription + " not having: " + ProductName);
+				Assert.assertFalse(productDescription.contains(ProductName.substring(0, 11)),"Product description: " + productDescription + " not having: " + ProductName);
 			}
 			String[][] contentData;
 			if (testType.equalsIgnoreCase("Web")) {
@@ -104,13 +109,14 @@ public class Conns_Product_Search extends BaseTest {
 			} else {
 				contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContentForMobile");
 			}
-		
+
 			for (int i = 0; i < contentData.length; i++) {
 				String actualContent = webPage.findObjectByxPath(contentData[i][0]).getText();
 				log.info("Actual:  " + actualContent + "   Expected: " + contentData[i][1]);
 				SoftAssertor.assertTrue(actualContent.toLowerCase().contains(contentData[i][1].toLowerCase()),
 						"expectedContent: " + contentData[i][1] + "  Failed to Match Actual:" + actualContent);
 			}
+			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Search_Functionality_And_Results_Contents");
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -179,20 +185,32 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 403, enabled = true)
 	public void Verify_AutoPredict_For_Search_Functionality() {
 		try {
+			String browserName=null;
+			SoftAssert softAssert = new SoftAssert();
 			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyAutoPredictProductSearch");
 			webPage.findObjectById(test[0][0]).sendKeys(test[0][1]);
 			CommonMethods.waitForGivenTime(7);
 			CommonMethods.waitForWebElement(By.xpath(test[0][2]), webPage);
-			String autoSearchProductDescription = webPage.findObjectByxPath(test[0][2]).getText();
-			webPage.findObjectByxPath(test[0][2]).click();
+			WebElement firstSuggestionOption = webPage.findObjectByxPath(test[0][2]).getWebElement();
+			String autoSearchProductDescription = firstSuggestionOption.getText();
+			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
+			if(browserName.equalsIgnoreCase("IE")||browserName.equalsIgnoreCase("Firefox"))
+			{
+				webPage.navigateToUrl(firstSuggestionOption.getAttribute("href"));
+			}
+			else{
+				firstSuggestionOption.click();
+			}
 			log.info("Clicked on element ");
+			commonMethods.waitForPageLoad(webPage, softAssert);
 			String actualProductDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + actualProductDescription);
 			Assert.assertTrue(actualProductDescription.contains(test[0][1]),
 					"Product description: " + actualProductDescription + " not having: " + test[0][1]);
 			Assert.assertEquals(autoSearchProductDescription, actualProductDescription,
 					"Product" + autoSearchProductDescription + " is not same as: " + actualProductDescription);
+			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_AutoPredict_For_Search_Functionality");
 			SoftAssertor.addVerificationFailure(e.getMessage());
@@ -349,6 +367,7 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 407, enabled = true)
 	public void Verify_Add_To_Cart_Using_Product_Search() throws InterruptedException {
 		try {
+			SoftAssert softAssert = new SoftAssert();
 			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
 					"verifyAddToCartUsingProductSearch");
@@ -356,6 +375,7 @@ public class Conns_Product_Search extends BaseTest {
 			String ProductName = test[0][1];
 			webPage.findObjectById(Identifier).sendKeys(ProductName);
 			webPage.findObjectByClass(test[0][2]).click();
+			commonMethods.waitForPageLoad(webPage, softAssert);
 			log.info("Clicked on element " + test[0][2]);
 			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
@@ -377,6 +397,7 @@ public class Conns_Product_Search extends BaseTest {
 			SoftAssertor.assertTrue(webPage.findObjectByxPath(test[0][11]).getText().contains(test[0][12]),
 					"Shopping Cart: " + webPage.findObjectByxPath(test[0][11]).getText() + " not having: "
 							+ test[0][12]);
+			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Add_To_Cart_Using_Product_Search");
 			SoftAssertor.addVerificationFailure(e.getMessage());
