@@ -13,7 +13,6 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -37,7 +36,6 @@ import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
 
-//@Test(groups = "HomePage")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
 public class Conns_Product_Purchase extends BaseTest {
 	static String platform;
@@ -460,17 +458,11 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Clicking on Billing Information continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
-			/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}*/
 			log.info("Clicking on Pickup location address radio button");
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[41][1], softAssert);
 			log.info("Clicking on continue for Pickup Location");
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[47][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
-			/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}*/
 			actualPickupLocationSectionText = commonMethods.getTextbyXpath(webPage, checkoutPageData[10][1], softAssert);
 			actualPaymentInfoSectionText = commonMethods.getTextbyXpath(webPage, checkoutPageData[11][1], softAssert); 
 			softAssert.assertTrue(actualPickupLocationSectionText.contains(checkoutPageData[10][2]),"Expected pickup location text: "+checkoutPageData[10][2]+" Actual pickup location text: "+actualPickupLocationSectionText);
@@ -545,28 +537,18 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Clicking on billing information section continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
 			commonMethods.waitForPageLoad(webPage, softAssert);
-			//CommonMethods.waitForGivenTime(5);
-			/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}*/
-
 			log.info("Clicking on Pickup location address radio button");
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[41][1], softAssert);
 
 			log.info("Clicking on ShippingMethodPickUPContinueButton");
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[47][1], softAssert);
 			commonMethods.waitForPageLoad(webPage, softAssert);
-			/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}*/
-
 			log.info("Selecting Payment Information as Paypal");
 			try{
 				commonMethods.clickElementbyXpath(webPage, checkoutPageData[14][1], softAssert);
 				commonMethods.waitForPageLoad(webPage, softAssert);
 			}catch(Exception e){
 				log.info("Waiting for more time as paypal option is not yet displayed");
-				//CommonMethods.waitForGivenTime(8);
 				commonMethods.waitForPageLoad(webPage, softAssert);
 				commonMethods.clickElementbyXpath(webPage, checkoutPageData[14][1], softAssert);
 			}
@@ -601,8 +583,6 @@ public class Conns_Product_Purchase extends BaseTest {
 	@Test(priority = 908, enabled = true, description = "Verify_In-Stock_Pickup_Product_Functionality")
 	public void Verify_InStockPickup_Product_Functionality() {
 		SoftAssert softAssert = new SoftAssert();
-		String successFlowExpectedMessage = "";
-		String successFlowActualMessage = "";
 		String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
 		try {
 			connsProductPurchasePage.deleteCookies();
@@ -613,9 +593,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Clicking on billing information section continue button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
-			/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}*/
 
 			log.info("Checking if pick-up radio box is displayed");
 			boolean isPickupRadioBoxDisplayed = commonMethods.verifyElementisPresent(webPage, checkoutPageData[41][1], softAssert);
@@ -625,9 +602,6 @@ public class Conns_Product_Purchase extends BaseTest {
 				log.info("Clicking on continue for Pickup Location");
 				commonMethods.Click_On_Element_JS(webPage, checkoutPageData[47][1], softAssert);
 				CommonMethods.waitForGivenTime(8);
-				/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}*/
 
 
 				log.info("Selecting payment method as cash on delivery and proceeding");
@@ -704,18 +678,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			String getQuoteActualErrMsg = "";
 			String getQuoteActualValid = "";
 			String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
-			/*commonMethods.navigateToPage(webPage, testUrl, softAssert);
-			if (testType.equalsIgnoreCase("Web")) {
-				connsProductPurchasePage.Click_On_French_Door_Link(webPage, frenchDoor[1][1], softAssert);
-				connsProductPurchasePage.numberOfProductDisplaySelectDropdownByValue(webPage, commonData[8][1], "28", softAssert);
-			} else {
-				connsProductPurchasePage.clickOnMobileMenuOption(webPage, mobileMenuData, softAssert);
-				if(!((testBedName.contains("iPhone"))||(testBedName.contains("iPad")))){
-					commonMethods.clickElementbyXpath_usingJavaScript(webPage, mobileMenuData[4][2], softAssert);	
-				}
-			}
-			connsProductPurchasePage.addInstockProductForAvailableLocation(webPage, inStockAvialableProduct,softAssert);
-			 */
 			connsProductPurchasePage.deleteCookies();
 			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert,false);
 			log.info("Verifying Get a Quote functionality for invalid input");
@@ -775,9 +737,6 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Clicking on billing information section continue button");
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[3][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
-			/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(2);
-			}*/
 
 			log.info("Clicking on Shipping Info Edit Button");
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[23][1], softAssert);
@@ -785,13 +744,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			softAssert.assertTrue(shippingInfoFirstName.contains(submitBillingInfo[0][3]),"Expected shiping info first name: "+submitBillingInfo[0][3]+" Actual shipping info first name"+ shippingInfoFirstName);
 
 			log.info("Clicking on Billing Info Edit Button");
-			/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(2);
-			}*/
 			CommonMethods.waitForGivenTime(2);
-			/*if(testType.equalsIgnoreCase("Mobile")){
-				webPage.scrollUp(1);
-			}*/
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[25][1], softAssert);
 			log.info("Clicking on Ship to different address radio button");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[26][1], softAssert);
