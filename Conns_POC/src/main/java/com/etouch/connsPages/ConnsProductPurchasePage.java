@@ -310,7 +310,6 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 	public List<String> addInstockProductForAvailableLocation(WebPage webPage, String[][] inStockProduct,SoftAssert softAssert){
 		String errorMessage = null;
-		//String productText = null;
 		List<String> actualTextValues= new ArrayList<String>();
 		String instockProductAvailableMessage= null;
 		String productName= null;
@@ -597,7 +596,6 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 	public static void Click_On_French_Door_Link(WebPage webPage, String test) {
 		try {
-			//webPage.getDriver().manage().deleteAllCookies();
 			WebElement element = webPage.findObjectByxPath(test).getWebElement();
 			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			executor.executeScript("arguments[0].click();", element);
