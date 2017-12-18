@@ -1,8 +1,7 @@
 package com.etouch.common;
 
 import java.awt.AWTException;
-import java.awt.Dimension;
-import java.awt.Point;
+
 import java.awt.Robot;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,9 +25,7 @@ import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,7 +36,6 @@ import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
-import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -61,6 +57,8 @@ public class CommonMethods {
 			log.info("Navigating to URL: "+navigatingUrl);
 			webPage.loadPage(navigatingUrl);
 		} catch (Throwable e) {
+			e.printStackTrace();
+
 			softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
@@ -387,6 +385,7 @@ public class CommonMethods {
 	Alert alert = webPage.getDriver().switchTo().alert();
 	alertActualText = alert.getText();
 	log.info("Alert box text: "+alertActualText);
+	Thread.sleep(2000);
 	alert.accept();
 		}catch(Throwable e){
 			e.printStackTrace();
@@ -407,7 +406,7 @@ public class CommonMethods {
 		try {
 			log.info("Getting text by using xpath - "+locator);
 			actualText = webPage.findObjectByxPath(locator).getText();
-			log.info("Actual text - "+actualText);
+			//log.info("Actual text - "+actualText);
 		} catch (PageException e) {
 			softAssert.fail("Unable to Get Text on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
@@ -508,7 +507,6 @@ public class CommonMethods {
 
 	    } catch (Exception e) {
 	    	e.printStackTrace();
-	        // TODO: handle exception
 	    }
 	}
 
@@ -516,19 +514,6 @@ public class CommonMethods {
 	{  JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 	    try 
 	     {
-	        /* String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
-	         js.executeScript(mouseOverScript,parentLocator);*/
-	    	  //MouseOver Logic --- starts ---
-	    	//WebElement element = driver.findElement(By.xpath("//a"));
-	    	/*WebElement element=webPage.getDriver().findElement(By.xpath(parentLocator));	
-           
-            js.executeScript("arguments[0].onmouseover()", element); */
-        //MouseOver Logic --- ends --- 
-	    	/*WebElement element = webPage.getDriver().findElement(By.xpath(parentLocator));
-	    	Actions action = new Actions(webPage.getDriver());
-	    	action.moveToElement(element).perform();*/
-	    	
-	    	
 	    	String mouseOverScript =
             		"if(document.createEvent)"
             		+ "{var evObj = "
@@ -545,8 +530,6 @@ public class CommonMethods {
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 			softAssert.fail("Unable to Hover on element using Xpath : "+parentLocator+". Localized Message: "+e.getLocalizedMessage());
-
-	        // TODO: handle exception
 	    }
 	}
 	
@@ -794,6 +777,22 @@ public class CommonMethods {
 	}
 	
 	
+	public static WebElement waitForWebElement_1(By by, WebPage webPage) throws PageException{
+		try{
+			log.info("Waiting for web element to be present");
+			WebElement element = null;
+			element = (new WebDriverWait(webPage.getDriver(), 20)).until(ExpectedConditions.presenceOfElementLocated(by));
+			log.info("element found ");
+			return element;
+		}
+		catch (Exception e) {
+			throw new PageException("Failed to find object using given name, message : " + e.toString());
+		}
+	}
+	
+	
+	
+	
 	/**
 	 * @author Name - Shantanu Kulkarni
 	 * The method used to click on link using x-path and return page url
@@ -842,6 +841,18 @@ public class CommonMethods {
 	}
 	
 	
+	
+	public WebElement findElementByXpath(WebPage webPage, String locator, SoftAssert softAssert) throws InterruptedException{
+		WebElement element= null;
+		try {
+			log.info("Clicking on element using xpath - "+locator);
+			element=webPage.getDriver().findElement(By.xpath(locator));			
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Unable to find  element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());		
+			}
+		return element;
+	}
 	
 	
 	/**
@@ -909,7 +920,8 @@ public class CommonMethods {
 
 			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
 			Select select=new Select(web);
-			select.selectByVisibleText(dropdownvalue);
+			//select.selectByVisibleText(dropdownvalue);
+			select.selectByValue(dropdownvalue);
 
 		} catch (Throwable e) {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
@@ -986,10 +998,7 @@ public class CommonMethods {
 				log.info("Verifying link number : " + linkCount);
 				HttpClient client = HttpClientBuilder.create().build();
 				HttpGet request = new HttpGet(link.getAttribute("href"));
-
 				HttpResponse response = client.execute(request);
-				//log.info("src : " + image.getAttribute("src"));
-				//log.info("response.getStatusLine().getStatusCode() : " + response.getStatusLine().getStatusCode());
 				if (response.getStatusLine().getStatusCode() == 200) {
 					log.info("Link number " + linkCount + " is as expected "
 							+ response.getStatusLine().getStatusCode());
@@ -1030,10 +1039,7 @@ public class CommonMethods {
 				log.info("Verifying link number : " + linkCount);
 				HttpClient client = HttpClientBuilder.create().build();
 				HttpGet request = new HttpGet(link.getAttribute("href"));
-
 				HttpResponse response = client.execute(request);
-				//log.info("src : " + image.getAttribute("src"));
-				//log.info("response.getStatusLine().getStatusCode() : " + response.getStatusLine().getStatusCode());
 				if (response.getStatusLine().getStatusCode() == 200) {
 					log.info("Link number " + linkCount + " is as expected "
 							+ response.getStatusLine().getStatusCode());
@@ -1088,10 +1094,8 @@ public class CommonMethods {
 			WebElement element=webPage.getDriver().findElement(By.xpath(locator));
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 			js.executeScript("arguments[0].setAttribute('text')", element);
-			//driver.executeScript("arguments[0].setAttribute('value', '" + longstring +"')", inputField);
 		} catch (Exception e) {
 			Assert.fail();
-		//	softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}	
 		
 	}
@@ -1102,7 +1106,6 @@ public class CommonMethods {
 			WebElement element=webPage.getDriver().findElement(By.xpath(locator));
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 			js.executeScript("arguments[0].setAttribute('text')", element);
-			//driver.executeScript("arguments[0].setAttribute('value', '" + longstring +"')", inputField);
 		} catch (Exception e) {
 			softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}	
@@ -1145,7 +1148,6 @@ public class CommonMethods {
 			try{
 				if(!((JavascriptExecutor)driver).executeScript("return document.readyState").toString().contains("complete"))
 				{
-					log.info("Waiting for Page to Complete loading");
 					Thread.sleep(1000);
 					count++;
 				}
@@ -1260,10 +1262,8 @@ public class CommonMethods {
 		  try {
 
 		   String[][] testDataArray = ExcelUtil.readExcelData(filePath, sheetName, dataKey);
-
 		   for (int i = 0; i < testDataArray.length; i++) {
 		    testData.put(testDataArray[i][0], testDataArray[i][1]);
-		    // log.info(testDataArray[i][0] + " " + testDataArray[i][1]);
 		   }
 		  } catch (Exception e) {
 		   log.error(
@@ -1455,7 +1455,6 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 			log.info("Selecting Radio button : \"" + FieldName + "\"");
 			//commonMethods.clickElementbyXpath(webPage, locator, softAssert);
 			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
-
 			jse.executeScript("arguments[0].click()", getWebElementbyXpath(webPage, locator, softAssert));
 		} else {
 			log.info("RadioButton is Disabled");
@@ -1477,9 +1476,7 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 			/*if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId())).getDevice().getName().toLowerCase().contains("nexus"))
 			scrollToElement(locator,softAssert);*/
 			log.info("Selecting CheckBox : \"" + FieldName + "\"");
-			//commonMethods.clickElementbyXpath(webPage, locator, softAssert);
 			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
-
 			jse.executeScript("arguments[0].click()", getWebElementbyXpath(webPage, locator, softAssert));
 		} else {
 			log.info("CheckBox is Disabled");
@@ -1498,10 +1495,7 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 	public void selectButtonByXpath(WebPage webPage, SoftAssert softAssert, String FieldName, String locator) {
 		if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
 			log.info("Clicking on Button : \"" + FieldName + "\"");
-			//commonMethods.clickElementbyXpath(webPage, locator, softAssert);
-			
 			JavascriptExecutor jse = (JavascriptExecutor)webPage.getDriver();
-
 			jse.executeScript("arguments[0].click()", getWebElementbyXpath(webPage, locator, softAssert)); 
 		} else {
 			log.info("Button is Disabled");
@@ -1528,11 +1522,9 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 	}	
 	
 	public String getTextFromHiddenElement(WebPage webPage,SoftAssert softAssert,String locator)
-	{
-		String text = null;
+	{	String text = null;
 		 JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 			text = (String) executor.executeScript("return arguments[0].innerHTML", getWebElementbyXpath(webPage, ".//*[@id='mCSB_1_container']/p[6]", softAssert));
-			System.out.println("111111111111111111 "+text);
 			return text;
 		
 		
@@ -1548,9 +1540,7 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 		else{
 			System.out.println("Radio Button is already selected");
 		}
-		
-		// TODO Auto-generated method stub
-		
+
 	}
 	public int verifyUrlStatusCode(String url) throws ClientProtocolException, IOException
 	{
@@ -1622,8 +1612,7 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 		public void verifyLinkStatusCodeAndHrefValue(WebPage webPage,String linkName,String xpath,String expectedHref, SoftAssert softAssert) throws ClientProtocolException, IOException
 		{
 			WebElement element = getWebElementbyXpath(webPage, xpath, softAssert);
-			String elementUrl=element.getAttribute("href");
-			
+			String elementUrl=element.getAttribute("href");			
 			log.info(linkName+" Actual : "+elementUrl+" Expected : "+expectedHref);
 			softAssert.assertTrue(elementUrl.contains(expectedHref),"Expected Url : "+expectedHref+" Actual : "+elementUrl);
 			
@@ -1657,7 +1646,6 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
