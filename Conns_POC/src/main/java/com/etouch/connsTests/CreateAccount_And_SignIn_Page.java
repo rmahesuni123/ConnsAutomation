@@ -18,10 +18,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
@@ -194,7 +191,6 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	@Test(priority = 301, enabled = true)
 	public void Verify_Broken_Links_On_SignIn_Page() throws ClientProtocolException, IOException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		webPage.getDriver().get(signInURL);
 		CommonMethods.waitForGivenTime(5);
 		try {
@@ -225,7 +221,6 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	public void verify_SignInErrorMessage_with_Blank_Input() throws InterruptedException {
 		log.info("******Started verification of Sign In functionality with blank input data ********");
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		webPage.getDriver().get(signInURL);
 		CommonMethods.waitForGivenTime(5);
 		try {
@@ -783,10 +778,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	public void Verify_Address_Book() throws ClientProtocolException, IOException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
-		CommonMethods.waitForGivenTime(15);
+		//CommonMethods.waitForGivenTime(15);
 		try {
 			webPage.getDriver().get(commonData[8][1]);
-			CommonMethods.waitForGivenTime(10);
+			//CommonMethods.waitForGivenTime(10);
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			log.info("verification of Mandatory field validation message started");
 			String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
@@ -813,18 +808,20 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			commonMethods.clearTextBox(webPage, testdata[0][3], softAssert);
 			for (int i = 2; i < 10; i++) {
 				if (i == 7 || i == 9) {
-					commonMethods.selectDropdownByValue(webPage, testdata[0][i], testdata[1][i], softAssert);
+					commonMethods.selectDropdownByText(webPage, testdata[0][i], testdata[1][i], softAssert);
 				} else {
 					commonMethods.sendKeysbyXpath(webPage, testdata[0][i], testdata[1][i], softAssert);
 				}
 			}
 
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][10]));
+			js.executeScript("arguments[0].click();", element);
+			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][10]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
-			}
+			}*/
 			/*commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);*/
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][10], softAssert), testdata[1][11],
 					"Verification failed for content: " + testdata[1][0]);
@@ -843,18 +840,19 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			webPage.getDriver().get(DashboardURL);
 			CommonMethods.waitForGivenTime(15);
 
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
 				js.executeScript("arguments[0].click();", element);
 				System.out.println(" testType : " +testType);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
-			}
-				webPage.getCurrentUrl();// For Safari
-			log.info(
-					 "************************ Add New Address if Delete Address Link is not visible*****************");
-			 commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
-					 softAssert);
+			}*/
+			WebElement element_3 = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
+			js.executeScript("arguments[0].click();", element_3);
+			System.out.println(" testType : " +testType);
+			webPage.getCurrentUrl();// For Safari
+			 log.info("************************ Add New Address if Delete Address Link is not visible*****************");
+			 commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,softAssert);
 			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
 			 log.info( "************************ Additional Address Functionality Save Button Operation Starts For Devices :  ****************");
 			 	 log.info("Finding Save_Button_Locator " );
