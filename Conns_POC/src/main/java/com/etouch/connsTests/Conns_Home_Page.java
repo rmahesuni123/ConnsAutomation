@@ -74,6 +74,11 @@ public class Conns_Home_Page extends BaseTest {
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
 			log.info("Test Type is : " + testType);
 			try {
+				if(testType.equalsIgnoreCase("Mobile")
+						&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
+				{
+					commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
+				}
 				testEnv = System.getenv().get("Environment");
 				log.info("testEnv is : " + testEnv);
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));

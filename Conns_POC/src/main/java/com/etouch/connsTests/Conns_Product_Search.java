@@ -56,8 +56,15 @@ public class Conns_Product_Search extends BaseTest {
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
+		
 			log.info("Arrays:::"+Arrays.deepToString(TestBedManagerConfiguration.INSTANCE.getWebConfig().getCurrentTestBeds()));
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
+			commonMethods = new CommonMethods();
+			if(testType.equalsIgnoreCase("Mobile")
+					&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
+			{
+				commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
+			}
 			log.info("Test Type is : " + testType);
 			try {
 				testEnv = System.getenv().get("Environment");
@@ -67,7 +74,7 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("DataFilePath After is : " + DataFilePath);
 				platform = testBed.getPlatform().getName().toUpperCase();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
-				commonMethods = new CommonMethods();
+				
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);

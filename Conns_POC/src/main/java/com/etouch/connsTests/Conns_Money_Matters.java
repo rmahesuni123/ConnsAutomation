@@ -142,6 +142,11 @@ public class Conns_Money_Matters extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
 			commonMethods = new CommonMethods();
+			if(testType.equalsIgnoreCase("Mobile")
+					&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
+			{
+				commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
+			}
 			System.out.println("Test Type is : " + testType);
 			try {
 				testEnv = System.getenv().get("Environment");

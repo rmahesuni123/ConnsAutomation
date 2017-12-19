@@ -43,8 +43,8 @@ import io.appium.java_client.android.AndroidDriver;
 public class CommonMethods {
 
 	static Log log = LogUtil.getLog(CommonMethods.class);
-	
-	
+
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to navigate to page
@@ -89,9 +89,9 @@ public class CommonMethods {
 		return isElementPresent;
 	}
 
-	
-	
-	
+
+
+
 	public static boolean verifyElementisPresent(WebPage webPage, String locator){
 		Boolean isElementPresent=false;
 		try{
@@ -101,8 +101,8 @@ public class CommonMethods {
 		}
 		return isElementPresent;
 	}
-	
-	
+
+
 	/**
 	 * @author Name - Asim Singh
 	 * The method used to verify if element is present by javascript
@@ -110,29 +110,29 @@ public class CommonMethods {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	
 
-	
+
+
 	public boolean isElementPresentCheckUsingJavaScriptExecutor(WebPage webPage, String locator, SoftAssert softAssert){
-        JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
-        try {
-            Object obj = js.executeScript("return typeof(arguments[0]) != 'undefined' && arguments[0] != null;",
-            		locator);
-            if (obj.toString().contains("true")) {
-                System.out.println("isElementPresentCheckUsingJavaScriptExecutor: SUCCESS");
-                return true;
-            } else {
-                System.out.println("isElementPresentCheckUsingJavaScriptExecutor: FAIL");
-            }
+		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
+		try {
+			Object obj = js.executeScript("return typeof(arguments[0]) != 'undefined' && arguments[0] != null;",
+					locator);
+			if (obj.toString().contains("true")) {
+				System.out.println("isElementPresentCheckUsingJavaScriptExecutor: SUCCESS");
+				return true;
+			} else {
+				System.out.println("isElementPresentCheckUsingJavaScriptExecutor: FAIL");
+			}
 
-        } catch (NoSuchElementException e) {
-            System.out.println("isElementPresentCheckUsingJavaScriptExecutor: FAIL");
-        }
-        return false;
-    }
-	
-	
-	
+		} catch (NoSuchElementException e) {
+			System.out.println("isElementPresentCheckUsingJavaScriptExecutor: FAIL");
+		}
+		return false;
+	}
+
+
+
 	/**
 	 * @author Name - Asim Singh
 	 * The method used to click on link using x-path and return page url
@@ -147,7 +147,7 @@ public class CommonMethods {
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			//webPage.findObjectByxPath(locator).click();
-			
+
 			log.info("Clicking on element using xpath - "+locator);
 			WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
 			js.executeScript("arguments[0].click();", element);
@@ -172,10 +172,10 @@ public class CommonMethods {
 		}
 		return pageUrl;
 	}
-	
-	
-	
-	
+
+
+
+
 	public String clickAndGetPageURLUsingJS(WebPage webPage, String locator, String linkName, String TargetPageLocator,
 			SoftAssert softAssert) throws PageException, InterruptedException {
 		String mainWindow = webPage.getDriver().getWindowHandle();
@@ -249,25 +249,25 @@ public class CommonMethods {
 		try{
 			Alert alert=webPage.getDriver().switchTo().alert();
 			alert.accept();
-			
+
 		}catch(Exception e){
 			log.info("Location pop-up not present for this browser.");
 		}
 	}
-	
-	
+
+
 	public String[][] readExcelData(String DataFilePath,String key) throws InterruptedException{
 		Thread.sleep(2000);
 		String [][]keyData = null ;
 		try{
 			keyData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator", key + "Region");
-			
+
 		}catch(Exception e){
 			log.info("Location pop-up not present for this browser.");
 		}
 		return keyData;
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click on link using x-path and return page url
@@ -303,7 +303,7 @@ public class CommonMethods {
 		}
 		return pageUrl;
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click element using xpath 
@@ -321,7 +321,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to click on child element using xpath
@@ -341,10 +341,10 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * @author Name - Asim Singh
 	 * The method used to click on child element using xpath
@@ -357,12 +357,12 @@ public class CommonMethods {
 		try{
 			if(!parentlocator.equalsIgnoreCase("NA")){
 				log.info("Clicking on parent locator : "+parentlocator);
-				
+
 				try {
 					log.info("Clicking on element using xpath - "+parentlocator);
 					WebElement element=webPage.getDriver().findElement(By.xpath(parentlocator));					
 					js.executeScript("arguments[0].click();", element);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
@@ -376,24 +376,24 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
-	
-	
+
+
+
 	public  String AlertBoxHandling(WebPage webPage, SoftAssert softAssert){
 		String alertActualText = "";
-	try {		
-	Alert alert = webPage.getDriver().switchTo().alert();
-	alertActualText = alert.getText();
-	log.info("Alert box text: "+alertActualText);
-	Thread.sleep(2000);
-	alert.accept();
+		try {		
+			Alert alert = webPage.getDriver().switchTo().alert();
+			alertActualText = alert.getText();
+			log.info("Alert box text: "+alertActualText);
+			Thread.sleep(2000);
+			alert.accept();
 		}catch(Throwable e){
 			e.printStackTrace();
 		}
-	return  alertActualText;
+		return  alertActualText;
 	}
-	
-	
+
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get text using xpath
@@ -412,7 +412,7 @@ public class CommonMethods {
 		}
 		return actualText;
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to enter keys using xpath
@@ -428,7 +428,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get Css value using xpath
@@ -459,7 +459,7 @@ public class CommonMethods {
 		}
 		return cssValue;
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get attribute by xpath
@@ -492,47 +492,47 @@ public class CommonMethods {
 	}
 
 	/******/
-	
+
 	public void hover_Parent_Locator_Click_ChildLocator_By_JS(String parentLocator,String childLocator,WebPage webPage)
 	{  JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-	    try 
-	     {
-	         String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
-	         js.executeScript(mouseOverScript,parentLocator);
-	         Thread.sleep(1000);
-	         js.executeScript(mouseOverScript,childLocator);
-	         Thread.sleep(1000);
-	         js.executeScript("arguments[0].click();",childLocator);
+	try 
+	{
+		String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
+		js.executeScript(mouseOverScript,parentLocator);
+		Thread.sleep(1000);
+		js.executeScript(mouseOverScript,childLocator);
+		Thread.sleep(1000);
+		js.executeScript("arguments[0].click();",childLocator);
 
 
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    }
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 	}
 
 	public void hover_Parent_Locator_By_JS(WebPage webPage,String parentLocator,SoftAssert softAssert)
 	{  JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
-	    try 
-	     {
-	    	String mouseOverScript =
-            		"if(document.createEvent)"
-            		+ "{var evObj = "
-            		+ "document.createEvent('MouseEvents');"
-            		+ "evObj.initEvent('mouseover',true, false);"
-            		+ " arguments[0].dispatchEvent(evObj);"
-            		+ "} "
-            		+ "else if(document.createEventObject){ arguments[0].fireEvent('onmouseover');}  ";
-           
-            js.executeScript(mouseOverScript, parentLocator);
-	    	
-	    	Thread.sleep(1000);
-	        
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-			softAssert.fail("Unable to Hover on element using Xpath : "+parentLocator+". Localized Message: "+e.getLocalizedMessage());
-	    }
+	try 
+	{
+		String mouseOverScript =
+				"if(document.createEvent)"
+						+ "{var evObj = "
+						+ "document.createEvent('MouseEvents');"
+						+ "evObj.initEvent('mouseover',true, false);"
+						+ " arguments[0].dispatchEvent(evObj);"
+						+ "} "
+						+ "else if(document.createEventObject){ arguments[0].fireEvent('onmouseover');}  ";
+
+		js.executeScript(mouseOverScript, parentLocator);
+
+		Thread.sleep(1000);
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		softAssert.fail("Unable to Hover on element using Xpath : "+parentLocator+". Localized Message: "+e.getLocalizedMessage());
 	}
-	
+	}
+
 	/**
 	 * @author Name - Asim Singh
 	 * The method used to hover on element using xpath
@@ -542,24 +542,24 @@ public class CommonMethods {
 	 *            a locator e.g. xpath, css, name, id, class name etc
 	 */
 	public void mouseOverOnElementUsingRobot(WebPage webPage,String locator,SoftAssert softAssert) {
-	 try {
-	  org.openqa.selenium.Point coordinates = webPage.getDriver().findElement(By.xpath(locator)).getLocation();
-	  Robot robot = new Robot();
-	  robot.mouseMove(coordinates.getX(), coordinates.getY() + 60);
-	  /*
-	   * WebDriver provide document coordinates, where as Robot class is
-	   * based on Screen coordinates, so I have added +60 to compensate
-	   * the browser header. You can even adjust if needed.
-	   */
-	 
-	 } catch (AWTException e) {
-		 e.printStackTrace();
-		softAssert.fail("Unable to Hover on element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
-	  log.error("Failed to mouseover on the element '" + locator + "'. " + e);
-	 }
+		try {
+			org.openqa.selenium.Point coordinates = webPage.getDriver().findElement(By.xpath(locator)).getLocation();
+			Robot robot = new Robot();
+			robot.mouseMove(coordinates.getX(), coordinates.getY() + 60);
+			/*
+			 * WebDriver provide document coordinates, where as Robot class is
+			 * based on Screen coordinates, so I have added +60 to compensate
+			 * the browser header. You can even adjust if needed.
+			 */
+
+		} catch (AWTException e) {
+			e.printStackTrace();
+			softAssert.fail("Unable to Hover on element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
+			log.error("Failed to mouseover on the element '" + locator + "'. " + e);
+		}
 	}
-	
-	
+
+
 	/**********************************/
 	/**
 	 * @author Name - Deepak Bhambri
@@ -581,7 +581,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to Hover on element using Xpath : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get webelement using xpath
@@ -599,7 +599,7 @@ public class CommonMethods {
 		}
 		return element;
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get font properties
@@ -623,7 +623,7 @@ public class CommonMethods {
 		}
 		return actualValueList;
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get current page url
@@ -641,7 +641,7 @@ public class CommonMethods {
 		}
 		return actualUrl;
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get current page title
@@ -659,7 +659,7 @@ public class CommonMethods {
 		}
 		return actualTitle;
 	}
-	
+
 	/**
 	 * @author Name - Madhukar Mandadi
 	 * The method used to click element using linkText 
@@ -677,7 +677,7 @@ public class CommonMethods {
 		}
 
 	}
-	
+
 	/**
 	 * @author Name - Asim Singh
 	 * The method used to click element using css locator
@@ -719,17 +719,17 @@ public class CommonMethods {
 		}
 		return actualText;
 	}
-	
+
 	public String getTextbyJS(WebPage webPage, String locator, SoftAssert softAssert) throws PageException{
 		String actualText = "";
 		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		/*String script = "return   document.evaluate('locator').getText();";
 	    actualText = ((JavascriptExecutor) webPage.getDriver()).executeScript(script).toString();*/
-	    
-	    WebElement element = webPage.getDriver().findElement(By.xpath(locator));
-	    js.executeScript("return arguments[0].getText()", element);
-	return actualText;
-}
+
+		WebElement element = webPage.getDriver().findElement(By.xpath(locator));
+		js.executeScript("return arguments[0].getText()", element);
+		return actualText;
+	}
 	/**
 	 * @author Name - Asim Singh
 	 * The method used get attribute using css
@@ -747,7 +747,7 @@ public class CommonMethods {
 		}
 		return attributeValue;
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to clear text box input
@@ -763,7 +763,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to clear text box with locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+
 	public static WebElement waitForWebElement(By by, WebPage webPage) throws PageException{
 		try{
 			log.info("Waiting for web element to be present");
@@ -775,8 +775,8 @@ public class CommonMethods {
 			throw new PageException("Failed to find object using given name, message : " + e.toString());
 		}
 	}
-	
-	
+
+
 	public static WebElement waitForWebElement_1(By by, WebPage webPage) throws PageException{
 		try{
 			log.info("Waiting for web element to be present");
@@ -789,10 +789,10 @@ public class CommonMethods {
 			throw new PageException("Failed to find object using given name, message : " + e.toString());
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * @author Name - Shantanu Kulkarni
 	 * The method used to click on link using x-path and return page url
@@ -804,10 +804,10 @@ public class CommonMethods {
 			webPage.findObjectByxPath(locator).click();			
 		} catch (PageException e) {
 			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());		
-			}
+		}
 		return webPage.getCurrentUrl();
 	}
-	
+
 	/**
 	 * @author Name - Asim Singh
 	 * The method used to click element using xpath 
@@ -823,7 +823,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+
 	/**
 	 * @author Name - Asim Singh
 	 * The method used to clear element input box using xpath 
@@ -839,9 +839,9 @@ public class CommonMethods {
 			softAssert.fail("Unable to clear on inputbox using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
-	
-	
+
+
+
 	public WebElement findElementByXpath(WebPage webPage, String locator, SoftAssert softAssert) throws InterruptedException{
 		WebElement element= null;
 		try {
@@ -850,11 +850,11 @@ public class CommonMethods {
 		} catch (Exception e) {
 			e.printStackTrace();
 			softAssert.fail("Unable to find  element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());		
-			}
+		}
 		return element;
 	}
-	
-	
+
+
 	/**
 	 * @author Name - Asim Singh
 	 * The method used to click on link using x-path and return page url
@@ -869,10 +869,10 @@ public class CommonMethods {
 		} catch (Exception e) {
 			e.printStackTrace();
 			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());		
-			}
+		}
 		return webPage.getCurrentUrl();
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method is used to wait for given time	
@@ -885,7 +885,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to wait for given time "+givenTimeinSec+" sec. Localized Message: "+e.getLocalizedMessage());			
 		}
 	}
-	
+
 	public static void waitForGivenTime(int givenTimeinSec) throws InterruptedException{
 		try {
 			log.info("Waiting for given time "+givenTimeinSec+"sec");
@@ -909,7 +909,7 @@ public class CommonMethods {
 		}
 		return element;
 	}
-	
+
 	/**
 	 * @author Name - Madhukar
 	 * selects dropdown value
@@ -927,8 +927,8 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
-	
+
+
 	public void selectDropdownByText(WebPage webPage, String locator,String dropdownvalue ,SoftAssert softAssert) {
 		try {
 			log.info("Selecting dropdown value - "+dropdownvalue);
@@ -942,8 +942,8 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
-	
+
+
 	public void selectDropdownByValue(WebPage webPage, String locator,String dropdownvalue) {
 		try {
 			log.info("Selecting dropdown value - "+dropdownvalue);
@@ -994,10 +994,10 @@ public class CommonMethods {
 		}
 		if (brokenImageNumber.size() > 0) {
 			Assert.fail("Broken Image number : " + Arrays.deepToString(brokenImageNumber.toArray())
-					+ "\nImage source of the Broken image : " + Arrays.deepToString(brokenImageSrc.toArray()));
+			+ "\nImage source of the Broken image : " + Arrays.deepToString(brokenImageSrc.toArray()));
 		}
 	}
-	
+
 	/**
 	 * @author Name - Shantanu Kulkarni
 	 * The method is used to get broken links	
@@ -1043,7 +1043,7 @@ public class CommonMethods {
 		}
 
 	}
-	
+
 	public void verifyBrokenLinksForGivenLinks(WebPage webPage,List<WebElement> linkList) {
 		log.info("Total number of links : " + linkList.size());
 		int linkCount = 0;
@@ -1094,17 +1094,17 @@ public class CommonMethods {
 			WebElement element=webPage.getDriver().findElement(By.xpath(locator));
 			JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 			js.executeScript("arguments[0].click();", element);
-			
+
 		} catch (Exception e) {
 			softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+
 	/**
 	 * @author Name - Rajesh Surve
 	 * The method used to click element using Java script executor 
 	 */	
-	
+
 	public static void sendKeys_usingJS(WebPage webPage, String locator, String text){
 		try {
 			log.info("Clicking on element using xpath - "+locator);
@@ -1114,9 +1114,9 @@ public class CommonMethods {
 		} catch (Exception e) {
 			Assert.fail();
 		}	
-		
+
 	}
-	
+
 	public  void sendKeys_usingJavaScriptExecutor(WebPage webPage, String locator, String text, SoftAssert softAssert){
 		try {
 			log.info("Clicking on element using xpath - "+locator);
@@ -1126,9 +1126,9 @@ public class CommonMethods {
 		} catch (Exception e) {
 			softAssert.fail("Unable to click on element using JavaScriptExecutor : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}	
-		
+
 	}
-	
+
 	/**
 	 * @author Name - Shantanu Kulkarni
 	 * The method is used to click on element with JS	
@@ -1147,7 +1147,7 @@ public class CommonMethods {
 		}
 		return webPage.getCurrentUrl();
 	}
-	
+
 	/**
 	 * Method to wait for page load
 	 * @author sjadhav
@@ -1183,7 +1183,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to complete page load, Took more than 20 sec to load page");
 		}
 	}
-	
+
 	/**
 	 * @author sjadhav
 	 * The method used to get text using ID
@@ -1202,7 +1202,7 @@ public class CommonMethods {
 		}
 		return actualText;
 	}
-	
+
 	/**
 	 * @author sjadhav
 	 * The method used to get webelement using ID
@@ -1220,7 +1220,7 @@ public class CommonMethods {
 		}
 		return element;
 	}
-	
+
 	/**
 	 * @author sjadhav
 	 * @param webPage
@@ -1251,7 +1251,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to clear text box with locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to enter keys using xpath
@@ -1275,21 +1275,21 @@ public class CommonMethods {
 	 * @return
 	 */
 	public static LinkedHashMap<String, String> getDataInHashMap(String filePath,String sheetName, String dataKey) {
-		  LinkedHashMap<String, String> testData = new LinkedHashMap<String, String>();
-		  try {
+		LinkedHashMap<String, String> testData = new LinkedHashMap<String, String>();
+		try {
 
-		   String[][] testDataArray = ExcelUtil.readExcelData(filePath, sheetName, dataKey);
-		   for (int i = 0; i < testDataArray.length; i++) {
-		    testData.put(testDataArray[i][0], testDataArray[i][1]);
-		   }
-		  } catch (Exception e) {
-		   log.error(
-		     " Failed to read excel data by data key  and store in linked hash map due to :::" + e.getMessage());
-		   e.printStackTrace();
-		  }
-		  return testData;
-		 }
-	
+			String[][] testDataArray = ExcelUtil.readExcelData(filePath, sheetName, dataKey);
+			for (int i = 0; i < testDataArray.length; i++) {
+				testData.put(testDataArray[i][0], testDataArray[i][1]);
+			}
+		} catch (Exception e) {
+			log.error(
+					" Failed to read excel data by data key  and store in linked hash map due to :::" + e.getMessage());
+			e.printStackTrace();
+		}
+		return testData;
+	}
+
 
 	/**
 	 * @author sjadhav
@@ -1306,7 +1306,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on element using Xpath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
+
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get list of webelement by xpath
@@ -1325,7 +1325,7 @@ public class CommonMethods {
 		}
 		return elementList;
 	}
-	
+
 	public void sendKeysbyXpath(WebPage webPage, String locator, String text){
 		try{
 			log.info("Entering keys "+text+" ");
@@ -1334,128 +1334,128 @@ public class CommonMethods {
 			Assert.fail("Unable to Enter Keys : "+text+" using locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-	
 
-public void verifyLabels(WebPage webPage, SoftAssert softAssert, String[][] labelsData) throws PageException
-{
-	for(int i = 0;i<labelsData.length;i++)
+
+	public void verifyLabels(WebPage webPage, SoftAssert softAssert, String[][] labelsData) throws PageException
 	{
-		//label verification
-		String actualContent = webPage.findObjectByxPath(labelsData[i][0]).getText();
-		//String actualContent = commonMethods.getTextbyXpath(webPage,Review_Data[i][0], softAssert);
-		log.info("Actual:  " + actualContent + " "
-				+ "  Expected: " + labelsData[i][1]);
-		softAssert.assertTrue(actualContent.contains(labelsData[i][1]),
-				"Expected Content: " + labelsData[i][1] + "  Failed to Match Actual: " + actualContent);
-	}	
-}
+		for(int i = 0;i<labelsData.length;i++)
+		{
+			//label verification
+			String actualContent = webPage.findObjectByxPath(labelsData[i][0]).getText();
+			//String actualContent = commonMethods.getTextbyXpath(webPage,Review_Data[i][0], softAssert);
+			log.info("Actual:  " + actualContent + " "
+					+ "  Expected: " + labelsData[i][1]);
+			softAssert.assertTrue(actualContent.contains(labelsData[i][1]),
+					"Expected Content: " + labelsData[i][1] + "  Failed to Match Actual: " + actualContent);
+		}	
+	}
 
-public void verifyLabelsErrorColor(WebPage webPage, SoftAssert softAssert, String[][] labelsErrorColorCodeData) throws PageException
-{
-	webPage.findObjectByxPath(".//*[@class='pr-footer']/div[@type='submit']").click();
-	//String expectedColorCode = "#d00";
-	String expectedColorCode ="rgba(221, 0, 0, 1)";
-	for(int i = 0;i<labelsErrorColorCodeData.length;i++)
+	public void verifyLabelsErrorColor(WebPage webPage, SoftAssert softAssert, String[][] labelsErrorColorCodeData) throws PageException
 	{
-		String actualColorCode = webPage.findObjectByxPath(labelsErrorColorCodeData[i][0]).getCssValue("color");
-		log.info("Actual Error Color Code:  " + actualColorCode + " "
-				+ "  Expected Code: " +expectedColorCode);
-		softAssert.assertTrue(actualColorCode.equals(expectedColorCode),
-				"Expected Color Code: " + expectedColorCode + "  Failed to Match Actual: " + actualColorCode);
-	}	
-}
+		webPage.findObjectByxPath(".//*[@class='pr-footer']/div[@type='submit']").click();
+		//String expectedColorCode = "#d00";
+		String expectedColorCode ="rgba(221, 0, 0, 1)";
+		for(int i = 0;i<labelsErrorColorCodeData.length;i++)
+		{
+			String actualColorCode = webPage.findObjectByxPath(labelsErrorColorCodeData[i][0]).getCssValue("color");
+			log.info("Actual Error Color Code:  " + actualColorCode + " "
+					+ "  Expected Code: " +expectedColorCode);
+			softAssert.assertTrue(actualColorCode.equals(expectedColorCode),
+					"Expected Color Code: " + expectedColorCode + "  Failed to Match Actual: " + actualColorCode);
+		}	
+	}
 
 
 
-public void verifyDate(WebPage webPage, SoftAssert softAssert, String dateXpath) throws Exception {
-	   Date date = new Date();
-	    String DATE_FORMAT = "MM/dd/yyyy";
-	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
-	    String System_Date = simpleDateFormat.format(date);
-	    System.out.println("Today is : " + System_Date);
+	public void verifyDate(WebPage webPage, SoftAssert softAssert, String dateXpath) throws Exception {
+		Date date = new Date();
+		String DATE_FORMAT = "MM/dd/yyyy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+		String System_Date = simpleDateFormat.format(date);
+		System.out.println("Today is : " + System_Date);
 		String Actual_Date = webPage.findObjectByxPath(dateXpath).getText();
 		softAssert.assertTrue(Actual_Date.contains(System_Date),
 				"expectedContent: " + System_Date + "  Failed to Match Actual:" + Actual_Date);
 
-}
+	}
 
-public void fillFormWithOutJS(WebPage webPage, SoftAssert softAssert, String[][] FieldData) {
-	int dataLength = FieldData.length;
-	String testType = TestBedManagerConfiguration.INSTANCE.getTestTypes()[0];
-	for (int i = 0; i < dataLength; i++) {
-		try {
-			switch (FieldData[i][1]) {
-			case "textField":
-				if (testType.equalsIgnoreCase("Mobile")
-						&& FieldData[i][2].equalsIgnoreCase(".//*[@id='applicant:middle-initial']"))
+	public void fillFormWithOutJS(WebPage webPage, SoftAssert softAssert, String[][] FieldData) {
+		int dataLength = FieldData.length;
+		String testType = TestBedManagerConfiguration.INSTANCE.getTestTypes()[0];
+		for (int i = 0; i < dataLength; i++) {
+			try {
+				switch (FieldData[i][1]) {
+				case "textField":
+					if (testType.equalsIgnoreCase("Mobile")
+							&& FieldData[i][2].equalsIgnoreCase(".//*[@id='applicant:middle-initial']"))
+						break;
+					verifyTextFieldIsEditableByXpathWithOutJS(webPage, softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
 					break;
-				verifyTextFieldIsEditableByXpathWithOutJS(webPage, softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
-				break;
-			case "dropDown":
-				verifyDropDownFieldIsEditableByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
-				break;
-			case "radio":
-				selectRadioButtonByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
-				break;
-			case "checkBox":
-				selectCheckBoxByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
-				break;
-			case "button":
-				selectButtonByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
-				break;
-			default:
-				softAssert.fail("Invalid Data in datasheet. FieldType is not set as expected. Current value is : "
-						+ FieldData[i][1]);
-			}
-		
-		} catch (Throwable e) {
-			softAssert.fail("Failed to set value in " + FieldData[i][1] + "  \"" + FieldData[i][0] + "\" Due to :"
-					+ e.getLocalizedMessage());
-		}
-	}
-}
+				case "dropDown":
+					verifyDropDownFieldIsEditableByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2], FieldData[i][3]);
+					break;
+				case "radio":
+					selectRadioButtonByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
+					break;
+				case "checkBox":
+					selectCheckBoxByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
+					break;
+				case "button":
+					selectButtonByXpath(webPage, softAssert, FieldData[i][0], FieldData[i][2]);
+					break;
+				default:
+					softAssert.fail("Invalid Data in datasheet. FieldType is not set as expected. Current value is : "
+							+ FieldData[i][1]);
+				}
 
-public boolean verifyTextFieldIsEditableByXpathWithOutJS(WebPage webPage, SoftAssert softAssert, String FieldName, String locator,
-		String newValue) {
-	if (!verifyElementisPresent(webPage, locator, softAssert)) {
-		log.info("TextBox \"" + FieldName + "\" is Not Displayed");
-		softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
-		return false;
-	} else {
-		if (newValue == "" || newValue == null) {
-			log.info("Value was passed as blank for textField " + FieldName);
-			return true;
+			} catch (Throwable e) {
+				softAssert.fail("Failed to set value in " + FieldData[i][1] + "  \"" + FieldData[i][0] + "\" Due to :"
+						+ e.getLocalizedMessage());
+			}
 		}
-		if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
-			sendKeysbyXpath(webPage, locator, newValue, softAssert);
+	}
+
+	public boolean verifyTextFieldIsEditableByXpathWithOutJS(WebPage webPage, SoftAssert softAssert, String FieldName, String locator,
+			String newValue) {
+		if (!verifyElementisPresent(webPage, locator, softAssert)) {
+			log.info("TextBox \"" + FieldName + "\" is Not Displayed");
+			softAssert.fail(" Text Field \"" + FieldName + "\" is not Displayed ");
+			return false;
 		} else {
-			softAssert.fail("TextBox \"" + FieldName + "\" is Disabled ");
+			if (newValue == "" || newValue == null) {
+				log.info("Value was passed as blank for textField " + FieldName);
+				return true;
+			}
+			if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+				sendKeysbyXpath(webPage, locator, newValue, softAssert);
+			} else {
+				softAssert.fail("TextBox \"" + FieldName + "\" is Disabled ");
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Verifies if dropdown Value is editable using xPath
+	 * 
+	 * @author sjadhav
+	 * @param softAssert
+	 * @param FieldName
+	 * @param locator
+	 * @param newValue
+	 */
+	public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator,
+			String newValue) {
+		if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
+			log.info("DropDown is enabled");
+			log.info("Setting DropDown Value to : " + newValue);
+			selectValueFromDropDownByXpath(webPage,softAssert, FieldName, locator, newValue);
+		} else {
+			log.info("DropDown is Disabled");
+			softAssert.fail(" DropDown Field " + FieldName + " is disabled ");
 		}
 	}
-	return false;
-}
-	
-/**
- * Verifies if dropdown Value is editable using xPath
- * 
- * @author sjadhav
- * @param softAssert
- * @param FieldName
- * @param locator
- * @param newValue
- */
-public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator,
-		String newValue) {
-	if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
-		log.info("DropDown is enabled");
-		log.info("Setting DropDown Value to : " + newValue);
-		selectValueFromDropDownByXpath(webPage,softAssert, FieldName, locator, newValue);
-	} else {
-		log.info("DropDown is Disabled");
-		softAssert.fail(" DropDown Field " + FieldName + " is disabled ");
-	}
-}
-	
+
 
 	/**
 	 * Select Check Radio Button using xpath
@@ -1487,7 +1487,7 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 	 * @param FieldName
 	 * @param locator
 	 */
-	
+
 	public void selectCheckBoxByXpath(WebPage webPage,SoftAssert softAssert, String FieldName, String locator) {
 		if (getWebElementbyXpath(webPage, locator, softAssert).isEnabled()) {
 			/*if(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedNames.get(Thread.currentThread().getId())).getDevice().getName().toLowerCase().contains("nexus"))
@@ -1537,18 +1537,18 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 		softAssert.assertTrue(actual.equals(newValue),
 				"Failed to Update Drop Down Value, New Value : " + newValue + " Existing Value : " + actual);
 	}	
-	
+
 	public String getTextFromHiddenElement(WebPage webPage,SoftAssert softAssert,String locator)
 	{	String text = null;
-		 JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
-			text = (String) executor.executeScript("return arguments[0].innerHTML", getWebElementbyXpath(webPage, ".//*[@id='mCSB_1_container']/p[6]", softAssert));
-			return text;
-		
-		
+	JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+	text = (String) executor.executeScript("return arguments[0].innerHTML", getWebElementbyXpath(webPage, ".//*[@id='mCSB_1_container']/p[6]", softAssert));
+	return text;
+
+
 	}
 	public void selectCheckBox(WebPage webPage, String locator, SoftAssert softAssert) {
 		WebElement element = webPage.getDriver().findElement(By.xpath(locator));
-		
+
 		if(!element.isSelected())
 		{	
 			element.click();
@@ -1567,104 +1567,114 @@ public void verifyDropDownFieldIsEditableByXpath(WebPage webPage,SoftAssert soft
 		int statusCode = response.getStatusLine().getStatusCode();
 		return statusCode;
 	}
-	
-	/**
-	  * Method to scroll up the screen for android device
-	  */
-	 public void screenScrollUp(WebPage webPage) {
-	  try {
-		  AndroidDriver driver = (AndroidDriver) webPage.getDriver();
-	   org.openqa.selenium.Dimension windowSize = driver.manage().window().getSize();
-	   
-	   driver.swipe((int) ((windowSize.width)*0.50), (int) ((windowSize.height)*0.85),
-			   (int) ((windowSize.width)*0.50), (int) ((windowSize.height)*0.30), 1000);
-	   log.info("Completed scrolling up the screen ");
-	   // isElementInvisible(commonElements.get("RefreshLoadingIcon"));
-	  } catch (Exception e) {
-	   log.error("Failed to scroll up the device screen due to :::" + e.getMessage());
-	   e.printStackTrace();
-	  }
-	 }
-	 
-	 /**
-		 * Scrolls down the Page.
-		 */
-		public void scrollDown(WebPage webPage,int count) {
-			JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();
-			for (int i = 0; i < count; i++)
-				jse.executeScript("window.scrollBy(0,-240)", "");
-		}
-		
-		public void scrollUp(WebPage webPage,int count) {
-			JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();
-			for (int i = 0; i < count; i++)
-				jse.executeScript("window.scrollBy(0,240)", "");
-		}
-		
-		/**
-		 * Method to delete cookies form web browser
-		 * @param webPage
-		 */
-		
-		public void deleteCookies(WebPage webPage)
-		{
-			try{
-				webPage.getDriver().manage().deleteAllCookies();
-				log.info("browser history cleared");
-			}catch(Throwable e){
-				log.info("Unable to delete cookies for current browser.");
-			}
-		}
-		
-		/**
-		 * to verify http status code of a link(200,451) and href value
-		 * @param webPage
-		 * @param linkName
-		 * @param xpath
-		 * @param expectedHref
-		 * @param softAssert
-		 * @throws ClientProtocolException
-		 * @throws IOException
-		 */
-		public void verifyLinkStatusCodeAndHrefValue(WebPage webPage,String linkName,String xpath,String expectedHref, SoftAssert softAssert) throws ClientProtocolException, IOException
-		{
-			WebElement element = getWebElementbyXpath(webPage, xpath, softAssert);
-			String elementUrl=element.getAttribute("href");			
-			log.info(linkName+" Actual : "+elementUrl+" Expected : "+expectedHref);
-			softAssert.assertTrue(elementUrl.contains(expectedHref),"Expected Url : "+expectedHref+" Actual : "+elementUrl);
-			
-			log.info("Verifying Status Code for Link : " + linkName+" Url : "+elementUrl);
-			int statusCode = verifyUrlStatusCode(element.getAttribute("href"));
-			if (statusCode == 200) {
-				log.info("Status code for Link : "+linkName+ " is "+statusCode);
-			}
-			else{
-				softAssert.fail("Status Code for link "+ linkName + "With Url :" + expectedHref +" is "+statusCode);
-			}
-		}
-		/**
-		 * Method to sign out from Conns
-		 * @param webPage
-		 * @param softAssert
-		 * @throws InterruptedException
-		 */
-		public void logOutFromConns(WebPage webPage, SoftAssert softAssert) throws InterruptedException {
-			clickElementbyXpath(webPage, "(//*[@id='slide-nav']//a/img)[1]", softAssert);
-			Thread.sleep(2000);
-			clickElementbyXpath(webPage, "//*[@id='account-welcome']", softAssert);
-			Thread.sleep(2000);
-			clickElementbyXpath(webPage, "(//*[@id='account-menu']//a)[4]", softAssert);
-		}
-		
-		public void scrollToElement(WebPage webPage, String xpath,SoftAssert softAssert) {
-			log.info("Scrolling to element");
-			org.openqa.selenium.WebElement elementToScroll = getWebElementbyXpath(webPage, xpath, softAssert);
-			((JavascriptExecutor) webPage.getDriver()).executeScript("arguments[0].scrollIntoView();", elementToScroll);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 
+	/**
+	 * Method to scroll up the screen for android device
+	 */
+	public void screenScrollUp(WebPage webPage) {
+		try {
+			AndroidDriver driver = (AndroidDriver) webPage.getDriver();
+			org.openqa.selenium.Dimension windowSize = driver.manage().window().getSize();
+
+			driver.swipe((int) ((windowSize.width)*0.50), (int) ((windowSize.height)*0.85),
+					(int) ((windowSize.width)*0.50), (int) ((windowSize.height)*0.30), 1000);
+			log.info("Completed scrolling up the screen ");
+			// isElementInvisible(commonElements.get("RefreshLoadingIcon"));
+		} catch (Exception e) {
+			log.error("Failed to scroll up the device screen due to :::" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Scrolls down the Page.
+	 */
+	public void scrollDown(WebPage webPage,int count) {
+		JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();
+		for (int i = 0; i < count; i++)
+			jse.executeScript("window.scrollBy(0,-240)", "");
+	}
+
+	public void scrollUp(WebPage webPage,int count) {
+		JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();
+		for (int i = 0; i < count; i++)
+			jse.executeScript("window.scrollBy(0,240)", "");
+	}
+
+	/**
+	 * Method to delete cookies form web browser
+	 * @param webPage
+	 */
+
+	public void deleteCookies(WebPage webPage)
+	{
+		try{
+			webPage.getDriver().manage().deleteAllCookies();
+			log.info("browser history cleared");
+		}catch(Throwable e){
+			log.info("Unable to delete cookies for current browser.");
+		}
+	}
+
+	/**
+	 * to verify http status code of a link(200,451) and href value
+	 * @param webPage
+	 * @param linkName
+	 * @param xpath
+	 * @param expectedHref
+	 * @param softAssert
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public void verifyLinkStatusCodeAndHrefValue(WebPage webPage,String linkName,String xpath,String expectedHref, SoftAssert softAssert) throws ClientProtocolException, IOException
+	{
+		WebElement element = getWebElementbyXpath(webPage, xpath, softAssert);
+		String elementUrl=element.getAttribute("href");			
+		log.info(linkName+" Actual : "+elementUrl+" Expected : "+expectedHref);
+		softAssert.assertTrue(elementUrl.contains(expectedHref),"Expected Url : "+expectedHref+" Actual : "+elementUrl);
+
+		log.info("Verifying Status Code for Link : " + linkName+" Url : "+elementUrl);
+		int statusCode = verifyUrlStatusCode(element.getAttribute("href"));
+		if (statusCode == 200) {
+			log.info("Status code for Link : "+linkName+ " is "+statusCode);
+		}
+		else{
+			softAssert.fail("Status Code for link "+ linkName + "With Url :" + expectedHref +" is "+statusCode);
+		}
+	}
+	/**
+	 * Method to sign out from Conns
+	 * @param webPage
+	 * @param softAssert
+	 * @throws InterruptedException
+	 */
+	public void logOutFromConns(WebPage webPage, SoftAssert softAssert) throws InterruptedException {
+		clickElementbyXpath(webPage, "(//*[@id='slide-nav']//a/img)[1]", softAssert);
+		Thread.sleep(2000);
+		clickElementbyXpath(webPage, "//*[@id='account-welcome']", softAssert);
+		Thread.sleep(2000);
+		clickElementbyXpath(webPage, "(//*[@id='account-menu']//a)[4]", softAssert);
+	}
+
+	public void scrollToElement(WebPage webPage, String xpath,SoftAssert softAssert) {
+		log.info("Scrolling to element");
+		org.openqa.selenium.WebElement elementToScroll = getWebElementbyXpath(webPage, xpath, softAssert);
+		((JavascriptExecutor) webPage.getDriver()).executeScript("arguments[0].scrollIntoView();", elementToScroll);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	public void resetAPP(String deviceUDID) throws IOException {
+		// TODO Auto-generated method stub
+		try{
+			log.info("Resetting App and clearing background instance");
+			Process p	= Runtime.getRuntime().exec("adb -s "+deviceUDID+" shell pm clear com.android.chrome");
+			log.info("Done");
+		}catch(Throwable t) 
+		{
+			log.info("Unable to reset App or Clear background instance");
+		}
+	}
 }

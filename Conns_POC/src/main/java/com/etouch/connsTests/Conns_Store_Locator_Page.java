@@ -69,6 +69,11 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
 			System.out.println("Test Type is : " + testType);
 			try {
+				if(testType.equalsIgnoreCase("Mobile")
+						&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
+				{
+					commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
+				}
 				testEnv = System.getenv().get("Environment");
 				System.out.println("testEnv is : " + testEnv);
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));

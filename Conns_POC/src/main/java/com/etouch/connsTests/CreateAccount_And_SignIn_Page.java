@@ -71,6 +71,11 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					.toLowerCase();
 			log.info("Test Type is : " + testType);
 			try {
+				if(testType.equalsIgnoreCase("Mobile")
+						&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
+				{
+					commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
+				}
 				testEnv = System.getenv().get("Environment");
 				log.info("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));

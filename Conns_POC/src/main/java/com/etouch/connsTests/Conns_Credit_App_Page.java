@@ -87,7 +87,11 @@ public class Conns_Credit_App_Page extends BaseTest {
 			commonMethods = new CommonMethods();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName()
 					.toLowerCase();
-			
+			if(testType.equalsIgnoreCase("Mobile")
+					&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
+			{
+				commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
+			}
 			log.info("Test Type is : " + testType);
 			//try {
 				platform = testBed.getPlatform().getName().toUpperCase();

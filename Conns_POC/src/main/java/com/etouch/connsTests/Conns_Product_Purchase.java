@@ -89,6 +89,13 @@ public class Conns_Product_Purchase extends BaseTest {
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				log.info("DataFilePath After is : " + DataFilePath);
+				commonMethods = new CommonMethods();
+				if(testType.equalsIgnoreCase("Mobile")
+						&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
+				{
+					commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
+				}
+				
 				frenchDoor = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Click_On_French_Door");
 
 				//new data providers
@@ -114,7 +121,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				}
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				connsProductPurchasePage = new ConnsProductPurchasePage();
-				commonMethods = new CommonMethods();
+				
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
