@@ -71,11 +71,6 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					.toLowerCase();
 			log.info("Test Type is : " + testType);
 			try {
-				if(testType.equalsIgnoreCase("Mobile")
-						&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
-				{
-					commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
-				}
 				testEnv = System.getenv().get("Environment");
 				log.info("testEnv is : " + System.getenv().get("Environment"));
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
@@ -655,6 +650,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
+				//
 				 if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
 				log.info("Inside Else If for iPhoneNative DropDown Selection Box");
 					Thread.sleep(5000);
@@ -680,7 +676,8 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
 				}
 				Thread.sleep(3000);
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+				//
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") ) {
 					log.info("Validation for Blank Data Keys.Enter Started----->");
 					for (int i = 3; i < 7; i++) {
 						WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][i]));					
@@ -798,8 +795,9 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			String Save_Button_Locator = inputdata[0][26];
 
 			// new code
+			//|| testBedName.equalsIgnoreCase("edge") 
 
-			if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")  ) {
+			if ( testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")  ) {
 				//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 				WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][14]));					
 				js.executeScript("arguments[0].click();", element_1);
