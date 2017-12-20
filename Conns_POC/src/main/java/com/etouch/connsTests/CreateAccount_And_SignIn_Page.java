@@ -795,9 +795,9 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			String Save_Button_Locator = inputdata[0][26];
 
 			// new code
-			//|| testBedName.equalsIgnoreCase("edge") 
+			//
 
-			if ( testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")  ) {
+			if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")  ) {
 				//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
 				WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][14]));					
 				js.executeScript("arguments[0].click();", element_1);
