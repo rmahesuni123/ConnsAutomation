@@ -783,7 +783,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		CommonMethods.waitForGivenTime(15);
 		try {
 			webPage.getDriver().get(commonData[8][1]);
-			//CommonMethods.waitForGivenTime(10);
+			CommonMethods.waitForGivenTime(10);
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn", "Verify_Address_Book");
 			log.info("verification of Mandatory field validation message started");
 			String[][] inputdata = ExcelUtil.readExcelData(DataFilePath, "AccountSignINPage",
