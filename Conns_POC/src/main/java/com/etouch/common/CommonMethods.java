@@ -921,7 +921,7 @@ public class CommonMethods {
 			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
 			Select select=new Select(web);
 			//select.selectByVisibleText(dropdownvalue);
-			select.selectByValue(dropdownvalue);
+			select.selectByVisibleText(dropdownvalue);
 
 		} catch (Throwable e) {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
