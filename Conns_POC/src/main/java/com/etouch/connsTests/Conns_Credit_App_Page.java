@@ -95,10 +95,10 @@ public class Conns_Credit_App_Page extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")
 					&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("iOS"))
 			{
-				log.info("Staring iOS webKit proxy : command : "+"ios_webkit_debug_proxy -c "+
+				/*log.info("Staring iOS webKit proxy : command : "+"ios_webkit_debug_proxy -c "+
 			TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid()+":27753");
 				Runtime.getRuntime().exec("ios_webkit_debug_proxy -c "+
-			TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid()+":27753");
+			TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid()+":27753");*/
 			}
 			
 			
