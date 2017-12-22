@@ -651,7 +651,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 						"verify_Account_Information");
 				// new code
 				//
-				 if ( testType.equalsIgnoreCase("Mobile") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
+				 if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
 				log.info("Inside Else If for iPhoneNative DropDown Selection Box");
 					Thread.sleep(5000);
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
