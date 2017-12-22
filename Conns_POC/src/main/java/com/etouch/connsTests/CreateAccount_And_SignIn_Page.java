@@ -843,16 +843,16 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			webPage.getDriver().get(DashboardURL);
 			CommonMethods.waitForGivenTime(15);
 
-			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
-				js.executeScript("arguments[0].click();", element);
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+				WebElement element7 = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
+				js.executeScript("arguments[0].click();", element7);
 				System.out.println(" testType : " +testType);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
-			}*/
-			WebElement element_3 = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
+			}
+			/*WebElement element_3 = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
 			js.executeScript("arguments[0].click();", element_3);
-			System.out.println(" testType : " +testType);
+			*/System.out.println(" testType : " +testType);
 			webPage.getCurrentUrl();// For Safari
 			 log.info("************************ Add New Address if Delete Address Link is not visible*****************");
 			 commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,softAssert);
