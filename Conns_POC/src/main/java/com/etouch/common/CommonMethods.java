@@ -120,7 +120,7 @@ public class CommonMethods {
 					locator);
 			if (obj.toString().contains("true")) {
 				System.out.println("isElementPresentCheckUsingJavaScriptExecutor: SUCCESS");
-				return true;
+				
 			} else {
 				System.out.println("isElementPresentCheckUsingJavaScriptExecutor: FAIL");
 			}
@@ -128,7 +128,7 @@ public class CommonMethods {
 		} catch (NoSuchElementException e) {
 			System.out.println("isElementPresentCheckUsingJavaScriptExecutor: FAIL");
 		}
-		return false;
+		return true;
 	}
 
 
@@ -916,13 +916,9 @@ public class CommonMethods {
 	 **/
 	public void selectDropdownByValue(WebPage webPage, String locator,String dropdownvalue ,SoftAssert softAssert) {
 		try {
-			log.info("Selecting dropdown value - "+dropdownvalue);
-
 			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
 			Select select=new Select(web);
-			//select.selectByVisibleText(dropdownvalue);
-			select.selectByVisibleText(dropdownvalue);
-
+			select.selectByValue(dropdownvalue);
 		} catch (Throwable e) {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
@@ -931,13 +927,9 @@ public class CommonMethods {
 
 	public void selectDropdownByText(WebPage webPage, String locator,String dropdownvalue ,SoftAssert softAssert) {
 		try {
-			log.info("Selecting dropdown value - "+dropdownvalue);
-
 			WebElement web=webPage.getDriver().findElement(By.xpath(locator));
 			Select select=new Select(web);
 			select.selectByVisibleText(dropdownvalue);
-			//select.selectByValue(dropdownvalue);
-
 		} catch (Throwable e) {
 			softAssert.fail("Unable to click on element using XPath : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
@@ -1134,14 +1126,14 @@ public class CommonMethods {
 	 * The method is used to click on element with JS	
 	 **/	
 	public String Click_On_Element_JS(WebPage webPage, String xpath, SoftAssert softAssert) throws InterruptedException {
-
+		JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
 		try {
 			//WebElement element = webPage.findObjectByxPath(test).getWebElement();
 			log.info("Clicking on web element by Java Script");
-			WebElement element = getWebElementbyXpath(webPage, xpath, softAssert);
-			JavascriptExecutor executor = (JavascriptExecutor) webPage.getDriver();
+			WebElement element = getWebElementbyXpath(webPage, xpath, softAssert);			
 			executor.executeScript("arguments[0].click();", element);
 		} catch (Throwable e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 			softAssert.fail(e.getLocalizedMessage());
 		}

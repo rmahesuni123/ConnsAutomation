@@ -43,13 +43,13 @@ public class Conns_Store_Locator_Page extends BaseTest {
 	private String url = null;
 	private WebPage webPage;
 	private ConnsMainPage mainPage;
-	String testBedName;
+	//String testBedName;
 	TestBed testBed;
 	MobileView mobileView;
 	Path path;
 	String DataFilePath;
 	String testType;
-	static protected String browserName;
+	static protected String testBedName;
 	String testEnv; 
 	CommonMethods commonMethods;
 	ConnsStoreLocatorPage connsStoreLocatorPage;
@@ -66,14 +66,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			connsStoreLocatorPage= new ConnsStoreLocatorPage();
 			commonMethods = new CommonMethods();
-			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
+			testBedName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
 			System.out.println("Test Type is : " + testType);
 			try {
-				if(testType.equalsIgnoreCase("Mobile")
-						&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
-				{
-					commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
-				}
 				testEnv = System.getenv().get("Environment");
 				System.out.println("testEnv is : " + testEnv);
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
@@ -178,14 +173,14 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				 Locator_1 = regionLinksData[i][1];
 				 Locator_2 = regionLinksData[i][2];
 				 Locator_3 = regionLinksData[i][3] ;
-				if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari")) || (!browserName.equalsIgnoreCase("IE") || (!browserName.equalsIgnoreCase("InternetExplorer") ))) {
+				if (testType.equalsIgnoreCase("Web") && (!testBedName.equalsIgnoreCase("Safari")) || (!testBedName.equalsIgnoreCase("IE") || (!testBedName.equalsIgnoreCase("InternetExplorer") ))) {
 				if(!(Locator_3.equalsIgnoreCase("NA"))){
-				afterLinkHover = ConnsStoreLocatorPage.color_afterLinkHoverFunctionality(webPage,Verify_ChoseYourRegion_Links,regionLinksData,Locator_0,Locator_1,Locator_3,Locator_2,testBedName,testType,browserName, softAssert);
+				afterLinkHover = ConnsStoreLocatorPage.color_afterLinkHoverFunctionality(webPage,Verify_ChoseYourRegion_Links,regionLinksData,Locator_0,Locator_1,Locator_3,Locator_2,testBedName,testType,testBedName, softAssert);
 				softAssert.assertEquals(afterLinkHover, Locator_3,"Hover functionality failed for link "+Locator_0 +" Expected color: "+Locator_3 +" Actual color: "+afterLinkHover);	
 				}
 				}
 
-				if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari"))) {
+				if (testType.equalsIgnoreCase("Web") && (!testBedName.equalsIgnoreCase("Safari"))) {
 					if(!Locator_1.equalsIgnoreCase("NA")){
 				actual_hrefValue = ConnsStoreLocatorPage.href_getAttributebyXpath(webPage,regionLinksData, Locator_1,softAssert);
 				softAssert.assertEquals(actual_hrefValue, Locator_2,"href value verification failed for link: '" + Locator_0 + "'. Expected href value: "+ Locator_2 + " Actual URL: " + actual_hrefValue);
@@ -229,9 +224,9 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				 Locator_2 = TexasSubLinksData[i][2];
 				 Locator_3 = TexasSubLinksData[i][3];
 				 Locator_4 = TexasSubLinksData[i][4] ;
-				 if (testType.equalsIgnoreCase("Web") && (!browserName.equalsIgnoreCase("Safari"))) {
+				 if (testType.equalsIgnoreCase("Web") && (!testBedName.equalsIgnoreCase("Safari"))) {
 						if(!Locator_4.equalsIgnoreCase("NA")){
-				 afterLinkHover = ConnsStoreLocatorPage.color_afterLinkHoverFunctionality(webPage,Verify_Texas_SubLinks,TexasSubLinksData,Locator_4,Locator_0,Locator_2,Locator_3,testBedName,testType,browserName, softAssert);
+				 afterLinkHover = ConnsStoreLocatorPage.color_afterLinkHoverFunctionality(webPage,Verify_Texas_SubLinks,TexasSubLinksData,Locator_4,Locator_0,Locator_2,Locator_3,testBedName,testType,testBedName, softAssert);
 				 softAssert.assertEquals(afterLinkHover, Locator_4,"Hover functionality failed for link "+Locator_0+" Expected color: "+Locator_4+" Actual color: "+afterLinkHover);
 						}}
 				 textOnLink = ConnsStoreLocatorPage.getTextbyXpath(webPage, Locator_2,softAssert);
@@ -315,7 +310,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 			ConnsStoreLocatorPage.clickElementByJS(webPage,Locator_0, softAssert);				
 
 			if(testBedName.contains("iPadNative")||testBedName.contains("iPhoneNative")||testBedName.equalsIgnoreCase("Safari")||testBedName.equalsIgnoreCase("InternetExplorer")){				
-				log.info("Looking For Alert Box : "+Locator_0);
+				log.info("Looking For Alert Box : ");
 //				ConnsStoreLocatorPage.clickElementByJS(webPage,Locator_0, softAssert);				
 			}else{				
 				//ConnsStoreLocatorPage.clickElementByJS(webPage,locator_3, softAssert);
@@ -629,7 +624,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 				}else{
 					storeText = ConnsStoreLocatorPage.getTextbyXpath(webPage, Locator_9, softAssert);
 				}
-				if(browserName.equalsIgnoreCase("edge")){
+				if(testBedName.equalsIgnoreCase("edge")){
 					storeText = storeText.replaceAll("(?m) +$", "");
 				}
 				softAssert.assertTrue(storeText.contains(Locator_6),"Text verification failed. Expected text: " + Locator_6 + " Actual text: " + storeText);
@@ -646,31 +641,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 		}
 	}
 	
-	/*@Test(enabled = true, priority = 117, description = "Verify_Store_Distance_In_Miles")
-	public void Verify_Store_Distance_In_Miles() throws PageException, InterruptedException {
-		SoftAssert softAssert = new SoftAssert();
-		String[][] verifyStoreDistanceInMilesData = ExcelUtil.readExcelData(DataFilePath, "StoreLocator","verifyStoreDistanceInMiles");
 
-		try{
-			
-		
-			
-			
-			String search100MilesActualData = commonMethods.getTextbyXpath(webPage, verifyStoreDistanceInMilesData[6][0], softAssert);
-			search100MilesActualData = search100MilesActualData.replace("mi","").replaceAll(" ", "");
-			int intSearch100MilesActualData=Double.valueOf(search100MilesActualData).intValue();;
-			softAssert.assertTrue(intSearch100MilesActualData>=94 && intSearch100MilesActualData<=97,"Text verification failed. Store distance not in specified range. Expected distance: "+verifyStoreDistanceInMilesData[4][1]+" Actual distance: "+intSearch100MilesActualData);
-			
-			String search100MilesActualColor = commonMethods.getCssvaluebyXpath(webPage, verifyStoreDistanceInMilesData[6][0], "color", softAssert);
-			softAssert.assertTrue(search100MilesActualColor.contains(verifyStoreDistanceInMilesData[6][1]),"CSS value verification failed for " + search100MilesActualData + ". Expected value: "+ verifyStoreDistanceInMilesData[6][1] + ", Actual value: " + search100MilesActualColor);			
-			softAssert.assertAll();
-		}catch(Throwable e){
-			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "Verify_Store_Distance_In_Miles");
-			softAssert.assertAll();
-			Assert.fail(e.getLocalizedMessage());
-		}
-	}*/
 	
 	
 	@Test(enabled = true, priority = 117, description = "Verify_Store_Distance_In_Miles")
@@ -810,7 +781,7 @@ public class Conns_Store_Locator_Page extends BaseTest {
 						String Expected_pageContentText = keyData[j][1];
 						String onclickValueGoogleMap_Xpath = keyData[j][2];
 						String Expected_onclickValueGoogleMap = keyData[j][3];
-						pageContentText = ConnsStoreLocatorPage.pageContentTextFunctionality(webPage, testType,keyData,subkey,allRegionDescriptiondata,locator_2,DataFilePath, softAssert);
+						pageContentText = ConnsStoreLocatorPage.pageContentTextFunctionality(webPage, testType,testBedName,keyData,subkey,allRegionDescriptiondata,locator_2,DataFilePath, softAssert);
 						softAssert.assertTrue(pageContentText.contains(Expected_pageContentText),"Text verification failed for region "+Locator_0+". Expected Text : " + Expected_pageContentText + " Actual Text : " + pageContentText);
 						String actual_onclickValueGoogleMap = ConnsStoreLocatorPage.getAttributebyXpathValue(webPage, onclickValueGoogleMap_Xpath, "onclick",softAssert);
 						softAssert.assertTrue(actual_onclickValueGoogleMap.contains(Expected_onclickValueGoogleMap),"onclick attribute value verification failed for region "+Locator_0+". Expected onclick value: "+Expected_onclickValueGoogleMap+". Actual onclick value: "+actual_onclickValueGoogleMap);

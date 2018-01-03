@@ -22,7 +22,7 @@ public class ConnsStoreLocatorPage extends Conns_Store_Locator_Page {
 	
 	static Log log = LogUtil.getLog(ConnsStoreLocatorPage.class);
 	String testType;
-	String testBedName;
+	static String testBedName;
 	static CommonMethods commonMethods = new CommonMethods();
 	
 	/**
@@ -115,7 +115,7 @@ public class ConnsStoreLocatorPage extends Conns_Store_Locator_Page {
 		
 		commonMethods.waitForPageLoad(webPage, softAssert);
 		//commonMethods.waitForWebElement_1(By.xpath(locator), webPage); 
-		Thread.sleep(4000);
+		Thread.sleep(6000);
 	}
 	catch (Exception e){
 		e.printStackTrace();
@@ -159,11 +159,11 @@ public class ConnsStoreLocatorPage extends Conns_Store_Locator_Page {
 		return attributeValue;
 	}
 	
-	public static String pageContentTextFunctionality(WebPage webPage, String testType,String [][]keyData, String subkey,String [] [] testData,String locator_2,String DataFilePath ,SoftAssert softAssert){
+	public static String pageContentTextFunctionality(WebPage webPage, String testType,String testBedName,String [][]keyData, String subkey,String [] [] testData,String locator_2,String DataFilePath ,SoftAssert softAssert){
 		String pageContentText="";
 		try {
 			ConnsStoreLocatorPage.waitForWebElement(webPage, locator_2, softAssert);
-			if(!browserName.equalsIgnoreCase("edge")){
+			if(!testBedName.equalsIgnoreCase("edge")){	
 			 pageContentText = ConnsStoreLocatorPage.getTextbyXpath(webPage, subkey, softAssert);
 			if(testType.equalsIgnoreCase("Mobile")){
 				pageContentText=pageContentText.replace("Mon-Fri", "Store Hours\nMon-Fri");
@@ -387,7 +387,7 @@ public class ConnsStoreLocatorPage extends Conns_Store_Locator_Page {
 	public static void clickElementByJS_And_WaitForWebElement (WebPage webPage,String locator_1,String locator_2,SoftAssert softAssert) 
 	{ try {
 		commonMethods.Click_On_Element_JS(webPage, locator_1, softAssert);
-		waitForWebElement(webPage,locator_2, softAssert);		
+		waitForWebElement(webPage,locator_2, softAssert);	
 	}
 	catch (Exception e){
 		e.printStackTrace();
@@ -428,6 +428,7 @@ public class ConnsStoreLocatorPage extends Conns_Store_Locator_Page {
 	
 	public static void find_Store_Page_selectDropdownByValue_clickElementByJS_And_WaitForWebElement_Functionality (WebPage webPage,String Locator_4,String dropdownValue,String Locator_2,String Locator_B,SoftAssert softAssert) 
 	{ try {
+		
 		selectDropdownByValue(webPage, Locator_4,dropdownValue, softAssert);
 		clickElementByJS_And_WaitForWebElement(webPage, Locator_2,Locator_B, softAssert);
 	
@@ -451,10 +452,9 @@ public class ConnsStoreLocatorPage extends Conns_Store_Locator_Page {
 	{ String searchXXXMilesActualData = "";
 	int intSearchXXXMilesActualData = 0 ;
 	try {
-		searchXXXMilesActualData = ConnsStoreLocatorPage.getTextbyXpath(webPage, Locator,softAssert);	
-		searchXXXMilesActualData = searchXXXMilesActualData.replace("mi","").replaceAll(" ", "");	
+		searchXXXMilesActualData = ConnsStoreLocatorPage.getTextbyXpath(webPage, Locator,softAssert);
+		searchXXXMilesActualData = searchXXXMilesActualData.replace("mi","").replaceAll(" ", "");
 		intSearchXXXMilesActualData=Double.valueOf(searchXXXMilesActualData).intValue();;	
-
 	}
 	catch (Exception e){
 		e.printStackTrace();
@@ -478,6 +478,7 @@ public class ConnsStoreLocatorPage extends Conns_Store_Locator_Page {
 	public static void selectDropdownByValue (WebPage webPage,String locator,String dropdownValue,SoftAssert softAssert) 
 	{ try {
 		commonMethods.selectDropdownByValue(webPage, locator,dropdownValue, softAssert);
+		//commonMethods.selectDropdownByText(webPage, locator,dropdownValue, softAssert);
 		}
 	catch (Exception e){
 		e.printStackTrace();
