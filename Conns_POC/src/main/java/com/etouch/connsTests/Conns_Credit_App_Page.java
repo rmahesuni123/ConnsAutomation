@@ -5,25 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
-import org.apache.log4j.Logger;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
+
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
@@ -34,7 +26,7 @@ import org.testng.asserts.SoftAssert;
 import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
-import com.etouch.connsPages.ConnsAccountAndSignInPage;
+
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.connsPages.CreditAppPage;
 import com.etouch.taf.core.TestBed;
@@ -61,6 +53,8 @@ public class Conns_Credit_App_Page extends BaseTest {
 	//Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
 	private String testEnv;
 	protected static String url;
+	
+
 	
 	private ConnsMainPage mainPage;
 	protected static LinkedHashMap<String, String> commonData;
@@ -357,7 +351,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	@Test(priority = 1007, enabled = true, description = "verify EmailID Count")
 	  public void verify_EmailID_Count() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
+		//JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
 		creditAppPage.navigateToCreditAppPage(softAssert);
 		LinkedHashMap<String, String> inputdata = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 				"verifyEmailIdCount");	
@@ -445,7 +439,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "Verify_Texas_SubLinks");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Field_Validation_Error_Message_With_InValid_Data");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -661,8 +655,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			 creditAppPage.navigateToYesMoneyLandingPage(softAssert);
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
-					"verifySuccessfulSubmitForRegisteredUser");
+			//String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp","verifySuccessfulSubmitForRegisteredUser");
 			Thread.sleep(5000);
 			webPageMap.get(Thread.currentThread().getId()).findObjectByxPath(".//*[@id='PWRSummaryContainer']//div[@class='pr-rating-stars']").click();
 			Thread.sleep(5000);
@@ -986,6 +979,44 @@ public class Conns_Credit_App_Page extends BaseTest {
 	}
 	
 
+	
+	@Test(priority = 1032, enabled = true, description = "verify Error Msg With Phone Data")
+	public void verify_Phone_Field_Validation_Error_Message_With_InValid_Data() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			log.info("testing verifyFieldValidationErrorMessageWithInValidData started------>");
+			String[][] test = ExcelUtil.readExcelData(DataFilePath, "CreditApp","verifyPhoneNumberValidationwithInvalidData");
+		//	if(testType.equalsIgnoreCase("Mobile")
+			//
+			if (browserName.contains("iphone") || browserName.contains("ipad") || browserName.contains("safari") ) {
+				
+				creditAppPage.verifyErrorMessageForSafari(softAssert, test);
+			} else {
+					for (int r = 0; r < test.length; r++) {
+						if(!(r >= 6)){
+							log.info(" Iteration #  "+ r +"*****  Input TELEPHONE NUMBER :  " +test[r][2]); 
+						creditAppPage.verifyErrorMessageWithInvalidDataById(softAssert, test[r][0], test[r][1], test[r][2],
+								test[r][3], test[r][4]);
+				   }
+					else {	
+						log.info(" Iteration #  "+ r +"***** Inside Else Part, Please Enter an Invalid TELEPHONE NUMBER :  " +test[r][2]); 
+					}
+						softAssert.assertAll();
+			}
+		}
+		}
+				catch (Throwable e) {
+					e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Field_Validation_Error_Message_With_InValid_Data");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 
+
+	
+	
+	
 
 }

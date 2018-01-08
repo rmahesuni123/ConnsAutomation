@@ -218,8 +218,8 @@ public abstract class CommonPage {
 	 * Load page.
 	 */
 	protected void loadPage() {
-		System.out.println("PAGE URL : " + pageUrl);
-		log.info(" Inside Load_page method, Page will be getting loaded and maximize    ");
+		//System.out.println("PAGE URL : " + pageUrl);
+		//log.info(" Inside Load_page method, Page will be getting loaded and maximize    ");
 		webPage.loadPage(pageUrl);
 
 	}

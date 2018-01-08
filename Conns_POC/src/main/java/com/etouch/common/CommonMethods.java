@@ -1586,6 +1586,9 @@ public class CommonMethods {
 		for (int i = 0; i < count; i++)
 			jse.executeScript("window.scrollBy(0,-240)", "");
 	}
+	
+	
+
 
 	public void scrollUp(WebPage webPage,int count) {
 		JavascriptExecutor jse = (JavascriptExecutor) webPage.getDriver();

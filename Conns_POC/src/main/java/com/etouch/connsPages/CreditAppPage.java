@@ -426,16 +426,28 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param errorMessageFieldName
 	 * @param locator
 	 * @param expectedErrorMessage
+	 * @throws InterruptedException 
 	 */
 	public void verifyErrorMessageById(SoftAssert softAssert, String errorMessageFieldName, String locator,
-			String expectedErrorMessage) {
-		log.info("Verifiyikng error message for : " + errorMessageFieldName + " : Expected Message : "
+			String expectedErrorMessage) throws InterruptedException {
+		try {
+			Thread.sleep(9000);
+			
+			//  commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
+			//  CommonMethods.waitForWebElement(By.xpath(locator), webPageMap.get(Thread.currentThread().getId()));
+
+		log.info("Verifying error message for : " + errorMessageFieldName + " : Expected Message : "
 				+ expectedErrorMessage);
 		String actualErrorMessage = commonMethods.getTextbyId(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+		//Thread.sleep(2000);
+
 		softAssert.assertTrue(expectedErrorMessage.equals(actualErrorMessage), "Failed to verify error field :"
 				+ errorMessageFieldName + " : Expected : " + expectedErrorMessage + " Actual : " + actualErrorMessage);
 	}
-
+		catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Verify field errors message by entering invalid data
 	 * 
@@ -447,12 +459,21 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 	 * @param errorMessageLocator
 	 * @param expectedErrorMessage
 	 * @throws AWTException
+	 * @throws InterruptedException 
 	 */
 	public void verifyErrorMessageWithInvalidDataById(SoftAssert softAssert, String FieldName, String locator,
-			String inputText, String errorMessageLocator, String expectedErrorMessage) throws AWTException {
-		Robot robot = new Robot();
+			String inputText, String errorMessageLocator, String expectedErrorMessage) throws AWTException, InterruptedException {
+	//	Robot robot = new Robot();
+		try {
 		WebElement element = commonMethods.getWebElementbyID(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
+		element.clear();
+		Thread.sleep(2000);
 		element.sendKeys(inputText+Keys.TAB);
+		
+		//element.sendKeys(inputText+Keys.TAB);
+		
+		
+		
 		//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("FirstNameLable"), softAssert);
 		// JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
 		// js.executeScript("var key = require('selenium-webdriver').Key;"
@@ -478,6 +499,10 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		// }
 		verifyErrorMessageById(softAssert, FieldName, errorMessageLocator, expectedErrorMessage);
 	}
+	catch(Exception e){
+		e.printStackTrace();
+	}
+		}
 
 	/**
 	 * Get Current selected Drop Down Value using Id
@@ -1002,6 +1027,37 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 			verifyErrorMessageById(softAssert, test[i][0], test[i][3], test[i][4]);
 		}
 	}
+	
+	
+	public void verifyErrorMessageForSafari(SoftAssert softAssert, String[][] test) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
+		for (int r = 0; r < test.length; r++) {
+			if(!(r >= 6)){
+				WebElement element_1 = commonMethods.getWebElementbyID(webPageMap.get(Thread.currentThread().getId()), test[r][1], softAssert);
+				element_1.clear();			
+				element_1.sendKeys(test[r][2]);
+				
+				WebElement element_2 = commonMethods.getWebElementbyID(webPageMap.get(Thread.currentThread().getId()), test[r][5], softAssert);
+				//js.executeScript("arguments[0].click();", element_2);
+				element_2.clear();
+				element_2.sendKeys(test[r][2]);
+				
+				log.info(" Iteration #  "+ r +"*****  Input TELEPHONE NUMBER :  " +test[r][2]); 
+
+			verifyErrorMessageById(softAssert, test[r][0], test[r][3], test[r][4]);
+			
+			/*for (int i = 0; i < test.length; i++) {
+				verifyErrorMessageById(softAssert, test[i][0], test[i][3], test[i][4]);
+			}*/
+			}else {	
+				log.info(" Iteration #  "+ r +"***** Inside Else Part, Please Enter an Invalid TELEPHONE NUMBER :  " +test[r][2]); 
+			}
+			// verifyTextFieldIsEditableByIdJs(softAssert, test[r][0],
+			// test[r][1], test[r][2]);
+		}
+		/*commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
+		*/
+	}
 
 public void selectValueWithGivenDate(String mmXpath, String ddXpath, String yyyyXpath, String date) throws Exception {
 		commonMethods.selectDropdownByValue(webPageMap.get(Thread.currentThread().getId()), yyyyXpath, date.substring(6, 10));
@@ -1125,6 +1181,11 @@ public void submitReview(WebPage webPage,SoftAssert softAssert, String[][] label
 		commonMethods.verifyDate(webPage,softAssert, commonData.get("ReviewPageDate"));
 		Thread.sleep(5000);
 	}
+
+
+
+
+
 
 
 
