@@ -374,21 +374,22 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			for (int i = 0; i < 2; i++) {
 				log.info("Started iteration: " + i);
 				String toolTipText = CreateAccountAndSignInPage.getToolTipText(webPage, softAssert, testdata[i][1]);
-				softAssert.assertEquals(toolTipText, testdata[i][2],
-						"Tool Tip Text verification failed for :" + testdata[i][0]);
+				softAssert.assertEquals(toolTipText, testdata[i][2],"Tool Tip Text verification failed for :" + testdata[i][0]);
 			}
-			//commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+
+		/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			}
-			
-			CommonMethods.waitForWebElement(By.xpath(testdata[2][2]), webPage);
-			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[2][2], softAssert);
-			softAssert.assertEquals(actualMessage, testdata[2][3], "Failed to verify Overlay Text:");
-			commonMethods.clickElementbyXpath(webPage, testdata[2][4], softAssert);
+			}*/
+				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
+				js.executeScript("arguments[0].click();", element);
+				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
+			//CommonMethods.waitForWebElement(By.xpath(testdata[2][2]), webPage);
+			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[2][1], softAssert);
+			softAssert.assertEquals(actualMessage, testdata[2][2], "Failed to verify Overlay Text:");
+			//commonMethods.clickElementbyXpath(webPage, testdata[2][4], softAssert);
 			log.info("testing verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
