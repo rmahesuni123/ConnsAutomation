@@ -117,20 +117,20 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				softAssert.assertEquals(paginationNumberElement.getText(),"2","Pagination failed for page link : 2 ");
 				log.info("Clicking on Pagination Link : 2 ");
 				paginationNumberElement.click();
-				
+
 				//verify pagination link 1
 				paginationNumberElement = commonMethods.getWebElementbyXpath(webPage, test[0][3], softAssert);
 				softAssert.assertEquals(paginationNumberElement.getText(),"1","Pagination failed for page link : 1 ");
 				log.info("Clicking on Pagination Link : 1 ");
 				paginationNumberElement.click();
-				
+
 				//verify next and back button
 				WebElement paginationNextElement = commonMethods.getWebElementbyXpath(webPage, test[0][4], softAssert);
 				softAssert.assertEquals(paginationNextElement.getText(),"Next","Pagination failed for page link : Next ");
 				log.info("Clicking on Pagination Link : Next ");
 				paginationNextElement.click();
-				
-				
+
+
 				WebElement paginationBackElement = commonMethods.getWebElementbyXpath(webPage, test[0][5], softAssert);
 				softAssert.assertEquals(paginationBackElement.getText(),"Back","Pagination failed for page link : Back ");
 				log.info("Clicking on Pagination Link : Back");
@@ -142,17 +142,17 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				softAssert.assertEquals(paginationMobileNextElement.getText(),"NEXT","Pagination failed for page link : NEXT ");
 				log.info("Clicking on Pagination Link : NEXT ");
 				paginationMobileNextElement.click();
-				
+
 				WebElement paginationMobileBackElement = commonMethods.getWebElementbyXpath(webPage, test[0][7], softAssert);
 				softAssert.assertEquals(paginationMobileBackElement.getText(),"BACK","Pagination failed for page link : BACK ");
 				log.info("Clicking on Pagination Link : BACK ");
 				paginationMobileBackElement.click();
-				
+
 			}
-			
+
 			//selecting product with Add To Cart Button
 			commonMethods.clickElementbyXpath(webPage, test[0][8], softAssert);
-			
+
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")){
 				contentData = ExcelUtil.readExcelData(DataFilePath,
 						"ProductListingPage", "verifyProductDetailsForMobile");
@@ -161,8 +161,11 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				contentData = ExcelUtil.readExcelData(DataFilePath,
 						"ProductListingPage", "verifyProductDetails");
 			}
-
-
+			// closing delivery address popup
+			if(commonMethods.verifyElementisPresent(webPage, test[0][10], softAssert))
+			{
+				commonMethods.clickElementbyXpath(webPage, test[0][10], softAssert);
+			}
 			for (int i = 0; i < contentData.length; i++) {
 				String actualContent = webPage.findObjectByxPath(
 						contentData[i][0]).getText();
@@ -180,11 +183,17 @@ public class Conns_Product_Listing_Page extends BaseTest {
 
 			Review_Data = ExcelUtil.readExcelData(DataFilePath,"ProductListingPage", "Verify_Product_Review");
 			System.out.println("Review_Data[25][0] :" +Review_Data[25][0]);
-			//
-			CommonMethods.navigateToPage(webPage, Review_Data[25][0]);
-			webPage.getDriver().navigate().refresh();
 
-			Thread.sleep(5000);
+			//navigating to a particular product page to insert comment
+			CommonMethods.navigateToPage(webPage, Review_Data[25][0]);
+
+			//webPage.getDriver().navigate().refresh();
+			// closing delivery address popup
+			if(commonMethods.verifyElementisPresent(webPage, test[0][10], softAssert))
+			{
+				commonMethods.clickElementbyXpath(webPage, test[0][10], softAssert);
+			}
+
 			if (CommonMethods.verifyElementisPresent(webPage, test[0][9])) {
 				webPage.findObjectByxPath(test[0][9]).click();
 			}
