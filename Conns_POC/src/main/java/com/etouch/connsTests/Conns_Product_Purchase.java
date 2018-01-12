@@ -281,6 +281,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String actualShoppingCartEmptyMessage = null;
 		String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
 		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.deleteCookies();
 			List<String> actualProductTextDetails = connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[13][3], instockProductAddToCartData, softAssert,true);
 			log.info("Verifying product details such as product name, product unit price and product shipping areas on cart page");
@@ -341,6 +342,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String[][] pickUpOnlyProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_PickupOnly_Product");
 
 		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.deleteCookies();
 			connsProductPurchasePage.addGivenProductToCart(webPage, pickUpOnlyProductAddToCartData[14][3], pickUpOnlyProductAddToCartData, softAssert,false);
 
@@ -411,6 +413,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		List<WebElement> billingInfoErrorMessages = new ArrayList<WebElement>();
 
 		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.deleteCookies();
 			connsProductPurchasePage.addGivenProductToCart(webPage,pickUpOnlyProductAddToCartData[14][3], pickUpOnlyProductAddToCartData, softAssert,false);
 			productPriceOnCartPage = commonMethods.getTextbyXpath(webPage, cartPageData[5][1], softAssert);
@@ -470,6 +473,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Clicking on continue for Pickup Location");
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[47][1], softAssert);
 			CommonMethods.waitForGivenTime(8);
+			commonMethods.waitForPageLoad(webPage, softAssert);
 			actualPickupLocationSectionText = commonMethods.getTextbyXpath(webPage, checkoutPageData[10][1], softAssert);
 			actualPaymentInfoSectionText = commonMethods.getTextbyXpath(webPage, checkoutPageData[11][1], softAssert); 
 			softAssert.assertTrue(actualPickupLocationSectionText.contains(checkoutPageData[10][2]),"Expected pickup location text: "+checkoutPageData[10][2]+" Actual pickup location text: "+actualPickupLocationSectionText);
@@ -480,6 +484,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				try{
 					CommonMethods.waitForGivenTime(5);
 					commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
+					//commonMethods.waitForPageLoad(webPage, softAssert);
 					Alert alert = webPage.getDriver().switchTo().alert();
 					String noPaymentMethodSelectedMethod = alert.getText();
 					softAssert.assertTrue(noPaymentMethodSelectedMethod.contains(checkoutPageData[12][2]),"Expected no-payment method selected message: "+checkoutPageData[12][2]+" Actual no-payment method selected message: "+noPaymentMethodSelectedMethod);
@@ -492,7 +497,8 @@ public class Conns_Product_Purchase extends BaseTest {
 			if(testType.equalsIgnoreCase("Mobile")){
 				webPage.scrollUp(1);
 			}
-			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[13][1], softAssert);
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[13][1], softAssert);
 			log.info("Clicking on continue for payment info");
 			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[12][1], softAssert);
 
@@ -545,10 +551,10 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			log.info("Clicking on Pickup location address radio button");
-			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[41][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[41][1], softAssert);
 
 			log.info("Clicking on ShippingMethodPickUPContinueButton");
-			commonMethods.Click_On_Element_JS(webPage, checkoutPageData[47][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[47][1], softAssert);
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			log.info("Selecting Payment Information as Paypal");
 			try{
@@ -592,6 +598,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
 		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			connsProductPurchasePage.deleteCookies();
 			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[13][3], instockProductAddToCartData, softAssert,false);
 			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
@@ -654,6 +661,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
 		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			String forgotPasswordActualUrl =  "";
 			connsProductPurchasePage.deleteCookies();
 			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert,false);
@@ -682,6 +690,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 
 		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			String getQuoteActualErrMsg = "";
 			String getQuoteActualValid = "";
 			String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
@@ -722,6 +731,7 @@ public class Conns_Product_Purchase extends BaseTest {
 		String shippingInfoFirstName ="";
 
 		try {
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
 			String[][] instockProductAddToCartData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Add_Instock_Product");
 			String[][] checkoutPageData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","Checkout_Page_Elements");
 			connsProductPurchasePage.deleteCookies();
@@ -789,7 +799,9 @@ public class Conns_Product_Purchase extends BaseTest {
 	 */
 	@Test(priority = 912, enabled = true, description = "Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation")
 	public void Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation() {
+		
 		SoftAssert softAssert = new SoftAssert();
+		commonMethods.navigateToPage(webPage, testUrl, softAssert);
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
 		String[][] connsHomePlusCard_OrderReview_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","OrderReviewSection_Data"); 
 		String invalidCardNumberActualErrorMessage = "";
