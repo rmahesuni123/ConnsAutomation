@@ -53,24 +53,14 @@ public class CommonMethods {
 	 * @throws PageException  If an input or output exception occurred
 	 **/
 	public void navigateToPage(WebPage webPage,String navigatingUrl, SoftAssert softAssert){
-		try {
 			log.info("Navigating to URL: "+navigatingUrl);
-			webPage.loadPage(navigatingUrl);
-		} catch (Throwable e) {
-			e.printStackTrace();
-
-			softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
-		}
+			webPage.navigateToUrl(navigatingUrl);
 	}
+	
 	public static void navigateToPage(WebPage webPage,String navigatingUrl){
-		try {
 			log.info("Navigating to URL: "+navigatingUrl);
-			webPage.loadPage(navigatingUrl);
-		} catch (Throwable e) {
-			e.printStackTrace();
-			//softAssert.fail("Unable to Navigate to URL: "+navigatingUrl+". Localized Message: "+e.getLocalizedMessage());
-		}
-	}
+			webPage.navigateToUrl(navigatingUrl);
+			}
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to verify if element is present
@@ -1152,7 +1142,8 @@ public class CommonMethods {
 		WebDriver driver = webPage.getDriver();
 		int count =0;
 		Thread.sleep(2000);
-		while(count<30)
+		log.info("Waiting for page to complete loading");
+		while(count<120)
 		{
 			try{
 				if(!((JavascriptExecutor)driver).executeScript("return document.readyState").toString().contains("complete"))
@@ -1161,6 +1152,7 @@ public class CommonMethods {
 					count++;
 				}
 				else{
+					log.info("Page load complete");
 					break;
 				}
 
@@ -1172,7 +1164,7 @@ public class CommonMethods {
 		}
 		if(count>=30)
 		{
-			softAssert.fail("Unable to complete page load, Took more than 20 sec to load page");
+			softAssert.fail("Unable to complete page load, Took more than 120 sec to load page");
 		}
 	}
 

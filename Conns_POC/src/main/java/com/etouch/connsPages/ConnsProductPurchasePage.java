@@ -110,7 +110,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			checkoutSendKeysbyXpath(webPage, billingInfoDetails[4][1], billingInfoDetails[4][3], softAssert);
 			checkoutSendKeysbyXpath(webPage, billingInfoDetails[5][1], billingInfoDetails[5][3], softAssert);
 			
-			commonMethods.selectDropdownByValue(webPage, billingInfoDetails[7][1], billingInfoDetails[7][3], softAssert);
+			commonMethods.selectDropdownByText(webPage, billingInfoDetails[7][1], billingInfoDetails[7][3], softAssert);
 			checkoutSendKeysbyXpath(webPage, billingInfoDetails[6][1], billingInfoDetails[6][3], softAssert);
 			//dummy click
 			commonMethods.Click_On_Element_JS(webPage, billingInfoDetails[5][1], softAssert);
@@ -843,6 +843,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 				commonMethods.clickElementbyXpath(webPage, addProductData[7][1], softAssert);
 				Thread.sleep(8000);
 				//verify if shopping cart is empty after selecting add to cart button
+				commonMethods.waitForPageLoad(webPage, softAssert);
 				if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
 					log.info("Cart is Empty message displayed after clicking on Add to Cart button. Test will not be able to complete successfully because of this.");
 					boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");

@@ -558,7 +558,9 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			log.info("Selecting Payment Information as Paypal");
 			try{
+				Thread.sleep(10000);
 				commonMethods.clickElementbyXpath(webPage, checkoutPageData[14][1], softAssert);
+				
 				commonMethods.waitForPageLoad(webPage, softAssert);
 			}catch(Exception e){
 				log.info("Waiting for more time as paypal option is not yet displayed");
@@ -710,7 +712,16 @@ public class Conns_Product_Purchase extends BaseTest {
 			if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
 				CommonMethods.waitForWebElement(By.xpath(cartPageData[20][1]), webPage);
 				getQuoteActualValid = commonMethods.getTextbyXpath(webPage, cartPageData[20][1], softAssert);
-				softAssert.assertTrue(getQuoteActualValid.contains(cartPageData[20][2]),"Expected getQuote valid output: "+cartPageData[20][2]+" Actual getQuote valid output: "+getQuoteActualValid);	
+				if(getQuoteActualValid.equalsIgnoreCase(cartPageData[20][2])||getQuoteActualValid.equalsIgnoreCase(cartPageData[23][2])||
+						getQuoteActualValid.equalsIgnoreCase(cartPageData[24][2]))
+				{
+					log.info("Estimate Shipping value : "+getQuoteActualValid);
+				}
+				else
+				{
+					softAssert.fail("Failed to match Estimate Shipping value, Actual : "+getQuoteActualValid);
+				}
+				//softAssert.assertTrue(getQuoteActualValid.contains(cartPageData[20][2]),"Expected getQuote valid output: "+cartPageData[20][2]+" Actual getQuote valid output: "+getQuoteActualValid);	
 			}
 			softAssert.assertAll();
 		} catch (Exception e) {
@@ -918,7 +929,8 @@ public class Conns_Product_Purchase extends BaseTest {
 	/*This method will cover below scenarios
 	 * - Verify payment method ConnsHomePlusCard_or_SynchronyHomeCreditCard for Invalid ZipCode
 	 */
-	@Test(priority = 913, enabled = true, description = "Verify_ConnsHomePlusCard_InValid_ZipCode_Validation")
+	@Test(priority = 913,dependsOnMethods="Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation",
+			enabled = true, description = "Verify_ConnsHomePlusCard_InValid_ZipCode_Validation")
 	public void Verify_ConnsHomePlusCard_InValid_ZipCode_Validation() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -984,7 +996,8 @@ public class Conns_Product_Purchase extends BaseTest {
 	/* This method will cover below scenarios
 	 * - Verify aggrement text disdayed in Review section for Non-Promotional Product
 	 */
-	@Test(priority = 914, enabled = true, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
+	@Test(priority = 914, enabled = true,dependsOnMethods="Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation",
+			description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
 	public void Verify_Agreement_Text_For_Promotional_Product() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1050,7 +1063,8 @@ public class Conns_Product_Purchase extends BaseTest {
 	/* This method will cover below scenarios
 	 * - Verify aggrement text disdayed in Review section for Non-Promotional Product
 	 */
-	@Test(priority = 915, enabled = true, description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
+	@Test(priority = 915, enabled = true,dependsOnMethods="Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation",
+			description = "Verify aggrement text disdayed in Review section for Non-Promotional Product")
 	public void Verify_Agreement_Text_For_Non_Promotional_Product() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
@@ -1119,7 +1133,8 @@ public class Conns_Product_Purchase extends BaseTest {
 	/* This method will cover below scenarios
 	 * - Verify error message in order review section when special characters are used in address field
 	 */
-	@Test(priority = 916, enabled = true, description = "Verify error message in order review section when special characters are used in address field")
+	@Test(priority = 916, enabled = true,dependsOnMethods="Verify_ConnsHomePlusCardField_InvalidAddress_and_Field_Validation",
+			description = "Verify error message in order review section when special characters are used in address field")
 	public void Verify_Special_Character_Error_In_Address_HHGregg() {
 		SoftAssert softAssert = new SoftAssert();
 		String[][] connsHomePlusCard_data = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase","ConnsHomePlusCard_Data"); 
