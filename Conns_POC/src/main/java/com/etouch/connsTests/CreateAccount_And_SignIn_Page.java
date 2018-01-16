@@ -1,6 +1,5 @@
 package com.etouch.connsTests;
 
-
 import java.awt.AWTException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,7 +41,7 @@ import com.etouch.taf.webui.selenium.WebPage;
 
 @Test(groups = "CreateAccount_And_SignIn_Page")
 @IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
-public class CreateAccount_And_SignIn_Page  extends BaseTest {
+public class CreateAccount_And_SignIn_Page extends BaseTest {
 	private String testBedName;
 	Path path;
 	String DataFilePath;
@@ -53,7 +52,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	protected WebPage webPage;
 	private ConnsMainPage mainPage;
 	protected static CommonMethods commonMethods;
-	private String registerUrl, signInURL, forgetPasswordPageURL,DashboardURL;
+	private String registerUrl, signInURL, forgetPasswordPageURL, DashboardURL;
 	String[][] commonData;
 	boolean userLoggedIn = false;
 	String[][] YesLeaseData;
@@ -82,7 +81,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				registerUrl = commonData[1][1];
 				signInURL = commonData[2][1];
 				forgetPasswordPageURL = commonData[3][1];
-				DashboardURL=commonData[8][1];
+				DashboardURL = commonData[8][1];
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
@@ -102,91 +101,111 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		}
 	}
 
-	
 	@AfterTest
-	 public void releaseResources() throws IOException, AWTException {
-	  webPage.getDriver().quit();
-	 }
-	
-	
+	public void releaseResources() throws IOException, AWTException {
+		webPage.getDriver().quit();
+	}
+
 	@Test(priority = 300, enabled = true)
 
-	public void verify_Font_And_Size_Login_Page() 
-	{		
+	public void verify_Font_And_Size_Login_Page() {
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
-			String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeWeb");
-			String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeTab");
-			String[][] ExpectedFontValuesMobile = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","VerifyFontandSizeMobile");
-			//commonMethods.navigateToPage(webPage,moneyMattersURL, softAssert);	
-			int width = ((Long) js.executeScript("return window.innerWidth || document.body.clientWidth")).intValue() ;
-			log.info("width value calculated is :" +width);
-			int height = ((Long) js.executeScript("return window.innerHeight || document.body.clientHeight")).intValue() ;
-			log.info("height value calculated is :" +height);
-			Dimension dimension  = new Dimension(width, height);			
-			System.out.println("Dimensions" + dimension);        
-			if (!(testType.equalsIgnoreCase("Web")) && testBedName.equalsIgnoreCase("edge"))
-			{	log.info("********************TestType for Web started execution***************   : " + testType.toString());
-			for (int i = 0; i < ExpectedFontValuesWeb.length; i++) 
-			{
-				System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesWeb[i][0]);
-				List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],softAssert);
+			String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"VerifyFontandSizeWeb");
+			String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"VerifyFontandSizeTab");
+			String[][] ExpectedFontValuesMobile = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"VerifyFontandSizeMobile");
+			// commonMethods.navigateToPage(webPage,moneyMattersURL,
+			// softAssert);
+			int width = ((Long) js.executeScript("return window.innerWidth || document.body.clientWidth")).intValue();
+			log.info("width value calculated is :" + width);
+			int height = ((Long) js.executeScript("return window.innerHeight || document.body.clientHeight"))
+					.intValue();
+			log.info("height value calculated is :" + height);
+			Dimension dimension = new Dimension(width, height);
+			System.out.println("Dimensions" + dimension);
+			if (!(testType.equalsIgnoreCase("Web")) && testBedName.equalsIgnoreCase("edge")) {
+				log.info("********************TestType for Web started execution***************   : "
+						+ testType.toString());
+				for (int i = 0; i < ExpectedFontValuesWeb.length; i++) {
+					System.out.println("Iteration under test  is : " + i + " :: Item under test is : "
+							+ ExpectedFontValuesWeb[i][0]);
+					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesWeb[i][1],
+							softAssert);
 
-				if(!ExpectedFontValuesWeb[i][2].equalsIgnoreCase("NA")){
-					log.info("expected : " + ExpectedFontValuesWeb[i][2]);
-					log.info("actual   : " + actualCssValues.get(0));
-					log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]));
-					softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesWeb[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesWeb[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
-				}
-			}
-			}
-
-			else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge") ||   testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative"))
-			{	 log.info("********************TestType for Edge started execution***************   : " + testType.toString());
-			log.info("********************TestBedName for Edge started execution***************   : " + testBedName.toString());
-			if(width>599||width<800)
-			{				
-				for (int i = 0; i < ExpectedFontValuesTab.length; i++) 
-				{
-					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesTab[i][0]);
-					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesTab[i][1],softAssert);
-					if(!ExpectedFontValuesTab[i][2].equalsIgnoreCase("NA")){
-						log.info("expected : " + ExpectedFontValuesTab[i][2]);
+					if (!ExpectedFontValuesWeb[i][2].equalsIgnoreCase("NA")) {
+						log.info("expected : " + ExpectedFontValuesWeb[i][2]);
 						log.info("actual   : " + actualCssValues.get(0));
-						log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]));
-						softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesTab[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesTab[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
+						log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]));
+						softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesWeb[i][2]),
+								"Iteration : " + i + " --  CSS value verification failed for " + "\""
+										+ ExpectedFontValuesWeb[i][0] + "\"" + "\nExpected font Size: "
+										+ ExpectedFontValuesWeb[i][2] + ", Actual Font Size: " + actualCssValues.get(0)
+										+ "\n");
 					}
 				}
 			}
-			}
-			else if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))  ) {
-				log.info("********************TestType for All_Mobile started execution***************   : " + testType.toString());
-				log.info("********************TestBedName for All_Mobile started execution***************   : " + testBedName.toString());
 
-				for (int i = 0; i < ExpectedFontValuesMobile.length; i++) 
-				{
-					System.out.println("Iteration under test  is : " + i + " :: Item under test is : " + ExpectedFontValuesMobile[i][0]);
-					List<String> actualCssValues = commonMethods.getFontProperties(webPage, ExpectedFontValuesMobile[i][1],softAssert);
-					if(!ExpectedFontValuesMobile[i][2].equalsIgnoreCase("NA")){
+			else if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge")
+					|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative")) {
+				log.info("********************TestType for Edge started execution***************   : "
+						+ testType.toString());
+				log.info("********************TestBedName for Edge started execution***************   : "
+						+ testBedName.toString());
+				if (width > 599 || width < 800) {
+					for (int i = 0; i < ExpectedFontValuesTab.length; i++) {
+						System.out.println("Iteration under test  is : " + i + " :: Item under test is : "
+								+ ExpectedFontValuesTab[i][0]);
+						List<String> actualCssValues = commonMethods.getFontProperties(webPage,
+								ExpectedFontValuesTab[i][1], softAssert);
+						if (!ExpectedFontValuesTab[i][2].equalsIgnoreCase("NA")) {
+							log.info("expected : " + ExpectedFontValuesTab[i][2]);
+							log.info("actual   : " + actualCssValues.get(0));
+							log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]));
+							softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesTab[i][2]),
+									"Iteration : " + i + " --  CSS value verification failed for " + "\""
+											+ ExpectedFontValuesTab[i][0] + "\"" + "\nExpected font Size: "
+											+ ExpectedFontValuesTab[i][2] + ", Actual Font Size: "
+											+ actualCssValues.get(0) + "\n");
+						}
+					}
+				}
+			} else if (testType.equalsIgnoreCase("Mobile")
+					|| (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))) {
+				log.info("********************TestType for All_Mobile started execution***************   : "
+						+ testType.toString());
+				log.info("********************TestBedName for All_Mobile started execution***************   : "
+						+ testBedName.toString());
+
+				for (int i = 0; i < ExpectedFontValuesMobile.length; i++) {
+					System.out.println("Iteration under test  is : " + i + " :: Item under test is : "
+							+ ExpectedFontValuesMobile[i][0]);
+					List<String> actualCssValues = commonMethods.getFontProperties(webPage,
+							ExpectedFontValuesMobile[i][1], softAssert);
+					if (!ExpectedFontValuesMobile[i][2].equalsIgnoreCase("NA")) {
 						log.info("expected : " + ExpectedFontValuesMobile[i][2]);
 						log.info("actual   : " + actualCssValues.get(0));
 						log.info("match status : " + actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]));
-						softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]),"Iteration : " + i +  " --  CSS value verification failed for " + "\""+ ExpectedFontValuesMobile[i][0]+ "\""+ "\nExpected font Size: " + ExpectedFontValuesMobile[i][2] + ", Actual Font Size: "+ actualCssValues.get(0) + "\n");	
+						softAssert.assertTrue(actualCssValues.get(0).contains(ExpectedFontValuesMobile[i][2]),
+								"Iteration : " + i + " --  CSS value verification failed for " + "\""
+										+ ExpectedFontValuesMobile[i][0] + "\"" + "\nExpected font Size: "
+										+ ExpectedFontValuesMobile[i][2] + ", Actual Font Size: "
+										+ actualCssValues.get(0) + "\n");
 					}
 				}
 			}
 			softAssert.assertAll();
 
-		}catch (Throwable e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "verify_Font_And_Size_Login_Page");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-
-
 
 	@Test(priority = 301, enabled = true)
 	public void Verify_Broken_Links_On_SignIn_Page() throws ClientProtocolException, IOException, InterruptedException {
@@ -245,7 +264,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	public void verify_SignInErrorMessage_with_Invalid_Input() throws InterruptedException {
 		log.info("******Started verify_SignInErrorMessage_with_Invalid_Input ********");
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(signInURL);
 		CommonMethods.waitForGivenTime(5);
 		try {
@@ -254,10 +273,11 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			for (int i = 0; i < 2; i++) {
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+					|| testBedName.equalsIgnoreCase("Safari")) {
+				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
 				js.executeScript("arguments[0].click();", element);
-			}else{
+			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
 			}
 			for (int i = 3; i < 5; i++) {
@@ -299,7 +319,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[2][3], softAssert), testdata[2][4],
 					"Submit with invalid email");
 			// Verifying Goback Link
-			
+
 			commonMethods.clickElementbyXpath(webPage, testdata[3][1], softAssert);
 			CommonMethods.waitForGivenTime(5);
 			softAssert.assertEquals(commonMethods.getPageUrl(webPage, softAssert), signInURL,
@@ -309,11 +329,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			// Submit with valid email ID
 			commonMethods.sendKeysbyXpath(webPage, testdata[4][1], testdata[4][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
-			if ( testType.equalsIgnoreCase("Mobile")) {
+			if (testType.equalsIgnoreCase("Mobile")) {
 				js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 				log.info("testing verify_Forgot_Password_Functionality completed------>");
-			}
-			else{
+			} else {
 				String successMessage = commonMethods.getTextbyXpath(webPage, testdata[4][3], softAssert);
 				softAssert.assertTrue(successMessage.contains(testdata[4][4]),
 						"Submit with valid email for Forgot Password: Actual:" + successMessage + " Should Contain: "
@@ -333,25 +352,30 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	public void verify_Register_Link_Redirection_And_PageTitle() throws InterruptedException {
 		log.info("************ Stated verify_Register_Link_Redirection_And_PageTitle*******************");
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		CommonMethods.waitForGivenTime(5);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterPageTitle");
-		//	commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
-		//	commonMethods.clickElementbyXpath(webPage, commonData[5][1], softAssert);
-			
+			// commonMethods.clickElementbyXpath(webPage, testdata[0][1],
+			// softAssert);
+			// commonMethods.clickElementbyXpath(webPage, commonData[5][1],
+			// softAssert);
+
 			WebElement element = webPage.getDriver().findElement(By.xpath(commonData[5][1]));
 			js.executeScript("arguments[0].click();", element);
 			CommonMethods.waitForGivenTime(5);
-				
-			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][1]));
-				js.executeScript("arguments[0].click();", element);
-			}else{
-				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
-			}*/
-			
+
+			/*
+			 * if (testType.equalsIgnoreCase("Mobile") ||
+			 * testBedName.equalsIgnoreCase("edge")||
+			 * testBedName.equalsIgnoreCase("Safari")) { WebElement element =
+			 * webPage.getDriver().findElement(By.xpath(testdata[0][1]));
+			 * js.executeScript("arguments[0].click();", element); }else{
+			 * commonMethods.clickElementbyXpath(webPage, testdata[0][1],
+			 * softAssert); }
+			 */
+
 			String actualPageUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(actualPageUrl.contains(testdata[0][2]),
 					"Page url verification failed. Expected url : " + testdata[0][2] + "Actual url   :   "
@@ -370,28 +394,33 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 	@Test(priority = 306, enabled = true)
 	public void verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer() throws InterruptedException {
-		log.info("******Started verification of verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer ********");
+		log.info(
+				"******Started verification of verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer ********");
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		CommonMethods.waitForGivenTime(5);
 		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","verifyToolTipForCreateCustomer");
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"verifyToolTipForCreateCustomer");
 			for (int i = 0; i < 2; i++) {
 				log.info("Started iteration: " + i);
 				String toolTipText = CreateAccountAndSignInPage.getToolTipText(webPage, softAssert, testdata[i][1]);
-				softAssert.assertEquals(toolTipText, testdata[i][2],"Tool Tip Text verification failed for :" + testdata[i][0]);
-				log.info("***********  testdata[i][2] **************** : " +testdata[i][2]);
+				softAssert.assertEquals(toolTipText, testdata[i][2],
+						"Tool Tip Text verification failed for :" + testdata[i][0]);
+				log.info("***********  testdata[i][2] **************** : " + testdata[i][2]);
 			}
-			
+
 			commonMethods.scrollToElement(webPage, testdata[2][1], softAssert);
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
 			js.executeScript("arguments[0].click();", element);
-		    String toolTipElement = webPage.getDriver().findElement(By.xpath(testdata[2][1])).getAttribute("textContent");
-			log.info("****************** toolTipElement ************** : "+toolTipElement );	
+			String toolTipElement = webPage.getDriver().findElement(By.xpath(testdata[2][1]))
+					.getAttribute("textContent");
+			log.info("****************** toolTipElement ************** : " + toolTipElement);
 			softAssert.assertTrue(toolTipElement.contains(testdata[2][2]), "Failed to verify Overlay Text:");
 			js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 
-			//softAssert.assertEquals(toolTipElement, testdata[2][2], "Failed to verify Overlay Text:");
+			// softAssert.assertEquals(toolTipElement, testdata[2][2], "Failed
+			// to verify Overlay Text:");
 			log.info("testing verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -408,15 +437,17 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		log.info("******Started verification of Register functionality with blank input data ********");
 		CommonMethods.waitForGivenTime(10);
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterErrorMessageWithBlankInput");
-			//commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+			// commonMethods.clickElementbyXpath(webPage, testdata[0][1],
+			// softAssert);
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+					|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][1]));
 				js.executeScript("arguments[0].click();", element);
-			}else{
+			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			}
 			CommonMethods.waitForGivenTime(5);
@@ -425,7 +456,8 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
 						testdata[i][1], testdata[i][2]);
 			}
-			log.info("testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
+			log.info(
+					"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -440,7 +472,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		log.info("******Started verification of Register functionality with Invalid input data ********");
 		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		webPage.getDriver().get(registerUrl);
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
@@ -448,11 +480,12 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			for (int i = 0; i < 5; i++) {
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
-			
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+					|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 				js.executeScript("arguments[0].click();", element);
-			}else{
+			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			}
 			for (int i = 6; i < 9; i++) {
@@ -461,7 +494,8 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 						testdata[i][1], testdata[i][2]);
 			}
 			CommonMethods.waitForGivenTime(5);
-			log.info("testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
+			log.info(
+					"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -474,14 +508,15 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	@Test(priority = 309, enabled = true)
 	public void verify_Create_New_Customer_with_Valid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with Valid input data ********");
-		
+
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		log.info("******Started verification of Register functionality with Valid input data ********");
-		commonMethods.navigateToPage(webPage,registerUrl, softAssert); 
+		commonMethods.navigateToPage(webPage, registerUrl, softAssert);
 		CommonMethods.waitForGivenTime(20);
 		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","verifyRegisterUserWithValidInput");
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+					"verifyRegisterUserWithValidInput");
 			for (int i = 0; i < 5; i++) {
 				if (i == 2) {
 					CommonMethods.waitForGivenTime(10);
@@ -493,17 +528,17 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 			}
 
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+					|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 				js.executeScript("arguments[0].click();", element);
-			}else{
+			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			}
 			log.info("Clicked on Submit Button------>");
 			CommonMethods.waitForGivenTime(10);
 			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
 			softAssert.assertEquals(actualMessage, testdata[6][2], "SuccessFul user creation Message:");
-			CommonMethods.waitForGivenTime(10);
 			userLoggedIn = true;
 			log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
 			softAssert.assertAll();
@@ -516,40 +551,38 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	}
 
 	@Test(priority = 310, enabled = true)
-	public void Verify_MyOrders_MyWishList_PayYourBills() throws ClientProtocolException, IOException, InterruptedException {
+	public void Verify_MyOrders_MyWishList_PayYourBills()
+			throws ClientProtocolException, IOException, InterruptedException {
 		log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
-		CommonMethods.waitForGivenTime(5);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
-		CommonMethods.waitForGivenTime(5);
 		if (userLoggedIn == true) {
 			try {
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"Verify_MyOrders_MyWishList_PayYourBills");
-				//webPage.getDriver().get(commonData[8][1]);
-				commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+				commonMethods.navigateToPage(webPage, DashboardURL, softAssert);
 				CommonMethods.waitForGivenTime(15);
 				log.info("Started iteration------>");
 				for (int i = 0; i < 3; i++) {
 					log.info("Started iteration" + i);
 					if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
-						log.info("Inside else if iPhoneNative : " +testBedName.toString());
-						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));					
+						log.info("Inside else if iPhoneNative : " + testBedName.toString());
+						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));
 						js.executeScript("arguments[0].click();", element_1);
 						CommonMethods.waitForGivenTime(15);
-						WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));					
+						WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));
 						js.executeScript("arguments[0].click();", element_2);
-					} 
-
-					else {
+					} else {
 						log.info("Inside else Web");
 						commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
 					}
 					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 					softAssert.assertEquals(actualUrl, testdata[i][2], "Page URL:");
-					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][3], softAssert).toLowerCase(),
+					softAssert.assertEquals(
+							commonMethods.getTextbyXpath(webPage, testdata[i][3], softAssert).toLowerCase(),
 							testdata[i][4].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
-					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert).toLowerCase(),
+					softAssert.assertEquals(
+							commonMethods.getTextbyXpath(webPage, testdata[i][5], softAssert).toLowerCase(),
 							testdata[i][6].toLowerCase(), "Verification failed for content: " + testdata[i][0]);
 					if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 						if (!(i == 2)) {
@@ -557,7 +590,6 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 							CommonMethods.waitForGivenTime(5);
 						}
 					}
-
 				}
 				softAssert.assertAll();
 				log.info("testing Verify_MyOrders_MyWishList_PayYourBills completed------>");
@@ -578,31 +610,34 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		if (userLoggedIn == true) {
 			try {
-				//webPage.getDriver().get(commonData[8][1]);
-				commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+				// webPage.getDriver().get(commonData[8][1]);
+				commonMethods.navigateToPage(webPage, DashboardURL, softAssert);
 				CommonMethods.waitForGivenTime(5);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
 
-				 if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
-					//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
-					 log.info("***** NewsLetters Subscription Inside If ******** : " );
-					 WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][8]));					
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+						|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")
+						|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative")) {
+					// else if ( testType.equalsIgnoreCase("Mobile") &&
+					// testBedName.equalsIgnoreCase("iPhoneNative")) {
+					log.info("***** NewsLetters Subscription Inside If ******** : ");
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][8]));
 					js.executeScript("arguments[0].click();", element_1);
-					log.info("***** NewsLetters Subscription Clicked ******** : " +element_1);
+					log.info("***** NewsLetters Subscription Clicked ******** : " + element_1);
 					CommonMethods.waitForGivenTime(10);
-					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
+					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][9]));
 					js.executeScript("arguments[0].click();", element_2);
-					log.info("***** ******************Clicking NewsLetters Subscription  ******** : " );
+					log.info("***** ******************Clicking NewsLetters Subscription  ******** : ");
 
-					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
+					WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));
 					js.executeScript("arguments[0].click();", element_3);
 					CommonMethods.waitForGivenTime(10);
-					WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][3]));					
+					WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][3]));
 					js.executeScript("arguments[0].click();", element_4);
 					log.info("***** ******************** NewsLetters Subscription Clicked ******** : ");
 
-				 }
+				}
 
 				else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
@@ -611,10 +646,9 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][4], softAssert);
 					softAssert.assertTrue(actualMessage.contains(testdata[0][5]), "Newsletter Updation Message:");
 					actualMessage = commonMethods.getTextbyXpath(webPage, testdata[0][6], softAssert);
-					softAssert.assertTrue(actualMessage.contains(testdata[0][7]),   "Newsletter subscription Message:");
+					softAssert.assertTrue(actualMessage.contains(testdata[0][7]), "Newsletter subscription Message:");
 				}
-				 
-	
+
 				log.info("testing verify_NewsLetters completed------>");
 				softAssert.assertAll();
 			} catch (Throwable e) {
@@ -634,34 +668,35 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		CommonMethods.waitForGivenTime(10);
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
-		//userLoggedIn=true;
+		// userLoggedIn=true;
 		if (userLoggedIn == true) {
 			try {
 				log.info("*****************verify_Account_Information*****************");
-				//webPage.getDriver().get(commonData[8][1]);
-				commonMethods.navigateToPage(webPage,DashboardURL, softAssert);
+				// webPage.getDriver().get(commonData[8][1]);
+				commonMethods.navigateToPage(webPage, DashboardURL, softAssert);
 				CommonMethods.waitForGivenTime(5);
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_Account_Information");
 				// new code
 				//
-				 if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {
-				log.info("Inside Else If for iPhoneNative DropDown Selection Box");
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+						|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")
+						|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative")) {
+					log.info("Inside Else If for iPhoneNative DropDown Selection Box");
 					Thread.sleep(5000);
-					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));					
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][10]));
 					js.executeScript("arguments[0].click();", element_1);
 					log.info("Inside Else If for iPhoneNative DropDown Selection Box Clicked");
 					CommonMethods.waitForGivenTime(10);
-					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][11]));					
+					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][11]));
 					js.executeScript("arguments[0].click();", element_2);
 					log.info("Inside Else If for iPhoneNative DropDown Selection Box Option Clicked");
-				}
-				else {
+				} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 				}
 
-				 WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));					
-				 js.executeScript("arguments[0].click();", element_3);
+				WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[0][2]));
+				js.executeScript("arguments[0].click();", element_3);
 				CommonMethods.waitForGivenTime(15);
 				log.info("Validation for Blank Data Starts----->");
 				// Validate with blank data
@@ -671,20 +706,20 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 				Thread.sleep(3000);
 				//
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") ) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 					log.info("Validation for Blank Data Keys.Enter Started----->");
 					for (int i = 3; i < 7; i++) {
-						WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][i]));					
+						WebElement element_4 = webPage.getDriver().findElement(By.xpath(testdata[0][i]));
 						js.executeScript("arguments[0].click();", element_4);
-						//commonMethods.clickElementbyXpath(webPage, testdata[0][i], softAssert);
+						// commonMethods.clickElementbyXpath(webPage,
+						// testdata[0][i], softAssert);
 						CommonMethods.waitForGivenTime(2);
 					}
-					//webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
-					WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][9]));					
+					// webPage.findObjectByxPath(testdata[5][10]).sendKeys(Keys.ENTER);
+					WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][9]));
 					js.executeScript("arguments[0].click();", element);
 					log.info("Validation for Blank Data Keys.Enter Completed----->");
 				}
-
 
 				else {
 					CommonMethods.waitForGivenTime(2);
@@ -696,15 +731,13 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				}
 				log.info("Validation for Blank Data Completed----->");
 
-
-
 				log.info("Validation for Invalid Data Started----->");
 				// Validate with invalid data
 				for (int i = 3; i < 9; i++) {
 					commonMethods.sendKeysbyXpath(webPage, testdata[0][i], testdata[2][i], softAssert);
 				}
 				log.info("<------------Saving Account Information Form With Invalid Inputs----->");
-				WebElement element_5 = webPage.getDriver().findElement(By.xpath(testdata[0][12]));					
+				WebElement element_5 = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
 				js.executeScript("arguments[0].click();", element_5);
 
 				CommonMethods.waitForGivenTime(8);
@@ -720,7 +753,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				log.info("Validation for Valid Data Started----->");
 				// With Valid Data
 				for (int i = 3; i < 9; i++) {
-					//webPage.getDriver().navigate().refresh();
+					// webPage.getDriver().navigate().refresh();
 					CommonMethods.waitForGivenTime(2);
 					js.executeScript("scroll(0, 250);");
 					commonMethods.clearTextBox(webPage, testdata[0][i], softAssert);
@@ -735,17 +768,21 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 						CommonMethods.waitForGivenTime(5);
 					}
 				}
-				//Click Save Button
+				// Click Save Button
 
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+						|| testBedName.equalsIgnoreCase("Safari")) {
 					log.info("Save Button Info -----> : " + testdata[0][12]);
 					log.info("Clicking Save Button -----> : " + testdata[0][12]);
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
-					/*JavascriptExecutor executor_1 = (JavascriptExecutor)webPage.getDriver();*/
+					/*
+					 * JavascriptExecutor executor_1 =
+					 * (JavascriptExecutor)webPage.getDriver();
+					 */
 					js.executeScript("arguments[0].click();", element_1);
-					log.info("Save Button Clicked -----> : " );
+					log.info("Save Button Clicked -----> : ");
 					log.info("testing verify_Account_Information completed------>");
-				}else{
+				} else {
 					commonMethods.clickElementbyXpath(webPage, testdata[0][9], softAssert);
 					CommonMethods.waitForGivenTime(5);
 					softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[5][1], softAssert),
@@ -755,7 +792,6 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 							"Verification failed for Contact Information: Xpath" + testdata[5][9] + "Does not contain "
 									+ testdata[5][5]);
 				}
-
 
 				log.info("testing verify_Account_Information completed------>");
 				softAssert.assertAll();
@@ -791,14 +827,15 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			// new code
 			//
 
-			if ( testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")  ) {
-				//else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
-				WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][14]));					
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+					|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")) {
+				// else if ( testType.equalsIgnoreCase("Mobile") &&
+				// testBedName.equalsIgnoreCase("iPhoneNative")) {
+				WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][14]));
 				js.executeScript("arguments[0].click();", element_1);
-				WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][15]));					
+				WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[0][15]));
 				js.executeScript("arguments[0].click();", element_2);
-			}
-			else {
+			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
 			}
 			commonMethods.clearTextBox(webPage, testdata[0][2], softAssert);
@@ -813,13 +850,19 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][10]));
 			js.executeScript("arguments[0].click();", element);
-			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][10]));
-				js.executeScript("arguments[0].click();", element);
-			}else{
-				commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
-			}*/
-			/*commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);*/
+			/*
+			 * if (testType.equalsIgnoreCase("Mobile") ||
+			 * testBedName.equalsIgnoreCase("edge")||
+			 * testBedName.equalsIgnoreCase("Safari")) { WebElement element =
+			 * webPage.getDriver().findElement(By.xpath(testdata[0][10]));
+			 * js.executeScript("arguments[0].click();", element); }else{
+			 * commonMethods.clickElementbyXpath(webPage, testdata[0][10],
+			 * softAssert); }
+			 */
+			/*
+			 * commonMethods.clickElementbyXpath(webPage, testdata[0][10],
+			 * softAssert);
+			 */
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][10], softAssert), testdata[1][11],
 					"Verification failed for content: " + testdata[1][0]);
 			String billingAddress = commonMethods.getTextbyXpath(webPage, testdata[1][12], softAssert);
@@ -833,68 +876,77 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			softAssert.assertTrue(shippingAddress.contains(testdata[1][6]), "Verification failed for Name: ");
 			softAssert.assertTrue(shippingAddress.contains(testdata[1][8]), "Verification failed for Name: ");
 
-			/********************************************************* Additional Address Entries **********************************************************************************************************************************************/
+			/*********************************************************
+			 * Additional Address Entries
+			 **********************************************************************************************************************************************/
 			webPage.getDriver().get(DashboardURL);
 			CommonMethods.waitForGivenTime(15);
 
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element7 = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+					|| testBedName.equalsIgnoreCase("Safari")) {
+				WebElement element7 = webPage.getDriver()
+						.findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
 				js.executeScript("arguments[0].click();", element7);
-				System.out.println(" testType : " +testType);
-			}else{
-				commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
+				System.out.println(" testType : " + testType);
+			} else {
+				commonMethods.clickElementbyXpath(webPage,
+						Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator, softAssert);
 			}
-			/*WebElement element_3 = webPage.getDriver().findElement(By.xpath(Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator));
-			js.executeScript("arguments[0].click();", element_3);
-			*/System.out.println(" testType : " +testType);
+			/*
+			 * WebElement element_3 = webPage.getDriver().findElement(By.xpath(
+			 * Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator
+			 * )); js.executeScript("arguments[0].click();", element_3);
+			 */System.out.println(" testType : " + testType);
 			webPage.getCurrentUrl();// For Safari
-			 log.info("************************ Add New Address if Delete Address Link is not visible*****************");
-			 commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,softAssert);
-			 CreateAccountAndSignInPage.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
-			 log.info( "************************ Additional Address Functionality Save Button Operation Starts For Devices :  ****************");
-			 	 log.info("Finding Save_Button_Locator " );
-			     WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
-			     js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
-			     CommonMethods.waitForGivenTime(5);
-			     commonMethods.waitForPageLoad(webPage, softAssert);
-			     webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
-				 String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
-				 log.info( " **************************** Assert contains url*******************************************************************************************************************************************************");
-				 commonMethods.waitForPageLoad(webPage, softAssert);
-				 softAssert.assertTrue(actualAddressBookPageURL.contains(Expected_Address_Book_Page_URL),
-						 "Page url verification failed. Expected_Address_Book_Page_URL : " + Expected_Address_Book_Page_URL
-						 + "actualAddressBookPageURL : " + actualAddressBookPageURL);
+			log.info("************************ Add New Address if Delete Address Link is not visible*****************");
+			commonMethods.clickElementbyXpath(webPage, Account_Information_Address_Book_Add_New_Address_Locator,
+					softAssert);
+			CreateAccountAndSignInPage
+					.verify_Contact_Information_Tab_Address_Book_Page_Additional_Address_Entries(inputdata);
+			log.info(
+					"************************ Additional Address Functionality Save Button Operation Starts For Devices :  ****************");
+			log.info("Finding Save_Button_Locator ");
+			WebElement Save_Button_Locator_Element = webPage.getDriver().findElement(By.xpath(Save_Button_Locator));
+			js.executeScript("arguments[0].click();", Save_Button_Locator_Element);
+			CommonMethods.waitForGivenTime(5);
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			webPage.getDriver().navigate().to(Expected_Address_Book_Page_URL);
+			String actualAddressBookPageURL = commonMethods.getPageUrl(webPage, softAssert);
+			log.info(
+					" **************************** Assert contains url*******************************************************************************************************************************************************");
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			softAssert.assertTrue(actualAddressBookPageURL.contains(Expected_Address_Book_Page_URL),
+					"Page url verification failed. Expected_Address_Book_Page_URL : " + Expected_Address_Book_Page_URL
+							+ "actualAddressBookPageURL : " + actualAddressBookPageURL);
 
-			 String actualAddressBookPageTitle = commonMethods.getPageTitle(webPage, softAssert);
-			 softAssert.assertEquals(actualAddressBookPageTitle, Expected_Address_Book_Page_Title,
-					 "Page title verification failed. Expected title : " + Expected_Address_Book_Page_Title
-					 + "Actual Title : " + actualAddressBookPageTitle);
-					 
-			 /************************************************************************************************************************************************************************/
-			 softAssert.assertAll();
-			 // For Sign Out
-			 CommonMethods.waitForGivenTime(10);
-	 
-			 if (testType.equalsIgnoreCase("Mobile") ) {					 
-				 WebElement element_1 = webPage.getDriver().findElement(By.xpath(commonData[11][1]));					
+			String actualAddressBookPageTitle = commonMethods.getPageTitle(webPage, softAssert);
+			softAssert.assertEquals(actualAddressBookPageTitle, Expected_Address_Book_Page_Title,
+					"Page title verification failed. Expected title : " + Expected_Address_Book_Page_Title
+							+ "Actual Title : " + actualAddressBookPageTitle);
+
+			/************************************************************************************************************************************************************************/
+			softAssert.assertAll();
+			// For Sign Out
+			CommonMethods.waitForGivenTime(10);
+
+			if (testType.equalsIgnoreCase("Mobile")) {
+				WebElement element_1 = webPage.getDriver().findElement(By.xpath(commonData[11][1]));
 				js.executeScript("arguments[0].click();", element_1);
-				WebElement element_2 = webPage.getDriver().findElement(By.xpath(commonData[9][1]));					
+				WebElement element_2 = webPage.getDriver().findElement(By.xpath(commonData[9][1]));
 				js.executeScript("arguments[0].click();", element_2);
-			}
-			else {
-				//commonMethods.clickElementbyXpath(webPage, commonData[6][1], softAssert);
-				WebElement element_1 = webPage.getDriver().findElement(By.xpath(commonData[6][1]));					
+			} else {
+				// commonMethods.clickElementbyXpath(webPage, commonData[6][1],
+				// softAssert);
+				WebElement element_1 = webPage.getDriver().findElement(By.xpath(commonData[6][1]));
 				js.executeScript("arguments[0].click();", element_1);
 			}
-		}
-		catch (Throwable e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Address_Book");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
-
 
 	@Test(priority = 314, enabled = true)
 	public void verify_AccountDashboard_After_SignIn_with_ExistingUser() throws InterruptedException {
@@ -911,8 +963,8 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			for (int i = 0; i < 2; i++) {
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
-			
-			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));				
+
+			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
 			js.executeScript("arguments[0].click();", element);
 			CommonMethods.waitForGivenTime(10);
 			webPage.getDriver().get(commonData[8][1]);
@@ -921,23 +973,24 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 
 			for (int i = 1; i < linkData.length; i++) {
 
-				if ((testBedName.equalsIgnoreCase("edge")) || (testBedName.equalsIgnoreCase("Safari")) ||(testType.equalsIgnoreCase("Mobile")) ){
+				if ((testBedName.equalsIgnoreCase("edge")) || (testBedName.equalsIgnoreCase("Safari"))
+						|| (testType.equalsIgnoreCase("Mobile"))) {
 					log.info("Only Edge Browser Execution Starts " + testBedName.toString());
-					if ((i==5) || ((i==6))){
+					if ((i == 5) || ((i == 6))) {
 						CommonMethods.waitForGivenTime(5);
 						log.info("Started Iteration : " + i);
-						 js.executeScript("return document.readyState").equals("complete");
-						 WebElement element_1 = webPage.getDriver().findElement(By.xpath(linkData[i][1]));					
-						 js.executeScript("arguments[0].click();", element_1);
+						js.executeScript("return document.readyState").equals("complete");
+						WebElement element_1 = webPage.getDriver().findElement(By.xpath(linkData[i][1]));
+						js.executeScript("arguments[0].click();", element_1);
 						CommonMethods.waitForGivenTime(5);
 						String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
-						commonMethods.navigateToPage(webPage,DashboardURL, softAssert);	
+						commonMethods.navigateToPage(webPage, DashboardURL, softAssert);
 						CommonMethods.waitForGivenTime(5);
 						log.info("Navigate Back for " + testBedName.toString());
 						CommonMethods.waitForGivenTime(3);
-					}else {
+					} else {
 
 						log.info("Started Iteration : " + i);
 						commonMethods.clickElementbyXpath(webPage, linkData[i][1], softAssert);
@@ -946,16 +999,15 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 						softAssert.assertTrue(actualUrl.contains(linkData[i][2]), "Page URL navigation failed for :"
 								+ linkData[i][0] + " URL:" + actualUrl + " not same as " + linkData[i][2]);
 
-						if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+						if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+								|| testBedName.equalsIgnoreCase("Safari")) {
 							WebElement element_2 = webPage.getDriver().findElement(By.xpath(linkData[i][3]));
 							js.executeScript("arguments[0].click();", element_2);
-						}else{
+						} else {
 							commonMethods.clickElementbyXpath(webPage, linkData[i][3], softAssert);
-						}						
+						}
 						CommonMethods.waitForGivenTime(5);
 					}
-
-
 
 				}
 			}
@@ -970,5 +1022,3 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	}
 
 }
-
-
