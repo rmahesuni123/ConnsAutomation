@@ -474,15 +474,14 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 	@Test(priority = 309, enabled = true)
 	public void verify_Create_New_Customer_with_Valid_Input() throws InterruptedException {
 		log.info("******Started verification of Register functionality with Valid input data ********");
-		CommonMethods.waitForGivenTime(10);
+		
 		SoftAssert softAssert = new SoftAssert();
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		log.info("******Started verification of Register functionality with Valid input data ********");
 		commonMethods.navigateToPage(webPage,registerUrl, softAssert); 
-
+		CommonMethods.waitForGivenTime(20);
 		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-					"verifyRegisterUserWithValidInput");
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","verifyRegisterUserWithValidInput");
 			for (int i = 0; i < 5; i++) {
 				if (i == 2) {
 					CommonMethods.waitForGivenTime(10);
@@ -500,7 +499,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
 			}
-			CommonMethods.waitForGivenTime(5);
+			CommonMethods.waitForGivenTime(10);
 
 			if (testType.equalsIgnoreCase("Mobile")) {		 
 				js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
@@ -539,13 +538,16 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				log.info("Started iteration------>");
 				for (int i = 0; i < 3; i++) {
 					log.info("Started iteration" + i);
-					if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+					/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {*/
+						if (testBedName.equalsIgnoreCase("edge")) {
+
 						log.info("Inside if Mobile & edge");
 						commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
 						commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
 					} 
-					else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") ) {
-						log.info("Inside else if iPhoneNative : " +testBedName.toString());
+/*					else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {*/
+						else	if (testBedName.equalsIgnoreCase("Mobile")) {
+							log.info("Inside else if iPhoneNative : " +testBedName.toString());
 						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));					
 						js.executeScript("arguments[0].click();", element_1);
 						WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));					
