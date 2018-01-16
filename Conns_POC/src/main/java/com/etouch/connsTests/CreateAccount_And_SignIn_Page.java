@@ -566,6 +566,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 					if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
 						if (!(i == 2)) {
 							commonMethods.clickElementbyXpath(webPage, testdata[i][9], softAssert);
+							CommonMethods.waitForGivenTime(5);
 						}
 					}
 
