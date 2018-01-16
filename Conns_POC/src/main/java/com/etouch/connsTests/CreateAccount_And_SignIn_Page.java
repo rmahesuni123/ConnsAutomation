@@ -19,6 +19,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
@@ -338,13 +339,19 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		try {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verifyRegisterPageTitle");
+		//	commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
+		//	commonMethods.clickElementbyXpath(webPage, commonData[5][1], softAssert);
+			
+			WebElement element = webPage.getDriver().findElement(By.xpath(commonData[5][1]));
+			js.executeScript("arguments[0].click();", element);
+			CommonMethods.waitForGivenTime(5);
 				
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
+			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[0][1]));
 				js.executeScript("arguments[0].click();", element);
 			}else{
 				commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert);
-			}
+			}*/
 			
 			String actualPageUrl = commonMethods.getPageUrl(webPage, softAssert);
 			softAssert.assertTrue(actualPageUrl.contains(testdata[0][2]),
@@ -352,7 +359,7 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 							+ actualPageUrl);
 			String actualPageTitle = commonMethods.getPageTitle(webPage, softAssert);
 			softAssert.assertEquals(actualPageTitle, testdata[0][3], "Page title verification failed. Expected title : "
-					+ testdata[0][1] + "Actual title :   " + actualPageTitle);
+					+ testdata[0][3] + "Actual title :   " + actualPageTitle);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -369,27 +376,20 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
 		CommonMethods.waitForGivenTime(5);
 		try {
-			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
-					"verifyToolTipForCreateCustomer");
+			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn","verifyToolTipForCreateCustomer");
 			for (int i = 0; i < 2; i++) {
 				log.info("Started iteration: " + i);
 				String toolTipText = CreateAccountAndSignInPage.getToolTipText(webPage, softAssert, testdata[i][1]);
 				softAssert.assertEquals(toolTipText, testdata[i][2],"Tool Tip Text verification failed for :" + testdata[i][0]);
+				log.info("***********  testdata[i][2] **************** : " +testdata[i][2]);
 			}
-
-		/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
-				js.executeScript("arguments[0].click();", element);
-			}else{
-				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			}*/
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
-				js.executeScript("arguments[0].click();", element);
-				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			//CommonMethods.waitForWebElement(By.xpath(testdata[2][2]), webPage);
-			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[2][1], softAssert);
-			softAssert.assertEquals(actualMessage, testdata[2][2], "Failed to verify Overlay Text:");
-			//commonMethods.clickElementbyXpath(webPage, testdata[2][4], softAssert);
+			
+			commonMethods.scrollToElement(webPage, testdata[2][1], softAssert);
+			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
+			js.executeScript("arguments[0].click();", element);
+		    String toolTipElement = webPage.getDriver().findElement(By.xpath(testdata[2][1])).getAttribute("textContent");
+			log.info("****************** toolTipElement ************** : "+toolTipElement );			
+			softAssert.assertEquals(toolTipElement, testdata[2][2], "Failed to verify Overlay Text:");
 			log.info("testing verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
