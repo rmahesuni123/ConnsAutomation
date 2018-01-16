@@ -501,15 +501,8 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			}
 			log.info("Clicked on Submit Button------>");
 			CommonMethods.waitForGivenTime(10);
-
-			//if (testType.equalsIgnoreCase("Mobile")) {		 
-			/*	js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
-				log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
-			}
-			else{*/
-				String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
-				softAssert.assertEquals(actualMessage, testdata[6][2], "SuccessFul user creation Message:");
-		//	}
+			String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
+			softAssert.assertEquals(actualMessage, testdata[6][2], "SuccessFul user creation Message:");
 			CommonMethods.waitForGivenTime(10);
 			userLoggedIn = true;
 			log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
@@ -539,21 +532,15 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 				log.info("Started iteration------>");
 				for (int i = 0; i < 3; i++) {
 					log.info("Started iteration" + i);
-					/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {*/
-						if (testBedName.equalsIgnoreCase("edge")) {
-
-						log.info("Inside if Mobile & edge");
-						commonMethods.clickElementbyXpath(webPage, testdata[i][7], softAssert);
-						commonMethods.clickElementbyXpath(webPage, testdata[i][8], softAssert);
-					} 
-/*					else if ( testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative") || testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative") ) {*/
-						else	if (testBedName.equalsIgnoreCase("Mobile")) {
-							log.info("Inside else if iPhoneNative : " +testBedName.toString());
+					if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+						log.info("Inside else if iPhoneNative : " +testBedName.toString());
 						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));					
 						js.executeScript("arguments[0].click();", element_1);
+						CommonMethods.waitForGivenTime(15);
 						WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));					
 						js.executeScript("arguments[0].click();", element_2);
-					}
+					} 
+
 					else {
 						log.info("Inside else Web");
 						commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
