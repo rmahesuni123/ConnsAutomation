@@ -502,10 +502,10 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			CommonMethods.waitForGivenTime(10);
 
 			if (testType.equalsIgnoreCase("Mobile")) {		 
-				js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+			/*	js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 				log.info("testing verify_Create_New_Customer_with_Valid_Input completed------>");
 			}
-			else{
+			else{*/
 				String actualMessage = commonMethods.getTextbyXpath(webPage, testdata[6][1], softAssert);
 				softAssert.assertEquals(actualMessage, testdata[6][2], "SuccessFul user creation Message:");
 			}
