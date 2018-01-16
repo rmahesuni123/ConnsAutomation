@@ -387,8 +387,9 @@ public class CreateAccount_And_SignIn_Page  extends BaseTest {
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
 			js.executeScript("arguments[0].click();", element);
 		    String toolTipElement = webPage.getDriver().findElement(By.xpath(testdata[2][1])).getAttribute("textContent");
-			log.info("****************** toolTipElement ************** : "+toolTipElement );			
-			softAssert.assertEquals(toolTipElement, testdata[2][2], "Failed to verify Overlay Text:");
+			log.info("****************** toolTipElement ************** : "+toolTipElement );	
+			softAssert.assertTrue(toolTipElement.contains(testdata[2][2]), "Failed to verify Overlay Text:");
+			//softAssert.assertEquals(toolTipElement, testdata[2][2], "Failed to verify Overlay Text:");
 			log.info("testing verify_ToolTip_For_NewsLetter_And_RememberMe_For_Create_New_Customer completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
