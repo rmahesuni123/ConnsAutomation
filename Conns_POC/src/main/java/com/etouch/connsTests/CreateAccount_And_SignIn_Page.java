@@ -575,7 +575,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					} else {
 					      log.info("Inside else Web");
 					      //commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
-					      CommonMethods.waitForGivenTime(5);
+					      CommonMethods.waitForGivenTime(10);
 					      WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));     
 					      js.executeScript("arguments[0].click();", element_3);
 					     }
