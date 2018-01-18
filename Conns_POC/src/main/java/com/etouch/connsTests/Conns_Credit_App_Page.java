@@ -49,7 +49,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	protected static String DataFilePath;
 	protected String testType, browserName;
 	String currentTestBedName;
-	static Log log = LogUtil.getLog(Conns_Account_And_SignIn_Page.class);
+	static Log log = LogUtil.getLog(Conns_Credit_App_Page.class);
 	//Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
 	private String testEnv;
 	protected static String url;
