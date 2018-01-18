@@ -469,11 +469,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						testdata[i][1], testdata[i][2]);
 			}
 			log.info(
-					"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
+					"testing verify_Create_New_Customer_with_Blank_Input completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "verify_Page_Title_For_Register_Link");
+			mainPage.getScreenShotForFailure(webPage, "verify_Create_New_Customer_with_Blank_Input");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -493,21 +493,22 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
 
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
+			js.executeScript("arguments[0].click();", element);
+			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
 					|| testBedName.equalsIgnoreCase("Safari")) {
 				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 				js.executeScript("arguments[0].click();", element);
 			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
-			}
+			}*/
 			for (int i = 6; i < 9; i++) {
-				CommonMethods.waitForGivenTime(1);
+				CommonMethods.waitForGivenTime(5);
 				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
 						testdata[i][1], testdata[i][2]);
 			}
 			CommonMethods.waitForGivenTime(5);
-			log.info(
-					"testing verify_Yes_Lease_Page_Mandatory_Field_Error_Message_Validation_With_Blank_Input_On_Submit completed------>");
+			log.info("testing verify_Create_New_Customer_with_Invalid_Input completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
