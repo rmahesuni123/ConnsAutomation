@@ -271,16 +271,21 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 					"verify_SignIn_With_Invalid_Input");
 			for (int i = 0; i < 2; i++) {
+				CommonMethods.waitForGivenTime(5);
 				commonMethods.sendKeysbyXpath(webPage, testdata[i][1], testdata[i][2], softAssert);
 			}
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
+			CommonMethods.waitForGivenTime(5);
+			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
+			js.executeScript("arguments[0].click();", element);
+			
+			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
 					|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
-				js.executeScript("arguments[0].click();", element);
+				
 			} else {
 				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			}
+			}*/
 			for (int i = 3; i < 5; i++) {
+				CommonMethods.waitForGivenTime(5);
 				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
 						testdata[i][1], testdata[i][2]);
 			}
@@ -329,7 +334,14 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			// Submit with valid email ID
 			commonMethods.sendKeysbyXpath(webPage, testdata[4][1], testdata[4][2], softAssert);
 			commonMethods.clickElementbyXpath(webPage, ForgotpasswordSubmitXpath, softAssert);
-			if (testType.equalsIgnoreCase("Mobile")) {
+			CommonMethods.waitForGivenTime(10);
+			String successMessage = commonMethods.getTextbyXpath(webPage, testdata[4][3], softAssert);
+			softAssert.assertTrue(successMessage.contains(testdata[4][4]),
+					"Submit with valid email for Forgot Password: Actual:" + successMessage + " Should Contain: "
+							+ testdata[4][4]);
+			log.info("testing verify_Forgot_Password_Functionality completed------>");
+			
+			/*if (testType.equalsIgnoreCase("Mobile")) {
 				js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
 				log.info("testing verify_Forgot_Password_Functionality completed------>");
 			} else {
@@ -338,7 +350,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						"Submit with valid email for Forgot Password: Actual:" + successMessage + " Should Contain: "
 								+ testdata[4][4]);
 				log.info("testing verify_Forgot_Password_Functionality completed------>");
-			}
+			}*/
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
