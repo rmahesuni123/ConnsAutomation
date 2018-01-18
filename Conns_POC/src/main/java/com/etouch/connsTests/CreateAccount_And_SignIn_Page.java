@@ -569,7 +569,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						log.info("Inside else if iPhoneNative : " + testBedName.toString());
 						WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][7]));
 						js.executeScript("arguments[0].click();", element_1);
-						CommonMethods.waitForGivenTime(15);
+						CommonMethods.waitForGivenTime(20);
 						WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));
 						js.executeScript("arguments[0].click();", element_2);
 					} else {
@@ -619,9 +619,9 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				String[][] testdata = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
 						"verify_NewsLetter_Subscription");
 
-				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
-						|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")
-						|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative")) {
+				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
+						/*|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")
+						|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative"))*/ {
 					// else if ( testType.equalsIgnoreCase("Mobile") &&
 					// testBedName.equalsIgnoreCase("iPhoneNative")) {
 					log.info("***** NewsLetters Subscription Inside If ******** : ");
@@ -661,7 +661,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Assert.fail(e.getLocalizedMessage());
 			}
 		} else {
-			Assert.fail("Declined state could not be generated");
+			Assert.fail("Valid User Created, "+userLoggedIn);
 		}
 	}
 
@@ -805,7 +805,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Assert.fail(e.getLocalizedMessage());
 			}
 		} else {
-			Assert.fail("Declined state could not be generated");
+			Assert.fail("Valid User Created, "+userLoggedIn);
 		}
 	}
 
