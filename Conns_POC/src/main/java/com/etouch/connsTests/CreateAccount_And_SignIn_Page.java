@@ -603,6 +603,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Assert.fail(e.getLocalizedMessage());
 			}
 		}
+		
+		else {
+			Assert.fail("Valid User Created, "+userLoggedIn);
+		}
+		
 	}
 
 	@Test(priority = 311, enabled = true)
