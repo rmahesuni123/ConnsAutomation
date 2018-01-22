@@ -2,12 +2,17 @@ package com.etouch.connsPages;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -82,7 +87,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			log.info("Checking out as guest user");
 			Click_On_Element_JS(webPage, checkoutGuest[0][1], softAssert);
 			Click_On_Element_JS(webPage, checkoutGuest[1][1], softAssert);
-			Thread.sleep(5000);
+			commonMethods.waitForGivenTime(5, softAssert);
 		} catch (Throwable e) {
 			log.error(e.getMessage());
 			softAssert.fail(e.getLocalizedMessage());
@@ -109,7 +114,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			checkoutSendKeysbyXpath(webPage, billingInfoDetails[3][1], billingInfoDetails[3][3], softAssert);
 			checkoutSendKeysbyXpath(webPage, billingInfoDetails[4][1], billingInfoDetails[4][3], softAssert);
 			checkoutSendKeysbyXpath(webPage, billingInfoDetails[5][1], billingInfoDetails[5][3], softAssert);
-			
+
 			commonMethods.selectDropdownByText(webPage, billingInfoDetails[7][1], billingInfoDetails[7][3], softAssert);
 			checkoutSendKeysbyXpath(webPage, billingInfoDetails[6][1], billingInfoDetails[6][3], softAssert);
 			//dummy click
@@ -144,12 +149,13 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 	public void Proceed_To_Checkout_Button(WebPage webPage, String[][] test, SoftAssert softAssert) {
 		try {
-			if(browserName.equalsIgnoreCase("Safari")||browserName.contains("iPad")||browserName.contains("iPhone")){
-				Thread.sleep(5000);
-			}
+
 			log.info("Clicking on Proceed to checkout");
+			String currentUrl = webPage.getCurrentUrl();
 			commonMethods.clickElementbyXpath(webPage, test[0][1], softAssert);
-			Thread.sleep(5000);
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			waitForPageLoadWithOutJS(webPage,currentUrl, softAssert);
+			commonMethods.waitForGivenTime(5, softAssert);
 		} catch (Throwable e) {
 			log.error("Proceed to checkout failed");
 			Assert.fail(e.getLocalizedMessage());
@@ -797,6 +803,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		String productPrice = null;
 		try {
 
+			String currentUrl = webPage.getCurrentUrl();
 			log.info("Adding given product to cart");
 			commonMethods.navigateToPage(webPage, productUrl, softAssert);
 			Thread.sleep(2000);
@@ -839,11 +846,49 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 					actualTextValues.add(instockProductAvailableMessage);
 				}
 
+				try{
+					Alert alert = webPage.getDriver().switchTo().alert();
+					String alertText = alert.getText();
+					log.info("Alert data: " + alertText);
+					alert.accept();
+				}catch(NoAlertPresentException e)
+				{
+					log.info("No Alert present");
+				}
+
 				log.info("Clicking on Add To Cart button in Overlay Box");
-				commonMethods.clickElementbyXpath(webPage, addProductData[7][1], softAssert);
+				try{
+
+					webPage.getDriver().findElement(By.xpath(addProductData[7][1])).click();
+					//commonMethods.clickElementbyXpath(webPage, addProductData[7][1], softAssert);
+				}
+				catch (Exception t) {
+					try {
+						if((browserName.equalsIgnoreCase("Safari")||browserName.equalsIgnoreCase("iPhoneNative")||browserName.equalsIgnoreCase("iPadNative"))){
+							JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+							js.executeScript("window.alert = function(){ return true;}");
+
+						}
+						log.info("Got Unhandle alert for browser : "+browserName);
+						Alert alert = webPage.getDriver().switchTo().alert();
+						String alertText = alert.getText();
+						log.info("Alert data: " + alertText);
+						alert.accept();
+
+
+					} catch (NoAlertPresentException e) {
+						log.info("Unable to click on Add to Cart Button");
+						log.info("Trying again");
+						webPage.getDriver().findElement(By.xpath(addProductData[7][1])).click();
+						log.info("Clicked on Add to Cart");
+					}
+				}
 				Thread.sleep(8000);
 				//verify if shopping cart is empty after selecting add to cart button
 				commonMethods.waitForPageLoad(webPage, softAssert);
+				int count = 0;
+				//below condition is for safari
+				waitForPageLoadWithOutJS(webPage,currentUrl,softAssert);
 				if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
 					log.info("Cart is Empty message displayed after clicking on Add to Cart button. Test will not be able to complete successfully because of this.");
 					boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
@@ -864,6 +909,24 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		return actualTextValues;
 	}
 
+	public void waitForPageLoadWithOutJS(WebPage webPage,String currentUrl, SoftAssert softAssert) throws InterruptedException {
+		int count=0;
+		log.info("Current Url is : "+currentUrl);
+		while(currentUrl.equals(webPage.getCurrentUrl())&&count<12)
+		{
+			log.info("Page not loaded completly, script will wait for some more time");
+			commonMethods.waitForGivenTime(10, softAssert);
+			count++;
+			if(count>=12)
+			{
+				log.info("Page load took more than 120 sec to load.");
+				Assert.fail("Page took more than 120 sec to load : URL :"+webPage.getCurrentUrl());
+			}
+		}
+
+	}
+
+
 	public boolean deleteCookies()
 	{
 		try{
@@ -872,6 +935,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			return true;
 		}catch(Throwable e){
 			log.info("Unable to delete cookies for current browser.");
+
 			return false;
 		}
 	}
@@ -923,33 +987,81 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			log.info("Clicking on Cart Header");
 			commonMethods.clickElementbyXpath(webPage, checkoutPageData[43][1], softAssert);
 			log.info("Clicking on Shopping Cart Link");
-			commonMethods.clickElementbyXpath(webPage, checkoutPageData[44][1], softAssert);
-			Thread.sleep(3000);
-			if(commonMethods.verifyElementisPresent(webPage, cartPageData[6][1], softAssert))
+			if(commonMethods.verifyElementisPresent(webPage, checkoutPageData[44][1], softAssert))
 			{
-				List<WebElement> removeItemButtons = commonMethods.findElementsByXpath(webPage, cartPageData[6][1], softAssert);
-				log.info("Number of items present in cart: "+removeItemButtons.size());
-				int counter =0;
-				while(removeItemButtons.size()>0){
-					removeItemButtons.get(0).click();
-					commonMethods.waitForGivenTime(10, softAssert);
-					commonMethods.waitForPageLoad(webPage, softAssert);
-					try{
-						removeItemButtons = webPage.getDriver().findElements(By.xpath(cartPageData[6][1]));	
-						log.info("Number of items present in cart: "+removeItemButtons.size());
-						counter++;
-						if(counter>5){
+				commonMethods.clickElementbyXpath(webPage, checkoutPageData[44][1], softAssert);
+				Thread.sleep(3000);
+				if(commonMethods.verifyElementisPresent(webPage, cartPageData[6][1], softAssert))
+				{
+					List<WebElement> removeItemButtons = commonMethods.findElementsByXpath(webPage, cartPageData[6][1], softAssert);
+					log.info("Number of items present in cart: "+removeItemButtons.size());
+					int counter =0;
+					while(removeItemButtons.size()>0){
+						removeItemButtons.get(0).click();
+						commonMethods.waitForGivenTime(10, softAssert);
+						commonMethods.waitForPageLoad(webPage, softAssert);
+						try{
+							removeItemButtons = webPage.getDriver().findElements(By.xpath(cartPageData[6][1]));	
+							log.info("Number of items present in cart: "+removeItemButtons.size());
+							counter++;
+							if(counter>5){
+								break;
+							}
+						}catch(Exception e){
+							log.info("No more items pending in cart");
 							break;
 						}
-					}catch(Exception e){
-						log.info("No more items pending in cart");
-						break;
 					}
-				}
+				}else{log.info("Shopping Cart is Empty");}
 			}else{log.info("Shopping Cart is Empty");}
 		}catch(Throwable t){
 			t.printStackTrace();
 		}
 
+	}
+
+	public void waitIfBrowserIsIos(SoftAssert softAssert,int duration) throws InterruptedException
+	{
+		if((browserName.equalsIgnoreCase("Safari")||browserName.contains("iPhone")||browserName.contains("iPad"))){
+			log.info("Sleep for "+duration+" seconds to complete page load on Safari and iOS browser");
+			commonMethods.waitForGivenTime(duration, softAssert);
+		}
+
+	}
+
+	public boolean waitForElementToBeDisplayed(WebPage webPage, String xpath, SoftAssert softAssert) throws InterruptedException
+	{
+		int count = 0;
+		while(count<12)
+		{
+			try{
+				webPage.getDriver().findElement(By.xpath(xpath)).isDisplayed();
+				log.info("Found Element");
+				return true;
+			}catch(Throwable e)
+			{
+				commonMethods.waitForGivenTime(5);
+				log.info("Unable to find elemnt : "+xpath);
+				count++;
+			}
+		}
+		log.info("Unable to find element after pooling for 60 sec : "+xpath);
+		//Assert.fail("Unable to find elemnt : "+xpath);
+		return false;
+	}
+
+	public void logOutFromConns(WebPage webPage, SoftAssert softAssert) throws InterruptedException {
+		if(testType.equalsIgnoreCase("Web"))
+		{
+			commonMethods.clickElementbyXpath(webPage, "(//*[@id='slide-nav']//a/img)[1]", softAssert);
+			commonMethods.clickElementbyXpath(webPage, "//*[@id='account-welcome']", softAssert);
+			commonMethods.clickElementbyXpath(webPage, "(//*[@id='account-menu']//a)[4]", softAssert);
+		}
+		else{
+			commonMethods.clickElementbyXpath(webPage, "(//*[@id='slide-nav']//a/img)[1]", softAssert);
+			commonMethods.clickElementbyXpath(webPage, "//button[@class='navbar-toggle']", softAssert);
+			//commonMethods.clickElementbyXpath(webPage, "(//*[@id='account-menu']//a)[4]", softAssert);
+
+		}
 	}
 }
