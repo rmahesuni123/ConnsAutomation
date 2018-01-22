@@ -4,15 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -107,7 +106,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			String[][] test = ExcelUtil.readExcelData(DataFilePath,
 					"ProductListingPage",
 					"Verify_For_Pagination_And_Product_Details");
-			CommonMethods.navigateToPage(webPage, url);
+			CommonMethods.navigateToPage(webPage, test[0][11]);
 			ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
 					test[0][0]);
 			if(testType.equalsIgnoreCase("Web"))
@@ -166,6 +165,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			{
 				commonMethods.clickElementbyXpath(webPage, test[0][10], softAssert);
 			}
+			commonMethods.waitForGivenTime(5, softAssert);
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			log.info("Verifying Product details");
 			for (int i = 0; i < contentData.length; i++) {
 				String actualContent = webPage.findObjectByxPath(
 						contentData[i][0]).getText();
@@ -194,19 +196,29 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				commonMethods.clickElementbyXpath(webPage, test[0][10], softAssert);
 			}
 
+			//verify if rating stars are displayed
 			if (CommonMethods.verifyElementisPresent(webPage, test[0][9])) {
-				webPage.findObjectByxPath(test[0][9]).click();
+				commonMethods.clickElementbyXpath(webPage,test[0][9],softAssert);
 			}
-			log.info("test[0][11] clicked :  " );
-			webPage.findObjectByxPath(Review_Data[0][0]).click();
+			//webPage.findObjectByxPath(Review_Data[0][0]).click();
 
+			//verify if review section is displayed
 			if ((CommonMethods.verifyElementisPresent(webPage, Review_Data[1][0]))) {	
+				System.out.println("In If");
 				if (testType.equalsIgnoreCase("Web")) {
-					webPage.findObjectByxPath(Review_Data[2][0]).click();
+					
+					//clicking on review tab
+					commonMethods.clickElementbyXpath(webPage, Review_Data[1][0], softAssert);
+					
+					//click on wirte the first review
+					commonMethods.clickElementbyXpath(webPage,Review_Data[2][0],softAssert);
 					CommonMethods.waitForGivenTime(1);
 
 				}else {
-					webPage.findObjectByxPath(Review_Data[1][0]).click();
+					System.out.println("In else");
+					
+					commonMethods.scrollToElement(webPage, Review_Data[2][0], softAssert);
+					//webPage.findObjectByxPath(Review_Data[1][0]).click();
 					WebElement element = webPage.getDriver().findElement(By.xpath(Review_Data[2][0]));					
 					js.executeScript("arguments[0].click();", element);
 					//webPage.findObjectByxPath(Review_Data[2][0]).click();
@@ -215,7 +227,7 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				Thread.sleep(5000);
 				submitReview(webPage,softAssert, ExcelUtil.readExcelData(DataFilePath, "ProductListingPage","submitReview"), true);
 			}
-
+			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage,"Verify_For_Pagination_And_Product_Details");
@@ -232,37 +244,47 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	@Test(priority = 702, enabled = true)
 	public void Verify_Upto_5_Products_Compared() throws InterruptedException {
 		JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+		SoftAssert softAssert = new SoftAssert();
 		try {
 			if (testType.equalsIgnoreCase("Web")) {
-				CommonMethods.navigateToPage(webPage, url);
+				
 				String[][] test = ExcelUtil
 						.readExcelData(DataFilePath, "ProductListingPage",
 								"Verify_Upto_5_Products_Compared");
 				/*ConnsProductPurchasePage.Click_On_French_Door_Link(webPage,
 						test[0][1]);*/
 				/*****Asim : old code for Click_On_French_Door_Link commented & instead using javascript for clicking operation******/
-
+				CommonMethods.navigateToPage(webPage, test[0][9]);
 				WebElement element3 = webPage.getDriver().findElement(By.xpath(test[0][1]));					
 				js.executeScript("arguments[0].click();", element3);
 				log.info("Clicked on French Door");
-				List<ITafElement> compareList = webPage
-						.findObjectsByXpath(test[0][2]);
-				log.info("Total Size-->" + compareList.size());
-				for (int i = 0; i < 6; i++) {
-					CommonMethods.waitForGivenTime(2);
+				List<WebElement> productList = webPage.getDriver().findElements(By.xpath("//div[@class='category-products category-products-list']/ul[contains(@class,'products-grid')]/li[contains(@class,'item')]"/*test[0][8]*/));
+				
+				List<String> productSelectedList = new ArrayList<String>();
+				log.info("Total Size-->" + productList.size());
+				
+				for (int i = 0; i < 5; i++) {
+					CommonMethods.waitForGivenTime(3);
+					
 					if (i < 5) {
-						compareList.get(i).click();
+						WebElement ele = productList.get(i);
+						ele.findElement(By.xpath(".//input")).click();
+						productSelectedList.add(ele.findElement(By.xpath(".//h2/a")).getText());
+						System.out.println(" "+i+". "+ele.findElement(By.xpath(".//h2/a")).getText());
 					}
-					else {
+					//else {
 						if (testBedName.contains("iPadNative")
 								|| testBedName.contains("iPhoneNative")
 								|| testBedName.equalsIgnoreCase("Safari")) {
 
 							js.executeScript("window.alert = function(){ return true;}");
-							compareList.get(i).click();
+							//compareList.get(i).click();
+						//	productList.get(i).findElement(By.xpath(".//input")).click();
 							CommonMethods.waitForGivenTime(2);
 						} else {
-							compareList.get(i).click();
+							//productList.get(i).findElement(By.xpath(".//input")).click();
+							//compareList.get(i).click();
+							try{
 							Alert alert = webPage.getDriver().switchTo()
 									.alert();
 							Assert.assertTrue(
@@ -271,19 +293,37 @@ public class Conns_Product_Listing_Page extends BaseTest {
 									"Alert Message does not contain: "
 											+ "Only 5 items to compare");
 							alert.accept();
+							}
+							catch(NoAlertPresentException Ex){
+								log.info("Alert is not present");
+							}
 						}
-					}
+					//}
 				}
-
+				//getting text from selection overlay 
 				log.info(webPage.findObjectByxPath(test[0][3]).getText());
 				log.info(webPage.findObjectByxPath(test[0][4]).getText());
-				webPage.findObjectByxPath(test[0][5]).click();
+				//clicking on compare now
+				commonMethods.clickElementbyXpath(webPage, test[0][5], softAssert);
+				commonMethods.waitForPageLoad(webPage, softAssert);
+				//wait for Compare Product Title to be displayed
 				CommonMethods.waitForWebElement(By.xpath(test[0][6]), webPage);
 				log.info(webPage.findObjectByxPath(test[0][6]).getText());
-				List<ITafElement> newList = webPage
-						.findObjectsByXpath(test[0][7]);
-				log.info(newList.get(4).getText());
-				compareList.contains(newList);
+				commonMethods.waitForPageLoad(webPage, softAssert);
+				commonMethods.waitForGivenTime(5, softAssert);
+				List<WebElement> newListWebElement = webPage.getDriver().findElements(By.xpath(test[0][7]));
+				
+				List<String> compareList = new ArrayList<String>();
+				log.info(newListWebElement.get(4).getText());
+				for(WebElement e : newListWebElement)
+				{
+					compareList.add(e.getText());	
+				}
+				for(String productName : compareList)
+				{
+					softAssert.assertTrue(productSelectedList.contains(productName)," Actual : "+productName);
+				}
+				softAssert.assertAll();
 			}
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage,
