@@ -1338,13 +1338,14 @@ public class CommonMethods {
 	{
 		webPage.findObjectByxPath(".//*[@class='pr-footer']/div[@type='submit']").click();
 		//String expectedColorCode = "#d00";
-		String expectedColorCode ="rgba(221, 0, 0, 1)";
+		String expectedColorCode ="221, 0, 0, 1";
 		for(int i = 0;i<labelsErrorColorCodeData.length;i++)
 		{
-			String actualColorCode = webPage.findObjectByxPath(labelsErrorColorCodeData[i][0]).getCssValue("color");
+			String actualColorCode = webPage.findObjectByxPath(labelsErrorColorCodeData[i][0]).getCssValue("color")
+					.replace("rgba(", "").replace(")", "").replace("rgb(", "");
 			log.info("Actual Error Color Code:  " + actualColorCode + " "
 					+ "  Expected Code: " +expectedColorCode);
-			softAssert.assertTrue(actualColorCode.equals(expectedColorCode),
+			softAssert.assertTrue(expectedColorCode.contains(actualColorCode),
 					"Expected Color Code: " + expectedColorCode + "  Failed to Match Actual: " + actualColorCode);
 		}	
 	}
