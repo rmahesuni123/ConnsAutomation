@@ -55,7 +55,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 	protected static CommonMethods commonMethods = new CommonMethods();
 	String[][] commonData;
 	static String[][] Review_Data= null;	
-
+	static String browserName;
+	
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException,
 	FileNotFoundException, IOException {
@@ -68,6 +69,8 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds()
 					.get(testBedName).getTestType();
 			log.info("Test Type is : " + testType);
+			
+			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
 			try {
 				testEnv = System.getenv().get("Environment");
 				log.info("testEnv is : " + testEnv);
@@ -84,7 +87,12 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
+					if(testBedName.equalsIgnoreCase("edge"))
+					{
+						webPage.getDriver().manage().window().maximize();
+					}
 				}
+				
 			} catch (Exception e) {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
@@ -113,37 +121,41 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			{
 				//verify pagination link 2
 				WebElement paginationNumberElement = commonMethods.getWebElementbyXpath(webPage, test[0][2], softAssert);
-				softAssert.assertEquals(paginationNumberElement.getText(),"2","Pagination failed for page link : 2 ");
+				softAssert.assertEquals(paginationNumberElement.getText().trim(),"2","Pagination failed for page link : 2 ");
 				log.info("Clicking on Pagination Link : 2 ");
-				paginationNumberElement.click();
+				commonMethods.clickElementbyXpath(webPage, test[0][2], softAssert);
+		//		paginationNumberElement.click();
 
 				//verify pagination link 1
 				paginationNumberElement = commonMethods.getWebElementbyXpath(webPage, test[0][3], softAssert);
-				softAssert.assertEquals(paginationNumberElement.getText(),"1","Pagination failed for page link : 1 ");
+				softAssert.assertEquals(paginationNumberElement.getText().trim(),"1","Pagination failed for page link : 1 ");
 				log.info("Clicking on Pagination Link : 1 ");
-				paginationNumberElement.click();
+				commonMethods.clickElementbyXpath(webPage,test[0][3], softAssert);
+				//paginationNumberElement.click();
 
 				//verify next and back button
 				WebElement paginationNextElement = commonMethods.getWebElementbyXpath(webPage, test[0][4], softAssert);
-				softAssert.assertEquals(paginationNextElement.getText(),"Next","Pagination failed for page link : Next ");
+				softAssert.assertEquals(paginationNextElement.getText().trim(),"Next","Pagination failed for page link : Next ");
 				log.info("Clicking on Pagination Link : Next ");
-				paginationNextElement.click();
+				commonMethods.clickElementbyXpath(webPage,test[0][4], softAssert);
+				//paginationNextElement.click();
 
 
 				WebElement paginationBackElement = commonMethods.getWebElementbyXpath(webPage, test[0][5], softAssert);
-				softAssert.assertEquals(paginationBackElement.getText(),"Back","Pagination failed for page link : Back ");
+				softAssert.assertEquals(paginationBackElement.getText().trim(),"Back","Pagination failed for page link : Back ");
 				log.info("Clicking on Pagination Link : Back");
-				paginationBackElement.click();
+				commonMethods.clickElementbyXpath(webPage,test[0][5], softAssert);
+				//paginationBackElement.click();
 			}//if testType is mobile
 			else{
 				//verify next and back button for mobile device
 				WebElement paginationMobileNextElement = commonMethods.getWebElementbyXpath(webPage, test[0][6], softAssert);
-				softAssert.assertEquals(paginationMobileNextElement.getText(),"NEXT","Pagination failed for page link : NEXT ");
+				softAssert.assertEquals(paginationMobileNextElement.getText().trim(),"NEXT","Pagination failed for page link : NEXT ");
 				log.info("Clicking on Pagination Link : NEXT ");
 				paginationMobileNextElement.click();
 
 				WebElement paginationMobileBackElement = commonMethods.getWebElementbyXpath(webPage, test[0][7], softAssert);
-				softAssert.assertEquals(paginationMobileBackElement.getText(),"BACK","Pagination failed for page link : BACK ");
+				softAssert.assertEquals(paginationMobileBackElement.getText().trim(),"BACK","Pagination failed for page link : BACK ");
 				log.info("Clicking on Pagination Link : BACK ");
 				paginationMobileBackElement.click();
 
@@ -258,19 +270,25 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				WebElement element3 = webPage.getDriver().findElement(By.xpath(test[0][1]));					
 				js.executeScript("arguments[0].click();", element3);
 				log.info("Clicked on French Door");
-				List<WebElement> productList = webPage.getDriver().findElements(By.xpath("//div[@class='category-products category-products-list']/ul[contains(@class,'products-grid')]/li[contains(@class,'item')]"/*test[0][8]*/));
+				List<WebElement> productList = webPage.getDriver().findElements(By.xpath("//div[@class='category-products category-products-list']/ul[contains(@class,'products-grid')]/li[contains(@class,'item')]"));
 				
 				List<String> productSelectedList = new ArrayList<String>();
 				log.info("Total Size-->" + productList.size());
 				
-				for (int i = 0; i < 5; i++) {
+				String xpath = "(//div[@class='category-products category-products-list']/ul[contains(@class,'products-grid')]/li[contains(@class,'item')])[";
+				String xpath2 ="]//input";
+				String xpath3="]//h2/a";
+				for (int i = 1; i <= 5; i++) {
 					CommonMethods.waitForGivenTime(3);
 					
-					if (i < 5) {
-						WebElement ele = productList.get(i);
+					if (i <= 5) {
+						
+						commonMethods.clickElementbyXpath(webPage, xpath+i+xpath2, softAssert);
+						productSelectedList.add(commonMethods.getTextbyXpath(webPage, xpath+i+xpath3, softAssert));
+						/*WebElement ele = productList.get(i);
 						ele.findElement(By.xpath(".//input")).click();
-						productSelectedList.add(ele.findElement(By.xpath(".//h2/a")).getText());
-						System.out.println(" "+i+". "+ele.findElement(By.xpath(".//h2/a")).getText());
+						productSelectedList.add(ele.findElement(By.xpath(".//h2/a")).getText());*/
+						log.info("Product "+i+" : "+commonMethods.getTextbyXpath(webPage, xpath+i+xpath3, softAssert));
 					}
 					//else {
 						if (testBedName.contains("iPadNative")
@@ -311,6 +329,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 				log.info(webPage.findObjectByxPath(test[0][6]).getText());
 				commonMethods.waitForPageLoad(webPage, softAssert);
 				commonMethods.waitForGivenTime(5, softAssert);
+				if((browserName.equalsIgnoreCase("Safari")||browserName.contains("iPhone")||browserName.contains("iPad"))){
+					CommonMethods.waitForGivenTime(20);
+				}
 				List<WebElement> newListWebElement = webPage.getDriver().findElements(By.xpath(test[0][7]));
 				
 				List<String> compareList = new ArrayList<String>();
@@ -450,23 +471,29 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			s.selectByVisibleText(test[0][3]);
 			CommonMethods.waitForGivenTime(4);
 			CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+			if((browserName.equalsIgnoreCase("Safari")||browserName.contains("iPhone")||browserName.contains("iPad"))){
+				CommonMethods.waitForGivenTime(50);
+			}
 			List<WebElement> elementList = webPage.getDriver().findElements(
 					By.xpath(test[0][4]));
 			log.info("element Size-->" + elementList.size());
 			boolean isSorted = mainPage.isSortedByName(elementList);
-			log.info("element is shorted: " + isSorted);
+			
 			SoftAssertor
 			.assertEquals(isSorted, true,
-					"element is Not shorted by Product Name in Ascending order");
+					"Element is Not shorted by Product Name in Ascending order");
 			// For Descending
 			webPage.findObjectByxPath(test[0][5]).click();
 			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+			if((browserName.equalsIgnoreCase("Safari")||browserName.contains("iPhone")||browserName.contains("iPad"))){
+				CommonMethods.waitForGivenTime(50);
+			}
 			elementList = webPage.getDriver()
 					.findElements(By.xpath(test[0][4]));
 			log.info("element Size-->" + elementList.size());
 			boolean isSortedDesc = mainPage.isSortedByNameDesc(elementList);
-			log.info("element is shorted: " + isSortedDesc);
+			//log.info("element is shorted: " + isSortedDesc);
 			SoftAssertor
 			.assertEquals(isSortedDesc, true,
 					"element is Not shorted by Product Name in Descending order");
@@ -513,6 +540,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			s.selectByVisibleText(test[0][3]);
 			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+			if((browserName.equalsIgnoreCase("Safari")||browserName.contains("iPhone")||browserName.contains("iPad"))){
+				CommonMethods.waitForGivenTime(70);
+			}
 			List<WebElement> elementPriceList = webPage.getDriver()
 					.findElements(By.xpath(test[0][4]));
 			log.info("element Size-->" + elementPriceList.size());
@@ -524,6 +554,9 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			webPage.findObjectByxPath(test[0][5]).click();
 			CommonMethods.waitForGivenTime(5);
 			CommonMethods.waitForWebElement(By.xpath(test[0][4]), webPage);
+			if((browserName.equalsIgnoreCase("Safari")||browserName.contains("iPhone")||browserName.contains("iPad"))){
+				CommonMethods.waitForGivenTime(50);
+			}
 			elementPriceList = webPage.getDriver().findElements(
 					By.xpath(test[0][4]));
 			log.info("element Size-->" + elementPriceList.size());
