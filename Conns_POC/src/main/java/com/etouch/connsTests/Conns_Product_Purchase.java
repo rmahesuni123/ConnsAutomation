@@ -199,6 +199,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			log.info("Verifying In-Stock Product error message for blank input");
 			commonMethods.clearElementbyXpath(webPage, inStockOverlayBox[1][1], softAssert);
 			commonMethods.clickElementbyXpath(webPage, inStockOverlayBox[2][1], softAssert);
+			commonMethods.waitForGivenTime(3, softAssert);
 			expectedValueInvalidandBlank = inStockOverlayBox[3][2];
 			actualValueBlankInput = commonMethods.getTextbyXpath(webPage, inStockOverlayBox[3][1], softAssert);
 			softAssert.assertTrue(expectedValueInvalidandBlank.contains(actualValueBlankInput), "Zip code error message is not displayed for blank input:"+ "expected is:+" + expectedValueInvalidandBlank + "actual Value is:" + actualValueBlankInput);
@@ -374,7 +375,9 @@ public class Conns_Product_Purchase extends BaseTest {
 				//connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 40);
 				String currentUrl = webPage.getCurrentUrl();
 				commonMethods.clickElementbyXpath(webPage, cartPageData[13][1], softAssert);
-				connsProductPurchasePage.waitForPageLoadWithOutJS(webPage,currentUrl,softAssert);
+				connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 40);
+				commonMethods.waitForPageLoad(webPage, softAssert);
+			//	connsProductPurchasePage.waitForPageLoadWithOutJS(webPage,currentUrl,softAssert);
 				actualUrlForContinueShopping =  webPage.getCurrentUrl();
 						//commonMethods.clickAndGetPageURL(webPage, cartPageData[13][1], cartPageData[13][0], softAssert, cartPageData[14][1]);	
 			}else{
