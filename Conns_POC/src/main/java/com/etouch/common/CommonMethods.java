@@ -1665,4 +1665,30 @@ public class CommonMethods {
 			log.info("Unable to reset App or Clear background instance");
 		}
 	}
+	
+	public void waitIfBrowserIsIos(SoftAssert softAssert,int duration,String browserName) throws InterruptedException
+	{
+		if((browserName.equalsIgnoreCase("Safari")||browserName.contains("iPhone")||browserName.contains("iPad"))){
+			log.info("Sleep for "+duration+" seconds to complete page load on Safari and iOS browser");
+			waitForGivenTime(duration, softAssert);
+		}
+
+	}
+	
+	public void waitForPageLoadWithOutJS(WebPage webPage,String currentUrl, SoftAssert softAssert) throws InterruptedException {
+		int count=0;
+		log.info("Current Url is : "+currentUrl);
+		while(currentUrl.equals(webPage.getCurrentUrl())&&count<12)
+		{
+			log.info("Page not loaded completly, script will wait for some more time");
+			waitForGivenTime(10, softAssert);
+			count++;
+			if(count>=12)
+			{
+				log.info("Page load took more than 120 sec to load.");
+				Assert.fail("Page took more than 120 sec to load : URL :"+webPage.getCurrentUrl());
+			}
+		}
+
+	}
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -60,9 +61,9 @@ public class Conns_Product_Purchase extends BaseTest {
 	String[][] checkoutGuest;
 	String[][] addToCart;
 	String[][] submitBillingInfo;
-	String[][] proceedToCheckout;
+	static protected String[][] proceedToCheckout;
 	String[][] inStockAvialableProduct;
-	String[][] cartPageData;
+	static protected String[][] cartPageData;
 	String[][] pickupOnlyAvialableProduct;
 	String[][] checkoutPageData;
 	String[][] inStockpickupAvialableProduct;
@@ -357,23 +358,17 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.deleteCookies();
 			connsProductPurchasePage.addGivenProductToCart(webPage, pickUpOnlyProductAddToCartData[14][3], pickUpOnlyProductAddToCartData, softAssert,false);
 			//connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 25);
-			log.info("Verifying Discount coupoun code for invalid input");
-			if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
-				commonMethods.sendKeysbyXpath(webPage, cartPageData[8][1], cartPageData[8][2], softAssert);
-				commonMethods.clickElementbyXpath(webPage, cartPageData[9][1], softAssert);
-				commonMethods.waitForGivenTime(8, softAssert);
-				commonMethods.waitForPageLoad(webPage, softAssert);
-				connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 50);
-				actualCouponCodeErrorMessage = commonMethods.getTextbyXpath(webPage, cartPageData[10][1], softAssert).replaceAll(" ", "");
-				expectedCouponCodeErrorMessage = cartPageData[10][2].replaceAll(" ", "");
+			
+			try{connsProductPurchasePage.verifyDiscountCouponCodeField(webPage, softAssert);
+			}catch(Throwable t)
+			{softAssert.fail(t.getMessage());}
 
-				softAssert.assertTrue(actualCouponCodeErrorMessage.contains(expectedCouponCodeErrorMessage),"Coupon code error messages are not matching::" + " Expected:"+ expectedCouponCodeErrorMessage + " Actual: " + actualCouponCodeErrorMessage);	
-			}
 			log.info("Verifying functionality for Get Credit buttons");
 			actualGetCreditHref_1 = commonMethods.getAttributebyXpath(webPage, cartPageData[11][1], "onclick", softAssert);
 			actualGetCreditHref_2 = commonMethods.getAttributebyXpath(webPage, cartPageData[12][1], "onclick", softAssert);
 			softAssert.assertTrue(actualGetCreditHref_1.contains(cartPageData[11][2]),"Expected Get Credit(1) Href value: "+cartPageData[11][2]+" Actual Get Credit(1) Href_1 value: "+actualGetCreditHref_1);
 			softAssert.assertTrue(actualGetCreditHref_2.contains(cartPageData[12][2]),"Expected Get Credit(2) Href value: "+cartPageData[12][2]+" Actual Get Credit(2) Href_1 value: "+actualGetCreditHref_2);
+			
 			log.info("Verifying functionality for Continue Shopping link");
 			if(testType.equalsIgnoreCase("Web")){
 				//connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 40);
@@ -771,33 +766,13 @@ public class Conns_Product_Purchase extends BaseTest {
 			connsProductPurchasePage.deleteCookies();
 			connsProductPurchasePage.addGivenProductToCart(webPage, instockProductAddToCartData[14][3], instockProductAddToCartData, softAssert,false);
 			//connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 25);
-			log.info("Verifying Get a Quote functionality for invalid input");
-			commonMethods.sendKeysbyXpath(webPage, cartPageData[17][1], cartPageData[17][2], softAssert);
-			commonMethods.clickElementbyXpath(webPage, cartPageData[18][1], softAssert);
-			commonMethods.waitForGivenTime(5, softAssert);
-			CommonMethods.waitForWebElement(By.xpath(cartPageData[19][1]), webPage);
-			getQuoteActualErrMsg = commonMethods.getTextbyXpath(webPage, cartPageData[19][1], softAssert);
-			softAssert.assertTrue(getQuoteActualErrMsg.contains(cartPageData[19][2]),"Expected getQuoteErrMsg: "+cartPageData[19][2]+" Actual getQuoteErrMsg: "+getQuoteActualErrMsg);
-			commonMethods.clearTextBoxByXpath(webPage, cartPageData[17][1], softAssert);
-
-			log.info("Verifying Get a Quote functionality for valid input");
-			commonMethods.sendKeysbyXpath(webPage, cartPageData[17][1], cartPageData[18][2], softAssert);
-			commonMethods.clickElementbyXpath(webPage, cartPageData[18][1], softAssert);
-			commonMethods.waitForGivenTime(5, softAssert);
-			if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
-				CommonMethods.waitForWebElement(By.xpath(cartPageData[20][1]), webPage);
-				getQuoteActualValid = commonMethods.getTextbyXpath(webPage, cartPageData[20][1], softAssert);
-				if(getQuoteActualValid.equalsIgnoreCase(cartPageData[20][2])||getQuoteActualValid.equalsIgnoreCase(cartPageData[23][2])||
-						getQuoteActualValid.equalsIgnoreCase(cartPageData[24][2]))
-				{
-					log.info("Estimate Shipping value : "+getQuoteActualValid);
-				}
-				else
-				{
-					softAssert.fail("Failed to match Estimate Shipping value, Actual : "+getQuoteActualValid);
-				}
-				//softAssert.assertTrue(getQuoteActualValid.contains(cartPageData[20][2]),"Expected getQuote valid output: "+cartPageData[20][2]+" Actual getQuote valid output: "+getQuoteActualValid);	
-			}
+	
+			try{connsProductPurchasePage.verifyGetQuoteFunctionalityInvlidInput(webPage, softAssert);
+			}catch(Throwable t){softAssert.fail(t.getLocalizedMessage());}
+			
+			try{connsProductPurchasePage.verifyGetQuoteFunctionalityValidInput(webPage, softAssert);
+			}catch(Throwable t){softAssert.fail(t.getLocalizedMessage());}
+			
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPage, "Verify_Get_Quote_Functionality");
@@ -867,10 +842,19 @@ public class Conns_Product_Purchase extends BaseTest {
 			commonMethods.sendKeysbyXpath(webPage, checkoutPageData[35][1], checkoutPageData[35][2], softAssert);
 			commonMethods.sendKeysbyXpath(webPage, checkoutPageData[36][1], checkoutPageData[36][2], softAssert);
 			String currentUrl = webPage.getCurrentUrl();
-			commonMethods.clickElementbyXpath(webPage, checkoutPageData[37][1], softAssert);
+			commonMethods.waitForGivenTime(5, softAssert);
+			
+			try{webPage.getDriver().findElement(By.xpath(checkoutPageData[37][1])).click();
+			}catch(ElementNotVisibleException e)
+			{
+				commonMethods.Click_On_Element_JS(webPage, checkoutPageData[37][1], softAssert);
+			}
+			//commonMethods.clickElementbyXpath(webPage, checkoutPageData[37][1], softAssert);
+			
 			connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 50);
 			commonMethods.waitForPageLoad(webPage, softAssert);
 			connsProductPurchasePage.waitForPageLoadWithOutJS(webPage,currentUrl, softAssert);
+			
 			log.info("Deleting Cart items from user account");
 			connsProductPurchasePage.emptyShoppingCart(webPage, softAssert);
 			connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 40);
