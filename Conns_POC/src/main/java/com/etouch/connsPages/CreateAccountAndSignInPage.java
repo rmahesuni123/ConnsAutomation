@@ -2,25 +2,30 @@ package com.etouch.connsPages;
 
 
 
+import java.awt.AWTException;
+import java.util.NoSuchElementException;
+
 import org.apache.commons.logging.Log;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
 import org.openqa.selenium.WebElement;
-
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 
+import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.CommonPage;
 
 import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
-
+import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
-
+import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
+import com.gargoylesoftware.htmlunit.javascript.host.event.MouseEvent;
 
 public class CreateAccountAndSignInPage extends CommonPage {
 
@@ -34,8 +39,10 @@ public class CreateAccountAndSignInPage extends CommonPage {
 
 	static Log log = LogUtil.getLog(ConnsHomePage.class);
 	String testType;
-	String testBedName;
+	private String testBedName;
 	static CommonMethods commonMethods = new CommonMethods();
+	SoftAssertor SoftAssertor;
+	
 	public CreateAccountAndSignInPage(String sbPageUrl, WebPage webPage) 
 	{
 		super(sbPageUrl, webPage);
@@ -206,4 +213,71 @@ catch (Exception e)
 	    return Random;     
 	   }
 	 }
+	
+	public void verifyRememberMePopup_Mobile(String [][]verifyPopup, SoftAssert softAssert) throws InterruptedException, PageException, AWTException
+	{
+		try {
+			log.info("Verifying the Remember me Popup for Login & Register Option on User Account page");
+			for (int i = 0; i <verifyPopup.length; i++) { 	
+				CommonMethods.navigateToPage(webPage, verifyPopup[i][1]);
+				CommonMethods.waitForGivenTime(5);
+				
+				JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+				WebElement element = webPage.getDriver().findElement(By.xpath(verifyPopup[i][2]));
+				js.executeScript("arguments[0].click();", element);
+				
+				CommonMethods.waitForGivenTime(5);
+				String hovertext=commonMethods.getTextbyXpath(webPage, verifyPopup[i][3], softAssert);
+				
+				System.out.println("TEXT IS "+hovertext);
+				
+				commonMethods.clickElementbyXpath(webPage, verifyPopup[i][4], softAssert);
+				
+				softAssert.assertEquals(verifyPopup[i][5],hovertext);
+				
+				}
+		}
+		catch(NoSuchElementException e)
+		{
+			log.info("Failed to verify Get Element Text : "+e.getMessage());
+			throw new NoSuchElementException("Current Page : "+webPage.getCurrentUrl()+" "+e.getMessage());
+		}
+		catch(AssertionError t)
+		{
+			log.error("Failed to match text for Remember Me Popup "+t.getLocalizedMessage());
+
+		}		
+	}
+	
+	public void verifyRememberMePopup_Web(String [][]verifyPopup, SoftAssert softAssert) throws InterruptedException, PageException, AWTException
+	{
+	try {
+		log.info("Verifying the Remember me Popup for Login & Register Option on User Account page");
+		for (int i = 0; i <verifyPopup.length; i++) { 	
+			CommonMethods.navigateToPage(webPage, verifyPopup[i][1]);
+			CommonMethods.waitForGivenTime(5);
+			webPage.getDriver().manage().window().maximize();
+			
+			webPage.hoverOnElement(By.xpath(verifyPopup[i][2]));
+			CommonMethods.waitForGivenTime(5);
+			String hovertext=commonMethods.getTextbyXpath(webPage, verifyPopup[i][3], softAssert);
+				
+			System.out.println("TEXT IS "+hovertext);
+				
+			softAssert.assertEquals(verifyPopup[i][4],hovertext);
+				
+			}
+		}
+		catch(NoSuchElementException e)
+		{
+			log.info("Failed to verify Get Element Text : "+e.getMessage());
+			throw new NoSuchElementException("Current Page : "+webPage.getCurrentUrl()+" "+e.getMessage());
+		}
+		catch(AssertionError t)
+		{
+			log.error("Failed to match text for Remember Me Popup "+t.getLocalizedMessage());
+
+		}		
+	}
+	
 }	

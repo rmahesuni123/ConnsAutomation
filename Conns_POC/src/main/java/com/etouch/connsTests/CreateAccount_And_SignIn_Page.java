@@ -32,6 +32,7 @@ import com.etouch.connsPages.CreateAccountAndSignInPage;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
+import com.etouch.taf.core.exception.PageException;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
@@ -277,13 +278,15 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			CommonMethods.waitForGivenTime(5);
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[2][1]));
 			js.executeScript("arguments[0].click();", element);
-			
-			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
-					|| testBedName.equalsIgnoreCase("Safari")) {
-				
-			} else {
-				commonMethods.clickElementbyXpath(webPage, testdata[2][1], softAssert);
-			}*/
+
+			/*
+			 * if (testType.equalsIgnoreCase("Mobile") ||
+			 * testBedName.equalsIgnoreCase("edge") ||
+			 * testBedName.equalsIgnoreCase("Safari")) {
+			 * 
+			 * } else { commonMethods.clickElementbyXpath(webPage, testdata[2][1],
+			 * softAssert); }
+			 */
 			for (int i = 3; i < 5; i++) {
 				CommonMethods.waitForGivenTime(5);
 				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
@@ -340,17 +343,18 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					"Submit with valid email for Forgot Password: Actual:" + successMessage + " Should Contain: "
 							+ testdata[4][4]);
 			log.info("testing verify_Forgot_Password_Functionality completed------>");
-			
-			/*if (testType.equalsIgnoreCase("Mobile")) {
-				js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
-				log.info("testing verify_Forgot_Password_Functionality completed------>");
-			} else {
-				String successMessage = commonMethods.getTextbyXpath(webPage, testdata[4][3], softAssert);
-				softAssert.assertTrue(successMessage.contains(testdata[4][4]),
-						"Submit with valid email for Forgot Password: Actual:" + successMessage + " Should Contain: "
-								+ testdata[4][4]);
-				log.info("testing verify_Forgot_Password_Functionality completed------>");
-			}*/
+
+			/*
+			 * if (testType.equalsIgnoreCase("Mobile")) {
+			 * js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");// Used
+			 * log.info("testing verify_Forgot_Password_Functionality completed------>"); }
+			 * else { String successMessage = commonMethods.getTextbyXpath(webPage,
+			 * testdata[4][3], softAssert);
+			 * softAssert.assertTrue(successMessage.contains(testdata[4][4]),
+			 * "Submit with valid email for Forgot Password: Actual:" + successMessage +
+			 * " Should Contain: " + testdata[4][4]);
+			 * log.info("testing verify_Forgot_Password_Functionality completed------>"); }
+			 */
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -384,8 +388,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			 * testBedName.equalsIgnoreCase("Safari")) { WebElement element =
 			 * webPage.getDriver().findElement(By.xpath(testdata[0][1]));
 			 * js.executeScript("arguments[0].click();", element); }else{
-			 * commonMethods.clickElementbyXpath(webPage, testdata[0][1],
-			 * softAssert); }
+			 * commonMethods.clickElementbyXpath(webPage, testdata[0][1], softAssert); }
 			 */
 
 			String actualPageUrl = commonMethods.getPageUrl(webPage, softAssert);
@@ -468,8 +471,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
 						testdata[i][1], testdata[i][2]);
 			}
-			log.info(
-					"testing verify_Create_New_Customer_with_Blank_Input completed------>");
+			log.info("testing verify_Create_New_Customer_with_Blank_Input completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -495,13 +497,14 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 
 			WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
 			js.executeScript("arguments[0].click();", element);
-			/*if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")
-					|| testBedName.equalsIgnoreCase("Safari")) {
-				WebElement element = webPage.getDriver().findElement(By.xpath(testdata[5][1]));
-				js.executeScript("arguments[0].click();", element);
-			} else {
-				commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert);
-			}*/
+			/*
+			 * if (testType.equalsIgnoreCase("Mobile") ||
+			 * testBedName.equalsIgnoreCase("edge") ||
+			 * testBedName.equalsIgnoreCase("Safari")) { WebElement element =
+			 * webPage.getDriver().findElement(By.xpath(testdata[5][1]));
+			 * js.executeScript("arguments[0].click();", element); } else {
+			 * commonMethods.clickElementbyXpath(webPage, testdata[5][1], softAssert); }
+			 */
 			for (int i = 6; i < 9; i++) {
 				CommonMethods.waitForGivenTime(5);
 				CreateAccountAndSignInPage.verifyErrorMessageByXpath(webPage, softAssert, testdata[i][0],
@@ -586,12 +589,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][8]));
 						js.executeScript("arguments[0].click();", element_2);
 					} else {
-					      log.info("Inside else Web");
-					      //commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
-					      CommonMethods.waitForGivenTime(10);
-					      WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));     
-					      js.executeScript("arguments[0].click();", element_3);
-					     }
+						log.info("Inside else Web");
+						// commonMethods.clickElementbyXpath(webPage, testdata[i][1], softAssert);
+						CommonMethods.waitForGivenTime(10);
+						WebElement element_3 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));
+						js.executeScript("arguments[0].click();", element_3);
+					}
 					String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
 					softAssert.assertEquals(actualUrl, testdata[i][2], "Page URL:");
 					softAssert.assertEquals(
@@ -616,11 +619,11 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Assert.fail(e.getLocalizedMessage());
 			}
 		}
-		
+
 		else {
-			Assert.fail("Valid User Created, "+userLoggedIn);
+			Assert.fail("Valid User Created, " + userLoggedIn);
 		}
-		
+
 	}
 
 	@Test(priority = 311, enabled = true)
@@ -638,8 +641,12 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 						"verify_NewsLetter_Subscription");
 
 				if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge"))
-						/*|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPhoneNative")
-						|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative"))*/ {
+				/*
+				 * || testType.equalsIgnoreCase("Mobile") &&
+				 * testBedName.equalsIgnoreCase("iPhoneNative") ||
+				 * testType.equalsIgnoreCase("Mobile") &&
+				 * testBedName.equalsIgnoreCase("iPadNative"))
+				 */ {
 					// else if ( testType.equalsIgnoreCase("Mobile") &&
 					// testBedName.equalsIgnoreCase("iPhoneNative")) {
 					log.info("***** NewsLetters Subscription Inside If ******** : ");
@@ -679,7 +686,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Assert.fail(e.getLocalizedMessage());
 			}
 		} else {
-			Assert.fail("Valid User Created, "+userLoggedIn);
+			Assert.fail("Valid User Created, " + userLoggedIn);
 		}
 	}
 
@@ -797,8 +804,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 					log.info("Clicking Save Button -----> : " + testdata[0][12]);
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[0][12]));
 					/*
-					 * JavascriptExecutor executor_1 =
-					 * (JavascriptExecutor)webPage.getDriver();
+					 * JavascriptExecutor executor_1 = (JavascriptExecutor)webPage.getDriver();
 					 */
 					js.executeScript("arguments[0].click();", element_1);
 					log.info("Save Button Clicked -----> : ");
@@ -823,7 +829,7 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 				Assert.fail(e.getLocalizedMessage());
 			}
 		} else {
-			Assert.fail("Valid User Created, "+userLoggedIn);
+			Assert.fail("Valid User Created, " + userLoggedIn);
 		}
 	}
 
@@ -877,12 +883,10 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			 * testBedName.equalsIgnoreCase("Safari")) { WebElement element =
 			 * webPage.getDriver().findElement(By.xpath(testdata[0][10]));
 			 * js.executeScript("arguments[0].click();", element); }else{
-			 * commonMethods.clickElementbyXpath(webPage, testdata[0][10],
-			 * softAssert); }
+			 * commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert); }
 			 */
 			/*
-			 * commonMethods.clickElementbyXpath(webPage, testdata[0][10],
-			 * softAssert);
+			 * commonMethods.clickElementbyXpath(webPage, testdata[0][10], softAssert);
 			 */
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testdata[1][10], softAssert), testdata[1][11],
 					"Verification failed for content: " + testdata[1][0]);
@@ -915,8 +919,8 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			}
 			/*
 			 * WebElement element_3 = webPage.getDriver().findElement(By.xpath(
-			 * Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator
-			 * )); js.executeScript("arguments[0].click();", element_3);
+			 * Account_Information_Address_Book_Manage_Addresses_Edit_Link_Locator ));
+			 * js.executeScript("arguments[0].click();", element_3);
 			 */System.out.println(" testType : " + testType);
 			webPage.getCurrentUrl();// For Safari
 			log.info("************************ Add New Address if Delete Address Link is not visible*****************");
@@ -1040,6 +1044,30 @@ public class CreateAccount_And_SignIn_Page extends BaseTest {
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
+
 	}
 
+	@Test(priority = 315, enabled = true)
+	public void Remember_Me_popup_User_Account_page() throws PageException, AWTException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+
+			if (testType.equalsIgnoreCase("Mobile")) {
+				String[][] verifyPopup = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+						"verify_RememberMe_Popup_UserAccPage_mobile");
+				createAccountAndSignInPage.verifyRememberMePopup_Mobile(verifyPopup, softAssert);
+			} else {
+				String[][] verifyPopup = ExcelUtil.readExcelData(DataFilePath, "CreateAccountSignIn",
+						"verify_RememberMe_Popup_UserAccPage");
+				createAccountAndSignInPage.verifyRememberMePopup_Web(verifyPopup, softAssert);
+			}
+
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "verify_RememberMe_Popup_UserAccPage");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 }

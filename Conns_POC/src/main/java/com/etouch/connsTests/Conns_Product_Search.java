@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
@@ -23,6 +24,7 @@ import com.etouch.common.TafExecutor;
 import com.etouch.conns.listener.SoftAssertor;
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.connsPages.ConnsProductPurchasePage;
+import com.etouch.connsPages.ProductListingPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
@@ -49,6 +51,7 @@ public class Conns_Product_Search extends BaseTest {
 	String testType;
 	String testEnv;
 	CommonMethods commonMethods;
+	ProductListingPage productListingPage = new ProductListingPage();
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -56,14 +59,15 @@ public class Conns_Product_Search extends BaseTest {
 			testBedName = context.getCurrentXmlTest().getAllParameters().get("testBedName");
 			CommonUtil.sop("Test bed Name is " + testBedName);
 			testBed = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName);
-		
-			log.info("Arrays:::"+Arrays.deepToString(TestBedManagerConfiguration.INSTANCE.getWebConfig().getCurrentTestBeds()));
+
+			log.info("Arrays:::"
+					+ Arrays.deepToString(TestBedManagerConfiguration.INSTANCE.getWebConfig().getCurrentTestBeds()));
 			testType = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getTestType();
 			commonMethods = new CommonMethods();
-			if(testType.equalsIgnoreCase("Mobile")
-					&&TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getPlatform().getName().equalsIgnoreCase("ANDROID"))
-			{
-				commonMethods.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
+			if (testType.equalsIgnoreCase("Mobile") && TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName)
+					.getPlatform().getName().equalsIgnoreCase("ANDROID")) {
+				commonMethods
+						.resetAPP(TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getDevice().getUdid());
 			}
 			log.info("Test Type is : " + testType);
 			try {
@@ -74,7 +78,7 @@ public class Conns_Product_Search extends BaseTest {
 				log.info("DataFilePath After is : " + DataFilePath);
 				platform = testBed.getPlatform().getName().toUpperCase();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
-				
+
 				synchronized (this) {
 					webPage = new WebPage(context);
 					mainPage = new ConnsMainPage(url, webPage);
@@ -104,11 +108,12 @@ public class Conns_Product_Search extends BaseTest {
 			log.info("Clicked on element " + test[0][2]);
 			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
-			if(productDescription.contains(ProductName.substring(0, 6))||productDescription.contains(ProductName.substring(7, 11))||productDescription.contains(ProductName.substring(12, 24)))
-			{}
-			else
-			{
-				Assert.assertFalse(productDescription.contains(ProductName.substring(0, 11)),"Product description: " + productDescription + " not having: " + ProductName);
+			if (productDescription.contains(ProductName.substring(0, 6))
+					|| productDescription.contains(ProductName.substring(7, 11))
+					|| productDescription.contains(ProductName.substring(12, 24))) {
+			} else {
+				Assert.assertFalse(productDescription.contains(ProductName.substring(0, 11)),
+						"Product description: " + productDescription + " not having: " + ProductName);
 			}
 			String[][] contentData;
 			if (testType.equalsIgnoreCase("Web")) {
@@ -163,7 +168,9 @@ public class Conns_Product_Search extends BaseTest {
 					CommonMethods.waitForGivenTime(5);
 					CommonMethods.waitForWebElement(By.xpath(test[0][7]), webPage);
 					List<WebElement> elementList = webPage.getDriver().findElements(By.xpath(test[0][7]));
-					SoftAssertor.assertEquals(elementList.size() <= number, true, "Number of element is not as expected---->Actual Size: " +elementList.size()+"Should be less than: "+number);
+					SoftAssertor.assertEquals(elementList.size() <= number, true,
+							"Number of element is not as expected---->Actual Size: " + elementList.size()
+									+ "Should be less than: " + number);
 					s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 				}
 			} else {
@@ -173,7 +180,8 @@ public class Conns_Product_Search extends BaseTest {
 					CommonMethods.waitForWebElement(By.xpath(test[0][9]), webPage);
 					List<WebElement> list = webPage.getDriver().findElements(By.xpath(test[0][9]));
 					SoftAssertor.assertEquals(list.size() <= Integer.parseInt(str2[i]), true,
-							"Number of element is not as expected---->Actual Size: " +list.size()+"Should be less than: "+Integer.parseInt(str2[i]));
+							"Number of element is not as expected---->Actual Size: " + list.size()
+									+ "Should be less than: " + Integer.parseInt(str2[i]));
 				}
 			}
 		} catch (Throwable e) {
@@ -192,7 +200,7 @@ public class Conns_Product_Search extends BaseTest {
 	@Test(priority = 403, enabled = true)
 	public void Verify_AutoPredict_For_Search_Functionality() {
 		try {
-			String browserName=null;
+			String browserName = null;
 			SoftAssert softAssert = new SoftAssert();
 			CommonMethods.navigateToPage(webPage, url);
 			String[][] test = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyAutoPredictProductSearch");
@@ -202,11 +210,9 @@ public class Conns_Product_Search extends BaseTest {
 			WebElement firstSuggestionOption = webPage.findObjectByxPath(test[0][2]).getWebElement();
 			String autoSearchProductDescription = firstSuggestionOption.getText();
 			browserName = TestBedManager.INSTANCE.getCurrentTestBeds().get(testBedName).getBrowser().getName();
-			if(browserName.equalsIgnoreCase("IE")||browserName.equalsIgnoreCase("Firefox"))
-			{
+			if (browserName.equalsIgnoreCase("IE") || browserName.equalsIgnoreCase("Firefox")) {
 				webPage.navigateToUrl(firstSuggestionOption.getAttribute("href"));
-			}
-			else{
+			} else {
 				firstSuggestionOption.click();
 			}
 			log.info("Clicked on element ");
@@ -287,7 +293,7 @@ public class Conns_Product_Search extends BaseTest {
 			String productDescription = webPage.findObjectByxPath(test[0][3]).getText();
 			log.info("productDescription" + productDescription);
 			Select s;
-			if (testType.equalsIgnoreCase("Web")||(testBedName.contains("iPadNative"))) {
+			if (testType.equalsIgnoreCase("Web") || (testBedName.contains("iPadNative"))) {
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][5]))));
 			} else {
 				s = new Select(webPage.getDriver().findElement(By.xpath((test[0][10]))));
@@ -414,6 +420,90 @@ public class Conns_Product_Search extends BaseTest {
 			String errors = SoftAssertor.readErrorsForTest();
 			if (errors != null && errors.length() > 0)
 				SoftAssertor.displayErrors();
+		}
+	}
+
+	/*
+	 * This method will cover below scenarios - Verify Refine by Filter options on
+	 * Search page. This method will be used to apply filters
+	 * at once & check if filters applied successfully on Search page results.
+	 */
+	@Test(priority = 408, enabled = true)
+	public void Verify_Refine_By_Search_page() {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			CommonMethods.navigateToPage(webPage, url);
+			if (testType.equalsIgnoreCase("Web")) {
+				webPage.getDriver().manage().window().maximize();
+			}
+			String[][] Product_search_using_keyword = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyProductSearchUsingKeyword");
+			String Identifier = Product_search_using_keyword[0][0];
+			String ProductName = Product_search_using_keyword[0][1];
+			webPage.findObjectById(Identifier).clear();
+			webPage.findObjectById(Identifier).sendKeys(ProductName);
+			webPage.findObjectByClass(Product_search_using_keyword[0][2]).click();
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			log.info("Clicked on element " + Product_search_using_keyword[0][2]);
+			String productDescription = webPage.findObjectByxPath(Product_search_using_keyword[0][3]).getText();
+			log.info("productDescription" + productDescription);
+			if (productDescription.contains(ProductName.substring(0, 6))
+					|| productDescription.contains(ProductName.substring(7, 11))
+					|| productDescription.contains(ProductName.substring(12, 24))) {
+			} else {
+				Assert.assertFalse(productDescription.contains(ProductName.substring(0, 11)),
+						"Product description: " + productDescription + " not having: " + ProductName);
+			}
+			String[][] contentData;
+			try {
+				if (testType.equalsIgnoreCase("Web")) {
+					contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContent");
+				} else {
+					contentData = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "verifyContentForMobile");
+				}
+
+				for (int i = 0; i < contentData.length; i++) {
+					String actualContent = webPage.findObjectByxPath(contentData[i][0]).getText();
+					log.info("Actual:  " + actualContent + "   Expected: " + contentData[i][1]);
+					SoftAssertor.assertTrue(actualContent.toLowerCase().contains(contentData[i][1].toLowerCase()),
+							"expectedContent: " + contentData[i][1] + "  Failed to Match Actual:" + actualContent);
+				}
+			} catch (NoSuchElementException e) {
+				log.info("Failed to verify Get Element : " + e.getMessage());
+				throw new NoSuchElementException("Current Page : " + webPage.getCurrentUrl() + " " + e.getMessage());
+			}
+
+			// Apply filters for desktop- this is NA for Search page on mobile
+			if (testType.equalsIgnoreCase("Web")) {
+				log.info("Applying filters on Search page");
+				String[][] RefineByElements = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
+						"Refine_by_Elements");
+				String[][] Refine_By_Price = ExcelUtil.readExcelData(DataFilePath, "ProductListingPage", "Refine_By_Price");
+				//String[][] Refine_By_Price = ExcelUtil.readExcelDataWithDouble(DataFilePath, "ProductSearch", "Refine_By_Price");
+				String[][] Refine_By_Monthly_payment = ExcelUtil.readExcelData(DataFilePath, "ProductSearch",
+						"Refine_By_Monthly_payment");
+				String[][] Refine_By_Brand = ExcelUtil.readExcelData(DataFilePath, "ProductSearch", "Refine_By_Brand");
+				webPage.getDriver().manage().window().maximize();
+				log.info("Applying multiple filter operation first for Price, Monthly payment & Brand at once");
+				// Applying multiple filters
+				if ((testBedName.equalsIgnoreCase("InternetExplorer"))) {
+					commonMethods.scrollDown(webPage, 2);
+				}
+				productListingPage.Select_Multiple_Filters(Refine_By_Price, Refine_By_Monthly_payment, Refine_By_Brand,
+						RefineByElements, softAssert);
+				boolean are_Mutiple_Filters_Applied = productListingPage.ApplyFilter_RefineBy_Multiple_Filters(
+						Refine_By_Price, Refine_By_Monthly_payment, Refine_By_Brand, RefineByElements, softAssert);
+				log.info("Multiple Filters are applied correctly for Price, Monthly Payment & Brand name at once: "
+						+ are_Mutiple_Filters_Applied);
+				softAssert.assertEquals(are_Mutiple_Filters_Applied, true,
+						"Elements are not filtered for Multiple conditions: ");
+			}
+
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "Verify_Refine_By_Search_page");
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Error in Verify_Refine_By_Search_page :" + e.getMessage());
 		}
 	}
 }

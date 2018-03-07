@@ -1,5 +1,6 @@
 package com.etouch.connsPages;
 
+import java.awt.AWTException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 	private WebPage webPage;
 	CommonMethods commonMethods = new CommonMethods();
 	Path path;
-
+	
 	public void Click_On_French_Door_Link(WebPage webPage, String test, SoftAssert softAssert) throws InterruptedException {
 		try {
 			try{
@@ -92,6 +93,18 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 		}
 	}
 
+	public void Checkout_Register_User(WebPage webPage, String[][] checkoutRegUser, SoftAssert softAssert) {
+		try {
+			log.info("Checking out as Registered user");
+			Click_On_Element_JS(webPage, checkoutRegUser[0][1], softAssert);
+			Click_On_Element_JS(webPage, checkoutRegUser[1][1], softAssert);
+			commonMethods.waitForGivenTime(5, softAssert);
+		} catch (Throwable e) {
+			log.error(e.getMessage());
+			softAssert.fail(e.getLocalizedMessage());
+		}
+	}
+	
 	public boolean isAlertPresent() {
 		try {
 			webPage.getDriver().switchTo().alert();
@@ -1060,7 +1073,6 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			}
 		}
 		log.info("Unable to find element after pooling for 60 sec : "+xpath);
-		//Assert.fail("Unable to find elemnt : "+xpath);
 		return false;
 	}
 
@@ -1160,9 +1172,6 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 				waitIfBrowserIsIos(softAssert, 30);
 			}
 
-
-			//if(!(browserName.equalsIgnoreCase("fireFox")||browserName.equalsIgnoreCase("IE"))){
-			//	CommonMethods.waitForWebElement(By.xpath(cartPageData[20][1]), webPage);
 			String getQuoteActualValid = webPage.getDriver().findElement(By.xpath(cartPageData[20][1])).getText();
 			if(getQuoteActualValid.equalsIgnoreCase(cartPageData[20][2])||getQuoteActualValid.equalsIgnoreCase(cartPageData[23][2])||
 					getQuoteActualValid.equalsIgnoreCase(cartPageData[24][2]))
@@ -1173,8 +1182,6 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 			{
 				Assert.fail("Failed to match Estimate Shipping value, Actual : "+getQuoteActualValid);
 			}
-			//softAssert.assertTrue(getQuoteActualValid.contains(cartPageData[20][2]),"Expected getQuote valid output: "+cartPageData[20][2]+" Actual getQuote valid output: "+getQuoteActualValid);	
-			//}
 		}
 		catch(NoSuchElementException e)
 		{
@@ -1187,4 +1194,88 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 		}
 	}
+	
+	public void verifyRememberMeCheckoutPage_mobile(WebPage webPage, String [][]verifyPopup, SoftAssert softAssert) throws InterruptedException, PageException, AWTException {
+		log.info("Verifying the Remember me Popup for Login option on Checkout page");
+		try {
+			commonMethods.clickElementbyXpath(webPage, verifyPopup[0][0], softAssert);
+			String hovertext=commonMethods.getTextbyXpath(webPage, verifyPopup[0][1], softAssert);
+					
+			System.out.println("TEXT IS "+hovertext);
+			commonMethods.clickElementbyXpath(webPage, verifyPopup[0][2], softAssert);
+
+			softAssert.assertEquals(verifyPopup[0][3],hovertext);
+					
+			}
+		catch(NoSuchElementException e)
+		{
+			log.info("Failed to verify Get Element Text : "+e.getMessage());
+			throw new NoSuchElementException("Current Page : "+webPage.getCurrentUrl()+" "+e.getMessage());
+		}
+		catch(AssertionError t)
+		{
+			log.error("Failed to match text for Remember Me Popup "+t.getLocalizedMessage());
+
+		}		
+	}
+	
+	public void verifyRememberMeCheckoutPage_Web(WebPage webPage, String [][]verifyPopup, SoftAssert softAssert) throws InterruptedException, PageException, AWTException {
+		try {
+		webPage.hoverOnElement(By.xpath(verifyPopup[0][0]));
+		String hovertext=commonMethods.getTextbyXpath(webPage, verifyPopup[0][1], softAssert);
+		
+		System.out.println("TEXT IS "+hovertext);
+		
+		softAssert.assertEquals(verifyPopup[0][2],hovertext);
+		}
+		catch(NoSuchElementException e)
+		{
+			log.info("Failed to verify Get Element Text : "+e.getMessage());
+			throw new NoSuchElementException("Current Page : "+webPage.getCurrentUrl()+" "+e.getMessage());
+		}
+		catch(AssertionError t)
+		{
+			log.error("Failed to match text for Remember Me Popup "+t.getLocalizedMessage());
+
+		}	
+		
+	}	
+	
+	public void verifyRememberMeRegisterOptionCheckoutPage_mobile(WebPage webPage, String [][]verifyPopup_RegUser_mobile, String [][]checkoutRegUser, SoftAssert softAssert) throws InterruptedException, PageException, AWTException {
+		log.info("Moving to Register option on Checkout page");
+		try {
+			Click_On_Element_JS(webPage, checkoutRegUser[0][1], softAssert);
+			Click_On_Element_JS(webPage, checkoutRegUser[1][1], softAssert);
+			verifyRememberMeCheckoutPage_mobile(webPage, verifyPopup_RegUser_mobile, softAssert);
+		}
+		catch(NoSuchElementException e)
+		{
+			log.info("Failed to verify Get Element Text : "+e.getMessage());
+			throw new NoSuchElementException("Current Page : "+webPage.getCurrentUrl()+" "+e.getMessage());
+		}
+		catch(AssertionError t)
+		{
+			log.error("Failed to match text for Remember Me Popup "+t.getLocalizedMessage());
+
+		}		
+	}
+	
+	public void verifyRememberMeRegisterOptionCheckoutPage_Web(WebPage webPage, String [][]verifyPopup_RegUser, String [][]checkoutRegUser, SoftAssert softAssert) throws InterruptedException, PageException, AWTException {
+		log.info("Moving to Register option on Checkout page");
+		try {
+			Click_On_Element_JS(webPage, checkoutRegUser[0][1], softAssert);
+			Click_On_Element_JS(webPage, checkoutRegUser[1][1], softAssert);
+			verifyRememberMeCheckoutPage_Web(webPage, verifyPopup_RegUser, softAssert);
+		}
+	catch(NoSuchElementException e)
+	{
+		log.info("Failed to verify Get Element Text : "+e.getMessage());
+		throw new NoSuchElementException("Current Page : "+webPage.getCurrentUrl()+" "+e.getMessage());
+	}
+	catch(AssertionError t)
+	{
+		log.error("Failed to match text for Remember Me Popup "+t.getLocalizedMessage());
+
+	}		
+}
 }
