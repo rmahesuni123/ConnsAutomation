@@ -3,6 +3,8 @@ package com.etouch.common;
 import java.awt.AWTException;
 
 import java.awt.Robot;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -198,6 +200,54 @@ public class CommonMethods {
 		return pageUrl;
 	}
 
+	/**
+	 * @author Name - Archana
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String clickAndGetPageURLByJSLegalDisclosure(WebPage webPage, String locator, String linkName, String TargetpageLocator,String TargetPageHeader,SoftAssert softAssert){
+		String pageUrl="";
+		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
+		try{
+			log.info("Clicking on link : "+linkName);
+			String mainWindow = webPage.getDriver().getWindowHandle();
+			//webPage.findObjectByxPath(locator).click();
+
+			log.info("Clicking on element using xpath - "+locator);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
+			js.executeScript("arguments[0].click();", element);
+			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			if(windowHandlesSet.size()>1){
+				for(String winHandle:windowHandlesSet){
+					webPage.getDriver().switchTo().window(winHandle);
+					if(!winHandle.equalsIgnoreCase(mainWindow)){
+						log.info("More than 1 window open after clicking on link : "+linkName);
+						pageUrl=webPage.getCurrentUrl();
+						
+						log.info("*************Verify Header on Legal Disclosures page**************************");
+						log.info("Actual : "+getTextbyXpath(webPage, TargetpageLocator, softAssert)+" Expected : "+TargetPageHeader);
+						softAssert.assertTrue((getTextbyXpath(webPage, TargetpageLocator, softAssert).equals(TargetPageHeader)));	
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(mainWindow);
+						
+					}
+				}
+			}else{
+				pageUrl= webPage.getCurrentUrl();
+			}
+			log.info("Actual URL : "+pageUrl);
+		}catch(Throwable e){
+			e.printStackTrace();
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return pageUrl;
+	}
+
+	
+
+	
 
 	/**
 	 * @author Name - Deepak Bhambri
@@ -304,7 +354,11 @@ public class CommonMethods {
 	 **/
 	public void clickElementbyXpath(WebPage webPage, String locator, SoftAssert softAssert) throws InterruptedException{
 		try {
-			log.info("Clicking on element using xpath - "+locator);
+			/*log.info("****************************************isEnabled"+webPage.findObjectByxPath(locator).isEnabled());
+			log.info("****************************************isDispalyed"+webPage.findObjectByxPath(locator).isDisplayed());
+			log.info("****************************************"+webPage.findObjectByxPath(locator).isElementVisible());*/
+//			log.info("@@@@@@@@@@@@@@@@@@@@@Clicking on element using xpath - "+locator);
+			
 			webPage.findObjectByxPath(locator).click();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -426,6 +480,30 @@ public class CommonMethods {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
+	public String getCssValueById(WebPage webPage, String locator, String cssName, SoftAssert softAssert){
+		String cssValue="";
+		try {
+			log.info("Getting CSS value "+cssName+" for Id : "+locator);
+			webPage.waitForWebElement(By.id(locator));
+			cssValue = webPage.findObjectById(locator).getCssValue(cssName);
+			if(cssName.equalsIgnoreCase("color")||cssName.equalsIgnoreCase("background-color")){
+				cssValue=Color.fromString(cssValue).asHex();
+			}
+			if(cssName.equalsIgnoreCase("font-weight")){
+				if(cssValue.equalsIgnoreCase("700")){
+					cssValue = "bold";
+				}
+				if(cssValue.equalsIgnoreCase("400")){
+					cssValue = "normal";
+				}
+			}
+			log.info("Actual CSS value: "+cssValue);
+		} catch (PageException e) {
+			softAssert.fail("Unable to get CSS Value : "+cssName+" for locator : "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return cssValue;
+	}
+	
 	public String getCssvaluebyXpath(WebPage webPage, String locator, String cssName, SoftAssert softAssert){
 		String cssValue="";
 		try {
@@ -449,7 +527,6 @@ public class CommonMethods {
 		}
 		return cssValue;
 	}
-
 	/**
 	 * @author Name - Deepak Bhambri
 	 * The method used to get attribute by xpath
@@ -693,6 +770,83 @@ public class CommonMethods {
 			softAssert.fail("Unable to click on element using CSS : "+ locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
+	
+	
+
+	/**
+	 * @author asim singh
+	 * @param webPage
+	 * @param locator
+	 * @param softAssert
+	 */
+	public void clearTextBoxByJS(WebPage webPage, String locator,SoftAssert softAssert){
+		try{
+			log.info("Clearing text box with locator: "+locator);
+			JavascriptExecutor js = (JavascriptExecutor)webPage.getDriver();
+			js.executeScript("arguments[0].value ='';", getWebElementbyXpath(webPage, locator, softAssert));
+		}catch(Exception e){
+			softAssert.fail("Unable to clear text box with locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
+	
+	/**
+	 * @author asim singh
+	 * @param webPage
+	 * @param locator
+	 * @param softAssert
+	 */
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void compareDropDownValues(WebPage webPage,String FilePath, String Locator) {
+		 SoftAssert softAssert = new SoftAssert ();
+		try {
+
+			BufferedReader in = new BufferedReader(new FileReader(FilePath));
+	        String line;
+	        line = in.readLine();
+	        in.close();        
+			String[] expectedDropDownItemsInArray = line.split(",");
+
+	       // Create expected list :: This will contain expected drop-down values
+	        ArrayList expectedDropDownItems = new ArrayList();
+	        for(int i=0; i<expectedDropDownItemsInArray.length; i++)
+	            expectedDropDownItems.add(expectedDropDownItemsInArray[i]);
+			log.info("***************** expectedDropDownItems *************************"+expectedDropDownItems);
+
+			//Create a webelement for the drop-down 
+	        WebElement visualizationDropDownElement = webPage.getDriver().findElement(By.xpath(Locator));
+
+	        //Instantiate Select class with the drop-down webelement "
+	        Select visualizationDropDown = new Select(visualizationDropDownElement);
+
+	        //Retrieve all drop-down values and store in actual list 
+	        List<WebElement> valuesUnderVisualizationDropDown  = visualizationDropDown.getOptions();
+
+	        List<String> actualDropDownItems = new ArrayList();
+
+	        for(WebElement value : valuesUnderVisualizationDropDown){
+	            actualDropDownItems.add(value.getText());
+	        }
+
+	        // Print expected and actual list
+	        log.info("******************** expectedDropDownItems : " +expectedDropDownItems);       
+	        log.info("******************** actualDropDownItems   : " +actualDropDownItems);
+
+	        // Verify both the lists having same size
+	        if(actualDropDownItems.size() != expectedDropDownItems.size())
+	          log.info("Property file is NOT updated with the drop-down values");
+
+	        // Compare expected and actual list
+	        for (int i = 0; i < actualDropDownItems.size(); i++) {
+	            if (!expectedDropDownItems.get(i).equals(actualDropDownItems.get(i)))
+	            log.info("Drop-down values are NOT in correct order");
+	           // else log.info("Drop-down values are in correct order");
+	            }
+		}
+		catch (Exception e) {
+			softAssert.fail("Drop Down Values Camparison Failure. Please recheck Drop Down Check List  Text File once again : "+". Localized Message: "+e.getLocalizedMessage());
+		}
+	}
 	/**
 	 * @author Name - Asim Singh
 	 * The method used get text using css locator
@@ -718,7 +872,7 @@ public class CommonMethods {
 	    actualText = ((JavascriptExecutor) webPage.getDriver()).executeScript(script).toString();*/
 
 		WebElement element = webPage.getDriver().findElement(By.xpath(locator));
-		js.executeScript("return arguments[0].getText()", element);
+		actualText = (String)js.executeScript("return arguments[0].getText()", element);
 		return actualText;
 	}
 	/**
@@ -754,7 +908,7 @@ public class CommonMethods {
 			softAssert.fail("Unable to clear text box with locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
 	}
-
+	
 	public static WebElement waitForWebElement(By by, WebPage webPage) throws PageException{
 		try{
 			log.info("Waiting for web element to be present");
@@ -943,6 +1097,7 @@ public class CommonMethods {
 	 * The method is used to get broken images	
 	 **/	
 	public void verifyBrokenImage(WebPage webPage) {
+		 SoftAssert softAssert = new SoftAssert ();
 		List<WebElement> imagesList = webPage.getDriver().findElements(By.tagName("img"));
 		log.info("Total number of images : " + imagesList.size());
 		int imageCount = 0;
@@ -976,7 +1131,7 @@ public class CommonMethods {
 			}
 		}
 		if (brokenImageNumber.size() > 0) {
-			Assert.fail("Broken Image number : " + Arrays.deepToString(brokenImageNumber.toArray())
+			softAssert.fail("Broken Image number : " + Arrays.deepToString(brokenImageNumber.toArray())
 			+ "\nImage source of the Broken image : " + Arrays.deepToString(brokenImageSrc.toArray()));
 		}
 	}
@@ -1254,7 +1409,7 @@ public class CommonMethods {
 	}
 	/**
 	 * Method to get data from excel sheet in a Key Value pair HashMap
-	 * @param filePath
+	 * @param fileP
 	 * @param sheetName
 	 * @param dataKey
 	 * @return
@@ -1689,6 +1844,34 @@ public class CommonMethods {
 				log.info("Page load took more than 120 sec to load.");
 				Assert.fail("Page took more than 120 sec to load : URL :"+webPage.getCurrentUrl());
 			}
+		}
+
+	}
+	
+	
+	
+	public boolean verifyElementisSelected(WebPage webPage, String locator, SoftAssert softAssert){
+		Boolean isElementSelected=false;
+		try{
+			log.info("Verifying if element is selected by locator - "+locator);
+			isElementSelected = webPage.findObjectById(locator).isSelected();
+		}catch(Throwable e){
+			log.info("Element not selected using locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return isElementSelected;
+			
+	}
+	
+	public void selectCheckBoxById(WebPage webPage, String locator, SoftAssert softAssert) {
+		WebElement element = webPage.getDriver().findElement(By.id(locator));
+
+		if(!element.isSelected())
+		{	
+			element.click();
+			System.out.println("Clicking on Radio Button");
+		}
+		else{
+			System.out.println("Radio Button is already selected");
 		}
 
 	}
