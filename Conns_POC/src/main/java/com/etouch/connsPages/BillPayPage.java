@@ -677,7 +677,7 @@ public class BillPayPage extends Conns_BillPay_Page_SetUp_AutoPay {
 			String[][] testData, SoftAssert softAssert) {
 		softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, SelectPaymentDateDropDownData[3][1], softAssert),
 				SelectPaymentDateDropDownData[4][1],
-				"Value less than  minimum amount or payment due . Expected " + testData[4][1] + " Actual : "
+				"Value less than  minimum amount or payment due . Expected " + SelectPaymentDateDropDownData[4][1] + " Actual : "
 						+ commonMethods.getTextbyXpath(webPage, SelectPaymentDateDropDownData[3][1], softAssert));
 	}
 
