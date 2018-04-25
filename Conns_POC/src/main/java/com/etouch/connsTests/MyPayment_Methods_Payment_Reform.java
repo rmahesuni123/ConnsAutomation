@@ -33,15 +33,13 @@ import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.connsPages.MyPaymentMethodsPaymentReformPage;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
-import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
 
-@Test(groups = "My_Payment_Methods_Payment_Reform")
-@IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
+
 public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	private String testBedName;
 	Path path;
@@ -180,7 +178,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	}
 
 	
-	@Test(priority = 302, enabled = false)
+	@Test(priority = 302, enabled = true)
 	public void MyPaymentMethod_CreditCard_Page() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("******Started MyPaymentMethod_CreditCard_Page ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -341,7 +339,6 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	
 			log.info("*************** MyPaymentMethod_Banking_Panel_Page_Save_Button_Validation ************************");			
 			MyPaymentMethodsPaymentReformPage.SaveButtonValidation(webPage,  VerifyBankingFundingPortal, softAssert);
-
 			
 			log.info("**************** MyPaymentMethod_Banking_Page_Successfull_Confirmation_Message_Validation *********");	
 			for(int i = 9;i<12;i++)				
@@ -353,16 +350,9 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 			log.info("**************** MyPaymentMethod_Confirmation_Message_Font_Size_Validation *****");
 			MyPaymentMethodsPaymentReformPage.FontSizeVerification(webPage,testType,testBedName,ExpectedFontValuesMobile,ExpectedFontValuesTab,ExpectedFontValuesWeb,softAssert);			
 		
-
-		
 			log.info("**************** MyPaymentMethod_Confirmation_Message_Page_Back_Button_Validation *****");
 			MyPaymentMethodsPaymentReformPage.MyPaymentMethod_Confirmation_Message_Page_Back_Button(webPage,  VerifyBankingFundingPortal, softAssert);	
-			
-			
-			
-			
-			
-			
+
 			log.info("****************** MyPaymentMethod_Confirmation_Message_Page_Back_Button_Validation Page URL & Page Title Validation ********************");
 			ExpectedPageTitle = VerifyBankingFundingPortal[15][2];			
 			ExpectedURL = VerifyBankingFundingPortal[15][1];

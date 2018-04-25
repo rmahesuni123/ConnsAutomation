@@ -5,20 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import org.apache.commons.logging.Log;
 
-import org.openqa.selenium.By;
+
 
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -30,21 +29,18 @@ import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 
 import com.etouch.connsPages.ConnsMainPage;
-import com.etouch.connsPages.CreditAppPage;
 import com.etouch.connsPages.PayYourBillPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
-import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
-import com.etouch.taf.webui.ITafElement;
+
 import com.etouch.taf.webui.selenium.WebPage;
 
-@Test(groups = "YesMoneyCreditApplication")
-@IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
+
 public class Conns_PayYourBill_Page extends BaseTest {
 	private String testBedName;
 	TestBed testBed;

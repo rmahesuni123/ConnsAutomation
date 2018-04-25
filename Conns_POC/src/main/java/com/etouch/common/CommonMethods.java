@@ -1811,10 +1811,10 @@ public class CommonMethods {
 		}
 	}
 	public void resetAPP(String deviceUDID) throws IOException {
-		// TODO Auto-generated method stub
+	
 		try{
 			log.info("Resetting App and clearing background instance");
-			Process p	= Runtime.getRuntime().exec("adb -s "+deviceUDID+" shell pm clear com.android.chrome");
+		//	Process p	= Runtime.getRuntime().exec("adb -s "+deviceUDID+" shell pm clear com.android.chrome");
 			log.info("Done");
 		}catch(Throwable t) 
 		{
