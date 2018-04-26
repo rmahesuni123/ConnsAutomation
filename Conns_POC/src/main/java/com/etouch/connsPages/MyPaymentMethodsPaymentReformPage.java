@@ -73,11 +73,11 @@ public class MyPaymentMethodsPaymentReformPage extends CommonPage {
 	}
 
 	
-	public static void HamburgerIconHandling(WebPage webPage, String testBedName,String testType,String [][]testdata, String [][] linkData,SoftAssert softAssert) {
+	public static void ResizeableDropDownHandling(WebPage webPage, String testBedName,String testType,String [][]testdata, String [][] linkData,SoftAssert softAssert) {
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			log.info("Started iteration------>");
-			log.info(" ************* Handling Hamburger Icon Starts on My Payment Methods Main Page *********");	
+			log.info(" ************* Handling Resizeable Dropdown Starts on My Payment Methods Main Page *********");	
 
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testBedName.equalsIgnoreCase("Chrome")) {
 			for (int i = 3; i < 5; i++) {
@@ -86,12 +86,10 @@ public class MyPaymentMethodsPaymentReformPage extends CommonPage {
 					log.info("Inside else if iPhoneNative : " + testBedName.toString());
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));
 					js.executeScript("arguments[0].click();", element_1);
-					CommonMethods.waitForGivenTime(20);
-					/*WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));
-					js.executeScript("arguments[0].click();", element_2);*/
-					log.info(" ************* PageBrokenLinkVerification Starts on My Payment Methods Main Page *********");	
-					PageBrokenLinkVerification( webPage, linkData, softAssert);
+					CommonMethods.waitForGivenTime(5);
 				}
+			log.info(" ************* PageBrokenLinkVerification Starts on My Payment Methods Main Page *********");	
+			PageBrokenLinkVerification( webPage, linkData, softAssert);
 			}else {
 				for (int i = 4; i < 5; i++) {
 					log.info("Inside else Web");
