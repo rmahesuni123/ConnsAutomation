@@ -185,7 +185,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	}
 
 	
-	@Test(priority = 302, enabled = true)
+	@Test(priority = 302, enabled = false)
 	public void MyPaymentMethod_CreditCard_Page() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("******Started MyPaymentMethod_CreditCard_Page ********");
 		SoftAssert softAssert = new SoftAssert();
@@ -278,7 +278,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 		
 	
 	/***************************************************************************************************************************/
-	@Test(priority = 303, enabled = true)
+	@Test(priority = 303, enabled = false)
 	public void MyPaymentMethod_Banking_Page() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("******Started MyPaymentMethod_Banking_Page ********");
 		SoftAssert softAssert = new SoftAssert();

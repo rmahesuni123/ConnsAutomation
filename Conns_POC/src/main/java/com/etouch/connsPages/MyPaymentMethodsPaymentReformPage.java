@@ -79,7 +79,7 @@ public class MyPaymentMethodsPaymentReformPage extends CommonPage {
 			log.info("Started iteration------>");
 			log.info(" ************* Handling Hamburger Icon Starts on My Payment Methods Main Page *********");	
 
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testBedName.equalsIgnoreCase("Chrome")) {
 			for (int i = 3; i < 5; i++) {
 				log.info("Started iteration" + i);
 				
@@ -93,18 +93,18 @@ public class MyPaymentMethodsPaymentReformPage extends CommonPage {
 					PageBrokenLinkVerification( webPage, linkData, softAssert);
 				}
 			}else {
-/*				for (int i = 4; i < 5; i++) {
+				for (int i = 4; i < 5; i++) {
 					log.info("Inside else Web");
 					CommonMethods.waitForGivenTime(10);
-					log.info("Inside else if iPhoneNative : " + testBedName.toString());
+					log.info("Inside else if  : " + testBedName.toString());
 					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));
 					js.executeScript("arguments[0].click();", element_1);
-					CommonMethods.waitForGivenTime(20);*/
-					WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[4][1]));
-					js.executeScript("arguments[0].click();", element_2);
+					CommonMethods.waitForGivenTime(20);
+					/*WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[4][1]));
+					js.executeScript("arguments[0].click();", element_2);*/
 					log.info(" ************* PageBrokenLinkVerification Starts on My Payment Methods Main Page *********");	
 					PageBrokenLinkVerification( webPage, linkData, softAssert);
-				//}
+				}
 			}
 			}
 		
