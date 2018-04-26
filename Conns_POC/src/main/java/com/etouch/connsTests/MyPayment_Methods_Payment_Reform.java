@@ -109,8 +109,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	@Test(priority = 301, enabled = true)
 	public void MyPaymentMethod_Main_Page() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("******Started MyPaymentMethod_Main_Page ********");
-		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();		
+		SoftAssert softAssert = new SoftAssert();		
 		String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "MyPaymentMethods",
 				"VerifyFontandSizeWeb");
 		String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "MyPaymentMethods",
@@ -138,19 +137,23 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 			}	
 		
 			log.info(" *********** Clicking on Submit Button on Registered Customer Login Page **********************");
-			for (int i = 2; i <=2;i++ ) {
-				ElementXpath = verify_SignIn_With_Valid_Input[i][1];
-				MyPaymentMethodsPaymentReformPage.PageElementClick(webPage,ElementXpath,softAssert);			
-			}
 			
-			log.info(" ************* PageBrokenLinkVerification Starts on My Payment Methods Main Page *********");		
-			MyPaymentMethodsPaymentReformPage.PageBrokenLinkVerification(webPage,linkData,softAssert);
+				ElementXpath = verify_SignIn_With_Valid_Input[2][1];
+				MyPaymentMethodsPaymentReformPage.PageElementClick(webPage,ElementXpath,softAssert);			
+			
+			
+			log.info(" *********** Handling Hamburger Icon & PageBrokenLinkVerification *********");
+			MyPaymentMethodsPaymentReformPage.HamburgerIconHandling(webPage, testBedName, testType,verify_SignIn_With_Valid_Input,linkData,softAssert);
+
+			
+				
+			//MyPaymentMethodsPaymentReformPage.PageBrokenLinkVerification(webPage,linkData,softAssert);
 			
 			log.info(" ************* My Payment Methods Click From Payment Method Main Page Resizeable Menu Option  Starts *********");		
-			for (int i = 3; i <=3;i++ ) {
-				ElementXpath = verify_SignIn_With_Valid_Input[i][1];
+			
+				ElementXpath = verify_SignIn_With_Valid_Input[4][1];
 				MyPaymentMethodsPaymentReformPage.PageElementClick(webPage,ElementXpath,softAssert);
-				}
+				
 			
 			log.info(" ************* FontSizeVerification Starts on My Payment Methods Main Page *********");
 			MyPaymentMethodsPaymentReformPage.FontSizeVerification(webPage,testType,testBedName,ExpectedFontValuesMobile,ExpectedFontValuesTab,ExpectedFontValuesWeb,softAssert);
@@ -162,10 +165,14 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 			MyPaymentMethodsPaymentReformPage.RowsTextContents(webPage, softAssert);			
 			
 			log.info(" ************* Validation & Clicking of Add Button on My Payment Methods Main Page *********");
-			WebElement Add_Button = webPage.getDriver().findElement(By.xpath(verify_SignIn_With_Valid_Input[6][1]));
+			
+			ElementXpath = verify_SignIn_With_Valid_Input[7][1];
+			MyPaymentMethodsPaymentReformPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
+			
+			/*WebElement Add_Button = webPage.getDriver().findElement(By.xpath(verify_SignIn_With_Valid_Input[7][1]));
 			if(Add_Button.isDisplayed())
-			commonMethods.scrollToElement(webPage, verify_SignIn_With_Valid_Input[6][1], softAssert);
-			js.executeScript("arguments[0].click();", Add_Button);
+			commonMethods.scrollToElement(webPage, verify_SignIn_With_Valid_Input[7][1], softAssert);
+			js.executeScript("arguments[0].click();", Add_Button);*/
 			
 		softAssert.assertAll();
 		}

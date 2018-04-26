@@ -37,8 +37,7 @@ import com.etouch.taf.util.SoftAssertor;
 
 import com.etouch.taf.webui.selenium.WebPage;
 
-@Test(groups = "YesMoneyCreditApplication")
-@IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
+
 public class Conns_BillPay_Page_SetUp_AutoPay extends BaseTest {
 	private String testBedName;
 	TestBed testBed;

@@ -73,6 +73,44 @@ public class MyPaymentMethodsPaymentReformPage extends CommonPage {
 	}
 
 	
+	public static void HamburgerIconHandling(WebPage webPage, String testBedName,String testType,String [][]testdata, String [][] linkData,SoftAssert softAssert) {
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		try {
+			log.info("Started iteration------>");
+			log.info(" ************* Handling Hamburger Icon Starts on My Payment Methods Main Page *********");	
+
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")) {
+			for (int i = 3; i < 5; i++) {
+				log.info("Started iteration" + i);
+				
+					log.info("Inside else if iPhoneNative : " + testBedName.toString());
+					WebElement element_1 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));
+					js.executeScript("arguments[0].click();", element_1);
+					CommonMethods.waitForGivenTime(20);
+					/*WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));
+					js.executeScript("arguments[0].click();", element_2);*/
+					log.info(" ************* PageBrokenLinkVerification Starts on My Payment Methods Main Page *********");	
+					PageBrokenLinkVerification( webPage, linkData, softAssert);
+				}
+			}else {
+				for (int i = 4; i < 5; i++) {
+					log.info("Inside else Web");
+					CommonMethods.waitForGivenTime(10);
+					/*WebElement element_2 = webPage.getDriver().findElement(By.xpath(testdata[i][1]));
+					js.executeScript("arguments[0].click();", element_2);*/
+					log.info(" ************* PageBrokenLinkVerification Starts on My Payment Methods Main Page *********");	
+					PageBrokenLinkVerification( webPage, linkData, softAssert);
+				}
+			}
+			}
+		
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		}
+		
+
+	
 /*public static void DropdownValueAllOptions (WebPage webPage,String locator,FileInputStream fileInput ,SoftAssert softAssert) 
 { 
 	try {
@@ -153,6 +191,7 @@ public static void CompareDropdownValueAllOptions (WebPage webPage,String filePa
 	public static void PageElementClick (WebPage webPage,String ElementXpath,SoftAssert softAssert) 
 	{  JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 	try {
+		commonMethods.waitForPageLoad(webPage, softAssert);
 		WebElement element = webPage.getDriver().findElement(By.xpath(ElementXpath));
 		js.executeScript("arguments[0].click();", element);
 		commonMethods.waitForPageLoad(webPage, softAssert);
@@ -225,7 +264,28 @@ public static void CompareDropdownValueAllOptions (WebPage webPage,String filePa
 	}
 	}
 	
-	
+	/**
+	 * author : Asim Singh Verify ClickElementPresenceByJS
+	 * 
+	 * @param webPage
+	 * @param softAssert
+	 * @throws InterruptedException
+	 */
+	public static void ClickElementPresenceByJS(WebPage webPage, String ElementXpath, SoftAssert softAssert) {
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		try {
+			log.info("**************ClickElementPresenceByJS starts  : ************************");
+			WebElement PageElement = webPage.getDriver().findElement(By.xpath(ElementXpath));
+			if (PageElement.isDisplayed())
+				log.info("PageElement Successfully Found  : ");
+			commonMethods.scrollToElement(webPage, ElementXpath, softAssert);
+			js.executeScript("arguments[0].click();", PageElement);
+			Thread.sleep(2000);
+			log.info("**************PageElement Successfully Found & Clicked  : ************************");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void PageBrokenLinkVerification(WebPage webPage,String[][] inputData,SoftAssert softAssert) 
 	{ 
