@@ -80,7 +80,7 @@ public class MyPaymentMethodsPaymentReformPage extends CommonPage {
 			log.info(" ************* Handling Resizeable Dropdown Starts on My Payment Methods Main Page *********");	
 
 			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testBedName.equalsIgnoreCase("Chrome")) {
-			for (int i = 3; i < 5; i++) {
+			for (int i = 3; i < 4; i++) {
 				log.info("Started iteration" + i);
 				
 					log.info("Inside else if iPhoneNative : " + testBedName.toString());
