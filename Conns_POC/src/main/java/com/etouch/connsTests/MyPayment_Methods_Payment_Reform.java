@@ -210,12 +210,12 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 			log.info("****** MyPaymentMethod_CreditCard_Panel_MonthDropdownValueAllOptions_Compare **********");
 			FilePath = "\\Conns_POC\\src\\test\\resources\\MonthDropDownValues.properties";
 			DropDownXpath = VerifyCreditCardFundingPortal[6][1];
-			//MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,softAssert);
+			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,softAssert);
 
 			log.info("****** MyPaymentMethod_CreditCard_Panel_YearDropdownValueAllOptions_Compare ******");
 			FilePath = "\\Conns_POC\\src\\test\\resources\\YearDropDownValues.properties";
 			DropDownXpath = VerifyCreditCardFundingPortal[7][1];
-			//MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,softAssert);
+			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,softAssert);
 
 			log.info("******* MyPaymentMethod_CreditCard_Panel_State_DropDown_Menu_Fill_Up ******");
 			for (int i = 5; i <= 7; i++) {
