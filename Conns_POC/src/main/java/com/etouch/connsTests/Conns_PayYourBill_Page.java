@@ -243,8 +243,7 @@ public class Conns_PayYourBill_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "PayYourBill","verifyBillPayLeftNavLinks");
-			
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "PayYourBill","verifyBillPayLeftNavLinks");			
 			List<WebElement> leftNavLinks = commonMethods.findElementsByXpath(webPage, testData[0][1], softAssert);
 			String navLinks = "";
 			for (WebElement webElement : leftNavLinks) {
