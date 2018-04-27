@@ -12,7 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
-import com.etouch.connsTests.Conns_BillPay_Page;
 import com.etouch.connsTests.Conns_BillPay_Page_SetUp_AutoPay;
 
 import com.etouch.taf.core.exception.PageException;
@@ -21,14 +20,14 @@ import com.etouch.taf.util.LogUtil;
 
 import com.etouch.taf.webui.selenium.WebPage;
 
-public class BillPayPage extends  Conns_BillPay_Page {
-	static Log log = LogUtil.getLog(BillPayPage.class);
+public class BillPayPageSetUpAutoPay extends  Conns_BillPay_Page_SetUp_AutoPay {
+	static Log log = LogUtil.getLog(BillPayPageSetUpAutoPay.class);
 	String payBillUrl = null;
 	// CommonMethods commonMethods = new CommonMethods();
 	static CommonMethods commonMethods = new CommonMethods();
 	static WebPage webPage;
 
-	BillPayPage billPage ;/*new CreditAppPage() ;*/
+	BillPayPageSetUpAutoPay billPage ;/*new CreditAppPage() ;*/
 
 	/**
 	 * Verify PayYourBill abd Account page Verbiage
@@ -236,7 +235,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	   }else {
 	    log.info("*************  AutoPay is setup, Cancelling AutoPay now   : ***********************");
 	   //Click on Set Up Auto Pay Button
-	   BillPayPage.setupAccountRetrievalFunctionality(webPage, dataInput, softAssert);
+	   BillPayPageSetUpAutoPay.setupAccountRetrievalFunctionality(webPage, dataInput, softAssert);
 	   commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("setupAutoPayButton"),softAssert);
 	   }
 		}
@@ -351,18 +350,14 @@ public class BillPayPage extends  Conns_BillPay_Page {
 			String minAmountchar, SoftAssert softAssert) {
 		int minDueAmount = 0;
 		try {
-			log.info(" minAmountchar Starts : " );
 			minAmountDue = webPage.getDriver().findElement(By.xpath(MinimumAmountDueXpath)).getText();
-			minAmountchar = minAmountDue.substring(18, 22);
+			minAmountchar = minAmountDue.substring(18, 23);
 			log.info(" minAmountchar : " + minAmountchar);
 			double amount = Double.parseDouble(minAmountchar);
-			log.info(" double amount : " + amount);
 			minDueAmount = (int) amount;
-			log.info(" minDueAmount : " + minDueAmount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		log.info(" return minDueAmount : " + minDueAmount);
 		return minDueAmount;
 	}
 
@@ -1157,10 +1152,8 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @return
 	 */
 	public int getPaymentAmountByXpath(String locator, WebPage webpage, SoftAssert softAssert) {
-		log.info(" ******** getPaymentAmountByXpath: ********* " );
 		String balance = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator,
 				softAssert);
-		log.info(" ******** balance : ****** " + balance);
 		int curBalance = Integer.parseInt(balance.substring(balance.indexOf("$")));
 		log.info("Payemnt Balance Amount:" + curBalance);
 		return curBalance;

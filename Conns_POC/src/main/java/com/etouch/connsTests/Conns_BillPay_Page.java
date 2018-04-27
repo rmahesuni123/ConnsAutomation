@@ -32,6 +32,7 @@ import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 import com.etouch.connsPages.BillPayPage;
+import com.etouch.connsPages.BillPayPageSetUpAutoPay;
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.connsPages.CreditAppPage;
 import com.etouch.taf.core.TestBed;
@@ -45,8 +46,7 @@ import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
-@Test(groups = "YesMoneyCreditApplication")
-@IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
+
 public class Conns_BillPay_Page extends BaseTest {
 	private String testBedName;
 	TestBed testBed;
@@ -60,10 +60,10 @@ public class Conns_BillPay_Page extends BaseTest {
 	protected static String url;
 	WebPage webPage;
 	
-
+	protected static LinkedHashMap<String, String> commonData;
 	
 	private ConnsMainPage mainPage;
-	protected static LinkedHashMap<String, String> commonData;
+	
 	CommonMethods commonMethods;
 	String platform;
 	String AbsolutePath = TafExecutor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -112,7 +112,7 @@ public class Conns_BillPay_Page extends BaseTest {
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				log.info("DataFilePath After is : " + DataFilePath);
-				commonData = CommonMethods.getDataInHashMap(DataFilePath, "BillPayPage","BillPageCommonElements");
+				commonData = CommonMethods.getDataInHashMap(DataFilePath, "BillPayPage","BillPageCommonElements"); 
 				
 				platform = testBed.getPlatform().getName().toUpperCase();
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
@@ -156,8 +156,9 @@ public class Conns_BillPay_Page extends BaseTest {
 			
 			//Click on Sign In link
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("signInLinkXPath"),softAssert);
-			
-			//Click on Pay your Bill header link
+			webPage.sleep(10000);
+			log.info("****** Click on Pay your Bill header link *****8");
+			log.info("******************************"+commonData.get("emailId"));
 			billPayPage.connsLogin(testData[0][1], testData[1][1], webPage, softAssert);
 			
 			//Click-on Credit Summary Link
@@ -175,12 +176,13 @@ public class Conns_BillPay_Page extends BaseTest {
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("payBillBtnXpath"),softAssert);
 			
 			//Verify Schedule Payment header text Displayed
-			softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert).contains(testData[5][1]),
-					"Account Summary Header text. Expected "+testData[5][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert));
+			softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, testData[5][1], softAssert).contains(testData[6][1]),
+					"Schedule Payment Header text. Expected "+testData[6][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[5][1], softAssert));
 			
 			
 			softAssert.assertAll();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "content_functionality_Overdue_account");
 			softAssert.assertAll();
 		}
@@ -263,17 +265,32 @@ public class Conns_BillPay_Page extends BaseTest {
 			//Fetch verifyVerbiageRegisteredUsers data from excel 
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage","PaymentAmountAccountSummarySchedulePages");
 			
-			//Click on Back button
-			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), commonData.get("shedulePaymntBackBtnXpath"),softAssert);
+			log.info("***** Click on Back button********");
+			String ElementXpath = commonData.get("shedulePaymntBackBtnXpath");
+			BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
+			//commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), commonData.get("shedulePaymntSubmitBtnId"),softAssert);
 			
-			int accountSumaryMinPaynt = billPayPage.getPaymentAmountByXpath(commonData.get("minPayXpath"), webPage, softAssert);
+		
+			/*int currentBalanceAmount = BillPayPageSetUpAutoPay.currentBalanceAmount(webPage, AutoPayCurrentBalanceXPath, currentBalance,mychar, softAssert);
+			double ExactCurrentBalanceAmount =BillPayPageSetUpAutoPay.ExactCurrentBalanceAmount(webPage, AutoPayCurrentBalanceXPath, currentBalance,mychar, softAssert);
+			int minDueAmount = BillPayPageSetUpAutoPay.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert);*/
+			/*String minAmountDue = "";
+			String minAmountchar = "";
+			String MinimumAmountDueXpath = commonData.get("minPayXpath");
+			int accountSumaryMinPaynt = BillPayPage.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert);*/
+			
 			
 			//Verify  Minimum payment amount displayed on Account summary and payment screen
+			int accountSumaryMinPaynt = billPayPage.getPaymentAmountByXpath(commonData.get("minPayXpath"), webPage, softAssert);
+			log.info("***** accountSumaryMinPaynt********" +accountSumaryMinPaynt);
 			softAssert.assertEquals(accountSumaryMinPaynt,billPayPage.getAmount(commonData.get("shedulePaymntMinPayntXPath"), webPage, softAssert),
 					"Minimum payment amount displayed on Account summary and payment screen . Expected "+billPayPage.getAmount(commonData.get("shedulePaymntMinPayntXPath"), webPage, softAssert)+" Actual : "+accountSumaryMinPaynt);
 			
+			/*softAssert.assertEquals(accountSumaryMinPaynt,BillPayPage.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert),
+					"Minimum payment amount displayed on Account summary and payment screen . Expected "+BillPayPage.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert)+" Actual : "+accountSumaryMinPaynt);*/
+			
 			//Verify   current balance  displayed on Account summary and payment screen
-			softAssert.assertEquals(billPayPage.getAmount(commonData.get("overdueCBAmountXpath"), webPage, softAssert),billPayPage.getAmount(commonData.get("shedulePaymntCurrentBalAmtXpath"), webPage, softAssert),
+			/*softAssert.assertEquals(billPayPage.getAmount(commonData.get("overdueCBAmountXpath"), webPage, softAssert),billPayPage.getAmount(commonData.get("shedulePaymntCurrentBalAmtXpath"), webPage, softAssert),
 					" current balance displayed on Account summary and payment screen . Expected "+billPayPage.getAmount(commonData.get("shedulePaymntCurrentBalAmtXpath"), webPage, softAssert)+" Actual : "+billPayPage.getAmount(commonData.get("overdueCBAmountXpath"), webPage, softAssert));
 			
 			//Select Payment Due Radio button
@@ -310,7 +327,7 @@ public class Conns_BillPay_Page extends BaseTest {
 			disclaimersText = disclaimersText.replace(disclaimersRemoveText, "");
 			
 			softAssert.assertEquals(disclaimersText,testData[1][1],
-					"Disclaimers Text . Expected "+testData[1][1]+" Actual : "+disclaimersText);
+					"Disclaimers Text . Expected "+testData[1][1]+" Actual : "+disclaimersText);*/
 			
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -323,7 +340,7 @@ public class Conns_BillPay_Page extends BaseTest {
 	 * TC_071 to TC_074
 	 * @throws Exception
 	 */
-	@Test(priority = 1004, enabled = true, description = "Verify content on conformation screen SchedulePages")
+	@Test(priority = 1004, enabled = false, description = "Verify content on conformation screen SchedulePages")
 	public void verify_Content_Conformation_Screen_Schedule_Page() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -401,7 +418,7 @@ public class Conns_BillPay_Page extends BaseTest {
 	 * TC_079
 	 * @throws Exception
 	 */
-	@Test(priority = 1005, enabled = true, description = "Verify One Time Payment Confirmation Font properties")
+	@Test(priority = 1005, enabled = false, description = "Verify One Time Payment Confirmation Font properties")
 	public void verify_Payment_Conformation_Page_FontProperties() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -441,7 +458,7 @@ public class Conns_BillPay_Page extends BaseTest {
 	 * TC_078
 	 * @throws Exception
 	 */
-	@Test(priority = 1006, enabled = true, description = "Verify Account summary page Font properties")
+	@Test(priority = 1006, enabled = false, description = "Verify Account summary page Font properties")
 	public void verify_LinkYour_Account_Page_FontProperties() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {

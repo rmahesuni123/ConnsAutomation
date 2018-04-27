@@ -22,7 +22,7 @@ import org.testng.asserts.SoftAssert;
 import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
-import com.etouch.connsPages.BillPayPage;
+import com.etouch.connsPages.BillPayPageSetUpAutoPay;
 
 import com.etouch.connsPages.ConnsMainPage;
 
@@ -59,7 +59,7 @@ public class Conns_BillPay_Page_SetUp_AutoPay extends BaseTest {
 	String[][] YesLeaseData;
 	Random random = new Random();
 	protected static LinkedHashMap<Long, String> testBedNames = new LinkedHashMap<Long, String>();
-	BillPayPage billPayPage;
+	BillPayPageSetUpAutoPay billPayPage;
 	protected static LinkedHashMap<Long, WebPage> webPageMap = new LinkedHashMap<Long, WebPage>();
 	JavascriptExecutor js;
 
@@ -107,7 +107,7 @@ public class Conns_BillPay_Page_SetUp_AutoPay extends BaseTest {
 			platform = testBed.getPlatform().getName().toUpperCase();
 			url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 			synchronized (this) {
-				billPayPage = new BillPayPage();
+				billPayPage = new BillPayPageSetUpAutoPay();
 				Thread.sleep(3000);
 				webPage = new WebPage(context);
 				webPageMap.put(Thread.currentThread().getId(), webPage);
@@ -171,7 +171,7 @@ public class Conns_BillPay_Page_SetUp_AutoPay extends BaseTest {
 		try {
 		
 			log.info("**** Click on Sign In link ****");
-			BillPayPage.ClickElementPresenceByJS(webPage, signInLinkXPath, softAssert);
+			BillPayPageSetUpAutoPay.ClickElementPresenceByJS(webPage, signInLinkXPath, softAssert);
 		
 			log.info("**** Click on Pay your Bill header link ****");
 			billPayPage.connsLogin(inputData[0][1], inputData[1][1], webPage, softAssert);
@@ -180,34 +180,34 @@ public class Conns_BillPay_Page_SetUp_AutoPay extends BaseTest {
 			commonMethods.clickElementbyLinkText(webPage, commonData.get("creditSummaryLinkText"), softAssert);
 			
 			log.info("**** SetUp AutoPayButtonHandling Starts ****");
-			BillPayPage.AutoPayButtonHandling(webPage, ElementXpath, dataInput, softAssert);
+			BillPayPageSetUpAutoPay.AutoPayButtonHandling(webPage, ElementXpath, dataInput, softAssert);
 			
 			log.info("**** Setup Auto Pay Default Radio Button isSelected Validation ****");
 			log.info("**** Identify Default Radio Button Validation :");
-			BillPayPage.RadioButtonValidation(webPage, feedData, softAssert);
+			BillPayPageSetUpAutoPay.RadioButtonValidation(webPage, feedData, softAssert);
 			
 			log.info("**** AddNewPayMethod Functionality *****");
-			BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
+			BillPayPageSetUpAutoPay.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
 			
 			log.info("**** Credit Card Funding Portal Page Title URL Validation  *********");
-			BillPayPage.PageTitle_PageURL_Validation(webPage, testData, ExpectedURL, ExpectedPageTitle);
+			BillPayPageSetUpAutoPay.PageTitle_PageURL_Validation(webPage, testData, ExpectedURL, ExpectedPageTitle);
 			
 			log.info("**** Cancel Button Validation & Click on Credit Card Funding Portal ****");
-			BillPayPage.ClickElementPresenceByJS(webPage, CancelButtonFundingPortal, softAssert);
+			BillPayPageSetUpAutoPay.ClickElementPresenceByJS(webPage, CancelButtonFundingPortal, softAssert);
 			
 			log.info("**** Cancel Button Error Message Validation : Unable to add New Payment Method *******");
-			BillPayPage.ErroMessageValidation(webPage, ActualCancelButtonErrorMessage, CancelButtonErrorMessageXpath,ExpectedCancelButtonErrorMessage, softAssert);
+			BillPayPageSetUpAutoPay.ErroMessageValidation(webPage, ActualCancelButtonErrorMessage, CancelButtonErrorMessageXpath,ExpectedCancelButtonErrorMessage, softAssert);
 			
 			log.info("**** Select Minimum Payment Pay Radio button selection **** ");
-			BillPayPage.isDefaultRadioButtonSelected(webPage,softAssert);
-			BillPayPage.ClickElementPresenceByJS(webPage, selectAlternatePaymentDateRadioButtonXPATH, softAssert);
+			BillPayPageSetUpAutoPay.isDefaultRadioButtonSelected(webPage,softAssert);
+			BillPayPageSetUpAutoPay.ClickElementPresenceByJS(webPage, selectAlternatePaymentDateRadioButtonXPATH, softAssert);
 			
 			log.info("**** SelectPaymentDate_DropDown_Menu_Fill_Up with Invalid Input & Assertion Message****"); 			
-			BillPayPage.selectDropdownByValue(webPage, DropDownXpath, invalidDropDownValue, softAssert);
-			BillPayPage.DropDownValueErrorMessageAssertion(webPage, SelectPaymentDateDropDownData, testData, softAssert);
+			BillPayPageSetUpAutoPay.selectDropdownByValue(webPage, DropDownXpath, invalidDropDownValue, softAssert);
+			BillPayPageSetUpAutoPay.DropDownValueErrorMessageAssertion(webPage, SelectPaymentDateDropDownData, testData, softAssert);
 			
 			log.info("**** SelectPaymentDate_DropDown_Menu_Fill_Up with Valid Input ");
-			BillPayPage.selectDropdownByValue(webPage, DropDownXpath, validDropDownValue, softAssert);
+			BillPayPageSetUpAutoPay.selectDropdownByValue(webPage, DropDownXpath, validDropDownValue, softAssert);
 			
 			softAssert.assertAll();
 			log.info("***** verify_SetUpAutoPayFunctionality Scenarios Completed Successfully ****");
@@ -243,49 +243,49 @@ public class Conns_BillPay_Page_SetUp_AutoPay extends BaseTest {
 		String SelectOtherAmountToPayTextBox = commonData.get("SelectOtherAmountToPayTextBox");
 		String AutoPayDisclaimerTextXPath = commonData.get("AutoPayDisclaimerText");
 		String[][] dataInput = ExcelUtil.readExcelData(DataFilePath, "BillPayPage", "SelectAmountPaymentScreen");
-		int currentBalanceAmount = BillPayPage.currentBalanceAmount(webPage, AutoPayCurrentBalanceXPath, currentBalance,mychar, softAssert);
-		double ExactCurrentBalanceAmount =BillPayPage.ExactCurrentBalanceAmount(webPage, AutoPayCurrentBalanceXPath, currentBalance,mychar, softAssert);
-		int minDueAmount = BillPayPage.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert);
+		int currentBalanceAmount = BillPayPageSetUpAutoPay.currentBalanceAmount(webPage, AutoPayCurrentBalanceXPath, currentBalance,mychar, softAssert);
+		double ExactCurrentBalanceAmount =BillPayPageSetUpAutoPay.ExactCurrentBalanceAmount(webPage, AutoPayCurrentBalanceXPath, currentBalance,mychar, softAssert);
+		int minDueAmount = BillPayPageSetUpAutoPay.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert);
 		try {
 			
 			log.info("*****  Negative Scenarios Starts *************");
 			log.info("****** Blank Input for Other Amount text box : *****");
 			log.info("****** Select Other Amount Id Radio button ********");
 			log.info("****** Click on Submit button,Verify Radio button Error Text :*****");
-			BillPayPage.BlankInputValidation(webPage, SelectOtherAmountToPayRadioButtonXPath, AutoPaySubmitButtonXPath,	dataInput, softAssert);
+			BillPayPageSetUpAutoPay.BlankInputValidation(webPage, SelectOtherAmountToPayRadioButtonXPath, AutoPaySubmitButtonXPath,	dataInput, softAssert);
 			
 			log.info("**** minAmountDue *****  : " + minAmountDue );
 			log.info("**** New Less than minAmountDue : " + minDueAmount);
 			log.info("**** Enter Amount Equal To Minimum Amount or payment due : 85.06");
 			log.info("**** Press TAB,Verify Payment Other Date radio button Error Text");			
 			log.info("**** Verify Disclaimers Text & Clear other amount data Text box value & Press TAB");
-			BillPayPage.MinimumAmountToPayValidation(webPage, SelectOtherAmountToPayTextBox, AutoPaySubmitButtonXPath,dataInput, minDueAmount, softAssert);
-			BillPayPage.DisclaimerTextValidation(webPage, disclaimersText, disclaimersRemoveText,AutoPayDisclaimerTextXPath, SelectOtherAmountToPayTextBox, minDueAmount, softAssert);
+			BillPayPageSetUpAutoPay.MinimumAmountToPayValidation(webPage, SelectOtherAmountToPayTextBox, AutoPaySubmitButtonXPath,dataInput, minDueAmount, softAssert);
+			BillPayPageSetUpAutoPay.DisclaimerTextValidation(webPage, disclaimersText, disclaimersRemoveText,AutoPayDisclaimerTextXPath, SelectOtherAmountToPayTextBox, minDueAmount, softAssert);
 			
 			log.info("**** minAmountDue *****  : " + minDueAmount );
 			log.info("**** New minAmountDue : " + --minDueAmount);
 			log.info("**** Enter Amount Less Than Minimum Amount or payment due : 85.06");
 			log.info("**** Press TAB,Verify Payment Other Date radio button Error Text");
 			log.info("**** Verify Disclaimers Text & Clear other amount data Text box value & Press TAB");
-			BillPayPage.MinimumAmountToPayValidation(webPage, SelectOtherAmountToPayTextBox, AutoPaySubmitButtonXPath,dataInput, minDueAmount, softAssert);
-			BillPayPage.DisclaimerTextValidation(webPage, disclaimersText, disclaimersRemoveText,AutoPayDisclaimerTextXPath, SelectOtherAmountToPayTextBox, minDueAmount, softAssert);
+			BillPayPageSetUpAutoPay.MinimumAmountToPayValidation(webPage, SelectOtherAmountToPayTextBox, AutoPaySubmitButtonXPath,dataInput, minDueAmount, softAssert);
+			BillPayPageSetUpAutoPay.DisclaimerTextValidation(webPage, disclaimersText, disclaimersRemoveText,AutoPayDisclaimerTextXPath, SelectOtherAmountToPayTextBox, minDueAmount, softAssert);
 			
 			log.info("**** currentBalance *****  : " + currentBalanceAmount);
 			log.info("**** New currentBalance **** : " + currentBalanceAmount);
 			log.info("**** Enter Amount Equal To  Current Balance amount or payment due:");
 			log.info("**** Press TAB,Verify Payment Other Date radio button Error Text:");			
 			log.info("**** Verify Disclaimers Text & Clear other amount data Text box value : ***** ");
-			BillPayPage.ExactCurrentAmountToPayValidation(webPage, SelectOtherAmountToPayTextBox, AutoPaySubmitButtonXPath,dataInput, ExactCurrentBalanceAmount, softAssert);
-			BillPayPage.ExactDisclaimerTextValidation(webPage, disclaimersText, disclaimersRemoveText,AutoPayDisclaimerTextXPath, SelectOtherAmountToPayTextBox, ExactCurrentBalanceAmount, softAssert);
+			BillPayPageSetUpAutoPay.ExactCurrentAmountToPayValidation(webPage, SelectOtherAmountToPayTextBox, AutoPaySubmitButtonXPath,dataInput, ExactCurrentBalanceAmount, softAssert);
+			BillPayPageSetUpAutoPay.ExactDisclaimerTextValidation(webPage, disclaimersText, disclaimersRemoveText,AutoPayDisclaimerTextXPath, SelectOtherAmountToPayTextBox, ExactCurrentBalanceAmount, softAssert);
 			
 			log.info("**** Enter Amount More Than Current Balance : ****");
 			log.info("**** Press Tab,Verify Payment Other Date radio button Error Text : ****");
 			log.info("**** currentBalance     : **** " + currentBalanceAmount);
 			log.info("**** New currentBalance : *****" + ++currentBalanceAmount);			
-			BillPayPage.CurrentAmountToPayValidation(webPage, SelectOtherAmountToPayTextBox, AutoPaySubmitButtonXPath,dataInput, currentBalanceAmount, softAssert);
+			BillPayPageSetUpAutoPay.CurrentAmountToPayValidation(webPage, SelectOtherAmountToPayTextBox, AutoPaySubmitButtonXPath,dataInput, currentBalanceAmount, softAssert);
 			
 			log.info("**** Verify Disclaimers Text & Clear other amount data Text box value : ****");
-			BillPayPage.DisclaimerTextValidationForCurrentBalance(webPage, disclaimersText, disclaimersRemoveText,AutoPayDisclaimerTextXPath, SelectOtherAmountToPayTextBox, currentBalanceAmount, numberAsString,softAssert);
+			BillPayPageSetUpAutoPay.DisclaimerTextValidationForCurrentBalance(webPage, disclaimersText, disclaimersRemoveText,AutoPayDisclaimerTextXPath, SelectOtherAmountToPayTextBox, currentBalanceAmount, numberAsString,softAssert);
 		
 			softAssert.assertAll();
 			log.info("** verify_SetUp_AutoPay_OtherAmountErrorMessage_DisclaimerText Completed Successfully ***");
@@ -319,36 +319,36 @@ public class Conns_BillPay_Page_SetUp_AutoPay extends BaseTest {
 		String ConfirmationSuccessMessageBackButtonXPath = dataInput[33][1];
 		String AutoPayCurrentBalanceXPath = commonData.get("AutoPayCurrentBalance");
 		String MinimumAmountDueXpath = commonData.get("MinimumAmountDue");
-		int currentBalanceAmount = BillPayPage.currentBalanceAmount(webPage, AutoPayCurrentBalanceXPath, currentBalance, mychar, softAssert);
-		int minDueAmount = BillPayPage.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert);
+		int currentBalanceAmount = BillPayPageSetUpAutoPay.currentBalanceAmount(webPage, AutoPayCurrentBalanceXPath, currentBalance, mychar, softAssert);
+		int minDueAmount = BillPayPageSetUpAutoPay.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert);
 		try {
 			log.info("*****  Positive Scenarios Starts *************");
 			log.info("***** SelectAmountToPayRadioButtonClicking Scenario Starts : **********");
-			BillPayPage.SelectAmountToPayRadioButtonClicking(webPage, testInput, softAssert);
+			BillPayPageSetUpAutoPay.SelectAmountToPayRadioButtonClicking(webPage, testInput, softAssert);
 			
 			log.info("**** Enter Amount More Than Minimum Amount or payment due : 85.06 ");
 			log.info("**** Press TAB,Verify Payment Other Date radio button Error Text ");
 			log.info("**** minAmountDue *****  : " + minDueAmount + "New minAmountDue : " + minDueAmount);
-			BillPayPage.MinAmountPositiveScenario(webPage, testInput, minDueAmount, softAssert);
+			BillPayPageSetUpAutoPay.MinAmountPositiveScenario(webPage, testInput, minDueAmount, softAssert);
 			
 			log.info("**** Current Balance Amount Positive Scenario Starts : **********");
 			log.info("**** Enter Amount Less Than  Current Balance amount or payment due ");
 			log.info("**** Press TAB,Verify Payment Other Date radio button Error Text");
 			log.info("**** currentBalance *****  : " + currentBalanceAmount);
 			log.info("**** New currentBalance :  " + currentBalanceAmount);
-			BillPayPage.currentBalanceAmountPositiveScenario(webPage, testInput, currentBalanceAmount, softAssert);
+			BillPayPageSetUpAutoPay.currentBalanceAmountPositiveScenario(webPage, testInput, currentBalanceAmount, softAssert);
 			
 			log.info("**** Pop Up Box Text Validation Starts :  *********** : ");
-			BillPayPage.PopUpBoxTextValidation(webPage, dataInput, testInput, softAssert);
+			BillPayPageSetUpAutoPay.PopUpBoxTextValidation(webPage, dataInput, testInput, softAssert);
 			
 			log.info("**** Confirmation Success Message  FontSizeVerification  Starts :  *********** : ");
-			BillPayPage.FontSizeVerification(webPage, minAmountchar, numberAsString, ExpectedFontValuesMobile,ExpectedFontValuesTab, ExpectedFontValuesWeb, softAssert);
+			BillPayPageSetUpAutoPay.FontSizeVerification(webPage, minAmountchar, numberAsString, ExpectedFontValuesMobile,ExpectedFontValuesTab, ExpectedFontValuesWeb, softAssert);
 			
 			log.info("**** Clicking Confirmation Success Message Back Button Click :  *********** : ");
-			BillPayPage.ClickElementPresenceByJS(webPage, ConfirmationSuccessMessageBackButtonXPath, softAssert);
+			BillPayPageSetUpAutoPay.ClickElementPresenceByJS(webPage, ConfirmationSuccessMessageBackButtonXPath, softAssert);
 			
 			log.info("**** Confirmation Functionality setupAccountRetrievalFunctionality Starts :  *********** : ");
-			BillPayPage.setupAccountRetrievalFunctionality(webPage, dataInput, softAssert);
+			BillPayPageSetUpAutoPay.setupAccountRetrievalFunctionality(webPage, dataInput, softAssert);
 			
 			softAssert.assertAll();
 			log.info("**** verify_Confirmation_Message_Functionality Completed Successfully ***");
