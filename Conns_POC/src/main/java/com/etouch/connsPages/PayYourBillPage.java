@@ -3,7 +3,7 @@ package com.etouch.connsPages;
 
 
 import org.apache.commons.logging.Log;
-
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
@@ -65,12 +65,16 @@ public class PayYourBillPage extends Conns_PayYourBill_Page {
 	  * @throws Exception
 	  */
 	 public void loginWithGivenDetails(String email, String password,WebPage webPage,SoftAssert softAssert) throws Exception{
+		 JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		 commonMethods.sendKeysById(webPage, commonData.get("emailId"), email, softAssert);
 		 commonMethods.sendKeysById(webPage, commonData.get("passwordId"), password, softAssert);
 		 commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), commonData.get("loginButtonId"),softAssert);
-		 webPage.sleep(8000);
-		 softAssert.assertEquals(webPageMap.get(Thread.currentThread().getId()).getPageTitle(),commonData.get("successLoginPageTitle"),
-					"Success Loign page title . Expected "+commonData.get("successLoginPageTitle")+" Actual : "+webPageMap.get(Thread.currentThread().getId()).getPageTitle());
+		 webPage.sleep(2000);
+		 js.executeScript("javascript: setTimeout(\"history.go(0)\", 2000)");
+		 log.info("webPage.getPageTitle() : "+webPage.getPageTitle());
+		 log.info("commonData.get('successLoginPageTitle') : "+commonData.get("successLoginPageTitle"));
+		 softAssert.assertEquals(webPage.getPageTitle(),commonData.get("successLoginPageTitle"),
+					"Success Loign page title . Expected "+commonData.get("successLoginPageTitle")+" Actual : "+webPage.getPageTitle());
 			
 		 
 	 }
