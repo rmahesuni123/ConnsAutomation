@@ -143,7 +143,9 @@ public class ManageAutoPayPage extends Conns_Manage_AutoPay_Page {
 	 */
 	public int getPaymentAmountByXpath(String locator, WebPage webpage, SoftAssert softAssert) {
 		String balance = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
-		
+		log.info("Balance Amount:"+balance);
+		log.info("Balance Amount:"+balance.substring(balance.indexOf("$")+1));
+		log.info("Balance Amount:"+balance.indexOf("$")+3);
 		int curBalance = Integer.parseInt(balance.substring(balance.indexOf("$")+1,balance.indexOf("$")+3));
 		log.info("Payemnt Balance Amount:"+curBalance);
 		return curBalance;
