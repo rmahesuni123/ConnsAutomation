@@ -45,7 +45,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class CommonMethods {
 
 	static Log log = LogUtil.getLog(CommonMethods.class);
-
+	static CommonMethods commonMethods = new CommonMethods();
 
 	/**
 	 * @author Name - Deepak Bhambri
@@ -200,6 +200,28 @@ public class CommonMethods {
 		return pageUrl;
 	}
 
+	
+	public void HandlingResizeableDropDown(WebPage webPage,String testType, String testBedName,String LinkDropDown,String LegalDisclosureLink,String [][]testData,SoftAssert softAssert){		
+		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
+		try{
+			
+			for(int i = 5;i<=6;i++) {
+				log.info("****** HandlingResizeableDropDown Iteration value : ********* "+i);
+				commonMethods.waitForPageLoad(webPage, softAssert);
+				WebElement element=webPage.getDriver().findElement(By.xpath(testData[0][i]));					
+				js.executeScript("arguments[0].click();", element);
+				commonMethods.waitForPageLoad(webPage, softAssert);	
+				log.info("****** Datasheet Iteration value : ********* "+testData[0][i].toString());
+				CommonMethods.waitForGivenTime(5);
+			}
+		
+		}
+		catch(Throwable e){
+			e.printStackTrace(); 			
+		}
+		
+	}
+	
 	/**
 	 * @author Name - Archana
 	 * The method used to click on link using x-path and return page url
@@ -207,17 +229,27 @@ public class CommonMethods {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public String clickAndGetPageURLByJSLegalDisclosure(WebPage webPage, String locator, String linkName, String TargetpageLocator,String TargetPageHeader,SoftAssert softAssert){
+	public String clickAndGetPageURLByJSLegalDisclosure(WebPage webPage, String locator, String linkName, String Navigation_URL, String TargetpageLocator,String TargetPageHeader,String testType, String testBedName,String LinkDropDown,String LegalDisclosureLink,String [][] testData,SoftAssert softAssert){
 		String pageUrl="";
 		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
 		try{
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			//webPage.findObjectByxPath(locator).click();
+			log.info("****** testBedName : "+testBedName.toString());
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testBedName.equalsIgnoreCase("Chrome")) 
+			{			
+			HandlingResizeableDropDown(webPage,testType,testBedName,LinkDropDown,LegalDisclosureLink,testData,softAssert);
+			log.info("****** HandlingResizeableDropDown Completed successfully for **********  : "+testBedName.toString()); 
+			}
+		else {
+				log.info("Clicking on element using xpath - "+locator);
+				WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
+				js.executeScript("arguments[0].click();", element);
+			}	
+			
+			log.info("****** Window Switching Starts **********  : "+testBedName.toString()); 
 
-			log.info("Clicking on element using xpath - "+locator);
-			WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
-			js.executeScript("arguments[0].click();", element);
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
 			if(windowHandlesSet.size()>1){
 				for(String winHandle:windowHandlesSet){

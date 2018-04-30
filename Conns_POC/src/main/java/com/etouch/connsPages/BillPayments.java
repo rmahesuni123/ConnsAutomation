@@ -100,7 +100,7 @@ public class BillPayments extends CommonPage {
 	
 	
 
-	public String  verifyLinkNavigationUsingJS_LegalDisclosure(WebPage webPage,  String testData[][], String link_Locator,String link_Name,String Navigation_URL,  String TargetpageLocator,String TargetPageHeader, SoftAssert softAssert) {
+	/*public String  verifyLinkNavigationUsingJS_LegalDisclosure(WebPage webPage,  String link_Locator,String link_Name,String Navigation_URL,  String TargetpageLocator,String TargetPageHeader,  String testData[][],SoftAssert softAssert) {
 		String pageURL = "";
 	//	PageNavigation_PageLoad( webPage,  Navigation_URL, softAssert) ;
 		try {
@@ -114,7 +114,7 @@ public class BillPayments extends CommonPage {
 		e.printStackTrace();
 			}
 		return pageURL;
-	}
+	}*/
 	
 	
 	/**

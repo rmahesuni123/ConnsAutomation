@@ -80,14 +80,14 @@ public class MyOnlinePaymentsPage extends CommonPage {
 		return tooltipTxt;
 	}
 
-	public String verifyLinkNavigationUsingJS_LegalDisclosure(WebPage webPage, String testData[][], String link_Locator,
-			String link_Name, String Navigation_URL, String TargetpageLocator, String TargetPageHeader,
+	public String verifyLinkNavigationUsingJS_LegalDisclosure(WebPage webPage,  String link_Locator,
+			String link_Name, String Navigation_URL, String TargetpageLocator, String TargetPageHeader,String testType,  String testBedName, String LinkDropDown, String LegalDisclosureLink,String [][] testData,
 			SoftAssert softAssert) {
 		String pageURL = "";
 		// PageNavigation_PageLoad( webPage, Navigation_URL, softAssert) ;
 		try {
-			pageURL = commonMethods.clickAndGetPageURLByJSLegalDisclosure(webPage, link_Locator, link_Name,
-					TargetpageLocator, TargetPageHeader, softAssert);
+			pageURL = commonMethods.clickAndGetPageURLByJSLegalDisclosure(webPage, link_Locator, link_Name,Navigation_URL,
+					TargetpageLocator, TargetPageHeader,  testType,  testBedName, LinkDropDown, LegalDisclosureLink,testData, softAssert);
 			Thread.sleep(10000);
 
 		} catch (Exception e) {

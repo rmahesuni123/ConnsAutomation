@@ -244,7 +244,7 @@ public class Bill_Payments extends BaseTest {
 				
 								
 				log.info("***********  Verifying Target page url **************"  );
-				ActualURL = billPaymentsPage.verifyLinkNavigationUsingJS_LegalDisclosure(webPage,testData,Redirection_Link_Locator,link_Name,url, TargetpageLocator,TargetPageHeader,softAssert);
+			//	ActualURL = billPaymentsPage.verifyLinkNavigationUsingJS_LegalDisclosure(webPage,testData,Redirection_Link_Locator,link_Name,url, TargetpageLocator,TargetPageHeader,softAssert);
 				softAssert.assertTrue(ActualURL.contains(Expected_URL),"Expected url: "+Expected_URL+" Actual url: "+ActualURL);
 								
 			

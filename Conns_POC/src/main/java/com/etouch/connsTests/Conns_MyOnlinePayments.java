@@ -176,31 +176,37 @@ public class Conns_MyOnlinePayments extends BaseTest {
 	}
 
 	@Test(priority = 2, enabled = true, description = "Verify_Redirection_for_LegalDisclosures_Link")
-	public void Verify_Redirection_for_LegalDisclosures_Link() {
+	public void Verify_Redirection_for_LegalDisclosures_Link() {		
 		log.info("****************Started method Verify_Redirection_for_LegalDisclosures_Link()*******************");
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = "";
 		String TargetpageLocator;
 		String TargetPageHeader;
+		String Redirection_Link_Locator ="";
+		String Expected_URL = "";
+		String link_Name ="";
+		String LinkDropDown = "";
+		String LegalDisclosureLink = "";
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
 					"Verify_Redirection_for_LegalDisclosures_Link");
 
-			String Redirection_Link_Locator = testData[0][1];
-			String Expected_URL = testData[0][2];
-			String link_Name = testData[0][0];
+			Redirection_Link_Locator = testData[0][1];
+			Expected_URL = testData[0][2];
+			link_Name = testData[0][0];
 			TargetpageLocator = testData[0][3];
 			TargetPageHeader = testData[0][4];
+			LinkDropDown = testData[0][5];
+			LegalDisclosureLink = testData[0][6];
 
 			log.info("***********  Verifying Target page url **************");
-			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS_LegalDisclosure(webPage, testData,
-					Redirection_Link_Locator, link_Name, url, TargetpageLocator, TargetPageHeader, softAssert);
+			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS_LegalDisclosure(webPage, 
+					Redirection_Link_Locator, link_Name, url,    TargetpageLocator,  TargetPageHeader, testType,   testBedName,  LinkDropDown,  LegalDisclosureLink, testData, softAssert);
 			softAssert.assertTrue(ActualURL.contains(Expected_URL),
 					"Expected url: " + Expected_URL + " Actual url: " + ActualURL);
 
 			softAssert.assertAll();
-			log.info(
-					"****************Completed  method Verify_Redirection_for_LegalDisclosures_Link()*******************");
+			log.info("****************Completed  method Verify_Redirection_for_LegalDisclosures_Link()*******************");
 		} catch (Throwable e) {
 			e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPage, "Verify_Redirection_for_LegalDisclosures_Link");
@@ -247,8 +253,11 @@ public class Conns_MyOnlinePayments extends BaseTest {
 			for (int i = 0; i < 5; i++) {
 				String ColumnNameLocator = TableColumns[i][1];
 				String ColumnName = TableColumns[i][0];
-				log.info("Actual : " + commonMethods.getTextbyXpath(webPage, ColumnNameLocator, softAssert)
-						+ " Expected : " + ColumnName);
+				log.info("Iteration value : " +i);
+				/*log.info("Actual : " + commonMethods.getTextbyXpath(webPage, ColumnNameLocator, softAssert)
+						+ " Expected : " + ColumnName);*/
+				log.info("\nActual : " +commonMethods.getTextbyXpath(webPage, ColumnNameLocator, softAssert));
+				log.info("\nExpected : " + ColumnName);
 				softAssert.assertTrue(
 						(commonMethods.getTextbyXpath(webPage, ColumnNameLocator, softAssert).equals(ColumnName)),
 						"Column is not present");
@@ -316,7 +325,7 @@ public class Conns_MyOnlinePayments extends BaseTest {
 				log.info("******************::" + myString.matches(pattern) + "************************");
 				softAssert.assertTrue(myString.matches(pattern), "Confirmation number did not matched the pattern");
 
-				System.out.println(webElement.getText());
+				System.out.println("*********Confirmation Number column data *********** :"+webElement.getText());
 
 			}
 
@@ -347,14 +356,16 @@ public class Conns_MyOnlinePayments extends BaseTest {
 	@Test(priority = 4, enabled = true, description = "Verify My Recent Online Payments Font properties")
 	public void Verify_My_Recent_Online_Payments_Font_properties() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
-		log.info(
-				"*****************Started method Verify_My_Recent_Online_Payments_Font_properties()********************");
+		log.info("*********Started method Verify_My_Recent_Online_Payments_Font_properties()********");
 		try {
 
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
 					"My Online Payments_FontProperties");
 
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i <= 7; i++) {
+				if(i==7) {
+					commonMethods.scrollToElement(webPage, testData[7][1], softAssert);
+				}
 				webPage.sleep(10000);
 				String fontSize = commonMethods.getCssvaluebyXpath(webPage, testData[i][1], "font-size", softAssert);
 				String fontColor = commonMethods.getCssvaluebyXpath(webPage, testData[i][1], "color", softAssert);
@@ -384,6 +395,7 @@ public class Conns_MyOnlinePayments extends BaseTest {
 							"Background color . Expected " + testData[i][6] + " Actual : " + backgroundColor);
 
 			}
+			
 			softAssert.assertAll();
 			log.info(
 					"*****************Completed method Verify_My_Recent_Online_Payments_Font_properties()********************");

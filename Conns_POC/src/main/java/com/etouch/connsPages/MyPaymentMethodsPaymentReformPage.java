@@ -426,7 +426,7 @@ public static void CompareDropdownValueAllOptions (WebPage webPage,String filePa
 	
 	/********************************************************************************************************************************************************/
 	
-	if (!(testType.equalsIgnoreCase("Web")) && testBedName.equalsIgnoreCase("edge")) {
+	if ((testType.equalsIgnoreCase("Web")) && testBedName.equalsIgnoreCase("edge")) {
 		log.info("********************TestType for Edge started execution***************   : "
 				+ testType.toString());
 		for (int i = 0; i < ExpectedFontValuesWeb.length; i++) {
@@ -519,7 +519,7 @@ public static void CompareDropdownValueAllOptions (WebPage webPage,String filePa
 		}
 	}
 
-	 if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge")
+	/* if (testType.equalsIgnoreCase("Web") && testBedName.equalsIgnoreCase("edge")
 			|| testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("iPadNative")) {
 		log.info("********************TestType for Edge started execution***************   : "
 				+ testType.toString());
@@ -615,7 +615,7 @@ public static void CompareDropdownValueAllOptions (WebPage webPage,String filePa
 				}
 			}
 		}
-	} 
+	} */
 	 
 	 else if (testType.equalsIgnoreCase("Mobile")
 			|| (testType.equalsIgnoreCase("Mobile") && testBedName.equalsIgnoreCase("IPhoneNative"))) {
