@@ -5,23 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
+
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import org.apache.commons.logging.Log;
-import org.openqa.selenium.Alert;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
+
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -32,7 +28,7 @@ import com.etouch.common.BaseTest;
 import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 import com.etouch.connsPages.ConnsMainPage;
-import com.etouch.connsPages.CreditAppPage;
+
 import com.etouch.connsPages.ManageAutoPayPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
@@ -42,7 +38,6 @@ import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
-import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
 @Test(groups = "YesMoneyCreditApplication")
@@ -246,7 +241,6 @@ public class Conns_Manage_AutoPay_Page extends BaseTest {
 	public void verify_Content_ManageAutoPay_Account() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-		//	String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ManageAutoPayPage","ContentManageAutoPayAccount");
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ManageAutoPayPage","ContentManageAccount");
 			log.info("************** Click on Back button : ************ ");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("BackButtonXPath"),softAssert);
@@ -396,33 +390,32 @@ public class Conns_Manage_AutoPay_Page extends BaseTest {
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[11][1], softAssert),testData[12][1],
 					"Cancel confirmation popup para Text. Expected "+testData[12][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[11][1], softAssert));
 			
-			log.info("**** Cancel confirmation popup should be displayed **** : ");
-		//Verify close link on Cancel confirmation popup
+			log.info("**** Verify close link on Cancel confirmation popup **** : ");
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, testData[0][1], softAssert),
 					"Close link on Cancel confirmation popup. ");
 			
-			//Click on Cancel auto pay button  on Cancel confirmation popup
+			log.info("**** Click on Cancel auto pay button  on Cancel confirmation popup **** : ");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1],softAssert);
 			
-			//Verify Cancel auto pay success page
+			log.info("**** Verify Cancel auto pay success page **** : ");
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert),testData[4][1],
 					"Success cancel auto pay Text. Expected "+testData[4][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert));
 			
-			//Verify Back button on success cancel auto pay page
+			log.info("**** Verify Back button on success cancel auto pay page **** : ");
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, commonData.get("BackButtonXPath"), softAssert),
 					"Back button on success cancel auto pay page. ");
 			
-			//Click here link on success cancel auto pay page
+			log.info("**** Click here link on success cancel auto pay page **** : ");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("BackButtonXPath"),softAssert);
 			
-			//Verify Account summary header text
+			log.info("**** Verify Account summary header text **** : ");
 			softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, testData[6][1], softAssert).contains(testData[7][1]),
 					"Account Summary header text. ");
 			
-			//Click on pay bill button
+			log.info("**** Click on pay bill button **** : ");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[8][1],softAssert);
 			
-			//Verify One time payment tab
+			log.info("**** Verify One time payment tab **** : ");
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, testData[9][1], softAssert),
 					"One time payment tab. ");
 			softAssert.assertAll();
