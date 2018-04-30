@@ -1,34 +1,17 @@
 package com.etouch.connsPages;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+
 
 import org.apache.commons.logging.Log;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
+
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
-import com.etouch.connsTests.Conns_BillPay_Page;
-import com.etouch.connsTests.Conns_Credit_App_Page;
+
 import com.etouch.connsTests.Conns_Manage_AutoPay_Page;
-import com.etouch.connsTests.Conns_PayYourBill_Page;
-import com.etouch.taf.core.TestBedManager;
-import com.etouch.taf.core.config.TestBedManagerConfiguration;
-import com.etouch.taf.core.exception.PageException;
-import com.etouch.taf.util.ExcelUtil;
+
 import com.etouch.taf.util.LogUtil;
-import com.etouch.taf.webui.ITafElement;
+
 import com.etouch.taf.webui.selenium.WebPage;
 
 public class ManageAutoPayPage extends Conns_Manage_AutoPay_Page {
