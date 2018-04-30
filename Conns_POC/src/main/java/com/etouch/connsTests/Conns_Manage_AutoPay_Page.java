@@ -33,15 +33,13 @@ import com.etouch.connsPages.ManageAutoPayPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
-import com.etouch.taf.core.datamanager.excel.annotations.IExcelDataFiles;
+
 import com.etouch.taf.util.CommonUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
 
-@Test(groups = "YesMoneyCreditApplication")
-@IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
 public class Conns_Manage_AutoPay_Page extends BaseTest {
 	private String testBedName;
 	TestBed testBed;
@@ -54,9 +52,6 @@ public class Conns_Manage_AutoPay_Page extends BaseTest {
 	private String testEnv;
 	protected static String url;
 	WebPage webPage;
-	
-
-	
 	private ConnsMainPage mainPage;
 	protected static LinkedHashMap<String, String> commonData;
 	CommonMethods commonMethods;
