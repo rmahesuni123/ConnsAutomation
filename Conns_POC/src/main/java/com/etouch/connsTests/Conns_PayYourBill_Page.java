@@ -206,7 +206,7 @@ public class Conns_PayYourBill_Page extends BaseTest {
 			
 			commonMethods.clickElementbyLinkText(webPage, testData[3][1], softAssert);
 			
-			/*softAssert.assertEquals(webPageMap.get(Thread.currentThread().getId()).getPageTitle(),testData[6][1],
+			softAssert.assertEquals(webPageMap.get(Thread.currentThread().getId()).getPageTitle(),testData[6][1],
 					"Account Summary page title . Expected "+testData[6][1]+" Actual : "+webPageMap.get(Thread.currentThread().getId()).getPageTitle());
 						
 			String accountSumaryHeaderText = commonMethods.getTextbyXpath(webPage, testData[4][1], softAssert);
@@ -224,9 +224,9 @@ public class Conns_PayYourBill_Page extends BaseTest {
 			String accountSumaryHeaderText1 = commonMethods.getTextbyXpath(webPage, testData[4][1], softAssert);
 			
 			softAssert.assertTrue(accountSumaryHeaderText1.contains(testData[5][1]),
-					"Account Summary page header text . Expected "+testData[5][1]+" Actual : "+accountSumaryHeaderText1);*/
+					"Account Summary page header text . Expected "+testData[5][1]+" Actual : "+accountSumaryHeaderText1);
 			//LoggedOut from Conns 
-			//payYourBillPage.connsSignOut(webPage,softAssert);
+			payYourBillPage.connsSignOut(webPage,softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_payyourbill_summary");
@@ -273,4 +273,72 @@ public class Conns_PayYourBill_Page extends BaseTest {
 		}
 		
 	}
+	
+	
+	@Test(priority = 1005, enabled = true, description = "Verify Account Summary page for Inactive account")
+	public void verify_Account_Summary_For_InactiveAccount() throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		log.info("************Started method verify_Account_Summary_For_InactiveAccount()***************");
+		try {
+
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "PayYourBill",
+					"verifyAccountSummaryForInctiveAccount");
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[0][1],
+					softAssert);
+			// verify Page title
+			payYourBillPage.loginWithGivenDetails(testData[1][1], testData[2][1], webPage, softAssert);
+
+			commonMethods.clickElementbyLinkText(webPage, testData[3][1], softAssert);
+			webPage.sleep(4000);
+
+			String ActualPageTitle = webPage.getPageTitle();
+			log.info("ActualPageTitle : " + ActualPageTitle);
+			log.info("ExpectedPageTitle : " + testData[6][1]);
+
+			String ActualInActiveAccountSumaryHeaderText = commonMethods.getTextbyXpath(webPage, testData[4][1],
+					softAssert);
+			log.info("ActualInActiveAccountSumaryHeaderText : " + ActualInActiveAccountSumaryHeaderText);
+			log.info("ExpectedInActiveAccountSumaryHeaderText : " + testData[5][1]);
+
+			softAssert.assertTrue(ActualInActiveAccountSumaryHeaderText.contains(testData[5][1]),
+					"ExpectedInActiveAccountSumaryHeaderText " + testData[5][1] + " Actual : "
+							+ ActualInActiveAccountSumaryHeaderText);
+
+			String ClosedAccountHeaderText = commonMethods.getTextbyXpath(webPage, testData[7][1], softAssert);
+			log.info("ActualClosedAccountHeaderText : " + ClosedAccountHeaderText);
+			log.info("ExpectedClosedAccountHeaderText : " + testData[8][1]);
+			softAssert.assertTrue(ClosedAccountHeaderText.contains(testData[8][1]),
+					"Expected_ClosedAccountHeaderText==>  " + testData[8][1] + " Actual : " + ClosedAccountHeaderText);
+
+			String ActualDisclaimerText = commonMethods.getTextbyXpath(webPage, testData[9][1], softAssert);
+			log.info("ActualDisclaimerText : " + ActualDisclaimerText);
+			log.info("ExpectedDisclaimerText : " + testData[10][1]);
+			softAssert.assertTrue(ActualDisclaimerText.contains(testData[10][1]),
+					"Expected Disclaimer Text==>" + testData[10][1] + "Actual" + ActualDisclaimerText);
+
+			String ActualLoanAccount_Cname = commonMethods.getTextbyXpath(webPage, testData[11][1], softAssert);
+			log.info("ActualActualLoanAccount_Cname : " + ActualLoanAccount_Cname);
+			log.info("ExpectedActualLoanAccount_Cname : " + testData[12][1]);
+			softAssert.assertTrue(ActualLoanAccount_Cname.contains(testData[12][1]),
+					"ExpectedActualLoanAccount_Cname==>" + testData[12][1] + "Actual" + ActualLoanAccount_Cname);
+
+			String ActualUpdatedDate_Cname = commonMethods.getTextbyXpath(webPage, testData[13][1], softAssert);
+			log.info("ActualUpdatedDate_Cname : " + ActualUpdatedDate_Cname);
+			log.info("ExpectedUpdatedDate : " + testData[14][1]);
+			softAssert.assertTrue(ActualUpdatedDate_Cname.contains(testData[14][1]),
+					"ExpectedUpdatedDate==>" + testData[14][1] + "Actual" + ActualUpdatedDate_Cname);
+
+			softAssert.assertAll();
+			log.info("************Completed method verify_Account_Summary_For_InactiveAccount()***************");
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
+					"Account_Summary_For_InactiveAccount");
+			softAssert.assertAll();
+		}
+	}
+	
+	
+	
+	
+	
 }

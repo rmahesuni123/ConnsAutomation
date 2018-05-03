@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
 
 import com.etouch.common.CommonMethods;
+import com.etouch.connsTests.Conns_Auto_Pay_Setup2;
 import com.etouch.connsTests.Conns_BillPay_Page;
 import com.etouch.connsTests.Conns_BillPay_Page_SetUp_AutoPay;
 
@@ -21,14 +22,14 @@ import com.etouch.taf.util.LogUtil;
 
 import com.etouch.taf.webui.selenium.WebPage;
 
-public class BillPayPage extends  Conns_BillPay_Page {
-	static Log log = LogUtil.getLog(BillPayPage.class);
+public class BillPayPage_Auto_Pay_Setup2 extends  Conns_Auto_Pay_Setup2 {
+	static Log log = LogUtil.getLog(BillPayPage_Auto_Pay_Setup2.class);
 	String payBillUrl = null;
 	// CommonMethods commonMethods = new CommonMethods();
 	static CommonMethods commonMethods = new CommonMethods();
 	static WebPage webPage;
 
-	BillPayPage billPage ;/*new CreditAppPage() ;*/
+	BillPayPage_Auto_Pay_Setup2 billPage ;/*new CreditAppPage() ;*/
 
 	/**
 	 * Verify PayYourBill abd Account page Verbiage
@@ -111,7 +112,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @throws InterruptedException
 	 */
 
-	public static void PageTitle_PageURL_Validation(WebPage webPage, String[][] inputData, String ExpectedURL,
+	public void PageTitle_PageURL_Validation(WebPage webPage, String[][] inputData, String ExpectedURL,
 			String ExpectedPageTitle) throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -138,7 +139,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void selectDropdownByValue(WebPage webPage, String locator, String dropdownValue,
+	public void selectDropdownByValue(WebPage webPage, String locator, String dropdownValue,
 			SoftAssert softAssert) {
 		try {
 			commonMethods.selectDropdownByValue(webPage, locator, dropdownValue, softAssert);
@@ -181,7 +182,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void ClickElementPresenceByJS(WebPage webPage, String ElementXpath, SoftAssert softAssert) {
+	public void ClickElementPresenceByJS(WebPage webPage, String ElementXpath, SoftAssert softAssert) {
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		try {
 			log.info("**************ClickElementPresenceByJS starts  : ************************");
@@ -224,7 +225,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 		}
 	}*/
 	
-	public static void AutoPayButtonHandling(WebPage webPage, String ElementXpath, String[][] dataInput,SoftAssert softAssert) {
+	public void AutoPayButtonHandling(WebPage webPage, String ElementXpath, String[][] dataInput,SoftAssert softAssert) {
 		try {
 			log.info("************** Finding SetUpAutoPayButton   : ************************");	
 	boolean isSetupAutoPayDisplayed=CommonMethods.verifyElementisPresent(webPage,commonData.get("setupAutoPayButton"));
@@ -236,7 +237,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	   }else {
 	    log.info("*************  AutoPay is setup, Cancelling AutoPay now   : ***********************");
 	   //Click on Set Up Auto Pay Button
-	   BillPayPage.setupAccountRetrievalFunctionality(webPage, dataInput, softAssert);
+	   BillPayPage_Auto_Pay_Setup2.setupAccountRetrievalFunctionality(webPage, dataInput, softAssert);
 	   commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("setupAutoPayButton"),softAssert);
 	   }
 		}
@@ -254,7 +255,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void RadioButtonValidation(WebPage webPage, String[][] dataInput, SoftAssert softAssert) {
+	public void RadioButtonValidation(WebPage webPage, String[][] dataInput, SoftAssert softAssert) {
 		try {
 			log.info("************** Finding SetUpAutoPayButton   : ************************");
 			for (int i = 10; i <= 12; i++) {
@@ -266,6 +267,33 @@ public class BillPayPage extends  Conns_BillPay_Page {
 			e.printStackTrace();
 		}
 	}
+	
+/*	
+	 * author : Archana Mane Verify IsRadioSelected
+	 * 
+	 * */
+	
+	public void IsRadioSelected(WebPage webPage, String locator, String VPP_Value ,SoftAssert softAssert ) {
+		
+		try {
+			WebElement e = webPage.getDriver().findElement(By.xpath(locator));
+
+			boolean actualValue = e.isSelected();
+			log.info("**********"+actualValue +"***********");
+			if (actualValue)
+			{	log.info("Radio Button is selected");
+			
+			String bValue = e.getAttribute("value");
+			log.info("bValue===========" +bValue);
+			softAssert.assertTrue(VPP_Value.contains(bValue), "Values displayed on VPP and Payment screen does not match: Actual==" +bValue +"Expected=="+VPP_Value);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
+	}
+
 
 	/**
 	 * author : Asim Singh Verify ErroMessageValidation
@@ -274,7 +302,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void ErroMessageValidation(WebPage webPage, String ActualCancelButtonErrorMessage,
+	public void ErroMessageValidation(WebPage webPage, String ActualCancelButtonErrorMessage,
 			String CancelButtonErrorMessageXpath, String ExpectedCancelButtonErrorMessage, SoftAssert softAssert) {
 		try {
 			log.info("************** ErroMessageValidation starts  : ************************");
@@ -373,7 +401,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void SelectAmountToPayRadioButtonClicking(WebPage webPage, String[][] testInput,
+	public void SelectAmountToPayRadioButtonClicking(WebPage webPage, String[][] testInput,
 			SoftAssert softAssert) {
 		try {
 			log.info("************** SelectAmountToPayRadioButtonClicking Starts  : ************************");
@@ -399,7 +427,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void MinAmountPositiveScenario(WebPage webPage, String[][] testInput, int minDueAmount,
+	public void MinAmountPositiveScenario(WebPage webPage, String[][] testInput, int minDueAmount,
 			SoftAssert softAssert) {
 		try {
 			log.info("********  MinAmountPositiveScenario Starts  : ***************");
@@ -423,7 +451,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void currentBalanceAmountPositiveScenario(WebPage webPage, String[][] testInput,
+	public void currentBalanceAmountPositiveScenario(WebPage webPage, String[][] testInput,
 			int currentBalanceAmount, SoftAssert softAssert) {
 		try {
 			log.info("************** currentBalanceAmountPositiveScenario Starts  : ************************");
@@ -448,7 +476,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void PopUpBoxTextValidation(WebPage webPage, String[][] dataInput, String[][] testInput,
+	public void PopUpBoxTextValidation(WebPage webPage, String[][] dataInput, String[][] testInput,
 			SoftAssert softAssert) {
 		try {
 			log.info("************** PopUpBoxTextValidation Scenario Starts  : ************************");
@@ -475,7 +503,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void BlankInputValidation(WebPage webPage, String SelectOtherAmountToPayRadioButtonXPath,
+	public void BlankInputValidation(WebPage webPage, String SelectOtherAmountToPayRadioButtonXPath,
 			String CancelButtonErrorMessageXpath, String[][] dataInput, SoftAssert softAssert) {
 		try {
 			log.info("************** BlankInputValidation starts  : ************************");
@@ -500,7 +528,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void MinimumAmountToPayValidation(WebPage webPage, String SelectOtherAmountToPayTextBox,
+	public void MinimumAmountToPayValidation(WebPage webPage, String SelectOtherAmountToPayTextBox,
 			String AutoPaySubmitButtonXPath, String[][] dataInput, int minDueAmount, SoftAssert softAssert) {
 		try {
 			commonMethods.sendKeysbyXpath(webPage, SelectOtherAmountToPayTextBox, "" + (minDueAmount), softAssert);
@@ -522,7 +550,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void CurrentAmountToPayValidation(WebPage webPage, String SelectOtherAmountToPayTextBox,
+	public void CurrentAmountToPayValidation(WebPage webPage, String SelectOtherAmountToPayTextBox,
 			String AutoPaySubmitButtonXPath, String[][] dataInput, int currentBalanceAmount, SoftAssert softAssert) {
 		try {
 			/*commonMethods.sendKeysbyXpath(webPage, SelectOtherAmountToPayTextBox, "" + currentBalanceAmount,
@@ -559,7 +587,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void ExactCurrentAmountToPayValidation(WebPage webPage, String SelectOtherAmountToPayTextBox,
+	public void ExactCurrentAmountToPayValidation(WebPage webPage, String SelectOtherAmountToPayTextBox,
 			String AutoPaySubmitButtonXPath, String[][] dataInput, double currentBalanceAmount, SoftAssert softAssert) {
 		try {
 			/*commonMethods.sendKeysbyXpath(webPage, SelectOtherAmountToPayTextBox, "" + currentBalanceAmount,
@@ -592,7 +620,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void DisclaimerTextValidation(WebPage webPage, String disclaimersText, String disclaimersRemoveText,
+	public void DisclaimerTextValidation(WebPage webPage, String disclaimersText, String disclaimersRemoveText,
 			String AutoPayDisclaimerTextXPath, String SelectOtherAmountToPayTextBox, int minDueAmount,
 			SoftAssert softAssert) {
 		try {
@@ -623,7 +651,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void ExactDisclaimerTextValidation(WebPage webPage, String disclaimersText, String disclaimersRemoveText,
+	public void ExactDisclaimerTextValidation(WebPage webPage, String disclaimersText, String disclaimersRemoveText,
 			String AutoPayDisclaimerTextXPath, String SelectOtherAmountToPayTextBox, double ExactCurrentBalanceAmount,
 			SoftAssert softAssert) {
 		try {
@@ -651,7 +679,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void DisclaimerTextValidationForCurrentBalance(WebPage webPage, String disclaimersText, String disclaimersRemoveText,
+	public void DisclaimerTextValidationForCurrentBalance(WebPage webPage, String disclaimersText, String disclaimersRemoveText,
 			String AutoPayDisclaimerTextXPath, String SelectOtherAmountToPayTextBox, int currentBalanceAmount,String numberAsString,
 			SoftAssert softAssert) {
 		try {
@@ -683,7 +711,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void DropDownValueErrorMessageAssertion(WebPage webPage, String[][] SelectPaymentDateDropDownData,
+	public void DropDownValueErrorMessageAssertion(WebPage webPage, String[][] SelectPaymentDateDropDownData,
 			String[][] testData, SoftAssert softAssert) {
 		softAssert.assertTrue((commonMethods.getTextbyXpath(webPage, SelectPaymentDateDropDownData[3][1], softAssert)).contains(
 				SelectPaymentDateDropDownData[4][1]));
@@ -698,7 +726,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @throws InterruptedException
 	 */
-	public static void isDefaultRadioButtonSelected(WebPage webPage, SoftAssert softAssert) {
+	public void isDefaultRadioButtonSelected(WebPage webPage, SoftAssert softAssert) {
 		softAssert.assertTrue(
 				commonMethods.verifyElementisSelected(webPage, commonData.get("shedulePaymntMinPaymntId"), softAssert),
 				"Select Minimum Payment Pay Radio button. Expected " + commonMethods.verifyElementisSelected(webPage,
@@ -714,7 +742,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @throws InterruptedException
 	 */
 
-	public static void FontSizeVerification(WebPage webPage, String testType, String testBedName,
+	public void FontSizeVerification(WebPage webPage, String testType, String testBedName,
 			String[][] ExpectedFontValuesMobile, String[][] ExpectedFontValuesTab, String[][] ExpectedFontValuesWeb,
 			SoftAssert softAssert) {
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
@@ -1140,26 +1168,14 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @return
 	 */
-	/*public int getAmount(String locator, WebPage webpage, SoftAssert softAssert) {
+	public int getAmount(String locator, WebPage webpage, SoftAssert softAssert) {
 		String currentBal = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator,
 				softAssert);
 		int curBalance = Integer.parseInt(currentBal.substring(1));
 		log.info("Current Balance Amount:" + curBalance);
 		return curBalance;
-	}*/
-	
-	public int getAmount(String locator, WebPage webpage, SoftAssert softAssert) {
-		log.info("****** getAmount ******* :");
-		String currentBal = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
-		int curBalance = Integer.parseInt(currentBal.substring(1));
-		log.info("Current Balance Amount:"+curBalance);
-		return curBalance;
 	}
-	
 
-	
-
-	
 	/**
 	 * Get payment values with Text
 	 * 
@@ -1168,7 +1184,7 @@ public class BillPayPage extends  Conns_BillPay_Page {
 	 * @param softAssert
 	 * @return
 	 */
-	/*public int getPaymentAmountByXpath(String locator, WebPage webpage, SoftAssert softAssert) {
+	public int getPaymentAmountByXpath(String locator, WebPage webpage, SoftAssert softAssert) {
 		log.info(" ******** getPaymentAmountByXpath: ********* " );
 		String balance = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator,
 				softAssert);
@@ -1176,26 +1192,6 @@ public class BillPayPage extends  Conns_BillPay_Page {
 		int curBalance = Integer.parseInt(balance.substring(balance.indexOf("$")));
 		log.info("Payemnt Balance Amount:" + curBalance);
 		return curBalance;
-	}*/
+	}
 
-	public int getPaymentAmountByXpath(String locator, WebPage webpage, SoftAssert softAssert) {
-		String balance = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
-		log.info("Balance Amount:"+balance);
-		log.info("Balance Amount:"+balance.substring(balance.indexOf("$")+1));
-		log.info("Balance Amount:"+balance.indexOf("$")+3);
-		int curBalance = Integer.parseInt(balance.substring(balance.indexOf("$")+1,balance.indexOf("$")+3));
-		log.info("Payemnt Balance Amount:"+curBalance);
-		return curBalance;
-	}
-	
-	
-	public double getPaymentAmountByXpath_Schedule_Page(String locator, WebPage webpage, SoftAssert softAssert) {
-		String balance = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), locator, softAssert);
-		log.info("Balance Amount:"+balance);
-		log.info("Balance Amount:"+balance.substring(balance.indexOf("$")+1));
-		log.info("Balance Amount:"+balance.indexOf("$")+3);
-		double curBalance = Integer.parseInt(balance.substring(balance.indexOf("$"),balance.indexOf("$")+3));
-		log.info("Payemnt Balance Amount:"+curBalance);
-		return curBalance;
-	}
 }

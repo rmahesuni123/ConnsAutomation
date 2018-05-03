@@ -61,7 +61,9 @@ public class Conns_BillPay_Page extends BaseTest {
 	WebPage webPage;
 	
 	protected static LinkedHashMap<String, String> commonData;
-	
+	static int shedulePaymntMinPayntXPath;
+	static int shedulePaymntCurrentBalAmtXpath;
+		
 	private ConnsMainPage mainPage;
 	
 	CommonMethods commonMethods;
@@ -154,28 +156,29 @@ public class Conns_BillPay_Page extends BaseTest {
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage","ContentAndFunctionalityOverDueAccount");
 			
-			//Click on Sign In link
+			//
+			log.info("****** Click on Sign In link *****");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("signInLinkXPath"),softAssert);
 			webPage.sleep(10000);
-			log.info("****** Click on Pay your Bill header link *****8");
+			log.info("****** Click on Pay your Bill header link *****");
 			log.info("******************************"+commonData.get("emailId"));
 			billPayPage.connsLogin(testData[0][1], testData[1][1], webPage, softAssert);
 			
-			//Click-on Credit Summary Link
+			log.info("****** Click-on Credit Summary Link *****");
 			commonMethods.clickElementbyLinkText(webPage, commonData.get("creditSummaryLinkText"), softAssert);	
 			
-			//Verify the verbiage displayed in Red color
+			log.info("****** Verify the verbiage displayed in Red color *****");
 			softAssert.assertEquals(testData[2][1],commonMethods.getTextbyXpath(webPage,commonData.get("overdueVerbiageXpath"),softAssert),
 					"Verbiage displayed in Red color . Expected "+commonData.get("overdueVerbiageXpath")+" Actual : "+testData[2][1]);
 			
-			//Verify Account Summary header text Displayed
+			log.info("****** Verify Account Summary header text Displayed *****");
 			softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert).contains(testData[4][1]),
 					"Account Summary Header text. Expected "+testData[4][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert));
 			
-			//Click on Pay Bill Button
+			log.info("****** Click on Pay Bill Button *****");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("payBillBtnXpath"),softAssert);
 			
-			//Verify Schedule Payment header text Displayed
+			log.info("****** Verify Schedule Payment header text Displayed *****");
 			softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, testData[5][1], softAssert).contains(testData[6][1]),
 					"Schedule Payment Header text. Expected "+testData[6][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[5][1], softAssert));
 			
@@ -195,56 +198,66 @@ public class Conns_BillPay_Page extends BaseTest {
 	@Test(priority = 1002, enabled = true, description = "Verify content on Schedule payment screen of overdue account")
 	public void verify_Content_Schedule_Payment_Screen() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
+		
 		try {
 			
-			//Fetch verifyVerbiageRegisteredUsers data from excel 
+			log.info("****** Fetch verifyVerbiageRegisteredUsers data from excel  *****");
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage","contentSchedulePaymentScreen");
 			
-			//Select Minimum Payment Pay Radio button selection
+			shedulePaymntMinPayntXPath = billPayPage.getPaymentAmountByXpath(commonData.get("shedulePaymntMinPayntXPath"), webPage, softAssert);
+			log.info("***** shedulePaymntMinPayntXPath ********" +shedulePaymntMinPayntXPath);
+			
+			shedulePaymntCurrentBalAmtXpath =  billPayPage.getPaymentAmountByXpath(commonData.get("shedulePaymntCurrentBalAmtXpath"), webPage, softAssert);
+			log.info("***** shedulePaymntCurrentBalAmtXpath ********" +shedulePaymntMinPayntXPath);
+			
+			log.info("****** Select Minimum Payment Pay Radio button selection  *****");
 			softAssert.assertTrue(commonMethods.verifyElementisSelected(webPage, commonData.get("shedulePaymntMinPaymntId"), softAssert),
 					"Select Minimum Payment Pay Radio button. Expected "+commonMethods.verifyElementisSelected(webPage, commonData.get("shedulePaymntMinPaymntId"), softAssert));
-			//Select Payment Date Radio button selection
+			log.info("****** Select Payment Date Radio button selection  *****");
 			softAssert.assertTrue(commonMethods.verifyElementisSelected(webPage, commonData.get("shedulePaymntSelectDateId"), softAssert),
 					"Select Payment Date Radio button. Expected "+commonMethods.verifyElementisSelected(webPage, commonData.get("shedulePaymntSelectDateId"), softAssert));
 			
-			//Click on Submit button
+			log.info("****** Click on Submit button  *****");
 			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), commonData.get("shedulePaymntSubmitBtnId"),softAssert);
 			webPage.sleep(10000);
-			//Verify Payment Date radio button Error Text
+			log.info("****** Verify Payment Date radio button Error Text  *****");
 			softAssert.assertEquals(commonMethods.getTextbyId(webPage, testData[0][1], softAssert),testData[1][1],
 					"Payment Date radio button Error Text . Expected "+testData[1][1]+" Actual : "+commonMethods.getTextbyId(webPage, testData[0][1], softAssert));
-			//Select Other Amount Id Radio button
+			log.info("****** Select Other Amount Id Radio button  *****");
 			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), commonData.get("shedulePaymntOtherAmountId"),softAssert);
 			
-			//Enter value less than  minimum amount or payment due
+			log.info("****** Enter value less than  minimum amount or payment due  *****");
 			commonMethods.sendKeysById(webPage, commonData.get("shedulePaymntOtherAmountTextBoxId"), testData[2][1], softAssert);
 			
-			//Press TAB
+			log.info("****** Press TAB  *****");
 			commonMethods.sendKeysById(webPage,commonData.get("shedulePaymntOtherAmountTextBoxId"),""+Keys.TAB, softAssert);
-			//Verify Payment Other Date radio button Error Text
+			log.info("****** Verify Payment Other Date radio button Error Text  *****");
 			softAssert.assertEquals(commonMethods.getTextbyId(webPage, testData[3][1], softAssert),testData[4][1],
 					"Value less than  minimum amount or payment due . Expected "+testData[4][1]+" Actual : "+commonMethods.getTextbyId(webPage, testData[3][1], softAssert));
 			
-			//Clear other data Text box value
+			log.info("****** Clear other data Text box value  *****");
 			commonMethods.clearTextBox(webPage, commonData.get("shedulePaymntOtherAmountTextBoxId"), softAssert);
 			
-			//Enter value greater than current balance
+			log.info("****** Enter value greater than current balance  *****");
 			commonMethods.sendKeysById(webPage, commonData.get("shedulePaymntOtherAmountTextBoxId"), ""+billPayPage.getAmount(commonData.get("shedulePaymntCurrentBalAmtXpath")+1,webPage, softAssert), softAssert);
-			//Press TAB
+			log.info("****** Press TAB  *****");
 			commonMethods.sendKeysById(webPage,commonData.get("shedulePaymntOtherAmountTextBoxId"),""+Keys.TAB, softAssert);
 			
-			//Verify Payment Other Date radio button Error Text greater than current balance
+			log.info("****** Verify Payment Other Date radio button Error Text greater than current balance  *****");
 			softAssert.assertEquals(commonMethods.getTextbyId(webPage, testData[3][1], softAssert),testData[4][1],
 					"Value less than  Maximum amount or payment due . Expected "+testData[4][1]+" Actual : "+commonMethods.getTextbyId(webPage, testData[3][1], softAssert));
-			//Clear other data Text box value
+			log.info("****** Clear other data Text box value  *****");
+
 			commonMethods.clearTextBox(webPage, commonData.get("shedulePaymntOtherAmountTextBoxId"), softAssert);
 			
-			//Click on Submit button
+			log.info("****** Click on Submit button  *****");
 			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), commonData.get("shedulePaymntSubmitBtnId"),softAssert);
 			
-			//Verify Payment Other Date radio button Error Text entered null value
+			log.info("****** Verify Payment Other Date radio button Error Text entered null value  *****");
 			softAssert.assertEquals(commonMethods.getTextbyId(webPage, testData[3][1], softAssert),testData[4][1],
 					"Value amount or payment not enterted . Expected "+testData[4][1]+" Actual : "+commonMethods.getTextbyId(webPage, testData[3][1], softAssert));
+			
+			
 			
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -260,13 +273,15 @@ public class Conns_BillPay_Page extends BaseTest {
 	@Test(priority = 1003, enabled = true, description = "Verify content / Payment Amount displayed on AccountSummary and SchedulePages")
 	public void verify_PaymentAmount_Displayed_AccountSummary_Schedule_Pages() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
+		String ElementXpath = "";
 		try {
 			
-			//Fetch verifyVerbiageRegisteredUsers data from excel 
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage","PaymentAmountAccountSummarySchedulePages");
 			
+			log.info("***** Fetch verifyVerbiageRegisteredUsers data from excel  ********" );
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage","PaymentAmountAccountSummarySchedulePages");
+
 			log.info("***** Click on Back button********");
-			String ElementXpath = commonData.get("shedulePaymntBackBtnXpath");
+			ElementXpath = commonData.get("shedulePaymntBackBtnXpath");
 			BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
 			//commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), commonData.get("shedulePaymntSubmitBtnId"),softAssert);
 			
@@ -280,54 +295,108 @@ public class Conns_BillPay_Page extends BaseTest {
 			int accountSumaryMinPaynt = BillPayPage.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert);*/
 			
 			
-			//Verify  Minimum payment amount displayed on Account summary and payment screen
+			log.info("***** Verify  Minimum payment amount displayed on Account summary and payment screen  ********" );
 			int accountSumaryMinPaynt = billPayPage.getPaymentAmountByXpath(commonData.get("minPayXpath"), webPage, softAssert);
-			log.info("***** accountSumaryMinPaynt********" +accountSumaryMinPaynt);
-			softAssert.assertEquals(accountSumaryMinPaynt,billPayPage.getAmount(commonData.get("shedulePaymntMinPayntXPath"), webPage, softAssert),
-					"Minimum payment amount displayed on Account summary and payment screen . Expected "+billPayPage.getAmount(commonData.get("shedulePaymntMinPayntXPath"), webPage, softAssert)+" Actual : "+accountSumaryMinPaynt);
+			log.info("***** accountSumaryMinPaynt ********" +accountSumaryMinPaynt);
+			log.info("***** shedulePaymntMinPayntXPath ********" +shedulePaymntMinPayntXPath);
+			softAssert.assertEquals(accountSumaryMinPaynt,shedulePaymntMinPayntXPath,
+					"Minimum payment amount displayed on Account summary and payment screen . Expected :  " +shedulePaymntMinPayntXPath +" Actual : "+accountSumaryMinPaynt);
+			/*softAssert.assertEquals(accountSumaryMinPaynt,billPayPage.getAmount(commonData.get("shedulePaymntMinPayntXPath"), webPage, softAssert),
+					"Minimum payment amount displayed on Account summary and payment screen . Expected "+billPayPage.getAmount(commonData.get("shedulePaymntMinPayntXPath"), webPage, softAssert)+" Actual : "+accountSumaryMinPaynt);*/
 			
 			/*softAssert.assertEquals(accountSumaryMinPaynt,BillPayPage.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert),
 					"Minimum payment amount displayed on Account summary and payment screen . Expected "+BillPayPage.minDueAmount(webPage, MinimumAmountDueXpath, minAmountDue, minAmountchar,softAssert)+" Actual : "+accountSumaryMinPaynt);*/
 			
-			//Verify   current balance  displayed on Account summary and payment screen
-			/*softAssert.assertEquals(billPayPage.getAmount(commonData.get("overdueCBAmountXpath"), webPage, softAssert),billPayPage.getAmount(commonData.get("shedulePaymntCurrentBalAmtXpath"), webPage, softAssert),
-					" current balance displayed on Account summary and payment screen . Expected "+billPayPage.getAmount(commonData.get("shedulePaymntCurrentBalAmtXpath"), webPage, softAssert)+" Actual : "+billPayPage.getAmount(commonData.get("overdueCBAmountXpath"), webPage, softAssert));
+			log.info("***** Verify   current balance  displayed on Account summary and payment screen  ********" );
+			int overdueCBAmount = billPayPage.getPaymentAmountByXpath(commonData.get("overdueCBAmountXpath"), webPage, softAssert);
+			log.info("***** overdueCBAmount ********" +overdueCBAmount);
+			log.info("***** shedulePaymntCurrentBalAmtXpath ********" +shedulePaymntCurrentBalAmtXpath);
+			softAssert.assertEquals(overdueCBAmount,shedulePaymntCurrentBalAmtXpath,
+					" current balance displayed on Account summary and payment screen . Expected : "+shedulePaymntCurrentBalAmtXpath+" Actual : "+overdueCBAmount);
 			
-			//Select Payment Due Radio button
+			
+			/**************************************************************************************************************/
+			log.info("****** Click on Pay Bill Button *****");
+			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("payBillBtnXpath"),softAssert);
+			/**************************************************************************************************************/
+			
+			log.info("***** Select Payment Due Radio button  ********" );
 			commonMethods.selectCheckBoxById(webPage, commonData.get("shedulePaymntPaymntDueId"), softAssert);
 			
-			//Select Current Balance Radio button
+			log.info("***** Select Current Balance Radio button  ********" );
 			commonMethods.selectCheckBoxById(webPage, commonData.get("shedulePaymntCurrentBalId"), softAssert);
 			
 			String greenMsg = commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntGreenMsgXpath"), softAssert);
 			log.info("Green Message::"+greenMsg);
-			//Verify Current Balance Green Message
+			log.info("***** Verify Current Balance Green Message  ********" );
 			softAssert.assertEquals(greenMsg,testData[0][1],
 					"Current Balance Green Message . Expected "+testData[0][1]+" Actual : "+greenMsg);
 			
-			//Verify that error msg is displaying by selecting  a date which past to loan account's monthly due date
+			log.info("***** 1 Verify that error msg is displaying by selecting  a date which past to loan account's monthly due date  ********" );
 			String dueDate = commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntDueDateXpath"), softAssert);
-			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+			log.info(" ******** dueDate ******* : "+dueDate);
+		/**********************************************************************/	
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 			Date todayDate = new Date();
-	        Date overDueDate = sdf.parse(dueDate);
-	        if(todayDate.after(overDueDate)) {
-	        	//Click on One time payment date
-				commonMethods.clickElementById(webPage, commonData.get("shedulePaymntOnetimePaymentDateId"), softAssert);
+			log.info("***** todayDate  ********" +todayDate);
+			String mdy = sdf.format(todayDate);
+			log.info("***** mdy  ********" +mdy);			
+			Date overDueDate = sdf.parse(mdy);
+			log.info("***** overDueDate  ********" +overDueDate);
+		 	/**********************************************************************/	
+	      /*  if(todayDate.before(overDueDate)) {
+	  	
+				log.info("***** Click on One time payment date  ********" );
+				commonMethods.clickElementbyXpath(webPage, commonData.get("shedulePaymntOnetimePaymentDateId"), softAssert);
 				
-				//Select Today Date
-				commonMethods.clickElementbyXpath(webPage, commonData.get("shedulePaymntSelectTodayXpath"), softAssert);
-	        }
-	      //Verify that error msg is displaying by selecting  a date which past to loan account's monthly due date
-			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntDateRedMsgXptah"), softAssert),testData[2][1],
-					"Current Balance Green Message . Expected "+testData[2][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntDateRedMsgXptah"),softAssert));
+				log.info("***** Select Today Date  ********" );
+				//commonMethods.clickElementbyXpath(webPage, commonData.get("shedulePaymntSelectTodayXpath"), softAssert);
+				ElementXpath = commonData.get("shedulePaymntSelectTodayXpath");				
+				BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
+	        }*/
+				
+				/*log.info(" ************* Click on One time payment date *********");
+				ElementXpath = commonData.get("shedulePaymntOnetimePaymentDateId");				
+				BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
+				
+				log.info("***** Select Today Date  ********" );
+				ElementXpath = commonData.get("shedulePaymntSelectTodayXpath");				
+				BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
+				//commonMethods.clickElementbyXpath(webPage, commonData.get("shedulePaymntSelectTodayXpath"), softAssert);
+				WebElement searchbox = webPage.getDriver().findElement(By.xpath("//*[@id='onetimepayment_select_date']"));				
+				js.executeScript("arguments[0].value='todayDate';", searchbox);*/
+			log.info("***** Click on One time payment date  ********" );
+			ElementXpath = commonData.get("shedulePaymntOnetimePaymentDateId");				
+			BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
 			
-			//Verify Disclaimers Text
+			log.info("***** Click on DateSelector date  ********" );
+			ElementXpath = commonData.get("DateSelector");				
+			BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);			
+			log.info("*****  DateSelector Date Clicked Successfully  ********" );
+
+			
+			log.info("***** Select Today Date  ********" );
+			commonMethods.clickElementbyXpath(webPage, commonData.get("shedulePaymntSelectTodayXpath"), softAssert);
+	    	log.info("***** 2 Verify that error msg is displaying by selecting  a date which past to loan account's monthly due date  ********" );
+			
+	    	
+	    	String redMsg = commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntDateRedMsgXptah"), softAssert);
+			log.info("Red Message::"+redMsg);
+			log.info("***** Verify Current Balance Red Message  ********" );
+			softAssert.assertEquals(redMsg,testData[2][1],
+					"Current Balance Red Message . Expected "+testData[2][1]+" Actual : "+redMsg);
+			
+	    	
+	    	/*softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntDateRedMsgXptah"), softAssert),testData[2][1],
+					"Current Balance Red Message . Expected "+testData[2][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntDateRedMsgXptah"),softAssert));*/
+			
+			log.info("***** Verify Disclaimers Text ********" );
 			String disclaimersText = commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntDisclaimerXpath"), softAssert);
 			String disclaimersRemoveText = disclaimersText.substring(disclaimersText.indexOf("$"), disclaimersText.indexOf("Further")-1);
 			disclaimersText = disclaimersText.replace(disclaimersRemoveText, "");
 			
 			softAssert.assertEquals(disclaimersText,testData[1][1],
-					"Disclaimers Text . Expected "+testData[1][1]+" Actual : "+disclaimersText);*/
+					"Disclaimers Text . Expected "+testData[1][1]+" Actual : "+disclaimersText);
 			
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -340,35 +409,48 @@ public class Conns_BillPay_Page extends BaseTest {
 	 * TC_071 to TC_074
 	 * @throws Exception
 	 */
-	@Test(priority = 1004, enabled = false, description = "Verify content on conformation screen SchedulePages")
+	@Test(priority = 1004, enabled = true, description = "Verify content on conformation screen SchedulePages")
 	public void verify_Content_Conformation_Screen_Schedule_Page() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
+		String ElementXpath = "";
 		try {
 			
-			//Fetch verifyVerbiageRegisteredUsers data from excel 
+			log.info("***** Fetch verifyVerbiageRegisteredUsers data from excel  ********" );
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage","ContentOnConformationScreen");
 			
-			//Click-on Credit Summary Link
+			log.info("***** Click-on Credit Summary Link ********" );
 			commonMethods.clickElementbyLinkText(webPage, commonData.get("creditSummaryLinkText"), softAssert);
 			
-			//Click on Pay Bill Button
+			log.info("***** Click on Pay Bill Button ********" );
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("payBillBtnXpath"),softAssert);
 			
-			//Click on One time payment date
-			commonMethods.clickElementById(webPage, commonData.get("shedulePaymntOnetimePaymentDateId"), softAssert);
+			log.info("***** Click on One time payment date ********" );
+			commonMethods.clickElementbyXpath(webPage, commonData.get("shedulePaymntOnetimePaymentDateId"), softAssert);
 			
-			//Select Today Date
+			log.info("***** Click on DateSelector date  ********" );
+			ElementXpath = commonData.get("DateSelector");				
+			BillPayPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);			
+			log.info("*****  DateSelector Date Clicked Successfully  ********" );
+			
+			
+			log.info("***** Select Today Date ********" );
 			commonMethods.clickElementbyXpath(webPage, commonData.get("shedulePaymntSelectTodayXpath"), softAssert);
 			
-			//Get Min Payment From Schedule payment page
-			String minPaymnt = commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntMinPayntXPath"), softAssert);
+			log.info("***** Get Min Payment From Schedule payment page ********" );
+			/*String minPaymnt = commonMethods.getTextbyXpath(webPage, commonData.get("shedulePaymntMinPayntXPath"), softAssert);
+			log.info("***** minPaymnt  ********" +minPaymnt);*/
 			
-			String selDate = (String)js.executeScript("return document.getElementById(\""+commonData.get("shedulePaymntOnetimePaymentDateId")+"\").value;");
+			double minPaymnt = billPayPage.getPaymentAmountByXpath_Schedule_Page(commonData.get("shedulePaymntMinPayntXPath"),webPage, softAssert);
+			log.info("**** minPayment *** *: " +minPaymnt);
+			String minPayment = String.valueOf(minPaymnt);
 			
-			//Click on Submit button
+			String selDate = (String)js.executeScript("return document.getElementById(\""+commonData.get("ShedulePaymenntOnetimePaymentDateId")+"\").value;");
+			log.info("***** selDate  ********" +selDate);
+			
+			log.info("***** Click on Submit button ********" );
 			commonMethods.clickElementById(webPageMap.get(Thread.currentThread().getId()), commonData.get("shedulePaymntSubmitBtnId"),softAssert);
 			
-			//Verify buttons available on Confirmation screen
+			log.info("***** Verify buttons available on Confirmation screen ********" );
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, testData[0][1], softAssert),
 					"Conformation Pop up screen Confirm Button . ");
 			
@@ -376,36 +458,37 @@ public class Conns_BillPay_Page extends BaseTest {
 					"Conformation Pop up screen Cancel Button . ");
 			
 			
-			//Verify Confirmation screen Header text
+			log.info("***** Verify Confirmation screen Header text ********" );
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[2][1], softAssert),testData[3][1],
 					"Confirmation screen Header text . Expected "+commonMethods.getTextbyXpath(webPage, testData[2][1], softAssert)+" Actual : "+testData[3][1]);
-			//Verify pop up message text
+			log.info("***** Verify pop up message text ********" );
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[4][1], softAssert),testData[5][1],
-					"Confirmation screen pop up message text . Expected "+commonMethods.getTextbyXpath(webPage, testData[5][1], softAssert)+" Actual : "+testData[4][1]);
+					"Confirmation screen pop up message text . Actual :  "+commonMethods.getTextbyXpath(webPage, testData[4][1], softAssert)+" Expected : "+testData[4][1]);
 			
 			
-			//Verify Pop up header text
+			log.info("***** Verify Pop up header text ********" );
 			String headerLabelText = commonMethods.getTextbyXpath(webPage, testData[6][1], softAssert);
-			softAssert.assertEquals(headerLabelText,testData[13][1],
-					"Confirmation screen pop up message text . Expected "+commonMethods.getTextbyXpath(webPage, testData[12][1], softAssert)+" Actual : "+testData[13][1]);
+			softAssert.assertEquals(headerLabelText,testData[7][1],
+					"Confirmation screen pop up header message text . Expected "+commonMethods.getTextbyXpath(webPage, testData[6][1], softAssert)+" Actual : "+headerLabelText);
 			
-			//Verify message text above buttons
+			log.info("***** Verify message text above buttons ********" );
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[12][1], softAssert),testData[13][1],
-					"Confirmation screen pop up message text . Expected "+commonMethods.getTextbyXpath(webPage, testData[12][1], softAssert)+" Actual : "+testData[13][1]);
+					"Confirmation screen pop up message text above buttons . Expected "+commonMethods.getTextbyXpath(webPage, testData[12][1], softAssert)+" Actual : "+testData[13][1]);
 			
-			//Verify Selected Amount
-			softAssert.assertEquals(minPaymnt,commonMethods.getTextbyXpath(webPage, testData[8][1], softAssert),
-					"Verify Selected Amount . Expected "+minPaymnt+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[8][1], softAssert));
-			//Verify payment date
+			log.info("***** Verify Selected Amount ********" );
+			softAssert.assertTrue((minPayment).contains(commonMethods.getTextbyXpath(webPage, testData[8][1], softAssert)),
+					"Verify Selected Amount . Expected "+minPayment+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[8][1], softAssert));
+			
+			log.info("***** Verify payment date ********" );
 			softAssert.assertEquals(selDate,commonMethods.getTextbyXpath(webPage, testData[10][1], softAssert),
-					"Verify Selected Amount . Expected "+selDate+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[10][1], softAssert));
+					"Verify Payment Date . Expected "+selDate+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[10][1], softAssert));
 			
-			//Click on Confirm button
-			commonMethods.clickElementbyXpath(webPage, commonData.get("shedulePaymntSelectTodayXpath"), softAssert);
+			log.info("***** Click on Confirm button ********" );
+			commonMethods.clickElementbyXpath(webPage, commonData.get("ConfirmButtonXpath"), softAssert);
 			
-			//Verify success message 
+			log.info("***** Verify success message  ********" );
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[14][1], softAssert), testData[15][1],
-					"Verify Selected Amount . Expected "+testData[15][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[14][1], softAssert));
+					"Verify success message . Expected "+testData[15][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[14][1], softAssert));
 			
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -418,7 +501,7 @@ public class Conns_BillPay_Page extends BaseTest {
 	 * TC_079
 	 * @throws Exception
 	 */
-	@Test(priority = 1005, enabled = false, description = "Verify One Time Payment Confirmation Font properties")
+	@Test(priority = 1005, enabled = true, description = "Verify One Time Payment Confirmation Font properties")
 	public void verify_Payment_Conformation_Page_FontProperties() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
@@ -458,7 +541,7 @@ public class Conns_BillPay_Page extends BaseTest {
 	 * TC_078
 	 * @throws Exception
 	 */
-	@Test(priority = 1006, enabled = false, description = "Verify Account summary page Font properties")
+	@Test(priority = 1006, enabled = true, description = "Verify Account summary page Font properties")
 	public void verify_LinkYour_Account_Page_FontProperties() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
