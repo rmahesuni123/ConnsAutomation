@@ -47,6 +47,30 @@ public class MyOnlinePaymentsPage extends CommonPage {
 		CommonUtil.sop("webDriver in eTouchWebSite Page : " + webPage.getDriver());
 		loadPage();
 	}
+	
+	
+	/**
+	 * author : Asim Singh Verify ClickElementPresenceByJS
+	 * 
+	 * @param webPage
+	 * @param softAssert
+	 * @throws InterruptedException
+	 */
+	public static void ClickElementPresenceByJS(WebPage webPage, String ElementXpath, SoftAssert softAssert) {
+		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		try {
+			log.info("**************ClickElementPresenceByJS starts  : ************************");
+			WebElement PageElement = webPage.getDriver().findElement(By.xpath(ElementXpath));
+			if (PageElement.isDisplayed())
+				log.info("PageElement Successfully Found  : ");
+			commonMethods.scrollToElement(webPage, ElementXpath, softAssert);
+			js.executeScript("arguments[0].click();", PageElement);
+			Thread.sleep(2000);
+			log.info("**************PageElement Successfully Found & Clicked  : ************************");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/***** Archana verifyLinkNavigationUsingJS **********/
 
