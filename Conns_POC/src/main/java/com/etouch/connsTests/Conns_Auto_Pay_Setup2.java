@@ -371,7 +371,7 @@ public class Conns_Auto_Pay_Setup2 extends BaseTest {
 	public void Verify_GreenVerbiage_and_Buttons_for_Manage_AutoPay_Account() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ManageAutoPayPage","FunctionalityManageAccount");
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage","FunctionalityManageAccount");
 			
 			
 			String greenText = commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert);
@@ -380,26 +380,26 @@ public class Conns_Auto_Pay_Setup2 extends BaseTest {
 			
 			greenText = greenText.replace(greenText.substring(greenText.indexOf("date")+7,greenText.length()),"");
 						
-			//Verify the verbiage displayed in Green color
+			log.info("Verify the verbiage displayed in Green color");
 			softAssert.assertEquals(greenText.trim(),testData[4][1], "Verbiage displayed does not match");
 			
-			//Verify Discalimer text
+			log.info("Verify Discalimer text");
 			String ActualDisclaimerText = commonMethods.getTextbyXpath(webPage, testData[6][1], softAssert);
 			log.info("Actual disclaimer text is" +ActualDisclaimerText +"AND" + "Expected disclaimer text is" + testData[7][1]);
 			softAssert.assertEquals(ActualDisclaimerText, testData[7][1]);
 			
-			//Click on Manage Auto Pay button
+			log.info("Click on Manage Auto Pay button");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1],softAssert);
 			
-			//Verify Modify Auto pay buttons available on screen
+			log.info("Verify Modify Auto pay buttons available on screen");
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, commonData.get("modifyAutoPayBtnXpath"), softAssert),
 					"Modify Auto pay Button . ");
 			
-			//Verify Cancel Auto pay buttons available on screen
+			log.info("Verify Cancel Auto pay buttons available on screen");//
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, commonData.get("CancelAutoPayBtnXpath"), softAssert),
 					"Cancel Auto pay Button . ");
 			
-			//Verify Back buttons available on screen
+			log.info("Verify Back buttons available on screen");
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, commonData.get("BackButtonXPath"), softAssert),
 					"Back . ");
 			
@@ -415,8 +415,8 @@ public class Conns_Auto_Pay_Setup2 extends BaseTest {
 	public void verify_PaymentPlan_Page_FontProperties() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			//Verify Important Notice
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ManageAutoPayPage",
+			log.info("Verify Important Notice");
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage",
 					"FontPropertiesPaymentPlan");
 			
 			for(int i=0;i<5;i++) {
@@ -455,10 +455,9 @@ public class Conns_Auto_Pay_Setup2 extends BaseTest {
 		log.info("************Started Verify content of Modify auto pay page*********************");
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ManageAutoPayPage", "ContentManageAccount");
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage", "ContentManageAccount");
 
-			// Verify all the values on view payment plan matching on schedule
-			// payment screen
+			log.info("Verify all the values on view payment plan matching on schedule payment screen");
 
 			String PaymentMethod = commonMethods.findElementByXpath(webPage, testData[16][1], softAssert).getText();
 			String PaymentDay = commonMethods.findElementByXpath(webPage, testData[17][1], softAssert).getText();
@@ -467,30 +466,27 @@ public class Conns_Auto_Pay_Setup2 extends BaseTest {
 			String AmountScheduled = commonMethods.findElementByXpath(webPage, testData[20][1], softAssert).getText();
 
 			System.out.println(PaymentMethod + PaymentDay + Frequency + Status + AmountScheduled);
-			// Click on modify auto pay button
+			log.info("Click on modify auto pay button"); 
 			commonMethods.clickElementbyXpath(webPage, commonData.get("modifyAutoPayBtnXpath"), softAssert);
 
-			// Verify tab name
+			log.info("Verify tab name"); 
 			String TabName = commonMethods.getTextbyXpath(webPage, testData[14][1], softAssert);
 			log.info("Tab Name displayed on clicking on modify auto pay button is==>" + TabName);
 			softAssert.assertEquals(TabName, testData[15][1],
 					"One time payment tab is displayed instead Set up auto pay");
 
-			// Verify Amount displayed on view payment plan matching with amount
-			// displayed on schedule payment screen
+			log.info("Verify Amount displayed on view payment plan matching with amount displayed on schedule payment screen");
 			for (int i = 21; i <= 23; i++) {
 				billPayPage.IsRadioSelected(webPage, testData[i][1], AmountScheduled, softAssert);
 			}
 
-			// Verify Day displayed on view payment plan matching with Day
-			// displayed on schedule payment screen
+			log.info("Verify Day displayed on view payment plan matching with Day displayed on schedule payment screen"); 
 			for (int i = 24; i <= 25; i++) {
 
 				billPayPage.IsRadioSelected(webPage, testData[i][1], PaymentDay, softAssert);
 			}
 
-			// Verify PaymentMethod displayed on view payment plan matching with
-			// PaymentMethod displayed on schedule payment screen
+			log.info("Verify PaymentMethod displayed on view payment plan matching with PaymentMethod displayed on schedule payment screen"); 
 			List<WebElement> PaymentMethodRadios = webPage.getDriver().findElements(By.xpath(testData[26][1]));
 			int i = 1;
 			for (WebElement e : PaymentMethodRadios) {
@@ -508,11 +504,11 @@ public class Conns_Auto_Pay_Setup2 extends BaseTest {
 			}
 			  
 
-			// Verify Frequency displayed on VPP screen
+			log.info("Verify Frequency displayed on VPP screen"); 
 			softAssert.assertEquals(Frequency, testData[28][1], "Displayed Frequency is wrong");
 			log.info("Expected Frequency==" + testData[28][1] + "Actual Status==" + Frequency);
 
-			// Verify Status displayed on VPP screen
+			log.info("Verify Status displayed on VPP screen");
 			softAssert.assertEquals(Status, testData[29][1], "Displayed Status is wrong");
 			log.info("Expected Status==" + testData[29][1] + "Actual Status==" + Status);
 
@@ -525,12 +521,12 @@ public class Conns_Auto_Pay_Setup2 extends BaseTest {
 		}
 	}
 	
-	@Test(priority = 1007, enabled = false, description = "Verify One Time Payment Confirmation Font properties")
+	@Test(priority = 1007, enabled = true, description = "Verify One Time Payment Confirmation Font properties")
 	public void verify_Payment_ManageAutoPay_Page_FontProperties() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			//Verify Important Notice
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "PayYourBill",
+			log.info("************Verify Important Notice*********************");//
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage",
 					"OneTimePaymentConfirmation");
 			
 			for(int i=0;i<4;i++) {
@@ -573,53 +569,53 @@ public class Conns_Auto_Pay_Setup2 extends BaseTest {
 	public void verify_Functionality_Cancel_Button() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
 		try {
-			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "ManageAutoPayPage","CancelButtonFunctionality");
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "BillPayPage","CancelButtonFunctionality");
 			
-			//Click on Back button
+			log.info("Click on Back button");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("BackButtonXPath"),softAssert);
 			
-			//Click on Manage auto pay link
+			log.info("Click on Manage auto pay link");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("manageAutoPayBtnXpath"),softAssert);
 			
-			//Click on Cancel auto pay button
+			log.info("Click on Cancel auto pay button");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("CancelAutoPayBtnXpath"),softAssert);
 			
 			String actualpopuptext= commonMethods.getTextbyXpath(webPage, testData[10][1], softAssert);
 			log.info("**actualpopuptext*************"+actualpopuptext);
-			//Cancel confirmation popup should be displayed
+			log.info("Cancel confirmation popup should be displayed");
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[10][1], softAssert),testData[11][1],
 					"Cancel confirmation popup header Text. Expected "+testData[11][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[10][1], softAssert));
 			
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[12][1], softAssert),testData[13][1],
 					"Cancel confirmation popup para Text. Expected "+testData[13][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[12][1], softAssert));
 			
-			//Verify close link on Cancel confirmation popup
+			log.info("Verify close link on Cancel confirmation popup");
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, testData[0][1], softAssert),
 					"Close link on Cancel confirmation popup. ");
 			
-			//Click on Cancel auto pay button  on Cancel confirmation popup
+			log.info("Click on Cancel auto pay button  on Cancel confirmation popup");
 			//commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[2][1],softAssert);
 			commonMethods.clickElementbyXpath_usingJavaScript(webPage, testData[2][1], softAssert);
 			
-			//Verify Cancel auto pay success page
+			log.info("Verify Cancel auto pay success page");
 			softAssert.assertEquals(commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert),testData[4][1],
 					"Success cancel auto pay Text. Expected "+testData[4][1]+" Actual : "+commonMethods.getTextbyXpath(webPage, testData[3][1], softAssert));
 			
-			//Verify Back button on success cancel auto pay page
+			log.info("Verify Back button on success cancel auto pay page");
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, commonData.get("BackButtonXPath"), softAssert),
 					"Back button on success cancel auto pay page. ");
 			
-			//Click here link on success cancel auto pay page
+			log.info("Click here link on success cancel auto pay page");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("BackButtonXPath"),softAssert);
 			
-			//Verify Account summary header text
+			log.info("Verify Account summary header text");
 			softAssert.assertTrue(commonMethods.getTextbyXpath(webPage, testData[6][1], softAssert).contains(testData[7][1]),
 					"Account Summary header text. ");
 			
-			//Click on pay bill button
+			log.info("Click on pay bill button");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[8][1],softAssert);
 			
-			//Verify One time payment tab
+			log.info("Verify One time payment tab");
 			softAssert.assertTrue(commonMethods.verifyElementisPresent(webPage, testData[9][1], softAssert),
 					"One time payment tab. ");
 			softAssert.assertAll();
