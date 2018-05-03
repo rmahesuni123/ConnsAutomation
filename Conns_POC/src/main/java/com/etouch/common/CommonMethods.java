@@ -237,7 +237,7 @@ public class CommonMethods {
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			//webPage.findObjectByxPath(locator).click();
 			log.info("****** testBedName : "+testBedName.toString());
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testBedName.equalsIgnoreCase("Chrome")) 
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") ) //|| testBedName.equalsIgnoreCase("Chrome")
 			{			
 			HandlingResizeableDropDown(webPage,testType,testBedName,LinkDropDown,LegalDisclosureLink,testData,softAssert);
 			log.info("****** HandlingResizeableDropDown Completed successfully for **********  : "+testBedName.toString()); 
