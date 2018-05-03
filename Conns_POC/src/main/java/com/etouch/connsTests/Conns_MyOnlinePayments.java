@@ -220,10 +220,16 @@ public class Conns_MyOnlinePayments extends BaseTest {
 		log.info("******************Started method Verify_MyOnlinePayments_Verbiage*********************");
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = "";
+		String LinkDropDown = "";
 
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
 					"Verify_MyOnlinePayments_Verbiage");
+			String[][] inputData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
+					"Verify_Redirection_for_LegalDisclosures_Link");
+			//webPage.getDriver().get(testData[1][1]);
+			LinkDropDown = inputData[0][5];
+			MyOnlinePaymentsPage.ClickElementPresenceByJS(webPage, LinkDropDown, softAssert);
 
 			log.info("***********  Clicking on My Online Payments Link **************");
 			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS(webPage, testData, testData[0][1],
