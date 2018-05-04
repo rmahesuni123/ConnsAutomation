@@ -138,11 +138,14 @@ public class CommonMethods {
 		try{
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
+			commonMethods.doubleClickElementbyXpath(webPage, locator, softAssert);
 			//webPage.findObjectByxPath(locator).click();
-			commonMethods.scrollToElement(webPage, locator, softAssert);
+			//commonMethods.scrollToElement(webPage, locator, softAssert);
 			log.info("Clicking on element using xpath - "+locator);
-			WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
-			js.executeScript("arguments[0].click();", element);
+			//WebElement element=webPage.getDriver().findElement(By.xpath(locator));
+			
+			
+			//js.executeScript("arguments[0].click();", element);
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
 			if(windowHandlesSet.size()>1){
 				for(String winHandle:windowHandlesSet){
