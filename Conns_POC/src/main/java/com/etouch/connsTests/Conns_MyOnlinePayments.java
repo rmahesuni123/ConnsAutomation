@@ -200,7 +200,7 @@ public class Conns_MyOnlinePayments extends BaseTest {
 			LegalDisclosureLink = testData[0][6];
 
 			log.info("***********  Verifying Target page url **************");
-			ActualURL = myonlinepaymentpage.verifyLinkNavigation_UsingJS_LegalDisclosure(webPage, 
+			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS_LegalDisclosure(webPage, 
 					Redirection_Link_Locator, link_Name, url,    TargetpageLocator,  TargetPageHeader, testType,   testBedName,  LinkDropDown,  LegalDisclosureLink, testData, softAssert);
 			softAssert.assertTrue(ActualURL.contains(Expected_URL),
 					"Expected url: " + Expected_URL + " Actual url: " + ActualURL);
@@ -220,13 +220,11 @@ public class Conns_MyOnlinePayments extends BaseTest {
 		log.info("******************Started method Verify_MyOnlinePayments_Verbiage*********************");
 		SoftAssert softAssert = new SoftAssert();
 		String ActualURL = "";
-		String LinkDropDown = "";
-
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
 					"Verify_MyOnlinePayments_Verbiage");
-			String[][] inputData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
-					"Verify_Redirection_for_LegalDisclosures_Link");
+		/*	String[][] inputData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
+					"Verify_Redirection_for_LegalDisclosures_Link");*/
 			
 			log.info("***********  Clicking on My Online Payments Link **************");
 			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS(webPage, testData, testData[0][1],
