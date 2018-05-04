@@ -87,7 +87,7 @@ public class MyOnlinePaymentsPage extends CommonPage {
 		return pageURL;
 	}
 	
-	/***** Asim verifyLinkNavigation_UsingJS **********/
+	/*****  verifyLinkNavigation_UsingJS **********/
 
 	public String verifyLinkNavigation_UsingJS(WebPage webPage, String testData[][], String link_Locator,
 			String link_Name, String Navigation_URL, SoftAssert softAssert) {
