@@ -228,9 +228,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 			for (int i = 8; i <= 8; i++) {
 				commonMethods.sendKeysbyXpath(webPage, VerifyCreditCardFundingPortal[i][1],
 						VerifyCreditCardFundingPortal[i][2], softAssert);
-				/****
-				 * Click on External Form Fill Up Area in order to enable the Save Button
-				 ***/
+				/***** Click on External Form Fill Up Area in order to enable the Save Button***/
 				element.sendKeys(Keys.TAB);
 				element.sendKeys(Keys.ENTER);
 			}
