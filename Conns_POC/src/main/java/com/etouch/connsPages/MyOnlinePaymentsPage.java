@@ -86,6 +86,22 @@ public class MyOnlinePaymentsPage extends CommonPage {
 		}
 		return pageURL;
 	}
+	
+	/***** Asim verifyLinkNavigation_UsingJS **********/
+
+	public String verifyLinkNavigation_UsingJS(WebPage webPage, String testData[][], String link_Locator,
+			String link_Name, String Navigation_URL, SoftAssert softAssert) {
+		String pageURL = "";
+		// PageNavigation_PageLoad( webPage, Navigation_URL, softAssert) ;
+		try {
+			pageURL = commonMethods.clickNGetPageURLByJS(webPage, link_Locator, link_Name, softAssert);
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pageURL;
+	}
 
 	public static void verifyErrorMessageByXpath(WebPage webPage, SoftAssert softAssert, String errorMessageFieldName,
 			String locator, String expectedErrorMessage) throws PageException {

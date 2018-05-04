@@ -232,7 +232,7 @@ public class Conns_MyOnlinePayments extends BaseTest {
 			commonMethods.clickElementbyLinkText(webPage, commonData.get("creditSummaryLinkText"), softAssert);
 			
 			log.info("***********  Clicking on My Online Payments Link **************");
-			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS(webPage, testData, testData[0][1],
+			ActualURL = myonlinepaymentpage.verifyLinkNavigation_UsingJS(webPage, testData, testData[0][1],
 					testData[0][0], url, softAssert);
 			softAssert.assertTrue(ActualURL.contains(testData[0][2]),
 					"Expected url: " + testData[0][2] + " Actual url: " + ActualURL);
