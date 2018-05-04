@@ -200,7 +200,7 @@ public class Conns_MyOnlinePayments extends BaseTest {
 			LegalDisclosureLink = testData[0][6];
 
 			log.info("***********  Verifying Target page url **************");
-			ActualURL = myonlinepaymentpage.verifyLinkNavigation_UsingJS_LegalDisclosure(webPage, 
+			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS_LegalDisclosure(webPage, 
 					Redirection_Link_Locator, link_Name, url,    TargetpageLocator,  TargetPageHeader, testType,   testBedName,  LinkDropDown,  LegalDisclosureLink, testData, softAssert);
 			softAssert.assertTrue(ActualURL.contains(Expected_URL),
 					"Expected url: " + Expected_URL + " Actual url: " + ActualURL);
