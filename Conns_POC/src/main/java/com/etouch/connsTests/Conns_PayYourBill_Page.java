@@ -29,6 +29,7 @@ import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 
 import com.etouch.connsPages.ConnsMainPage;
+import com.etouch.connsPages.MyPaymentMethodsPaymentReformPage;
 import com.etouch.connsPages.PayYourBillPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
@@ -202,7 +203,7 @@ public class Conns_PayYourBill_Page extends BaseTest {
 			log.info("******** Click on SignIn Link ******************");
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[0][1],softAssert);
 			log.info("******** verify Page title ******************");
-			payYourBillPage.loginWithGivenDetails(testData[1][1],testData[2][1],webPage,softAssert);
+			payYourBillPage.LoginWithGivenDetails(testData[1][1],testData[2][1],webPage,softAssert);
 			
 			commonMethods.clickElementbyLinkText(webPage, testData[3][1], softAssert);
 			
@@ -226,7 +227,7 @@ public class Conns_PayYourBill_Page extends BaseTest {
 			softAssert.assertTrue(accountSumaryHeaderText1.contains(testData[5][1]),
 					"Account Summary page header text . Expected "+testData[5][1]+" Actual : "+accountSumaryHeaderText1);
 			//LoggedOut from Conns 
-			payYourBillPage.connsSignOut(webPage,softAssert);
+			//payYourBillPage.connsSignOut(webPage,softAssert);
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_payyourbill_summary");
@@ -278,6 +279,7 @@ public class Conns_PayYourBill_Page extends BaseTest {
 	@Test(priority = 1005, enabled = true, description = "Verify Account Summary page for Inactive account")
 	public void verify_Account_Summary_For_InactiveAccount() throws Exception {
 		SoftAssert softAssert = new SoftAssert();
+		String ElementXpath = "";
 		log.info("************Started method verify_Account_Summary_For_InactiveAccount()***************");
 		try {
 
@@ -287,9 +289,11 @@ public class Conns_PayYourBill_Page extends BaseTest {
 					softAssert);
 			// verify Page title
 			payYourBillPage.loginWithGivenDetails(testData[1][1], testData[2][1], webPage, softAssert);
-
+			
+			ElementXpath = testData[15][1];
+			payYourBillPage.ScrollToElement(webPage, ElementXpath, softAssert);
 			commonMethods.clickElementbyLinkText(webPage, testData[3][1], softAssert);
-			webPage.sleep(4000);
+			//webPage.sleep(4000);
 
 			String ActualPageTitle = webPage.getPageTitle();
 			log.info("ActualPageTitle : " + ActualPageTitle);
