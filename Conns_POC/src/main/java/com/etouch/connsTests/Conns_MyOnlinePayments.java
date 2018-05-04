@@ -223,8 +223,8 @@ public class Conns_MyOnlinePayments extends BaseTest {
 		try {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
 					"Verify_MyOnlinePayments_Verbiage");
-		/*	String[][] inputData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
-					"Verify_Redirection_for_LegalDisclosures_Link");*/
+		 String[][] inputData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
+					"Verify_Redirection_for_LegalDisclosures_Link");
 			
 			log.info("***********  Clicking on My Online Payments Link **************");
 			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS(webPage, testData, testData[0][1],

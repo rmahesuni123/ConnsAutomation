@@ -139,7 +139,7 @@ public class CommonMethods {
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			//webPage.findObjectByxPath(locator).click();
-
+			commonMethods.scrollToElement(webPage, locator, softAssert);
 			log.info("Clicking on element using xpath - "+locator);
 			WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
 			js.executeScript("arguments[0].click();", element);
