@@ -43,7 +43,8 @@ public class Conns_MyOnlinePayments extends BaseTest {
 	private ConnsMainPage mainPage;
 	protected static CommonMethods commonMethods;
 	private String signInURL, DashboardURL;
-	String[][] commonData;
+	//String[][] commonData;
+	protected static LinkedHashMap<String, String> commonData;
 	boolean userLoggedIn = false;
 	String[][] YesLeaseData;
 	MyOnlinePaymentsPage myonlinepaymentpage;
@@ -68,12 +69,13 @@ public class Conns_MyOnlinePayments extends BaseTest {
 				path = Paths.get(TestBedManager.INSTANCE.getProfile().getXlsDataConfig().get("testData"));
 				DataFilePath = path.toAbsolutePath().toString().replace("Env", testEnv);
 				log.info("DataFilePath After is : " + DataFilePath);
-				commonData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
-						"CreateAccountSignInCommonElements");
+				
+				commonData = CommonMethods.getDataInHashMap(DataFilePath, "Bill_Payments", "CreateAccountSignInCommonElements");
+				//commonData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments","CreateAccountSignInCommonElements");
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 
-				signInURL = commonData[2][1];
-				DashboardURL = commonData[8][1];
+				signInURL = commonData.get("SignInURL");//commonData[2][1];
+				DashboardURL = commonData.get("DashboardURL");//commonData[8][1];
 				synchronized (this) {
 
 					webPage = new WebPage(context);
@@ -225,6 +227,9 @@ public class Conns_MyOnlinePayments extends BaseTest {
 					"Verify_MyOnlinePayments_Verbiage");
 		 String[][] inputData = ExcelUtil.readExcelData(DataFilePath, "Bill_Payments",
 					"Verify_Redirection_for_LegalDisclosures_Link");
+		 
+		 log.info("**** Click-on Credit Summary Link ****");
+			commonMethods.clickElementbyLinkText(webPage, commonData.get("creditSummaryLinkText"), softAssert);
 			
 			log.info("***********  Clicking on My Online Payments Link **************");
 			ActualURL = myonlinepaymentpage.verifyLinkNavigationUsingJS(webPage, testData, testData[0][1],
