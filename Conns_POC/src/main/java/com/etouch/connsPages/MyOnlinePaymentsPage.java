@@ -120,6 +120,22 @@ public class MyOnlinePaymentsPage extends CommonPage {
 		return pageURL;
 	}
 
+	public String verifyLinkNavigation_UsingJS_LegalDisclosure(WebPage webPage,  String link_Locator,
+			String link_Name, String Navigation_URL, String TargetpageLocator, String TargetPageHeader,String testType,  String testBedName, String LinkDropDown, String LegalDisclosureLink,String [][] testData,
+			SoftAssert softAssert) {
+		String pageURL = "";
+		// PageNavigation_PageLoad( webPage, Navigation_URL, softAssert) ;
+		try {
+			pageURL = commonMethods.clicknGetPageURLByJSLegalDisclosure(webPage, link_Locator, link_Name,Navigation_URL,
+					TargetpageLocator, TargetPageHeader,  testType,  testBedName, LinkDropDown, LegalDisclosureLink,testData, softAssert);
+			Thread.sleep(10000);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pageURL;
+	}
+	
 	/**
 	 * Conns login functionality
 	 * 

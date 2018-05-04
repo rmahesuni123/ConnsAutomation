@@ -279,6 +279,63 @@ public class CommonMethods {
 
 	
 
+	/**
+	 * @author Name - Archana
+	 * The method used to click on link using x-path and return page url
+	 * Return type is String
+	 * Any structural modifications to the display of the link should be done by overriding this method.
+	 * @throws PageException  If an input or output exception occurred
+	 **/
+	public String clicknGetPageURLByJSLegalDisclosure(WebPage webPage, String locator, String linkName, String Navigation_URL, String TargetpageLocator,String TargetPageHeader,String testType, String testBedName,String LinkDropDown,String LegalDisclosureLink,String [][] testData,SoftAssert softAssert){
+		String pageUrl="";
+		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
+		try{
+			log.info("Clicking on link : "+linkName);
+			String mainWindow = webPage.getDriver().getWindowHandle();
+			//webPage.findObjectByxPath(locator).click();
+			log.info("****** testBedName : "+testBedName.toString());
+			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testBedName.equalsIgnoreCase("Chrome") ) //
+			{			
+			HandlingResizeableDropDown(webPage,testType,testBedName,LinkDropDown,LegalDisclosureLink,testData,softAssert);
+			log.info("****** HandlingResizeableDropDown Completed successfully for **********  : "+testBedName.toString()); 
+			}
+		else {
+				commonMethods.scrollToElement(webPage, locator, softAssert);
+				log.info("****** Successfully Scrolled to Element Iteration value : ********* "+locator);
+				log.info("Clicking on element using xpath - "+locator);
+				WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
+				js.executeScript("arguments[0].click();", element);
+			}	
+			
+			log.info("****** Window Switching Starts **********  : "+testBedName.toString()); 
+
+			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			if(windowHandlesSet.size()>1){
+				for(String winHandle:windowHandlesSet){
+					webPage.getDriver().switchTo().window(winHandle);
+					if(!winHandle.equalsIgnoreCase(mainWindow)){
+						log.info("More than 1 window open after clicking on link : "+linkName);
+						pageUrl=webPage.getCurrentUrl();
+						
+						log.info("*************Verify Header on Legal Disclosures page**************************");
+						log.info("Actual : "+getTextbyXpath(webPage, TargetpageLocator, softAssert)+" Expected : "+TargetPageHeader);
+						softAssert.assertTrue((getTextbyXpath(webPage, TargetpageLocator, softAssert).equals(TargetPageHeader)));	
+						webPage.getDriver().close();
+						webPage.getDriver().switchTo().window(mainWindow);
+						
+					}
+				}
+			}else{
+				pageUrl= webPage.getCurrentUrl();
+			}
+			log.info("Actual URL : "+pageUrl);
+		}catch(Throwable e){
+			e.printStackTrace();
+			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
+		}
+		return pageUrl;
+	}
+
 	
 
 	/**
