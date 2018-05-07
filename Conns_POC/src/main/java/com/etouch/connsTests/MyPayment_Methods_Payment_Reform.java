@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 
 import org.apache.commons.logging.Log;
 
@@ -37,6 +38,7 @@ import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.selenium.WebPage;
 
+
 public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	private String testBedName;
 	Path path;
@@ -53,6 +55,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	String[][] commonData;
 	boolean userLoggedIn = false;
 	MyPaymentMethodsPaymentReformPage myPaymentMethodsPaymentReformPage;
+	protected static LinkedHashMap<Long, WebPage> webPageMap = new LinkedHashMap<Long, WebPage>();
 
 	/*** Prepare before class @throws Exception the exception */
 	@BeforeClass(alwaysRun = true)
@@ -80,9 +83,9 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 				// DashboardURL = commonData[8][1];
 				synchronized (this) {
 					webPage = new WebPage(context);
-					// mainPage = new ConnsMainPage(url, webPage);
-					// createAccountAndSignInPage = new CreateAccountAndSignInPage(url, webPage);
-					myPaymentMethodsPaymentReformPage = new MyPaymentMethodsPaymentReformPage(url, webPage);
+					// mainPage = new ConnsMainPage(url, webPageMap.get(Thread.currentThread().getId()));
+					// createAccountAndSignInPage = new CreateAccountAndSignInPage(url, webPageMap.get(Thread.currentThread().getId()));
+					myPaymentMethodsPaymentReformPage = new MyPaymentMethodsPaymentReformPage(url, webPageMap.get(Thread.currentThread().getId()));
 					log.info(mainPage);
 				}
 			} catch (Exception e) {
@@ -90,7 +93,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 				log.info("errr is " + e);
 				SoftAssertor.addVerificationFailure(e.getMessage());
 			}
-			CommonMethods.navigateToPage(webPage, MyPaymentMethodsURL);
+			CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), MyPaymentMethodsURL);
 		} catch (Exception e) {
 			e.printStackTrace();
 			CommonUtil.sop("errr is for" + testBedName + " -----------" + e);
@@ -100,7 +103,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 
 	@AfterTest
 	public void releaseResources() throws IOException, AWTException {
-		webPage.getDriver().quit();
+		webPageMap.get(Thread.currentThread().getId()).getDriver().quit();
 	}
 
 	@Test(priority = 301, enabled = true)
@@ -116,8 +119,8 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 		String[][] verify_SignIn_With_Valid_Input = ExcelUtil.readExcelData(DataFilePath, "MyPaymentMethods",
 				"verify_SignIn_With_Valid_Input");
 		String[][] linkData = ExcelUtil.readExcelData(DataFilePath, "MyPaymentMethods", "verifyLinksRedirection");
-		commonMethods.clickElementbyXpath(webPage, Register_Link, softAssert);
-		commonMethods.waitForPageLoad(webPage, softAssert);
+		commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), Register_Link, softAssert);
+		commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 		String ExpectedPageTitle = "";
 		String ExpectedURL = "";
 		String ElementXpath = "";
@@ -131,41 +134,41 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 
 			log.info(" ********* Login Credentials for Registered User ****************");
 			for (int i = 0; i < 2; i++) {
-				commonMethods.sendKeysbyXpath(webPage, verify_SignIn_With_Valid_Input[i][1],
+				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), verify_SignIn_With_Valid_Input[i][1],
 						verify_SignIn_With_Valid_Input[i][2], softAssert);
 			}
 
 			log.info(" *********** Clicking on Submit Button on Registered Customer Login Page ********");
 			ElementXpath = verify_SignIn_With_Valid_Input[2][1];
-			MyPaymentMethodsPaymentReformPage.PageElementClick(webPage, ElementXpath, softAssert);
+			MyPaymentMethodsPaymentReformPage.PageElementClick(webPageMap.get(Thread.currentThread().getId()), ElementXpath, softAssert);
 
 			log.info(" *********** Handling Hamburger Icon & PageBrokenLinkVerification *********");
-			MyPaymentMethodsPaymentReformPage.ResizeableDropDownHandling(webPage, testBedName, testType,
+			MyPaymentMethodsPaymentReformPage.ResizeableDropDownHandling(webPageMap.get(Thread.currentThread().getId()), testBedName, testType,
 					verify_SignIn_With_Valid_Input, linkData, softAssert);
 
 			log.info(" *** My Payment Methods Click From Payment Method Main Page Resizeable Menu Option  Starts ****");
 			ElementXpath = verify_SignIn_With_Valid_Input[4][1];
-			MyPaymentMethodsPaymentReformPage.PageElementClick(webPage, ElementXpath, softAssert);
+			MyPaymentMethodsPaymentReformPage.PageElementClick(webPageMap.get(Thread.currentThread().getId()), ElementXpath, softAssert);
 
 			log.info(" ************* FontSizeVerification Starts on My Payment Methods Main Page *********");
-			MyPaymentMethodsPaymentReformPage.FontSizeVerification(webPage, testType, testBedName,
+			MyPaymentMethodsPaymentReformPage.FontSizeVerification(webPageMap.get(Thread.currentThread().getId()), testType, testBedName,
 					ExpectedFontValuesMobile, ExpectedFontValuesTab, ExpectedFontValuesWeb, softAssert);
 
 			log.info("************* ImageVerification Starts on My Payment Methods Main Page *********");
-			MyPaymentMethodsPaymentReformPage.ImageVerification(webPage, softAssert);
+			MyPaymentMethodsPaymentReformPage.ImageVerification(webPageMap.get(Thread.currentThread().getId()), softAssert);
 
 			log.info("************* RowsTextContents Starts on My Payment Methods Main Page *********");
-			MyPaymentMethodsPaymentReformPage.RowsTextContents(webPage, softAssert);
+			MyPaymentMethodsPaymentReformPage.RowsTextContents(webPageMap.get(Thread.currentThread().getId()), softAssert);
 
 			log.info(" ************* Validation & Clicking of Add Button on My Payment Methods Main Page *********");
 			ElementXpath = verify_SignIn_With_Valid_Input[7][1];
-			MyPaymentMethodsPaymentReformPage.ClickElementPresenceByJS(webPage, ElementXpath, softAssert);
+			MyPaymentMethodsPaymentReformPage.ClickElementPresenceByJS(webPageMap.get(Thread.currentThread().getId()), ElementXpath, softAssert);
 
 
 			softAssert.assertAll();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "MyPaymentMethod_Page");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "MyPaymentMethod_Page");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -175,7 +178,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	public void MyPaymentMethod_CreditCard_Page() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("******Started MyPaymentMethod_CreditCard_Page ********");
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
 		String ExpectedPageTitle = "";
 		String ExpectedURL = "";
 		String DropDownXpath = "";
@@ -191,42 +194,42 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 			String SaveCreditCardButtonXpath = VerifyCreditCardFundingPortal[9][1];
 			MyPaymentMethodsPaymentReformPage.PageTitle_PageURL_Validation(VerifyCreditCardFundingPortal, ExpectedURL,
 					ExpectedPageTitle);
-			commonMethods.waitForPageLoad(webPage, softAssert);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			CommonMethods.waitForGivenTime(5);
 
 			log.info("***************** MyPaymentMethod_CreditCard_Panel_Data_Form_Fill_Up *************************");
-			WebElement element = webPage.getDriver().findElement(By.xpath(VerifyCreditCardFundingPortal[0][1]));
+			WebElement element = webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(VerifyCreditCardFundingPortal[0][1]));
 			if (element.isDisplayed() && element.isEnabled())
 				js.executeScript("arguments[0].click();", element);
 			for (int i = 1; i <= 4; i++) {
-				commonMethods.sendKeysbyXpath(webPage, VerifyCreditCardFundingPortal[i][1],
+				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), VerifyCreditCardFundingPortal[i][1],
 						VerifyCreditCardFundingPortal[i][2], softAssert);
 			}
 			log.info("********** MyPaymentMethod_CreditCard_Panel_StateDropdownValueAllOptions_Compare ******");
 			FilePath = "\\Conns_POC\\src\\test\\resources\\StateDropDownValues.properties";
 			DropDownXpath = VerifyCreditCardFundingPortal[5][1];
-			//MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,softAssert);
+			//MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPageMap.get(Thread.currentThread().getId()), FilePath, DropDownXpath,softAssert);
 
 			log.info("****** MyPaymentMethod_CreditCard_Panel_MonthDropdownValueAllOptions_Compare **********");
 			FilePath = "\\Conns_POC\\src\\test\\resources\\MonthDropDownValues.properties";
 			DropDownXpath = VerifyCreditCardFundingPortal[6][1];
-			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,softAssert);
+			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPageMap.get(Thread.currentThread().getId()), FilePath, DropDownXpath,softAssert);
 
 			log.info("****** MyPaymentMethod_CreditCard_Panel_YearDropdownValueAllOptions_Compare ******");
 			FilePath = "\\Conns_POC\\src\\test\\resources\\YearDropDownValues.properties";
 			DropDownXpath = VerifyCreditCardFundingPortal[7][1];
-			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,softAssert);
+			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPageMap.get(Thread.currentThread().getId()), FilePath, DropDownXpath,softAssert);
 
 			log.info("******* MyPaymentMethod_CreditCard_Panel_State_DropDown_Menu_Fill_Up ******");
 			for (int i = 5; i <= 7; i++) {
 				DropDownXpath = VerifyCreditCardFundingPortal[i][1];
 				String dropdownvalue = VerifyCreditCardFundingPortal[i][2];
-				MyPaymentMethodsPaymentReformPage.selectDropdownByValue(webPage, DropDownXpath, dropdownvalue,softAssert);
+				MyPaymentMethodsPaymentReformPage.selectDropdownByValue(webPageMap.get(Thread.currentThread().getId()), DropDownXpath, dropdownvalue,softAssert);
 			}
 
 			log.info("********* MyPaymentMethod_CreditCard_Panel_CVV_Number_Data_Fill_Up ********");
 			for (int i = 8; i <= 8; i++) {
-				commonMethods.sendKeysbyXpath(webPage, VerifyCreditCardFundingPortal[i][1],
+				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), VerifyCreditCardFundingPortal[i][1],
 						VerifyCreditCardFundingPortal[i][2], softAssert);
 				/***** Click on External Form Fill Up Area in order to enable the Save Button***/
 				element.sendKeys(Keys.TAB);
@@ -234,14 +237,14 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 			}
 
 			/****** Save Button Display Validation ******/
-			MyPaymentMethodsPaymentReformPage.Button_Xpath_Validation(webPage, VerifyCreditCardFundingPortal,
+			MyPaymentMethodsPaymentReformPage.Button_Xpath_Validation(webPageMap.get(Thread.currentThread().getId()), VerifyCreditCardFundingPortal,
 					SaveCreditCardButtonXpath, softAssert);
 
 			/****** Error Message Display ******/
 			for (int i = 10; i < 13; i++) {
 				String SuccessMessageXPATH = VerifyCreditCardFundingPortal[i][1];
 				String ExpectedSuccessMessageTEXT = VerifyCreditCardFundingPortal[i][2];
-				MyPaymentMethodsPaymentReformPage.SuccessMessageValidation(webPage, VerifyCreditCardFundingPortal,
+				MyPaymentMethodsPaymentReformPage.SuccessMessageValidation(webPageMap.get(Thread.currentThread().getId()), VerifyCreditCardFundingPortal,
 						SuccessMessageXPATH, ExpectedSuccessMessageTEXT, softAssert);
 			}
 
@@ -252,7 +255,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 
 			log.info("******* MyPaymentMethod_Page_AddNewPaymentMethod Button Display Validation *****************");
 			String AddNewPaymentMethodButtonXpath = VerifyCreditCardFundingPortal[13][1];
-			MyPaymentMethodsPaymentReformPage.Button_Xpath_Validation(webPage, VerifyCreditCardFundingPortal,
+			MyPaymentMethodsPaymentReformPage.Button_Xpath_Validation(webPageMap.get(Thread.currentThread().getId()), VerifyCreditCardFundingPortal,
 					AddNewPaymentMethodButtonXpath, softAssert);
 
 			log.info("*********** AddNewPaymentMethodButton Page URL & Page Title Validation **************");
@@ -262,7 +265,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 					ExpectedPageTitle);
 		} catch (Throwable e) {
 			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "MyPaymentMethod_CreditCard_Page");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "MyPaymentMethod_CreditCard_Page");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -273,7 +276,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 	public void MyPaymentMethod_Banking_Page() throws ClientProtocolException, IOException, InterruptedException {
 		log.info("******Started MyPaymentMethod_Banking_Page ********");
 		SoftAssert softAssert = new SoftAssert();
-		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
+		JavascriptExecutor js = (JavascriptExecutor) webPageMap.get(Thread.currentThread().getId()).getDriver();
 		String[][] ExpectedFontValuesWeb = ExcelUtil.readExcelData(DataFilePath, "MyPaymentMethods",
 				"VerifyConfirmationSuccessFontandSizeWeb");
 		String[][] ExpectedFontValuesTab = ExcelUtil.readExcelData(DataFilePath, "MyPaymentMethods",
@@ -289,7 +292,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 		try {
 			String[][] VerifyBankingFundingPortal = ExcelUtil.readExcelData(DataFilePath, "MyPaymentMethods",
 					"VerifyBankingFundingPortal");
-			commonMethods.waitForPageLoad(webPage, softAssert);
+			commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 			CommonMethods.waitForGivenTime(5);
 
 			log.info(" ********** MyPaymentMethod_Banking_Panel_Page_Title_Verification *******");
@@ -299,33 +302,33 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 					ExpectedPageTitle);
 
 			log.info("***************** MyPaymentMethod_Banking_Panel_Tab_Validation *************************");
-			WebElement element = webPage.getDriver().findElement(By.xpath(VerifyBankingFundingPortal[0][1]));
+			WebElement element = webPageMap.get(Thread.currentThread().getId()).getDriver().findElement(By.xpath(VerifyBankingFundingPortal[0][1]));
 			if (element.isDisplayed() && element.isEnabled())
 				js.executeScript("arguments[0].click();", element);
 
 			log.info("***************** MyPaymentMethod_Banking_Panel_Data_Form_Fill_Up *************************");
 			for (int i = 1; i < 5; i++) {
-				commonMethods.sendKeysbyXpath(webPage, VerifyBankingFundingPortal[i][1],
+				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), VerifyBankingFundingPortal[i][1],
 						VerifyBankingFundingPortal[i][2], softAssert);
 			}
 
 			log.info("********** MyPaymentMethod_BankAccountStateDropDownValues_Comparison ********");
 			FilePath = "\\Conns_POC\\src\\test\\resources\\BankAccountStateDropDownValues.properties";
 			DropDownXpath = VerifyBankingFundingPortal[6][1];
-			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,
+			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPageMap.get(Thread.currentThread().getId()), FilePath, DropDownXpath,
 					softAssert);
 
 			log.info("******* MyPaymentMethod_BankAccountTypeDropDownValues_Comparison **********");
 			FilePath = "\\Conns_POC\\src\\test\\resources\\BankAccountType.properties";
 			DropDownXpath = VerifyBankingFundingPortal[7][1];
-			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPage, FilePath, DropDownXpath,
+			MyPaymentMethodsPaymentReformPage.CompareDropdownValueAllOptions(webPageMap.get(Thread.currentThread().getId()), FilePath, DropDownXpath,
 					softAssert);
 
 			log.info("********* MyPaymentMethod_Bank_Account_Panel_State_DropDown_Menu_Fill_Up *********");
 			for (int i = 6; i <= 7; i++) {
 				DropDownXpath = VerifyBankingFundingPortal[i][1];
 				dropdownvalue = VerifyBankingFundingPortal[i][2];
-				MyPaymentMethodsPaymentReformPage.selectDropdownByValue(webPage, DropDownXpath, dropdownvalue,
+				MyPaymentMethodsPaymentReformPage.selectDropdownByValue(webPageMap.get(Thread.currentThread().getId()), DropDownXpath, dropdownvalue,
 						softAssert);
 			}
 
@@ -333,28 +336,28 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 			for (int i = 5; i < 6; i++) {
 				long Account_Number = MyPaymentMethodsPaymentReformPage.generateRandom(12);
 				String AccountNumberAsString = Long.toString(Account_Number);
-				commonMethods.sendKeysbyXpath(webPage, VerifyBankingFundingPortal[i][1], AccountNumberAsString,
+				commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), VerifyBankingFundingPortal[i][1], AccountNumberAsString,
 						softAssert);
 			}
 			log.info("*********Enabling_MyPaymentMethod_Banking_Panel_Page_Save_Button ***********");
 
 			log.info("**** MyPaymentMethod_Banking_Panel_Page_Save_Button_Validation **********");
-			MyPaymentMethodsPaymentReformPage.SaveButtonValidation(webPage, VerifyBankingFundingPortal, softAssert);
+			MyPaymentMethodsPaymentReformPage.SaveButtonValidation(webPageMap.get(Thread.currentThread().getId()), VerifyBankingFundingPortal, softAssert);
 
 			log.info("******* MyPaymentMethod_Banking_Page_Successfull_Confirmation_Message_Validation ******");
 			for (int i = 9; i < 12; i++) {
 				String SuccessMessageXPATH = VerifyBankingFundingPortal[i][1];
 				String ExpectedSuccessMessageTEXT = VerifyBankingFundingPortal[i][2];
-				MyPaymentMethodsPaymentReformPage.SuccessMessageValidation(webPage, VerifyBankingFundingPortal,
+				MyPaymentMethodsPaymentReformPage.SuccessMessageValidation(webPageMap.get(Thread.currentThread().getId()), VerifyBankingFundingPortal,
 						SuccessMessageXPATH, ExpectedSuccessMessageTEXT, softAssert);
 			}
 
 			log.info("**************** MyPaymentMethod_Confirmation_Message_Font_Size_Validation *****");
-			MyPaymentMethodsPaymentReformPage.FontSizeVerification(webPage, testType, testBedName,
+			MyPaymentMethodsPaymentReformPage.FontSizeVerification(webPageMap.get(Thread.currentThread().getId()), testType, testBedName,
 					ExpectedFontValuesMobile, ExpectedFontValuesTab, ExpectedFontValuesWeb, softAssert);
 
 			log.info("**************** MyPaymentMethod_Confirmation_Message_Page_Back_Button_Validation *****");
-			MyPaymentMethodsPaymentReformPage.MyPaymentMethod_Confirmation_Message_Page_Back_Button(webPage,
+			MyPaymentMethodsPaymentReformPage.MyPaymentMethod_Confirmation_Message_Page_Back_Button(webPageMap.get(Thread.currentThread().getId()),
 					VerifyBankingFundingPortal, softAssert);
 
 			log.info("********* MyPaymentMethod_Confirmation_Message_Page_Back_Button_Validation Page URL & Page Title Validation ********");
@@ -366,7 +369,7 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 
 		catch (Throwable e) {
 			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "MyPaymentMethod_Page");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "MyPaymentMethod_Page");
 			softAssert.assertAll();
 			softAssert.fail(e.getLocalizedMessage());
 		}
