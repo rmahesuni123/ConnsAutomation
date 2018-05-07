@@ -122,6 +122,8 @@ public class Conns_BillPay_Page extends BaseTest {
 				synchronized (this) {
 					billPayPage = new BillPayPage();
 					Thread.sleep(3000);
+					webPage = new WebPage(context);
+					webPageMap.put(Thread.currentThread().getId(), webPage);
 					/***********************************/
 					//webPageMap.get(Thread.currentThread().getId()) = new webPageMap.get(Thread.currentThread().getId())(context);
 					//webPageMap.get(Thread.currentThread().getId())Map.put(Thread.currentThread().getId(), webPageMap.get(Thread.currentThread().getId()));
