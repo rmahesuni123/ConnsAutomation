@@ -83,9 +83,11 @@ public class MyPayment_Methods_Payment_Reform extends BaseTest {
 				// DashboardURL = commonData[8][1];
 				synchronized (this) {
 					webPage = new WebPage(context);
+					webPageMap.put(Thread.currentThread().getId(), webPage);
+					mainPage = new ConnsMainPage(url, webPageMap.get(Thread.currentThread().getId()));
 					// mainPage = new ConnsMainPage(url, webPageMap.get(Thread.currentThread().getId()));
 					// createAccountAndSignInPage = new CreateAccountAndSignInPage(url, webPageMap.get(Thread.currentThread().getId()));
-					myPaymentMethodsPaymentReformPage = new MyPaymentMethodsPaymentReformPage(url, webPageMap.get(Thread.currentThread().getId()));
+					myPaymentMethodsPaymentReformPage = new MyPaymentMethodsPaymentReformPage(url, webPage);
 					log.info(mainPage);
 				}
 			} catch (Exception e) {
