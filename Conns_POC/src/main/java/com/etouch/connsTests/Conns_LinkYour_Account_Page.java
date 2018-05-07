@@ -45,8 +45,7 @@ import com.etouch.taf.util.SoftAssertor;
 import com.etouch.taf.webui.ITafElement;
 import com.etouch.taf.webui.selenium.WebPage;
 
-@Test(groups = "YesMoneyCreditApplication")
-@IExcelDataFiles(excelDataFiles = { "CreditAppData=testData" })
+
 public class Conns_LinkYour_Account_Page extends BaseTest {
 	private String testBedName;
 	TestBed testBed;

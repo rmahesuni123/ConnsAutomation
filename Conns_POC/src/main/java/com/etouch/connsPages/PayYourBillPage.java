@@ -30,22 +30,24 @@ public class PayYourBillPage extends Conns_PayYourBill_Page {
 	  * @throws Exception
 	  */
 	 public void verifyVerbiageOfPayYourBillAndAccountPages(SoftAssert softAssert) throws Exception {
-		 //Verify Pay your bill page title
+		 log.info("******** Verify Pay your bill page title  ******************");//
 		 softAssert.assertEquals(webPageMap.get(Thread.currentThread().getId()).getPageTitle(),commonData.get("payyourbillpagetitle"),
 					"Pay your bill page title . Expected "+commonData.get("payyourbillpagetitle")+" Actual : "+webPageMap.get(Thread.currentThread().getId()).getPageTitle());
-		//Verify pay your bills and Credit account Verbiage Text
+		 log.info("******** Verify pay your bills and Credit account Verbiage Text  ******************");//
 			String payYourBillText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()),commonData.get("payYourBillOnlineXpath") , softAssert);
 			String creditActText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("creditAccountXpath"), softAssert);
-			
+			log.info("******** payYourBillText  ******************" +payYourBillText);
+			log.info("******** commonData.get(\"payYourBillOnlineText\")  ******************" +commonData.get("payYourBillOnlineText"));
 			softAssert.assertEquals(payYourBillText,commonData.get("payYourBillOnlineText"),
 					"Pay YourBill Online Text . Expected "+commonData.get("payYourBillOnlineText")+" Actual : "+payYourBillText);
-			
+			log.info("******** creditActText  ******************" +creditActText);
+			log.info("******** commonData.get(\"creditAccountText\")  ******************" +commonData.get("creditAccountText"));
 			softAssert.assertEquals(creditActText,commonData.get("creditAccountText"),
 					"Credit Account Text . Expected "+commonData.get("creditAccountText")+" Actual : "+creditActText);
-			//Click on Pay Bill button
+			log.info("******** Click on Pay Bill button  ******************" );
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("payBillButtonXpath"),softAssert);
 			
-			//Verify New Customer and Register Customers Verbiage text
+			log.info("******** Verify New Customer and Register Customers Verbiage text  ******************" );//
 			String customersText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("newCustomersXpath"), softAssert);
 			String regCustomersText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("registeredCustomersXpath"), softAssert);
 			

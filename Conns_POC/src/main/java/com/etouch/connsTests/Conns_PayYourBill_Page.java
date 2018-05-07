@@ -154,7 +154,7 @@ public class Conns_PayYourBill_Page extends BaseTest {
 			
 			softAssert.assertAll();
 		} catch (Throwable e) {
-			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Page_Title");
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_PayYourBillPage_Title_And_Verbiage");
 			softAssert.assertAll();
 		}
 	}
@@ -168,17 +168,17 @@ public class Conns_PayYourBill_Page extends BaseTest {
 		SoftAssert softAssert = new SoftAssert();
 		try {
 			
-			//Navigate to Base URL
+			log.info("******** Navigate to Base URL  ******************");//
 			CommonMethods.navigateToPage(webPageMap.get(Thread.currentThread().getId()), url);
-			//Scroll down till the footer
+			log.info("******** Scroll down till the footer  ******************");//
 			commonMethods.scrollDown(webPage, 800);
-			//Click on Pay your Bill footer link
+			log.info("******** Click on Pay your Bill footer link ******************");//
 			commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("payyourbillFooterXpath"),softAssert);
 			
-			//Verify pay your bills and Credit account Verbiage Text
+			log.info("******** Verify pay your bills and Credit account Verbiage Text ******************");//
 			payYourBillPage.verifyVerbiageOfPayYourBillAndAccountPages(softAssert);
 			
-			//Verify Register button
+			log.info("******** Verify Register button ******************");//
 			payYourBillPage.verifyRegisterButton(webPage, softAssert);
 			
 			softAssert.assertAll();
