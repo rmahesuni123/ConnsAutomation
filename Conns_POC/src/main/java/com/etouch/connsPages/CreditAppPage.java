@@ -355,7 +355,7 @@ public class CreditAppPage extends Conns_Credit_App_Page {
 		scrollToElement(commonData.get("SubmitButton"),softAssert);
 		commonMethods.clickElementbyXpath(webPageMap.get(Thread.currentThread().getId()), commonData.get("SubmitButton"), softAssert);
 		 Thread.sleep(5000);
-		System.out.println("Url isd : " + commonMethods.getPageUrl(webPageMap.get(Thread.currentThread().getId()), softAssert));
+		log.info("Url is : " + commonMethods.getPageUrl(webPageMap.get(Thread.currentThread().getId()), softAssert));
 		// commonMethods.waitForPageLoad(webPageMap.get(Thread.currentThread().getId()), softAssert);
 		if (commonMethods.getPageUrl(webPageMap.get(Thread.currentThread().getId()), softAssert).contains(commonData.get("ProcessingPage"))) {
 			log.info("Processing Page is Displayed");

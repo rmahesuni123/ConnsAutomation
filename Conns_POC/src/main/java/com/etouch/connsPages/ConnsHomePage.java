@@ -71,7 +71,8 @@ public class ConnsHomePage extends CommonPage {
 	
 	public String textVerification(WebPage webPage, String locator,SoftAssert softAssert) throws PageException, InterruptedException {
 		String Actual_Text = "";
-		Actual_Text = commonMethods.getTextbyXpath(webPage, locator, softAssert);		
+		Actual_Text = commonMethods.getTextbyXpath(webPage, locator, softAssert);
+		log.info("Actual text is==" +Actual_Text);
 		Thread.sleep(1000);
 		return Actual_Text;
 	
@@ -90,7 +91,7 @@ public class ConnsHomePage extends CommonPage {
 		try{ 
 			commonMethods.mouseOverOnElementUsingRobot(webPage, locator, softAssert);
 			commonMethods.waitForPageLoad(webPage, softAssert);
-			Thread.sleep(1000);
+			Thread.sleep(10000);
 		}
 		catch(Exception e)
 		{
@@ -148,14 +149,16 @@ public class ConnsHomePage extends CommonPage {
 	
 	public void LinksRedirection_Under_FinancingPromotions_Menu_Verification_Web(WebPage webPage, String hoverElementXpath, String testData[][],  SoftAssert softAssert) throws PageException, InterruptedException, ClientProtocolException, IOException {
 		log.info("TestType is  : ************ testBedName **************"  );
+		log.info("Hover Info ::hoverElementXpath"+hoverElementXpath);
 		commonMethods.mouseOverOnElementUsingRobot(webPage, hoverElementXpath, softAssert);
 		Thread.sleep(4000);
 		for (int i = 0; i < testData.length; i++) {
 			log.info("Iteration under test : " + i);
-			commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][2], testData[i][1], testData[i][2], softAssert);
+			commonMethods.verifyLinkStatusCodeAndHrefValue(webPage, testData[i][4], testData[i][2], testData[i][3], softAssert);
+			
+			
 		}
-		}
-	
+		}	
 	
 	
 	public String  Verify_HomePage_Banner_Links(WebPage webPage,  String testData[][], String link_Locator,String link_Name,String Navigation_URL,  SoftAssert softAssert) {
@@ -201,43 +204,50 @@ public class ConnsHomePage extends CommonPage {
 	}
 	
 	
-	public void Verify_Link_Navigation(WebPage webPage,  String testData[] [], String URL,String testType,SoftAssert softAssert) 
-	{  	String ActualURL = "";
+	public void Verify_Link_Navigation(WebPage webPage, String testData[][], String URL, String testType,
+			SoftAssert softAssert) {
+		String ActualURL = "";
 		String Redirection_Link_Locator = "";
 		String link_Name = "";
 		String Target_Page_Locator = "";
 		String Expected_URL = "";
 		try {
-		commonMethods.waitForPageLoad(webPage, softAssert);
-		Thread.sleep(2000);
-		for (int i = 0; i < testData.length; i++) {	
-		log.info("Inside the if. Value of I Before : " + i);
-		Expected_URL = testData[i][4]; 
-		link_Name = testData[i][0];
-		Target_Page_Locator = testData[i][5];
-		String Redirection_Link_Locator_2 = testData[i][2];
-		String Redirection_Link_Locator_1 = testData[i][3];
-		if (testType.equalsIgnoreCase("Web")) {	
-			Redirection_Link_Locator = testData[i][2];
-		}
-		if (testType.equalsIgnoreCase("Mobile") && (!(Redirection_Link_Locator_2.equalsIgnoreCase("NA")))) {
-			Redirection_Link_Locator = testData[i][2];
-		}
-		if (testType.equalsIgnoreCase("Mobile")  && (!(Redirection_Link_Locator_1.equalsIgnoreCase("NA")))) {
-			Redirection_Link_Locator = testData[i][3];
-		}
-		ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, Redirection_Link_Locator,link_Name,Target_Page_Locator, softAssert);
-		softAssert.assertTrue(ActualURL.contains(Expected_URL),"Link Name  :" + link_Name + " : failed " + "Actual URL is  :" + ActualURL + " "	+ "Expected URL is  :" + Expected_URL);	
-		PageNavigation_PageLoad(webPage, URL, softAssert);
-		Thread.sleep(2000);
-		log.info("Inside the if. Value of I After : " + i);
-		softAssert.assertAll();
-		}
-		}
-		catch (Exception e){
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			Thread.sleep(2000);
+			for (int i = 0; i < testData.length; i++) {
+				log.info("Inside the if. Value of I Before : " + i);
+				Expected_URL = testData[i][4];
+				link_Name = testData[i][0];
+				Target_Page_Locator = testData[i][5];
+				String Redirection_Link_Locator_2 = testData[i][2];
+				String Redirection_Link_Locator_1 = testData[i][3];
+				if (testType.equalsIgnoreCase("Web")) {
+					Redirection_Link_Locator = testData[i][1];
+				}
+				if (testType.equalsIgnoreCase("Mobile") && (!(Redirection_Link_Locator_2.equalsIgnoreCase("NA")))) {
+					webPage.findObjectByxPath(testData[i][2]).click();
+					System.out.println("Click on element "+ testData[i][2]);
+					Redirection_Link_Locator = testData[i][3];
+					System.out.println("Stored object  "+ testData[i][3]);
+					Thread.sleep(7000);
+				}
+				
+				ActualURL= commonMethods.clickAndGetPageURL(webPage, Redirection_Link_Locator, link_Name, softAssert);
+				/*ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, Redirection_Link_Locator, link_Name,
+						Target_Page_Locator, softAssert);*/
+				log.info("Actual URL==> " + ActualURL);
+				softAssert.assertTrue(ActualURL.contains(Expected_URL), "Link Name  :" + link_Name + " : failed "
+						+ "Actual URL is  :" + ActualURL + " " + "Expected URL is  :" + Expected_URL);
+				PageNavigation_PageLoad(webPage, URL, softAssert);
+				Thread.sleep(2000);
+				log.info("Inside the if. Value of I After : " + i);
+				softAssert.assertAll();
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	
 	public void Link_Redirection_Verification(WebPage webPage,  String testData[] [], String URL,String testType,String testBedName,SoftAssert softAssert) 
@@ -258,16 +268,24 @@ public class ConnsHomePage extends CommonPage {
 			log.info("Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
 			Redirection_Link_Locator = testData[i][1];
 			log.info("Redirection_Link_Locator : " +Redirection_Link_Locator.toString());
+			
 		}
 		if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
 			log.info("*********** Mobile TestType is  : " + testType +"************  testBedName **************" +testBedName );
+		   //webPage.findObjectByxPath(testData[i][2]).click();
+		    Thread.sleep(5000);
+			log.info("Clicked on Menu==>" +testData[i][2]);
+			
 			Redirection_Link_Locator = testData[i][2];
 			log.info("Redirection_Link_Locator : " +Redirection_Link_Locator.toString());
+			
+						
 		}
-		ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, Redirection_Link_Locator,link_Name,Target_Page_Locator, softAssert);
+		ActualURL= commonMethods.clickAndGetPageURL(webPage, Redirection_Link_Locator, link_Name, softAssert);
+		//ActualURL = commonMethods.clickAndGetPageURLUsingJS(webPage, Redirection_Link_Locator,link_Name,Target_Page_Locator, softAssert);
 		softAssert.assertTrue(ActualURL.contains(Expected_URL),"Link Name  :" + link_Name + " : failed " + "Actual URL is  :" + ActualURL + " "	+ "Expected URL is  :" + Expected_URL);	
 		PageNavigation_PageLoad(webPage, URL, softAssert);
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		log.info("Inside the if. Value of I After : " + i);		
 		}
 		}
@@ -277,6 +295,46 @@ public class ConnsHomePage extends CommonPage {
 	}
 	
 
+	//************Connect with US**************************************
+	public void Link_Redirection_Verification_getConnect(WebPage webPage,  String testData[] [], String URL,String testType,String testBedName,SoftAssert softAssert) 
+	{  	String ActualURL = "";
+		String link_Name = "";
+		String Target_Page_Locator = "";
+		String Redirection_Link_Locator = "";
+		String Expected_URL = "";
+		try {
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		Thread.sleep(2000);
+		for (int i = 0; i < testData.length; i++) {	
+		log.info("Inside the if. Value of I Before : " + i);
+		Expected_URL = testData[i][4]; 
+		link_Name = testData[i][0];
+		Target_Page_Locator = testData[i][5];
+		if (testType.equalsIgnoreCase("Web") && (!(testBedName.equalsIgnoreCase("Edge") ))) {
+			log.info("Web TestType is  : " +testType +"************ testBedName **************" +testBedName );
+			Redirection_Link_Locator = testData[i][1];
+			log.info("Redirection_Link_Locator : " +Redirection_Link_Locator.toString());
+			
+		}
+		if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+			log.info("*********** Mobile TestType is  : " + testType +"************  testBedName **************" +testBedName );
+		  	Redirection_Link_Locator = testData[i][2];
+			log.info("Redirection_Link_Locator : " +Redirection_Link_Locator.toString());
+			
+						
+		}
+		ActualURL= commonMethods.clickAndGetPageURL(webPage, Redirection_Link_Locator, link_Name, softAssert);
+		softAssert.assertTrue(ActualURL.contains(Expected_URL),"Link Name  :" + link_Name + " : failed " + "Actual URL is  :" + ActualURL + " "	+ "Expected URL is  :" + Expected_URL);	
+		PageNavigation_PageLoad(webPage, URL, softAssert);
+		Thread.sleep(5000);
+		log.info("Inside the if. Value of I After : " + i);		
+		}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	//*****************************connect us*********************
 	
 	public void LinksRedirection_Under_Option_Menu_Verification_Mobile(WebPage webPage,  String testData[][],String patio_Furniture_Matteress_Link_Locator,boolean patio_Functionality,boolean portable_Air_Conditioners , SoftAssert softAssert)
 	{		
@@ -348,12 +406,24 @@ public class ConnsHomePage extends CommonPage {
 		String pageURL = "";
 		pageURL = commonMethods.clickAndGetPageURLByJS( webPage,linkName, locator, softAssert);	
 		//PageNavigation_PageLoad(webPage,  URL, softAssert);
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		return pageURL;
 	
 	}
 
-
+  public String verifyNewLetterFunctionality (WebPage webPage,String email,String TextBox_locator, String Submit_Button_locator,String Msg_Locator, SoftAssert softAssert ) throws Throwable
+  {
+	  
+	  String actual_msg="";
+	  webPage.findObjectByxPath(TextBox_locator).clear();  
+	  webPage.findObjectByxPath(TextBox_locator).sendKeys(email);
+	  webPage.findObjectByxPath(Submit_Button_locator).click();
+	  actual_msg = webPage.findObjectByxPath(Msg_Locator).getText();
+	  log.info("Actual msg==>" +actual_msg);
+	return actual_msg;
+	   
+	  
+  }
 	
 	public void verifySaveBigWithConnsSection(String[][] test,String URL,String testType) throws PageException {
 		SoftAssert softAssert = new SoftAssert();
@@ -369,6 +439,7 @@ public class ConnsHomePage extends CommonPage {
 		String SaveBigMenuOptionIdentifierMobile = null;
 		List<String> errors = new ArrayList<String>();
 		webPage.waitForWebElement(By.xpath(test[0][0]));
+		
 		for (int i = 0; i < test.length; i++) {
 			try {
 				log.info("Value of I : " + i);
@@ -474,7 +545,30 @@ public class ConnsHomePage extends CommonPage {
 			}
 		}
 	}
-		// TODO Auto-generated method stub
+	public void homePageClickOnShopIcon(WebPage webPage, String shopIcon,  SoftAssert softAssert) throws InterruptedException {
+		try{ 
+			commonMethods.clickElementbyXpath(webPage, shopIcon, softAssert);
+			Thread.sleep(1000);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+
+	public void elementHoveringAndClick(WebPage webPage, String hoverElement, String locator,  SoftAssert softAssert) {
+		try{ 
+			commonMethods.hoverOnelementbyXpath(webPage, hoverElement, softAssert);
+			commonMethods.clickElementbyXpath(webPage, locator, softAssert);
+			Thread.sleep(1000);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 		
 	
 }

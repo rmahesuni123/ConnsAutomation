@@ -5,15 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.http.client.ClientProtocolException;
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
@@ -427,11 +427,11 @@ public class Conns_Home_Page extends BaseTest {
 	 * Conns Home Page
 	 * 
 	 */
-	@Test(priority = 9, enabled = true, description = "Verify LinksRedirection Under Furniture And Mattresses Menu")
-	public void Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu() throws PageException, InterruptedException {
+	@Test(priority = 9, enabled = true, description = "Verify LinksRedirection Under Furniture Menu")
+	public void Verify_LinksRedirection_Under_Furniture_Menu() throws PageException, InterruptedException {
 		SoftAssert softAssert = new SoftAssert();
 		webPage.getDriver().get(url);	
-		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForFurnitureAndMattresses");
+		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForFurniture");
 		String elementHoverXpath ="";
 		String linkName = "";
 		String xpath = "";
@@ -458,7 +458,7 @@ public class Conns_Home_Page extends BaseTest {
 			softAssert.assertAll();
 		}catch (Throwable e) {
 			e.printStackTrace();
-			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_Furniture_And_Mattresses_Menu");
+			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_Furniture_Menu");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}
@@ -801,6 +801,91 @@ public class Conns_Home_Page extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+	
+	@Test(priority = 21, enabled = true, description = "Verify_Primary_Navigation_Bar_Items_And_Order")
+	public void Verify_Primary_Navigation_Bar_Items_And_Order()
+			throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		webPage.getDriver().get(url);
+		commonMethods.waitForPageLoad(webPage, softAssert);
+		commonMethods.waitForGivenTime(3, softAssert);
+		try {
+			String[][] testData = null;
+			if(testType.equalsIgnoreCase("Mobile"))
+			{
+				testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page","VerifyPrimaryNavOrderMobile");
+				//commonMethods.clickElementbyXpath(webPage, testData[11][1], softAssert);
+			}
+			else
+			{
+				testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page","VerifyPrimaryNavOrderWeb");
+			}
 
+			for(int i=0;i<testData.length-1;i++)
+			{
+				log.info((testData[i][0]));
+			}
 
+			List<WebElement>ExpectedMenuItems = new ArrayList<WebElement>();
+			if(testType.equalsIgnoreCase("Mobile"))
+			{
+				commonMethods.clickElementbyXpath(webPage, testData[14][1], softAssert);
+				ExpectedMenuItems= webPage.getDriver().findElements(By.xpath(testData[14][2]));
+			}
+			else
+			{
+				ExpectedMenuItems= webPage.getDriver().findElements(By.xpath(testData[7][1]));
+			}
+			
+			for(int i=0;i<ExpectedMenuItems.size();i++)
+			{
+				log.info(ExpectedMenuItems.get(i).getText());
+			}
+			softAssert.assertEquals(testData, ExpectedMenuItems, "The Order & Items on Primary Nav Bar are not displayed correctly");
+			log.info("The Order & Items on Primary Nav Bar are displayed correctly");
+			softAssert.assertAll();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "Verify_Primary_Navigation_Bar_Items_And_Order");
+			SoftAssertor.addVerificationFailure(e.getMessage());
+			log.error("Error in Verify_Primary_Navigation_Bar_Items_And_Order :" + e.getMessage());
+		}
+	}
+	
+	@Test(priority = 22, enabled = true, description = "Verify LinksRedirection Under Mattresses Menu")
+	public void Verify_LinksRedirection_Under_Mattresses_Menu() throws PageException, InterruptedException {
+		SoftAssert softAssert = new SoftAssert();
+		webPage.getDriver().get(url);	
+		String[][] testData = ExcelUtil.readExcelData(DataFilePath, "Conns_Home_Page", "verifyLinksForMattresses");
+		String elementHoverXpath ="";
+		String linkName = "";
+		String xpath = "";
+		String expectedHref = "";
+		String patio_Furniture_Matteress_Link_Locator = "";
+		boolean patio_Functionality = true;
+		boolean portable_Air_Conditioners = false;
+		Thread.sleep(2000);
+		try {
+			elementHoverXpath = testData[0][0];
+			ConnsHomePage.elementHoveringVerification(webPage, elementHoverXpath, softAssert);
+			if (testType.equalsIgnoreCase("Web")) {
+			for (int i = 0; i < testData.length; i++) {
+				linkName = testData[i][2];
+				xpath = testData[i][1];
+				expectedHref = testData[i][2];
+				log.info("Iteration under test : " + i);							
+				ConnsHomePage.linkStatusCodeAndHrefValueVerification(webPage, linkName, xpath, expectedHref,testData, softAssert);
+				}
+			}
+		    if (testType.equalsIgnoreCase("Mobile") || (testType.equalsIgnoreCase("Web") && (testBedName.equalsIgnoreCase("Edge")))) {
+				ConnsHomePage.LinksRedirection_Under_Option_Menu_Verification_Mobile(webPage, testData,patio_Furniture_Matteress_Link_Locator,patio_Functionality,portable_Air_Conditioners, softAssert);
+			  }
+			softAssert.assertAll();
+		}catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "Verify_LinksRedirection_Under_Mattresses_Menu");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
 }

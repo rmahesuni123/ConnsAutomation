@@ -232,7 +232,6 @@ public class Conns_Product_Listing_Page extends BaseTest {
 			mainPage.getScreenShotForFailure(webPage, "Verify_For_Pagination_And_Product_Details");
 			SoftAssertor.addVerificationFailure(e.getMessage());
 			log.error("Error in Verify_For_Pagination_And_Product_Details :" + e.getMessage());
-			e.printStackTrace();
 		} finally {
 			String errors = SoftAssertor.readErrorsForTest();
 			if (errors != null && errors.length() > 0)

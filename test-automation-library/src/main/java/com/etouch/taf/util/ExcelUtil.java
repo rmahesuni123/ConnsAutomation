@@ -87,6 +87,51 @@ public class ExcelUtil {
 		}
 		return testData;
 	}
+	
+	public static String[][] readExcelDataWithDouble(String filePath, String sheetName, String tableName) {
+		String[][] testData = null;
+
+		try (HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream(filePath))) {
+			HSSFSheet sheet = workbook.getSheet(sheetName);
+			log.debug("sheetName------------------" + sheetName);
+			HSSFCell[] boundaryCells = findCell(sheet, tableName);
+			log.debug("tableName------------------" + tableName);
+			HSSFCell startCell = boundaryCells[0];
+			HSSFCell endCell = boundaryCells[1];
+			int startRow = startCell.getRowIndex() + 1;
+			int endRow = endCell.getRowIndex();
+			int startCol = startCell.getColumnIndex() + 1;
+			int endCol = endCell.getColumnIndex() - 1;
+			testData = new String[endRow - startRow + 1][endCol - startCol + 1];
+
+			for (int i = startRow; i < endRow + 1; i++) {
+				for (int j = startCol; j < endCol + 1; j++) {
+					if (null == sheet.getRow(i).getCell(j) || sheet.getRow(i).getCell(j).getCellType() == HSSFCell.CELL_TYPE_BLANK) {
+						testData[i - startRow][j - startCol] = "";
+					} else {
+
+						if (sheet.getRow(i).getCell(j).getCellType() == HSSFCell.CELL_TYPE_STRING) {
+							testData[i - startRow][j - startCol] = sheet.getRow(i).getCell(j).getStringCellValue().trim();
+						} else if (sheet.getRow(i).getCell(j).getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+							Double temp = sheet.getRow(i).getCell(j).getNumericCellValue();
+							testData[i - startRow][j - startCol] = String.valueOf(temp.doubleValue());
+						} else if (sheet.getRow(i).getCell(j).getCellType() == HSSFCell.CELL_TYPE_BOOLEAN) {
+							Boolean temp = sheet.getRow(i).getCell(j).getBooleanCellValue();
+							testData[i - startRow][j - startCol] = String.valueOf(temp.booleanValue());
+						}
+					}
+
+				}
+			}
+		} catch (FileNotFoundException e) {
+			log.debug("Could not read the Excel sheet");
+			log.debug("FileNotFoundException", e);
+		} catch (IOException e) {
+			log.debug("Could not read the Excel sheet");
+			log.debug("IOException", e);
+		}
+		return testData;
+	}
 
 	/**
 	 * CommonMethod(readExcelData) which reads the data from the excel sheet.

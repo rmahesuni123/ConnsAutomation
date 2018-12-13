@@ -27,6 +27,7 @@ import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -34,8 +35,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
 import com.etouch.taf.core.exception.PageException;
+import com.etouch.taf.util.BrowserInfoUtil;
 import com.etouch.taf.util.ExcelUtil;
 import com.etouch.taf.util.LogUtil;
 import com.etouch.taf.webui.selenium.WebPage;
@@ -45,7 +48,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class CommonMethods {
 
 	static Log log = LogUtil.getLog(CommonMethods.class);
-	static CommonMethods commonMethods = new CommonMethods();
+
 
 	/**
 	 * @author Name - Deepak Bhambri
@@ -75,6 +78,7 @@ public class CommonMethods {
 		try{
 			log.info("Verifying if element is present by locator - "+locator);
 			isElementPresent = webPage.findObjectByxPath(locator).isDisplayed();
+			log.info("-----------" +isElementPresent +"-------------------");
 		}catch(Throwable e){
 			log.info("Element not visible using locator: "+locator+". Localized Message: "+e.getLocalizedMessage());
 		}
@@ -138,54 +142,12 @@ public class CommonMethods {
 		try{
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
-			//commonMethods.doubleClickElementbyXpath(webPage, locator, softAssert);
 			//webPage.findObjectByxPath(locator).click();
-			commonMethods.scrollToElement(webPage, locator, softAssert);
-			log.info("Clicking on element using xpath - "+locator);
-			WebElement element=webPage.getDriver().findElement(By.xpath(locator));
-			js.executeScript("arguments[0].click();", element);
-			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
-			if(windowHandlesSet.size()>1){
-				for(String winHandle:windowHandlesSet){
-					webPage.getDriver().switchTo().window(winHandle);
-					if(!winHandle.equalsIgnoreCase(mainWindow)){
-						log.info("More than 1 window open after clicking on link : "+linkName);
-						pageUrl=webPage.getCurrentUrl();
-						webPage.getDriver().close();
-						webPage.getDriver().switchTo().window(mainWindow);
-					}
-				}
-			}else{
-				pageUrl= webPage.getCurrentUrl();
-			}
-			log.info("Actual URL : "+pageUrl);
-		}catch(Throwable e){
-			e.printStackTrace();
-			softAssert.fail("Unable to click on link '"+linkName+". Localized Message: "+e.getLocalizedMessage());
-		}
-		return pageUrl;
-	}
 
-	/**
-	 * @author Name - Asim Singh
-	 * The method used to click on link using x-path and return page url
-	 * Return type is String
-	 * Any structural modifications to the display of the link should be done by overriding this method.
-	 * @throws PageException  If an input or output exception occurred
-	 **/
-	public String clickNGetPageURLByJS(WebPage webPage, String locator, String linkName, SoftAssert softAssert){
-		String pageUrl="";
-		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
-		try{
-			log.info("Clicking on link : "+linkName);
-			String mainWindow = webPage.getDriver().getWindowHandle();
-			//commonMethods.doubleClickElementbyXpath(webPage, locator, softAssert);
-			//webPage.findObjectByxPath(locator).click();
-			//commonMethods.scrollToElement(webPage, locator, softAssert);
-			//log.info("Clicking on element using xpath - "+locator);
-			//WebElement element=webPage.getDriver().findElement(By.xpath(locator));
-			//js.executeScript("arguments[0].click();", element);
-			//webPage.findObjectByxPath(locator).click();
+			log.info("Clicking on element using xpath - "+locator);
+			Thread.sleep(1000);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
+			js.executeScript("arguments[0].click();", element);
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
 			if(windowHandlesSet.size()>1){
 				for(String winHandle:windowHandlesSet){
@@ -214,10 +176,14 @@ public class CommonMethods {
 			SoftAssert softAssert) throws PageException, InterruptedException {
 		String mainWindow = webPage.getDriver().getWindowHandle();
 		WebElement element = webPage.findObjectByxPath(locator).getWebElement();
+		Thread.sleep(1000);
+		log.info("Name of element clicked is==" +element);
 		JavascriptExecutor js = (JavascriptExecutor) webPage.getDriver();
 		js.executeScript("arguments[0].click();", element);
+		//element.click();
 		log.info("Clicked on Link : " + linkName);
 		//waitPageToLoad();
+		Thread.sleep(10000);
 		waitForPageLoad(webPage, softAssert);
 		String pageUrl = "";
 		try {
@@ -242,28 +208,6 @@ public class CommonMethods {
 		return pageUrl;
 	}
 
-	
-	public void HandlingResizeableDropDown(WebPage webPage,String testType, String testBedName,String LinkDropDown,String LegalDisclosureLink,String [][]testData,SoftAssert softAssert){		
-		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
-		try{
-			
-			for(int i = 5;i<=6;i++) {
-				log.info("****** HandlingResizeableDropDown Iteration value : ********* "+i);
-				commonMethods.waitForPageLoad(webPage, softAssert);
-				WebElement element=webPage.getDriver().findElement(By.xpath(testData[0][i]));					
-				js.executeScript("arguments[0].click();", element);
-				commonMethods.waitForPageLoad(webPage, softAssert);	
-				log.info("****** Datasheet Iteration value : ********* "+testData[0][i].toString());
-				CommonMethods.waitForGivenTime(5);
-			}
-		
-		}
-		catch(Throwable e){
-			e.printStackTrace(); 			
-		}
-		
-	}
-	
 	/**
 	 * @author Name - Archana
 	 * The method used to click on link using x-path and return page url
@@ -271,37 +215,31 @@ public class CommonMethods {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public String clickAndGetPageURLByJSLegalDisclosure(WebPage webPage, String locator, String linkName, String Navigation_URL, String TargetpageLocator,String TargetPageHeader,String testType, String testBedName,String LinkDropDown,String LegalDisclosureLink,String [][] testData,SoftAssert softAssert){
+	public String clickAndGetPageURLByJSLegalDisclosure(WebPage webPage, String locator, String linkName, String TargetpageLocator,String TargetPageHeader,SoftAssert softAssert){
 		String pageUrl="";
 		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
 		try{
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			//webPage.findObjectByxPath(locator).click();
-			log.info("****** testBedName : "+testBedName.toString());
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge")  ) //|| testBedName.equalsIgnoreCase("Chrome")
-			{			
-			HandlingResizeableDropDown(webPage,testType,testBedName,LinkDropDown,LegalDisclosureLink,testData,softAssert);
-			log.info("****** HandlingResizeableDropDown Completed successfully for **********  : "+testBedName.toString()); 
-			}
-		else {
-				log.info("Clicking on element using xpath - "+locator);
-				WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
-				js.executeScript("arguments[0].click();", element);
-			}	
-			
-			log.info("****** Window Switching Starts **********  : "+testBedName.toString()); 
 
+			log.info("Clicking on element using xpath - "+locator);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));	
+			js.executeScript("arguments[0].click();", element);
+			
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			log.info("windowHandlesSet.size()==>" +windowHandlesSet.size());
 			if(windowHandlesSet.size()>1){
 				for(String winHandle:windowHandlesSet){
 					webPage.getDriver().switchTo().window(winHandle);
+					waitForPageLoad(webPage, softAssert);
+					waitForGivenTime(5);
 					if(!winHandle.equalsIgnoreCase(mainWindow)){
 						log.info("More than 1 window open after clicking on link : "+linkName);
 						pageUrl=webPage.getCurrentUrl();
 						
 						log.info("*************Verify Header on Legal Disclosures page**************************");
-						log.info("Actual : "+getTextbyXpath(webPage, TargetpageLocator, softAssert)+" Expected : "+TargetPageHeader);
+						log.info("Actual TargetPageHeader: "+getTextbyXpath(webPage, TargetpageLocator, softAssert)+" ExpectedTargetPageHeader : "+TargetPageHeader);
 						softAssert.assertTrue((getTextbyXpath(webPage, TargetpageLocator, softAssert).equals(TargetPageHeader)));	
 						webPage.getDriver().close();
 						webPage.getDriver().switchTo().window(mainWindow);
@@ -319,8 +257,6 @@ public class CommonMethods {
 		return pageUrl;
 	}
 
-	
-
 	/**
 	 * @author Name - Archana
 	 * The method used to click on link using x-path and return page url
@@ -328,39 +264,31 @@ public class CommonMethods {
 	 * Any structural modifications to the display of the link should be done by overriding this method.
 	 * @throws PageException  If an input or output exception occurred
 	 **/
-	public String clicknGetPageURLByJSLegalDisclosure(WebPage webPage, String locator, String linkName, String Navigation_URL, String TargetpageLocator,String TargetPageHeader,String testType, String testBedName,String LinkDropDown,String LegalDisclosureLink,String [][] testData,SoftAssert softAssert){
+	public String clickAndGetPageURLByJSLegalDisclosureIE(WebPage webPage, String locator, String linkName, String TargetpageLocator,String TargetPageHeader,SoftAssert softAssert){
 		String pageUrl="";
 		JavascriptExecutor js=(JavascriptExecutor) webPage.getDriver();
 		try{
 			log.info("Clicking on link : "+linkName);
 			String mainWindow = webPage.getDriver().getWindowHandle();
 			//webPage.findObjectByxPath(locator).click();
-			log.info("****** testBedName : "+testBedName.toString());
-			if (testType.equalsIgnoreCase("Mobile") || testBedName.equalsIgnoreCase("edge") || testBedName.equalsIgnoreCase("Chrome") ) //
-			{			
-			HandlingResizeableDropDown(webPage,testType,testBedName,LinkDropDown,LegalDisclosureLink,testData,softAssert);
-			log.info("****** HandlingResizeableDropDown Completed successfully for **********  : "+testBedName.toString()); 
-			}
-		else {
-				commonMethods.scrollToElement(webPage, locator, softAssert);
-				log.info("****** Successfully Scrolled to Element Iteration value : ********* "+locator);
-				log.info("Clicking on element using xpath - "+locator);
-				WebElement element=webPage.getDriver().findElement(By.xpath(locator));					
-				js.executeScript("arguments[0].click();", element);
-			}	
-			
-			log.info("****** Window Switching Starts **********  : "+testBedName.toString()); 
 
+			log.info("Clicking on element using xpath - "+locator);
+			WebElement element=webPage.getDriver().findElement(By.xpath(locator));	
+			new Actions(webPage.getDriver()).doubleClick(element).build().perform();
+			
 			Set<String> windowHandlesSet = webPage.getDriver().getWindowHandles();
+			log.info("windowHandlesSet.size()==>" +windowHandlesSet.size());
 			if(windowHandlesSet.size()>1){
 				for(String winHandle:windowHandlesSet){
 					webPage.getDriver().switchTo().window(winHandle);
+					waitForPageLoad(webPage, softAssert);
+					waitForGivenTime(5);
 					if(!winHandle.equalsIgnoreCase(mainWindow)){
 						log.info("More than 1 window open after clicking on link : "+linkName);
 						pageUrl=webPage.getCurrentUrl();
 						
 						log.info("*************Verify Header on Legal Disclosures page**************************");
-						log.info("Actual : "+getTextbyXpath(webPage, TargetpageLocator, softAssert)+" Expected : "+TargetPageHeader);
+						log.info("Actual TargetPageHeader: "+getTextbyXpath(webPage, TargetpageLocator, softAssert)+" ExpectedTargetPageHeader : "+TargetPageHeader);
 						softAssert.assertTrue((getTextbyXpath(webPage, TargetpageLocator, softAssert).equals(TargetPageHeader)));	
 						webPage.getDriver().close();
 						webPage.getDriver().switchTo().window(mainWindow);
@@ -400,6 +328,7 @@ public class CommonMethods {
 					if(!winHandle.equalsIgnoreCase(mainWindow)){
 						log.info("More than 1 window open after clicking on link : "+linkName);
 						pageUrl=webPage.getCurrentUrl();
+						Thread.sleep(1000);
 						webPage.getDriver().close();
 						webPage.getDriver().switchTo().window(mainWindow);
 					}
@@ -488,7 +417,7 @@ public class CommonMethods {
 			/*log.info("****************************************isEnabled"+webPage.findObjectByxPath(locator).isEnabled());
 			log.info("****************************************isDispalyed"+webPage.findObjectByxPath(locator).isDisplayed());
 			log.info("****************************************"+webPage.findObjectByxPath(locator).isElementVisible());*/
-//			log.info("@@@@@@@@@@@@@@@@@@@@@Clicking on element using xpath - "+locator);
+			log.info("**************************************** Clicking on element using xpath - "+locator);
 			
 			webPage.findObjectByxPath(locator).click();
 		} catch (Throwable e) {
@@ -871,6 +800,7 @@ public class CommonMethods {
 			log.info("Clicking on element using Link Name"
 					+ " - "+LinkName);
 			webPage.findObjectByLink(LinkName).click();
+			
 		} catch (PageException e) {
 			softAssert.fail("Unable to click on element using Link Name : "+ LinkName+". Localized Message: "+e.getLocalizedMessage());
 		}
@@ -1906,15 +1836,18 @@ public class CommonMethods {
 		WebElement element = getWebElementbyXpath(webPage, xpath, softAssert);
 		String elementUrl=element.getAttribute("href");			
 		log.info(linkName+" Actual : "+elementUrl+" Expected : "+expectedHref);
+		if(!elementUrl.contains("javascript:void(0)")){
 		softAssert.assertTrue(elementUrl.contains(expectedHref),"Expected Url : "+expectedHref+" Actual : "+elementUrl);
-
+		
 		log.info("Verifying Status Code for Link : " + linkName+" Url : "+elementUrl);
 		int statusCode = verifyUrlStatusCode(element.getAttribute("href"));
 		if (statusCode == 200) {
 			log.info("Status code for Link : "+linkName+ " is "+statusCode);
+			
 		}
 		else{
 			softAssert.fail("Status Code for link "+ linkName + "With Url :" + expectedHref +" is "+statusCode);
+		}
 		}
 	}
 	/**

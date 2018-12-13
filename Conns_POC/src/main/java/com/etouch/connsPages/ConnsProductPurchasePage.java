@@ -11,8 +11,10 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
@@ -1278,4 +1280,132 @@ public class ConnsProductPurchasePage extends Conns_Product_Purchase {
 
 	}		
 }
+	
+	public void fillCreditAppfromCheckout(WebPage webPage, String[][] formdata, SoftAssert softAssert) throws InterruptedException {
+		log.info("Filling Credit App Form via Checkout page");
+		try {
+			String s="textField";
+			for(int i=0;i<formdata.length-3;i++)
+			{
+				if(formdata[i][1].equals(s))
+				{
+				commonMethods.sendKeysbyXpath(webPage, formdata[i][2], formdata[i][3]);
+				}
+				else
+				{
+					Select select = new Select(commonMethods.findElementByXpath(webPage, formdata[i][2], softAssert));
+					select.selectByVisibleText(formdata[i][3]);
+				}
+			}
+			commonMethods.clickElementbyXpath(webPage, formdata[14][2], softAssert);
+		}
+	catch(NoSuchElementException e)
+	{
+		log.info("Failed to Get Element : "+e.getMessage());
+		throw new NoSuchElementException("Current Page : "+webPage.getCurrentUrl()+" "+e.getMessage());
+	}
+}
+	
+	public void verifyStatusPage(WebPage webPage, String[][] formdata, SoftAssert softAssert) throws InterruptedException
+	{
+		log.info("Url is : " + commonMethods.getPageUrl(webPage, softAssert));
+		if (commonMethods.getPageUrl(webPage, softAssert).contains(formdata[15][2])) {
+			log.info("Processing Page is Displayed");
+			commonMethods.waitForGivenTime(10, softAssert);
+		} else {
+			log.info("Unable to catch processing page");
+		}
+		commonMethods.waitForGivenTime(10, softAssert);
+		String actualUrl = commonMethods.getPageUrl(webPage, softAssert);
+		softAssert.assertTrue(actualUrl.contains(formdata[16][2]),
+				"Expected Url : " + (formdata[16][2]) + " Actual Url : " + actualUrl);
+	}
+	
+	public String editQtyInShoppingCart(WebPage webPage, String[][]EditQtyShoppingCart, SoftAssert softAssert) throws InterruptedException {
+		commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[0][1], softAssert);
+		commonMethods.clearElementbyXpath(webPage, EditQtyShoppingCart[0][1], softAssert);
+		if(testType.equalsIgnoreCase("mobile"))
+		{
+			commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[16][1], softAssert);
+		}
+		commonMethods.sendKeysbyXpath(webPage, EditQtyShoppingCart[0][1], EditQtyShoppingCart[1][1], softAssert);
+		commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[2][1], softAssert);
+		String errorMsg=commonMethods.getTextbyXpath(webPage, EditQtyShoppingCart[3][1], softAssert);
+		return errorMsg;
+	}
+	
+	public void addtoCartInStockConvertedtoPickup(WebPage webPage, String[][]EditQtyShoppingCart, SoftAssert softAssert) throws InterruptedException{
+		commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[6][1], softAssert);
+		commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[7][1], softAssert);
+		String pickupCheckboxText= commonMethods.getTextbyXpath(webPage, EditQtyShoppingCart[8][1], softAssert);
+		softAssert.assertEquals(pickupCheckboxText, EditQtyShoppingCart[9][1], "The Pickup Location Dialog is not present");
+		log.info("The pickup location dialog is present when clicked on Pickup Checkbox");
+		
+		log.info("Proceeding to Add this product to cart");
+		commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[10][1], softAssert);
+		commonMethods.clearElementbyXpath(webPage, EditQtyShoppingCart[10][1], softAssert);
+		commonMethods.sendKeysbyXpath(webPage, EditQtyShoppingCart[10][1], EditQtyShoppingCart[11][1], softAssert);
+		commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[12][1], softAssert);
+		
+		log.info("Verifying if Pickup location checkbox is selected");
+		commonMethods.waitForGivenTime(5);
+		WebElement pickup_radio_Btn=commonMethods.findElementByXpath(webPage, EditQtyShoppingCart[13][1], softAssert);
+		boolean isradioBtnselected=pickup_radio_Btn.isSelected();
+		softAssert.assertTrue(isradioBtnselected, "The Pickup Location Radio Button is not selected");
+		log.info("Pickup location checkbox is selected");
+		
+		log.info("Proceed to Shopping Cart");
+		commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[14][1], softAssert);
+		
+		if(!commonMethods.verifyElementisPresent(webPage, EditQtyShoppingCart[15][1], softAssert))
+		{
+			commonMethods.waitForGivenTime(30, softAssert);
+		}
+		if (webPage.getDriver().getPageSource().contains("Shopping Cart is Empty")) {
+			log.info("Cart is Empty message displayed after clicking on Add to Cart button. Test will not be able to complete successfully because of this.");
+			boolean isShoppingCartEmpty = webPage.getDriver().getPageSource().contains("Shopping Cart is Empty");
+			log.info("isShoppingCartEmpty:" + isShoppingCartEmpty);
+			Assert.assertFalse(isShoppingCartEmpty,
+					"Cart is Empty message shown even after adding valid product. Test cannot be completed as product did not get added to cart.");
+		}
+		else{
+		log.info("Product not available for given zipcode");
+		}
+	}
+	
+	public void CheckoutFieldValidationGuest(WebPage webPage, String[][]fieldData, SoftAssert softAssert) throws InterruptedException{
+		for (int i=0;i<fieldData.length;i++)
+		{
+			if (fieldData[i][1].equalsIgnoreCase("textField")){
+				commonMethods.clickElementbyXpath(webPage, fieldData[i][2], softAssert);
+				commonMethods.clearElementbyXpath(webPage, fieldData[i][2], softAssert);
+				commonMethods.sendKeysbyXpath(webPage, fieldData[i][2], fieldData[i][3], softAssert);
+				
+				Actions a=new Actions(webPage.getDriver());
+				a.sendKeys(Keys.TAB).build().perform();
+				String actualErrorMsg= commonMethods.getTextbyXpath(webPage, fieldData[i][4], softAssert);
+				commonMethods.waitForGivenTime(3, softAssert);
+				
+				softAssert.assertEquals(actualErrorMsg, fieldData[i][5], "Failed to perform Validation for field: "+fieldData[i][0]);
+			}
+			else {
+				log.info("Field not displayed");
+			}
+		}	
+	}
+	
+	public void CheckoutFieldValidation_SignInforUser(WebPage webPage, String[][]SignInData, SoftAssert softAssert) throws InterruptedException{
+		for (int i=0;i<SignInData.length-1;i++)
+		{
+			commonMethods.clickElementbyXpath(webPage, SignInData[i][1], softAssert);
+			commonMethods.clearElementbyXpath(webPage, SignInData[i][1], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, SignInData[i][1], SignInData[i][2], softAssert);
+		}	
+		
+		commonMethods.clickElementbyXpath(webPage, SignInData[2][1], softAssert);
+		String billingText=commonMethods.getTextbyXpath(webPage, SignInData[3][1], softAssert);
+		softAssert.assertEquals(billingText, SignInData[3][0], "User is not Signed-In");
+		log.info("User logged in");
+	}
+
 }

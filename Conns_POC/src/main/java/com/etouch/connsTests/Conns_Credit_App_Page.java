@@ -53,7 +53,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 	//Logger logger = Logger.getLogger(ConnsAccountAndSignInPage.class.getName());
 	private String testEnv;
 	protected static String url;
-	
+	WebPage webPage;
 
 	
 	private ConnsMainPage mainPage;
@@ -153,11 +153,11 @@ public class Conns_Credit_App_Page extends BaseTest {
 			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
 					"verifyImportantNotesLink");
 			//verify Important notice link is present
-			if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[0][1], softAssert))
+			if (creditAppPage.verifyElementisPresentByXPath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert))
 			{
 				commonMethods.clearElementbyXpath(webPageMap.get(Thread.currentThread().getId()), ".//*[@id='employed:other-income']", softAssert);
 				//verify link text
-				String linkText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[0][1], softAssert);
+				String linkText = commonMethods.getTextbyXpath(webPageMap.get(Thread.currentThread().getId()), testData[1][1], softAssert);
 				softAssert.assertTrue(linkText.contains(testData[0][3]),
 						"Failed to verify Important Notice Link Text. Expected "+testData[0][3]+" Actual : "+linkText);
 				//Click on link
@@ -596,7 +596,13 @@ public class Conns_Credit_App_Page extends BaseTest {
 		try {
 			creditAppPage.navigateToCreditAppPage(softAssert);
 			log.info("testing verify_Error_Message_for_Reference_Code_Field started------>");
-			LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp","verifyErrorMessageForRefCode");
+			commonMethods.sendKeysbyXpath(webPage, testData[6][0], testData[6][1], softAssert);
+			commonMethods.sendKeysbyXpath(webPage, testData[8][0], testData[8][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, testData[9][0], softAssert);
+			//softAssert.assertTrue(, message);
+			
+			/*LinkedHashMap<String, String> testData = CommonMethods.getDataInHashMap(DataFilePath, "CreditApp",
 					"verifyErrorMessageForRefCode");
 			commonMethods.sendKeysbyXpath(webPageMap.get(Thread.currentThread().getId()), testData.get("RefCodeXpath"), testData.get("RefCodeValue"),
 					softAssert);
@@ -604,7 +610,7 @@ public class Conns_Credit_App_Page extends BaseTest {
 			CommonMethods.waitForWebElement(By.xpath(testData.get("RefCodeErrorXpath")), webPageMap.get(Thread.currentThread().getId()));
 			Thread.sleep(3000);
 			creditAppPage.verifyErrorMessageByXpath(softAssert, "RefCodeError", testData.get("RefCodeErrorXpath"),
-					testData.get("RefCodeError"));
+					testData.get("RefCodeError"));*/
 			log.info("testing verify_Error_Message_for_Reference_Code_Field completed------>");
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -1009,6 +1015,28 @@ public class Conns_Credit_App_Page extends BaseTest {
 				catch (Throwable e) {
 					e.printStackTrace();
 			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()), "verify_Field_Validation_Error_Message_With_InValid_Data");
+			softAssert.assertAll();
+			Assert.fail(e.getLocalizedMessage());
+		}
+	}
+	
+	
+	@Test(priority = 1033, enabled = true, description = "verify successful submit for Pre-approval status")
+	public void verify_Successful_Submit_Pre_Approval_Status() throws Exception {
+		log.info("testing verifySuccessfulSubmitForPreApprovalStatus started------>");
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] testData = ExcelUtil.readExcelData(DataFilePath, "CreditApp",
+					"verifySuccessfulSubmitForPreAppPage");
+			creditAppPage.navigateToCreditAppPage(softAssert);
+			creditAppPage.fillForm(softAssert, testData);
+			creditAppPage.submitCreditAppAndVerifyStatus(softAssert, "Pre-ApprovalPage");
+			softAssert.assertAll();
+			log.info(
+					"testing flow for verify_Successful_Submit_Pre_Approval_Status Completed");
+		} catch (Throwable e) {
+			mainPage.getScreenShotForFailure(webPageMap.get(Thread.currentThread().getId()),
+					"verify_Successful_Submit_Pre_Approval_Status");
 			softAssert.assertAll();
 			Assert.fail(e.getLocalizedMessage());
 		}

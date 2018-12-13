@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -27,6 +28,7 @@ import com.etouch.common.CommonMethods;
 import com.etouch.common.TafExecutor;
 import com.etouch.connsPages.ConnsMainPage;
 import com.etouch.connsPages.ConnsProductPurchasePage;
+import com.etouch.connsPages.CreditAppPage;
 import com.etouch.taf.core.TestBed;
 import com.etouch.taf.core.TestBedManager;
 import com.etouch.taf.core.config.TestBedManagerConfiguration;
@@ -72,6 +74,7 @@ public class Conns_Product_Purchase extends BaseTest {
 	static protected String[][] commonData;
 	String[][] PageUrlData;
 	String testUrl = "";
+	CreditAppPage creditAppPage;
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp(ITestContext context) throws InterruptedException, FileNotFoundException, IOException {
@@ -128,6 +131,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				}
 				url = TestBedManagerConfiguration.INSTANCE.getWebConfig().getURL();
 				connsProductPurchasePage = new ConnsProductPurchasePage();
+				creditAppPage = new CreditAppPage();
 
 				synchronized (this) {
 					webPage = new WebPage(context);
@@ -330,13 +334,13 @@ public class Conns_Product_Purchase extends BaseTest {
 
 			softAssert.assertTrue(productNameOnCartPage.contains(actualProductTextDetails.get(0)),
 					"Expected product name in cart page: " + productNameOnCartPage
-							+ " Actual product name on product page: " + actualProductTextDetails.get(1));
+					+ " Actual product name on product page: " + actualProductTextDetails.get(1));
 			softAssert.assertTrue(productShippingDetailsOnCartPage.contains(actualProductTextDetails.get(1)),
 					"Expected shipping details in cart page: " + productNameOnCartPage
-							+ " Actual details on product page: " + actualProductTextDetails.get(1));
+					+ " Actual details on product page: " + actualProductTextDetails.get(1));
 			softAssert.assertTrue(productUnitPriceIncart.contains(actualProductTextDetails.get(2)),
 					"Expected product unit price in cart page: " + productNameOnCartPage
-							+ " Actual price on product page: " + actualProductTextDetails.get(1));
+					+ " Actual price on product page: " + actualProductTextDetails.get(1));
 
 			log.info("Updating quantity of product in cart page and verifying Subtotal amount");
 			productUnitPriceIncart = productUnitPriceIncart.replaceAll(" ", "").replaceAll("[.$]", "").replaceAll(",",
@@ -635,7 +639,7 @@ public class Conns_Product_Purchase extends BaseTest {
 					softAssert);
 			softAssert.assertTrue(productQuantityOnCartPage.contains(productQuantityInOrderReviewSection),
 					"Product quantity on cart page: " + productQuantityOnCartPage
-							+ " Product quantity in review section: " + productQuantityInOrderReviewSection);
+					+ " Product quantity in review section: " + productQuantityInOrderReviewSection);
 			softAssert.assertTrue(productPriceOnCartPage.contains(productPriceInOrderReviewSection),
 					"Product price on cart page: " + productPriceOnCartPage + " Product price in order review section: "
 							+ productPriceInOrderReviewSection);
@@ -1099,7 +1103,7 @@ public class Conns_Product_Purchase extends BaseTest {
 			specialCharExpectedErrorMessage = connsHomePlusCard_data[1][3];
 			softAssert.assertTrue(specialCharActualErrorMessage.contains(specialCharExpectedErrorMessage),
 					"Expected spcl. char error message: " + specialCharExpectedErrorMessage
-							+ " Actual spcl. char error message: " + specialCharActualErrorMessage);
+					+ " Actual spcl. char error message: " + specialCharActualErrorMessage);
 
 			log.info("Verifying result message for insufficent funds in card");
 			log.info("Insufficient funds will need card number that has no or low balance");
@@ -1203,7 +1207,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				invalidZipExpectedErrorMessage = connsHomePlusCard_invalidZip_data[9][4];
 				softAssert.assertTrue(invalidZipActualErrorMessage.contains(invalidZipExpectedErrorMessage),
 						"Place order success message verification failed. Expected: " + invalidZipExpectedErrorMessage
-								+ " Actual: " + invalidZipActualErrorMessage);
+						+ " Actual: " + invalidZipActualErrorMessage);
 			}
 			softAssert.assertAll();
 		} catch (Throwable e) {
@@ -1281,7 +1285,7 @@ public class Conns_Product_Purchase extends BaseTest {
 				log.info("Verifying place order success message");
 				softAssert.assertTrue(
 						commonMethods.getTextbyXpath(webPage, checkoutPageData[46][1], softAssert)
-								.contains(promotionalPickupOnlyAvialableProduct[15][4]),
+						.contains(promotionalPickupOnlyAvialableProduct[15][4]),
 						"Unable to verify promotional text on Success Page Expected : "
 								+ promotionalPickupOnlyAvialableProduct[15][4] + " Actual : "
 								+ commonMethods.getTextbyXpath(webPage, checkoutPageData[46][1], softAssert));
@@ -1497,4 +1501,203 @@ public class Conns_Product_Purchase extends BaseTest {
 			Assert.fail(e.getLocalizedMessage());
 		}
 	}
+
+	@Test(priority = 918, enabled = true, description = "Verify_Proceed_To_Checkout_with_Conn's_Credit_Pre_Approval_Status")
+	public void Verify_Checkout_Page_Pre_Approval_Status() {
+		SoftAssert softAssert = new SoftAssert();
+		String actualOrderReviewSectionText = "";
+		String productPriceOnCartPage = "";
+		String productQuantityOnCartPage = "";
+		String productNameOnCartPage = "";
+		String connsCreditActualUrl = "";
+		String connsCreditExpectedUrl = "";
+
+		try {
+			String[][] AddToCartInstockProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"Add_Instock_Product");
+			//String[][] checkoutGuest = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase", "Register_User");
+
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			if(testType.equalsIgnoreCase("Web"))
+			{
+				webPage.getDriver().manage().window().maximize();
+			}
+			connsProductPurchasePage.deleteCookies();
+			connsProductPurchasePage.addGivenProductToCart(webPage, AddToCartInstockProduct[15][3],
+					AddToCartInstockProduct, softAssert, false);
+			connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 25);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
+			connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 10);
+
+			log.info("Proceeding to checkout as Guest");
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
+
+			String[][] submitBillingInfo_Pre_App_Status = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"Submit_Billing_Information_Pre_App_Status");
+			log.info("Entering valid input for Billing Information fields");
+			connsProductPurchasePage.Submit_Billing_Information(webPage, submitBillingInfo_Pre_App_Status, softAssert);
+			log.info("Clicking on Billing Information continue button");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[3][1], softAssert);
+			CommonMethods.waitForGivenTime(10);
+
+			log.info("Selecting Shipping Option");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[48][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[49][1], softAssert);
+
+
+			log.info("Selecting Payment Information as Conn's Credit");
+			if (testType.equalsIgnoreCase("Mobile")) {
+				webPage.scrollUp(1);
+			}
+			commonMethods.waitForPageLoad(webPage, softAssert);
+			connsProductPurchasePage.waitForElementToBeDisplayed(webPage, checkoutPageData[13][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[13][1], softAssert);
+			CommonMethods.waitForGivenTime(5);
+			log.info("Clicking on continue for payment info");
+			connsProductPurchasePage.waitForElementToBeDisplayed(webPage, checkoutPageData[12][1], softAssert);
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[12][1], softAssert);
+
+			log.info("Moving to Order Review Section");
+			CommonMethods.waitForWebElement(By.xpath(checkoutPageData[17][1]), webPage);
+			actualOrderReviewSectionText = commonMethods.getTextbyXpath(webPage, checkoutPageData[16][1], softAssert);
+			softAssert.assertTrue(actualOrderReviewSectionText.contains(checkoutPageData[16][2]),
+					"Expected order review section text: " + checkoutPageData[16][2] + " Actual order review text: "
+							+ actualOrderReviewSectionText);
+
+			log.info("Verifying product details in order review section");
+			productPriceOnCartPage = checkoutPageData[50][2];
+			productQuantityOnCartPage = checkoutPageData[51][2];
+			productNameOnCartPage = checkoutPageData[52][2];
+			String productQuantityInOrderReviewSection = commonMethods.getTextbyXpath(webPage, checkoutPageData[19][1],
+					softAssert);
+			String productPriceInOrderReviewSection = commonMethods.getTextbyXpath(webPage, checkoutPageData[20][1],
+					softAssert);
+			String productNameInOrderReviewSection = commonMethods.getTextbyXpath(webPage, checkoutPageData[21][1],
+					softAssert);
+			softAssert.assertTrue(productQuantityOnCartPage.contains(productQuantityInOrderReviewSection),
+					"Product quantity on cart page: " + productQuantityOnCartPage
+					+ " Product quantity in review section: " + productQuantityInOrderReviewSection);
+			softAssert.assertTrue(productPriceOnCartPage.contains(productPriceInOrderReviewSection),
+					"Product price on cart page: " + productPriceOnCartPage + " Product price in order review section: "
+							+ productPriceInOrderReviewSection);
+			softAssert.assertTrue(productNameOnCartPage.contains(productNameInOrderReviewSection),
+					"Product name on cart page: " + productNameOnCartPage + " Product name in order review section: "
+							+ productNameInOrderReviewSection);
+
+			log.info("Clicking on Place Order button");
+			commonMethods.clickElementbyXpath(webPage, checkoutPageData[17][1], softAssert);
+			commonMethods.waitForGivenTime(6, softAssert);
+
+			connsCreditActualUrl = webPage.getDriver().getCurrentUrl();
+			connsCreditExpectedUrl = checkoutPageData[13][2];
+			softAssert.assertTrue(connsCreditActualUrl.contains(connsCreditExpectedUrl), "Expected Conn's Credit url: "
+					+ connsCreditExpectedUrl + " Actual Conn's credit url: " + connsCreditActualUrl);
+			log.info("Navigated to Credit App Form");
+
+			String[][] formdata = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"verifySuccessfulCheckoutPreAppPage");
+			commonMethods.waitForGivenTime(10, softAssert);
+			connsProductPurchasePage.fillCreditAppfromCheckout(webPage, formdata, softAssert);
+			connsProductPurchasePage.verifyStatusPage(webPage, formdata, softAssert);
+
+			softAssert.assertAll();
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "Verify_Proceed_To_Checkout_with_Conn's_Credit_Pre_Approval_Status");
+			softAssert.assertAll();
+			log.error("Verify_Proceed_To_Checkout_with_Conn's_Credit_Pre_Approval_Status :" + e.getMessage());
+		}
+	}
+
+	@Test(priority = 919, enabled = true, description = "Verify_Inventory_Updation_In_Shopping_Cart")
+	public void Verify_Inventory_Updation_In_Shopping_Cart() {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] AddToCartInstockProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"Add_Instock_Product");
+			String[][] EditQtyShoppingCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"EditQtyInShoppingCart");
+			log.info("Adding In-stock product to cart");
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			if(testType.equalsIgnoreCase("Web"))
+			{
+				webPage.getDriver().manage().window().maximize();
+			}
+			connsProductPurchasePage.deleteCookies();
+			connsProductPurchasePage.addGivenProductToCart(webPage, AddToCartInstockProduct[13][3],
+					AddToCartInstockProduct, softAssert, false);
+			connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 25);
+			log.info("Editing quantity in shopping cart & verifying inventory check for In-stock product");
+			String actualErrorMsg= connsProductPurchasePage.editQtyInShoppingCart(webPage, EditQtyShoppingCart, softAssert);
+			log.info(actualErrorMsg);
+			softAssert.assertEquals(actualErrorMsg,EditQtyShoppingCart[4][1], "Expected Inventory error text: " + EditQtyShoppingCart[4][1]
+					+ " Actual Inventory error text: " + actualErrorMsg);
+
+			log.info("Removing this product from Shopping cart & proceeding to do inventory check for another product");
+			commonMethods.clickElementbyXpath(webPage, EditQtyShoppingCart[5][1], softAssert);
+
+			log.info("Adding In-stock converted to Pickup-only product to cart & verifying the inventory check");
+			commonMethods.navigateToPage(webPage, AddToCartInstockProduct[13][3], softAssert);
+			connsProductPurchasePage.addtoCartInStockConvertedtoPickup(webPage, EditQtyShoppingCart, softAssert);
+
+			log.info("Editing quantity in shopping cart & verifying inventory check for this Pickup-only product");
+			String actualErrorMsg_pickupOnlyProduct= connsProductPurchasePage.editQtyInShoppingCart(webPage, EditQtyShoppingCart, softAssert);
+			log.info(actualErrorMsg_pickupOnlyProduct);
+			softAssert.assertEquals(actualErrorMsg_pickupOnlyProduct,EditQtyShoppingCart[4][1], "Expected Inventory error text: " + EditQtyShoppingCart[4][1]
+					+ " Actual Inventory error text: " + actualErrorMsg_pickupOnlyProduct);
+
+			log.info("Verified the Inventory Check successfully for In-Stock as well as Pickup only Products");
+
+			softAssert.assertAll();	
+		} catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "Verify_Inventory_Updation_In_Shopping_Cart");
+			softAssert.assertAll();
+			log.error("Verify_Inventory_Updation_In_Shopping_Cart :" + e.getMessage());
+		}
+	}
+
+	@Test(priority = 920, enabled = true, description = "Verify_Validation_on_Checkout_fields")
+	public void Verify_Validation_on_Checkout_fields() {
+		SoftAssert softAssert = new SoftAssert();
+		try {
+			String[][] AddToCartInstockProduct = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"Add_Instock_Product");
+			String[][] EditQtyShoppingCart = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"EditQtyInShoppingCart");
+			String[][] fieldData = ExcelUtil.readExcelData(DataFilePath, "ProductPurchase",
+					"CheckoutFieldsValidation_Guest");
+			log.info("Adding In-stock product to cart");
+			commonMethods.navigateToPage(webPage, testUrl, softAssert);
+			if(testType.equalsIgnoreCase("Web"))
+			{
+				webPage.getDriver().manage().window().maximize();
+			}
+			connsProductPurchasePage.deleteCookies();
+			connsProductPurchasePage.addGivenProductToCart(webPage, AddToCartInstockProduct[13][3],
+					AddToCartInstockProduct, softAssert, false);
+			connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 25);
+			connsProductPurchasePage.Proceed_To_Checkout_Button(webPage, proceedToCheckout, softAssert);
+			connsProductPurchasePage.waitIfBrowserIsIos(softAssert, 10);
+
+			log.info("Proceeding to checkout as Guest");
+			connsProductPurchasePage.Checkout_Guest(webPage, checkoutGuest, softAssert);
+			
+			log.info("Performing field validations on the checkout fields");
+			connsProductPurchasePage.CheckoutFieldValidationGuest(webPage, fieldData, softAssert);
+			
+			log.info("Validated the checkout fields successfully for Guest User");
+
+			softAssert.assertAll();	
+		} catch (Throwable e) {
+			e.printStackTrace();
+			mainPage.getScreenShotForFailure(webPage, "Verify_Validation_on_Checkout_fields");
+			softAssert.assertAll();
+			log.error("Verify_Validation_on_Checkout_fields :" + e.getMessage());
+		}
+	}
+	
+	
+
 }

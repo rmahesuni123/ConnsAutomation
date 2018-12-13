@@ -89,19 +89,6 @@ public class MyOnlinePaymentsPage extends CommonPage {
 	
 	/*****  verifyLinkNavigation_UsingJS **********/
 
-	public String verifyLinkNavigation_UsingJS(WebPage webPage, String testData[][], String link_Locator,
-			String link_Name, String Navigation_URL, SoftAssert softAssert) {
-		String pageURL = "";
-		// PageNavigation_PageLoad( webPage, Navigation_URL, softAssert) ;
-		try {
-			pageURL = commonMethods.clickNGetPageURLByJS(webPage, link_Locator, link_Name, softAssert);
-			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return pageURL;
-	}
 
 	public static void verifyErrorMessageByXpath(WebPage webPage, SoftAssert softAssert, String errorMessageFieldName,
 			String locator, String expectedErrorMessage) throws PageException {
@@ -120,38 +107,7 @@ public class MyOnlinePaymentsPage extends CommonPage {
 		return tooltipTxt;
 	}
 
-	public String verifyLinkNavigationUsingJS_LegalDisclosure(WebPage webPage,  String link_Locator,
-			String link_Name, String Navigation_URL, String TargetpageLocator, String TargetPageHeader,String testType,  String testBedName, String LinkDropDown, String LegalDisclosureLink,String [][] testData,
-			SoftAssert softAssert) {
-		String pageURL = "";
-		// PageNavigation_PageLoad( webPage, Navigation_URL, softAssert) ;
-		try {
-			pageURL = commonMethods.clickAndGetPageURLByJSLegalDisclosure(webPage, link_Locator, link_Name,Navigation_URL,
-					TargetpageLocator, TargetPageHeader,  testType,  testBedName, LinkDropDown, LegalDisclosureLink,testData, softAssert);
-			Thread.sleep(10000);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return pageURL;
-	}
-
-	public String verifyLinkNavigation_UsingJS_LegalDisclosure(WebPage webPage,  String link_Locator,
-			String link_Name, String Navigation_URL, String TargetpageLocator, String TargetPageHeader,String testType,  String testBedName, String LinkDropDown, String LegalDisclosureLink,String [][] testData,
-			SoftAssert softAssert) {
-		String pageURL = "";
-		// PageNavigation_PageLoad( webPage, Navigation_URL, softAssert) ;
-		try {
-			pageURL = commonMethods.clicknGetPageURLByJSLegalDisclosure(webPage, link_Locator, link_Name,Navigation_URL,
-					TargetpageLocator, TargetPageHeader,  testType,  testBedName, LinkDropDown, LegalDisclosureLink,testData, softAssert);
-			Thread.sleep(10000);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return pageURL;
-	}
-	
 	/**
 	 * Conns login functionality
 	 * 
